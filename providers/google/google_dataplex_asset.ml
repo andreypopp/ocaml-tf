@@ -110,9 +110,9 @@ type discovery_spec = {
   include_patterns : string prop list option; [@option]
   schedule : string prop option; [@option]
   csv_options : discovery_spec__csv_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json_options : discovery_spec__json_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,7 +132,7 @@ let yojson_of_discovery_spec =
          []
        in
        let bnds =
-         if [] = v_json_options then bnds
+         if Stdlib.( = ) [] v_json_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_discovery_spec__json_options)
@@ -142,7 +142,7 @@ let yojson_of_discovery_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv_options then bnds
+         if Stdlib.( = ) [] v_csv_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_discovery_spec__csv_options)
@@ -332,7 +332,7 @@ type discovery_status = {
   message : string prop;
   state : string prop;
   stats : discovery_status__stats list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   update_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -357,7 +357,7 @@ let yojson_of_discovery_status =
          ("update_time", arg) :: bnds
        in
        let bnds =
-         if [] = v_stats then bnds
+         if Stdlib.( = ) [] v_stats then bnds
          else
            let arg =
              (yojson_of_list yojson_of_discovery_status__stats)
@@ -478,9 +478,9 @@ type google_dataplex_asset = {
   name : string prop;
   project : string prop option; [@option]
   discovery_spec : discovery_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_spec : resource_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -511,7 +511,7 @@ let yojson_of_google_dataplex_asset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_spec then bnds
+         if Stdlib.( = ) [] v_resource_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_spec) v_resource_spec
@@ -520,7 +520,7 @@ let yojson_of_google_dataplex_asset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_discovery_spec then bnds
+         if Stdlib.( = ) [] v_discovery_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_discovery_spec)

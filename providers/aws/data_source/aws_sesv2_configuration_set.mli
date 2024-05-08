@@ -21,7 +21,7 @@ type sending_options = {
 
 type suppression_options = {
   suppressed_reasons : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** suppressed_reasons *)
 }
 
@@ -40,10 +40,10 @@ type vdm_options__dashboard_options = {
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dashboard_options *)
   guardian_options : vdm_options__guardian_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** guardian_options *)
 }
 

@@ -31,14 +31,14 @@ let _ = yojson_of_timeouts
 type access_policy = {
   application_id : string prop;
   certificate_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   object_id : string prop;
   secret_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -64,7 +64,7 @@ let yojson_of_access_policy =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_permissions then bnds
+         if Stdlib.( = ) [] v_storage_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -74,7 +74,7 @@ let yojson_of_access_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_permissions then bnds
+         if Stdlib.( = ) [] v_secret_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -88,7 +88,7 @@ let yojson_of_access_policy =
          ("object_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_key_permissions then bnds
+         if Stdlib.( = ) [] v_key_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -98,7 +98,7 @@ let yojson_of_access_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate_permissions then bnds
+         if Stdlib.( = ) [] v_certificate_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -124,9 +124,9 @@ type network_acls = {
   bypass : string prop;
   default_action : string prop;
   ip_rules : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_network_subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_network_acls =
          []
        in
        let bnds =
-         if [] = v_virtual_network_subnet_ids then bnds
+         if Stdlib.( = ) [] v_virtual_network_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -154,7 +154,7 @@ let yojson_of_network_acls =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_rules then bnds
+         if Stdlib.( = ) [] v_ip_rules then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

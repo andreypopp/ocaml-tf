@@ -35,7 +35,7 @@ type aws_lb_ssl_negotiation_policy = {
   name : string prop;
   triggers : (string * string prop) list option; [@option]
   attribute : attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_aws_lb_ssl_negotiation_policy =
          []
        in
        let bnds =
-         if [] = v_attribute then bnds
+         if Stdlib.( = ) [] v_attribute then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attribute) v_attribute

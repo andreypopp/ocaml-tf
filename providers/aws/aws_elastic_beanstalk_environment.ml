@@ -109,7 +109,8 @@ type aws_elastic_beanstalk_environment = {
   tier : string prop option; [@option]
   version_label : string prop option; [@option]
   wait_for_ready_timeout : string prop option; [@option]
-  setting : setting list; [@default []] [@yojson_drop_default ( = )]
+  setting : setting list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +139,7 @@ let yojson_of_aws_elastic_beanstalk_environment =
          []
        in
        let bnds =
-         if [] = v_setting then bnds
+         if Stdlib.( = ) [] v_setting then bnds
          else
            let arg = (yojson_of_list yojson_of_setting) v_setting in
            let bnd = "setting", arg in

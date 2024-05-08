@@ -46,11 +46,11 @@ let _ = yojson_of_authentication
 
 type cors = {
   allowed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   credentials_allowed : bool prop option; [@option]
   max_age_in_seconds : float prop option; [@option]
 }
@@ -87,7 +87,7 @@ let yojson_of_cors =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -97,7 +97,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -107,7 +107,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_headers then bnds
+         if Stdlib.( = ) [] v_allowed_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -278,12 +278,12 @@ type azurerm_healthcare_fhir_service = {
   tags : (string * string prop) list option; [@option]
   workspace_id : string prop;
   authentication : authentication list;
-      [@default []] [@yojson_drop_default ( = )]
-  cors : cors list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  cors : cors list; [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oci_artifact : oci_artifact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -319,7 +319,7 @@ let yojson_of_azurerm_healthcare_fhir_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_oci_artifact then bnds
+         if Stdlib.( = ) [] v_oci_artifact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oci_artifact) v_oci_artifact
@@ -328,7 +328,7 @@ let yojson_of_azurerm_healthcare_fhir_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -337,14 +337,14 @@ let yojson_of_azurerm_healthcare_fhir_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg = (yojson_of_list yojson_of_cors) v_cors in
            let bnd = "cors", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authentication)

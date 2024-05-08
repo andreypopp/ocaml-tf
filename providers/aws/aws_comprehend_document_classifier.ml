@@ -5,7 +5,7 @@ open! Tf_core
 type input_data_config__augmented_manifests = {
   annotation_data_s3_uri : string prop option; [@option]
   attribute_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   document_type : string prop option; [@option]
   s3_uri : string prop;
   source_documents_s3_uri : string prop option; [@option]
@@ -57,7 +57,7 @@ let yojson_of_input_data_config__augmented_manifests =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_attribute_names then bnds
+         if Stdlib.( = ) [] v_attribute_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -88,7 +88,7 @@ type input_data_config = {
   s3_uri : string prop option; [@option]
   test_s3_uri : string prop option; [@option]
   augmented_manifests : input_data_config__augmented_manifests list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,7 +107,7 @@ let yojson_of_input_data_config =
          []
        in
        let bnds =
-         if [] = v_augmented_manifests then bnds
+         if Stdlib.( = ) [] v_augmented_manifests then bnds
          else
            let arg =
              (yojson_of_list
@@ -237,9 +237,9 @@ let _ = yojson_of_timeouts
 
 type vpc_config = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -255,7 +255,7 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -265,7 +265,7 @@ let yojson_of_vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -294,12 +294,12 @@ type aws_comprehend_document_classifier = {
   version_name_prefix : string prop option; [@option]
   volume_kms_key_id : string prop option; [@option]
   input_data_config : input_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_data_config : output_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -328,7 +328,7 @@ let yojson_of_aws_comprehend_document_classifier =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -341,7 +341,7 @@ let yojson_of_aws_comprehend_document_classifier =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_output_data_config then bnds
+         if Stdlib.( = ) [] v_output_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output_data_config)
@@ -351,7 +351,7 @@ let yojson_of_aws_comprehend_document_classifier =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_data_config then bnds
+         if Stdlib.( = ) [] v_input_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_data_config)

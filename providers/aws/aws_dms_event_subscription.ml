@@ -51,7 +51,7 @@ let _ = yojson_of_timeouts
 type aws_dms_event_subscription = {
   enabled : bool prop option; [@option]
   event_categories : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   sns_topic_arn : string prop;
@@ -149,7 +149,7 @@ let yojson_of_aws_dms_event_subscription =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_event_categories then bnds
+         if Stdlib.( = ) [] v_event_categories then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

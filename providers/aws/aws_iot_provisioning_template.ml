@@ -49,7 +49,7 @@ type aws_iot_provisioning_template = {
   template_body : string prop;
   type_ : string prop option; [@option] [@key "type"]
   pre_provisioning_hook : pre_provisioning_hook list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_aws_iot_provisioning_template =
          []
        in
        let bnds =
-         if [] = v_pre_provisioning_hook then bnds
+         if Stdlib.( = ) [] v_pre_provisioning_hook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pre_provisioning_hook)

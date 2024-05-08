@@ -105,7 +105,7 @@ type hive_metastore_config__kerberos_config = {
   krb5_config_gcs_uri : string prop;
   principal : string prop;
   keytab : hive_metastore_config__kerberos_config__keytab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_hive_metastore_config__kerberos_config =
          []
        in
        let bnds =
-         if [] = v_keytab then bnds
+         if Stdlib.( = ) [] v_keytab then bnds
          else
            let arg =
              (yojson_of_list
@@ -156,9 +156,9 @@ type hive_metastore_config = {
   version : string prop;
   auxiliary_versions :
     hive_metastore_config__auxiliary_versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kerberos_config : hive_metastore_config__kerberos_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,7 +177,7 @@ let yojson_of_hive_metastore_config =
          []
        in
        let bnds =
-         if [] = v_kerberos_config then bnds
+         if Stdlib.( = ) [] v_kerberos_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -188,7 +188,7 @@ let yojson_of_hive_metastore_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auxiliary_versions then bnds
+         if Stdlib.( = ) [] v_auxiliary_versions then bnds
          else
            let arg =
              (yojson_of_list
@@ -290,7 +290,7 @@ let _ = yojson_of_metadata_integration__data_catalog_config
 type metadata_integration = {
   data_catalog_config :
     metadata_integration__data_catalog_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -303,7 +303,7 @@ let yojson_of_metadata_integration =
          []
        in
        let bnds =
-         if [] = v_data_catalog_config then bnds
+         if Stdlib.( = ) [] v_data_catalog_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -344,7 +344,7 @@ let _ = yojson_of_network_config__consumers
 
 type network_config = {
   consumers : network_config__consumers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,7 +357,7 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         if [] = v_consumers then bnds
+         if Stdlib.( = ) [] v_consumers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config__consumers)
@@ -497,19 +497,19 @@ type google_dataproc_metastore_service = {
   service_id : string prop;
   tier : string prop option; [@option]
   encryption_config : encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hive_metastore_config : hive_metastore_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata_integration : metadata_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scaling_config : scaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   telemetry_config : telemetry_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -546,7 +546,7 @@ let yojson_of_google_dataproc_metastore_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_telemetry_config then bnds
+         if Stdlib.( = ) [] v_telemetry_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_telemetry_config)
@@ -556,7 +556,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scaling_config then bnds
+         if Stdlib.( = ) [] v_scaling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scaling_config)
@@ -566,7 +566,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -576,7 +576,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata_integration then bnds
+         if Stdlib.( = ) [] v_metadata_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata_integration)
@@ -586,7 +586,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)
@@ -596,7 +596,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hive_metastore_config then bnds
+         if Stdlib.( = ) [] v_hive_metastore_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hive_metastore_config)
@@ -606,7 +606,7 @@ let yojson_of_google_dataproc_metastore_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config)

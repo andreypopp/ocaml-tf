@@ -6,7 +6,7 @@ type aws_ip_ranges = {
   id : string prop option; [@option]
   regions : string prop list option; [@option]
   services : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -33,7 +33,7 @@ let yojson_of_aws_ip_ranges =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_services then bnds
+         if Stdlib.( = ) [] v_services then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

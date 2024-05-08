@@ -123,9 +123,9 @@ type config__ingress_rule__origin_request = {
   tcp_keep_alive : string prop option; [@option]
   tls_timeout : string prop option; [@option]
   access : config__ingress_rule__origin_request__access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_rules : config__ingress_rule__origin_request__ip_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,7 +157,7 @@ let yojson_of_config__ingress_rule__origin_request =
          []
        in
        let bnds =
-         if [] = v_ip_rules then bnds
+         if Stdlib.( = ) [] v_ip_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -168,7 +168,7 @@ let yojson_of_config__ingress_rule__origin_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access then bnds
+         if Stdlib.( = ) [] v_access then bnds
          else
            let arg =
              (yojson_of_list
@@ -319,7 +319,7 @@ type config__ingress_rule = {
   path : string prop option; [@option]
   service : string prop;
   origin_request : config__ingress_rule__origin_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_config__ingress_rule =
          []
        in
        let bnds =
-         if [] = v_origin_request then bnds
+         if Stdlib.( = ) [] v_origin_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -494,9 +494,9 @@ type config__origin_request = {
   tcp_keep_alive : string prop option; [@option]
   tls_timeout : string prop option; [@option]
   access : config__origin_request__access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_rules : config__origin_request__ip_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -528,7 +528,7 @@ let yojson_of_config__origin_request =
          []
        in
        let bnds =
-         if [] = v_ip_rules then bnds
+         if Stdlib.( = ) [] v_ip_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -539,7 +539,7 @@ let yojson_of_config__origin_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access then bnds
+         if Stdlib.( = ) [] v_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__origin_request__access)
@@ -711,11 +711,11 @@ let _ = yojson_of_config__warp_routing
 
 type config = {
   ingress_rule : config__ingress_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_request : config__origin_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   warp_routing : config__warp_routing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -732,7 +732,7 @@ let yojson_of_config =
          []
        in
        let bnds =
-         if [] = v_warp_routing then bnds
+         if Stdlib.( = ) [] v_warp_routing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__warp_routing)
@@ -742,7 +742,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_request then bnds
+         if Stdlib.( = ) [] v_origin_request then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__origin_request)
@@ -752,7 +752,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_rule then bnds
+         if Stdlib.( = ) [] v_ingress_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__ingress_rule)
@@ -772,7 +772,8 @@ type cloudflare_tunnel_config = {
   account_id : string prop;
   id : string prop option; [@option]
   tunnel_id : string prop;
-  config : config list; [@default []] [@yojson_drop_default ( = )]
+  config : config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -790,7 +791,7 @@ let yojson_of_cloudflare_tunnel_config =
          []
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg = (yojson_of_list yojson_of_config) v_config in
            let bnd = "config", arg in

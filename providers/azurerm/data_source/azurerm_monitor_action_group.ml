@@ -550,7 +550,7 @@ let _ = yojson_of_webhook_receiver__aad_auth
 
 type webhook_receiver = {
   aad_auth : webhook_receiver__aad_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   service_uri : string prop;
   use_common_alert_schema : bool prop;
@@ -585,7 +585,7 @@ let yojson_of_webhook_receiver =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_aad_auth then bnds
+         if Stdlib.( = ) [] v_aad_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook_receiver__aad_auth)

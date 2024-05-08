@@ -98,10 +98,10 @@ let _ = yojson_of_encryption_settings__disk_encryption_key
 type encryption_settings = {
   disk_encryption_key :
     encryption_settings__disk_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enabled : bool prop;
   key_encryption_key : encryption_settings__key_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,7 +118,7 @@ let yojson_of_encryption_settings =
          []
        in
        let bnds =
-         if [] = v_key_encryption_key then bnds
+         if Stdlib.( = ) [] v_key_encryption_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -133,7 +133,7 @@ let yojson_of_encryption_settings =
          ("enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_disk_encryption_key then bnds
+         if Stdlib.( = ) [] v_disk_encryption_key then bnds
          else
            let arg =
              (yojson_of_list

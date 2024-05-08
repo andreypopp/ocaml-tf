@@ -37,7 +37,8 @@ let _ = yojson_of_settings__acl
 [@@@deriving.end]
 
 type settings = {
-  acl : settings__acl list; [@default []] [@yojson_drop_default ( = )]
+  acl : settings__acl list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +51,7 @@ let yojson_of_settings =
          []
        in
        let bnds =
-         if [] = v_acl then bnds
+         if Stdlib.( = ) [] v_acl then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings__acl) v_acl

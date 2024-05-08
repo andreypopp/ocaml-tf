@@ -109,7 +109,7 @@ let _ = yojson_of_index_policy__composite_index__index
 
 type index_policy__composite_index = {
   index : index_policy__composite_index__index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_index_policy__composite_index =
          []
        in
        let bnds =
-         if [] = v_index then bnds
+         if Stdlib.( = ) [] v_index then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,9 +169,9 @@ type index_policy = {
   included_paths : string prop list option; [@option]
   indexing_mode : string prop;
   composite_index : index_policy__composite_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spatial_index : index_policy__spatial_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -191,7 +191,7 @@ let yojson_of_index_policy =
          []
        in
        let bnds =
-         if [] = v_spatial_index then bnds
+         if Stdlib.( = ) [] v_spatial_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_policy__spatial_index)
@@ -201,7 +201,7 @@ let yojson_of_index_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_composite_index then bnds
+         if Stdlib.( = ) [] v_composite_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_policy__composite_index)
@@ -310,7 +310,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type unique_key = {
-  paths : string prop list; [@default []] [@yojson_drop_default ( = )]
+  paths : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,7 +324,7 @@ let yojson_of_unique_key =
          []
        in
        let bnds =
-         if [] = v_paths then bnds
+         if Stdlib.( = ) [] v_paths then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -351,14 +352,14 @@ type azurerm_cosmosdb_gremlin_graph = {
   resource_group_name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conflict_resolution_policy : conflict_resolution_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   index_policy : index_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   unique_key : unique_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -387,7 +388,7 @@ let yojson_of_azurerm_cosmosdb_gremlin_graph =
          []
        in
        let bnds =
-         if [] = v_unique_key then bnds
+         if Stdlib.( = ) [] v_unique_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_unique_key) v_unique_key
@@ -400,7 +401,7 @@ let yojson_of_azurerm_cosmosdb_gremlin_graph =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_index_policy then bnds
+         if Stdlib.( = ) [] v_index_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_policy) v_index_policy
@@ -409,7 +410,7 @@ let yojson_of_azurerm_cosmosdb_gremlin_graph =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conflict_resolution_policy then bnds
+         if Stdlib.( = ) [] v_conflict_resolution_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conflict_resolution_policy)
@@ -419,7 +420,7 @@ let yojson_of_azurerm_cosmosdb_gremlin_graph =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscale_settings then bnds
+         if Stdlib.( = ) [] v_autoscale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscale_settings)

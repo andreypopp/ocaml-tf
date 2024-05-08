@@ -132,11 +132,11 @@ type aws_appstream_fleet = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   compute_capacity : compute_capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_join_info : domain_join_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +172,7 @@ let yojson_of_aws_appstream_fleet =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -181,7 +181,7 @@ let yojson_of_aws_appstream_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_domain_join_info then bnds
+         if Stdlib.( = ) [] v_domain_join_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_domain_join_info)
@@ -191,7 +191,7 @@ let yojson_of_aws_appstream_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compute_capacity then bnds
+         if Stdlib.( = ) [] v_compute_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compute_capacity)

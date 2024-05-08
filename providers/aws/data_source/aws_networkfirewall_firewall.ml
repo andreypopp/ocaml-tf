@@ -72,7 +72,7 @@ let _ = yojson_of_firewall_status__sync_states__attachment
 
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   availability_zone : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -95,7 +95,7 @@ let yojson_of_firewall_status__sync_states =
          ("availability_zone", arg) :: bnds
        in
        let bnds =
-         if [] = v_attachment then bnds
+         if Stdlib.( = ) [] v_attachment then bnds
          else
            let arg =
              (yojson_of_list
@@ -150,7 +150,7 @@ type firewall_status__capacity_usage_summary__cidrs = {
   ip_set_references :
     firewall_status__capacity_usage_summary__cidrs__ip_set_references
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   utilized_cidr_count : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -175,7 +175,7 @@ let yojson_of_firewall_status__capacity_usage_summary__cidrs =
          ("utilized_cidr_count", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_set_references then bnds
+         if Stdlib.( = ) [] v_ip_set_references then bnds
          else
            let arg =
              (yojson_of_list
@@ -201,7 +201,7 @@ let _ = yojson_of_firewall_status__capacity_usage_summary__cidrs
 
 type firewall_status__capacity_usage_summary = {
   cidrs : firewall_status__capacity_usage_summary__cidrs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,7 +214,7 @@ let yojson_of_firewall_status__capacity_usage_summary =
          []
        in
        let bnds =
-         if [] = v_cidrs then bnds
+         if Stdlib.( = ) [] v_cidrs then bnds
          else
            let arg =
              (yojson_of_list
@@ -235,11 +235,11 @@ let _ = yojson_of_firewall_status__capacity_usage_summary
 type firewall_status = {
   capacity_usage_summary :
     firewall_status__capacity_usage_summary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   configuration_sync_state_summary : string prop;
   status : string prop;
   sync_states : firewall_status__sync_states list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -258,7 +258,7 @@ let yojson_of_firewall_status =
          []
        in
        let bnds =
-         if [] = v_sync_states then bnds
+         if Stdlib.( = ) [] v_sync_states then bnds
          else
            let arg =
              (yojson_of_list yojson_of_firewall_status__sync_states)
@@ -279,7 +279,7 @@ let yojson_of_firewall_status =
          ("configuration_sync_state_summary", arg) :: bnds
        in
        let bnds =
-         if [] = v_capacity_usage_summary then bnds
+         if Stdlib.( = ) [] v_capacity_usage_summary then bnds
          else
            let arg =
              (yojson_of_list

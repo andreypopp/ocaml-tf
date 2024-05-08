@@ -55,7 +55,7 @@ type application_configuration__application_code_configuration__code_content = {
   s3_content_location :
     application_configuration__application_code_configuration__code_content__s3_content_location
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_application_configuration__application_code_configuration__code_co
          []
        in
        let bnds =
-         if [] = v_s3_content_location then bnds
+         if Stdlib.( = ) [] v_s3_content_location then bnds
          else
            let arg =
              (yojson_of_list
@@ -107,7 +107,7 @@ type application_configuration__application_code_configuration = {
   code_content :
     application_configuration__application_code_configuration__code_content
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_application_configuration__application_code_configuration
          []
        in
        let bnds =
-         if [] = v_code_content then bnds
+         if Stdlib.( = ) [] v_code_content then bnds
          else
            let arg =
              (yojson_of_list
@@ -235,7 +235,7 @@ type application_configuration__environment_properties = {
   property_group :
     application_configuration__environment_properties__property_group
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +249,7 @@ let yojson_of_application_configuration__environment_properties =
          []
        in
        let bnds =
-         if [] = v_property_group then bnds
+         if Stdlib.( = ) [] v_property_group then bnds
          else
            let arg =
              (yojson_of_list
@@ -454,15 +454,15 @@ type application_configuration__flink_application_configuration = {
   checkpoint_configuration :
     application_configuration__flink_application_configuration__checkpoint_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitoring_configuration :
     application_configuration__flink_application_configuration__monitoring_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parallelism_configuration :
     application_configuration__flink_application_configuration__parallelism_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -482,7 +482,7 @@ let yojson_of_application_configuration__flink_application_configuration
          []
        in
        let bnds =
-         if [] = v_parallelism_configuration then bnds
+         if Stdlib.( = ) [] v_parallelism_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -493,7 +493,7 @@ let yojson_of_application_configuration__flink_application_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitoring_configuration then bnds
+         if Stdlib.( = ) [] v_monitoring_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -504,7 +504,7 @@ let yojson_of_application_configuration__flink_application_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_checkpoint_configuration then bnds
+         if Stdlib.( = ) [] v_checkpoint_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -607,11 +607,11 @@ type application_configuration__run_configuration = {
   application_restore_configuration :
     application_configuration__run_configuration__application_restore_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   flink_run_configuration :
     application_configuration__run_configuration__flink_run_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -628,7 +628,7 @@ let yojson_of_application_configuration__run_configuration =
          []
        in
        let bnds =
-         if [] = v_flink_run_configuration then bnds
+         if Stdlib.( = ) [] v_flink_run_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -639,7 +639,8 @@ let yojson_of_application_configuration__run_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_restore_configuration then bnds
+         if Stdlib.( = ) [] v_application_restore_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -725,7 +726,7 @@ type application_configuration__sql_application_configuration__input__input_proc
   input_lambda_processor :
     application_configuration__sql_application_configuration__input__input_processing_configuration__input_lambda_processor
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -742,7 +743,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         if [] = v_input_lambda_processor then bnds
+         if Stdlib.( = ) [] v_input_lambda_processor then bnds
          else
            let arg =
              (yojson_of_list
@@ -883,11 +884,11 @@ type application_configuration__sql_application_configuration__input__input_sche
   csv_mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__csv_mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json_mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__json_mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -907,7 +908,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         if [] = v_json_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_json_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -918,7 +919,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_csv_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -942,7 +943,7 @@ type application_configuration__sql_application_configuration__input__input_sche
   mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -962,7 +963,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         if [] = v_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -992,11 +993,11 @@ type application_configuration__sql_application_configuration__input__input_sche
   record_column :
     application_configuration__sql_application_configuration__input__input_schema__record_column
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   record_format :
     application_configuration__sql_application_configuration__input__input_schema__record_format
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1017,7 +1018,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         if [] = v_record_format then bnds
+         if Stdlib.( = ) [] v_record_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -1028,7 +1029,7 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
            bnd :: bnds
        in
        let bnds =
-         if [] = v_record_column then bnds
+         if Stdlib.( = ) [] v_record_column then bnds
          else
            let arg =
              (yojson_of_list
@@ -1154,27 +1155,27 @@ type application_configuration__sql_application_configuration__input = {
   input_parallelism :
     application_configuration__sql_application_configuration__input__input_parallelism
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_processing_configuration :
     application_configuration__sql_application_configuration__input__input_processing_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_schema :
     application_configuration__sql_application_configuration__input__input_schema
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_starting_position_configuration :
     application_configuration__sql_application_configuration__input__input_starting_position_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_firehose_input :
     application_configuration__sql_application_configuration__input__kinesis_firehose_input
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_streams_input :
     application_configuration__sql_application_configuration__input__kinesis_streams_input
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1201,7 +1202,7 @@ let yojson_of_application_configuration__sql_application_configuration__input
          []
        in
        let bnds =
-         if [] = v_kinesis_streams_input then bnds
+         if Stdlib.( = ) [] v_kinesis_streams_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -1212,7 +1213,7 @@ let yojson_of_application_configuration__sql_application_configuration__input
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose_input then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -1223,7 +1224,8 @@ let yojson_of_application_configuration__sql_application_configuration__input
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_starting_position_configuration then bnds
+         if Stdlib.( = ) [] v_input_starting_position_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1234,7 +1236,7 @@ let yojson_of_application_configuration__sql_application_configuration__input
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_schema then bnds
+         if Stdlib.( = ) [] v_input_schema then bnds
          else
            let arg =
              (yojson_of_list
@@ -1245,7 +1247,8 @@ let yojson_of_application_configuration__sql_application_configuration__input
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_processing_configuration then bnds
+         if Stdlib.( = ) [] v_input_processing_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1256,7 +1259,7 @@ let yojson_of_application_configuration__sql_application_configuration__input
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_parallelism then bnds
+         if Stdlib.( = ) [] v_input_parallelism then bnds
          else
            let arg =
              (yojson_of_list
@@ -1406,19 +1409,19 @@ type application_configuration__sql_application_configuration__output = {
   destination_schema :
     application_configuration__sql_application_configuration__output__destination_schema
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_firehose_output :
     application_configuration__sql_application_configuration__output__kinesis_firehose_output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_streams_output :
     application_configuration__sql_application_configuration__output__kinesis_streams_output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_output :
     application_configuration__sql_application_configuration__output__lambda_output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1441,7 +1444,7 @@ let yojson_of_application_configuration__sql_application_configuration__output
          []
        in
        let bnds =
-         if [] = v_lambda_output then bnds
+         if Stdlib.( = ) [] v_lambda_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -1452,7 +1455,7 @@ let yojson_of_application_configuration__sql_application_configuration__output
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_streams_output then bnds
+         if Stdlib.( = ) [] v_kinesis_streams_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -1463,7 +1466,7 @@ let yojson_of_application_configuration__sql_application_configuration__output
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose_output then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -1474,7 +1477,7 @@ let yojson_of_application_configuration__sql_application_configuration__output
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_schema then bnds
+         if Stdlib.( = ) [] v_destination_schema then bnds
          else
            let arg =
              (yojson_of_list
@@ -1619,11 +1622,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   csv_mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__csv_mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json_mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__json_mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1643,7 +1646,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         if [] = v_json_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_json_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -1654,7 +1657,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_csv_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -1678,7 +1681,7 @@ type application_configuration__sql_application_configuration__reference_data_so
   mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1698,7 +1701,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         if [] = v_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -1728,11 +1731,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   record_column :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_column
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   record_format :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1753,7 +1756,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         if [] = v_record_format then bnds
+         if Stdlib.( = ) [] v_record_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -1764,7 +1767,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
            bnd :: bnds
        in
        let bnds =
-         if [] = v_record_column then bnds
+         if Stdlib.( = ) [] v_record_column then bnds
          else
            let arg =
              (yojson_of_list
@@ -1831,11 +1834,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   reference_schema :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_reference_data_source :
     application_configuration__sql_application_configuration__reference_data_source__s3_reference_data_source
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1856,7 +1859,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         if [] = v_s3_reference_data_source then bnds
+         if Stdlib.( = ) [] v_s3_reference_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -1867,7 +1870,7 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reference_schema then bnds
+         if Stdlib.( = ) [] v_reference_schema then bnds
          else
            let arg =
              (yojson_of_list
@@ -1894,15 +1897,15 @@ type application_configuration__sql_application_configuration = {
   input :
     application_configuration__sql_application_configuration__input
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output :
     application_configuration__sql_application_configuration__output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reference_data_source :
     application_configuration__sql_application_configuration__reference_data_source
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1922,7 +1925,7 @@ let yojson_of_application_configuration__sql_application_configuration
          []
        in
        let bnds =
-         if [] = v_reference_data_source then bnds
+         if Stdlib.( = ) [] v_reference_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -1933,7 +1936,7 @@ let yojson_of_application_configuration__sql_application_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output then bnds
+         if Stdlib.( = ) [] v_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -1944,7 +1947,7 @@ let yojson_of_application_configuration__sql_application_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input then bnds
+         if Stdlib.( = ) [] v_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -1965,9 +1968,9 @@ let _ =
 
 type application_configuration__vpc_configuration = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1983,7 +1986,7 @@ let yojson_of_application_configuration__vpc_configuration =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1993,7 +1996,7 @@ let yojson_of_application_configuration__vpc_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2013,26 +2016,26 @@ let _ = yojson_of_application_configuration__vpc_configuration
 type application_configuration = {
   application_code_configuration :
     application_configuration__application_code_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   application_snapshot_configuration :
     application_configuration__application_snapshot_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   environment_properties :
     application_configuration__environment_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   flink_application_configuration :
     application_configuration__flink_application_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   run_configuration :
     application_configuration__run_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sql_application_configuration :
     application_configuration__sql_application_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_configuration :
     application_configuration__vpc_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2057,7 +2060,7 @@ let yojson_of_application_configuration =
          []
        in
        let bnds =
-         if [] = v_vpc_configuration then bnds
+         if Stdlib.( = ) [] v_vpc_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2068,7 +2071,7 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sql_application_configuration then bnds
+         if Stdlib.( = ) [] v_sql_application_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2079,7 +2082,7 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_run_configuration then bnds
+         if Stdlib.( = ) [] v_run_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2090,7 +2093,8 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_flink_application_configuration then bnds
+         if Stdlib.( = ) [] v_flink_application_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2101,7 +2105,7 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_environment_properties then bnds
+         if Stdlib.( = ) [] v_environment_properties then bnds
          else
            let arg =
              (yojson_of_list
@@ -2112,7 +2116,8 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_snapshot_configuration then bnds
+         if Stdlib.( = ) [] v_application_snapshot_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2123,7 +2128,8 @@ let yojson_of_application_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_code_configuration then bnds
+         if Stdlib.( = ) [] v_application_code_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2221,9 +2227,9 @@ type aws_kinesisanalyticsv2_application = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   application_configuration : application_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloudwatch_logging_options : cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2254,7 +2260,7 @@ let yojson_of_aws_kinesisanalyticsv2_application =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudwatch_logging_options)
@@ -2264,7 +2270,7 @@ let yojson_of_aws_kinesisanalyticsv2_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_configuration then bnds
+         if Stdlib.( = ) [] v_application_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_application_configuration)

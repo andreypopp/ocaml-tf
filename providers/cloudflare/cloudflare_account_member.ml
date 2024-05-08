@@ -7,7 +7,7 @@ type cloudflare_account_member = {
   email_address : string prop;
   id : string prop option; [@option]
   role_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -35,7 +35,7 @@ let yojson_of_cloudflare_account_member =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_role_ids then bnds
+         if Stdlib.( = ) [] v_role_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

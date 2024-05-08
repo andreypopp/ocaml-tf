@@ -16,7 +16,7 @@ type key_signing_keys = {
   creation_time : string prop;  (** creation_time *)
   description : string prop;  (** description *)
   digests : key_signing_keys__digests list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** digests *)
   ds_record : string prop;  (** ds_record *)
   id : string prop;  (** id *)
@@ -36,7 +36,7 @@ type zone_signing_keys = {
   creation_time : string prop;  (** creation_time *)
   description : string prop;  (** description *)
   digests : zone_signing_keys__digests list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** digests *)
   id : string prop;  (** id *)
   is_active : bool prop;  (** is_active *)

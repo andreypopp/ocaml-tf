@@ -6,7 +6,7 @@ type grant = {
   email : string prop option; [@option]
   id : string prop option; [@option]
   permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
   uri : string prop option; [@option]
 }
@@ -39,7 +39,7 @@ let yojson_of_grant =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_permissions then bnds
+         if Stdlib.( = ) [] v_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -112,7 +112,8 @@ type aws_s3_object_copy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   website_redirect : string prop option; [@option]
-  grant : grant list; [@default []] [@yojson_drop_default ( = )]
+  grant : grant list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +170,7 @@ let yojson_of_aws_s3_object_copy =
          []
        in
        let bnds =
-         if [] = v_grant then bnds
+         if Stdlib.( = ) [] v_grant then bnds
          else
            let arg = (yojson_of_list yojson_of_grant) v_grant in
            let bnd = "grant", arg in

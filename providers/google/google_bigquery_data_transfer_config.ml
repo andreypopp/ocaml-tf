@@ -160,11 +160,11 @@ type google_bigquery_data_transfer_config = {
   schedule : string prop option; [@option]
   service_account_name : string prop option; [@option]
   email_preferences : email_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule_options : schedule_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sensitive_params : sensitive_params list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -199,7 +199,7 @@ let yojson_of_google_bigquery_data_transfer_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sensitive_params then bnds
+         if Stdlib.( = ) [] v_sensitive_params then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sensitive_params)
@@ -209,7 +209,7 @@ let yojson_of_google_bigquery_data_transfer_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule_options then bnds
+         if Stdlib.( = ) [] v_schedule_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule_options)
@@ -219,7 +219,7 @@ let yojson_of_google_bigquery_data_transfer_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email_preferences then bnds
+         if Stdlib.( = ) [] v_email_preferences then bnds
          else
            let arg =
              (yojson_of_list yojson_of_email_preferences)

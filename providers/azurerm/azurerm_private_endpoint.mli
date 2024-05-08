@@ -7,7 +7,7 @@ open! Tf_core
 type custom_dns_configs = {
   fqdn : string prop;  (** fqdn *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
@@ -19,7 +19,7 @@ type network_interface = {
 type private_dns_zone_configs__record_sets = {
   fqdn : string prop;  (** fqdn *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
   name : string prop;  (** name *)
   ttl : float prop;  (** ttl *)
@@ -31,7 +31,7 @@ type private_dns_zone_configs = {
   name : string prop;  (** name *)
   private_dns_zone_id : string prop;  (** private_dns_zone_id *)
   record_sets : private_dns_zone_configs__record_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** record_sets *)
 }
 

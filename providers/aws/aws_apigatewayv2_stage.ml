@@ -191,11 +191,11 @@ type aws_apigatewayv2_stage = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_log_settings : access_log_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_route_settings : default_route_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_settings : route_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,7 +222,7 @@ let yojson_of_aws_apigatewayv2_stage =
          []
        in
        let bnds =
-         if [] = v_route_settings then bnds
+         if Stdlib.( = ) [] v_route_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_route_settings)
@@ -232,7 +232,7 @@ let yojson_of_aws_apigatewayv2_stage =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_route_settings then bnds
+         if Stdlib.( = ) [] v_default_route_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_route_settings)
@@ -242,7 +242,7 @@ let yojson_of_aws_apigatewayv2_stage =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_log_settings then bnds
+         if Stdlib.( = ) [] v_access_log_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_log_settings)

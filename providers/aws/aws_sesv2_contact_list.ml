@@ -59,7 +59,8 @@ type aws_sesv2_contact_list = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  topic : topic list; [@default []] [@yojson_drop_default ( = )]
+  topic : topic list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +80,7 @@ let yojson_of_aws_sesv2_contact_list =
          []
        in
        let bnds =
-         if [] = v_topic then bnds
+         if Stdlib.( = ) [] v_topic then bnds
          else
            let arg = (yojson_of_list yojson_of_topic) v_topic in
            let bnd = "topic", arg in

@@ -35,7 +35,7 @@ type request = {
   parse_dependent_requests_enabled : bool prop option; [@option]
   url : string prop;
   header : request__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_request =
          []
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request__header) v_header
@@ -218,7 +218,7 @@ type validation_rules = {
   ssl_cert_remaining_lifetime : float prop option; [@option]
   ssl_check_enabled : bool prop option; [@option]
   content : validation_rules__content list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +236,7 @@ let yojson_of_validation_rules =
          []
        in
        let bnds =
-         if [] = v_content then bnds
+         if Stdlib.( = ) [] v_content then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_rules__content)
@@ -282,7 +282,7 @@ type azurerm_application_insights_standard_web_test = {
   enabled : bool prop option; [@option]
   frequency : float prop option; [@option]
   geo_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -290,10 +290,11 @@ type azurerm_application_insights_standard_web_test = {
   retry_enabled : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   timeout : float prop option; [@option]
-  request : request list; [@default []] [@yojson_drop_default ( = )]
+  request : request list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   validation_rules : validation_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,7 +324,7 @@ let yojson_of_azurerm_application_insights_standard_web_test =
          []
        in
        let bnds =
-         if [] = v_validation_rules then bnds
+         if Stdlib.( = ) [] v_validation_rules then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_rules)
@@ -337,7 +338,7 @@ let yojson_of_azurerm_application_insights_standard_web_test =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_request then bnds
+         if Stdlib.( = ) [] v_request then bnds
          else
            let arg = (yojson_of_list yojson_of_request) v_request in
            let bnd = "request", arg in
@@ -398,7 +399,7 @@ let yojson_of_azurerm_application_insights_standard_web_test =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_geo_locations then bnds
+         if Stdlib.( = ) [] v_geo_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

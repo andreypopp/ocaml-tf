@@ -278,16 +278,16 @@ type google_recaptcha_enterprise_key = {
   labels : (string * string prop) list option; [@option]
   project : string prop option; [@option]
   android_settings : android_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ios_settings : ios_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   testing_options : testing_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   waf_settings : waf_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   web_settings : web_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -311,7 +311,7 @@ let yojson_of_google_recaptcha_enterprise_key =
          []
        in
        let bnds =
-         if [] = v_web_settings then bnds
+         if Stdlib.( = ) [] v_web_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_web_settings) v_web_settings
@@ -320,7 +320,7 @@ let yojson_of_google_recaptcha_enterprise_key =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_waf_settings then bnds
+         if Stdlib.( = ) [] v_waf_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_waf_settings) v_waf_settings
@@ -333,7 +333,7 @@ let yojson_of_google_recaptcha_enterprise_key =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_testing_options then bnds
+         if Stdlib.( = ) [] v_testing_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_testing_options)
@@ -343,7 +343,7 @@ let yojson_of_google_recaptcha_enterprise_key =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ios_settings then bnds
+         if Stdlib.( = ) [] v_ios_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ios_settings) v_ios_settings
@@ -352,7 +352,7 @@ let yojson_of_google_recaptcha_enterprise_key =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_android_settings then bnds
+         if Stdlib.( = ) [] v_android_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_android_settings)

@@ -199,7 +199,7 @@ type google_netapp_volume_replication = {
   volume_name : string prop;
   wait_for_mirror : bool prop option; [@option]
   destination_volume_parameters : destination_volume_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -233,7 +233,7 @@ let yojson_of_google_netapp_volume_replication =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_volume_parameters then bnds
+         if Stdlib.( = ) [] v_destination_volume_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_volume_parameters)

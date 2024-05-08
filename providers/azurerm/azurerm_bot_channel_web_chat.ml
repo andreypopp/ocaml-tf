@@ -124,7 +124,7 @@ type azurerm_bot_channel_web_chat = {
   location : string prop;
   resource_group_name : string prop;
   site_names : string prop list option; [@option]
-  site : site list; [@default []] [@yojson_drop_default ( = )]
+  site : site list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -150,7 +150,7 @@ let yojson_of_azurerm_bot_channel_web_chat =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_site then bnds
+         if Stdlib.( = ) [] v_site then bnds
          else
            let arg = (yojson_of_list yojson_of_site) v_site in
            let bnd = "site", arg in

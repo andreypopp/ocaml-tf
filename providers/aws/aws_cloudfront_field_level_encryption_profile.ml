@@ -37,7 +37,7 @@ type encryption_entities__items = {
   provider_id : string prop;
   public_key_id : string prop;
   field_patterns : encryption_entities__items__field_patterns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_encryption_entities__items =
          []
        in
        let bnds =
-         if [] = v_field_patterns then bnds
+         if Stdlib.( = ) [] v_field_patterns then bnds
          else
            let arg =
              (yojson_of_list
@@ -81,7 +81,7 @@ let _ = yojson_of_encryption_entities__items
 
 type encryption_entities = {
   items : encryption_entities__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,7 +94,7 @@ let yojson_of_encryption_entities =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_entities__items)
@@ -115,7 +115,7 @@ type aws_cloudfront_field_level_encryption_profile = {
   id : string prop option; [@option]
   name : string prop;
   encryption_entities : encryption_entities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_aws_cloudfront_field_level_encryption_profile =
          []
        in
        let bnds =
-         if [] = v_encryption_entities then bnds
+         if Stdlib.( = ) [] v_encryption_entities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_entities)

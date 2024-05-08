@@ -121,9 +121,9 @@ type instance_schedule_policy = {
   time_zone : string prop;
   vm_start_schedule :
     instance_schedule_policy__vm_start_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vm_stop_schedule : instance_schedule_policy__vm_stop_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,7 +142,7 @@ let yojson_of_instance_schedule_policy =
          []
        in
        let bnds =
-         if [] = v_vm_stop_schedule then bnds
+         if Stdlib.( = ) [] v_vm_stop_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -153,7 +153,7 @@ let yojson_of_instance_schedule_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vm_start_schedule then bnds
+         if Stdlib.( = ) [] v_vm_start_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,7 +189,7 @@ type snapshot_schedule_policy__snapshot_properties = {
   guest_flush : bool prop;
   labels : (string * string prop) list;
   storage_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -207,7 +207,7 @@ let yojson_of_snapshot_schedule_policy__snapshot_properties =
          []
        in
        let bnds =
-         if [] = v_storage_locations then bnds
+         if Stdlib.( = ) [] v_storage_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -283,7 +283,7 @@ type snapshot_schedule_policy__schedule__weekly_schedule = {
   day_of_weeks :
     snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -297,7 +297,7 @@ let yojson_of_snapshot_schedule_policy__schedule__weekly_schedule =
          []
        in
        let bnds =
-         if [] = v_day_of_weeks then bnds
+         if Stdlib.( = ) [] v_day_of_weeks then bnds
          else
            let arg =
              (yojson_of_list
@@ -382,13 +382,13 @@ let _ = yojson_of_snapshot_schedule_policy__schedule__daily_schedule
 type snapshot_schedule_policy__schedule = {
   daily_schedule :
     snapshot_schedule_policy__schedule__daily_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hourly_schedule :
     snapshot_schedule_policy__schedule__hourly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weekly_schedule :
     snapshot_schedule_policy__schedule__weekly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -405,7 +405,7 @@ let yojson_of_snapshot_schedule_policy__schedule =
          []
        in
        let bnds =
-         if [] = v_weekly_schedule then bnds
+         if Stdlib.( = ) [] v_weekly_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -416,7 +416,7 @@ let yojson_of_snapshot_schedule_policy__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hourly_schedule then bnds
+         if Stdlib.( = ) [] v_hourly_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -427,7 +427,7 @@ let yojson_of_snapshot_schedule_policy__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_daily_schedule then bnds
+         if Stdlib.( = ) [] v_daily_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -484,12 +484,12 @@ let _ = yojson_of_snapshot_schedule_policy__retention_policy
 
 type snapshot_schedule_policy = {
   retention_policy : snapshot_schedule_policy__retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : snapshot_schedule_policy__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   snapshot_properties :
     snapshot_schedule_policy__snapshot_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -506,7 +506,7 @@ let yojson_of_snapshot_schedule_policy =
          []
        in
        let bnds =
-         if [] = v_snapshot_properties then bnds
+         if Stdlib.( = ) [] v_snapshot_properties then bnds
          else
            let arg =
              (yojson_of_list
@@ -517,7 +517,7 @@ let yojson_of_snapshot_schedule_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -528,7 +528,7 @@ let yojson_of_snapshot_schedule_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list

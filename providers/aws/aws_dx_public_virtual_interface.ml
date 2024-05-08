@@ -49,7 +49,7 @@ type aws_dx_public_virtual_interface = {
   id : string prop option; [@option]
   name : string prop;
   route_filter_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vlan : float prop;
@@ -120,7 +120,7 @@ let yojson_of_aws_dx_public_virtual_interface =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_route_filter_prefixes then bnds
+         if Stdlib.( = ) [] v_route_filter_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

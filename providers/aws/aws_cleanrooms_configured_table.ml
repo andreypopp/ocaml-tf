@@ -80,7 +80,7 @@ let _ = yojson_of_timeouts
 
 type aws_cleanrooms_configured_table = {
   allowed_columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   analysis_method : string prop;
   description : string prop option; [@option]
   id : string prop option; [@option]
@@ -88,7 +88,7 @@ type aws_cleanrooms_configured_table = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   table_reference : table_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -116,7 +116,7 @@ let yojson_of_aws_cleanrooms_configured_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_table_reference then bnds
+         if Stdlib.( = ) [] v_table_reference then bnds
          else
            let arg =
              (yojson_of_list yojson_of_table_reference)
@@ -184,7 +184,7 @@ let yojson_of_aws_cleanrooms_configured_table =
          ("analysis_method", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_columns then bnds
+         if Stdlib.( = ) [] v_allowed_columns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

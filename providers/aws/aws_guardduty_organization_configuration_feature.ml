@@ -37,7 +37,7 @@ type aws_guardduty_organization_configuration_feature = {
   id : string prop option; [@option]
   name : string prop;
   additional_configuration : additional_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_aws_guardduty_organization_configuration_feature =
          []
        in
        let bnds =
-         if [] = v_additional_configuration then bnds
+         if Stdlib.( = ) [] v_additional_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_configuration)

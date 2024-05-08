@@ -247,9 +247,10 @@ type google_certificate_manager_certificate = {
   name : string prop;
   project : string prop option; [@option]
   scope : string prop option; [@option]
-  managed : managed list; [@default []] [@yojson_drop_default ( = )]
+  managed : managed list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self_managed : self_managed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -278,7 +279,7 @@ let yojson_of_google_certificate_manager_certificate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_self_managed then bnds
+         if Stdlib.( = ) [] v_self_managed then bnds
          else
            let arg =
              (yojson_of_list yojson_of_self_managed) v_self_managed
@@ -287,7 +288,7 @@ let yojson_of_google_certificate_manager_certificate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_managed then bnds
+         if Stdlib.( = ) [] v_managed then bnds
          else
            let arg = (yojson_of_list yojson_of_managed) v_managed in
            let bnd = "managed", arg in

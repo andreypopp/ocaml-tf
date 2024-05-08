@@ -68,10 +68,10 @@ let _ = yojson_of_identity
 
 type threat_detection_policy = {
   disabled_alerts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email_account_admins : bool prop;
   email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enabled : bool prop;
   retention_days : float prop;
   storage_account_access_key : string prop;
@@ -117,7 +117,7 @@ let yojson_of_threat_detection_policy =
          ("enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_email_addresses then bnds
+         if Stdlib.( = ) [] v_email_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -133,7 +133,7 @@ let yojson_of_threat_detection_policy =
          ("email_account_admins", arg) :: bnds
        in
        let bnds =
-         if [] = v_disabled_alerts then bnds
+         if Stdlib.( = ) [] v_disabled_alerts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

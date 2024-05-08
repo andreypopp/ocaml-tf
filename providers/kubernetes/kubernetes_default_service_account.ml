@@ -160,10 +160,11 @@ type kubernetes_default_service_account = {
   automount_service_account_token : bool prop option; [@option]
   id : string prop option; [@option]
   image_pull_secret : image_pull_secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  secret : secret list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secret : secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -189,14 +190,14 @@ let yojson_of_kubernetes_default_service_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg = (yojson_of_list yojson_of_secret) v_secret in
            let bnd = "secret", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata
@@ -205,7 +206,7 @@ let yojson_of_kubernetes_default_service_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_pull_secret then bnds
+         if Stdlib.( = ) [] v_image_pull_secret then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_pull_secret)

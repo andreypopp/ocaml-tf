@@ -175,15 +175,15 @@ let _ = yojson_of_hierarchy_path__level_five
 
 type hierarchy_path = {
   level_five : hierarchy_path__level_five list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_four : hierarchy_path__level_four list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_one : hierarchy_path__level_one list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_three : hierarchy_path__level_three list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_two : hierarchy_path__level_two list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,7 +202,7 @@ let yojson_of_hierarchy_path =
          []
        in
        let bnds =
-         if [] = v_level_two then bnds
+         if Stdlib.( = ) [] v_level_two then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_path__level_two)
@@ -212,7 +212,7 @@ let yojson_of_hierarchy_path =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_three then bnds
+         if Stdlib.( = ) [] v_level_three then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_path__level_three)
@@ -222,7 +222,7 @@ let yojson_of_hierarchy_path =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_one then bnds
+         if Stdlib.( = ) [] v_level_one then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_path__level_one)
@@ -232,7 +232,7 @@ let yojson_of_hierarchy_path =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_four then bnds
+         if Stdlib.( = ) [] v_level_four then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_path__level_four)
@@ -242,7 +242,7 @@ let yojson_of_hierarchy_path =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_five then bnds
+         if Stdlib.( = ) [] v_level_five then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_path__level_five)

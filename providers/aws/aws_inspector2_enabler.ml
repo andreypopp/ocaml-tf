@@ -50,10 +50,10 @@ let _ = yojson_of_timeouts
 
 type aws_inspector2_enabler = {
   account_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -76,7 +76,7 @@ let yojson_of_aws_inspector2_enabler =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_types then bnds
+         if Stdlib.( = ) [] v_resource_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -94,7 +94,7 @@ let yojson_of_aws_inspector2_enabler =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_account_ids then bnds
+         if Stdlib.( = ) [] v_account_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

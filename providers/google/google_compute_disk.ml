@@ -272,16 +272,16 @@ type google_compute_disk = {
   type_ : string prop option; [@option] [@key "type"]
   zone : string prop option; [@option]
   async_primary_disk : async_primary_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_encryption_key : disk_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   guest_os_features : guest_os_features list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_image_encryption_key : source_image_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_snapshot_encryption_key :
     source_snapshot_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -323,7 +323,8 @@ let yojson_of_google_compute_disk =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_snapshot_encryption_key then bnds
+         if Stdlib.( = ) [] v_source_snapshot_encryption_key then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_snapshot_encryption_key)
@@ -333,7 +334,7 @@ let yojson_of_google_compute_disk =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_image_encryption_key then bnds
+         if Stdlib.( = ) [] v_source_image_encryption_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_image_encryption_key)
@@ -343,7 +344,7 @@ let yojson_of_google_compute_disk =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guest_os_features then bnds
+         if Stdlib.( = ) [] v_guest_os_features then bnds
          else
            let arg =
              (yojson_of_list yojson_of_guest_os_features)
@@ -353,7 +354,7 @@ let yojson_of_google_compute_disk =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_encryption_key then bnds
+         if Stdlib.( = ) [] v_disk_encryption_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_encryption_key)
@@ -363,7 +364,7 @@ let yojson_of_google_compute_disk =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_async_primary_disk then bnds
+         if Stdlib.( = ) [] v_async_primary_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_async_primary_disk)

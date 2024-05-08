@@ -70,11 +70,11 @@ let _ = yojson_of_authentication
 
 type cors = {
   allowed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   credentials_allowed : bool prop;
   max_age_in_seconds : float prop;
 }
@@ -107,7 +107,7 @@ let yojson_of_cors =
          ("credentials_allowed", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -117,7 +117,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -127,7 +127,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_headers then bnds
+         if Stdlib.( = ) [] v_allowed_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -145,7 +145,7 @@ let _ = yojson_of_cors
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -178,7 +178,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

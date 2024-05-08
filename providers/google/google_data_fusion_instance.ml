@@ -177,13 +177,13 @@ type google_data_fusion_instance = {
   version : string prop option; [@option]
   zone : string prop option; [@option]
   accelerators : accelerators list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   crypto_key_config : crypto_key_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_publish_config : event_publish_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -224,7 +224,7 @@ let yojson_of_google_data_fusion_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -234,7 +234,7 @@ let yojson_of_google_data_fusion_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_publish_config then bnds
+         if Stdlib.( = ) [] v_event_publish_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_publish_config)
@@ -244,7 +244,7 @@ let yojson_of_google_data_fusion_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_crypto_key_config then bnds
+         if Stdlib.( = ) [] v_crypto_key_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_crypto_key_config)
@@ -254,7 +254,7 @@ let yojson_of_google_data_fusion_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerators then bnds
+         if Stdlib.( = ) [] v_accelerators then bnds
          else
            let arg =
              (yojson_of_list yojson_of_accelerators) v_accelerators

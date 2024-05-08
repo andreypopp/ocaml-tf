@@ -116,7 +116,7 @@ type azurerm_automation_source_control = {
   repository_url : string prop;
   source_control_type : string prop;
   security : security list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -147,7 +147,7 @@ let yojson_of_azurerm_automation_source_control =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_security then bnds
+         if Stdlib.( = ) [] v_security then bnds
          else
            let arg =
              (yojson_of_list yojson_of_security) v_security

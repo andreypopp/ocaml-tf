@@ -126,7 +126,7 @@ type network_rule_set = {
   public_network_access_enabled : bool prop option; [@option]
   trusted_services_allowed : bool prop option; [@option]
   network_rules : network_rule_set__network_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_network_rule_set =
          []
        in
        let bnds =
-         if [] = v_network_rules then bnds
+         if Stdlib.( = ) [] v_network_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -271,11 +271,11 @@ type azurerm_servicebus_namespace = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   customer_managed_key : customer_managed_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_rule_set : network_rule_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,7 +311,7 @@ let yojson_of_azurerm_servicebus_namespace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_rule_set then bnds
+         if Stdlib.( = ) [] v_network_rule_set then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_set)
@@ -321,7 +321,7 @@ let yojson_of_azurerm_servicebus_namespace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -330,7 +330,7 @@ let yojson_of_azurerm_servicebus_namespace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customer_managed_key then bnds
+         if Stdlib.( = ) [] v_customer_managed_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_customer_managed_key)

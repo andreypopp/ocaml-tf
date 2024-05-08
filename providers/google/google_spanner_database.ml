@@ -81,7 +81,7 @@ type google_spanner_database = {
   project : string prop option; [@option]
   version_retention_period : string prop option; [@option]
   encryption_config : encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -111,7 +111,7 @@ let yojson_of_google_spanner_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config)

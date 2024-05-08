@@ -182,9 +182,9 @@ type azurerm_iot_security_device_group = {
   iothub_id : string prop;
   name : string prop;
   allow_rule : allow_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   range_rule : range_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -209,7 +209,7 @@ let yojson_of_azurerm_iot_security_device_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_range_rule then bnds
+         if Stdlib.( = ) [] v_range_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_range_rule) v_range_rule
@@ -218,7 +218,7 @@ let yojson_of_azurerm_iot_security_device_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow_rule then bnds
+         if Stdlib.( = ) [] v_allow_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_allow_rule) v_allow_rule

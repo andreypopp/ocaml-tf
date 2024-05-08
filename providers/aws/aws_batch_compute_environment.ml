@@ -108,13 +108,13 @@ type compute_resources = {
   security_group_ids : string prop list option; [@option]
   spot_iam_fleet_role : string prop option; [@option]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   ec2_configuration : compute_resources__ec2_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template : compute_resources__launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +145,7 @@ let yojson_of_compute_resources =
          []
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -156,7 +156,7 @@ let yojson_of_compute_resources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ec2_configuration then bnds
+         if Stdlib.( = ) [] v_ec2_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -187,7 +187,7 @@ let yojson_of_compute_resources =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -383,11 +383,11 @@ type aws_batch_compute_environment = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   compute_resources : compute_resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   eks_configuration : eks_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   update_policy : update_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -413,7 +413,7 @@ let yojson_of_aws_batch_compute_environment =
          []
        in
        let bnds =
-         if [] = v_update_policy then bnds
+         if Stdlib.( = ) [] v_update_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_update_policy) v_update_policy
@@ -422,7 +422,7 @@ let yojson_of_aws_batch_compute_environment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_eks_configuration then bnds
+         if Stdlib.( = ) [] v_eks_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_eks_configuration)
@@ -432,7 +432,7 @@ let yojson_of_aws_batch_compute_environment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compute_resources then bnds
+         if Stdlib.( = ) [] v_compute_resources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compute_resources)

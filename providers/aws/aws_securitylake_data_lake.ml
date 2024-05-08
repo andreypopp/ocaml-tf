@@ -74,10 +74,10 @@ let _ = yojson_of_configuration__lifecycle_configuration__transition
 type configuration__lifecycle_configuration = {
   expiration :
     configuration__lifecycle_configuration__expiration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transition :
     configuration__lifecycle_configuration__transition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,7 +90,7 @@ let yojson_of_configuration__lifecycle_configuration =
          []
        in
        let bnds =
-         if [] = v_transition then bnds
+         if Stdlib.( = ) [] v_transition then bnds
          else
            let arg =
              (yojson_of_list
@@ -101,7 +101,7 @@ let yojson_of_configuration__lifecycle_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_expiration then bnds
+         if Stdlib.( = ) [] v_expiration then bnds
          else
            let arg =
              (yojson_of_list
@@ -191,10 +191,10 @@ type configuration = {
   region : string prop;
   lifecycle_configuration :
     configuration__lifecycle_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   replication_configuration :
     configuration__replication_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -212,7 +212,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_replication_configuration then bnds
+         if Stdlib.( = ) [] v_replication_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -223,7 +223,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle_configuration then bnds
+         if Stdlib.( = ) [] v_lifecycle_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -305,7 +305,7 @@ type aws_securitylake_data_lake = {
   meta_store_manager_role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -328,7 +328,7 @@ let yojson_of_aws_securitylake_data_lake =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

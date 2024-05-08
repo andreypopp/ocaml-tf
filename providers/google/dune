@@ -10,12 +10,7 @@
   google_workbench_instance_iam_binding
   google_workbench_instance_iam_member
   google_workbench_instance_iam_policy)
- (flags
-  :standard
-  -open
-  ContainersLabels
-  -open
-  Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
  (lint
   (pps ppx_yojson_conv))
  (libraries tf yojson ppx_yojson_conv_lib))

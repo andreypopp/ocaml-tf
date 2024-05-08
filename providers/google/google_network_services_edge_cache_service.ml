@@ -42,7 +42,7 @@ let _ = yojson_of_log_config
 type routing__host_rule = {
   description : string prop option; [@option]
   hosts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path_matcher : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -64,7 +64,7 @@ let yojson_of_routing__host_rule =
          ("path_matcher", arg) :: bnds
        in
        let bnds =
-         if [] = v_hosts then bnds
+         if Stdlib.( = ) [] v_hosts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -248,19 +248,19 @@ type routing__path_matcher__route_rule__header_action = {
   request_header_to_add :
     routing__path_matcher__route_rule__header_action__request_header_to_add
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_header_to_remove :
     routing__path_matcher__route_rule__header_action__request_header_to_remove
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response_header_to_add :
     routing__path_matcher__route_rule__header_action__response_header_to_add
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response_header_to_remove :
     routing__path_matcher__route_rule__header_action__response_header_to_remove
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -279,7 +279,7 @@ let yojson_of_routing__path_matcher__route_rule__header_action =
          []
        in
        let bnds =
-         if [] = v_response_header_to_remove then bnds
+         if Stdlib.( = ) [] v_response_header_to_remove then bnds
          else
            let arg =
              (yojson_of_list
@@ -290,7 +290,7 @@ let yojson_of_routing__path_matcher__route_rule__header_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_response_header_to_add then bnds
+         if Stdlib.( = ) [] v_response_header_to_add then bnds
          else
            let arg =
              (yojson_of_list
@@ -301,7 +301,7 @@ let yojson_of_routing__path_matcher__route_rule__header_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_header_to_remove then bnds
+         if Stdlib.( = ) [] v_request_header_to_remove then bnds
          else
            let arg =
              (yojson_of_list
@@ -312,7 +312,7 @@ let yojson_of_routing__path_matcher__route_rule__header_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_header_to_add then bnds
+         if Stdlib.( = ) [] v_request_header_to_add then bnds
          else
            let arg =
              (yojson_of_list
@@ -471,11 +471,11 @@ type routing__path_matcher__route_rule__match_rule = {
   prefix_match : string prop option; [@option]
   header_match :
     routing__path_matcher__route_rule__match_rule__header_match list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_parameter_match :
     routing__path_matcher__route_rule__match_rule__query_parameter_match
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,7 +495,7 @@ let yojson_of_routing__path_matcher__route_rule__match_rule =
          []
        in
        let bnds =
-         if [] = v_query_parameter_match then bnds
+         if Stdlib.( = ) [] v_query_parameter_match then bnds
          else
            let arg =
              (yojson_of_list
@@ -506,7 +506,7 @@ let yojson_of_routing__path_matcher__route_rule__match_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header_match then bnds
+         if Stdlib.( = ) [] v_header_match then bnds
          else
            let arg =
              (yojson_of_list
@@ -558,7 +558,7 @@ let _ = yojson_of_routing__path_matcher__route_rule__match_rule
 
 type routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   copied_parameters : string prop list option; [@option]
   keyset : string prop option; [@option]
   token_query_parameter : string prop option; [@option]
@@ -619,7 +619,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__add_s
              bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -804,15 +804,15 @@ type routing__path_matcher__route_rule__route_action__cdn_policy = {
   add_signatures :
     routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_key_policy :
     routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   signed_token_options :
     routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -843,7 +843,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
          []
        in
        let bnds =
-         if [] = v_signed_token_options then bnds
+         if Stdlib.( = ) [] v_signed_token_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -854,7 +854,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_key_policy then bnds
+         if Stdlib.( = ) [] v_cache_key_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -865,7 +865,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
            bnd :: bnds
        in
        let bnds =
-         if [] = v_add_signatures then bnds
+         if Stdlib.( = ) [] v_add_signatures then bnds
          else
            let arg =
              (yojson_of_list
@@ -1125,13 +1125,13 @@ let _ =
 type routing__path_matcher__route_rule__route_action = {
   cdn_policy :
     routing__path_matcher__route_rule__route_action__cdn_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cors_policy :
     routing__path_matcher__route_rule__route_action__cors_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_rewrite :
     routing__path_matcher__route_rule__route_action__url_rewrite list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1149,7 +1149,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action =
          []
        in
        let bnds =
-         if [] = v_url_rewrite then bnds
+         if Stdlib.( = ) [] v_url_rewrite then bnds
          else
            let arg =
              (yojson_of_list
@@ -1160,7 +1160,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors_policy then bnds
+         if Stdlib.( = ) [] v_cors_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -1171,7 +1171,7 @@ let yojson_of_routing__path_matcher__route_rule__route_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cdn_policy then bnds
+         if Stdlib.( = ) [] v_cdn_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -1277,14 +1277,14 @@ type routing__path_matcher__route_rule = {
   priority : string prop;
   header_action :
     routing__path_matcher__route_rule__header_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_rule : routing__path_matcher__route_rule__match_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_action :
     routing__path_matcher__route_rule__route_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_redirect : routing__path_matcher__route_rule__url_redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1305,7 +1305,7 @@ let yojson_of_routing__path_matcher__route_rule =
          []
        in
        let bnds =
-         if [] = v_url_redirect then bnds
+         if Stdlib.( = ) [] v_url_redirect then bnds
          else
            let arg =
              (yojson_of_list
@@ -1316,7 +1316,7 @@ let yojson_of_routing__path_matcher__route_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_action then bnds
+         if Stdlib.( = ) [] v_route_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -1327,7 +1327,7 @@ let yojson_of_routing__path_matcher__route_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_rule then bnds
+         if Stdlib.( = ) [] v_match_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1338,7 +1338,7 @@ let yojson_of_routing__path_matcher__route_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header_action then bnds
+         if Stdlib.( = ) [] v_header_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -1380,7 +1380,7 @@ type routing__path_matcher = {
   description : string prop option; [@option]
   name : string prop;
   route_rule : routing__path_matcher__route_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1397,7 +1397,7 @@ let yojson_of_routing__path_matcher =
          []
        in
        let bnds =
-         if [] = v_route_rule then bnds
+         if Stdlib.( = ) [] v_route_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1428,9 +1428,9 @@ let _ = yojson_of_routing__path_matcher
 
 type routing = {
   host_rule : routing__host_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path_matcher : routing__path_matcher list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1443,7 +1443,7 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         if [] = v_path_matcher then bnds
+         if Stdlib.( = ) [] v_path_matcher then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing__path_matcher)
@@ -1453,7 +1453,7 @@ let yojson_of_routing =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_rule then bnds
+         if Stdlib.( = ) [] v_host_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing__host_rule)
@@ -1528,8 +1528,9 @@ type google_network_services_edge_cache_service = {
   require_tls : bool prop option; [@option]
   ssl_policy : string prop option; [@option]
   log_config : log_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  routing : routing list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  routing : routing list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1562,14 +1563,14 @@ let yojson_of_google_network_services_edge_cache_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routing then bnds
+         if Stdlib.( = ) [] v_routing then bnds
          else
            let arg = (yojson_of_list yojson_of_routing) v_routing in
            let bnd = "routing", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_config then bnds
+         if Stdlib.( = ) [] v_log_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_config) v_log_config

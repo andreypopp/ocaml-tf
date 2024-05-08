@@ -12,7 +12,7 @@ type hls_ingest__ingest_endpoints = {
 
 type hls_ingest = {
   ingest_endpoints : hls_ingest__ingest_endpoints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ingest_endpoints *)
 }
 

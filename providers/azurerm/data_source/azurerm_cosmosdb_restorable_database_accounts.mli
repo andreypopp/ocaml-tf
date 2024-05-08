@@ -18,7 +18,7 @@ type accounts = {
   deletion_time : string prop;  (** deletion_time *)
   id : string prop;  (** id *)
   restorable_locations : accounts__restorable_locations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** restorable_locations *)
 }
 

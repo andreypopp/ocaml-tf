@@ -46,7 +46,8 @@ type aws_secretsmanager_secret = {
   recovery_window_in_days : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  replica : replica list; [@default []] [@yojson_drop_default ( = )]
+  replica : replica list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,7 +73,7 @@ let yojson_of_aws_secretsmanager_secret =
          []
        in
        let bnds =
-         if [] = v_replica then bnds
+         if Stdlib.( = ) [] v_replica then bnds
          else
            let arg = (yojson_of_list yojson_of_replica) v_replica in
            let bnd = "replica", arg in

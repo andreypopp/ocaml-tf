@@ -100,7 +100,7 @@ type contact_settings__admin_contact = {
   phone_number : string prop;
   postal_address :
     contact_settings__admin_contact__postal_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,7 +118,7 @@ let yojson_of_contact_settings__admin_contact =
          []
        in
        let bnds =
-         if [] = v_postal_address then bnds
+         if Stdlib.( = ) [] v_postal_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -251,7 +251,7 @@ type contact_settings__registrant_contact = {
   phone_number : string prop;
   postal_address :
     contact_settings__registrant_contact__postal_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,7 +269,7 @@ let yojson_of_contact_settings__registrant_contact =
          []
        in
        let bnds =
-         if [] = v_postal_address then bnds
+         if Stdlib.( = ) [] v_postal_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -401,7 +401,7 @@ type contact_settings__technical_contact = {
   phone_number : string prop;
   postal_address :
     contact_settings__technical_contact__postal_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -419,7 +419,7 @@ let yojson_of_contact_settings__technical_contact =
          []
        in
        let bnds =
-         if [] = v_postal_address then bnds
+         if Stdlib.( = ) [] v_postal_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -456,11 +456,11 @@ let _ = yojson_of_contact_settings__technical_contact
 type contact_settings = {
   privacy : string prop;
   admin_contact : contact_settings__admin_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   registrant_contact : contact_settings__registrant_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   technical_contact : contact_settings__technical_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -478,7 +478,7 @@ let yojson_of_contact_settings =
          []
        in
        let bnds =
-         if [] = v_technical_contact then bnds
+         if Stdlib.( = ) [] v_technical_contact then bnds
          else
            let arg =
              (yojson_of_list
@@ -489,7 +489,7 @@ let yojson_of_contact_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_registrant_contact then bnds
+         if Stdlib.( = ) [] v_registrant_contact then bnds
          else
            let arg =
              (yojson_of_list
@@ -500,7 +500,7 @@ let yojson_of_contact_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_contact then bnds
+         if Stdlib.( = ) [] v_admin_contact then bnds
          else
            let arg =
              (yojson_of_list
@@ -584,9 +584,9 @@ let _ = yojson_of_dns_settings__custom_dns__ds_records
 
 type dns_settings__custom_dns = {
   name_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ds_records : dns_settings__custom_dns__ds_records list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -599,7 +599,7 @@ let yojson_of_dns_settings__custom_dns =
          []
        in
        let bnds =
-         if [] = v_ds_records then bnds
+         if Stdlib.( = ) [] v_ds_records then bnds
          else
            let arg =
              (yojson_of_list
@@ -610,7 +610,7 @@ let yojson_of_dns_settings__custom_dns =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_name_servers then bnds
+         if Stdlib.( = ) [] v_name_servers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -678,9 +678,9 @@ let _ = yojson_of_dns_settings__glue_records
 
 type dns_settings = {
   custom_dns : dns_settings__custom_dns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   glue_records : dns_settings__glue_records list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -693,7 +693,7 @@ let yojson_of_dns_settings =
          []
        in
        let bnds =
-         if [] = v_glue_records then bnds
+         if Stdlib.( = ) [] v_glue_records then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_settings__glue_records)
@@ -703,7 +703,7 @@ let yojson_of_dns_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_dns then bnds
+         if Stdlib.( = ) [] v_custom_dns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_settings__custom_dns)
@@ -851,14 +851,14 @@ type google_clouddomains_registration = {
   location : string prop;
   project : string prop option; [@option]
   contact_settings : contact_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dns_settings : dns_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management_settings : management_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   yearly_price : yearly_price list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -884,7 +884,7 @@ let yojson_of_google_clouddomains_registration =
          []
        in
        let bnds =
-         if [] = v_yearly_price then bnds
+         if Stdlib.( = ) [] v_yearly_price then bnds
          else
            let arg =
              (yojson_of_list yojson_of_yearly_price) v_yearly_price
@@ -897,7 +897,7 @@ let yojson_of_google_clouddomains_registration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_management_settings then bnds
+         if Stdlib.( = ) [] v_management_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management_settings)
@@ -907,7 +907,7 @@ let yojson_of_google_clouddomains_registration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_settings then bnds
+         if Stdlib.( = ) [] v_dns_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_settings) v_dns_settings
@@ -916,7 +916,7 @@ let yojson_of_google_clouddomains_registration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_contact_settings then bnds
+         if Stdlib.( = ) [] v_contact_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_contact_settings)

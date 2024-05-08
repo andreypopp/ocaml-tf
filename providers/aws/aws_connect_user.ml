@@ -118,13 +118,13 @@ type aws_connect_user = {
   password : string prop option; [@option]
   routing_profile_id : string prop;
   security_profile_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   identity_info : identity_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   phone_config : phone_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,7 +150,7 @@ let yojson_of_aws_connect_user =
          []
        in
        let bnds =
-         if [] = v_phone_config then bnds
+         if Stdlib.( = ) [] v_phone_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_phone_config) v_phone_config
@@ -159,7 +159,7 @@ let yojson_of_aws_connect_user =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity_info then bnds
+         if Stdlib.( = ) [] v_identity_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity_info) v_identity_info
@@ -200,7 +200,7 @@ let yojson_of_aws_connect_user =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_security_profile_ids then bnds
+         if Stdlib.( = ) [] v_security_profile_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

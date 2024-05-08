@@ -59,7 +59,7 @@ type basic__conditions__device_policy = {
   require_screen_lock : bool prop option; [@option]
   os_constraints :
     basic__conditions__device_policy__os_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,7 +80,7 @@ let yojson_of_basic__conditions__device_policy =
          []
        in
        let bnds =
-         if [] = v_os_constraints then bnds
+         if Stdlib.( = ) [] v_os_constraints then bnds
          else
            let arg =
              (yojson_of_list
@@ -188,7 +188,7 @@ let _ =
 type basic__conditions__vpc_network_sources = {
   vpc_subnetwork :
     basic__conditions__vpc_network_sources__vpc_subnetwork list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_basic__conditions__vpc_network_sources =
          []
        in
        let bnds =
-         if [] = v_vpc_subnetwork then bnds
+         if Stdlib.( = ) [] v_vpc_subnetwork then bnds
          else
            let arg =
              (yojson_of_list
@@ -226,9 +226,9 @@ type basic__conditions = {
   regions : string prop list option; [@option]
   required_access_levels : string prop list option; [@option]
   device_policy : basic__conditions__device_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_network_sources : basic__conditions__vpc_network_sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +249,7 @@ let yojson_of_basic__conditions =
          []
        in
        let bnds =
-         if [] = v_vpc_network_sources then bnds
+         if Stdlib.( = ) [] v_vpc_network_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -260,7 +260,7 @@ let yojson_of_basic__conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_device_policy then bnds
+         if Stdlib.( = ) [] v_device_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -328,7 +328,7 @@ let _ = yojson_of_basic__conditions
 type basic = {
   combining_function : string prop option; [@option]
   conditions : basic__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -344,7 +344,7 @@ let yojson_of_basic =
          []
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_basic__conditions)
@@ -425,7 +425,8 @@ let _ = yojson_of_custom__expr
 [@@@deriving.end]
 
 type custom = {
-  expr : custom__expr list; [@default []] [@yojson_drop_default ( = )]
+  expr : custom__expr list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -438,7 +439,7 @@ let yojson_of_custom =
          []
        in
        let bnds =
-         if [] = v_expr then bnds
+         if Stdlib.( = ) [] v_expr then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom__expr) v_expr
@@ -505,8 +506,10 @@ type google_access_context_manager_access_level = {
   name : string prop;
   parent : string prop;
   title : string prop;
-  basic : basic list; [@default []] [@yojson_drop_default ( = )]
-  custom : custom list; [@default []] [@yojson_drop_default ( = )]
+  basic : basic list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  custom : custom list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -533,14 +536,14 @@ let yojson_of_google_access_context_manager_access_level =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom then bnds
+         if Stdlib.( = ) [] v_custom then bnds
          else
            let arg = (yojson_of_list yojson_of_custom) v_custom in
            let bnd = "custom", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_basic then bnds
+         if Stdlib.( = ) [] v_basic then bnds
          else
            let arg = (yojson_of_list yojson_of_basic) v_basic in
            let bnd = "basic", arg in

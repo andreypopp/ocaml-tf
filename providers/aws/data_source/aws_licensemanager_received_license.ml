@@ -75,10 +75,10 @@ let _ = yojson_of_consumption_configuration__borrow_configuration
 type consumption_configuration = {
   borrow_configuration :
     consumption_configuration__borrow_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provisional_configuration :
     consumption_configuration__provisional_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   renew_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -100,7 +100,7 @@ let yojson_of_consumption_configuration =
          ("renew_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_provisional_configuration then bnds
+         if Stdlib.( = ) [] v_provisional_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -111,7 +111,7 @@ let yojson_of_consumption_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_borrow_configuration then bnds
+         if Stdlib.( = ) [] v_borrow_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -246,7 +246,7 @@ let _ = yojson_of_license_metadata
 
 type received_metadata = {
   allowed_operations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   received_status : string prop;
   received_status_reason : string prop;
 }
@@ -277,7 +277,7 @@ let yojson_of_received_metadata =
          ("received_status", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_operations then bnds
+         if Stdlib.( = ) [] v_allowed_operations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

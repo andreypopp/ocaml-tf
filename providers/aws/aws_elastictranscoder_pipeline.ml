@@ -249,15 +249,15 @@ type aws_elastictranscoder_pipeline = {
   output_bucket : string prop option; [@option]
   role : string prop;
   content_config : content_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   content_config_permissions : content_config_permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notifications : notifications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   thumbnail_config : thumbnail_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   thumbnail_config_permissions : thumbnail_config_permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,7 +282,7 @@ let yojson_of_aws_elastictranscoder_pipeline =
          []
        in
        let bnds =
-         if [] = v_thumbnail_config_permissions then bnds
+         if Stdlib.( = ) [] v_thumbnail_config_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_thumbnail_config_permissions)
@@ -292,7 +292,7 @@ let yojson_of_aws_elastictranscoder_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_thumbnail_config then bnds
+         if Stdlib.( = ) [] v_thumbnail_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_thumbnail_config)
@@ -302,7 +302,7 @@ let yojson_of_aws_elastictranscoder_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notifications then bnds
+         if Stdlib.( = ) [] v_notifications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notifications) v_notifications
@@ -311,7 +311,7 @@ let yojson_of_aws_elastictranscoder_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_config_permissions then bnds
+         if Stdlib.( = ) [] v_content_config_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_content_config_permissions)
@@ -321,7 +321,7 @@ let yojson_of_aws_elastictranscoder_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_config then bnds
+         if Stdlib.( = ) [] v_content_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_content_config)

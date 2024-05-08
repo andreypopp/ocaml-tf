@@ -38,7 +38,7 @@ type initial_settings = {
   cache_level : string prop;  (** cache_level *)
   challenge_ttl : float prop;  (** challenge_ttl *)
   ciphers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ciphers *)
   cname_flattening : string prop;  (** cname_flattening *)
   development_mode : string prop;  (** development_mode *)
@@ -58,11 +58,11 @@ type initial_settings = {
   max_upload : float prop;  (** max_upload *)
   min_tls_version : string prop;  (** min_tls_version *)
   minify : initial_settings__minify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** minify *)
   mirage : string prop;  (** mirage *)
   mobile_redirect : initial_settings__mobile_redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** mobile_redirect *)
   opportunistic_encryption : string prop;
       (** opportunistic_encryption *)
@@ -80,7 +80,7 @@ type initial_settings = {
   response_buffering : string prop;  (** response_buffering *)
   rocket_loader : string prop;  (** rocket_loader *)
   security_header : initial_settings__security_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_header *)
   security_level : string prop;  (** security_level *)
   server_side_exclude : string prop;  (** server_side_exclude *)

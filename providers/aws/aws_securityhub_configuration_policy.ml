@@ -93,7 +93,8 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list = {
-  value : string prop list; [@default []] [@yojson_drop_default ( = )]
+  value : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,7 +111,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -159,7 +160,8 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list = {
-  value : float prop list; [@default []] [@yojson_drop_default ( = )]
+  value : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -176,7 +178,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -225,7 +227,8 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list = {
-  value : string prop list; [@default []] [@yojson_drop_default ( = )]
+  value : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +245,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -266,35 +269,37 @@ type configuration_policy__security_controls_configuration__security_control_cus
   bool_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list;
-      [@key "bool"] [@default []] [@yojson_drop_default ( = )]
+      [@key "bool"] [@default []] [@yojson_drop_default Stdlib.( = )]
   double :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enum :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enum_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   int_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list;
-      [@key "int"] [@default []] [@yojson_drop_default ( = )]
+      [@key "int"] [@default []] [@yojson_drop_default Stdlib.( = )]
   int_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list;
-      [@key "string"] [@default []] [@yojson_drop_default ( = )]
+      [@key "string"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
   string_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -322,7 +327,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         if [] = v_string_list then bnds
+         if Stdlib.( = ) [] v_string_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -333,7 +338,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_ then bnds
+         if Stdlib.( = ) [] v_string_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -344,7 +349,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_int_list then bnds
+         if Stdlib.( = ) [] v_int_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -355,7 +360,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_int_ then bnds
+         if Stdlib.( = ) [] v_int_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -366,7 +371,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_enum_list then bnds
+         if Stdlib.( = ) [] v_enum_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -377,7 +382,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_enum then bnds
+         if Stdlib.( = ) [] v_enum then bnds
          else
            let arg =
              (yojson_of_list
@@ -388,7 +393,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_double then bnds
+         if Stdlib.( = ) [] v_double then bnds
          else
            let arg =
              (yojson_of_list
@@ -399,7 +404,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bool_ then bnds
+         if Stdlib.( = ) [] v_bool_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -431,7 +436,7 @@ type configuration_policy__security_controls_configuration__security_control_cus
   parameter :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -451,7 +456,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -482,7 +487,7 @@ type configuration_policy__security_controls_configuration = {
   security_control_custom_parameter :
     configuration_policy__security_controls_configuration__security_control_custom_parameter
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -502,7 +507,8 @@ let yojson_of_configuration_policy__security_controls_configuration =
          []
        in
        let bnds =
-         if [] = v_security_control_custom_parameter then bnds
+         if Stdlib.( = ) [] v_security_control_custom_parameter then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -543,11 +549,11 @@ let _ =
 
 type configuration_policy = {
   enabled_standard_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_enabled : bool prop;
   security_controls_configuration :
     configuration_policy__security_controls_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -565,7 +571,8 @@ let yojson_of_configuration_policy =
          []
        in
        let bnds =
-         if [] = v_security_controls_configuration then bnds
+         if Stdlib.( = ) [] v_security_controls_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -580,7 +587,7 @@ let yojson_of_configuration_policy =
          ("service_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_enabled_standard_arns then bnds
+         if Stdlib.( = ) [] v_enabled_standard_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -601,7 +608,7 @@ type aws_securityhub_configuration_policy = {
   id : string prop option; [@option]
   name : string prop;
   configuration_policy : configuration_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -619,7 +626,7 @@ let yojson_of_aws_securityhub_configuration_policy =
          []
        in
        let bnds =
-         if [] = v_configuration_policy then bnds
+         if Stdlib.( = ) [] v_configuration_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration_policy)

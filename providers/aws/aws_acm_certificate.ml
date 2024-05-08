@@ -175,9 +175,10 @@ type aws_acm_certificate = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   validation_method : string prop option; [@option]
-  options : options list; [@default []] [@yojson_drop_default ( = )]
+  options : options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation_option : validation_option list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,7 +206,7 @@ let yojson_of_aws_acm_certificate =
          []
        in
        let bnds =
-         if [] = v_validation_option then bnds
+         if Stdlib.( = ) [] v_validation_option then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_option)
@@ -215,7 +216,7 @@ let yojson_of_aws_acm_certificate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_options then bnds
+         if Stdlib.( = ) [] v_options then bnds
          else
            let arg = (yojson_of_list yojson_of_options) v_options in
            let bnd = "options", arg in

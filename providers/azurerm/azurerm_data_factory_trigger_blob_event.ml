@@ -113,13 +113,13 @@ type azurerm_data_factory_trigger_blob_event = {
   data_factory_id : string prop;
   description : string prop option; [@option]
   events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   ignore_empty_blobs : bool prop option; [@option]
   name : string prop;
   storage_account_id : string prop;
   pipeline : pipeline list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -152,7 +152,7 @@ let yojson_of_azurerm_data_factory_trigger_blob_event =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_pipeline then bnds
+         if Stdlib.( = ) [] v_pipeline then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pipeline) v_pipeline
@@ -187,7 +187,7 @@ let yojson_of_azurerm_data_factory_trigger_blob_event =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_events then bnds
+         if Stdlib.( = ) [] v_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

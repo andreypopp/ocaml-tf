@@ -72,7 +72,7 @@ let _ = yojson_of_identity__oidc
 
 type identity = {
   oidc : identity__oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,7 +85,7 @@ let yojson_of_identity =
          []
        in
        let bnds =
-         if [] = v_oidc then bnds
+         if Stdlib.( = ) [] v_oidc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity__oidc) v_oidc
@@ -171,9 +171,9 @@ type outpost_config = {
   control_plane_instance_type : string prop;
   control_plane_placement :
     outpost_config__control_plane_placement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outpost_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,7 +190,7 @@ let yojson_of_outpost_config =
          []
        in
        let bnds =
-         if [] = v_outpost_arns then bnds
+         if Stdlib.( = ) [] v_outpost_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -200,7 +200,7 @@ let yojson_of_outpost_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_control_plane_placement then bnds
+         if Stdlib.( = ) [] v_control_plane_placement then bnds
          else
            let arg =
              (yojson_of_list
@@ -229,11 +229,11 @@ type vpc_config = {
   endpoint_private_access : bool prop;
   endpoint_public_access : bool prop;
   public_access_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -259,7 +259,7 @@ let yojson_of_vpc_config =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -269,7 +269,7 @@ let yojson_of_vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -279,7 +279,7 @@ let yojson_of_vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_public_access_cidrs then bnds
+         if Stdlib.( = ) [] v_public_access_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

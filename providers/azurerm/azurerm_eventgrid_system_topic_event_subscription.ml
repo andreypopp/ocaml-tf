@@ -141,7 +141,8 @@ let _ = yojson_of_advanced_filter__number_greater_than_or_equals
 
 type advanced_filter__number_in = {
   key : string prop;
-  values : float prop list; [@default []] [@yojson_drop_default ( = )]
+  values : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -154,7 +155,7 @@ let yojson_of_advanced_filter__number_in =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -177,7 +178,7 @@ let _ = yojson_of_advanced_filter__number_in
 type advanced_filter__number_in_range = {
   key : string prop;
   values : float prop list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,7 +191,7 @@ let yojson_of_advanced_filter__number_in_range =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -274,7 +275,8 @@ let _ = yojson_of_advanced_filter__number_less_than_or_equals
 
 type advanced_filter__number_not_in = {
   key : string prop;
-  values : float prop list; [@default []] [@yojson_drop_default ( = )]
+  values : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -287,7 +289,7 @@ let yojson_of_advanced_filter__number_not_in =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -311,7 +313,7 @@ let _ = yojson_of_advanced_filter__number_not_in
 type advanced_filter__number_not_in_range = {
   key : string prop;
   values : float prop list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,7 +326,7 @@ let yojson_of_advanced_filter__number_not_in_range =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -349,7 +351,7 @@ let _ = yojson_of_advanced_filter__number_not_in_range
 type advanced_filter__string_begins_with = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -362,7 +364,7 @@ let yojson_of_advanced_filter__string_begins_with =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -386,7 +388,7 @@ let _ = yojson_of_advanced_filter__string_begins_with
 type advanced_filter__string_contains = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,7 +401,7 @@ let yojson_of_advanced_filter__string_contains =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -423,7 +425,7 @@ let _ = yojson_of_advanced_filter__string_contains
 type advanced_filter__string_ends_with = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -436,7 +438,7 @@ let yojson_of_advanced_filter__string_ends_with =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -460,7 +462,7 @@ let _ = yojson_of_advanced_filter__string_ends_with
 type advanced_filter__string_in = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -473,7 +475,7 @@ let yojson_of_advanced_filter__string_in =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -496,7 +498,7 @@ let _ = yojson_of_advanced_filter__string_in
 type advanced_filter__string_not_begins_with = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -509,7 +511,7 @@ let yojson_of_advanced_filter__string_not_begins_with =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -533,7 +535,7 @@ let _ = yojson_of_advanced_filter__string_not_begins_with
 type advanced_filter__string_not_contains = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -546,7 +548,7 @@ let yojson_of_advanced_filter__string_not_contains =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -570,7 +572,7 @@ let _ = yojson_of_advanced_filter__string_not_contains
 type advanced_filter__string_not_ends_with = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -583,7 +585,7 @@ let yojson_of_advanced_filter__string_not_ends_with =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -607,7 +609,7 @@ let _ = yojson_of_advanced_filter__string_not_ends_with
 type advanced_filter__string_not_in = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -620,7 +622,7 @@ let yojson_of_advanced_filter__string_not_in =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -643,46 +645,46 @@ let _ = yojson_of_advanced_filter__string_not_in
 
 type advanced_filter = {
   bool_equals : advanced_filter__bool_equals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   is_not_null : advanced_filter__is_not_null list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   is_null_or_undefined : advanced_filter__is_null_or_undefined list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_greater_than : advanced_filter__number_greater_than list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_greater_than_or_equals :
     advanced_filter__number_greater_than_or_equals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_in : advanced_filter__number_in list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_in_range : advanced_filter__number_in_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_less_than : advanced_filter__number_less_than list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_less_than_or_equals :
     advanced_filter__number_less_than_or_equals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_not_in : advanced_filter__number_not_in list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_not_in_range : advanced_filter__number_not_in_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_begins_with : advanced_filter__string_begins_with list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_contains : advanced_filter__string_contains list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_ends_with : advanced_filter__string_ends_with list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_in : advanced_filter__string_in list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_begins_with :
     advanced_filter__string_not_begins_with list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_contains : advanced_filter__string_not_contains list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_ends_with : advanced_filter__string_not_ends_with list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_in : advanced_filter__string_not_in list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -716,7 +718,7 @@ let yojson_of_advanced_filter =
          []
        in
        let bnds =
-         if [] = v_string_not_in then bnds
+         if Stdlib.( = ) [] v_string_not_in then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__string_not_in)
@@ -726,7 +728,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_not_ends_with then bnds
+         if Stdlib.( = ) [] v_string_not_ends_with then bnds
          else
            let arg =
              (yojson_of_list
@@ -737,7 +739,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_not_contains then bnds
+         if Stdlib.( = ) [] v_string_not_contains then bnds
          else
            let arg =
              (yojson_of_list
@@ -748,7 +750,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_not_begins_with then bnds
+         if Stdlib.( = ) [] v_string_not_begins_with then bnds
          else
            let arg =
              (yojson_of_list
@@ -759,7 +761,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_in then bnds
+         if Stdlib.( = ) [] v_string_in then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__string_in)
@@ -769,7 +771,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_ends_with then bnds
+         if Stdlib.( = ) [] v_string_ends_with then bnds
          else
            let arg =
              (yojson_of_list
@@ -780,7 +782,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_contains then bnds
+         if Stdlib.( = ) [] v_string_contains then bnds
          else
            let arg =
              (yojson_of_list
@@ -791,7 +793,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_begins_with then bnds
+         if Stdlib.( = ) [] v_string_begins_with then bnds
          else
            let arg =
              (yojson_of_list
@@ -802,7 +804,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_not_in_range then bnds
+         if Stdlib.( = ) [] v_number_not_in_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -813,7 +815,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_not_in then bnds
+         if Stdlib.( = ) [] v_number_not_in then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__number_not_in)
@@ -823,7 +825,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_less_than_or_equals then bnds
+         if Stdlib.( = ) [] v_number_less_than_or_equals then bnds
          else
            let arg =
              (yojson_of_list
@@ -834,7 +836,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_less_than then bnds
+         if Stdlib.( = ) [] v_number_less_than then bnds
          else
            let arg =
              (yojson_of_list
@@ -845,7 +847,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_in_range then bnds
+         if Stdlib.( = ) [] v_number_in_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -856,7 +858,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_in then bnds
+         if Stdlib.( = ) [] v_number_in then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__number_in)
@@ -866,7 +868,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_greater_than_or_equals then bnds
+         if Stdlib.( = ) [] v_number_greater_than_or_equals then bnds
          else
            let arg =
              (yojson_of_list
@@ -877,7 +879,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_greater_than then bnds
+         if Stdlib.( = ) [] v_number_greater_than then bnds
          else
            let arg =
              (yojson_of_list
@@ -888,7 +890,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_is_null_or_undefined then bnds
+         if Stdlib.( = ) [] v_is_null_or_undefined then bnds
          else
            let arg =
              (yojson_of_list
@@ -899,7 +901,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_is_not_null then bnds
+         if Stdlib.( = ) [] v_is_not_null then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__is_not_null)
@@ -909,7 +911,7 @@ let yojson_of_advanced_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bool_equals then bnds
+         if Stdlib.( = ) [] v_bool_equals then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter__bool_equals)
@@ -1421,27 +1423,27 @@ type azurerm_eventgrid_system_topic_event_subscription = {
   service_bus_topic_endpoint_id : string prop option; [@option]
   system_topic : string prop;
   advanced_filter : advanced_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_function_endpoint : azure_function_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dead_letter_identity : dead_letter_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   delivery_identity : delivery_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   delivery_property : delivery_property list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retry_policy : retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_blob_dead_letter_destination :
     storage_blob_dead_letter_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_queue_endpoint : storage_queue_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subject_filter : subject_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   webhook_endpoint : webhook_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1485,7 +1487,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
          []
        in
        let bnds =
-         if [] = v_webhook_endpoint then bnds
+         if Stdlib.( = ) [] v_webhook_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook_endpoint)
@@ -1499,7 +1501,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subject_filter then bnds
+         if Stdlib.( = ) [] v_subject_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subject_filter)
@@ -1509,7 +1511,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_queue_endpoint then bnds
+         if Stdlib.( = ) [] v_storage_queue_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_queue_endpoint)
@@ -1519,7 +1521,8 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_blob_dead_letter_destination then bnds
+         if Stdlib.( = ) [] v_storage_blob_dead_letter_destination
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1530,7 +1533,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retry_policy) v_retry_policy
@@ -1539,7 +1542,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_delivery_property then bnds
+         if Stdlib.( = ) [] v_delivery_property then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delivery_property)
@@ -1549,7 +1552,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_delivery_identity then bnds
+         if Stdlib.( = ) [] v_delivery_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delivery_identity)
@@ -1559,7 +1562,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dead_letter_identity then bnds
+         if Stdlib.( = ) [] v_dead_letter_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dead_letter_identity)
@@ -1569,7 +1572,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_function_endpoint then bnds
+         if Stdlib.( = ) [] v_azure_function_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_function_endpoint)
@@ -1579,7 +1582,7 @@ let yojson_of_azurerm_eventgrid_system_topic_event_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_filter then bnds
+         if Stdlib.( = ) [] v_advanced_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_filter)

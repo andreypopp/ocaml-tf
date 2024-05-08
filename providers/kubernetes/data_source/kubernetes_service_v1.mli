@@ -10,7 +10,7 @@ type spec__session_affinity_config__client_ip = {
 
 type spec__session_affinity_config = {
   client_ip : spec__session_affinity_config__client_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** client_ip *)
 }
 
@@ -28,10 +28,10 @@ type spec = {
       (** allocate_load_balancer_node_ports *)
   cluster_ip : string prop;  (** cluster_ip *)
   cluster_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cluster_ips *)
   external_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** external_ips *)
   external_name : string prop;  (** external_name *)
   external_traffic_policy : string prop;
@@ -40,22 +40,23 @@ type spec = {
   internal_traffic_policy : string prop;
       (** internal_traffic_policy *)
   ip_families : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_families *)
   ip_family_policy : string prop;  (** ip_family_policy *)
   load_balancer_class : string prop;  (** load_balancer_class *)
   load_balancer_ip : string prop;  (** load_balancer_ip *)
   load_balancer_source_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** load_balancer_source_ranges *)
-  port : spec__port list; [@default []] [@yojson_drop_default ( = )]
+  port : spec__port list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** port *)
   publish_not_ready_addresses : bool prop;
       (** publish_not_ready_addresses *)
   selector : (string * string prop) list;  (** selector *)
   session_affinity : string prop;  (** session_affinity *)
   session_affinity_config : spec__session_affinity_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** session_affinity_config *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -67,13 +68,13 @@ type status__load_balancer__ingress = {
 
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ingress *)
 }
 
 type status = {
   load_balancer : status__load_balancer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** load_balancer *)
 }
 

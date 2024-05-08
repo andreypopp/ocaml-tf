@@ -165,7 +165,7 @@ type mysql_profile = {
   port : float prop option; [@option]
   username : string prop;
   ssl_config : mysql_profile__ssl_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +184,7 @@ let yojson_of_mysql_profile =
          []
        in
        let bnds =
-         if [] = v_ssl_config then bnds
+         if Stdlib.( = ) [] v_ssl_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mysql_profile__ssl_config)
@@ -427,19 +427,19 @@ type google_datastream_connection_profile = {
   location : string prop;
   project : string prop option; [@option]
   bigquery_profile : bigquery_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forward_ssh_connectivity : forward_ssh_connectivity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gcs_profile : gcs_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mysql_profile : mysql_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oracle_profile : oracle_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql_profile : postgresql_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_connectivity : private_connectivity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -472,7 +472,7 @@ let yojson_of_google_datastream_connection_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_private_connectivity then bnds
+         if Stdlib.( = ) [] v_private_connectivity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_connectivity)
@@ -482,7 +482,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_postgresql_profile then bnds
+         if Stdlib.( = ) [] v_postgresql_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_postgresql_profile)
@@ -492,7 +492,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oracle_profile then bnds
+         if Stdlib.( = ) [] v_oracle_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oracle_profile)
@@ -502,7 +502,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mysql_profile then bnds
+         if Stdlib.( = ) [] v_mysql_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mysql_profile) v_mysql_profile
@@ -511,7 +511,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs_profile then bnds
+         if Stdlib.( = ) [] v_gcs_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gcs_profile) v_gcs_profile
@@ -520,7 +520,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forward_ssh_connectivity then bnds
+         if Stdlib.( = ) [] v_forward_ssh_connectivity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_forward_ssh_connectivity)
@@ -530,7 +530,7 @@ let yojson_of_google_datastream_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bigquery_profile then bnds
+         if Stdlib.( = ) [] v_bigquery_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_profile)

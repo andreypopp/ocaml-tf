@@ -5,7 +5,8 @@ open! Tf_core
 type cloudflare_teams_proxy_endpoint = {
   account_id : string prop;
   id : string prop option; [@option]
-  ips : string prop list; [@default []] [@yojson_drop_default ( = )]
+  ips : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -28,7 +29,7 @@ let yojson_of_cloudflare_teams_proxy_endpoint =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_ips then bnds
+         if Stdlib.( = ) [] v_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string)) v_ips

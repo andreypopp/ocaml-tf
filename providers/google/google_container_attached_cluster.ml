@@ -126,7 +126,7 @@ let _ = yojson_of_logging_config__component_config
 
 type logging_config = {
   component_config : logging_config__component_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -139,7 +139,7 @@ let yojson_of_logging_config =
          []
        in
        let bnds =
-         if [] = v_component_config then bnds
+         if Stdlib.( = ) [] v_component_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -188,7 +188,7 @@ let _ = yojson_of_monitoring_config__managed_prometheus_config
 type monitoring_config = {
   managed_prometheus_config :
     monitoring_config__managed_prometheus_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_monitoring_config =
          []
        in
        let bnds =
-         if [] = v_managed_prometheus_config then bnds
+         if Stdlib.( = ) [] v_managed_prometheus_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -283,7 +283,7 @@ let _ = yojson_of_proxy_config__kubernetes_secret
 
 type proxy_config = {
   kubernetes_secret : proxy_config__kubernetes_secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,7 +296,7 @@ let yojson_of_proxy_config =
          []
        in
        let bnds =
-         if [] = v_kubernetes_secret then bnds
+         if Stdlib.( = ) [] v_kubernetes_secret then bnds
          else
            let arg =
              (yojson_of_list
@@ -431,18 +431,19 @@ type google_container_attached_cluster = {
   platform_version : string prop;
   project : string prop option; [@option]
   authorization : authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   binary_authorization : binary_authorization list;
-      [@default []] [@yojson_drop_default ( = )]
-  fleet : fleet list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  fleet : fleet list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logging_config : logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitoring_config : monitoring_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oidc_config : oidc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy_config : proxy_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -478,7 +479,7 @@ let yojson_of_google_container_attached_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_proxy_config then bnds
+         if Stdlib.( = ) [] v_proxy_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_proxy_config) v_proxy_config
@@ -487,7 +488,7 @@ let yojson_of_google_container_attached_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oidc_config then bnds
+         if Stdlib.( = ) [] v_oidc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oidc_config) v_oidc_config
@@ -496,7 +497,7 @@ let yojson_of_google_container_attached_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitoring_config then bnds
+         if Stdlib.( = ) [] v_monitoring_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitoring_config)
@@ -506,7 +507,7 @@ let yojson_of_google_container_attached_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_config)
@@ -516,14 +517,14 @@ let yojson_of_google_container_attached_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fleet then bnds
+         if Stdlib.( = ) [] v_fleet then bnds
          else
            let arg = (yojson_of_list yojson_of_fleet) v_fleet in
            let bnd = "fleet", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_binary_authorization then bnds
+         if Stdlib.( = ) [] v_binary_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_binary_authorization)
@@ -533,7 +534,7 @@ let yojson_of_google_container_attached_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorization then bnds
+         if Stdlib.( = ) [] v_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization) v_authorization

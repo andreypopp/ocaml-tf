@@ -26,7 +26,8 @@ let _ = yojson_of_dictionary__cloud_storage_path
 [@@@deriving.end]
 
 type dictionary__word_list = {
-  words : string prop list; [@default []] [@yojson_drop_default ( = )]
+  words : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +40,7 @@ let yojson_of_dictionary__word_list =
          []
        in
        let bnds =
-         if [] = v_words then bnds
+         if Stdlib.( = ) [] v_words then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -57,9 +58,9 @@ let _ = yojson_of_dictionary__word_list
 
 type dictionary = {
   cloud_storage_path : dictionary__cloud_storage_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   word_list : dictionary__word_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +76,7 @@ let yojson_of_dictionary =
          []
        in
        let bnds =
-         if [] = v_word_list then bnds
+         if Stdlib.( = ) [] v_word_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dictionary__word_list)
@@ -85,7 +86,7 @@ let yojson_of_dictionary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_storage_path then bnds
+         if Stdlib.( = ) [] v_cloud_storage_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dictionary__cloud_storage_path)
@@ -169,9 +170,9 @@ let _ = yojson_of_large_custom_dictionary__big_query_field__table
 
 type large_custom_dictionary__big_query_field = {
   field : large_custom_dictionary__big_query_field__field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   table : large_custom_dictionary__big_query_field__table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +185,7 @@ let yojson_of_large_custom_dictionary__big_query_field =
          []
        in
        let bnds =
-         if [] = v_table then bnds
+         if Stdlib.( = ) [] v_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -195,7 +196,7 @@ let yojson_of_large_custom_dictionary__big_query_field =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field then bnds
+         if Stdlib.( = ) [] v_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -264,12 +265,12 @@ let _ = yojson_of_large_custom_dictionary__output_path
 
 type large_custom_dictionary = {
   big_query_field : large_custom_dictionary__big_query_field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_storage_file_set :
     large_custom_dictionary__cloud_storage_file_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_path : large_custom_dictionary__output_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,7 +287,7 @@ let yojson_of_large_custom_dictionary =
          []
        in
        let bnds =
-         if [] = v_output_path then bnds
+         if Stdlib.( = ) [] v_output_path then bnds
          else
            let arg =
              (yojson_of_list
@@ -297,7 +298,7 @@ let yojson_of_large_custom_dictionary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_storage_file_set then bnds
+         if Stdlib.( = ) [] v_cloud_storage_file_set then bnds
          else
            let arg =
              (yojson_of_list
@@ -308,7 +309,7 @@ let yojson_of_large_custom_dictionary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_big_query_field then bnds
+         if Stdlib.( = ) [] v_big_query_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -413,10 +414,11 @@ type google_data_loss_prevention_stored_info_type = {
   parent : string prop;
   stored_info_type_id : string prop option; [@option]
   dictionary : dictionary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   large_custom_dictionary : large_custom_dictionary list;
-      [@default []] [@yojson_drop_default ( = )]
-  regex : regex list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  regex : regex list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -444,14 +446,14 @@ let yojson_of_google_data_loss_prevention_stored_info_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_regex then bnds
+         if Stdlib.( = ) [] v_regex then bnds
          else
            let arg = (yojson_of_list yojson_of_regex) v_regex in
            let bnd = "regex", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_large_custom_dictionary then bnds
+         if Stdlib.( = ) [] v_large_custom_dictionary then bnds
          else
            let arg =
              (yojson_of_list yojson_of_large_custom_dictionary)
@@ -461,7 +463,7 @@ let yojson_of_google_data_loss_prevention_stored_info_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dictionary then bnds
+         if Stdlib.( = ) [] v_dictionary then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dictionary) v_dictionary

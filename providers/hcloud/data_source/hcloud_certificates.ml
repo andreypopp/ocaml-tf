@@ -6,7 +6,7 @@ type certificates = {
   certificate : string prop;
   created : string prop;
   domain_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fingerprint : string prop;
   id : float prop;
   labels : (string * string prop) list;
@@ -77,7 +77,7 @@ let yojson_of_certificates =
          ("fingerprint", arg) :: bnds
        in
        let bnds =
-         if [] = v_domain_names then bnds
+         if Stdlib.( = ) [] v_domain_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

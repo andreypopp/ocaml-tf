@@ -189,9 +189,9 @@ type source = {
   owner : string prop;
   source_identifier : string prop option; [@option]
   custom_policy_details : source__custom_policy_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_detail : source__source_detail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,7 +209,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_source_detail then bnds
+         if Stdlib.( = ) [] v_source_detail then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__source_detail)
@@ -219,7 +219,7 @@ let yojson_of_source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_policy_details then bnds
+         if Stdlib.( = ) [] v_custom_policy_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__custom_policy_details)
@@ -256,9 +256,11 @@ type aws_config_config_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   evaluation_mode : evaluation_mode list;
-      [@default []] [@yojson_drop_default ( = )]
-  scope : scope list; [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  scope : scope list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,21 +284,21 @@ let yojson_of_aws_config_config_rule =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scope then bnds
+         if Stdlib.( = ) [] v_scope then bnds
          else
            let arg = (yojson_of_list yojson_of_scope) v_scope in
            let bnd = "scope", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_evaluation_mode then bnds
+         if Stdlib.( = ) [] v_evaluation_mode then bnds
          else
            let arg =
              (yojson_of_list yojson_of_evaluation_mode)

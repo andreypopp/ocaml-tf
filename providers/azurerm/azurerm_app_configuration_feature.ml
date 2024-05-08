@@ -37,7 +37,7 @@ type targeting_filter = {
   default_rollout_percentage : float prop;
   users : string prop list option; [@option]
   groups : targeting_filter__groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_targeting_filter =
          []
        in
        let bnds =
-         if [] = v_groups then bnds
+         if Stdlib.( = ) [] v_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_targeting_filter__groups)
@@ -197,10 +197,10 @@ type azurerm_app_configuration_feature = {
   percentage_filter_value : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   targeting_filter : targeting_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   timewindow_filter : timewindow_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,7 +228,7 @@ let yojson_of_azurerm_app_configuration_feature =
          []
        in
        let bnds =
-         if [] = v_timewindow_filter then bnds
+         if Stdlib.( = ) [] v_timewindow_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_timewindow_filter)
@@ -242,7 +242,7 @@ let yojson_of_azurerm_app_configuration_feature =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_targeting_filter then bnds
+         if Stdlib.( = ) [] v_targeting_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_targeting_filter)

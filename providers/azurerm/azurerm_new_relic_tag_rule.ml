@@ -138,9 +138,9 @@ type azurerm_new_relic_tag_rule = {
   monitor_id : string prop;
   subscription_log_enabled : bool prop option; [@option]
   log_tag_filter : log_tag_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric_tag_filter : metric_tag_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -169,7 +169,7 @@ let yojson_of_azurerm_new_relic_tag_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_metric_tag_filter then bnds
+         if Stdlib.( = ) [] v_metric_tag_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metric_tag_filter)
@@ -179,7 +179,7 @@ let yojson_of_azurerm_new_relic_tag_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_tag_filter then bnds
+         if Stdlib.( = ) [] v_log_tag_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_tag_filter)

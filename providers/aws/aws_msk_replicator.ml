@@ -32,7 +32,7 @@ let _ = yojson_of_kafka_cluster__amazon_msk_cluster
 type kafka_cluster__vpc_config = {
   security_groups_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_kafka_cluster__vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -76,9 +76,9 @@ let _ = yojson_of_kafka_cluster__vpc_config
 
 type kafka_cluster = {
   amazon_msk_cluster : kafka_cluster__amazon_msk_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : kafka_cluster__vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,7 +94,7 @@ let yojson_of_kafka_cluster =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kafka_cluster__vpc_config)
@@ -104,7 +104,7 @@ let yojson_of_kafka_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_amazon_msk_cluster then bnds
+         if Stdlib.( = ) [] v_amazon_msk_cluster then bnds
          else
            let arg =
              (yojson_of_list
@@ -124,7 +124,7 @@ let _ = yojson_of_kafka_cluster
 type replication_info_list__consumer_group_replication = {
   consumer_groups_to_exclude : string prop list option; [@option]
   consumer_groups_to_replicate : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   detect_and_copy_new_consumer_groups : bool prop option; [@option]
   synchronise_consumer_group_offsets : bool prop option; [@option]
 }
@@ -163,7 +163,7 @@ let yojson_of_replication_info_list__consumer_group_replication =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_consumer_groups_to_replicate then bnds
+         if Stdlib.( = ) [] v_consumer_groups_to_replicate then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -196,7 +196,7 @@ type replication_info_list__topic_replication = {
   detect_and_copy_new_topics : bool prop option; [@option]
   topics_to_exclude : string prop list option; [@option]
   topics_to_replicate : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,7 +216,7 @@ let yojson_of_replication_info_list__topic_replication =
          []
        in
        let bnds =
-         if [] = v_topics_to_replicate then bnds
+         if Stdlib.( = ) [] v_topics_to_replicate then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -273,9 +273,9 @@ type replication_info_list = {
   target_kafka_cluster_arn : string prop;
   consumer_group_replication :
     replication_info_list__consumer_group_replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   topic_replication : replication_info_list__topic_replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,7 +294,7 @@ let yojson_of_replication_info_list =
          []
        in
        let bnds =
-         if [] = v_topic_replication then bnds
+         if Stdlib.( = ) [] v_topic_replication then bnds
          else
            let arg =
              (yojson_of_list
@@ -305,7 +305,7 @@ let yojson_of_replication_info_list =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_consumer_group_replication then bnds
+         if Stdlib.( = ) [] v_consumer_group_replication then bnds
          else
            let arg =
              (yojson_of_list
@@ -394,9 +394,9 @@ type aws_msk_replicator = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   kafka_cluster : kafka_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   replication_info_list : replication_info_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -424,7 +424,7 @@ let yojson_of_aws_msk_replicator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_replication_info_list then bnds
+         if Stdlib.( = ) [] v_replication_info_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_replication_info_list)
@@ -434,7 +434,7 @@ let yojson_of_aws_msk_replicator =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kafka_cluster then bnds
+         if Stdlib.( = ) [] v_kafka_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kafka_cluster) v_kafka_cluster

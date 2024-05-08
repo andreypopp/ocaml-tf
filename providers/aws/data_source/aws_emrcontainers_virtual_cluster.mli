@@ -10,14 +10,14 @@ type container_provider__info__eks_info = {
 
 type container_provider__info = {
   eks_info : container_provider__info__eks_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** eks_info *)
 }
 
 type container_provider = {
   id : string prop;  (** id *)
   info : container_provider__info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** info *)
   type_ : string prop; [@key "type"]  (** type *)
 }

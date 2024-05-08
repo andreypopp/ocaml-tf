@@ -167,10 +167,11 @@ let _ = yojson_of_subject
 type kubernetes_cluster_role_binding_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   role_ref : role_ref list;
-      [@default []] [@yojson_drop_default ( = )]
-  subject : subject list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  subject : subject list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,14 +189,14 @@ let yojson_of_kubernetes_cluster_role_binding_v1 =
          []
        in
        let bnds =
-         if [] = v_subject then bnds
+         if Stdlib.( = ) [] v_subject then bnds
          else
            let arg = (yojson_of_list yojson_of_subject) v_subject in
            let bnd = "subject", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_role_ref then bnds
+         if Stdlib.( = ) [] v_role_ref then bnds
          else
            let arg =
              (yojson_of_list yojson_of_role_ref) v_role_ref
@@ -204,7 +205,7 @@ let yojson_of_kubernetes_cluster_role_binding_v1 =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

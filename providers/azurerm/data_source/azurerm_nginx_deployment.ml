@@ -70,7 +70,7 @@ let _ = yojson_of_frontend_private
 
 type frontend_public = {
   ip_address : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,7 +83,7 @@ let yojson_of_frontend_public =
          []
        in
        let bnds =
-         if [] = v_ip_address then bnds
+         if Stdlib.( = ) [] v_ip_address then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -101,7 +101,7 @@ let _ = yojson_of_frontend_public
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -134,7 +134,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

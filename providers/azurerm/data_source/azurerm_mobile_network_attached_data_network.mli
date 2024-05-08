@@ -14,7 +14,7 @@ type network_address_port_translation = {
       (** icmp_pinhole_timeout_in_seconds *)
   pinhole_maximum_number : float prop;  (** pinhole_maximum_number *)
   port_range : network_address_port_translation__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** port_range *)
   tcp_pinhole_timeout_in_seconds : float prop;
       (** tcp_pinhole_timeout_in_seconds *)

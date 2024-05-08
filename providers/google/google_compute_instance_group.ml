@@ -83,7 +83,7 @@ type google_compute_instance_group = {
   project : string prop option; [@option]
   zone : string prop option; [@option]
   named_port : named_port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -111,7 +111,7 @@ let yojson_of_google_compute_instance_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_named_port then bnds
+         if Stdlib.( = ) [] v_named_port then bnds
          else
            let arg =
              (yojson_of_list yojson_of_named_port) v_named_port

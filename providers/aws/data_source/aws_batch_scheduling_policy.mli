@@ -13,7 +13,7 @@ type fair_share_policy = {
   compute_reservation : float prop;  (** compute_reservation *)
   share_decay_seconds : float prop;  (** share_decay_seconds *)
   share_distribution : fair_share_policy__share_distribution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** share_distribution *)
 }
 

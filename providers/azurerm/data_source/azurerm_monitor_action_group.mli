@@ -86,7 +86,7 @@ type webhook_receiver__aad_auth = {
 
 type webhook_receiver = {
   aad_auth : webhook_receiver__aad_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** aad_auth *)
   name : string prop;  (** name *)
   service_uri : string prop;  (** service_uri *)

@@ -251,9 +251,10 @@ type azurerm_sql_database = {
   source_database_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
-  import : import list; [@default []] [@yojson_drop_default ( = )]
+  import : import list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threat_detection_policy : threat_detection_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -297,7 +298,7 @@ let yojson_of_azurerm_sql_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threat_detection_policy then bnds
+         if Stdlib.( = ) [] v_threat_detection_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threat_detection_policy)
@@ -307,7 +308,7 @@ let yojson_of_azurerm_sql_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_import then bnds
+         if Stdlib.( = ) [] v_import then bnds
          else
            let arg = (yojson_of_list yojson_of_import) v_import in
            let bnd = "import", arg in

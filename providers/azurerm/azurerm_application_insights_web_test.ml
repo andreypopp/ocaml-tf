@@ -69,7 +69,7 @@ type azurerm_application_insights_web_test = {
   enabled : bool prop option; [@option]
   frequency : float prop option; [@option]
   geo_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   kind : string prop;
   location : string prop;
@@ -169,7 +169,7 @@ let yojson_of_azurerm_application_insights_web_test =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_geo_locations then bnds
+         if Stdlib.( = ) [] v_geo_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

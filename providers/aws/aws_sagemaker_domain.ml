@@ -116,11 +116,11 @@ type default_space_settings__jupyter_server_app_settings = {
   code_repository :
     default_space_settings__jupyter_server_app_settings__code_repository
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_space_settings__jupyter_server_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +138,7 @@ let yojson_of_default_space_settings__jupyter_server_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -149,7 +149,7 @@ let yojson_of_default_space_settings__jupyter_server_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -309,11 +309,11 @@ type default_space_settings__kernel_gateway_app_settings = {
   custom_image :
     default_space_settings__kernel_gateway_app_settings__custom_image
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_space_settings__kernel_gateway_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -331,7 +331,7 @@ let yojson_of_default_space_settings__kernel_gateway_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -342,7 +342,7 @@ let yojson_of_default_space_settings__kernel_gateway_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_image then bnds
+         if Stdlib.( = ) [] v_custom_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -375,10 +375,10 @@ type default_space_settings = {
   security_groups : string prop list option; [@option]
   jupyter_server_app_settings :
     default_space_settings__jupyter_server_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_gateway_app_settings :
     default_space_settings__kernel_gateway_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -396,7 +396,7 @@ let yojson_of_default_space_settings =
          []
        in
        let bnds =
-         if [] = v_kernel_gateway_app_settings then bnds
+         if Stdlib.( = ) [] v_kernel_gateway_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -407,7 +407,7 @@ let yojson_of_default_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_server_app_settings then bnds
+         if Stdlib.( = ) [] v_jupyter_server_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -706,26 +706,26 @@ type default_user_settings__canvas_app_settings = {
   direct_deploy_settings :
     default_user_settings__canvas_app_settings__direct_deploy_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity_provider_oauth_settings :
     default_user_settings__canvas_app_settings__identity_provider_oauth_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kendra_settings :
     default_user_settings__canvas_app_settings__kendra_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   model_register_settings :
     default_user_settings__canvas_app_settings__model_register_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_series_forecasting_settings :
     default_user_settings__canvas_app_settings__time_series_forecasting_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workspace_settings :
     default_user_settings__canvas_app_settings__workspace_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -747,7 +747,7 @@ let yojson_of_default_user_settings__canvas_app_settings =
          []
        in
        let bnds =
-         if [] = v_workspace_settings then bnds
+         if Stdlib.( = ) [] v_workspace_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -758,7 +758,8 @@ let yojson_of_default_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_time_series_forecasting_settings then bnds
+         if Stdlib.( = ) [] v_time_series_forecasting_settings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -769,7 +770,7 @@ let yojson_of_default_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_model_register_settings then bnds
+         if Stdlib.( = ) [] v_model_register_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -780,7 +781,7 @@ let yojson_of_default_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kendra_settings then bnds
+         if Stdlib.( = ) [] v_kendra_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -791,7 +792,8 @@ let yojson_of_default_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity_provider_oauth_settings then bnds
+         if Stdlib.( = ) [] v_identity_provider_oauth_settings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -802,7 +804,7 @@ let yojson_of_default_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_direct_deploy_settings then bnds
+         if Stdlib.( = ) [] v_direct_deploy_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -902,7 +904,7 @@ type default_user_settings__code_editor_app_settings = {
   default_resource_spec :
     default_user_settings__code_editor_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -919,7 +921,7 @@ let yojson_of_default_user_settings__code_editor_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -993,7 +995,7 @@ type default_user_settings__custom_file_system_config = {
   efs_file_system_config :
     default_user_settings__custom_file_system_config__efs_file_system_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1007,7 +1009,7 @@ let yojson_of_default_user_settings__custom_file_system_config =
          []
        in
        let bnds =
-         if [] = v_efs_file_system_config then bnds
+         if Stdlib.( = ) [] v_efs_file_system_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1220,15 +1222,15 @@ type default_user_settings__jupyter_lab_app_settings = {
   code_repository :
     default_user_settings__jupyter_lab_app_settings__code_repository
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_image :
     default_user_settings__jupyter_lab_app_settings__custom_image
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_user_settings__jupyter_lab_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1247,7 +1249,7 @@ let yojson_of_default_user_settings__jupyter_lab_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -1258,7 +1260,7 @@ let yojson_of_default_user_settings__jupyter_lab_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_image then bnds
+         if Stdlib.( = ) [] v_custom_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1269,7 +1271,7 @@ let yojson_of_default_user_settings__jupyter_lab_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -1411,11 +1413,11 @@ type default_user_settings__jupyter_server_app_settings = {
   code_repository :
     default_user_settings__jupyter_server_app_settings__code_repository
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_user_settings__jupyter_server_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1433,7 +1435,7 @@ let yojson_of_default_user_settings__jupyter_server_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -1444,7 +1446,7 @@ let yojson_of_default_user_settings__jupyter_server_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -1604,11 +1606,11 @@ type default_user_settings__kernel_gateway_app_settings = {
   custom_image :
     default_user_settings__kernel_gateway_app_settings__custom_image
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_user_settings__kernel_gateway_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1626,7 +1628,7 @@ let yojson_of_default_user_settings__kernel_gateway_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -1637,7 +1639,7 @@ let yojson_of_default_user_settings__kernel_gateway_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_image then bnds
+         if Stdlib.( = ) [] v_custom_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1795,11 +1797,11 @@ let _ =
 type default_user_settings__r_session_app_settings = {
   custom_image :
     default_user_settings__r_session_app_settings__custom_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     default_user_settings__r_session_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1815,7 +1817,7 @@ let yojson_of_default_user_settings__r_session_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -1826,7 +1828,7 @@ let yojson_of_default_user_settings__r_session_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_image then bnds
+         if Stdlib.( = ) [] v_custom_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1988,7 +1990,7 @@ type default_user_settings__space_storage_settings = {
   default_ebs_storage_settings :
     default_user_settings__space_storage_settings__default_ebs_storage_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2003,7 +2005,7 @@ let yojson_of_default_user_settings__space_storage_settings =
          []
        in
        let bnds =
-         if [] = v_default_ebs_storage_settings then bnds
+         if Stdlib.( = ) [] v_default_ebs_storage_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2102,7 +2104,7 @@ type default_user_settings__tensor_board_app_settings = {
   default_resource_spec :
     default_user_settings__tensor_board_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2116,7 +2118,7 @@ let yojson_of_default_user_settings__tensor_board_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -2141,39 +2143,39 @@ type default_user_settings = {
   studio_web_portal : string prop option; [@option]
   canvas_app_settings :
     default_user_settings__canvas_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   code_editor_app_settings :
     default_user_settings__code_editor_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_file_system_config :
     default_user_settings__custom_file_system_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_posix_user_config :
     default_user_settings__custom_posix_user_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jupyter_lab_app_settings :
     default_user_settings__jupyter_lab_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jupyter_server_app_settings :
     default_user_settings__jupyter_server_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_gateway_app_settings :
     default_user_settings__kernel_gateway_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   r_session_app_settings :
     default_user_settings__r_session_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   r_studio_server_pro_app_settings :
     default_user_settings__r_studio_server_pro_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sharing_settings : default_user_settings__sharing_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   space_storage_settings :
     default_user_settings__space_storage_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tensor_board_app_settings :
     default_user_settings__tensor_board_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2204,7 +2206,7 @@ let yojson_of_default_user_settings =
          []
        in
        let bnds =
-         if [] = v_tensor_board_app_settings then bnds
+         if Stdlib.( = ) [] v_tensor_board_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2215,7 +2217,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_space_storage_settings then bnds
+         if Stdlib.( = ) [] v_space_storage_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2226,7 +2228,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sharing_settings then bnds
+         if Stdlib.( = ) [] v_sharing_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2237,7 +2239,8 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_r_studio_server_pro_app_settings then bnds
+         if Stdlib.( = ) [] v_r_studio_server_pro_app_settings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2248,7 +2251,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_r_session_app_settings then bnds
+         if Stdlib.( = ) [] v_r_session_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2259,7 +2262,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kernel_gateway_app_settings then bnds
+         if Stdlib.( = ) [] v_kernel_gateway_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2270,7 +2273,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_server_app_settings then bnds
+         if Stdlib.( = ) [] v_jupyter_server_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2281,7 +2284,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_lab_app_settings then bnds
+         if Stdlib.( = ) [] v_jupyter_lab_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2292,7 +2295,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_posix_user_config then bnds
+         if Stdlib.( = ) [] v_custom_posix_user_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2303,7 +2306,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_file_system_config then bnds
+         if Stdlib.( = ) [] v_custom_file_system_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2314,7 +2317,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_editor_app_settings then bnds
+         if Stdlib.( = ) [] v_code_editor_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2325,7 +2328,7 @@ let yojson_of_default_user_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_canvas_app_settings then bnds
+         if Stdlib.( = ) [] v_canvas_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2458,7 +2461,7 @@ type domain_settings__r_studio_server_pro_domain_settings = {
   default_resource_spec :
     domain_settings__r_studio_server_pro_domain_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2477,7 +2480,7 @@ let yojson_of_domain_settings__r_studio_server_pro_domain_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -2524,7 +2527,7 @@ type domain_settings = {
   security_group_ids : string prop list option; [@option]
   r_studio_server_pro_domain_settings :
     domain_settings__r_studio_server_pro_domain_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2543,7 +2546,8 @@ let yojson_of_domain_settings =
          []
        in
        let bnds =
-         if [] = v_r_studio_server_pro_domain_settings then bnds
+         if Stdlib.( = ) [] v_r_studio_server_pro_domain_settings
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -2614,18 +2618,18 @@ type aws_sagemaker_domain = {
   id : string prop option; [@option]
   kms_key_id : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vpc_id : string prop;
   default_space_settings : default_space_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_user_settings : default_user_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_settings : domain_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_policy : retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2654,7 +2658,7 @@ let yojson_of_aws_sagemaker_domain =
          []
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_policy)
@@ -2664,7 +2668,7 @@ let yojson_of_aws_sagemaker_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_domain_settings then bnds
+         if Stdlib.( = ) [] v_domain_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_domain_settings)
@@ -2674,7 +2678,7 @@ let yojson_of_aws_sagemaker_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_user_settings then bnds
+         if Stdlib.( = ) [] v_default_user_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_user_settings)
@@ -2684,7 +2688,7 @@ let yojson_of_aws_sagemaker_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_space_settings then bnds
+         if Stdlib.( = ) [] v_default_space_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_space_settings)
@@ -2730,7 +2734,7 @@ let yojson_of_aws_sagemaker_domain =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

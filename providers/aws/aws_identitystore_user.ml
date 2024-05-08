@@ -305,11 +305,12 @@ type aws_identitystore_user = {
   user_name : string prop;
   user_type : string prop option; [@option]
   addresses : addresses list;
-      [@default []] [@yojson_drop_default ( = )]
-  emails : emails list; [@default []] [@yojson_drop_default ( = )]
-  name : name list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  emails : emails list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  name : name list; [@default []] [@yojson_drop_default Stdlib.( = )]
   phone_numbers : phone_numbers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -338,7 +339,7 @@ let yojson_of_aws_identitystore_user =
          []
        in
        let bnds =
-         if [] = v_phone_numbers then bnds
+         if Stdlib.( = ) [] v_phone_numbers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_phone_numbers) v_phone_numbers
@@ -347,21 +348,21 @@ let yojson_of_aws_identitystore_user =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_name then bnds
+         if Stdlib.( = ) [] v_name then bnds
          else
            let arg = (yojson_of_list yojson_of_name) v_name in
            let bnd = "name", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_emails then bnds
+         if Stdlib.( = ) [] v_emails then bnds
          else
            let arg = (yojson_of_list yojson_of_emails) v_emails in
            let bnd = "emails", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_addresses then bnds
+         if Stdlib.( = ) [] v_addresses then bnds
          else
            let arg =
              (yojson_of_list yojson_of_addresses) v_addresses

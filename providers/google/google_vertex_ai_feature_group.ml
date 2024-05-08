@@ -28,7 +28,7 @@ let _ = yojson_of_big_query__big_query_source
 type big_query = {
   entity_id_columns : string prop list option; [@option]
   big_query_source : big_query__big_query_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,7 +44,7 @@ let yojson_of_big_query =
          []
        in
        let bnds =
-         if [] = v_big_query_source then bnds
+         if Stdlib.( = ) [] v_big_query_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_big_query__big_query_source)
@@ -124,7 +124,7 @@ type google_vertex_ai_feature_group = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   big_query : big_query list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -151,7 +151,7 @@ let yojson_of_google_vertex_ai_feature_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_big_query then bnds
+         if Stdlib.( = ) [] v_big_query then bnds
          else
            let arg =
              (yojson_of_list yojson_of_big_query) v_big_query

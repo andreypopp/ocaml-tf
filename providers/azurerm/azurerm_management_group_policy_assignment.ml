@@ -118,7 +118,7 @@ let _ = yojson_of_overrides__selectors
 type overrides = {
   value : string prop;
   selectors : overrides__selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -131,7 +131,7 @@ let yojson_of_overrides =
          []
        in
        let bnds =
-         if [] = v_selectors then bnds
+         if Stdlib.( = ) [] v_selectors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_overrides__selectors)
@@ -201,7 +201,7 @@ let _ = yojson_of_resource_selectors__selectors
 type resource_selectors = {
   name : string prop option; [@option]
   selectors : resource_selectors__selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,7 +214,7 @@ let yojson_of_resource_selectors =
          []
        in
        let bnds =
-         if [] = v_selectors then bnds
+         if Stdlib.( = ) [] v_selectors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_selectors__selectors)
@@ -311,13 +311,13 @@ type azurerm_management_group_policy_assignment = {
   parameters : string prop option; [@option]
   policy_definition_id : string prop;
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   non_compliance_message : non_compliance_message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   overrides : overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_selectors : resource_selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -352,7 +352,7 @@ let yojson_of_azurerm_management_group_policy_assignment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_selectors then bnds
+         if Stdlib.( = ) [] v_resource_selectors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_selectors)
@@ -362,7 +362,7 @@ let yojson_of_azurerm_management_group_policy_assignment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_overrides then bnds
+         if Stdlib.( = ) [] v_overrides then bnds
          else
            let arg =
              (yojson_of_list yojson_of_overrides) v_overrides
@@ -371,7 +371,7 @@ let yojson_of_azurerm_management_group_policy_assignment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_non_compliance_message then bnds
+         if Stdlib.( = ) [] v_non_compliance_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_non_compliance_message)
@@ -381,7 +381,7 @@ let yojson_of_azurerm_management_group_policy_assignment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

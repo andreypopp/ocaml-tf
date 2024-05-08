@@ -14,10 +14,10 @@ type azure_to_azure_settings = {
 type recovery_group__pre_action = {
   fabric_location : string prop;  (** fabric_location *)
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fail_over_directions *)
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fail_over_types *)
   manual_action_instruction : string prop;
       (** manual_action_instruction *)
@@ -30,10 +30,10 @@ type recovery_group__pre_action = {
 type recovery_group__post_action = {
   fabric_location : string prop;  (** fabric_location *)
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fail_over_directions *)
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fail_over_types *)
   manual_action_instruction : string prop;
       (** manual_action_instruction *)
@@ -45,13 +45,13 @@ type recovery_group__post_action = {
 
 type recovery_group = {
   post_action : recovery_group__post_action list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** post_action *)
   pre_action : recovery_group__pre_action list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pre_action *)
   replicated_protected_items : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** replicated_protected_items *)
   type_ : string prop; [@key "type"]  (** type *)
 }

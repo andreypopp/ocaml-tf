@@ -101,7 +101,7 @@ type async_inference_config__output_config = {
   s3_output_path : string prop;
   notification_config :
     async_inference_config__output_config__notification_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_async_inference_config__output_config =
          []
        in
        let bnds =
-         if [] = v_notification_config then bnds
+         if Stdlib.( = ) [] v_notification_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -161,9 +161,9 @@ let _ = yojson_of_async_inference_config__output_config
 
 type async_inference_config = {
   client_config : async_inference_config__client_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_config : async_inference_config__output_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,7 +179,7 @@ let yojson_of_async_inference_config =
          []
        in
        let bnds =
-         if [] = v_output_config then bnds
+         if Stdlib.( = ) [] v_output_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -190,7 +190,7 @@ let yojson_of_async_inference_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_config then bnds
+         if Stdlib.( = ) [] v_client_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -285,9 +285,9 @@ type data_capture_config = {
   kms_key_id : string prop option; [@option]
   capture_content_type_header :
     data_capture_config__capture_content_type_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   capture_options : data_capture_config__capture_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -307,7 +307,7 @@ let yojson_of_data_capture_config =
          []
        in
        let bnds =
-         if [] = v_capture_options then bnds
+         if Stdlib.( = ) [] v_capture_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -318,7 +318,7 @@ let yojson_of_data_capture_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capture_content_type_header then bnds
+         if Stdlib.( = ) [] v_capture_content_type_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -492,11 +492,11 @@ type production_variants = {
   variant_name : string prop option; [@option]
   volume_size_in_gb : float prop option; [@option]
   core_dump_config : production_variants__core_dump_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routing_config : production_variants__routing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   serverless_config : production_variants__serverless_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -525,7 +525,7 @@ let yojson_of_production_variants =
          []
        in
        let bnds =
-         if [] = v_serverless_config then bnds
+         if Stdlib.( = ) [] v_serverless_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -536,7 +536,7 @@ let yojson_of_production_variants =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_routing_config then bnds
+         if Stdlib.( = ) [] v_routing_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -547,7 +547,7 @@ let yojson_of_production_variants =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_core_dump_config then bnds
+         if Stdlib.( = ) [] v_core_dump_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -772,12 +772,12 @@ type shadow_production_variants = {
   volume_size_in_gb : float prop option; [@option]
   core_dump_config :
     shadow_production_variants__core_dump_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routing_config : shadow_production_variants__routing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   serverless_config :
     shadow_production_variants__serverless_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -806,7 +806,7 @@ let yojson_of_shadow_production_variants =
          []
        in
        let bnds =
-         if [] = v_serverless_config then bnds
+         if Stdlib.( = ) [] v_serverless_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -817,7 +817,7 @@ let yojson_of_shadow_production_variants =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_routing_config then bnds
+         if Stdlib.( = ) [] v_routing_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -828,7 +828,7 @@ let yojson_of_shadow_production_variants =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_core_dump_config then bnds
+         if Stdlib.( = ) [] v_core_dump_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -936,13 +936,13 @@ type aws_sagemaker_endpoint_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   async_inference_config : async_inference_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_capture_config : data_capture_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   production_variants : production_variants list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shadow_production_variants : shadow_production_variants list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -966,7 +966,7 @@ let yojson_of_aws_sagemaker_endpoint_configuration =
          []
        in
        let bnds =
-         if [] = v_shadow_production_variants then bnds
+         if Stdlib.( = ) [] v_shadow_production_variants then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shadow_production_variants)
@@ -976,7 +976,7 @@ let yojson_of_aws_sagemaker_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_production_variants then bnds
+         if Stdlib.( = ) [] v_production_variants then bnds
          else
            let arg =
              (yojson_of_list yojson_of_production_variants)
@@ -986,7 +986,7 @@ let yojson_of_aws_sagemaker_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_capture_config then bnds
+         if Stdlib.( = ) [] v_data_capture_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_capture_config)
@@ -996,7 +996,7 @@ let yojson_of_aws_sagemaker_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_async_inference_config then bnds
+         if Stdlib.( = ) [] v_async_inference_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_async_inference_config)

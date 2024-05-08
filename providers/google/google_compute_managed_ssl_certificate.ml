@@ -4,7 +4,7 @@ open! Tf_core
 
 type managed = {
   domains : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_managed =
          []
        in
        let bnds =
-         if [] = v_domains then bnds
+         if Stdlib.( = ) [] v_domains then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -77,7 +77,8 @@ type google_compute_managed_ssl_certificate = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-  managed : managed list; [@default []] [@yojson_drop_default ( = )]
+  managed : managed list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -104,7 +105,7 @@ let yojson_of_google_compute_managed_ssl_certificate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_managed then bnds
+         if Stdlib.( = ) [] v_managed then bnds
          else
            let arg = (yojson_of_list yojson_of_managed) v_managed in
            let bnd = "managed", arg in

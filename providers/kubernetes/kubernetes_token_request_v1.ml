@@ -152,7 +152,7 @@ type spec = {
   audiences : string prop list option; [@option]
   expiration_seconds : float prop option; [@option]
   bound_object_ref : spec__bound_object_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_bound_object_ref then bnds
+         if Stdlib.( = ) [] v_bound_object_ref then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__bound_object_ref)
@@ -206,8 +206,8 @@ let _ = yojson_of_spec
 type kubernetes_token_request_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,14 +220,14 @@ let yojson_of_kubernetes_token_request_v1 =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

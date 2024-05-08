@@ -73,9 +73,9 @@ type encryption_settings = {
   enabled : bool prop option; [@option]
   disk_encryption_key :
     encryption_settings__disk_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_encryption_key : encryption_settings__key_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,7 +92,7 @@ let yojson_of_encryption_settings =
          []
        in
        let bnds =
-         if [] = v_key_encryption_key then bnds
+         if Stdlib.( = ) [] v_key_encryption_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -103,7 +103,7 @@ let yojson_of_encryption_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_encryption_key then bnds
+         if Stdlib.( = ) [] v_disk_encryption_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -225,7 +225,7 @@ type azurerm_managed_disk = {
   upload_size_bytes : float prop option; [@option]
   zone : string prop option; [@option]
   encryption_settings : encryption_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -284,7 +284,7 @@ let yojson_of_azurerm_managed_disk =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_encryption_settings then bnds
+         if Stdlib.( = ) [] v_encryption_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_settings)

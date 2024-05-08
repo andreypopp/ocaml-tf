@@ -167,11 +167,11 @@ let _ = yojson_of_network_rulesets__ip_rule
 type network_rulesets = {
   default_action : string prop;
   ip_rule : network_rulesets__ip_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_network_access_enabled : bool prop;
   trusted_service_access_enabled : bool prop;
   virtual_network_rule : network_rulesets__virtual_network_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,7 +192,7 @@ let yojson_of_network_rulesets =
          []
        in
        let bnds =
-         if [] = v_virtual_network_rule then bnds
+         if Stdlib.( = ) [] v_virtual_network_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -217,7 +217,7 @@ let yojson_of_network_rulesets =
          ("public_network_access_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_rule then bnds
+         if Stdlib.( = ) [] v_ip_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rulesets__ip_rule)
@@ -256,7 +256,7 @@ type azurerm_eventhub_namespace = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -293,7 +293,7 @@ let yojson_of_azurerm_eventhub_namespace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

@@ -87,7 +87,7 @@ type dag_node = {
   line_number : float prop option; [@option]
   node_type : string prop;
   args : dag_node__args list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,7 +105,7 @@ let yojson_of_dag_node =
          []
        in
        let bnds =
-         if [] = v_args then bnds
+         if Stdlib.( = ) [] v_args then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dag_node__args) v_args
@@ -140,8 +140,9 @@ type aws_glue_script = {
   id : string prop option; [@option]
   language : string prop option; [@option]
   dag_edge : dag_edge list;
-      [@default []] [@yojson_drop_default ( = )]
-  dag_node : dag_node list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dag_node : dag_node list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -159,7 +160,7 @@ let yojson_of_aws_glue_script =
          []
        in
        let bnds =
-         if [] = v_dag_node then bnds
+         if Stdlib.( = ) [] v_dag_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dag_node) v_dag_node
@@ -168,7 +169,7 @@ let yojson_of_aws_glue_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dag_edge then bnds
+         if Stdlib.( = ) [] v_dag_edge then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dag_edge) v_dag_edge

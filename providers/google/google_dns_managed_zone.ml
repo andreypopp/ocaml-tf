@@ -90,7 +90,7 @@ type dnssec_config = {
   non_existence : string prop option; [@option]
   state : string prop option; [@option]
   default_key_specs : dnssec_config__default_key_specs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +108,7 @@ let yojson_of_dnssec_config =
          []
        in
        let bnds =
-         if [] = v_default_key_specs then bnds
+         if Stdlib.( = ) [] v_default_key_specs then bnds
          else
            let arg =
              (yojson_of_list
@@ -188,7 +188,7 @@ let _ = yojson_of_forwarding_config__target_name_servers
 
 type forwarding_config = {
   target_name_servers : forwarding_config__target_name_servers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_forwarding_config =
          []
        in
        let bnds =
-         if [] = v_target_name_servers then bnds
+         if Stdlib.( = ) [] v_target_name_servers then bnds
          else
            let arg =
              (yojson_of_list
@@ -243,7 +243,7 @@ let _ = yojson_of_peering_config__target_network
 
 type peering_config = {
   target_network : peering_config__target_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -256,7 +256,7 @@ let yojson_of_peering_config =
          []
        in
        let bnds =
-         if [] = v_target_network then bnds
+         if Stdlib.( = ) [] v_target_network then bnds
          else
            let arg =
              (yojson_of_list yojson_of_peering_config__target_network)
@@ -326,9 +326,9 @@ let _ = yojson_of_private_visibility_config__networks
 
 type private_visibility_config = {
   gke_clusters : private_visibility_config__gke_clusters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   networks : private_visibility_config__networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -341,7 +341,7 @@ let yojson_of_private_visibility_config =
          []
        in
        let bnds =
-         if [] = v_networks then bnds
+         if Stdlib.( = ) [] v_networks then bnds
          else
            let arg =
              (yojson_of_list
@@ -352,7 +352,7 @@ let yojson_of_private_visibility_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gke_clusters then bnds
+         if Stdlib.( = ) [] v_gke_clusters then bnds
          else
            let arg =
              (yojson_of_list
@@ -425,15 +425,15 @@ type google_dns_managed_zone = {
   project : string prop option; [@option]
   visibility : string prop option; [@option]
   cloud_logging_config : cloud_logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dnssec_config : dnssec_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarding_config : forwarding_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   peering_config : peering_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_visibility_config : private_visibility_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -466,7 +466,7 @@ let yojson_of_google_dns_managed_zone =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_private_visibility_config then bnds
+         if Stdlib.( = ) [] v_private_visibility_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_visibility_config)
@@ -476,7 +476,7 @@ let yojson_of_google_dns_managed_zone =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_peering_config then bnds
+         if Stdlib.( = ) [] v_peering_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_peering_config)
@@ -486,7 +486,7 @@ let yojson_of_google_dns_managed_zone =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarding_config then bnds
+         if Stdlib.( = ) [] v_forwarding_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_forwarding_config)
@@ -496,7 +496,7 @@ let yojson_of_google_dns_managed_zone =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dnssec_config then bnds
+         if Stdlib.( = ) [] v_dnssec_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dnssec_config) v_dnssec_config
@@ -505,7 +505,7 @@ let yojson_of_google_dns_managed_zone =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_logging_config then bnds
+         if Stdlib.( = ) [] v_cloud_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_logging_config)

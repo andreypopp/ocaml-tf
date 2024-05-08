@@ -62,7 +62,7 @@ type network_address_port_translation = {
   icmp_pinhole_timeout_in_seconds : float prop;
   pinhole_maximum_number : float prop;
   port_range : network_address_port_translation__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_pinhole_timeout_in_seconds : float prop;
   tcp_port_reuse_minimum_hold_time_in_seconds : float prop;
   udp_pinhole_timeout_in_seconds : float prop;
@@ -120,7 +120,7 @@ let yojson_of_network_address_port_translation =
          ("tcp_pinhole_timeout_in_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list

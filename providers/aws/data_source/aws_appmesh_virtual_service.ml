@@ -58,9 +58,9 @@ let _ = yojson_of_spec__provider__virtual_node
 
 type spec__provider = {
   virtual_node : spec__provider__virtual_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_router : spec__provider__virtual_router list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +76,7 @@ let yojson_of_spec__provider =
          []
        in
        let bnds =
-         if [] = v_virtual_router then bnds
+         if Stdlib.( = ) [] v_virtual_router then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__provider__virtual_router)
@@ -86,7 +86,7 @@ let yojson_of_spec__provider =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_virtual_node then bnds
+         if Stdlib.( = ) [] v_virtual_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__provider__virtual_node)
@@ -104,7 +104,7 @@ let _ = yojson_of_spec__provider
 
 type spec = {
   provider : spec__provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,7 +117,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_provider then bnds
+         if Stdlib.( = ) [] v_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__provider) v_provider

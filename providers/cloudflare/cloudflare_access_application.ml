@@ -244,7 +244,7 @@ type saas_app__custom_attribute = {
   name_format : string prop option; [@option]
   required : bool prop option; [@option]
   source : saas_app__custom_attribute__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -263,7 +263,7 @@ let yojson_of_saas_app__custom_attribute =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -325,7 +325,7 @@ type saas_app = {
   scopes : string prop list option; [@option]
   sp_entity_id : string prop option; [@option]
   custom_attribute : saas_app__custom_attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -351,7 +351,7 @@ let yojson_of_saas_app =
          []
        in
        let bnds =
-         if [] = v_custom_attribute then bnds
+         if Stdlib.( = ) [] v_custom_attribute then bnds
          else
            let arg =
              (yojson_of_list yojson_of_saas_app__custom_attribute)
@@ -489,12 +489,13 @@ type cloudflare_access_application = {
   type_ : string prop option; [@option] [@key "type"]
   zone_id : string prop option; [@option]
   cors_headers : cors_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   footer_links : footer_links list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   landing_page_design : landing_page_design list;
-      [@default []] [@yojson_drop_default ( = )]
-  saas_app : saas_app list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  saas_app : saas_app list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -538,7 +539,7 @@ let yojson_of_cloudflare_access_application =
          []
        in
        let bnds =
-         if [] = v_saas_app then bnds
+         if Stdlib.( = ) [] v_saas_app then bnds
          else
            let arg =
              (yojson_of_list yojson_of_saas_app) v_saas_app
@@ -547,7 +548,7 @@ let yojson_of_cloudflare_access_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_landing_page_design then bnds
+         if Stdlib.( = ) [] v_landing_page_design then bnds
          else
            let arg =
              (yojson_of_list yojson_of_landing_page_design)
@@ -557,7 +558,7 @@ let yojson_of_cloudflare_access_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_footer_links then bnds
+         if Stdlib.( = ) [] v_footer_links then bnds
          else
            let arg =
              (yojson_of_list yojson_of_footer_links) v_footer_links
@@ -566,7 +567,7 @@ let yojson_of_cloudflare_access_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors_headers then bnds
+         if Stdlib.( = ) [] v_cors_headers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cors_headers) v_cors_headers

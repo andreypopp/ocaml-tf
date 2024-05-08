@@ -42,7 +42,7 @@ let _ = yojson_of_properties__attribute_payload
 type properties = {
   description : string prop option; [@option]
   attribute_payload : properties__attribute_payload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_properties =
          []
        in
        let bnds =
-         if [] = v_attribute_payload then bnds
+         if Stdlib.( = ) [] v_attribute_payload then bnds
          else
            let arg =
              (yojson_of_list yojson_of_properties__attribute_payload)
@@ -116,7 +116,7 @@ type metadata = {
   creation_date : string prop;
   parent_group_name : string prop;
   root_to_parent_groups : metadata__root_to_parent_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         if [] = v_root_to_parent_groups then bnds
+         if Stdlib.( = ) [] v_root_to_parent_groups then bnds
          else
            let arg =
              (yojson_of_list
@@ -167,7 +167,7 @@ type aws_iot_thing_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   properties : properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -187,7 +187,7 @@ let yojson_of_aws_iot_thing_group =
          []
        in
        let bnds =
-         if [] = v_properties then bnds
+         if Stdlib.( = ) [] v_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_properties) v_properties

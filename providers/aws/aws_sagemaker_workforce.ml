@@ -108,7 +108,8 @@ let _ = yojson_of_oidc_config
 [@@@deriving.end]
 
 type source_ip_config = {
-  cidrs : string prop list; [@default []] [@yojson_drop_default ( = )]
+  cidrs : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +122,7 @@ let yojson_of_source_ip_config =
          []
        in
        let bnds =
-         if [] = v_cidrs then bnds
+         if Stdlib.( = ) [] v_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -195,13 +196,13 @@ type aws_sagemaker_workforce = {
   id : string prop option; [@option]
   workforce_name : string prop;
   cognito_config : cognito_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oidc_config : oidc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_ip_config : source_ip_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workforce_vpc_config : workforce_vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,7 +222,7 @@ let yojson_of_aws_sagemaker_workforce =
          []
        in
        let bnds =
-         if [] = v_workforce_vpc_config then bnds
+         if Stdlib.( = ) [] v_workforce_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workforce_vpc_config)
@@ -231,7 +232,7 @@ let yojson_of_aws_sagemaker_workforce =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_ip_config then bnds
+         if Stdlib.( = ) [] v_source_ip_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_ip_config)
@@ -241,7 +242,7 @@ let yojson_of_aws_sagemaker_workforce =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oidc_config then bnds
+         if Stdlib.( = ) [] v_oidc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oidc_config) v_oidc_config
@@ -250,7 +251,7 @@ let yojson_of_aws_sagemaker_workforce =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cognito_config then bnds
+         if Stdlib.( = ) [] v_cognito_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cognito_config)

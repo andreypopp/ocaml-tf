@@ -4,9 +4,9 @@ open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_endpoint_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_endpoint_configuration =
          []
        in
        let bnds =
-         if [] = v_vpc_endpoint_ids then bnds
+         if Stdlib.( = ) [] v_vpc_endpoint_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -29,7 +29,7 @@ let yojson_of_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_types then bnds
+         if Stdlib.( = ) [] v_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

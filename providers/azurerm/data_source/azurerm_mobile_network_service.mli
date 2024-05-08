@@ -8,13 +8,13 @@ type pcc_rule__service_data_flow_template = {
   direction : string prop;  (** direction *)
   name : string prop;  (** name *)
   ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
   protocol : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** protocol *)
   remote_ip_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** remote_ip_list *)
 }
 
@@ -33,10 +33,10 @@ type pcc_rule__qos_policy = {
       (** allocation_and_retention_priority_level *)
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** guaranteed_bit_rate *)
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maximum_bit_rate *)
   preemption_capability : string prop;  (** preemption_capability *)
   preemption_vulnerability : string prop;
@@ -48,11 +48,11 @@ type pcc_rule = {
   name : string prop;  (** name *)
   precedence : float prop;  (** precedence *)
   qos_policy : pcc_rule__qos_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** qos_policy *)
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service_data_flow_template *)
   traffic_control_enabled : bool prop;  (** traffic_control_enabled *)
 }
@@ -66,7 +66,7 @@ type service_qos_policy = {
   allocation_and_retention_priority_level : float prop;
       (** allocation_and_retention_priority_level *)
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maximum_bit_rate *)
   preemption_capability : string prop;  (** preemption_capability *)
   preemption_vulnerability : string prop;

@@ -4,7 +4,7 @@ open! Tf_core
 
 type permissions = {
   data_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_permissions =
          []
        in
        let bnds =
-         if [] = v_data_actions then bnds
+         if Stdlib.( = ) [] v_data_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -96,14 +96,14 @@ let _ = yojson_of_timeouts
 type azurerm_cosmosdb_sql_role_definition = {
   account_name : string prop;
   assignable_scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   role_definition_id : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   permissions : permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -131,7 +131,7 @@ let yojson_of_azurerm_cosmosdb_sql_role_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_permissions then bnds
+         if Stdlib.( = ) [] v_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_permissions) v_permissions
@@ -174,7 +174,7 @@ let yojson_of_azurerm_cosmosdb_sql_role_definition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_assignable_scopes then bnds
+         if Stdlib.( = ) [] v_assignable_scopes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

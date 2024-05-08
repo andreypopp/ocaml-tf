@@ -493,17 +493,17 @@ type rule = {
   id : string prop;
   type_ : string prop option; [@option] [@key "type"]
   geo_proximity_location : rule__geo_proximity_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   items : rule__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location : rule__location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   primary : rule__primary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region : rule__region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secondary : rule__secondary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -525,7 +525,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_secondary then bnds
+         if Stdlib.( = ) [] v_secondary then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__secondary) v_secondary
@@ -534,7 +534,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_region then bnds
+         if Stdlib.( = ) [] v_region then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__region) v_region
@@ -543,7 +543,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_primary then bnds
+         if Stdlib.( = ) [] v_primary then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__primary) v_primary
@@ -552,7 +552,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_location then bnds
+         if Stdlib.( = ) [] v_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__location) v_location
@@ -561,7 +561,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__items) v_items
@@ -570,7 +570,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geo_proximity_location then bnds
+         if Stdlib.( = ) [] v_geo_proximity_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__geo_proximity_location)
@@ -605,8 +605,8 @@ type aws_route53_traffic_policy_document = {
   start_rule : string prop option; [@option]
   version : string prop option; [@option]
   endpoint : endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -627,14 +627,14 @@ let yojson_of_aws_route53_traffic_policy_document =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint then bnds
+         if Stdlib.( = ) [] v_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint) v_endpoint

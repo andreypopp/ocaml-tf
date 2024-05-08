@@ -52,7 +52,7 @@ type google_notebooks_runtime_iam_member = {
   role : string prop;
   runtime_name : string prop;
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_google_notebooks_runtime_iam_member =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition

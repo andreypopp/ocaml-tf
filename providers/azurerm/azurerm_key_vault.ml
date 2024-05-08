@@ -165,14 +165,14 @@ let _ = yojson_of_timeouts
 type access_policy = {
   application_id : string prop;
   certificate_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   object_id : string prop;
   secret_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -198,7 +198,7 @@ let yojson_of_access_policy =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_permissions then bnds
+         if Stdlib.( = ) [] v_storage_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -208,7 +208,7 @@ let yojson_of_access_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_permissions then bnds
+         if Stdlib.( = ) [] v_secret_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -222,7 +222,7 @@ let yojson_of_access_policy =
          ("object_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_key_permissions then bnds
+         if Stdlib.( = ) [] v_key_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -232,7 +232,7 @@ let yojson_of_access_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate_permissions then bnds
+         if Stdlib.( = ) [] v_certificate_permissions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -270,9 +270,10 @@ type azurerm_key_vault = {
   soft_delete_retention_days : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tenant_id : string prop;
-  contact : contact list; [@default []] [@yojson_drop_default ( = )]
+  contact : contact list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_acls : network_acls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,7 +312,7 @@ let yojson_of_azurerm_key_vault =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_acls then bnds
+         if Stdlib.( = ) [] v_network_acls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_acls) v_network_acls
@@ -320,7 +321,7 @@ let yojson_of_azurerm_key_vault =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_contact then bnds
+         if Stdlib.( = ) [] v_contact then bnds
          else
            let arg = (yojson_of_list yojson_of_contact) v_contact in
            let bnd = "contact", arg in

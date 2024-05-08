@@ -76,7 +76,7 @@ let _ = yojson_of_hourly_schedule
 
 type monthly_schedule = {
   days_of_month : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -111,7 +111,7 @@ let yojson_of_monthly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         if [] = v_days_of_month then bnds
+         if Stdlib.( = ) [] v_days_of_month then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -189,7 +189,7 @@ let _ = yojson_of_timeouts
 
 type weekly_schedule = {
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -224,7 +224,7 @@ let yojson_of_weekly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         if [] = v_days_of_week then bnds
+         if Stdlib.( = ) [] v_days_of_week then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -249,14 +249,14 @@ type azurerm_netapp_snapshot_policy = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   daily_schedule : daily_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hourly_schedule : hourly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monthly_schedule : monthly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   weekly_schedule : weekly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,7 +282,7 @@ let yojson_of_azurerm_netapp_snapshot_policy =
          []
        in
        let bnds =
-         if [] = v_weekly_schedule then bnds
+         if Stdlib.( = ) [] v_weekly_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_weekly_schedule)
@@ -296,7 +296,7 @@ let yojson_of_azurerm_netapp_snapshot_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_monthly_schedule then bnds
+         if Stdlib.( = ) [] v_monthly_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monthly_schedule)
@@ -306,7 +306,7 @@ let yojson_of_azurerm_netapp_snapshot_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hourly_schedule then bnds
+         if Stdlib.( = ) [] v_hourly_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hourly_schedule)
@@ -316,7 +316,7 @@ let yojson_of_azurerm_netapp_snapshot_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_daily_schedule then bnds
+         if Stdlib.( = ) [] v_daily_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_daily_schedule)

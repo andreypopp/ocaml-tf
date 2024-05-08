@@ -501,12 +501,13 @@ type cloudflare_notification_policy = {
   id : string prop option; [@option]
   name : string prop;
   email_integration : email_integration list;
-      [@default []] [@yojson_drop_default ( = )]
-  filters : filters list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  filters : filters list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pagerduty_integration : pagerduty_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webhooks_integration : webhooks_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -530,7 +531,7 @@ let yojson_of_cloudflare_notification_policy =
          []
        in
        let bnds =
-         if [] = v_webhooks_integration then bnds
+         if Stdlib.( = ) [] v_webhooks_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhooks_integration)
@@ -540,7 +541,7 @@ let yojson_of_cloudflare_notification_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pagerduty_integration then bnds
+         if Stdlib.( = ) [] v_pagerduty_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pagerduty_integration)
@@ -550,14 +551,14 @@ let yojson_of_cloudflare_notification_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filters then bnds
+         if Stdlib.( = ) [] v_filters then bnds
          else
            let arg = (yojson_of_list yojson_of_filters) v_filters in
            let bnd = "filters", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email_integration then bnds
+         if Stdlib.( = ) [] v_email_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_email_integration)

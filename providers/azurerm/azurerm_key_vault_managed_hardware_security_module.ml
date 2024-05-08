@@ -95,7 +95,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_key_vault_managed_hardware_security_module = {
   admin_object_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -111,7 +111,7 @@ type azurerm_key_vault_managed_hardware_security_module = {
   tags : (string * string prop) list option; [@option]
   tenant_id : string prop;
   network_acls : network_acls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,7 +148,7 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_acls then bnds
+         if Stdlib.( = ) [] v_network_acls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_acls) v_network_acls
@@ -247,7 +247,7 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_object_ids then bnds
+         if Stdlib.( = ) [] v_admin_object_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -20,14 +20,14 @@ type quick_connect_config__phone_config = {
 
 type quick_connect_config = {
   phone_config : quick_connect_config__phone_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** phone_config *)
   queue_config : quick_connect_config__queue_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** queue_config *)
   quick_connect_type : string prop;  (** quick_connect_type *)
   user_config : quick_connect_config__user_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_config *)
 }
 

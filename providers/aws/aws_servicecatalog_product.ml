@@ -158,7 +158,7 @@ type aws_servicecatalog_product = {
   type_ : string prop; [@key "type"]
   provisioning_artifact_parameters :
     provisioning_artifact_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -192,7 +192,8 @@ let yojson_of_aws_servicecatalog_product =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_provisioning_artifact_parameters then bnds
+         if Stdlib.( = ) [] v_provisioning_artifact_parameters then
+           bnds
          else
            let arg =
              (yojson_of_list

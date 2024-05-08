@@ -59,7 +59,7 @@ type aws_sesv2_email_identity = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   dkim_signing_attributes : dkim_signing_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_aws_sesv2_email_identity =
          []
        in
        let bnds =
-         if [] = v_dkim_signing_attributes then bnds
+         if Stdlib.( = ) [] v_dkim_signing_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dkim_signing_attributes)

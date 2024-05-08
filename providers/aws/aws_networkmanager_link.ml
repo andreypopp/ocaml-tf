@@ -98,7 +98,7 @@ type aws_networkmanager_link = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   bandwidth : bandwidth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -127,7 +127,7 @@ let yojson_of_aws_networkmanager_link =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_bandwidth then bnds
+         if Stdlib.( = ) [] v_bandwidth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bandwidth) v_bandwidth

@@ -26,7 +26,7 @@ let _ = yojson_of_oidc__client_secret__value
 
 type oidc__client_secret = {
   value : oidc__client_secret__value list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +39,7 @@ let yojson_of_oidc__client_secret =
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oidc__client_secret__value)
@@ -107,9 +107,9 @@ type oidc = {
   issuer_uri : string prop;
   jwks_json : string prop option; [@option]
   client_secret : oidc__client_secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   web_sso_config : oidc__web_sso_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_oidc =
          []
        in
        let bnds =
-         if [] = v_web_sso_config then bnds
+         if Stdlib.( = ) [] v_web_sso_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oidc__web_sso_config)
@@ -138,7 +138,7 @@ let yojson_of_oidc =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_secret then bnds
+         if Stdlib.( = ) [] v_client_secret then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oidc__client_secret)
@@ -250,8 +250,8 @@ type google_iam_workforce_pool_provider = {
   location : string prop;
   provider_id : string prop;
   workforce_pool_id : string prop;
-  oidc : oidc list; [@default []] [@yojson_drop_default ( = )]
-  saml : saml list; [@default []] [@yojson_drop_default ( = )]
+  oidc : oidc list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  saml : saml list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -282,14 +282,14 @@ let yojson_of_google_iam_workforce_pool_provider =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_saml then bnds
+         if Stdlib.( = ) [] v_saml then bnds
          else
            let arg = (yojson_of_list yojson_of_saml) v_saml in
            let bnd = "saml", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oidc then bnds
+         if Stdlib.( = ) [] v_oidc then bnds
          else
            let arg = (yojson_of_list yojson_of_oidc) v_oidc in
            let bnd = "oidc", arg in

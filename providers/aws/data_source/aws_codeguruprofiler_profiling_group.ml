@@ -61,7 +61,7 @@ type profiling_status = {
   latest_agent_profile_reported_at : string prop;
   latest_aggregated_profile :
     profiling_status__latest_aggregated_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_profiling_status =
          []
        in
        let bnds =
-         if [] = v_latest_aggregated_profile then bnds
+         if Stdlib.( = ) [] v_latest_aggregated_profile then bnds
          else
            let arg =
              (yojson_of_list

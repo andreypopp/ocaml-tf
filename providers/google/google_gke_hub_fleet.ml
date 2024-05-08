@@ -41,7 +41,7 @@ type default_cluster_config__binary_authorization_config = {
   policy_bindings :
     default_cluster_config__binary_authorization_config__policy_bindings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_default_cluster_config__binary_authorization_config =
          []
        in
        let bnds =
-         if [] = v_policy_bindings then bnds
+         if Stdlib.( = ) [] v_policy_bindings then bnds
          else
            let arg =
              (yojson_of_list
@@ -126,10 +126,10 @@ let _ = yojson_of_default_cluster_config__security_posture_config
 type default_cluster_config = {
   binary_authorization_config :
     default_cluster_config__binary_authorization_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_posture_config :
     default_cluster_config__security_posture_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +145,7 @@ let yojson_of_default_cluster_config =
          []
        in
        let bnds =
-         if [] = v_security_posture_config then bnds
+         if Stdlib.( = ) [] v_security_posture_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -156,7 +156,7 @@ let yojson_of_default_cluster_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_binary_authorization_config then bnds
+         if Stdlib.( = ) [] v_binary_authorization_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,7 +245,7 @@ type google_gke_hub_fleet = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   default_cluster_config : default_cluster_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -269,7 +269,7 @@ let yojson_of_google_gke_hub_fleet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_cluster_config then bnds
+         if Stdlib.( = ) [] v_default_cluster_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_cluster_config)

@@ -69,7 +69,7 @@ type azurerm_log_analytics_data_export_rule = {
   name : string prop;
   resource_group_name : string prop;
   table_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workspace_resource_id : string prop;
   timeouts : timeouts option;
 }
@@ -103,7 +103,7 @@ let yojson_of_azurerm_log_analytics_data_export_rule =
          ("workspace_resource_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_table_names then bnds
+         if Stdlib.( = ) [] v_table_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

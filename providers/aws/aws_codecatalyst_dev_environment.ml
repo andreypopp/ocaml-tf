@@ -152,11 +152,11 @@ type aws_codecatalyst_dev_environment = {
   instance_type : string prop;
   project_name : string prop;
   space_name : string prop;
-  ides : ides list; [@default []] [@yojson_drop_default ( = )]
+  ides : ides list; [@default []] [@yojson_drop_default Stdlib.( = )]
   persistent_storage : persistent_storage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   repositories : repositories list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,7 +185,7 @@ let yojson_of_aws_codecatalyst_dev_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_repositories then bnds
+         if Stdlib.( = ) [] v_repositories then bnds
          else
            let arg =
              (yojson_of_list yojson_of_repositories) v_repositories
@@ -194,7 +194,7 @@ let yojson_of_aws_codecatalyst_dev_environment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_persistent_storage then bnds
+         if Stdlib.( = ) [] v_persistent_storage then bnds
          else
            let arg =
              (yojson_of_list yojson_of_persistent_storage)
@@ -204,7 +204,7 @@ let yojson_of_aws_codecatalyst_dev_environment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ides then bnds
+         if Stdlib.( = ) [] v_ides then bnds
          else
            let arg = (yojson_of_list yojson_of_ides) v_ides in
            let bnd = "ides", arg in

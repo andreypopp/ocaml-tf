@@ -37,7 +37,7 @@ type disk = {
   boot : bool prop;  (** boot *)
   device_name : string prop;  (** device_name *)
   disk_encryption_key : disk__disk_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disk_encryption_key *)
   disk_name : string prop;  (** disk_name *)
   disk_size_gb : float prop;  (** disk_size_gb *)
@@ -49,18 +49,18 @@ type disk = {
   resource_manager_tags : (string * string prop) list;
       (** resource_manager_tags *)
   resource_policies : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resource_policies *)
   source : string prop;  (** source *)
   source_image : string prop;  (** source_image *)
   source_image_encryption_key :
     disk__source_image_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_image_encryption_key *)
   source_snapshot : string prop;  (** source_snapshot *)
   source_snapshot_encryption_key :
     disk__source_snapshot_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_snapshot_encryption_key *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -92,15 +92,15 @@ type network_interface__access_config = {
 
 type network_interface = {
   access_config : network_interface__access_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** access_config *)
   alias_ip_range : network_interface__alias_ip_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alias_ip_range *)
   internal_ipv6_prefix_length : float prop;
       (** internal_ipv6_prefix_length *)
   ipv6_access_config : network_interface__ipv6_access_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv6_access_config *)
   ipv6_access_type : string prop;  (** ipv6_access_type *)
   ipv6_address : string prop;  (** ipv6_address *)
@@ -122,14 +122,14 @@ type network_performance_config = {
 type reservation_affinity__specific_reservation = {
   key : string prop;  (** key *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type reservation_affinity = {
   specific_reservation :
     reservation_affinity__specific_reservation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** specific_reservation *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -138,7 +138,7 @@ type scheduling__node_affinities = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -153,11 +153,11 @@ type scheduling = {
       (** instance_termination_action *)
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_ssd_recovery_timeout *)
   min_node_cpus : float prop;  (** min_node_cpus *)
   node_affinities : scheduling__node_affinities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_affinities *)
   on_host_maintenance : string prop;  (** on_host_maintenance *)
   preemptible : bool prop;  (** preemptible *)
@@ -167,7 +167,7 @@ type scheduling = {
 type service_account = {
   email : string prop;  (** email *)
   scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scopes *)
 }
 

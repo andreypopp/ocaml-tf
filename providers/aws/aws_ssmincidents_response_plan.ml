@@ -5,7 +5,7 @@ open! Tf_core
 type action__ssm_automation__parameter = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_action__ssm_automation__parameter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -46,7 +46,7 @@ type action__ssm_automation = {
   role_arn : string prop;
   target_account : string prop option; [@option]
   parameter : action__ssm_automation__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_action__ssm_automation =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -125,7 +125,7 @@ let _ = yojson_of_action__ssm_automation
 
 type action = {
   ssm_automation : action__ssm_automation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +138,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_ssm_automation then bnds
+         if Stdlib.( = ) [] v_ssm_automation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__ssm_automation)
@@ -186,7 +186,7 @@ type incident_template = {
   summary : string prop option; [@option]
   title : string prop;
   notification_target : incident_template__notification_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,7 +206,7 @@ let yojson_of_incident_template =
          []
        in
        let bnds =
-         if [] = v_notification_target then bnds
+         if Stdlib.( = ) [] v_notification_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -303,7 +303,7 @@ let _ = yojson_of_integration__pagerduty
 
 type integration = {
   pagerduty : integration__pagerduty list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -316,7 +316,7 @@ let yojson_of_integration =
          []
        in
        let bnds =
-         if [] = v_pagerduty then bnds
+         if Stdlib.( = ) [] v_pagerduty then bnds
          else
            let arg =
              (yojson_of_list yojson_of_integration__pagerduty)
@@ -340,11 +340,12 @@ type aws_ssmincidents_response_plan = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   incident_template : incident_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   integration : integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,7 +369,7 @@ let yojson_of_aws_ssmincidents_response_plan =
          []
        in
        let bnds =
-         if [] = v_integration then bnds
+         if Stdlib.( = ) [] v_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_integration) v_integration
@@ -377,7 +378,7 @@ let yojson_of_aws_ssmincidents_response_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_incident_template then bnds
+         if Stdlib.( = ) [] v_incident_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_incident_template)
@@ -387,7 +388,7 @@ let yojson_of_aws_ssmincidents_response_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

@@ -17,7 +17,7 @@ type firewall_policy__stateless_custom_action__action_definition__publish_metric
   dimension :
     firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
 }
 
@@ -25,14 +25,14 @@ type firewall_policy__stateless_custom_action__action_definition = {
   publish_metric_action :
     firewall_policy__stateless_custom_action__action_definition__publish_metric_action
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** publish_metric_action *)
 }
 
 type firewall_policy__stateless_custom_action = {
   action_definition :
     firewall_policy__stateless_custom_action__action_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** action_definition *)
   action_name : string prop;  (** action_name *)
 }
@@ -44,7 +44,7 @@ type firewall_policy__stateful_rule_group_reference__override = {
 type firewall_policy__stateful_rule_group_reference = {
   override :
     firewall_policy__stateful_rule_group_reference__override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** override *)
   priority : float prop;  (** priority *)
   resource_arn : string prop;  (** resource_arn *)
@@ -58,29 +58,29 @@ type firewall_policy__stateful_engine_options = {
 
 type firewall_policy = {
   stateful_default_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateful_default_actions *)
   stateful_engine_options :
     firewall_policy__stateful_engine_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateful_engine_options *)
   stateful_rule_group_reference :
     firewall_policy__stateful_rule_group_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateful_rule_group_reference *)
   stateless_custom_action :
     firewall_policy__stateless_custom_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateless_custom_action *)
   stateless_default_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateless_default_actions *)
   stateless_fragment_default_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateless_fragment_default_actions *)
   stateless_rule_group_reference :
     firewall_policy__stateless_rule_group_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** stateless_rule_group_reference *)
   tls_inspection_configuration_arn : string prop;
       (** tls_inspection_configuration_arn *)

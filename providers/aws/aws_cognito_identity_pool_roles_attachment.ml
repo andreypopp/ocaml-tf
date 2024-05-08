@@ -51,7 +51,7 @@ type role_mapping = {
   identity_provider : string prop;
   type_ : string prop; [@key "type"]
   mapping_rule : role_mapping__mapping_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_role_mapping =
          []
        in
        let bnds =
-         if [] = v_mapping_rule then bnds
+         if Stdlib.( = ) [] v_mapping_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_role_mapping__mapping_rule)
@@ -108,7 +108,7 @@ type aws_cognito_identity_pool_roles_attachment = {
   identity_pool_id : string prop;
   roles : (string * string prop) list;
   role_mapping : role_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_aws_cognito_identity_pool_roles_attachment =
          []
        in
        let bnds =
-         if [] = v_role_mapping then bnds
+         if Stdlib.( = ) [] v_role_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_role_mapping) v_role_mapping

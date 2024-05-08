@@ -4,12 +4,12 @@ open! Tf_core
 
 type aws_iam_openid_connect_provider = {
   client_id_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   thumbprint_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -34,7 +34,7 @@ let yojson_of_aws_iam_openid_connect_provider =
          ("url", arg) :: bnds
        in
        let bnds =
-         if [] = v_thumbprint_list then bnds
+         if Stdlib.( = ) [] v_thumbprint_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -84,7 +84,7 @@ let yojson_of_aws_iam_openid_connect_provider =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_client_id_list then bnds
+         if Stdlib.( = ) [] v_client_id_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

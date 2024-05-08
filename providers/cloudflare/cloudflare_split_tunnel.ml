@@ -57,7 +57,8 @@ type cloudflare_split_tunnel = {
   id : string prop option; [@option]
   mode : string prop;
   policy_id : string prop option; [@option]
-  tunnels : tunnels list; [@default []] [@yojson_drop_default ( = )]
+  tunnels : tunnels list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +77,7 @@ let yojson_of_cloudflare_split_tunnel =
          []
        in
        let bnds =
-         if [] = v_tunnels then bnds
+         if Stdlib.( = ) [] v_tunnels then bnds
          else
            let arg = (yojson_of_list yojson_of_tunnels) v_tunnels in
            let bnd = "tunnels", arg in

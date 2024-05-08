@@ -60,7 +60,7 @@ type capture_description = {
   size_limit_in_bytes : float prop option; [@option]
   skip_empty_archives : bool prop option; [@option]
   destination : capture_description__destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,7 +80,7 @@ let yojson_of_capture_description =
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -198,7 +198,7 @@ type azurerm_eventhub = {
   resource_group_name : string prop;
   status : string prop option; [@option]
   capture_description : capture_description list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -226,7 +226,7 @@ let yojson_of_azurerm_eventhub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_capture_description then bnds
+         if Stdlib.( = ) [] v_capture_description then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capture_description)

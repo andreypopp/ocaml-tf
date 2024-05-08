@@ -72,7 +72,8 @@ type aws_networkmanager_connect_attachment = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   transport_attachment_id : string prop;
-  options : options list; [@default []] [@yojson_drop_default ( = )]
+  options : options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -99,7 +100,7 @@ let yojson_of_aws_networkmanager_connect_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_options then bnds
+         if Stdlib.( = ) [] v_options then bnds
          else
            let arg = (yojson_of_list yojson_of_options) v_options in
            let bnd = "options", arg in

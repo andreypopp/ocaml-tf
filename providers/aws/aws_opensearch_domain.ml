@@ -60,7 +60,7 @@ type advanced_security_options = {
   internal_user_database_enabled : bool prop option; [@option]
   master_user_options :
     advanced_security_options__master_user_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_advanced_security_options =
          []
        in
        let bnds =
-         if [] = v_master_user_options then bnds
+         if Stdlib.( = ) [] v_master_user_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -151,7 +151,7 @@ type auto_tune_options__maintenance_schedule = {
   cron_expression_for_recurrence : string prop;
   start_at : string prop;
   duration : auto_tune_options__maintenance_schedule__duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_auto_tune_options__maintenance_schedule =
          []
        in
        let bnds =
-         if [] = v_duration then bnds
+         if Stdlib.( = ) [] v_duration then bnds
          else
            let arg =
              (yojson_of_list
@@ -203,7 +203,7 @@ type auto_tune_options = {
   rollback_on_disable : string prop option; [@option]
   use_off_peak_window : bool prop option; [@option]
   maintenance_schedule : auto_tune_options__maintenance_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,7 +221,7 @@ let yojson_of_auto_tune_options =
          []
        in
        let bnds =
-         if [] = v_maintenance_schedule then bnds
+         if Stdlib.( = ) [] v_maintenance_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -328,9 +328,9 @@ type cluster_config = {
   warm_type : string prop option; [@option]
   zone_awareness_enabled : bool prop option; [@option]
   cold_storage_options : cluster_config__cold_storage_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zone_awareness_config : cluster_config__zone_awareness_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,7 +357,7 @@ let yojson_of_cluster_config =
          []
        in
        let bnds =
-         if [] = v_zone_awareness_config then bnds
+         if Stdlib.( = ) [] v_zone_awareness_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -368,7 +368,7 @@ let yojson_of_cluster_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cold_storage_options then bnds
+         if Stdlib.( = ) [] v_cold_storage_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -797,7 +797,7 @@ let _ =
 type off_peak_window_options__off_peak_window = {
   window_start_time :
     off_peak_window_options__off_peak_window__window_start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -810,7 +810,7 @@ let yojson_of_off_peak_window_options__off_peak_window =
          []
        in
        let bnds =
-         if [] = v_window_start_time then bnds
+         if Stdlib.( = ) [] v_window_start_time then bnds
          else
            let arg =
              (yojson_of_list
@@ -831,7 +831,7 @@ let _ = yojson_of_off_peak_window_options__off_peak_window
 type off_peak_window_options = {
   enabled : bool prop option; [@option]
   off_peak_window : off_peak_window_options__off_peak_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -844,7 +844,7 @@ let yojson_of_off_peak_window_options =
          []
        in
        let bnds =
-         if [] = v_off_peak_window then bnds
+         if Stdlib.( = ) [] v_off_peak_window then bnds
          else
            let arg =
              (yojson_of_list
@@ -1028,32 +1028,32 @@ type aws_opensearch_domain = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   advanced_security_options : advanced_security_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_tune_options : auto_tune_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cluster_config : cluster_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cognito_options : cognito_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_endpoint_options : domain_endpoint_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_options : ebs_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encrypt_at_rest : encrypt_at_rest list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_publishing_options : log_publishing_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_to_node_encryption : node_to_node_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   off_peak_window_options : off_peak_window_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   snapshot_options : snapshot_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   software_update_options : software_update_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_options : vpc_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1088,7 +1088,7 @@ let yojson_of_aws_opensearch_domain =
          []
        in
        let bnds =
-         if [] = v_vpc_options then bnds
+         if Stdlib.( = ) [] v_vpc_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_options) v_vpc_options
@@ -1101,7 +1101,7 @@ let yojson_of_aws_opensearch_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_software_update_options then bnds
+         if Stdlib.( = ) [] v_software_update_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_software_update_options)
@@ -1111,7 +1111,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_snapshot_options then bnds
+         if Stdlib.( = ) [] v_snapshot_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_snapshot_options)
@@ -1121,7 +1121,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_off_peak_window_options then bnds
+         if Stdlib.( = ) [] v_off_peak_window_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_off_peak_window_options)
@@ -1131,7 +1131,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_to_node_encryption then bnds
+         if Stdlib.( = ) [] v_node_to_node_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_to_node_encryption)
@@ -1141,7 +1141,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_publishing_options then bnds
+         if Stdlib.( = ) [] v_log_publishing_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_publishing_options)
@@ -1151,7 +1151,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encrypt_at_rest then bnds
+         if Stdlib.( = ) [] v_encrypt_at_rest then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encrypt_at_rest)
@@ -1161,7 +1161,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebs_options then bnds
+         if Stdlib.( = ) [] v_ebs_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_options) v_ebs_options
@@ -1170,7 +1170,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_domain_endpoint_options then bnds
+         if Stdlib.( = ) [] v_domain_endpoint_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_domain_endpoint_options)
@@ -1180,7 +1180,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cognito_options then bnds
+         if Stdlib.( = ) [] v_cognito_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cognito_options)
@@ -1190,7 +1190,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_config then bnds
+         if Stdlib.( = ) [] v_cluster_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cluster_config)
@@ -1200,7 +1200,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_tune_options then bnds
+         if Stdlib.( = ) [] v_auto_tune_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_tune_options)
@@ -1210,7 +1210,7 @@ let yojson_of_aws_opensearch_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_security_options then bnds
+         if Stdlib.( = ) [] v_advanced_security_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_security_options)

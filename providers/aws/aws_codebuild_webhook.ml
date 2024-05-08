@@ -46,7 +46,7 @@ let _ = yojson_of_filter_group__filter
 
 type filter_group = {
   filter : filter_group__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +59,7 @@ let yojson_of_filter_group =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter_group__filter) v_filter
@@ -80,7 +80,7 @@ type aws_codebuild_webhook = {
   id : string prop option; [@option]
   project_name : string prop;
   filter_group : filter_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_aws_codebuild_webhook =
          []
        in
        let bnds =
-         if [] = v_filter_group then bnds
+         if Stdlib.( = ) [] v_filter_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter_group) v_filter_group

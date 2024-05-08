@@ -26,11 +26,11 @@ type deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
     deployed_models__dedicated_resources__autoscaling_metric_specs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** autoscaling_metric_specs *)
   machine_spec :
     deployed_models__dedicated_resources__machine_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** machine_spec *)
   max_replica_count : float prop;  (** max_replica_count *)
   min_replica_count : float prop;  (** min_replica_count *)
@@ -43,11 +43,11 @@ type deployed_models__automatic_resources = {
 
 type deployed_models = {
   automatic_resources : deployed_models__automatic_resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** automatic_resources *)
   create_time : string prop;  (** create_time *)
   dedicated_resources : deployed_models__dedicated_resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dedicated_resources *)
   display_name : string prop;  (** display_name *)
   enable_access_logging : bool prop;  (** enable_access_logging *)
@@ -57,7 +57,7 @@ type deployed_models = {
   model : string prop;  (** model *)
   model_version_id : string prop;  (** model_version_id *)
   private_endpoints : deployed_models__private_endpoints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** private_endpoints *)
   service_account : string prop;  (** service_account *)
   shared_resources : string prop;  (** shared_resources *)

@@ -200,9 +200,9 @@ type azurerm_mysql_server = {
   tags : (string * string prop) list option; [@option]
   version : string prop;
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threat_detection_policy : threat_detection_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -247,7 +247,7 @@ let yojson_of_azurerm_mysql_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threat_detection_policy then bnds
+         if Stdlib.( = ) [] v_threat_detection_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threat_detection_policy)
@@ -257,7 +257,7 @@ let yojson_of_azurerm_mysql_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

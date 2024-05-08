@@ -308,11 +308,11 @@ type azurerm_data_factory_linked_service_azure_databricks = {
   name : string prop;
   parameters : (string * string prop) list option; [@option]
   instance_pool : instance_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault_password : key_vault_password list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   new_cluster_config : new_cluster_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -348,7 +348,7 @@ let yojson_of_azurerm_data_factory_linked_service_azure_databricks =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_new_cluster_config then bnds
+         if Stdlib.( = ) [] v_new_cluster_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_new_cluster_config)
@@ -358,7 +358,7 @@ let yojson_of_azurerm_data_factory_linked_service_azure_databricks =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_password then bnds
+         if Stdlib.( = ) [] v_key_vault_password then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_password)
@@ -368,7 +368,7 @@ let yojson_of_azurerm_data_factory_linked_service_azure_databricks =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_pool then bnds
+         if Stdlib.( = ) [] v_instance_pool then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_pool) v_instance_pool

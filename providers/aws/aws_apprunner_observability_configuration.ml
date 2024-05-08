@@ -34,7 +34,7 @@ type aws_apprunner_observability_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   trace_configuration : trace_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_aws_apprunner_observability_configuration =
          []
        in
        let bnds =
-         if [] = v_trace_configuration then bnds
+         if Stdlib.( = ) [] v_trace_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trace_configuration)

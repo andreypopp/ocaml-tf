@@ -118,7 +118,7 @@ type lf_tag = {
   catalog_id : string prop option; [@option]
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -131,7 +131,7 @@ let yojson_of_lf_tag =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -162,7 +162,7 @@ let _ = yojson_of_lf_tag
 type lf_tag_policy__expression = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,7 +175,7 @@ let yojson_of_lf_tag_policy__expression =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -199,7 +199,7 @@ type lf_tag_policy = {
   catalog_id : string prop option; [@option]
   resource_type : string prop;
   expression : lf_tag_policy__expression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,7 +216,7 @@ let yojson_of_lf_tag_policy =
          []
        in
        let bnds =
-         if [] = v_expression then bnds
+         if Stdlib.( = ) [] v_expression then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lf_tag_policy__expression)
@@ -382,17 +382,19 @@ type aws_lakeformation_permissions = {
   id : string prop option; [@option]
   principal : string prop;
   data_cells_filter : data_cells_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_location : data_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   database : database list;
-      [@default []] [@yojson_drop_default ( = )]
-  lf_tag : lf_tag list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  lf_tag : lf_tag list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lf_tag_policy : lf_tag_policy list;
-      [@default []] [@yojson_drop_default ( = )]
-  table : table list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  table : table list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   table_with_columns : table_with_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -417,7 +419,7 @@ let yojson_of_aws_lakeformation_permissions =
          []
        in
        let bnds =
-         if [] = v_table_with_columns then bnds
+         if Stdlib.( = ) [] v_table_with_columns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_table_with_columns)
@@ -427,14 +429,14 @@ let yojson_of_aws_lakeformation_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_table then bnds
+         if Stdlib.( = ) [] v_table then bnds
          else
            let arg = (yojson_of_list yojson_of_table) v_table in
            let bnd = "table", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lf_tag_policy then bnds
+         if Stdlib.( = ) [] v_lf_tag_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lf_tag_policy) v_lf_tag_policy
@@ -443,14 +445,14 @@ let yojson_of_aws_lakeformation_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lf_tag then bnds
+         if Stdlib.( = ) [] v_lf_tag then bnds
          else
            let arg = (yojson_of_list yojson_of_lf_tag) v_lf_tag in
            let bnd = "lf_tag", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_database then bnds
+         if Stdlib.( = ) [] v_database then bnds
          else
            let arg =
              (yojson_of_list yojson_of_database) v_database
@@ -459,7 +461,7 @@ let yojson_of_aws_lakeformation_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_location then bnds
+         if Stdlib.( = ) [] v_data_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_location) v_data_location
@@ -468,7 +470,7 @@ let yojson_of_aws_lakeformation_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_cells_filter then bnds
+         if Stdlib.( = ) [] v_data_cells_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_cells_filter)

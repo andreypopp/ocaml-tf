@@ -9,7 +9,7 @@ type aws_api_gateway_vpc_link = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29,7 +29,7 @@ let yojson_of_aws_api_gateway_vpc_link =
          []
        in
        let bnds =
-         if [] = v_target_arns then bnds
+         if Stdlib.( = ) [] v_target_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

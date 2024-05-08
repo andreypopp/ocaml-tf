@@ -109,9 +109,9 @@ type instance_type_configs = {
   instance_type : string prop;
   weighted_capacity : float prop option; [@option]
   configurations : instance_type_configs__configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_config : instance_type_configs__ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,7 +132,7 @@ let yojson_of_instance_type_configs =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -143,7 +143,7 @@ let yojson_of_instance_type_configs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configurations then bnds
+         if Stdlib.( = ) [] v_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -276,9 +276,9 @@ let _ = yojson_of_launch_specifications__spot_specification
 type launch_specifications = {
   on_demand_specification :
     launch_specifications__on_demand_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spot_specification : launch_specifications__spot_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,7 +294,7 @@ let yojson_of_launch_specifications =
          []
        in
        let bnds =
-         if [] = v_spot_specification then bnds
+         if Stdlib.( = ) [] v_spot_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -305,7 +305,7 @@ let yojson_of_launch_specifications =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_demand_specification then bnds
+         if Stdlib.( = ) [] v_on_demand_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -329,9 +329,9 @@ type aws_emr_instance_fleet = {
   target_on_demand_capacity : float prop option; [@option]
   target_spot_capacity : float prop option; [@option]
   instance_type_configs : instance_type_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_specifications : launch_specifications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -352,7 +352,7 @@ let yojson_of_aws_emr_instance_fleet =
          []
        in
        let bnds =
-         if [] = v_launch_specifications then bnds
+         if Stdlib.( = ) [] v_launch_specifications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_launch_specifications)
@@ -362,7 +362,7 @@ let yojson_of_aws_emr_instance_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_type_configs then bnds
+         if Stdlib.( = ) [] v_instance_type_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_type_configs)

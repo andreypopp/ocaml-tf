@@ -45,7 +45,7 @@ type google_resource_manager_lien = {
   parent : string prop;
   reason : string prop;
   restrictions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -70,7 +70,7 @@ let yojson_of_google_resource_manager_lien =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_restrictions then bnds
+         if Stdlib.( = ) [] v_restrictions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

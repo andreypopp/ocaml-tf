@@ -82,7 +82,7 @@ type config__vsphere_config = {
   datastore : string prop option; [@option]
   host_groups : string prop list option; [@option]
   tags : config__vsphere_config__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_config__vsphere_config =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__vsphere_config__tags)
@@ -143,9 +143,9 @@ type config = {
   memory_mb : float prop option; [@option]
   replicas : float prop option; [@option]
   taints : config__taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vsphere_config : config__vsphere_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_config =
          []
        in
        let bnds =
-         if [] = v_vsphere_config then bnds
+         if Stdlib.( = ) [] v_vsphere_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__vsphere_config)
@@ -179,7 +179,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_taints then bnds
+         if Stdlib.( = ) [] v_taints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__taints) v_taints
@@ -392,7 +392,7 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error_message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -411,7 +411,7 @@ let yojson_of_status =
          ("error_message", arg) :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__conditions)
@@ -435,9 +435,10 @@ type google_gkeonprem_vmware_node_pool = {
   name : string prop;
   project : string prop option; [@option]
   vmware_cluster : string prop;
-  config : config list; [@default []] [@yojson_drop_default ( = )]
+  config : config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_pool_autoscaling : node_pool_autoscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -466,7 +467,7 @@ let yojson_of_google_gkeonprem_vmware_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_node_pool_autoscaling then bnds
+         if Stdlib.( = ) [] v_node_pool_autoscaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool_autoscaling)
@@ -476,7 +477,7 @@ let yojson_of_google_gkeonprem_vmware_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg = (yojson_of_list yojson_of_config) v_config in
            let bnd = "config", arg in

@@ -41,7 +41,7 @@ let _ = yojson_of_properties__property
 
 type properties = {
   property : properties__property list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_properties =
          []
        in
        let bnds =
-         if [] = v_property then bnds
+         if Stdlib.( = ) [] v_property then bnds
          else
            let arg =
              (yojson_of_list yojson_of_properties__property)
@@ -130,7 +130,7 @@ type google_apigee_organization = {
       [@option]
   runtime_type : string prop option; [@option]
   properties : properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -163,7 +163,7 @@ let yojson_of_google_apigee_organization =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_properties then bnds
+         if Stdlib.( = ) [] v_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_properties) v_properties

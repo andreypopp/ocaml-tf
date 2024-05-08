@@ -97,10 +97,10 @@ type github_action_configuration = {
   generate_workflow_file : bool prop option; [@option]
   code_configuration :
     github_action_configuration__code_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_configuration :
     github_action_configuration__container_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,7 +117,7 @@ let yojson_of_github_action_configuration =
          []
        in
        let bnds =
-         if [] = v_container_configuration then bnds
+         if Stdlib.( = ) [] v_container_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -128,7 +128,7 @@ let yojson_of_github_action_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_configuration then bnds
+         if Stdlib.( = ) [] v_code_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -210,7 +210,7 @@ type azurerm_app_service_source_control = {
   use_manual_integration : bool prop option; [@option]
   use_mercurial : bool prop option; [@option]
   github_action_configuration : github_action_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -239,7 +239,7 @@ let yojson_of_azurerm_app_service_source_control =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_github_action_configuration then bnds
+         if Stdlib.( = ) [] v_github_action_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_github_action_configuration)

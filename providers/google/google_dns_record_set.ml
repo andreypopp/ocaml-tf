@@ -80,7 +80,7 @@ type routing_policy__geo__health_checked_targets = {
   internal_load_balancers :
     routing_policy__geo__health_checked_targets__internal_load_balancers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,7 +93,7 @@ let yojson_of_routing_policy__geo__health_checked_targets =
          []
        in
        let bnds =
-         if [] = v_internal_load_balancers then bnds
+         if Stdlib.( = ) [] v_internal_load_balancers then bnds
          else
            let arg =
              (yojson_of_list
@@ -116,7 +116,7 @@ type routing_policy__geo = {
   rrdatas : string prop list option; [@option]
   health_checked_targets :
     routing_policy__geo__health_checked_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_routing_policy__geo =
          []
        in
        let bnds =
-         if [] = v_health_checked_targets then bnds
+         if Stdlib.( = ) [] v_health_checked_targets then bnds
          else
            let arg =
              (yojson_of_list
@@ -242,7 +242,7 @@ type routing_policy__primary_backup__backup_geo__health_checked_targets = {
   internal_load_balancers :
     routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -259,7 +259,7 @@ let yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets
          []
        in
        let bnds =
-         if [] = v_internal_load_balancers then bnds
+         if Stdlib.( = ) [] v_internal_load_balancers then bnds
          else
            let arg =
              (yojson_of_list
@@ -284,7 +284,7 @@ type routing_policy__primary_backup__backup_geo = {
   health_checked_targets :
     routing_policy__primary_backup__backup_geo__health_checked_targets
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -301,7 +301,7 @@ let yojson_of_routing_policy__primary_backup__backup_geo =
          []
        in
        let bnds =
-         if [] = v_health_checked_targets then bnds
+         if Stdlib.( = ) [] v_health_checked_targets then bnds
          else
            let arg =
              (yojson_of_list
@@ -411,7 +411,7 @@ type routing_policy__primary_backup__primary = {
   internal_load_balancers :
     routing_policy__primary_backup__primary__internal_load_balancers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -424,7 +424,7 @@ let yojson_of_routing_policy__primary_backup__primary =
          []
        in
        let bnds =
-         if [] = v_internal_load_balancers then bnds
+         if Stdlib.( = ) [] v_internal_load_balancers then bnds
          else
            let arg =
              (yojson_of_list
@@ -446,9 +446,9 @@ type routing_policy__primary_backup = {
   enable_geo_fencing_for_backups : bool prop option; [@option]
   trickle_ratio : float prop option; [@option]
   backup_geo : routing_policy__primary_backup__backup_geo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   primary : routing_policy__primary_backup__primary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -467,7 +467,7 @@ let yojson_of_routing_policy__primary_backup =
          []
        in
        let bnds =
-         if [] = v_primary then bnds
+         if Stdlib.( = ) [] v_primary then bnds
          else
            let arg =
              (yojson_of_list
@@ -478,7 +478,7 @@ let yojson_of_routing_policy__primary_backup =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backup_geo then bnds
+         if Stdlib.( = ) [] v_backup_geo then bnds
          else
            let arg =
              (yojson_of_list
@@ -590,7 +590,7 @@ type routing_policy__wrr__health_checked_targets = {
   internal_load_balancers :
     routing_policy__wrr__health_checked_targets__internal_load_balancers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -603,7 +603,7 @@ let yojson_of_routing_policy__wrr__health_checked_targets =
          []
        in
        let bnds =
-         if [] = v_internal_load_balancers then bnds
+         if Stdlib.( = ) [] v_internal_load_balancers then bnds
          else
            let arg =
              (yojson_of_list
@@ -626,7 +626,7 @@ type routing_policy__wrr = {
   weight : float prop;
   health_checked_targets :
     routing_policy__wrr__health_checked_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -643,7 +643,7 @@ let yojson_of_routing_policy__wrr =
          []
        in
        let bnds =
-         if [] = v_health_checked_targets then bnds
+         if Stdlib.( = ) [] v_health_checked_targets then bnds
          else
            let arg =
              (yojson_of_list
@@ -677,11 +677,11 @@ let _ = yojson_of_routing_policy__wrr
 type routing_policy = {
   enable_geo_fencing : bool prop option; [@option]
   geo : routing_policy__geo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   primary_backup : routing_policy__primary_backup list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   wrr : routing_policy__wrr list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -699,7 +699,7 @@ let yojson_of_routing_policy =
          []
        in
        let bnds =
-         if [] = v_wrr then bnds
+         if Stdlib.( = ) [] v_wrr then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_policy__wrr) v_wrr
@@ -708,7 +708,7 @@ let yojson_of_routing_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_primary_backup then bnds
+         if Stdlib.( = ) [] v_primary_backup then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_policy__primary_backup)
@@ -718,7 +718,7 @@ let yojson_of_routing_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geo then bnds
+         if Stdlib.( = ) [] v_geo then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_policy__geo) v_geo
@@ -750,7 +750,7 @@ type google_dns_record_set = {
   ttl : float prop option; [@option]
   type_ : string prop; [@key "type"]
   routing_policy : routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -772,7 +772,7 @@ let yojson_of_google_dns_record_set =
          []
        in
        let bnds =
-         if [] = v_routing_policy then bnds
+         if Stdlib.( = ) [] v_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_policy)

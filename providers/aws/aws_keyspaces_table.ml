@@ -273,13 +273,13 @@ let _ = yojson_of_schema_definition__static_column
 
 type schema_definition = {
   clustering_key : schema_definition__clustering_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   column : schema_definition__column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   partition_key : schema_definition__partition_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_column : schema_definition__static_column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -297,7 +297,7 @@ let yojson_of_schema_definition =
          []
        in
        let bnds =
-         if [] = v_static_column then bnds
+         if Stdlib.( = ) [] v_static_column then bnds
          else
            let arg =
              (yojson_of_list
@@ -308,7 +308,7 @@ let yojson_of_schema_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partition_key then bnds
+         if Stdlib.( = ) [] v_partition_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -319,7 +319,7 @@ let yojson_of_schema_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_column then bnds
+         if Stdlib.( = ) [] v_column then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema_definition__column)
@@ -329,7 +329,7 @@ let yojson_of_schema_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_clustering_key then bnds
+         if Stdlib.( = ) [] v_clustering_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -421,18 +421,19 @@ type aws_keyspaces_table = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   capacity_specification : capacity_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_side_timestamps : client_side_timestamps list;
-      [@default []] [@yojson_drop_default ( = )]
-  comment : comment list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  comment : comment list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_specification : encryption_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   point_in_time_recovery : point_in_time_recovery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_definition : schema_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  ttl : ttl list; [@default []] [@yojson_drop_default ( = )]
+  ttl : ttl list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -460,7 +461,7 @@ let yojson_of_aws_keyspaces_table =
          []
        in
        let bnds =
-         if [] = v_ttl then bnds
+         if Stdlib.( = ) [] v_ttl then bnds
          else
            let arg = (yojson_of_list yojson_of_ttl) v_ttl in
            let bnd = "ttl", arg in
@@ -471,7 +472,7 @@ let yojson_of_aws_keyspaces_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema_definition then bnds
+         if Stdlib.( = ) [] v_schema_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema_definition)
@@ -481,7 +482,7 @@ let yojson_of_aws_keyspaces_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_point_in_time_recovery then bnds
+         if Stdlib.( = ) [] v_point_in_time_recovery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_point_in_time_recovery)
@@ -491,7 +492,7 @@ let yojson_of_aws_keyspaces_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_specification then bnds
+         if Stdlib.( = ) [] v_encryption_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_specification)
@@ -501,14 +502,14 @@ let yojson_of_aws_keyspaces_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_comment then bnds
+         if Stdlib.( = ) [] v_comment then bnds
          else
            let arg = (yojson_of_list yojson_of_comment) v_comment in
            let bnd = "comment", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_side_timestamps then bnds
+         if Stdlib.( = ) [] v_client_side_timestamps then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_side_timestamps)
@@ -518,7 +519,7 @@ let yojson_of_aws_keyspaces_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity_specification then bnds
+         if Stdlib.( = ) [] v_capacity_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity_specification)

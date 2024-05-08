@@ -53,7 +53,7 @@ type aws_appintegrations_data_integration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   schedule_config : schedule_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_aws_appintegrations_data_integration =
          []
        in
        let bnds =
-         if [] = v_schedule_config then bnds
+         if Stdlib.( = ) [] v_schedule_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule_config)

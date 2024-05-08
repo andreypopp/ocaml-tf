@@ -64,9 +64,9 @@ let _ = yojson_of_s3__auto_import_policy
 
 type s3 = {
   auto_export_policy : s3__auto_export_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_import_policy : s3__auto_import_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +82,7 @@ let yojson_of_s3 =
          []
        in
        let bnds =
-         if [] = v_auto_import_policy then bnds
+         if Stdlib.( = ) [] v_auto_import_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3__auto_import_policy)
@@ -92,7 +92,7 @@ let yojson_of_s3 =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_export_policy then bnds
+         if Stdlib.( = ) [] v_auto_export_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3__auto_export_policy)
@@ -164,7 +164,7 @@ type aws_fsx_data_repository_association = {
   imported_file_chunk_size : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  s3 : s3 list; [@default []] [@yojson_drop_default ( = )]
+  s3 : s3 list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -195,7 +195,7 @@ let yojson_of_aws_fsx_data_repository_association =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg = (yojson_of_list yojson_of_s3) v_s3 in
            let bnd = "s3", arg in

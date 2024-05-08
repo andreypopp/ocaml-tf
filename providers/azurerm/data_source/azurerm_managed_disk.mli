@@ -17,11 +17,11 @@ type encryption_settings__disk_encryption_key = {
 type encryption_settings = {
   disk_encryption_key :
     encryption_settings__disk_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disk_encryption_key *)
   enabled : bool prop;  (** enabled *)
   key_encryption_key : encryption_settings__key_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** key_encryption_key *)
 }
 

@@ -6,7 +6,7 @@ open! Tf_core
 
 type route = {
   destinations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** destinations *)
   destinations_type : string prop;  (** destinations_type *)
   name : string prop;  (** name *)

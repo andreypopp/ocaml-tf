@@ -118,7 +118,7 @@ type google_cloud_identity_group = {
   labels : (string * string prop) list;
   parent : string prop;
   group_key : group_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -145,7 +145,7 @@ let yojson_of_google_cloud_identity_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_group_key then bnds
+         if Stdlib.( = ) [] v_group_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_group_key) v_group_key

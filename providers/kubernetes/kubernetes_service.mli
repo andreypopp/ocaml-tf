@@ -11,13 +11,13 @@ type status__load_balancer__ingress = {
 
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ingress *)
 }
 
 type status = {
   load_balancer : status__load_balancer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** load_balancer *)
 }
 

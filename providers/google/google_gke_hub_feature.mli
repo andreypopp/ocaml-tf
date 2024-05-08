@@ -17,7 +17,7 @@ type state__state = {
 
 type state = {
   state : state__state list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** state *)
 }
 

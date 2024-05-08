@@ -60,7 +60,7 @@ let _ = yojson_of_chat_engine_config__agent_creation_config
 type chat_engine_config = {
   agent_creation_config :
     chat_engine_config__agent_creation_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_chat_engine_config =
          []
        in
        let bnds =
-         if [] = v_agent_creation_config then bnds
+         if Stdlib.( = ) [] v_agent_creation_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,7 +189,7 @@ let _ = yojson_of_chat_engine_metadata
 type google_discovery_engine_chat_engine = {
   collection_id : string prop;
   data_store_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   display_name : string prop;
   engine_id : string prop;
   id : string prop option; [@option]
@@ -197,9 +197,9 @@ type google_discovery_engine_chat_engine = {
   location : string prop;
   project : string prop option; [@option]
   chat_engine_config : chat_engine_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   common_config : common_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -229,7 +229,7 @@ let yojson_of_google_discovery_engine_chat_engine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_common_config then bnds
+         if Stdlib.( = ) [] v_common_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_common_config) v_common_config
@@ -238,7 +238,7 @@ let yojson_of_google_discovery_engine_chat_engine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_chat_engine_config then bnds
+         if Stdlib.( = ) [] v_chat_engine_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_chat_engine_config)
@@ -284,7 +284,7 @@ let yojson_of_google_discovery_engine_chat_engine =
          ("display_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_store_ids then bnds
+         if Stdlib.( = ) [] v_data_store_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

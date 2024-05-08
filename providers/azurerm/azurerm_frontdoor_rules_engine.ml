@@ -106,9 +106,9 @@ let _ = yojson_of_rule__action__response_header
 
 type rule__action = {
   request_header : rule__action__request_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response_header : rule__action__response_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_rule__action =
          []
        in
        let bnds =
-         if [] = v_response_header then bnds
+         if Stdlib.( = ) [] v_response_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action__response_header)
@@ -134,7 +134,7 @@ let yojson_of_rule__action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_header then bnds
+         if Stdlib.( = ) [] v_request_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action__request_header)
@@ -234,9 +234,9 @@ type rule = {
   name : string prop;
   priority : float prop;
   action : rule__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_condition : rule__match_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,7 +254,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_match_condition then bnds
+         if Stdlib.( = ) [] v_match_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__match_condition)
@@ -264,7 +264,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action) v_action
@@ -353,7 +353,7 @@ type azurerm_frontdoor_rules_engine = {
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -379,7 +379,7 @@ let yojson_of_azurerm_frontdoor_rules_engine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

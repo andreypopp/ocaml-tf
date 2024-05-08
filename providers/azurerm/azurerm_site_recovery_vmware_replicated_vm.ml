@@ -206,9 +206,9 @@ type azurerm_site_recovery_vmware_replicated_vm = {
   target_zone : string prop option; [@option]
   test_network_id : string prop option; [@option]
   managed_disk : managed_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface : network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -257,7 +257,7 @@ let yojson_of_azurerm_site_recovery_vmware_replicated_vm =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_interface)
@@ -267,7 +267,7 @@ let yojson_of_azurerm_site_recovery_vmware_replicated_vm =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_managed_disk then bnds
+         if Stdlib.( = ) [] v_managed_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_disk) v_managed_disk

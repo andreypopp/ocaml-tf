@@ -41,7 +41,7 @@ let _ = yojson_of_partition_config__capacity
 type partition_config = {
   count : float prop;
   capacity : partition_config__capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_partition_config =
          []
        in
        let bnds =
-         if [] = v_capacity then bnds
+         if Stdlib.( = ) [] v_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partition_config__capacity)
@@ -193,11 +193,11 @@ type google_pubsub_lite_topic = {
   region : string prop option; [@option]
   zone : string prop option; [@option]
   partition_config : partition_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reservation_config : reservation_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_config : retention_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -225,7 +225,7 @@ let yojson_of_google_pubsub_lite_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_config then bnds
+         if Stdlib.( = ) [] v_retention_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_config)
@@ -235,7 +235,7 @@ let yojson_of_google_pubsub_lite_topic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reservation_config then bnds
+         if Stdlib.( = ) [] v_reservation_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reservation_config)
@@ -245,7 +245,7 @@ let yojson_of_google_pubsub_lite_topic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partition_config then bnds
+         if Stdlib.( = ) [] v_partition_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partition_config)

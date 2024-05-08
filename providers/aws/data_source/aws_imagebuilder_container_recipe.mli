@@ -12,7 +12,7 @@ type component__parameter = {
 type component = {
   component_arn : string prop;  (** component_arn *)
   parameter : component__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** parameter *)
 }
 
@@ -30,7 +30,7 @@ type instance_configuration__block_device_mapping__ebs = {
 type instance_configuration__block_device_mapping = {
   device_name : string prop;  (** device_name *)
   ebs : instance_configuration__block_device_mapping__ebs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ebs *)
   no_device : string prop;  (** no_device *)
   virtual_name : string prop;  (** virtual_name *)
@@ -39,7 +39,7 @@ type instance_configuration__block_device_mapping = {
 type instance_configuration = {
   block_device_mapping :
     instance_configuration__block_device_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** block_device_mapping *)
   image : string prop;  (** image *)
 }

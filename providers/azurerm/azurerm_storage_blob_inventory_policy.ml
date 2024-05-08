@@ -4,7 +4,7 @@ open! Tf_core
 
 type rules__filter = {
   blob_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exclude_prefixes : string prop list option; [@option]
   include_blob_versions : bool prop option; [@option]
   include_deleted : bool prop option; [@option]
@@ -73,7 +73,7 @@ let yojson_of_rules__filter =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_blob_types then bnds
+         if Stdlib.( = ) [] v_blob_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -94,11 +94,11 @@ type rules = {
   name : string prop;
   schedule : string prop;
   schema_fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scope : string prop;
   storage_container_name : string prop;
   filter : rules__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__filter) v_filter
@@ -138,7 +138,7 @@ let yojson_of_rules =
          ("scope", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema_fields then bnds
+         if Stdlib.( = ) [] v_schema_fields then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -229,7 +229,8 @@ let _ = yojson_of_timeouts
 type azurerm_storage_blob_inventory_policy = {
   id : string prop option; [@option]
   storage_account_id : string prop;
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -252,7 +253,7 @@ let yojson_of_azurerm_storage_blob_inventory_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

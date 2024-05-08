@@ -12,10 +12,10 @@ type bgp__advertised_ip_ranges = {
 type bgp = {
   advertise_mode : string prop;  (** advertise_mode *)
   advertised_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advertised_groups *)
   advertised_ip_ranges : bgp__advertised_ip_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advertised_ip_ranges *)
   asn : float prop;  (** asn *)
   keepalive_interval : float prop;  (** keepalive_interval *)

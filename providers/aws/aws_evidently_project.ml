@@ -71,9 +71,9 @@ let _ = yojson_of_data_delivery__s3_destination
 
 type data_delivery = {
   cloudwatch_logs : data_delivery__cloudwatch_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_destination : data_delivery__s3_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_data_delivery =
          []
        in
        let bnds =
-         if [] = v_s3_destination then bnds
+         if Stdlib.( = ) [] v_s3_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_delivery__s3_destination)
@@ -99,7 +99,7 @@ let yojson_of_data_delivery =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logs then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_delivery__cloudwatch_logs)
@@ -168,7 +168,7 @@ type aws_evidently_project = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   data_delivery : data_delivery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -194,7 +194,7 @@ let yojson_of_aws_evidently_project =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_delivery then bnds
+         if Stdlib.( = ) [] v_data_delivery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_delivery) v_data_delivery

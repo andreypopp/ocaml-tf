@@ -5,7 +5,7 @@ open! Tf_core
 type approval_rule__patch_filter = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_approval_rule__patch_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -45,7 +45,7 @@ type approval_rule = {
   compliance_level : string prop;
   enable_non_security : bool prop;
   patch_filter : approval_rule__patch_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_approval_rule =
          []
        in
        let bnds =
-         if [] = v_patch_filter then bnds
+         if Stdlib.( = ) [] v_patch_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_approval_rule__patch_filter)
@@ -107,7 +107,7 @@ let _ = yojson_of_approval_rule
 type global_filter = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,7 +120,7 @@ let yojson_of_global_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -144,7 +144,7 @@ type source = {
   configuration : string prop;
   name : string prop;
   products : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_products then bnds
+         if Stdlib.( = ) [] v_products then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

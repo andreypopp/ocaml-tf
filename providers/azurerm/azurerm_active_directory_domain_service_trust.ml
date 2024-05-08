@@ -68,7 +68,7 @@ type azurerm_active_directory_domain_service_trust = {
   name : string prop;
   password : string prop;
   trusted_domain_dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trusted_domain_fqdn : string prop;
   timeouts : timeouts option;
 }
@@ -101,7 +101,7 @@ let yojson_of_azurerm_active_directory_domain_service_trust =
          ("trusted_domain_fqdn", arg) :: bnds
        in
        let bnds =
-         if [] = v_trusted_domain_dns_ips then bnds
+         if Stdlib.( = ) [] v_trusted_domain_dns_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

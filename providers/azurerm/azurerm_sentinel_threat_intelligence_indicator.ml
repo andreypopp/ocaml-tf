@@ -241,7 +241,7 @@ let _ = yojson_of_parsed_pattern__pattern_type_values
 type parsed_pattern = {
   pattern_type_key : string prop;
   pattern_type_values : parsed_pattern__pattern_type_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,7 +257,7 @@ let yojson_of_parsed_pattern =
          []
        in
        let bnds =
-         if [] = v_pattern_type_values then bnds
+         if Stdlib.( = ) [] v_pattern_type_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -300,11 +300,11 @@ type azurerm_sentinel_threat_intelligence_indicator = {
   validate_until_utc : string prop option; [@option]
   workspace_id : string prop;
   external_reference : external_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   granular_marking : granular_marking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kill_chain_phase : kill_chain_phase list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -346,7 +346,7 @@ let yojson_of_azurerm_sentinel_threat_intelligence_indicator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_kill_chain_phase then bnds
+         if Stdlib.( = ) [] v_kill_chain_phase then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kill_chain_phase)
@@ -356,7 +356,7 @@ let yojson_of_azurerm_sentinel_threat_intelligence_indicator =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_granular_marking then bnds
+         if Stdlib.( = ) [] v_granular_marking then bnds
          else
            let arg =
              (yojson_of_list yojson_of_granular_marking)
@@ -366,7 +366,7 @@ let yojson_of_azurerm_sentinel_threat_intelligence_indicator =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_reference then bnds
+         if Stdlib.( = ) [] v_external_reference then bnds
          else
            let arg =
              (yojson_of_list yojson_of_external_reference)

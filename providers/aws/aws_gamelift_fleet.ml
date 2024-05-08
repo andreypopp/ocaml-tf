@@ -167,7 +167,7 @@ type runtime_configuration = {
   max_concurrent_game_session_activations : float prop option;
       [@option]
   server_process : runtime_configuration__server_process list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_runtime_configuration =
          []
        in
        let bnds =
-         if [] = v_server_process then bnds
+         if Stdlib.( = ) [] v_server_process then bnds
          else
            let arg =
              (yojson_of_list
@@ -274,14 +274,14 @@ type aws_gamelift_fleet = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   certificate_configuration : certificate_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ec2_inbound_permission : ec2_inbound_permission list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_creation_limit_policy :
     resource_creation_limit_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   runtime_configuration : runtime_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -319,7 +319,7 @@ let yojson_of_aws_gamelift_fleet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_runtime_configuration then bnds
+         if Stdlib.( = ) [] v_runtime_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_runtime_configuration)
@@ -329,7 +329,8 @@ let yojson_of_aws_gamelift_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_creation_limit_policy then bnds
+         if Stdlib.( = ) [] v_resource_creation_limit_policy then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_creation_limit_policy)
@@ -339,7 +340,7 @@ let yojson_of_aws_gamelift_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ec2_inbound_permission then bnds
+         if Stdlib.( = ) [] v_ec2_inbound_permission then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ec2_inbound_permission)
@@ -349,7 +350,7 @@ let yojson_of_aws_gamelift_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate_configuration then bnds
+         if Stdlib.( = ) [] v_certificate_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certificate_configuration)

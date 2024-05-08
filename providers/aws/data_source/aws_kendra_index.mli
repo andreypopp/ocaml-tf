@@ -29,10 +29,10 @@ type document_metadata_configuration_updates = {
   name : string prop;  (** name *)
   relevance :
     document_metadata_configuration_updates__relevance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** relevance *)
   search : document_metadata_configuration_updates__search list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** search *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -50,11 +50,11 @@ type index_statistics__faq_statistics = {
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** faq_statistics *)
   text_document_statistics :
     index_statistics__text_document_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** text_document_statistics *)
 }
 
@@ -87,11 +87,11 @@ type user_token_configurations__json_token_type_configuration = {
 type user_token_configurations = {
   json_token_type_configuration :
     user_token_configurations__json_token_type_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** json_token_type_configuration *)
   jwt_token_type_configuration :
     user_token_configurations__jwt_token_type_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** jwt_token_type_configuration *)
 }
 

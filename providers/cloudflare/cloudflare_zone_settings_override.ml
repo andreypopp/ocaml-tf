@@ -201,11 +201,11 @@ type settings = {
   websockets : string prop option; [@option]
   zero_rtt : string prop option; [@option]
   minify : settings__minify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mobile_redirect : settings__mobile_redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_header : settings__security_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,7 +275,7 @@ let yojson_of_settings =
          []
        in
        let bnds =
-         if [] = v_security_header then bnds
+         if Stdlib.( = ) [] v_security_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings__security_header)
@@ -285,7 +285,7 @@ let yojson_of_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mobile_redirect then bnds
+         if Stdlib.( = ) [] v_mobile_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings__mobile_redirect)
@@ -295,7 +295,7 @@ let yojson_of_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_minify then bnds
+         if Stdlib.( = ) [] v_minify then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings__minify) v_minify
@@ -875,7 +875,7 @@ type initial_settings = {
   cache_level : string prop;
   challenge_ttl : float prop;
   ciphers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cname_flattening : string prop;
   development_mode : string prop;
   early_hints : string prop;
@@ -893,10 +893,10 @@ type initial_settings = {
   max_upload : float prop;
   min_tls_version : string prop;
   minify : initial_settings__minify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mirage : string prop;
   mobile_redirect : initial_settings__mobile_redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   opportunistic_encryption : string prop;
   opportunistic_onion : string prop;
   orange_to_orange : string prop;
@@ -910,7 +910,7 @@ type initial_settings = {
   response_buffering : string prop;
   rocket_loader : string prop;
   security_header : initial_settings__security_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_level : string prop;
   server_side_exclude : string prop;
   sort_query_string_for_cache : string prop;
@@ -1061,7 +1061,7 @@ let yojson_of_initial_settings =
          ("security_level", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_header then bnds
+         if Stdlib.( = ) [] v_security_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -1137,7 +1137,7 @@ let yojson_of_initial_settings =
          ("opportunistic_encryption", arg) :: bnds
        in
        let bnds =
-         if [] = v_mobile_redirect then bnds
+         if Stdlib.( = ) [] v_mobile_redirect then bnds
          else
            let arg =
              (yojson_of_list
@@ -1152,7 +1152,7 @@ let yojson_of_initial_settings =
          ("mirage", arg) :: bnds
        in
        let bnds =
-         if [] = v_minify then bnds
+         if Stdlib.( = ) [] v_minify then bnds
          else
            let arg =
              (yojson_of_list yojson_of_initial_settings__minify)
@@ -1247,7 +1247,7 @@ let yojson_of_initial_settings =
          ("cname_flattening", arg) :: bnds
        in
        let bnds =
-         if [] = v_ciphers then bnds
+         if Stdlib.( = ) [] v_ciphers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1308,7 +1308,8 @@ let _ = yojson_of_initial_settings
 type cloudflare_zone_settings_override = {
   id : string prop option; [@option]
   zone_id : string prop;
-  settings : settings list; [@default []] [@yojson_drop_default ( = )]
+  settings : settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1321,7 +1322,7 @@ let yojson_of_cloudflare_zone_settings_override =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings) v_settings

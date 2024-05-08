@@ -4,9 +4,9 @@ open! Tf_core
 
 type aws_chime_voice_connector_termination = {
   calling_regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cidr_allow_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cps_limit : float prop option; [@option]
   default_phone_number : string prop option; [@option]
   disabled : bool prop option; [@option]
@@ -70,7 +70,7 @@ let yojson_of_aws_chime_voice_connector_termination =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cidr_allow_list then bnds
+         if Stdlib.( = ) [] v_cidr_allow_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -80,7 +80,7 @@ let yojson_of_aws_chime_voice_connector_termination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_calling_regions then bnds
+         if Stdlib.( = ) [] v_calling_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

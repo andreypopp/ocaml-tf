@@ -145,9 +145,9 @@ type aws_cognito_user_pool_client = {
   user_pool_id : string prop;
   write_attributes : string prop list option; [@option]
   analytics_configuration : analytics_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   token_validity_units : token_validity_units list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_aws_cognito_user_pool_client =
          []
        in
        let bnds =
-         if [] = v_token_validity_units then bnds
+         if Stdlib.( = ) [] v_token_validity_units then bnds
          else
            let arg =
              (yojson_of_list yojson_of_token_validity_units)
@@ -196,7 +196,7 @@ let yojson_of_aws_cognito_user_pool_client =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_analytics_configuration then bnds
+         if Stdlib.( = ) [] v_analytics_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_analytics_configuration)

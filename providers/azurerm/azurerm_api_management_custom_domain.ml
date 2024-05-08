@@ -461,12 +461,14 @@ type azurerm_api_management_custom_domain = {
   api_management_id : string prop;
   id : string prop option; [@option]
   developer_portal : developer_portal list;
-      [@default []] [@yojson_drop_default ( = )]
-  gateway : gateway list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gateway : gateway list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : management list;
-      [@default []] [@yojson_drop_default ( = )]
-  portal : portal list; [@default []] [@yojson_drop_default ( = )]
-  scm : scm list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  portal : portal list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  scm : scm list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -493,21 +495,21 @@ let yojson_of_azurerm_api_management_custom_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_scm then bnds
+         if Stdlib.( = ) [] v_scm then bnds
          else
            let arg = (yojson_of_list yojson_of_scm) v_scm in
            let bnd = "scm", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_portal then bnds
+         if Stdlib.( = ) [] v_portal then bnds
          else
            let arg = (yojson_of_list yojson_of_portal) v_portal in
            let bnd = "portal", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management) v_management
@@ -516,14 +518,14 @@ let yojson_of_azurerm_api_management_custom_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gateway then bnds
+         if Stdlib.( = ) [] v_gateway then bnds
          else
            let arg = (yojson_of_list yojson_of_gateway) v_gateway in
            let bnd = "gateway", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_developer_portal then bnds
+         if Stdlib.( = ) [] v_developer_portal then bnds
          else
            let arg =
              (yojson_of_list yojson_of_developer_portal)

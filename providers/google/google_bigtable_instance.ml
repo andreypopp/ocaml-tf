@@ -58,7 +58,7 @@ type cluster = {
   storage_type : string prop option; [@option]
   zone : string prop option; [@option]
   autoscaling_config : cluster__autoscaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,7 +78,7 @@ let yojson_of_cluster =
          []
        in
        let bnds =
-         if [] = v_autoscaling_config then bnds
+         if Stdlib.( = ) [] v_autoscaling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cluster__autoscaling_config)
@@ -184,7 +184,8 @@ type google_bigtable_instance = {
   labels : (string * string prop) list option; [@option]
   name : string prop;
   project : string prop option; [@option]
-  cluster : cluster list; [@default []] [@yojson_drop_default ( = )]
+  cluster : cluster list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -212,7 +213,7 @@ let yojson_of_google_bigtable_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cluster then bnds
+         if Stdlib.( = ) [] v_cluster then bnds
          else
            let arg = (yojson_of_list yojson_of_cluster) v_cluster in
            let bnd = "cluster", arg in

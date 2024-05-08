@@ -65,7 +65,7 @@ type aws_redshiftdata_statement = {
   with_event : bool prop option; [@option]
   workgroup_name : string prop option; [@option]
   parameters : parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -95,7 +95,7 @@ let yojson_of_aws_redshiftdata_statement =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters) v_parameters

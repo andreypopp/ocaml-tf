@@ -21,10 +21,10 @@ type bigquery_table_spec__table_spec = {
 type bigquery_table_spec = {
   table_source_type : string prop;  (** table_source_type *)
   table_spec : bigquery_table_spec__table_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** table_spec *)
   view_spec : bigquery_table_spec__view_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** view_spec *)
 }
 

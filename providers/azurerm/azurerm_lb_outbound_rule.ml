@@ -94,7 +94,7 @@ type azurerm_lb_outbound_rule = {
   name : string prop;
   protocol : string prop;
   frontend_ip_configuration : frontend_ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -123,7 +123,7 @@ let yojson_of_azurerm_lb_outbound_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_frontend_ip_configuration then bnds
+         if Stdlib.( = ) [] v_frontend_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_ip_configuration)

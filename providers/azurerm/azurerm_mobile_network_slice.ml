@@ -113,7 +113,7 @@ type azurerm_mobile_network_slice = {
   tags : (string * string prop) list option; [@option]
   single_network_slice_selection_assistance_information :
     single_network_slice_selection_assistance_information list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -142,8 +142,8 @@ let yojson_of_azurerm_mobile_network_slice =
        in
        let bnds =
          if
-           []
-           = v_single_network_slice_selection_assistance_information
+           Stdlib.( = ) []
+             v_single_network_slice_selection_assistance_information
          then bnds
          else
            let arg =

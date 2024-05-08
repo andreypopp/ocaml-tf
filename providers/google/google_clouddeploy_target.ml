@@ -33,7 +33,7 @@ type execution_configs = {
   execution_timeout : string prop option; [@option]
   service_account : string prop option; [@option]
   usages : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   worker_pool : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -61,7 +61,7 @@ let yojson_of_execution_configs =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_usages then bnds
+         if Stdlib.( = ) [] v_usages then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -140,7 +140,7 @@ let _ = yojson_of_gke
 
 type multi_target = {
   target_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_multi_target =
          []
        in
        let bnds =
-         if [] = v_target_ids then bnds
+         if Stdlib.( = ) [] v_target_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -247,13 +247,13 @@ type google_clouddeploy_target = {
   project : string prop option; [@option]
   require_approval : bool prop option; [@option]
   anthos_cluster : anthos_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   execution_configs : execution_configs list;
-      [@default []] [@yojson_drop_default ( = )]
-  gke : gke list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gke : gke list; [@default []] [@yojson_drop_default Stdlib.( = )]
   multi_target : multi_target list;
-      [@default []] [@yojson_drop_default ( = )]
-  run : run list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  run : run list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -287,14 +287,14 @@ let yojson_of_google_clouddeploy_target =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_run then bnds
+         if Stdlib.( = ) [] v_run then bnds
          else
            let arg = (yojson_of_list yojson_of_run) v_run in
            let bnd = "run", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multi_target then bnds
+         if Stdlib.( = ) [] v_multi_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_multi_target) v_multi_target
@@ -303,14 +303,14 @@ let yojson_of_google_clouddeploy_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gke then bnds
+         if Stdlib.( = ) [] v_gke then bnds
          else
            let arg = (yojson_of_list yojson_of_gke) v_gke in
            let bnd = "gke", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_execution_configs then bnds
+         if Stdlib.( = ) [] v_execution_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_configs)
@@ -320,7 +320,7 @@ let yojson_of_google_clouddeploy_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_anthos_cluster then bnds
+         if Stdlib.( = ) [] v_anthos_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_anthos_cluster)

@@ -6,7 +6,7 @@ open! Tf_core
 
 type action = {
   action_group : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** action_group *)
   custom_webhook_payload : string prop;
       (** custom_webhook_payload *)
@@ -22,7 +22,7 @@ type trigger__metric_trigger = {
 
 type trigger = {
   metric_trigger : trigger__metric_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** metric_trigger *)
   operator : string prop;  (** operator *)
   threshold : float prop;  (** threshold *)

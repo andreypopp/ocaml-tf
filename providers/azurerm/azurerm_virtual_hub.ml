@@ -4,7 +4,7 @@ open! Tf_core
 
 type route = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   next_hop_ip_address : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -27,7 +27,7 @@ let yojson_of_route =
          ("next_hop_ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_address_prefixes then bnds
+         if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -115,7 +115,8 @@ type azurerm_virtual_hub = {
   virtual_router_auto_scale_min_capacity : float prop option;
       [@option]
   virtual_wan_id : string prop option; [@option]
-  route : route list; [@default []] [@yojson_drop_default ( = )]
+  route : route list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -147,7 +148,7 @@ let yojson_of_azurerm_virtual_hub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_route then bnds
+         if Stdlib.( = ) [] v_route then bnds
          else
            let arg = (yojson_of_list yojson_of_route) v_route in
            let bnd = "route", arg in

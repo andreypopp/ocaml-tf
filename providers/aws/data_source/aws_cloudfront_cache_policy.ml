@@ -3,7 +3,8 @@
 open! Tf_core
 
 type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,7 +21,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_con
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -43,7 +44,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config = {
   query_strings :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +64,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_con
          []
        in
        let bnds =
-         if [] = v_query_strings then bnds
+         if Stdlib.( = ) [] v_query_strings then bnds
          else
            let arg =
              (yojson_of_list
@@ -89,7 +90,8 @@ let _ =
 [@@@deriving.end]
 
 type parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +108,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config__h
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -129,7 +131,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__headers_config = {
   headers :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +148,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config
          []
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -172,7 +174,8 @@ let _ =
 [@@@deriving.end]
 
 type parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -189,7 +192,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config__c
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -212,7 +215,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__cookies_config = {
   cookies :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,7 +232,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config
          []
        in
        let bnds =
-         if [] = v_cookies then bnds
+         if Stdlib.( = ) [] v_cookies then bnds
          else
            let arg =
              (yojson_of_list
@@ -258,17 +261,17 @@ type parameters_in_cache_key_and_forwarded_to_origin = {
   cookies_config :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enable_accept_encoding_brotli : bool prop;
   enable_accept_encoding_gzip : bool prop;
   headers_config :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_strings_config :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -289,7 +292,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
          []
        in
        let bnds =
-         if [] = v_query_strings_config then bnds
+         if Stdlib.( = ) [] v_query_strings_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -300,7 +303,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers_config then bnds
+         if Stdlib.( = ) [] v_headers_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -325,7 +328,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
          ("enable_accept_encoding_brotli", arg) :: bnds
        in
        let bnds =
-         if [] = v_cookies_config then bnds
+         if Stdlib.( = ) [] v_cookies_config then bnds
          else
            let arg =
              (yojson_of_list

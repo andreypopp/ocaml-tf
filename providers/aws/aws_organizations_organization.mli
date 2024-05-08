@@ -30,7 +30,7 @@ type roots = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   policy_types : roots__policy_types list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** policy_types *)
 }
 

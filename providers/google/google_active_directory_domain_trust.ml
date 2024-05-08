@@ -54,7 +54,7 @@ type google_active_directory_domain_trust = {
   project : string prop option; [@option]
   selective_authentication : bool prop option; [@option]
   target_dns_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_domain_name : string prop;
   trust_direction : string prop;
   trust_handshake_secret : string prop;
@@ -109,7 +109,7 @@ let yojson_of_google_active_directory_domain_trust =
          ("target_domain_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_target_dns_ip_addresses then bnds
+         if Stdlib.( = ) [] v_target_dns_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -6,17 +6,17 @@ open! Tf_core
 
 type connect_settings = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** availability_zones *)
   connect_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** connect_ips *)
   customer_dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** customer_dns_ips *)
   customer_username : string prop;  (** customer_username *)
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
@@ -28,7 +28,7 @@ type radius_settings = {
   radius_port : float prop;  (** radius_port *)
   radius_retries : float prop;  (** radius_retries *)
   radius_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** radius_servers *)
   radius_timeout : float prop;  (** radius_timeout *)
   use_same_username : bool prop;  (** use_same_username *)
@@ -36,10 +36,10 @@ type radius_settings = {
 
 type vpc_settings = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** availability_zones *)
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }

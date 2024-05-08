@@ -61,8 +61,9 @@ type aws_codeartifact_repository = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   external_connections : external_connections list;
-      [@default []] [@yojson_drop_default ( = )]
-  upstream : upstream list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  upstream : upstream list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,7 +86,7 @@ let yojson_of_aws_codeartifact_repository =
          []
        in
        let bnds =
-         if [] = v_upstream then bnds
+         if Stdlib.( = ) [] v_upstream then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upstream) v_upstream
@@ -94,7 +95,7 @@ let yojson_of_aws_codeartifact_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_connections then bnds
+         if Stdlib.( = ) [] v_external_connections then bnds
          else
            let arg =
              (yojson_of_list yojson_of_external_connections)

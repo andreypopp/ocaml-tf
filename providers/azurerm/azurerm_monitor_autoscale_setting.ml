@@ -101,9 +101,9 @@ let _ = yojson_of_notification__webhook
 
 type notification = {
   email : notification__email list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webhook : notification__webhook list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,7 +116,7 @@ let yojson_of_notification =
          []
        in
        let bnds =
-         if [] = v_webhook then bnds
+         if Stdlib.( = ) [] v_webhook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification__webhook)
@@ -126,7 +126,7 @@ let yojson_of_notification =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email then bnds
+         if Stdlib.( = ) [] v_email then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification__email) v_email
@@ -254,10 +254,12 @@ let _ = yojson_of_profile__fixed_date
 [@@@deriving.end]
 
 type profile__recurrence = {
-  days : string prop list; [@default []] [@yojson_drop_default ( = )]
-  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
+  days : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  hours : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   minutes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timezone : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -284,7 +286,7 @@ let yojson_of_profile__recurrence =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_minutes then bnds
+         if Stdlib.( = ) [] v_minutes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -294,7 +296,7 @@ let yojson_of_profile__recurrence =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hours then bnds
+         if Stdlib.( = ) [] v_hours then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -304,7 +306,7 @@ let yojson_of_profile__recurrence =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_days then bnds
+         if Stdlib.( = ) [] v_days then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -324,7 +326,7 @@ type profile__rule__metric_trigger__dimensions = {
   name : string prop;
   operator : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +339,7 @@ let yojson_of_profile__rule__metric_trigger__dimensions =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -374,7 +376,7 @@ type profile__rule__metric_trigger = {
   time_grain : string prop;
   time_window : string prop;
   dimensions : profile__rule__metric_trigger__dimensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,7 +401,7 @@ let yojson_of_profile__rule__metric_trigger =
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -516,9 +518,9 @@ let _ = yojson_of_profile__rule__scale_action
 
 type profile__rule = {
   metric_trigger : profile__rule__metric_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_action : profile__rule__scale_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -534,7 +536,7 @@ let yojson_of_profile__rule =
          []
        in
        let bnds =
-         if [] = v_scale_action then bnds
+         if Stdlib.( = ) [] v_scale_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__rule__scale_action)
@@ -544,7 +546,7 @@ let yojson_of_profile__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric_trigger then bnds
+         if Stdlib.( = ) [] v_metric_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__rule__metric_trigger)
@@ -563,13 +565,13 @@ let _ = yojson_of_profile__rule
 type profile = {
   name : string prop;
   capacity : profile__capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fixed_date : profile__fixed_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   recurrence : profile__recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule : profile__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -588,7 +590,7 @@ let yojson_of_profile =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__rule) v_rule
@@ -597,7 +599,7 @@ let yojson_of_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_recurrence then bnds
+         if Stdlib.( = ) [] v_recurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__recurrence)
@@ -607,7 +609,7 @@ let yojson_of_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_date then bnds
+         if Stdlib.( = ) [] v_fixed_date then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__fixed_date)
@@ -617,7 +619,7 @@ let yojson_of_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity then bnds
+         if Stdlib.( = ) [] v_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_profile__capacity) v_capacity
@@ -705,10 +707,11 @@ type azurerm_monitor_autoscale_setting = {
   tags : (string * string prop) list option; [@option]
   target_resource_id : string prop;
   notification : notification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predictive : predictive list;
-      [@default []] [@yojson_drop_default ( = )]
-  profile : profile list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  profile : profile list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -738,14 +741,14 @@ let yojson_of_azurerm_monitor_autoscale_setting =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_profile then bnds
+         if Stdlib.( = ) [] v_profile then bnds
          else
            let arg = (yojson_of_list yojson_of_profile) v_profile in
            let bnd = "profile", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predictive then bnds
+         if Stdlib.( = ) [] v_predictive then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predictive) v_predictive
@@ -754,7 +757,7 @@ let yojson_of_azurerm_monitor_autoscale_setting =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification then bnds
+         if Stdlib.( = ) [] v_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification) v_notification

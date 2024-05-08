@@ -182,13 +182,13 @@ let _ = yojson_of_env__value_from__secret_key_ref
 
 type env__value_from = {
   config_map_key_ref : env__value_from__config_map_key_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   field_ref : env__value_from__field_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_field_ref : env__value_from__resource_field_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_key_ref : env__value_from__secret_key_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,7 +206,7 @@ let yojson_of_env__value_from =
          []
        in
        let bnds =
-         if [] = v_secret_key_ref then bnds
+         if Stdlib.( = ) [] v_secret_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -217,7 +217,7 @@ let yojson_of_env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_field_ref then bnds
+         if Stdlib.( = ) [] v_resource_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -228,7 +228,7 @@ let yojson_of_env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_ref then bnds
+         if Stdlib.( = ) [] v_field_ref then bnds
          else
            let arg =
              (yojson_of_list yojson_of_env__value_from__field_ref)
@@ -238,7 +238,7 @@ let yojson_of_env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map_key_ref then bnds
+         if Stdlib.( = ) [] v_config_map_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -259,7 +259,7 @@ type env = {
   name : string prop;
   value : string prop option; [@option]
   value_from : env__value_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -272,7 +272,7 @@ let yojson_of_env =
          []
        in
        let bnds =
-         if [] = v_value_from then bnds
+         if Stdlib.( = ) [] v_value_from then bnds
          else
            let arg =
              (yojson_of_list yojson_of_env__value_from) v_value_from
@@ -340,8 +340,9 @@ type kubernetes_env = {
   id : string prop option; [@option]
   init_container : string prop option; [@option]
   kind : string prop;
-  env : env list; [@default []] [@yojson_drop_default ( = )]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  env : env list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -364,7 +365,7 @@ let yojson_of_kubernetes_env =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata
@@ -373,7 +374,7 @@ let yojson_of_kubernetes_env =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg = (yojson_of_list yojson_of_env) v_env in
            let bnd = "env", arg in

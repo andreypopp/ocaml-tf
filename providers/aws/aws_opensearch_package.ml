@@ -39,7 +39,7 @@ type aws_opensearch_package = {
   package_name : string prop;
   package_type : string prop;
   package_source : package_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_aws_opensearch_package =
          []
        in
        let bnds =
-         if [] = v_package_source then bnds
+         if Stdlib.( = ) [] v_package_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_package_source)

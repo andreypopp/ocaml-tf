@@ -149,7 +149,7 @@ let _ = yojson_of_inputs__processing_configuration__lambda
 
 type inputs__processing_configuration = {
   lambda : inputs__processing_configuration__lambda list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,7 +162,7 @@ let yojson_of_inputs__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_lambda then bnds
+         if Stdlib.( = ) [] v_lambda then bnds
          else
            let arg =
              (yojson_of_list
@@ -293,9 +293,9 @@ let _ =
 
 type inputs__schema__record_format__mapping_parameters = {
   csv : inputs__schema__record_format__mapping_parameters__csv list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json : inputs__schema__record_format__mapping_parameters__json list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,7 +309,7 @@ let yojson_of_inputs__schema__record_format__mapping_parameters =
          []
        in
        let bnds =
-         if [] = v_json then bnds
+         if Stdlib.( = ) [] v_json then bnds
          else
            let arg =
              (yojson_of_list
@@ -320,7 +320,7 @@ let yojson_of_inputs__schema__record_format__mapping_parameters =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv then bnds
+         if Stdlib.( = ) [] v_csv then bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +341,7 @@ let _ = yojson_of_inputs__schema__record_format__mapping_parameters
 type inputs__schema__record_format = {
   mapping_parameters :
     inputs__schema__record_format__mapping_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -354,7 +354,7 @@ let yojson_of_inputs__schema__record_format =
          []
        in
        let bnds =
-         if [] = v_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -375,9 +375,9 @@ let _ = yojson_of_inputs__schema__record_format
 type inputs__schema = {
   record_encoding : string prop option; [@option]
   record_columns : inputs__schema__record_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   record_format : inputs__schema__record_format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -394,7 +394,7 @@ let yojson_of_inputs__schema =
          []
        in
        let bnds =
-         if [] = v_record_format then bnds
+         if Stdlib.( = ) [] v_record_format then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__schema__record_format)
@@ -404,7 +404,7 @@ let yojson_of_inputs__schema =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_record_columns then bnds
+         if Stdlib.( = ) [] v_record_columns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__schema__record_columns)
@@ -460,18 +460,18 @@ let _ = yojson_of_inputs__starting_position_configuration
 type inputs = {
   name_prefix : string prop;
   kinesis_firehose : inputs__kinesis_firehose list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_stream : inputs__kinesis_stream list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parallelism : inputs__parallelism list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration : inputs__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema : inputs__schema list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   starting_position_configuration :
     inputs__starting_position_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -493,7 +493,8 @@ let yojson_of_inputs =
          []
        in
        let bnds =
-         if [] = v_starting_position_configuration then bnds
+         if Stdlib.( = ) [] v_starting_position_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -504,7 +505,7 @@ let yojson_of_inputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__schema) v_schema
@@ -513,7 +514,7 @@ let yojson_of_inputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -524,7 +525,7 @@ let yojson_of_inputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parallelism then bnds
+         if Stdlib.( = ) [] v_parallelism then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__parallelism)
@@ -534,7 +535,7 @@ let yojson_of_inputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_stream then bnds
+         if Stdlib.( = ) [] v_kinesis_stream then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__kinesis_stream)
@@ -544,7 +545,7 @@ let yojson_of_inputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inputs__kinesis_firehose)
@@ -678,13 +679,13 @@ let _ = yojson_of_outputs__schema
 type outputs = {
   name : string prop;
   kinesis_firehose : outputs__kinesis_firehose list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_stream : outputs__kinesis_stream list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda : outputs__lambda list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema : outputs__schema list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -703,7 +704,7 @@ let yojson_of_outputs =
          []
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outputs__schema) v_schema
@@ -712,7 +713,7 @@ let yojson_of_outputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda then bnds
+         if Stdlib.( = ) [] v_lambda then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outputs__lambda) v_lambda
@@ -721,7 +722,7 @@ let yojson_of_outputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_stream then bnds
+         if Stdlib.( = ) [] v_kinesis_stream then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outputs__kinesis_stream)
@@ -731,7 +732,7 @@ let yojson_of_outputs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outputs__kinesis_firehose)
@@ -907,11 +908,11 @@ type reference_data_sources__schema__record_format__mapping_parameters = {
   csv :
     reference_data_sources__schema__record_format__mapping_parameters__csv
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json :
     reference_data_sources__schema__record_format__mapping_parameters__json
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -928,7 +929,7 @@ let yojson_of_reference_data_sources__schema__record_format__mapping_parameters
          []
        in
        let bnds =
-         if [] = v_json then bnds
+         if Stdlib.( = ) [] v_json then bnds
          else
            let arg =
              (yojson_of_list
@@ -939,7 +940,7 @@ let yojson_of_reference_data_sources__schema__record_format__mapping_parameters
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv then bnds
+         if Stdlib.( = ) [] v_csv then bnds
          else
            let arg =
              (yojson_of_list
@@ -962,7 +963,7 @@ type reference_data_sources__schema__record_format = {
   mapping_parameters :
     reference_data_sources__schema__record_format__mapping_parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -975,7 +976,7 @@ let yojson_of_reference_data_sources__schema__record_format =
          []
        in
        let bnds =
-         if [] = v_mapping_parameters then bnds
+         if Stdlib.( = ) [] v_mapping_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -997,9 +998,9 @@ type reference_data_sources__schema = {
   record_encoding : string prop option; [@option]
   record_columns :
     reference_data_sources__schema__record_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   record_format : reference_data_sources__schema__record_format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1016,7 +1017,7 @@ let yojson_of_reference_data_sources__schema =
          []
        in
        let bnds =
-         if [] = v_record_format then bnds
+         if Stdlib.( = ) [] v_record_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -1027,7 +1028,7 @@ let yojson_of_reference_data_sources__schema =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_record_columns then bnds
+         if Stdlib.( = ) [] v_record_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -1056,9 +1057,9 @@ let _ = yojson_of_reference_data_sources__schema
 type reference_data_sources = {
   table_name : string prop;
   s3 : reference_data_sources__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema : reference_data_sources__schema list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1071,7 +1072,7 @@ let yojson_of_reference_data_sources =
          []
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reference_data_sources__schema)
@@ -1081,7 +1082,7 @@ let yojson_of_reference_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reference_data_sources__s3)
@@ -1110,11 +1111,13 @@ type aws_kinesis_analytics_application = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cloudwatch_logging_options : cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
-  inputs : inputs list; [@default []] [@yojson_drop_default ( = )]
-  outputs : outputs list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  inputs : inputs list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  outputs : outputs list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reference_data_sources : reference_data_sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1139,7 +1142,7 @@ let yojson_of_aws_kinesis_analytics_application =
          []
        in
        let bnds =
-         if [] = v_reference_data_sources then bnds
+         if Stdlib.( = ) [] v_reference_data_sources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reference_data_sources)
@@ -1149,21 +1152,21 @@ let yojson_of_aws_kinesis_analytics_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_outputs then bnds
+         if Stdlib.( = ) [] v_outputs then bnds
          else
            let arg = (yojson_of_list yojson_of_outputs) v_outputs in
            let bnd = "outputs", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inputs then bnds
+         if Stdlib.( = ) [] v_inputs then bnds
          else
            let arg = (yojson_of_list yojson_of_inputs) v_inputs in
            let bnd = "inputs", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudwatch_logging_options)

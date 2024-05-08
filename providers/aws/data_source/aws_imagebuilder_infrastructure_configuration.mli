@@ -17,7 +17,7 @@ type logging__s3_logs = {
 
 type logging = {
   s3_logs : logging__s3_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** s3_logs *)
 }
 

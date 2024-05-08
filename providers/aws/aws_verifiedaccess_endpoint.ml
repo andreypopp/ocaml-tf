@@ -214,11 +214,11 @@ type aws_verifiedaccess_endpoint = {
   tags_all : (string * string prop) list option; [@option]
   verified_access_group_id : string prop;
   load_balancer_options : load_balancer_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface_options : network_interface_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sse_specification : sse_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -253,7 +253,7 @@ let yojson_of_aws_verifiedaccess_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sse_specification then bnds
+         if Stdlib.( = ) [] v_sse_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sse_specification)
@@ -263,7 +263,7 @@ let yojson_of_aws_verifiedaccess_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface_options then bnds
+         if Stdlib.( = ) [] v_network_interface_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_interface_options)
@@ -273,7 +273,7 @@ let yojson_of_aws_verifiedaccess_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_options then bnds
+         if Stdlib.( = ) [] v_load_balancer_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer_options)

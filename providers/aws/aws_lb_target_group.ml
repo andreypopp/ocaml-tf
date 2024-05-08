@@ -254,13 +254,13 @@ type aws_lb_target_group = {
   target_type : string prop option; [@option]
   vpc_id : string prop option; [@option]
   health_check : health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stickiness : stickiness list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_failover : target_failover list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_health_state : target_health_state list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -302,7 +302,7 @@ let yojson_of_aws_lb_target_group =
          []
        in
        let bnds =
-         if [] = v_target_health_state then bnds
+         if Stdlib.( = ) [] v_target_health_state then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_health_state)
@@ -312,7 +312,7 @@ let yojson_of_aws_lb_target_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_target_failover then bnds
+         if Stdlib.( = ) [] v_target_failover then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_failover)
@@ -322,7 +322,7 @@ let yojson_of_aws_lb_target_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stickiness then bnds
+         if Stdlib.( = ) [] v_stickiness then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stickiness) v_stickiness
@@ -331,7 +331,7 @@ let yojson_of_aws_lb_target_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check) v_health_check

@@ -6,7 +6,7 @@ open! Tf_core
 
 type report_delivery_channel = {
   formats : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** formats *)
   s3_bucket_name : string prop;  (** s3_bucket_name *)
   s3_key_prefix : string prop;  (** s3_key_prefix *)
@@ -14,17 +14,17 @@ type report_delivery_channel = {
 
 type report_setting = {
   accounts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accounts *)
   framework_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** framework_arns *)
   number_of_frameworks : float prop;  (** number_of_frameworks *)
   organization_units : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** organization_units *)
   regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** regions *)
   report_template : string prop;  (** report_template *)
 }

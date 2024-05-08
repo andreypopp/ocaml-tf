@@ -352,20 +352,20 @@ type azurerm_redhat_openshift_cluster = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   api_server_profile : api_server_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cluster_profile : cluster_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_profile : ingress_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   main_profile : main_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_profile : network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_principal : service_principal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   worker_profile : worker_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -392,7 +392,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
          []
        in
        let bnds =
-         if [] = v_worker_profile then bnds
+         if Stdlib.( = ) [] v_worker_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_worker_profile)
@@ -406,7 +406,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_principal then bnds
+         if Stdlib.( = ) [] v_service_principal then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_principal)
@@ -416,7 +416,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_profile then bnds
+         if Stdlib.( = ) [] v_network_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_profile)
@@ -426,7 +426,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_main_profile then bnds
+         if Stdlib.( = ) [] v_main_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_main_profile) v_main_profile
@@ -435,7 +435,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_profile then bnds
+         if Stdlib.( = ) [] v_ingress_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_profile)
@@ -445,7 +445,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_profile then bnds
+         if Stdlib.( = ) [] v_cluster_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cluster_profile)
@@ -455,7 +455,7 @@ let yojson_of_azurerm_redhat_openshift_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_server_profile then bnds
+         if Stdlib.( = ) [] v_api_server_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_api_server_profile)

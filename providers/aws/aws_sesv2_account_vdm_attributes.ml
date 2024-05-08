@@ -62,9 +62,9 @@ type aws_sesv2_account_vdm_attributes = {
   id : string prop option; [@option]
   vdm_enabled : string prop;
   dashboard_attributes : dashboard_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   guardian_attributes : guardian_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +82,7 @@ let yojson_of_aws_sesv2_account_vdm_attributes =
          []
        in
        let bnds =
-         if [] = v_guardian_attributes then bnds
+         if Stdlib.( = ) [] v_guardian_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_guardian_attributes)
@@ -92,7 +92,7 @@ let yojson_of_aws_sesv2_account_vdm_attributes =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dashboard_attributes then bnds
+         if Stdlib.( = ) [] v_dashboard_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dashboard_attributes)

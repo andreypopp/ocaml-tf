@@ -400,7 +400,7 @@ let _ = yojson_of_user
 type instances = {
   console_url : string prop;
   endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_address : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -422,7 +422,7 @@ let yojson_of_instances =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoints then bnds
+         if Stdlib.( = ) [] v_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -461,16 +461,16 @@ type aws_mq_broker = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_options : encryption_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ldap_server_metadata : ldap_server_metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  logs : logs list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  logs : logs list; [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window_start_time : maintenance_window_start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  user : user list; [@default []] [@yojson_drop_default ( = )]
+  user : user list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -510,7 +510,7 @@ let yojson_of_aws_mq_broker =
          []
        in
        let bnds =
-         if [] = v_user then bnds
+         if Stdlib.( = ) [] v_user then bnds
          else
            let arg = (yojson_of_list yojson_of_user) v_user in
            let bnd = "user", arg in
@@ -521,7 +521,7 @@ let yojson_of_aws_mq_broker =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window_start_time then bnds
+         if Stdlib.( = ) [] v_maintenance_window_start_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window_start_time)
@@ -531,14 +531,14 @@ let yojson_of_aws_mq_broker =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logs then bnds
+         if Stdlib.( = ) [] v_logs then bnds
          else
            let arg = (yojson_of_list yojson_of_logs) v_logs in
            let bnd = "logs", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ldap_server_metadata then bnds
+         if Stdlib.( = ) [] v_ldap_server_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ldap_server_metadata)
@@ -548,7 +548,7 @@ let yojson_of_aws_mq_broker =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_options then bnds
+         if Stdlib.( = ) [] v_encryption_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_options)
@@ -558,7 +558,7 @@ let yojson_of_aws_mq_broker =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

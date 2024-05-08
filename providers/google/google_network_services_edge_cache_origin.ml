@@ -95,7 +95,7 @@ type origin_override_action__header_action = {
   request_headers_to_add :
     origin_override_action__header_action__request_headers_to_add
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +108,7 @@ let yojson_of_origin_override_action__header_action =
          []
        in
        let bnds =
-         if [] = v_request_headers_to_add then bnds
+         if Stdlib.( = ) [] v_request_headers_to_add then bnds
          else
            let arg =
              (yojson_of_list
@@ -157,9 +157,9 @@ let _ = yojson_of_origin_override_action__url_rewrite
 
 type origin_override_action = {
   header_action : origin_override_action__header_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_rewrite : origin_override_action__url_rewrite list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,7 +173,7 @@ let yojson_of_origin_override_action =
          []
        in
        let bnds =
-         if [] = v_url_rewrite then bnds
+         if Stdlib.( = ) [] v_url_rewrite then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,7 +184,7 @@ let yojson_of_origin_override_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header_action then bnds
+         if Stdlib.( = ) [] v_header_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -350,12 +350,13 @@ type google_network_services_edge_cache_origin = {
   protocol : string prop option; [@option]
   retry_conditions : string prop list option; [@option]
   aws_v4_authentication : aws_v4_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_override_action : origin_override_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_redirect : origin_redirect list;
-      [@default []] [@yojson_drop_default ( = )]
-  timeout : timeout list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  timeout : timeout list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -390,14 +391,14 @@ let yojson_of_google_network_services_edge_cache_origin =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg = (yojson_of_list yojson_of_timeout) v_timeout in
            let bnd = "timeout", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_redirect then bnds
+         if Stdlib.( = ) [] v_origin_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_redirect)
@@ -407,7 +408,7 @@ let yojson_of_google_network_services_edge_cache_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_override_action then bnds
+         if Stdlib.( = ) [] v_origin_override_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_override_action)
@@ -417,7 +418,7 @@ let yojson_of_google_network_services_edge_cache_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_v4_authentication then bnds
+         if Stdlib.( = ) [] v_aws_v4_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_aws_v4_authentication)

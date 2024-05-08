@@ -57,7 +57,7 @@ type capacity_reservation_specification = {
   capacity_reservation_target :
     capacity_reservation_specification__capacity_reservation_target
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_capacity_reservation_specification =
          []
        in
        let bnds =
-         if [] = v_capacity_reservation_target then bnds
+         if Stdlib.( = ) [] v_capacity_reservation_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -861,29 +861,29 @@ type aws_spot_instance_request = {
   wait_for_fulfillment : bool prop option; [@option]
   capacity_reservation_specification :
     capacity_reservation_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cpu_options : cpu_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   credit_specification : credit_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_block_device : ebs_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enclave_options : enclave_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_block_device : ephemeral_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template : launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_options : maintenance_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata_options : metadata_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface : network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_dns_name_options : private_dns_name_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_block_device : root_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -961,7 +961,7 @@ let yojson_of_aws_spot_instance_request =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_root_block_device then bnds
+         if Stdlib.( = ) [] v_root_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_block_device)
@@ -971,7 +971,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_private_dns_name_options then bnds
+         if Stdlib.( = ) [] v_private_dns_name_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_dns_name_options)
@@ -981,7 +981,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_interface)
@@ -991,7 +991,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata_options then bnds
+         if Stdlib.( = ) [] v_metadata_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata_options)
@@ -1001,7 +1001,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_options then bnds
+         if Stdlib.( = ) [] v_maintenance_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_options)
@@ -1011,7 +1011,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_launch_template)
@@ -1021,7 +1021,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ephemeral_block_device then bnds
+         if Stdlib.( = ) [] v_ephemeral_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ephemeral_block_device)
@@ -1031,7 +1031,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_enclave_options then bnds
+         if Stdlib.( = ) [] v_enclave_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_enclave_options)
@@ -1041,7 +1041,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebs_block_device then bnds
+         if Stdlib.( = ) [] v_ebs_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_block_device)
@@ -1051,7 +1051,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_credit_specification then bnds
+         if Stdlib.( = ) [] v_credit_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_credit_specification)
@@ -1061,7 +1061,7 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cpu_options then bnds
+         if Stdlib.( = ) [] v_cpu_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cpu_options) v_cpu_options
@@ -1070,7 +1070,8 @@ let yojson_of_aws_spot_instance_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity_reservation_specification then bnds
+         if Stdlib.( = ) [] v_capacity_reservation_specification then
+           bnds
          else
            let arg =
              (yojson_of_list

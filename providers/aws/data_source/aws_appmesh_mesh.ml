@@ -26,7 +26,7 @@ let _ = yojson_of_spec__egress_filter
 
 type spec = {
   egress_filter : spec__egress_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +39,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_egress_filter then bnds
+         if Stdlib.( = ) [] v_egress_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress_filter)

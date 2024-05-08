@@ -4,7 +4,7 @@ open! Tf_core
 
 type cors = {
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_cors =
          []
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -216,11 +216,11 @@ let _ = yojson_of_timeouts
 
 type upstream_endpoint = {
   category_pattern : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_pattern : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hub_pattern : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_template : string prop;
   user_assigned_identity_id : string prop option; [@option]
 }
@@ -253,7 +253,7 @@ let yojson_of_upstream_endpoint =
          ("url_template", arg) :: bnds
        in
        let bnds =
-         if [] = v_hub_pattern then bnds
+         if Stdlib.( = ) [] v_hub_pattern then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -263,7 +263,7 @@ let yojson_of_upstream_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_pattern then bnds
+         if Stdlib.( = ) [] v_event_pattern then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -273,7 +273,7 @@ let yojson_of_upstream_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_category_pattern then bnds
+         if Stdlib.( = ) [] v_category_pattern then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -306,15 +306,15 @@ type azurerm_signalr_service = {
   service_mode : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tls_client_cert_enabled : bool prop option; [@option]
-  cors : cors list; [@default []] [@yojson_drop_default ( = )]
+  cors : cors list; [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   live_trace : live_trace list;
-      [@default []] [@yojson_drop_default ( = )]
-  sku : sku list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sku : sku list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   upstream_endpoint : upstream_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -351,7 +351,7 @@ let yojson_of_azurerm_signalr_service =
          []
        in
        let bnds =
-         if [] = v_upstream_endpoint then bnds
+         if Stdlib.( = ) [] v_upstream_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upstream_endpoint)
@@ -365,14 +365,14 @@ let yojson_of_azurerm_signalr_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sku then bnds
+         if Stdlib.( = ) [] v_sku then bnds
          else
            let arg = (yojson_of_list yojson_of_sku) v_sku in
            let bnd = "sku", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_live_trace then bnds
+         if Stdlib.( = ) [] v_live_trace then bnds
          else
            let arg =
              (yojson_of_list yojson_of_live_trace) v_live_trace
@@ -381,7 +381,7 @@ let yojson_of_azurerm_signalr_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -390,7 +390,7 @@ let yojson_of_azurerm_signalr_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg = (yojson_of_list yojson_of_cors) v_cors in
            let bnd = "cors", arg in

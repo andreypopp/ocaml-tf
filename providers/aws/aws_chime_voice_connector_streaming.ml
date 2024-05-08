@@ -50,7 +50,7 @@ type aws_chime_voice_connector_streaming = {
   streaming_notification_targets : string prop list option; [@option]
   voice_connector_id : string prop;
   media_insights_configuration : media_insights_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_aws_chime_voice_connector_streaming =
          []
        in
        let bnds =
-         if [] = v_media_insights_configuration then bnds
+         if Stdlib.( = ) [] v_media_insights_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_media_insights_configuration)

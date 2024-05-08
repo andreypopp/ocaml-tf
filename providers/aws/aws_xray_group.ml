@@ -47,7 +47,7 @@ type aws_xray_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   insights_configuration : insights_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_aws_xray_group =
          []
        in
        let bnds =
-         if [] = v_insights_configuration then bnds
+         if Stdlib.( = ) [] v_insights_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_insights_configuration)

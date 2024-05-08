@@ -33,7 +33,7 @@ type rules = {
   no_automate_dns_zone : bool prop;  (** no_automate_dns_zone *)
   port_range : string prop;  (** port_range *)
   ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
   project : string prop;  (** project *)
   psc_connection_id : string prop;  (** psc_connection_id *)
@@ -43,12 +43,12 @@ type rules = {
   self_link : string prop;  (** self_link *)
   service_directory_registrations :
     rules__service_directory_registrations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service_directory_registrations *)
   service_label : string prop;  (** service_label *)
   service_name : string prop;  (** service_name *)
   source_ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_ip_ranges *)
   subnetwork : string prop;  (** subnetwork *)
   target : string prop;  (** target *)

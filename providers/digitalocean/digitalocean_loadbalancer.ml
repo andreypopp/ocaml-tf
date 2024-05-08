@@ -271,13 +271,13 @@ type digitalocean_loadbalancer = {
   type_ : string prop option; [@option] [@key "type"]
   vpc_uuid : string prop option; [@option]
   firewall : firewall list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarding_rule : forwarding_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   healthcheck : healthcheck list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sticky_sessions : sticky_sessions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -312,7 +312,7 @@ let yojson_of_digitalocean_loadbalancer =
          []
        in
        let bnds =
-         if [] = v_sticky_sessions then bnds
+         if Stdlib.( = ) [] v_sticky_sessions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sticky_sessions)
@@ -322,7 +322,7 @@ let yojson_of_digitalocean_loadbalancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_healthcheck then bnds
+         if Stdlib.( = ) [] v_healthcheck then bnds
          else
            let arg =
              (yojson_of_list yojson_of_healthcheck) v_healthcheck
@@ -331,7 +331,7 @@ let yojson_of_digitalocean_loadbalancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarding_rule then bnds
+         if Stdlib.( = ) [] v_forwarding_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_forwarding_rule)
@@ -341,7 +341,7 @@ let yojson_of_digitalocean_loadbalancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_firewall then bnds
+         if Stdlib.( = ) [] v_firewall then bnds
          else
            let arg =
              (yojson_of_list yojson_of_firewall) v_firewall

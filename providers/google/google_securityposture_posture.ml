@@ -159,11 +159,11 @@ type policy_sets__policies__constraint__org_policy_constraint__policy_rules = {
   condition :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   values :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_r
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +197,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_r
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,7 +245,7 @@ type policy_sets__policies__constraint__org_policy_constraint = {
   policy_rules :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -264,7 +264,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint
          []
        in
        let bnds =
-         if [] = v_policy_rules then bnds
+         if Stdlib.( = ) [] v_policy_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -295,10 +295,10 @@ type policy_sets__policies__constraint__org_policy_constraint_custom__custom_con
   description : string prop option; [@option]
   display_name : string prop option; [@option]
   method_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,7 +323,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__c
          []
        in
        let bnds =
-         if [] = v_resource_types then bnds
+         if Stdlib.( = ) [] v_resource_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -337,7 +337,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__c
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_method_types then bnds
+         if Stdlib.( = ) [] v_method_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -498,11 +498,11 @@ type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rul
   condition :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   values :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -525,7 +525,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__p
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -536,7 +536,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__p
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -583,11 +583,11 @@ type policy_sets__policies__constraint__org_policy_constraint_custom = {
   custom_constraint :
     policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy_rules :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -607,7 +607,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
          []
        in
        let bnds =
-         if [] = v_policy_rules then bnds
+         if Stdlib.( = ) [] v_policy_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -618,7 +618,7 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_constraint then bnds
+         if Stdlib.( = ) [] v_custom_constraint then bnds
          else
            let arg =
              (yojson_of_list
@@ -704,7 +704,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   value_expression :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -721,7 +721,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         if [] = v_value_expression then bnds
+         if Stdlib.( = ) [] v_value_expression then bnds
          else
            let arg =
              (yojson_of_list
@@ -748,7 +748,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   properties :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -765,7 +765,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         if [] = v_properties then bnds
+         if Stdlib.( = ) [] v_properties then bnds
          else
            let arg =
              (yojson_of_list
@@ -848,7 +848,7 @@ let _ =
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector = {
   resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -865,7 +865,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         if [] = v_resource_types then bnds
+         if Stdlib.( = ) [] v_resource_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -890,15 +890,15 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   custom_output :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predicate :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_selector :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -922,7 +922,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         if [] = v_resource_selector then bnds
+         if Stdlib.( = ) [] v_resource_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -933,7 +933,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predicate then bnds
+         if Stdlib.( = ) [] v_predicate then bnds
          else
            let arg =
              (yojson_of_list
@@ -944,7 +944,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_output then bnds
+         if Stdlib.( = ) [] v_custom_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -989,7 +989,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module 
   config :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1010,7 +1010,7 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1090,19 +1090,19 @@ let _ =
 type policy_sets__policies__constraint = {
   org_policy_constraint :
     policy_sets__policies__constraint__org_policy_constraint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   org_policy_constraint_custom :
     policy_sets__policies__constraint__org_policy_constraint_custom
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_health_analytics_custom_module :
     policy_sets__policies__constraint__security_health_analytics_custom_module
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_health_analytics_module :
     policy_sets__policies__constraint__security_health_analytics_module
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1122,7 +1122,8 @@ let yojson_of_policy_sets__policies__constraint =
          []
        in
        let bnds =
-         if [] = v_security_health_analytics_module then bnds
+         if Stdlib.( = ) [] v_security_health_analytics_module then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1133,7 +1134,8 @@ let yojson_of_policy_sets__policies__constraint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_health_analytics_custom_module then bnds
+         if Stdlib.( = ) [] v_security_health_analytics_custom_module
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1146,7 +1148,7 @@ let yojson_of_policy_sets__policies__constraint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_org_policy_constraint_custom then bnds
+         if Stdlib.( = ) [] v_org_policy_constraint_custom then bnds
          else
            let arg =
              (yojson_of_list
@@ -1157,7 +1159,7 @@ let yojson_of_policy_sets__policies__constraint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_org_policy_constraint then bnds
+         if Stdlib.( = ) [] v_org_policy_constraint then bnds
          else
            let arg =
              (yojson_of_list
@@ -1180,9 +1182,11 @@ type policy_sets__policies = {
   policy_id : string prop;
   compliance_standards :
     policy_sets__policies__compliance_standards list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   constraint_ : policy_sets__policies__constraint list;
-      [@key "constraint"] [@default []] [@yojson_drop_default ( = )]
+      [@key "constraint"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1200,7 +1204,7 @@ let yojson_of_policy_sets__policies =
          []
        in
        let bnds =
-         if [] = v_constraint_ then bnds
+         if Stdlib.( = ) [] v_constraint_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1211,7 +1215,7 @@ let yojson_of_policy_sets__policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compliance_standards then bnds
+         if Stdlib.( = ) [] v_compliance_standards then bnds
          else
            let arg =
              (yojson_of_list
@@ -1244,7 +1248,7 @@ type policy_sets = {
   description : string prop option; [@option]
   policy_set_id : string prop;
   policies : policy_sets__policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1261,7 +1265,7 @@ let yojson_of_policy_sets =
          []
        in
        let bnds =
-         if [] = v_policies then bnds
+         if Stdlib.( = ) [] v_policies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_sets__policies)
@@ -1343,7 +1347,7 @@ type google_securityposture_posture = {
   posture_id : string prop;
   state : string prop;
   policy_sets : policy_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1370,7 +1374,7 @@ let yojson_of_google_securityposture_posture =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_policy_sets then bnds
+         if Stdlib.( = ) [] v_policy_sets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_sets) v_policy_sets

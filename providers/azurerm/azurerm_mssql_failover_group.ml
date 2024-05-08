@@ -127,10 +127,10 @@ type azurerm_mssql_failover_group = {
   server_id : string prop;
   tags : (string * string prop) list option; [@option]
   partner_server : partner_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   read_write_endpoint_failover_policy :
     read_write_endpoint_failover_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,7 +160,8 @@ let yojson_of_azurerm_mssql_failover_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_read_write_endpoint_failover_policy then bnds
+         if Stdlib.( = ) [] v_read_write_endpoint_failover_policy
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -171,7 +172,7 @@ let yojson_of_azurerm_mssql_failover_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partner_server then bnds
+         if Stdlib.( = ) [] v_partner_server then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partner_server)

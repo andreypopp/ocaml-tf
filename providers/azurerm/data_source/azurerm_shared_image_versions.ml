@@ -78,7 +78,7 @@ type images = {
   name : string prop;
   tags : (string * string prop) list;
   target_region : images__target_region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_images =
          []
        in
        let bnds =
-         if [] = v_target_region then bnds
+         if Stdlib.( = ) [] v_target_region then bnds
          else
            let arg =
              (yojson_of_list yojson_of_images__target_region)

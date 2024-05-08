@@ -12,13 +12,13 @@ type authentication = {
 
 type cors = {
   allowed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_headers *)
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_methods *)
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_origins *)
   credentials_allowed : bool prop;  (** credentials_allowed *)
   max_age_in_seconds : float prop;  (** max_age_in_seconds *)
@@ -26,7 +26,7 @@ type cors = {
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)

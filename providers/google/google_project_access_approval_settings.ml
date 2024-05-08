@@ -91,7 +91,7 @@ type google_project_access_approval_settings = {
   project : string prop option; [@option]
   project_id : string prop;
   enrolled_services : enrolled_services list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -117,7 +117,7 @@ let yojson_of_google_project_access_approval_settings =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_enrolled_services then bnds
+         if Stdlib.( = ) [] v_enrolled_services then bnds
          else
            let arg =
              (yojson_of_list yojson_of_enrolled_services)

@@ -45,7 +45,7 @@ let _ = yojson_of_artifact_config__s3_encryption
 
 type artifact_config = {
   s3_encryption : artifact_config__s3_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_artifact_config =
          []
        in
        let bnds =
-         if [] = v_s3_encryption then bnds
+         if Stdlib.( = ) [] v_s3_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_artifact_config__s3_encryption)
@@ -285,13 +285,13 @@ type aws_synthetics_canary = {
   tags_all : (string * string prop) list option; [@option]
   zip_file : string prop option; [@option]
   artifact_config : artifact_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   run_config : run_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,7 +325,7 @@ let yojson_of_aws_synthetics_canary =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -334,7 +334,7 @@ let yojson_of_aws_synthetics_canary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule) v_schedule
@@ -343,7 +343,7 @@ let yojson_of_aws_synthetics_canary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_run_config then bnds
+         if Stdlib.( = ) [] v_run_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_run_config) v_run_config
@@ -352,7 +352,7 @@ let yojson_of_aws_synthetics_canary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_artifact_config then bnds
+         if Stdlib.( = ) [] v_artifact_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_artifact_config)

@@ -151,10 +151,10 @@ type azurerm_data_factory_linked_service_azure_blob_storage = {
   tenant_id : string prop option; [@option]
   use_managed_identity : bool prop option; [@option]
   key_vault_sas_token : key_vault_sas_token list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_principal_linked_key_vault_key :
     service_principal_linked_key_vault_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -197,7 +197,8 @@ let yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_principal_linked_key_vault_key then bnds
+         if Stdlib.( = ) [] v_service_principal_linked_key_vault_key
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -208,7 +209,7 @@ let yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_sas_token then bnds
+         if Stdlib.( = ) [] v_key_vault_sas_token then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_sas_token)

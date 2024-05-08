@@ -29,7 +29,7 @@ type event_trigger = {
   event_type : string prop;
   resource : string prop;
   failure_policy : event_trigger__failure_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +46,7 @@ let yojson_of_event_trigger =
          []
        in
        let bnds =
-         if [] = v_failure_policy then bnds
+         if Stdlib.( = ) [] v_failure_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_trigger__failure_policy)
@@ -153,7 +153,7 @@ type secret_volumes = {
   project_id : string prop option; [@option]
   secret : string prop;
   versions : secret_volumes__versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -171,7 +171,7 @@ let yojson_of_secret_volumes =
          []
        in
        let bnds =
-         if [] = v_versions then bnds
+         if Stdlib.( = ) [] v_versions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret_volumes__versions)
@@ -316,13 +316,13 @@ type google_cloudfunctions_function = {
   vpc_connector : string prop option; [@option]
   vpc_connector_egress_settings : string prop option; [@option]
   event_trigger : event_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_environment_variables : secret_environment_variables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_volumes : secret_volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_repository : source_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -374,7 +374,7 @@ let yojson_of_google_cloudfunctions_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_repository then bnds
+         if Stdlib.( = ) [] v_source_repository then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_repository)
@@ -384,7 +384,7 @@ let yojson_of_google_cloudfunctions_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_volumes then bnds
+         if Stdlib.( = ) [] v_secret_volumes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret_volumes)
@@ -394,7 +394,7 @@ let yojson_of_google_cloudfunctions_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_environment_variables then bnds
+         if Stdlib.( = ) [] v_secret_environment_variables then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret_environment_variables)
@@ -404,7 +404,7 @@ let yojson_of_google_cloudfunctions_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_trigger then bnds
+         if Stdlib.( = ) [] v_event_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_trigger) v_event_trigger

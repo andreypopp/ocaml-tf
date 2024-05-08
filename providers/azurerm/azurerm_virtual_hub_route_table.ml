@@ -4,7 +4,7 @@ open! Tf_core
 
 type route = {
   destinations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destinations_type : string prop;
   name : string prop;
   next_hop : string prop;
@@ -49,7 +49,7 @@ let yojson_of_route =
          ("destinations_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_destinations then bnds
+         if Stdlib.( = ) [] v_destinations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -130,7 +130,8 @@ type azurerm_virtual_hub_route_table = {
   labels : string prop list option; [@option]
   name : string prop;
   virtual_hub_id : string prop;
-  route : route list; [@default []] [@yojson_drop_default ( = )]
+  route : route list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,7 +156,7 @@ let yojson_of_azurerm_virtual_hub_route_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_route then bnds
+         if Stdlib.( = ) [] v_route then bnds
          else
            let arg = (yojson_of_list yojson_of_route) v_route in
            let bnd = "route", arg in

@@ -12,7 +12,7 @@ type connection_info__endpoint_info = {
 
 type connection_info = {
   endpoint_info : connection_info__endpoint_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** endpoint_info *)
   service_attachment : string prop;  (** service_attachment *)
 }

@@ -177,7 +177,7 @@ type source = {
   script_uri : string prop option; [@option]
   script_uri_managed_identity :
     source__script_uri_managed_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,7 +195,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_script_uri_managed_identity then bnds
+         if Stdlib.( = ) [] v_script_uri_managed_identity then bnds
          else
            let arg =
              (yojson_of_list
@@ -373,14 +373,15 @@ type azurerm_virtual_machine_run_command = {
   tags : (string * string prop) list option; [@option]
   virtual_machine_id : string prop;
   error_blob_managed_identity : error_blob_managed_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_blob_managed_identity : output_blob_managed_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameter : parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protected_parameter : protected_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -414,14 +415,14 @@ let yojson_of_azurerm_virtual_machine_run_command =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protected_parameter then bnds
+         if Stdlib.( = ) [] v_protected_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protected_parameter)
@@ -431,7 +432,7 @@ let yojson_of_azurerm_virtual_machine_run_command =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter) v_parameter
@@ -440,7 +441,7 @@ let yojson_of_azurerm_virtual_machine_run_command =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_blob_managed_identity then bnds
+         if Stdlib.( = ) [] v_output_blob_managed_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output_blob_managed_identity)
@@ -450,7 +451,7 @@ let yojson_of_azurerm_virtual_machine_run_command =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_error_blob_managed_identity then bnds
+         if Stdlib.( = ) [] v_error_blob_managed_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_error_blob_managed_identity)

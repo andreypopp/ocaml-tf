@@ -149,13 +149,13 @@ type azurerm_sql_failover_group = {
   server_name : string prop;
   tags : (string * string prop) list option; [@option]
   partner_servers : partner_servers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   read_write_endpoint_failover_policy :
     read_write_endpoint_failover_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   readonly_endpoint_failover_policy :
     readonly_endpoint_failover_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -186,7 +186,8 @@ let yojson_of_azurerm_sql_failover_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_readonly_endpoint_failover_policy then bnds
+         if Stdlib.( = ) [] v_readonly_endpoint_failover_policy then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +198,8 @@ let yojson_of_azurerm_sql_failover_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_read_write_endpoint_failover_policy then bnds
+         if Stdlib.( = ) [] v_read_write_endpoint_failover_policy
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -208,7 +210,7 @@ let yojson_of_azurerm_sql_failover_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partner_servers then bnds
+         if Stdlib.( = ) [] v_partner_servers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partner_servers)

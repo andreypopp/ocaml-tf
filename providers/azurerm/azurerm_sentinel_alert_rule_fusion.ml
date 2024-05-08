@@ -6,7 +6,7 @@ type source__sub_type = {
   enabled : bool prop option; [@option]
   name : string prop;
   severities_allowed : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23,7 +23,7 @@ let yojson_of_source__sub_type =
          []
        in
        let bnds =
-         if [] = v_severities_allowed then bnds
+         if Stdlib.( = ) [] v_severities_allowed then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -55,7 +55,7 @@ type source = {
   enabled : bool prop option; [@option]
   name : string prop;
   sub_type : source__sub_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,7 +68,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_sub_type then bnds
+         if Stdlib.( = ) [] v_sub_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__sub_type) v_sub_type
@@ -161,7 +161,8 @@ type azurerm_sentinel_alert_rule_fusion = {
   id : string prop option; [@option]
   log_analytics_workspace_id : string prop;
   name : string prop;
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -187,7 +188,7 @@ let yojson_of_azurerm_sentinel_alert_rule_fusion =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in

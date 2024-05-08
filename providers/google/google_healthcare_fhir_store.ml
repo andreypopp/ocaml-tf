@@ -69,7 +69,7 @@ type stream_configs__bigquery_destination__schema_config = {
   last_updated_partition_config :
     stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,7 +88,7 @@ let yojson_of_stream_configs__bigquery_destination__schema_config =
          []
        in
        let bnds =
-         if [] = v_last_updated_partition_config then bnds
+         if Stdlib.( = ) [] v_last_updated_partition_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -124,7 +124,7 @@ type stream_configs__bigquery_destination = {
   dataset_uri : string prop;
   schema_config :
     stream_configs__bigquery_destination__schema_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +138,7 @@ let yojson_of_stream_configs__bigquery_destination =
          []
        in
        let bnds =
-         if [] = v_schema_config then bnds
+         if Stdlib.( = ) [] v_schema_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -163,7 +163,7 @@ let _ = yojson_of_stream_configs__bigquery_destination
 type stream_configs = {
   resource_types : string prop list option; [@option]
   bigquery_destination : stream_configs__bigquery_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,7 +179,7 @@ let yojson_of_stream_configs =
          []
        in
        let bnds =
-         if [] = v_bigquery_destination then bnds
+         if Stdlib.( = ) [] v_bigquery_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -265,9 +265,9 @@ type google_healthcare_fhir_store = {
   name : string prop;
   version : string prop;
   notification_config : notification_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stream_configs : stream_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -303,7 +303,7 @@ let yojson_of_google_healthcare_fhir_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stream_configs then bnds
+         if Stdlib.( = ) [] v_stream_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stream_configs)
@@ -313,7 +313,7 @@ let yojson_of_google_healthcare_fhir_store =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_config then bnds
+         if Stdlib.( = ) [] v_notification_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_config)

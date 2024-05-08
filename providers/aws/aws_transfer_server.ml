@@ -212,9 +212,9 @@ let _ = yojson_of_workflow_details__on_upload
 
 type workflow_details = {
   on_partial_upload : workflow_details__on_partial_upload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   on_upload : workflow_details__on_upload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,7 +230,7 @@ let yojson_of_workflow_details =
          []
        in
        let bnds =
-         if [] = v_on_upload then bnds
+         if Stdlib.( = ) [] v_on_upload then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workflow_details__on_upload)
@@ -240,7 +240,7 @@ let yojson_of_workflow_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_partial_upload then bnds
+         if Stdlib.( = ) [] v_on_partial_upload then bnds
          else
            let arg =
              (yojson_of_list
@@ -278,11 +278,11 @@ type aws_transfer_server = {
   tags_all : (string * string prop) list option; [@option]
   url : string prop option; [@option]
   endpoint_details : endpoint_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol_details : protocol_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workflow_details : workflow_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -320,7 +320,7 @@ let yojson_of_aws_transfer_server =
          []
        in
        let bnds =
-         if [] = v_workflow_details then bnds
+         if Stdlib.( = ) [] v_workflow_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workflow_details)
@@ -330,7 +330,7 @@ let yojson_of_aws_transfer_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protocol_details then bnds
+         if Stdlib.( = ) [] v_protocol_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol_details)
@@ -340,7 +340,7 @@ let yojson_of_aws_transfer_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint_details then bnds
+         if Stdlib.( = ) [] v_endpoint_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint_details)

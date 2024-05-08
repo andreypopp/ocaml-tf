@@ -148,9 +148,9 @@ type document_metadata_configuration_updates = {
   name : string prop;
   relevance :
     document_metadata_configuration_updates__relevance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   search : document_metadata_configuration_updates__search list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -173,7 +173,7 @@ let yojson_of_document_metadata_configuration_updates =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_search then bnds
+         if Stdlib.( = ) [] v_search then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,7 +184,7 @@ let yojson_of_document_metadata_configuration_updates =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_relevance then bnds
+         if Stdlib.( = ) [] v_relevance then bnds
          else
            let arg =
              (yojson_of_list
@@ -277,10 +277,10 @@ let _ = yojson_of_index_statistics__faq_statistics
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   text_document_statistics :
     index_statistics__text_document_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,7 +296,7 @@ let yojson_of_index_statistics =
          []
        in
        let bnds =
-         if [] = v_text_document_statistics then bnds
+         if Stdlib.( = ) [] v_text_document_statistics then bnds
          else
            let arg =
              (yojson_of_list
@@ -307,7 +307,7 @@ let yojson_of_index_statistics =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_faq_statistics then bnds
+         if Stdlib.( = ) [] v_faq_statistics then bnds
          else
            let arg =
              (yojson_of_list
@@ -496,10 +496,10 @@ let _ =
 type user_token_configurations = {
   json_token_type_configuration :
     user_token_configurations__json_token_type_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jwt_token_type_configuration :
     user_token_configurations__jwt_token_type_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -516,7 +516,7 @@ let yojson_of_user_token_configurations =
          []
        in
        let bnds =
-         if [] = v_jwt_token_type_configuration then bnds
+         if Stdlib.( = ) [] v_jwt_token_type_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -527,7 +527,7 @@ let yojson_of_user_token_configurations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_json_token_type_configuration then bnds
+         if Stdlib.( = ) [] v_json_token_type_configuration then bnds
          else
            let arg =
              (yojson_of_list

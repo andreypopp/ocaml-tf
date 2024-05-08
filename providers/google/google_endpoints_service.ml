@@ -94,7 +94,7 @@ let _ = yojson_of_apis__methods
 
 type apis = {
   methods : apis__methods list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   syntax : string prop;
   version : string prop;
@@ -127,7 +127,7 @@ let yojson_of_apis =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_methods then bnds
+         if Stdlib.( = ) [] v_methods then bnds
          else
            let arg =
              (yojson_of_list yojson_of_apis__methods) v_methods

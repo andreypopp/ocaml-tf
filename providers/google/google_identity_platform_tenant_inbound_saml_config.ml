@@ -36,7 +36,7 @@ type idp_config = {
   sign_request : bool prop option; [@option]
   sso_url : string prop;
   idp_certificates : idp_config__idp_certificates list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_idp_config =
          []
        in
        let bnds =
-         if [] = v_idp_certificates then bnds
+         if Stdlib.( = ) [] v_idp_certificates then bnds
          else
            let arg =
              (yojson_of_list yojson_of_idp_config__idp_certificates)
@@ -194,9 +194,9 @@ type google_identity_platform_tenant_inbound_saml_config = {
   project : string prop option; [@option]
   tenant : string prop;
   idp_config : idp_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sp_config : sp_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -225,7 +225,7 @@ let yojson_of_google_identity_platform_tenant_inbound_saml_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sp_config then bnds
+         if Stdlib.( = ) [] v_sp_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sp_config) v_sp_config
@@ -234,7 +234,7 @@ let yojson_of_google_identity_platform_tenant_inbound_saml_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idp_config then bnds
+         if Stdlib.( = ) [] v_idp_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_idp_config) v_idp_config

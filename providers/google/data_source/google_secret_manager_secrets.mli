@@ -19,14 +19,14 @@ type secrets__replication__user_managed__replicas = {
   customer_managed_encryption :
     secrets__replication__user_managed__replicas__customer_managed_encryption
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** customer_managed_encryption *)
   location : string prop;  (** location *)
 }
 
 type secrets__replication__user_managed = {
   replicas : secrets__replication__user_managed__replicas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** replicas *)
 }
 
@@ -37,16 +37,16 @@ type secrets__replication__auto__customer_managed_encryption = {
 type secrets__replication__auto = {
   customer_managed_encryption :
     secrets__replication__auto__customer_managed_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** customer_managed_encryption *)
 }
 
 type secrets__replication = {
   auto : secrets__replication__auto list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** auto *)
   user_managed : secrets__replication__user_managed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_managed *)
 }
 
@@ -62,16 +62,16 @@ type secrets = {
   name : string prop;  (** name *)
   project : string prop;  (** project *)
   replication : secrets__replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** replication *)
   rotation : secrets__rotation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rotation *)
   secret_id : string prop;  (** secret_id *)
   terraform_labels : (string * string prop) list;
       (** terraform_labels *)
   topics : secrets__topics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** topics *)
   ttl : string prop;  (** ttl *)
   version_aliases : (string * string prop) list;

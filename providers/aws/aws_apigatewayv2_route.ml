@@ -50,7 +50,7 @@ type aws_apigatewayv2_route = {
   route_response_selection_expression : string prop option; [@option]
   target : string prop option; [@option]
   request_parameter : request_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,7 +78,7 @@ let yojson_of_aws_apigatewayv2_route =
          []
        in
        let bnds =
-         if [] = v_request_parameter then bnds
+         if Stdlib.( = ) [] v_request_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request_parameter)

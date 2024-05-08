@@ -156,10 +156,11 @@ type aws_pinpoint_app = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   campaign_hook : campaign_hook list;
-      [@default []] [@yojson_drop_default ( = )]
-  limits : limits list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  limits : limits list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   quiet_time : quiet_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -181,7 +182,7 @@ let yojson_of_aws_pinpoint_app =
          []
        in
        let bnds =
-         if [] = v_quiet_time then bnds
+         if Stdlib.( = ) [] v_quiet_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_quiet_time) v_quiet_time
@@ -190,14 +191,14 @@ let yojson_of_aws_pinpoint_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_limits then bnds
+         if Stdlib.( = ) [] v_limits then bnds
          else
            let arg = (yojson_of_list yojson_of_limits) v_limits in
            let bnd = "limits", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_campaign_hook then bnds
+         if Stdlib.( = ) [] v_campaign_hook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_campaign_hook) v_campaign_hook

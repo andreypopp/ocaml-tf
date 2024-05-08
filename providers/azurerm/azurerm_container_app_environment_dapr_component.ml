@@ -141,8 +141,9 @@ type azurerm_container_app_environment_dapr_component = {
   scopes : string prop list option; [@option]
   version : string prop;
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  secret : secret list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secret : secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,14 +174,14 @@ let yojson_of_azurerm_container_app_environment_dapr_component =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg = (yojson_of_list yojson_of_secret) v_secret in
            let bnd = "secret", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

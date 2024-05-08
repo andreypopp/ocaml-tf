@@ -33,24 +33,24 @@ type security_rule = {
   description : string prop;
   destination_address_prefix : string prop;
   destination_address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_application_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port_range : string prop;
   destination_port_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   direction : string prop;
   name : string prop;
   priority : float prop;
   protocol : string prop;
   source_address_prefix : string prop;
   source_address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_application_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_range : string prop;
   source_port_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +82,7 @@ let yojson_of_security_rule =
          []
        in
        let bnds =
-         if [] = v_source_port_ranges then bnds
+         if Stdlib.( = ) [] v_source_port_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -98,7 +98,8 @@ let yojson_of_security_rule =
          ("source_port_range", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_application_security_group_ids then bnds
+         if Stdlib.( = ) [] v_source_application_security_group_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -108,7 +109,7 @@ let yojson_of_security_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_address_prefixes then bnds
+         if Stdlib.( = ) [] v_source_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -140,7 +141,7 @@ let yojson_of_security_rule =
          ("direction", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_port_ranges then bnds
+         if Stdlib.( = ) [] v_destination_port_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -156,8 +157,10 @@ let yojson_of_security_rule =
          ("destination_port_range", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_application_security_group_ids then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_destination_application_security_group_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -169,7 +172,7 @@ let yojson_of_security_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_address_prefixes then bnds
+         if Stdlib.( = ) [] v_destination_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

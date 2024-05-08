@@ -8,7 +8,7 @@ type node_info_list = {
   client_subnet : string prop;
   client_vpc_ip_address : string prop;
   endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -33,7 +33,7 @@ let yojson_of_node_info_list =
          ("node_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoints then bnds
+         if Stdlib.( = ) [] v_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -87,7 +87,7 @@ let _ = yojson_of_data_protection_snapshot_policy
 
 type export_policy_rule = {
   allowed_clients : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocols_enabled : string prop list option; [@option]
   root_access_enabled : bool prop option; [@option]
   rule_index : float prop;
@@ -150,7 +150,7 @@ let yojson_of_export_policy_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_clients then bnds
+         if Stdlib.( = ) [] v_allowed_clients then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -251,12 +251,12 @@ type azurerm_netapp_volume = {
   volume_path : string prop;
   zone : string prop option; [@option]
   data_protection_replication : data_protection_replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_protection_snapshot_policy :
     data_protection_snapshot_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   export_policy_rule : export_policy_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -307,7 +307,7 @@ let yojson_of_azurerm_netapp_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_export_policy_rule then bnds
+         if Stdlib.( = ) [] v_export_policy_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_export_policy_rule)
@@ -317,7 +317,8 @@ let yojson_of_azurerm_netapp_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_snapshot_policy then bnds
+         if Stdlib.( = ) [] v_data_protection_snapshot_policy then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -328,7 +329,7 @@ let yojson_of_azurerm_netapp_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_replication then bnds
+         if Stdlib.( = ) [] v_data_protection_replication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_protection_replication)

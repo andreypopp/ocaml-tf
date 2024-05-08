@@ -97,7 +97,7 @@ type azurerm_cosmosdb_cassandra_keyspace = {
   resource_group_name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -123,7 +123,7 @@ let yojson_of_azurerm_cosmosdb_cassandra_keyspace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_autoscale_settings then bnds
+         if Stdlib.( = ) [] v_autoscale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscale_settings)

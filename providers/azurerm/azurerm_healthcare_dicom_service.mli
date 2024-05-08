@@ -6,7 +6,7 @@ open! Tf_core
 
 type authentication = {
   audience : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** audience *)
   authority : string prop;  (** authority *)
 }

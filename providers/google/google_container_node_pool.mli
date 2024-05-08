@@ -72,12 +72,12 @@ type node_config__guest_accelerator = {
   gpu_driver_installation_config :
     node_config__guest_accelerator__gpu_driver_installation_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_driver_installation_config *)
   gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     node_config__guest_accelerator__gpu_sharing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_sharing_config *)
   type_ : string prop; [@key "type"]  (** type *)
 }

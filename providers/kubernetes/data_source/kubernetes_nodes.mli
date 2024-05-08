@@ -25,12 +25,12 @@ type nodes__status__addresses = {
 
 type nodes__status = {
   addresses : nodes__status__addresses list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** addresses *)
   allocatable : (string * string prop) list;  (** allocatable *)
   capacity : (string * string prop) list;  (** capacity *)
   node_info : nodes__status__node_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_info *)
 }
 
@@ -43,11 +43,11 @@ type nodes__spec__taints = {
 type nodes__spec = {
   pod_cidr : string prop;  (** pod_cidr *)
   pod_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pod_cidrs *)
   provider_id : string prop;  (** provider_id *)
   taints : nodes__spec__taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** taints *)
   unschedulable : bool prop;  (** unschedulable *)
 }
@@ -63,12 +63,13 @@ type nodes__metadata = {
 
 type nodes = {
   metadata : nodes__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** metadata *)
-  spec : nodes__spec list; [@default []] [@yojson_drop_default ( = )]
+  spec : nodes__spec list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** spec *)
   status : nodes__status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status *)
 }
 

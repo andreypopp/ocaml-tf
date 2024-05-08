@@ -3087,15 +3087,15 @@ type aws = {
   use_dualstack_endpoint : bool prop option; [@option]
   use_fips_endpoint : bool prop option; [@option]
   assume_role : assume_role list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   assume_role_with_web_identity : assume_role_with_web_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_tags : default_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   endpoints : endpoints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ignore_tags : ignore_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3147,7 +3147,7 @@ let yojson_of_aws =
          []
        in
        let bnds =
-         if [] = v_ignore_tags then bnds
+         if Stdlib.( = ) [] v_ignore_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ignore_tags) v_ignore_tags
@@ -3156,7 +3156,7 @@ let yojson_of_aws =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoints then bnds
+         if Stdlib.( = ) [] v_endpoints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints) v_endpoints
@@ -3165,7 +3165,7 @@ let yojson_of_aws =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_tags then bnds
+         if Stdlib.( = ) [] v_default_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_tags) v_default_tags
@@ -3174,7 +3174,7 @@ let yojson_of_aws =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_assume_role_with_web_identity then bnds
+         if Stdlib.( = ) [] v_assume_role_with_web_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_assume_role_with_web_identity)
@@ -3184,7 +3184,7 @@ let yojson_of_aws =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_assume_role then bnds
+         if Stdlib.( = ) [] v_assume_role then bnds
          else
            let arg =
              (yojson_of_list yojson_of_assume_role) v_assume_role

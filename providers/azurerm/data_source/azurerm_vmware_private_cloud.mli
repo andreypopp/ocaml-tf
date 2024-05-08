@@ -14,7 +14,7 @@ type circuit = {
 
 type management_cluster = {
   hosts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** hosts *)
   id : float prop;  (** id *)
   size : float prop;  (** size *)

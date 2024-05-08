@@ -33,9 +33,9 @@ let _ = yojson_of_identity_provider
 
 type network = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -57,7 +57,7 @@ let yojson_of_network =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -67,7 +67,7 @@ let yojson_of_network =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -91,8 +91,9 @@ type aws_worklink_fleet = {
   name : string prop;
   optimize_for_end_user_location : bool prop option; [@option]
   identity_provider : identity_provider list;
-      [@default []] [@yojson_drop_default ( = )]
-  network : network list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  network : network list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,14 +116,14 @@ let yojson_of_aws_worklink_fleet =
          []
        in
        let bnds =
-         if [] = v_network then bnds
+         if Stdlib.( = ) [] v_network then bnds
          else
            let arg = (yojson_of_list yojson_of_network) v_network in
            let bnd = "network", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity_provider then bnds
+         if Stdlib.( = ) [] v_identity_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity_provider)

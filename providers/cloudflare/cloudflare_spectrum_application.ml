@@ -135,13 +135,13 @@ type cloudflare_spectrum_application = {
   tls : string prop option; [@option]
   traffic_type : string prop option; [@option]
   zone_id : string prop;
-  dns : dns list; [@default []] [@yojson_drop_default ( = )]
+  dns : dns list; [@default []] [@yojson_drop_default Stdlib.( = )]
   edge_ips : edge_ips list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_dns : origin_dns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_port_range : origin_port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_cloudflare_spectrum_application =
          []
        in
        let bnds =
-         if [] = v_origin_port_range then bnds
+         if Stdlib.( = ) [] v_origin_port_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_port_range)
@@ -179,7 +179,7 @@ let yojson_of_cloudflare_spectrum_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_dns then bnds
+         if Stdlib.( = ) [] v_origin_dns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_dns) v_origin_dns
@@ -188,7 +188,7 @@ let yojson_of_cloudflare_spectrum_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_edge_ips then bnds
+         if Stdlib.( = ) [] v_edge_ips then bnds
          else
            let arg =
              (yojson_of_list yojson_of_edge_ips) v_edge_ips
@@ -197,7 +197,7 @@ let yojson_of_cloudflare_spectrum_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns then bnds
+         if Stdlib.( = ) [] v_dns then bnds
          else
            let arg = (yojson_of_list yojson_of_dns) v_dns in
            let bnd = "dns", arg in

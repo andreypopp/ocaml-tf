@@ -43,7 +43,7 @@ let _ = yojson_of_acl__access_policy
 type acl = {
   id : string prop;
   access_policy : acl__access_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_acl =
          []
        in
        let bnds =
-         if [] = v_access_policy then bnds
+         if Stdlib.( = ) [] v_access_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_acl__access_policy)
@@ -140,7 +140,7 @@ type azurerm_storage_table = {
   id : string prop option; [@option]
   name : string prop;
   storage_account_name : string prop;
-  acl : acl list; [@default []] [@yojson_drop_default ( = )]
+  acl : acl list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,7 +164,7 @@ let yojson_of_azurerm_storage_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_acl then bnds
+         if Stdlib.( = ) [] v_acl then bnds
          else
            let arg = (yojson_of_list yojson_of_acl) v_acl in
            let bnd = "acl", arg in

@@ -7,7 +7,7 @@ type filter = {
   key : string prop;
   match_by : string prop option; [@option]
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25,7 +25,7 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -183,8 +183,9 @@ let _ = yojson_of_records
 type digitalocean_records = {
   domain : string prop;
   id : string prop option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
-  sort : sort list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sort : sort list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,14 +203,14 @@ let yojson_of_digitalocean_records =
          []
        in
        let bnds =
-         if [] = v_sort then bnds
+         if Stdlib.( = ) [] v_sort then bnds
          else
            let arg = (yojson_of_list yojson_of_sort) v_sort in
            let bnd = "sort", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

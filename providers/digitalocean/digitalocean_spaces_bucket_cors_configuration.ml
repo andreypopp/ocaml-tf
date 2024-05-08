@@ -5,9 +5,9 @@ open! Tf_core
 type cors_rule = {
   allowed_headers : string prop list option; [@option]
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expose_headers : string prop list option; [@option]
   id : string prop option; [@option]
   max_age_seconds : float prop option; [@option]
@@ -56,7 +56,7 @@ let yojson_of_cors_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -66,7 +66,7 @@ let yojson_of_cors_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -97,7 +97,7 @@ type digitalocean_spaces_bucket_cors_configuration = {
   id : string prop option; [@option]
   region : string prop;
   cors_rule : cors_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_digitalocean_spaces_bucket_cors_configuration =
          []
        in
        let bnds =
-         if [] = v_cors_rule then bnds
+         if Stdlib.( = ) [] v_cors_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cors_rule) v_cors_rule

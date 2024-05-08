@@ -68,7 +68,7 @@ type azurerm_palo_alto_local_rulestack_prefix_list = {
   id : string prop option; [@option]
   name : string prop;
   prefix_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rulestack_id : string prop;
   timeouts : timeouts option;
 }
@@ -99,7 +99,7 @@ let yojson_of_azurerm_palo_alto_local_rulestack_prefix_list =
          ("rulestack_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_prefix_list then bnds
+         if Stdlib.( = ) [] v_prefix_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

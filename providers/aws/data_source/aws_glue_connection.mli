@@ -7,7 +7,7 @@ open! Tf_core
 type physical_connection_requirements = {
   availability_zone : string prop;  (** availability_zone *)
   security_group_id_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_group_id_list *)
   subnet_id : string prop;  (** subnet_id *)
 }

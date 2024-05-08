@@ -120,9 +120,9 @@ type aws_vpc_peering_connection = {
   tags_all : (string * string prop) list option; [@option]
   vpc_id : string prop;
   accepter : accepter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   requester : requester list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -152,7 +152,7 @@ let yojson_of_aws_vpc_peering_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_requester then bnds
+         if Stdlib.( = ) [] v_requester then bnds
          else
            let arg =
              (yojson_of_list yojson_of_requester) v_requester
@@ -161,7 +161,7 @@ let yojson_of_aws_vpc_peering_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accepter then bnds
+         if Stdlib.( = ) [] v_accepter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_accepter) v_accepter

@@ -83,7 +83,7 @@ type aws_kinesis_stream = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   stream_mode_details : stream_mode_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -115,7 +115,7 @@ let yojson_of_aws_kinesis_stream =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stream_mode_details then bnds
+         if Stdlib.( = ) [] v_stream_mode_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stream_mode_details)

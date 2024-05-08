@@ -104,7 +104,7 @@ let _ = yojson_of_definition__iam_action_definition
 type definition__scp_action_definition = {
   policy_id : string prop;
   target_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,7 +117,7 @@ let yojson_of_definition__scp_action_definition =
          []
        in
        let bnds =
-         if [] = v_target_ids then bnds
+         if Stdlib.( = ) [] v_target_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -141,7 +141,7 @@ let _ = yojson_of_definition__scp_action_definition
 type definition__ssm_action_definition = {
   action_sub_type : string prop;
   instance_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -163,7 +163,7 @@ let yojson_of_definition__ssm_action_definition =
          ("region", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_ids then bnds
+         if Stdlib.( = ) [] v_instance_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -188,11 +188,11 @@ let _ = yojson_of_definition__ssm_action_definition
 
 type definition = {
   iam_action_definition : definition__iam_action_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scp_action_definition : definition__scp_action_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssm_action_definition : definition__ssm_action_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,7 +209,7 @@ let yojson_of_definition =
          []
        in
        let bnds =
-         if [] = v_ssm_action_definition then bnds
+         if Stdlib.( = ) [] v_ssm_action_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -220,7 +220,7 @@ let yojson_of_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scp_action_definition then bnds
+         if Stdlib.( = ) [] v_scp_action_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -231,7 +231,7 @@ let yojson_of_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_iam_action_definition then bnds
+         if Stdlib.( = ) [] v_iam_action_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -335,11 +335,11 @@ type aws_budgets_budget_action = {
   id : string prop option; [@option]
   notification_type : string prop;
   action_threshold : action_threshold list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   definition : definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscriber : subscriber list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -369,7 +369,7 @@ let yojson_of_aws_budgets_budget_action =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscriber then bnds
+         if Stdlib.( = ) [] v_subscriber then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subscriber) v_subscriber
@@ -378,7 +378,7 @@ let yojson_of_aws_budgets_budget_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_definition then bnds
+         if Stdlib.( = ) [] v_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_definition) v_definition
@@ -387,7 +387,7 @@ let yojson_of_aws_budgets_budget_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action_threshold then bnds
+         if Stdlib.( = ) [] v_action_threshold then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action_threshold)

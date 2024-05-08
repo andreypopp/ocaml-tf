@@ -115,7 +115,7 @@ type azurerm_security_center_subscription_pricing = {
   subplan : string prop option; [@option]
   tier : string prop;
   extension : extension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,7 +140,7 @@ let yojson_of_azurerm_security_center_subscription_pricing =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_extension then bnds
+         if Stdlib.( = ) [] v_extension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extension) v_extension

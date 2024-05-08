@@ -118,9 +118,9 @@ let _ = yojson_of_traffic_routing_config__time_based_linear
 type traffic_routing_config = {
   type_ : string prop option; [@option] [@key "type"]
   time_based_canary : traffic_routing_config__time_based_canary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_based_linear : traffic_routing_config__time_based_linear list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -137,7 +137,7 @@ let yojson_of_traffic_routing_config =
          []
        in
        let bnds =
-         if [] = v_time_based_linear then bnds
+         if Stdlib.( = ) [] v_time_based_linear then bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +148,7 @@ let yojson_of_traffic_routing_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_time_based_canary then bnds
+         if Stdlib.( = ) [] v_time_based_canary then bnds
          else
            let arg =
              (yojson_of_list
@@ -178,9 +178,9 @@ type aws_codedeploy_deployment_config = {
   deployment_config_name : string prop;
   id : string prop option; [@option]
   minimum_healthy_hosts : minimum_healthy_hosts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   traffic_routing_config : traffic_routing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_aws_codedeploy_deployment_config =
          []
        in
        let bnds =
-         if [] = v_traffic_routing_config then bnds
+         if Stdlib.( = ) [] v_traffic_routing_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_traffic_routing_config)
@@ -209,7 +209,7 @@ let yojson_of_aws_codedeploy_deployment_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_minimum_healthy_hosts then bnds
+         if Stdlib.( = ) [] v_minimum_healthy_hosts then bnds
          else
            let arg =
              (yojson_of_list yojson_of_minimum_healthy_hosts)

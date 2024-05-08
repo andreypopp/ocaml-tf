@@ -7,11 +7,11 @@ open! Tf_core
 type regions = {
   available : bool prop;  (** available *)
   features : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** features *)
   name : string prop;  (** name *)
   sizes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sizes *)
   slug : string prop;  (** slug *)
 }

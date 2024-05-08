@@ -100,9 +100,9 @@ let _ = yojson_of_target__imports
 
 type target = {
   config : target__config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   imports : target__imports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_target =
          []
        in
        let bnds =
-         if [] = v_imports then bnds
+         if Stdlib.( = ) [] v_imports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target__imports) v_imports
@@ -124,7 +124,7 @@ let yojson_of_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target__config) v_config
@@ -193,8 +193,10 @@ type google_deployment_manager_deployment = {
   name : string prop;
   preview : bool prop option; [@option]
   project : string prop option; [@option]
-  labels : labels list; [@default []] [@yojson_drop_default ( = )]
-  target : target list; [@default []] [@yojson_drop_default ( = )]
+  labels : labels list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  target : target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -223,14 +225,14 @@ let yojson_of_google_deployment_manager_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg = (yojson_of_list yojson_of_target) v_target in
            let bnd = "target", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_labels then bnds
+         if Stdlib.( = ) [] v_labels then bnds
          else
            let arg = (yojson_of_list yojson_of_labels) v_labels in
            let bnd = "labels", arg in

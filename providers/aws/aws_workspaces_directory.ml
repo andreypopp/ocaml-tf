@@ -253,11 +253,11 @@ type aws_workspaces_directory = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   self_service_permissions : self_service_permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workspace_access_properties : workspace_access_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workspace_creation_properties : workspace_creation_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -281,7 +281,7 @@ let yojson_of_aws_workspaces_directory =
          []
        in
        let bnds =
-         if [] = v_workspace_creation_properties then bnds
+         if Stdlib.( = ) [] v_workspace_creation_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workspace_creation_properties)
@@ -291,7 +291,7 @@ let yojson_of_aws_workspaces_directory =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_workspace_access_properties then bnds
+         if Stdlib.( = ) [] v_workspace_access_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workspace_access_properties)
@@ -301,7 +301,7 @@ let yojson_of_aws_workspaces_directory =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_self_service_permissions then bnds
+         if Stdlib.( = ) [] v_self_service_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_self_service_permissions)

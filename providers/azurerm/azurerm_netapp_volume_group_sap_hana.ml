@@ -225,7 +225,7 @@ type volume = {
   capacity_pool_id : string prop;
   name : string prop;
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proximity_placement_group_id : string prop option; [@option]
   security_style : string prop;
   service_level : string prop;
@@ -238,12 +238,12 @@ type volume = {
   volume_spec_name : string prop;
   data_protection_replication :
     volume__data_protection_replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_protection_snapshot_policy :
     volume__data_protection_snapshot_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   export_policy_rule : volume__export_policy_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -274,7 +274,7 @@ let yojson_of_volume =
          []
        in
        let bnds =
-         if [] = v_export_policy_rule then bnds
+         if Stdlib.( = ) [] v_export_policy_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_volume__export_policy_rule)
@@ -284,7 +284,8 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_snapshot_policy then bnds
+         if Stdlib.( = ) [] v_data_protection_snapshot_policy then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -295,7 +296,7 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_replication then bnds
+         if Stdlib.( = ) [] v_data_protection_replication then bnds
          else
            let arg =
              (yojson_of_list
@@ -372,7 +373,7 @@ let yojson_of_volume =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -407,7 +408,8 @@ type azurerm_netapp_volume_group_sap_hana = {
   name : string prop;
   resource_group_name : string prop;
   timeouts : timeouts option;
-  volume : volume list; [@default []] [@yojson_drop_default ( = )]
+  volume : volume list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -430,7 +432,7 @@ let yojson_of_azurerm_netapp_volume_group_sap_hana =
          []
        in
        let bnds =
-         if [] = v_volume then bnds
+         if Stdlib.( = ) [] v_volume then bnds
          else
            let arg = (yojson_of_list yojson_of_volume) v_volume in
            let bnd = "volume", arg in

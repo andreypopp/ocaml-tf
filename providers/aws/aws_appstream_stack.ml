@@ -187,15 +187,15 @@ type aws_appstream_stack = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_endpoints : access_endpoints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   application_settings : application_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_connectors : storage_connectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   streaming_experience_settings : streaming_experience_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_settings : user_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,7 +224,7 @@ let yojson_of_aws_appstream_stack =
          []
        in
        let bnds =
-         if [] = v_user_settings then bnds
+         if Stdlib.( = ) [] v_user_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_settings) v_user_settings
@@ -233,7 +233,7 @@ let yojson_of_aws_appstream_stack =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_streaming_experience_settings then bnds
+         if Stdlib.( = ) [] v_streaming_experience_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_streaming_experience_settings)
@@ -243,7 +243,7 @@ let yojson_of_aws_appstream_stack =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_connectors then bnds
+         if Stdlib.( = ) [] v_storage_connectors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_connectors)
@@ -253,7 +253,7 @@ let yojson_of_aws_appstream_stack =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_settings then bnds
+         if Stdlib.( = ) [] v_application_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_application_settings)
@@ -263,7 +263,7 @@ let yojson_of_aws_appstream_stack =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_endpoints then bnds
+         if Stdlib.( = ) [] v_access_endpoints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_endpoints)

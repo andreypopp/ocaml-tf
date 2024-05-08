@@ -170,11 +170,11 @@ type google_compute_image = {
   source_snapshot : string prop option; [@option]
   storage_locations : string prop list option; [@option]
   guest_os_features : guest_os_features list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_encryption_key : image_encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   raw_disk : raw_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -209,7 +209,7 @@ let yojson_of_google_compute_image =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_raw_disk then bnds
+         if Stdlib.( = ) [] v_raw_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_raw_disk) v_raw_disk
@@ -218,7 +218,7 @@ let yojson_of_google_compute_image =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_encryption_key then bnds
+         if Stdlib.( = ) [] v_image_encryption_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_encryption_key)
@@ -228,7 +228,7 @@ let yojson_of_google_compute_image =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guest_os_features then bnds
+         if Stdlib.( = ) [] v_guest_os_features then bnds
          else
            let arg =
              (yojson_of_list yojson_of_guest_os_features)

@@ -18,7 +18,7 @@ let _ = yojson_of_control_mapping_sources__source_keyword
 
 type control_mapping_sources = {
   source_keyword : control_mapping_sources__source_keyword list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31,7 +31,7 @@ let yojson_of_control_mapping_sources =
          []
        in
        let bnds =
-         if [] = v_source_keyword then bnds
+         if Stdlib.( = ) [] v_source_keyword then bnds
          else
            let arg =
              (yojson_of_list
@@ -52,7 +52,7 @@ type aws_auditmanager_control = {
   name : string prop;
   type_ : string prop; [@key "type"]
   control_mapping_sources : control_mapping_sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_aws_auditmanager_control =
          []
        in
        let bnds =
-         if [] = v_control_mapping_sources then bnds
+         if Stdlib.( = ) [] v_control_mapping_sources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_mapping_sources)

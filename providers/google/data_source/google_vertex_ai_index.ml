@@ -69,8 +69,8 @@ let yojson_of_metadata__config__algorithm_config__brute_force_config =
 let _ = yojson_of_metadata__config__algorithm_config__brute_force_config
 [@@@deriving.end]
 type metadata__config__algorithm_config = {
-  brute_force_config: metadata__config__algorithm_config__brute_force_config list; [@default []] [@yojson_drop_default ( = )]
-  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list; [@default []] [@yojson_drop_default ( = )]
+  brute_force_config: metadata__config__algorithm_config__brute_force_config list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 let _ = fun (_ : metadata__config__algorithm_config) -> ()
 let yojson_of_metadata__config__algorithm_config =
@@ -79,7 +79,7 @@ let yojson_of_metadata__config__algorithm_config =
        tree_ah_config = v_tree_ah_config } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list = [] in
        let bnds =
-         if [] = v_tree_ah_config
+         if Stdlib.(=) [] v_tree_ah_config
          then bnds
          else
            (let arg =
@@ -88,7 +88,7 @@ let yojson_of_metadata__config__algorithm_config =
                 v_tree_ah_config in
             let bnd = ("tree_ah_config", arg) in bnd :: bnds) in
        let bnds =
-         if [] = v_brute_force_config
+         if Stdlib.(=) [] v_brute_force_config
          then bnds
          else
            (let arg =
@@ -101,7 +101,7 @@ let yojson_of_metadata__config__algorithm_config =
 let _ = yojson_of_metadata__config__algorithm_config
 [@@@deriving.end]
 type metadata__config = {
-  algorithm_config: metadata__config__algorithm_config list; [@default []] [@yojson_drop_default ( = )]
+  algorithm_config: metadata__config__algorithm_config list; [@default []] [@yojson_drop_default Stdlib.( = )]
   approximate_neighbors_count: float prop; 
   dimensions: float prop; 
   distance_measure_type: string prop; 
@@ -135,7 +135,7 @@ let yojson_of_metadata__config =
            yojson_of_prop yojson_of_float v_approximate_neighbors_count in
          ("approximate_neighbors_count", arg) :: bnds in
        let bnds =
-         if [] = v_algorithm_config
+         if Stdlib.(=) [] v_algorithm_config
          then bnds
          else
            (let arg =
@@ -146,7 +146,7 @@ let yojson_of_metadata__config =
 let _ = yojson_of_metadata__config
 [@@@deriving.end]
 type metadata = {
-  config: metadata__config list; [@default []] [@yojson_drop_default ( = )]
+  config: metadata__config list; [@default []] [@yojson_drop_default Stdlib.( = )]
   contents_delta_uri: string prop; 
   is_complete_overwrite: bool prop; 
 } [@@deriving_inline yojson_of]
@@ -163,7 +163,7 @@ let yojson_of_metadata =
          let arg = yojson_of_prop yojson_of_string v_contents_delta_uri in
          ("contents_delta_uri", arg) :: bnds in
        let bnds =
-         if [] = v_config
+         if Stdlib.(=) [] v_config
          then bnds
          else
            (let arg = (yojson_of_list yojson_of_metadata__config) v_config in

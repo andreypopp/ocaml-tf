@@ -37,7 +37,7 @@ let _ = yojson_of_destination__s3
 
 type destination = {
   s3 : destination__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +50,7 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__s3) v_s3
@@ -100,7 +100,8 @@ let _ = yojson_of_source__s3
 [@@@deriving.end]
 
 type source = {
-  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+  s3 : source__s3 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -113,7 +114,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg = (yojson_of_list yojson_of_source__s3) v_s3 in
            let bnd = "s3", arg in
@@ -192,7 +193,7 @@ let _ = yojson_of_signed_object__s3
 
 type signed_object = {
   s3 : signed_object__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,7 +206,7 @@ let yojson_of_signed_object =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_signed_object__s3) v_s3
@@ -225,8 +226,9 @@ type aws_signer_signing_job = {
   ignore_signing_job_failure : bool prop option; [@option]
   profile_name : string prop;
   destination : destination list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -245,14 +247,14 @@ let yojson_of_aws_signer_signing_job =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination) v_destination

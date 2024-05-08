@@ -54,7 +54,7 @@ let _ = yojson_of_logging_configuration__log_destination_config
 type logging_configuration = {
   log_destination_config :
     logging_configuration__log_destination_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_logging_configuration =
          []
        in
        let bnds =
-         if [] = v_log_destination_config then bnds
+         if Stdlib.( = ) [] v_log_destination_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -88,7 +88,7 @@ type aws_networkfirewall_logging_configuration = {
   firewall_arn : string prop;
   id : string prop option; [@option]
   logging_configuration : logging_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,7 +105,7 @@ let yojson_of_aws_networkfirewall_logging_configuration =
          []
        in
        let bnds =
-         if [] = v_logging_configuration then bnds
+         if Stdlib.( = ) [] v_logging_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_configuration)

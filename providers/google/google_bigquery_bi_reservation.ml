@@ -104,7 +104,7 @@ type google_bigquery_bi_reservation = {
   project : string prop option; [@option]
   size : float prop option; [@option]
   preferred_tables : preferred_tables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,7 +129,7 @@ let yojson_of_google_bigquery_bi_reservation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_preferred_tables then bnds
+         if Stdlib.( = ) [] v_preferred_tables then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preferred_tables)

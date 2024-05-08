@@ -35,7 +35,7 @@ let _ = yojson_of_account_recovery_setting__recovery_mechanism
 type account_recovery_setting = {
   recovery_mechanism :
     account_recovery_setting__recovery_mechanism list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_account_recovery_setting =
          []
        in
        let bnds =
-         if [] = v_recovery_mechanism then bnds
+         if Stdlib.( = ) [] v_recovery_mechanism then bnds
          else
            let arg =
              (yojson_of_list
@@ -121,7 +121,7 @@ type admin_create_user_config = {
   allow_admin_create_user_only : bool prop option; [@option]
   invite_message_template :
     admin_create_user_config__invite_message_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -137,7 +137,7 @@ let yojson_of_admin_create_user_config =
          []
        in
        let bnds =
-         if [] = v_invite_message_template then bnds
+         if Stdlib.( = ) [] v_invite_message_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -388,12 +388,12 @@ type lambda_config = {
   user_migration : string prop option; [@option]
   verify_auth_challenge_response : string prop option; [@option]
   custom_email_sender : lambda_config__custom_email_sender list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_sms_sender : lambda_config__custom_sms_sender list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_token_generation_config :
     lambda_config__pre_token_generation_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -422,7 +422,7 @@ let yojson_of_lambda_config =
          []
        in
        let bnds =
-         if [] = v_pre_token_generation_config then bnds
+         if Stdlib.( = ) [] v_pre_token_generation_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -433,7 +433,7 @@ let yojson_of_lambda_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_sms_sender then bnds
+         if Stdlib.( = ) [] v_custom_sms_sender then bnds
          else
            let arg =
              (yojson_of_list
@@ -444,7 +444,7 @@ let yojson_of_lambda_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_email_sender then bnds
+         if Stdlib.( = ) [] v_custom_email_sender then bnds
          else
            let arg =
              (yojson_of_list
@@ -714,10 +714,10 @@ type schema = {
   required : bool prop option; [@option]
   number_attribute_constraints :
     schema__number_attribute_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_attribute_constraints :
     schema__string_attribute_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -738,7 +738,7 @@ let yojson_of_schema =
          []
        in
        let bnds =
-         if [] = v_string_attribute_constraints then bnds
+         if Stdlib.( = ) [] v_string_attribute_constraints then bnds
          else
            let arg =
              (yojson_of_list
@@ -749,7 +749,7 @@ let yojson_of_schema =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_number_attribute_constraints then bnds
+         if Stdlib.( = ) [] v_number_attribute_constraints then bnds
          else
            let arg =
              (yojson_of_list
@@ -869,7 +869,7 @@ let _ = yojson_of_software_token_mfa_configuration
 
 type user_attribute_update_settings = {
   attributes_require_verification_before_update : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -885,8 +885,10 @@ let yojson_of_user_attribute_update_settings =
          []
        in
        let bnds =
-         if [] = v_attributes_require_verification_before_update then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_attributes_require_verification_before_update
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1047,32 +1049,33 @@ type aws_cognito_user_pool = {
   tags_all : (string * string prop) list option; [@option]
   username_attributes : string prop list option; [@option]
   account_recovery_setting : account_recovery_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   admin_create_user_config : admin_create_user_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   device_configuration : device_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email_configuration : email_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_config : lambda_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   password_policy : password_policy list;
-      [@default []] [@yojson_drop_default ( = )]
-  schema : schema list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  schema : schema list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sms_configuration : sms_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   software_token_mfa_configuration :
     software_token_mfa_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_attribute_update_settings :
     user_attribute_update_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_pool_add_ons : user_pool_add_ons list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   username_configuration : username_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   verification_message_template : verification_message_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1115,7 +1118,7 @@ let yojson_of_aws_cognito_user_pool =
          []
        in
        let bnds =
-         if [] = v_verification_message_template then bnds
+         if Stdlib.( = ) [] v_verification_message_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_verification_message_template)
@@ -1125,7 +1128,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_username_configuration then bnds
+         if Stdlib.( = ) [] v_username_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_username_configuration)
@@ -1135,7 +1138,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_user_pool_add_ons then bnds
+         if Stdlib.( = ) [] v_user_pool_add_ons then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_pool_add_ons)
@@ -1145,7 +1148,8 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_user_attribute_update_settings then bnds
+         if Stdlib.( = ) [] v_user_attribute_update_settings then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_attribute_update_settings)
@@ -1155,7 +1159,8 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_software_token_mfa_configuration then bnds
+         if Stdlib.( = ) [] v_software_token_mfa_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1166,7 +1171,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sms_configuration then bnds
+         if Stdlib.( = ) [] v_sms_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sms_configuration)
@@ -1176,14 +1181,14 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg = (yojson_of_list yojson_of_schema) v_schema in
            let bnd = "schema", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_password_policy then bnds
+         if Stdlib.( = ) [] v_password_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_password_policy)
@@ -1193,7 +1198,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda_config then bnds
+         if Stdlib.( = ) [] v_lambda_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lambda_config) v_lambda_config
@@ -1202,7 +1207,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email_configuration then bnds
+         if Stdlib.( = ) [] v_email_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_email_configuration)
@@ -1212,7 +1217,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_device_configuration then bnds
+         if Stdlib.( = ) [] v_device_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_device_configuration)
@@ -1222,7 +1227,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_create_user_config then bnds
+         if Stdlib.( = ) [] v_admin_create_user_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_admin_create_user_config)
@@ -1232,7 +1237,7 @@ let yojson_of_aws_cognito_user_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_account_recovery_setting then bnds
+         if Stdlib.( = ) [] v_account_recovery_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_account_recovery_setting)

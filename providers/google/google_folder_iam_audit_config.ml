@@ -43,7 +43,7 @@ type google_folder_iam_audit_config = {
   id : string prop option; [@option]
   service : string prop;
   audit_log_config : audit_log_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +61,7 @@ let yojson_of_google_folder_iam_audit_config =
          []
        in
        let bnds =
-         if [] = v_audit_log_config then bnds
+         if Stdlib.( = ) [] v_audit_log_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_audit_log_config)

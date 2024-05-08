@@ -132,7 +132,7 @@ type azurerm_mssql_managed_instance_failover_group = {
       [@option]
   read_write_endpoint_failover_policy :
     read_write_endpoint_failover_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -161,7 +161,8 @@ let yojson_of_azurerm_mssql_managed_instance_failover_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_read_write_endpoint_failover_policy then bnds
+         if Stdlib.( = ) [] v_read_write_endpoint_failover_policy
+         then bnds
          else
            let arg =
              (yojson_of_list

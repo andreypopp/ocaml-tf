@@ -23,27 +23,28 @@ type access__dataset__dataset = {
 
 type access__dataset = {
   dataset : access__dataset__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dataset *)
   target_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_types *)
 }
 
 type access = {
   dataset : access__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dataset *)
   domain : string prop;  (** domain *)
   group_by_email : string prop;  (** group_by_email *)
   iam_member : string prop;  (** iam_member *)
   role : string prop;  (** role *)
   routine : access__routine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** routine *)
   special_group : string prop;  (** special_group *)
   user_by_email : string prop;  (** user_by_email *)
-  view : access__view list; [@default []] [@yojson_drop_default ( = )]
+  view : access__view list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** view *)
 }
 

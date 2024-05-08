@@ -113,7 +113,7 @@ type storage_class_analysis__data_export__destination = {
   s3_bucket_destination :
     storage_class_analysis__data_export__destination__s3_bucket_destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,7 +127,7 @@ let yojson_of_storage_class_analysis__data_export__destination =
          []
        in
        let bnds =
-         if [] = v_s3_bucket_destination then bnds
+         if Stdlib.( = ) [] v_s3_bucket_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +148,7 @@ let _ = yojson_of_storage_class_analysis__data_export__destination
 type storage_class_analysis__data_export = {
   output_schema_version : string prop option; [@option]
   destination : storage_class_analysis__data_export__destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_storage_class_analysis__data_export =
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -192,7 +192,7 @@ let _ = yojson_of_storage_class_analysis__data_export
 
 type storage_class_analysis = {
   data_export : storage_class_analysis__data_export list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,7 +205,7 @@ let yojson_of_storage_class_analysis =
          []
        in
        let bnds =
-         if [] = v_data_export then bnds
+         if Stdlib.( = ) [] v_data_export then bnds
          else
            let arg =
              (yojson_of_list
@@ -226,9 +226,10 @@ type aws_s3_bucket_analytics_configuration = {
   bucket : string prop;
   id : string prop option; [@option]
   name : string prop;
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_class_analysis : storage_class_analysis list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,7 +248,7 @@ let yojson_of_aws_s3_bucket_analytics_configuration =
          []
        in
        let bnds =
-         if [] = v_storage_class_analysis then bnds
+         if Stdlib.( = ) [] v_storage_class_analysis then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_class_analysis)
@@ -257,7 +258,7 @@ let yojson_of_aws_s3_bucket_analytics_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

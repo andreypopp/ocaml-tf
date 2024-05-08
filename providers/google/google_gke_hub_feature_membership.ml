@@ -207,9 +207,9 @@ type configmanagement__config_sync = {
   prevent_drift : bool prop option; [@option]
   source_format : string prop option; [@option]
   git : configmanagement__config_sync__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oci : configmanagement__config_sync__oci list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,7 +229,7 @@ let yojson_of_configmanagement__config_sync =
          []
        in
        let bnds =
-         if [] = v_oci then bnds
+         if Stdlib.( = ) [] v_oci then bnds
          else
            let arg =
              (yojson_of_list
@@ -240,7 +240,7 @@ let yojson_of_configmanagement__config_sync =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_git then bnds
+         if Stdlib.( = ) [] v_git then bnds
          else
            let arg =
              (yojson_of_list
@@ -375,7 +375,7 @@ type configmanagement__policy_controller = {
   referential_rules_enabled : bool prop option; [@option]
   template_library_installed : bool prop option; [@option]
   monitoring : configmanagement__policy_controller__monitoring list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -397,7 +397,7 @@ let yojson_of_configmanagement__policy_controller =
          []
        in
        let bnds =
-         if [] = v_monitoring then bnds
+         if Stdlib.( = ) [] v_monitoring then bnds
          else
            let arg =
              (yojson_of_list
@@ -476,13 +476,13 @@ let _ = yojson_of_configmanagement__policy_controller
 type configmanagement = {
   version : string prop option; [@option]
   binauthz : configmanagement__binauthz list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   config_sync : configmanagement__config_sync list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hierarchy_controller : configmanagement__hierarchy_controller list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy_controller : configmanagement__policy_controller list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -501,7 +501,7 @@ let yojson_of_configmanagement =
          []
        in
        let bnds =
-         if [] = v_policy_controller then bnds
+         if Stdlib.( = ) [] v_policy_controller then bnds
          else
            let arg =
              (yojson_of_list
@@ -512,7 +512,7 @@ let yojson_of_configmanagement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hierarchy_controller then bnds
+         if Stdlib.( = ) [] v_hierarchy_controller then bnds
          else
            let arg =
              (yojson_of_list
@@ -523,7 +523,7 @@ let yojson_of_configmanagement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_sync then bnds
+         if Stdlib.( = ) [] v_config_sync then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configmanagement__config_sync)
@@ -533,7 +533,7 @@ let yojson_of_configmanagement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_binauthz then bnds
+         if Stdlib.( = ) [] v_binauthz then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configmanagement__binauthz)
@@ -685,11 +685,11 @@ type policycontroller__policy_controller_hub_config__deployment_configs__contain
   limits :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   requests :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -706,7 +706,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
          []
        in
        let bnds =
-         if [] = v_requests then bnds
+         if Stdlib.( = ) [] v_requests then bnds
          else
            let arg =
              (yojson_of_list
@@ -717,7 +717,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
            bnd :: bnds
        in
        let bnds =
-         if [] = v_limits then bnds
+         if Stdlib.( = ) [] v_limits then bnds
          else
            let arg =
              (yojson_of_list
@@ -809,11 +809,11 @@ type policycontroller__policy_controller_hub_config__deployment_configs = {
   container_resources :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_tolerations :
     policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -836,7 +836,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
          []
        in
        let bnds =
-         if [] = v_pod_tolerations then bnds
+         if Stdlib.( = ) [] v_pod_tolerations then bnds
          else
            let arg =
              (yojson_of_list
@@ -847,7 +847,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_resources then bnds
+         if Stdlib.( = ) [] v_container_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -1005,11 +1005,11 @@ type policycontroller__policy_controller_hub_config__policy_content = {
   bundles :
     policycontroller__policy_controller_hub_config__policy_content__bundles
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   template_library :
     policycontroller__policy_controller_hub_config__policy_content__template_library
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1027,7 +1027,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__policy_content
          []
        in
        let bnds =
-         if [] = v_template_library then bnds
+         if Stdlib.( = ) [] v_template_library then bnds
          else
            let arg =
              (yojson_of_list
@@ -1038,7 +1038,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__policy_content
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bundles then bnds
+         if Stdlib.( = ) [] v_bundles then bnds
          else
            let arg =
              (yojson_of_list
@@ -1068,14 +1068,14 @@ type policycontroller__policy_controller_hub_config = {
   deployment_configs :
     policycontroller__policy_controller_hub_config__deployment_configs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitoring :
     policycontroller__policy_controller_hub_config__monitoring list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy_content :
     policycontroller__policy_controller_hub_config__policy_content
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1100,7 +1100,7 @@ let yojson_of_policycontroller__policy_controller_hub_config =
          []
        in
        let bnds =
-         if [] = v_policy_content then bnds
+         if Stdlib.( = ) [] v_policy_content then bnds
          else
            let arg =
              (yojson_of_list
@@ -1111,7 +1111,7 @@ let yojson_of_policycontroller__policy_controller_hub_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitoring then bnds
+         if Stdlib.( = ) [] v_monitoring then bnds
          else
            let arg =
              (yojson_of_list
@@ -1122,7 +1122,7 @@ let yojson_of_policycontroller__policy_controller_hub_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deployment_configs then bnds
+         if Stdlib.( = ) [] v_deployment_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -1202,7 +1202,7 @@ type policycontroller = {
   version : string prop option; [@option]
   policy_controller_hub_config :
     policycontroller__policy_controller_hub_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1218,7 +1218,7 @@ let yojson_of_policycontroller =
          []
        in
        let bnds =
-         if [] = v_policy_controller_hub_config then bnds
+         if Stdlib.( = ) [] v_policy_controller_hub_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1297,10 +1297,10 @@ type google_gke_hub_feature_membership = {
   membership_location : string prop option; [@option]
   project : string prop option; [@option]
   configmanagement : configmanagement list;
-      [@default []] [@yojson_drop_default ( = )]
-  mesh : mesh list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  mesh : mesh list; [@default []] [@yojson_drop_default Stdlib.( = )]
   policycontroller : policycontroller list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1329,7 +1329,7 @@ let yojson_of_google_gke_hub_feature_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_policycontroller then bnds
+         if Stdlib.( = ) [] v_policycontroller then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policycontroller)
@@ -1339,14 +1339,14 @@ let yojson_of_google_gke_hub_feature_membership =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mesh then bnds
+         if Stdlib.( = ) [] v_mesh then bnds
          else
            let arg = (yojson_of_list yojson_of_mesh) v_mesh in
            let bnd = "mesh", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configmanagement then bnds
+         if Stdlib.( = ) [] v_configmanagement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configmanagement)

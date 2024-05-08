@@ -6,14 +6,14 @@ open! Tf_core
 
 type create_database_default_permissions = {
   permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permissions *)
   principal : string prop;  (** principal *)
 }
 
 type create_table_default_permissions = {
   permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permissions *)
   principal : string prop;  (** principal *)
 }

@@ -88,7 +88,7 @@ type aws_batch_job_queue = {
   state : string prop;
   tags : (string * string prop) list option; [@option]
   compute_environment_order : compute_environment_order list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -115,7 +115,7 @@ let yojson_of_aws_batch_job_queue =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_compute_environment_order then bnds
+         if Stdlib.( = ) [] v_compute_environment_order then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compute_environment_order)

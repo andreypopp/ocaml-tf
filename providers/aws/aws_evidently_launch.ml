@@ -111,7 +111,7 @@ let _ = yojson_of_metric_monitors__metric_definition
 
 type metric_monitors = {
   metric_definition : metric_monitors__metric_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_metric_monitors =
          []
        in
        let bnds =
-         if [] = v_metric_definition then bnds
+         if Stdlib.( = ) [] v_metric_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -196,7 +196,7 @@ type scheduled_splits_config__steps = {
   start_time : string prop;
   segment_overrides :
     scheduled_splits_config__steps__segment_overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,7 +213,7 @@ let yojson_of_scheduled_splits_config__steps =
          []
        in
        let bnds =
-         if [] = v_segment_overrides then bnds
+         if Stdlib.( = ) [] v_segment_overrides then bnds
          else
            let arg =
              (yojson_of_list
@@ -249,7 +249,7 @@ let _ = yojson_of_scheduled_splits_config__steps
 
 type scheduled_splits_config = {
   steps : scheduled_splits_config__steps list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -262,7 +262,7 @@ let yojson_of_scheduled_splits_config =
          []
        in
        let bnds =
-         if [] = v_steps then bnds
+         if Stdlib.( = ) [] v_steps then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scheduled_splits_config__steps)
@@ -361,11 +361,12 @@ type aws_evidently_launch = {
   randomization_salt : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  groups : groups list; [@default []] [@yojson_drop_default ( = )]
+  groups : groups list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric_monitors : metric_monitors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scheduled_splits_config : scheduled_splits_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -395,7 +396,7 @@ let yojson_of_aws_evidently_launch =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_scheduled_splits_config then bnds
+         if Stdlib.( = ) [] v_scheduled_splits_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scheduled_splits_config)
@@ -405,7 +406,7 @@ let yojson_of_aws_evidently_launch =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric_monitors then bnds
+         if Stdlib.( = ) [] v_metric_monitors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metric_monitors)
@@ -415,7 +416,7 @@ let yojson_of_aws_evidently_launch =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_groups then bnds
+         if Stdlib.( = ) [] v_groups then bnds
          else
            let arg = (yojson_of_list yojson_of_groups) v_groups in
            let bnd = "groups", arg in

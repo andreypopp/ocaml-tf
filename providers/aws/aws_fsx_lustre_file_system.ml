@@ -147,14 +147,14 @@ type aws_fsx_lustre_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   weekly_maintenance_start_time : string prop option; [@option]
   log_configuration : log_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_squash_configuration : root_squash_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -201,7 +201,7 @@ let yojson_of_aws_fsx_lustre_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_root_squash_configuration then bnds
+         if Stdlib.( = ) [] v_root_squash_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_squash_configuration)
@@ -211,7 +211,7 @@ let yojson_of_aws_fsx_lustre_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_configuration then bnds
+         if Stdlib.( = ) [] v_log_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_configuration)
@@ -261,7 +261,7 @@ let yojson_of_aws_fsx_lustre_file_system =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -154,8 +154,8 @@ type azurerm_network_manager_connectivity_configuration = {
   name : string prop;
   network_manager_id : string prop;
   applies_to_group : applies_to_group list;
-      [@default []] [@yojson_drop_default ( = )]
-  hub : hub list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  hub : hub list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -186,14 +186,14 @@ let yojson_of_azurerm_network_manager_connectivity_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_hub then bnds
+         if Stdlib.( = ) [] v_hub then bnds
          else
            let arg = (yojson_of_list yojson_of_hub) v_hub in
            let bnd = "hub", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_applies_to_group then bnds
+         if Stdlib.( = ) [] v_applies_to_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_applies_to_group)

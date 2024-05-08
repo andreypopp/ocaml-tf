@@ -40,7 +40,7 @@ type aws_glue_user_defined_function = {
   owner_name : string prop;
   owner_type : string prop;
   resource_uris : resource_uris list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,7 +62,7 @@ let yojson_of_aws_glue_user_defined_function =
          []
        in
        let bnds =
-         if [] = v_resource_uris then bnds
+         if Stdlib.( = ) [] v_resource_uris then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_uris) v_resource_uris

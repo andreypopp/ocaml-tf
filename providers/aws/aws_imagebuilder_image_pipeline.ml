@@ -50,7 +50,7 @@ type image_scanning_configuration = {
   image_scanning_enabled : bool prop option; [@option]
   ecr_configuration :
     image_scanning_configuration__ecr_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_image_scanning_configuration =
          []
        in
        let bnds =
-         if [] = v_ecr_configuration then bnds
+         if Stdlib.( = ) [] v_ecr_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -194,10 +194,11 @@ type aws_imagebuilder_image_pipeline = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   image_scanning_configuration : image_scanning_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_tests_configuration : image_tests_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
-  schedule : schedule list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  schedule : schedule list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,7 +229,7 @@ let yojson_of_aws_imagebuilder_image_pipeline =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule) v_schedule
@@ -237,7 +238,7 @@ let yojson_of_aws_imagebuilder_image_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_tests_configuration then bnds
+         if Stdlib.( = ) [] v_image_tests_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_tests_configuration)
@@ -247,7 +248,7 @@ let yojson_of_aws_imagebuilder_image_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_scanning_configuration then bnds
+         if Stdlib.( = ) [] v_image_scanning_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_scanning_configuration)

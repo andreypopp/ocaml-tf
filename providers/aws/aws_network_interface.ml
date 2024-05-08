@@ -54,7 +54,7 @@ type aws_network_interface = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   attachment : attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,7 +90,7 @@ let yojson_of_aws_network_interface =
          []
        in
        let bnds =
-         if [] = v_attachment then bnds
+         if Stdlib.( = ) [] v_attachment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attachment) v_attachment

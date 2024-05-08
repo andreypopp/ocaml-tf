@@ -81,9 +81,9 @@ type aws_transfer_access = {
   role : string prop option; [@option]
   server_id : string prop;
   home_directory_mappings : home_directory_mappings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   posix_profile : posix_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_aws_transfer_access =
          []
        in
        let bnds =
-         if [] = v_posix_profile then bnds
+         if Stdlib.( = ) [] v_posix_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_posix_profile) v_posix_profile
@@ -115,7 +115,7 @@ let yojson_of_aws_transfer_access =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_home_directory_mappings then bnds
+         if Stdlib.( = ) [] v_home_directory_mappings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_home_directory_mappings)

@@ -160,9 +160,9 @@ type azurerm_stream_analytics_job = {
   transformation_query : string prop;
   type_ : string prop option; [@option] [@key "type"]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   job_storage_account : job_storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -203,7 +203,7 @@ let yojson_of_azurerm_stream_analytics_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_job_storage_account then bnds
+         if Stdlib.( = ) [] v_job_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_job_storage_account)
@@ -213,7 +213,7 @@ let yojson_of_azurerm_stream_analytics_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

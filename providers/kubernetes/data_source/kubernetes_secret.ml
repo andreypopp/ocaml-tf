@@ -91,7 +91,8 @@ let _ = yojson_of_metadata
 type kubernetes_secret = {
   binary_data : (string * string prop) list option; [@option]
   id : string prop option; [@option]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +109,7 @@ let yojson_of_kubernetes_secret =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

@@ -84,7 +84,7 @@ type google_vertex_ai_dataset = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   encryption_spec : encryption_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -111,7 +111,7 @@ let yojson_of_google_vertex_ai_dataset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_encryption_spec then bnds
+         if Stdlib.( = ) [] v_encryption_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_spec)

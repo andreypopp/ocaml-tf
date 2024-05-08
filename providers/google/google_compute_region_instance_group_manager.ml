@@ -460,7 +460,7 @@ type version = {
   instance_template : string prop;
   name : string prop option; [@option]
   target_size : version__target_size list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -477,7 +477,7 @@ let yojson_of_version =
          []
        in
        let bnds =
-         if [] = v_target_size then bnds
+         if Stdlib.( = ) [] v_target_size then bnds
          else
            let arg =
              (yojson_of_list yojson_of_version__target_size)
@@ -557,7 +557,7 @@ let _ = yojson_of_status__stateful__per_instance_configs
 type status__stateful = {
   has_stateful_config : bool prop;
   per_instance_configs : status__stateful__per_instance_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -573,7 +573,7 @@ let yojson_of_status__stateful =
          []
        in
        let bnds =
-         if [] = v_per_instance_configs then bnds
+         if Stdlib.( = ) [] v_per_instance_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -621,12 +621,12 @@ let _ = yojson_of_status__all_instances_config
 
 type status = {
   all_instances_config : status__all_instances_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   is_stable : bool prop;
   stateful : status__stateful list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   version_target : status__version_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -644,7 +644,7 @@ let yojson_of_status =
          []
        in
        let bnds =
-         if [] = v_version_target then bnds
+         if Stdlib.( = ) [] v_version_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__version_target)
@@ -654,7 +654,7 @@ let yojson_of_status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stateful then bnds
+         if Stdlib.( = ) [] v_stateful then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__stateful) v_stateful
@@ -667,7 +667,7 @@ let yojson_of_status =
          ("is_stable", arg) :: bnds
        in
        let bnds =
-         if [] = v_all_instances_config then bnds
+         if Stdlib.( = ) [] v_all_instances_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__all_instances_config)
@@ -698,23 +698,24 @@ type google_compute_region_instance_group_manager = {
   wait_for_instances : bool prop option; [@option]
   wait_for_instances_status : string prop option; [@option]
   all_instances_config : all_instances_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_healing_policies : auto_healing_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_lifecycle_policy : instance_lifecycle_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   named_port : named_port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateful_disk : stateful_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateful_external_ip : stateful_external_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateful_internal_ip : stateful_internal_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   update_policy : update_policy list;
-      [@default []] [@yojson_drop_default ( = )]
-  version : version list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  version : version list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -753,14 +754,14 @@ let yojson_of_google_compute_region_instance_group_manager =
          []
        in
        let bnds =
-         if [] = v_version then bnds
+         if Stdlib.( = ) [] v_version then bnds
          else
            let arg = (yojson_of_list yojson_of_version) v_version in
            let bnd = "version", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_update_policy then bnds
+         if Stdlib.( = ) [] v_update_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_update_policy) v_update_policy
@@ -773,7 +774,7 @@ let yojson_of_google_compute_region_instance_group_manager =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stateful_internal_ip then bnds
+         if Stdlib.( = ) [] v_stateful_internal_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stateful_internal_ip)
@@ -783,7 +784,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stateful_external_ip then bnds
+         if Stdlib.( = ) [] v_stateful_external_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stateful_external_ip)
@@ -793,7 +794,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stateful_disk then bnds
+         if Stdlib.( = ) [] v_stateful_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stateful_disk) v_stateful_disk
@@ -802,7 +803,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_named_port then bnds
+         if Stdlib.( = ) [] v_named_port then bnds
          else
            let arg =
              (yojson_of_list yojson_of_named_port) v_named_port
@@ -811,7 +812,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_lifecycle_policy then bnds
+         if Stdlib.( = ) [] v_instance_lifecycle_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_lifecycle_policy)
@@ -821,7 +822,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_healing_policies then bnds
+         if Stdlib.( = ) [] v_auto_healing_policies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_healing_policies)
@@ -831,7 +832,7 @@ let yojson_of_google_compute_region_instance_group_manager =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_all_instances_config then bnds
+         if Stdlib.( = ) [] v_all_instances_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_all_instances_config)

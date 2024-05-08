@@ -34,7 +34,7 @@ let _ = yojson_of_access_restrictions__allowed_services
 type access_restrictions = {
   disable_programmatic_signin : bool prop option; [@option]
   allowed_services : access_restrictions__allowed_services list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +50,7 @@ let yojson_of_access_restrictions =
          []
        in
        let bnds =
-         if [] = v_allowed_services then bnds
+         if Stdlib.( = ) [] v_allowed_services then bnds
          else
            let arg =
              (yojson_of_list
@@ -131,7 +131,7 @@ type google_iam_workforce_pool = {
   session_duration : string prop option; [@option]
   workforce_pool_id : string prop;
   access_restrictions : access_restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,7 +160,7 @@ let yojson_of_google_iam_workforce_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_access_restrictions then bnds
+         if Stdlib.( = ) [] v_access_restrictions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_restrictions)

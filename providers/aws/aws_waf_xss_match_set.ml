@@ -39,7 +39,7 @@ let _ = yojson_of_xss_match_tuples__field_to_match
 type xss_match_tuples = {
   text_transformation : string prop;
   field_to_match : xss_match_tuples__field_to_match list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_xss_match_tuples =
          []
        in
        let bnds =
-         if [] = v_field_to_match then bnds
+         if Stdlib.( = ) [] v_field_to_match then bnds
          else
            let arg =
              (yojson_of_list
@@ -82,7 +82,7 @@ type aws_waf_xss_match_set = {
   id : string prop option; [@option]
   name : string prop;
   xss_match_tuples : xss_match_tuples list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_aws_waf_xss_match_set =
          []
        in
        let bnds =
-         if [] = v_xss_match_tuples then bnds
+         if Stdlib.( = ) [] v_xss_match_tuples then bnds
          else
            let arg =
              (yojson_of_list yojson_of_xss_match_tuples)

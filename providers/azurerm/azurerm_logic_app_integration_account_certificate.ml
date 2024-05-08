@@ -112,7 +112,7 @@ type azurerm_logic_app_integration_account_certificate = {
   public_certificate : string prop option; [@option]
   resource_group_name : string prop;
   key_vault_key : key_vault_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,7 +140,7 @@ let yojson_of_azurerm_logic_app_integration_account_certificate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_key_vault_key then bnds
+         if Stdlib.( = ) [] v_key_vault_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_key) v_key_vault_key

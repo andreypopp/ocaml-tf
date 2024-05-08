@@ -119,9 +119,9 @@ let _ = yojson_of_install_patches__windows
 type install_patches = {
   reboot : string prop option; [@option]
   linux : install_patches__linux list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows : install_patches__windows list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,7 +134,7 @@ let yojson_of_install_patches =
          []
        in
        let bnds =
-         if [] = v_windows then bnds
+         if Stdlib.( = ) [] v_windows then bnds
          else
            let arg =
              (yojson_of_list yojson_of_install_patches__windows)
@@ -144,7 +144,7 @@ let yojson_of_install_patches =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux then bnds
+         if Stdlib.( = ) [] v_linux then bnds
          else
            let arg =
              (yojson_of_list yojson_of_install_patches__linux)
@@ -303,9 +303,10 @@ type azurerm_maintenance_configuration = {
   tags : (string * string prop) list option; [@option]
   visibility : string prop option; [@option]
   install_patches : install_patches list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  window : window list; [@default []] [@yojson_drop_default ( = )]
+  window : window list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -331,7 +332,7 @@ let yojson_of_azurerm_maintenance_configuration =
          []
        in
        let bnds =
-         if [] = v_window then bnds
+         if Stdlib.( = ) [] v_window then bnds
          else
            let arg = (yojson_of_list yojson_of_window) v_window in
            let bnd = "window", arg in
@@ -342,7 +343,7 @@ let yojson_of_azurerm_maintenance_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_install_patches then bnds
+         if Stdlib.( = ) [] v_install_patches then bnds
          else
            let arg =
              (yojson_of_list yojson_of_install_patches)

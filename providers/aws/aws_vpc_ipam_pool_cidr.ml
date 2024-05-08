@@ -82,7 +82,7 @@ type aws_vpc_ipam_pool_cidr = {
   ipam_pool_id : string prop;
   netmask_length : float prop option; [@option]
   cidr_authorization_context : cidr_authorization_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -107,7 +107,7 @@ let yojson_of_aws_vpc_ipam_pool_cidr =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cidr_authorization_context then bnds
+         if Stdlib.( = ) [] v_cidr_authorization_context then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cidr_authorization_context)

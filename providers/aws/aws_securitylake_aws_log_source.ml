@@ -5,7 +5,7 @@ open! Tf_core
 type source = {
   accounts : string prop list option; [@option]
   regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_name : string prop;
   source_version : string prop option; [@option]
 }
@@ -37,7 +37,7 @@ let yojson_of_source =
          ("source_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_regions then bnds
+         if Stdlib.( = ) [] v_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -64,7 +64,8 @@ let _ = yojson_of_source
 [@@@deriving.end]
 
 type aws_securitylake_aws_log_source = {
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,7 +78,7 @@ let yojson_of_aws_securitylake_aws_log_source =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in

@@ -8,7 +8,7 @@ type filter__tag = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -16,7 +16,7 @@ type filter__not__tag = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -24,16 +24,16 @@ type filter__not__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type filter__not = {
   dimension : filter__not__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
   tag : filter__not__tag list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag *)
 }
 
@@ -41,29 +41,31 @@ type filter__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type filter = {
   dimension : filter__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
-  not : filter__not list; [@default []] [@yojson_drop_default ( = )]
+  not : filter__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** not *)
-  tag : filter__tag list; [@default []] [@yojson_drop_default ( = )]
+  tag : filter__tag list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag *)
 }
 
 type notification = {
   contact_emails : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** contact_emails *)
   contact_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** contact_groups *)
   contact_roles : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** contact_roles *)
   enabled : bool prop;  (** enabled *)
   operator : string prop;  (** operator *)

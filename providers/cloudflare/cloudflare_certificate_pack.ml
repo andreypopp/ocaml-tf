@@ -110,7 +110,7 @@ type cloudflare_certificate_pack = {
   certificate_authority : string prop;
   cloudflare_branding : bool prop option; [@option]
   hosts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   type_ : string prop; [@key "type"]
   validation_method : string prop;
@@ -118,9 +118,9 @@ type cloudflare_certificate_pack = {
   wait_for_active_status : bool prop option; [@option]
   zone_id : string prop;
   validation_errors : validation_errors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation_records : validation_records list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +145,7 @@ let yojson_of_cloudflare_certificate_pack =
          []
        in
        let bnds =
-         if [] = v_validation_records then bnds
+         if Stdlib.( = ) [] v_validation_records then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_records)
@@ -155,7 +155,7 @@ let yojson_of_cloudflare_certificate_pack =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_validation_errors then bnds
+         if Stdlib.( = ) [] v_validation_errors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_errors)
@@ -199,7 +199,7 @@ let yojson_of_cloudflare_certificate_pack =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_hosts then bnds
+         if Stdlib.( = ) [] v_hosts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

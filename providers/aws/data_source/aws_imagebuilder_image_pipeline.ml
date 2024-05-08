@@ -4,7 +4,7 @@ open! Tf_core
 
 type image_scanning_configuration__ecr_configuration = {
   container_tags : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   repository_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -28,7 +28,7 @@ let yojson_of_image_scanning_configuration__ecr_configuration =
          ("repository_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_container_tags then bnds
+         if Stdlib.( = ) [] v_container_tags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -48,7 +48,7 @@ let _ = yojson_of_image_scanning_configuration__ecr_configuration
 type image_scanning_configuration = {
   ecr_configuration :
     image_scanning_configuration__ecr_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_scanning_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -71,7 +71,7 @@ let yojson_of_image_scanning_configuration =
          ("image_scanning_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_ecr_configuration then bnds
+         if Stdlib.( = ) [] v_ecr_configuration then bnds
          else
            let arg =
              (yojson_of_list

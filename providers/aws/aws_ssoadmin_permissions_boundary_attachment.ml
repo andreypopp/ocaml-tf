@@ -44,7 +44,7 @@ type permissions_boundary = {
   managed_policy_arn : string prop option; [@option]
   customer_managed_policy_reference :
     permissions_boundary__customer_managed_policy_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +61,8 @@ let yojson_of_permissions_boundary =
          []
        in
        let bnds =
-         if [] = v_customer_managed_policy_reference then bnds
+         if Stdlib.( = ) [] v_customer_managed_policy_reference then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -128,7 +129,7 @@ type aws_ssoadmin_permissions_boundary_attachment = {
   instance_arn : string prop;
   permission_set_arn : string prop;
   permissions_boundary : permissions_boundary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -152,7 +153,7 @@ let yojson_of_aws_ssoadmin_permissions_boundary_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_permissions_boundary then bnds
+         if Stdlib.( = ) [] v_permissions_boundary then bnds
          else
            let arg =
              (yojson_of_list yojson_of_permissions_boundary)

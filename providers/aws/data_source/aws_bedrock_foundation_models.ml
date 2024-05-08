@@ -4,16 +4,16 @@ open! Tf_core
 
 type model_summaries = {
   customizations_supported : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inference_types_supported : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_modalities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   model_arn : string prop;
   model_id : string prop;
   model_name : string prop;
   output_modalities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provider_name : string prop;
   response_streaming_supported : bool prop;
 }
@@ -49,7 +49,7 @@ let yojson_of_model_summaries =
          ("provider_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_output_modalities then bnds
+         if Stdlib.( = ) [] v_output_modalities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -71,7 +71,7 @@ let yojson_of_model_summaries =
          ("model_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_input_modalities then bnds
+         if Stdlib.( = ) [] v_input_modalities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -81,7 +81,7 @@ let yojson_of_model_summaries =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inference_types_supported then bnds
+         if Stdlib.( = ) [] v_inference_types_supported then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -91,7 +91,7 @@ let yojson_of_model_summaries =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customizations_supported then bnds
+         if Stdlib.( = ) [] v_customizations_supported then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

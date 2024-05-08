@@ -160,7 +160,7 @@ let _ = yojson_of_subnet
 
 type azurerm_virtual_network = {
   address_space : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bgp_community : string prop option; [@option]
   dns_servers : string prop list option; [@option]
   edge_zone : string prop option; [@option]
@@ -172,9 +172,9 @@ type azurerm_virtual_network = {
   subnet : subnet list option; [@option]
   tags : (string * string prop) list option; [@option]
   ddos_protection_plan : ddos_protection_plan list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption : encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,7 +207,7 @@ let yojson_of_azurerm_virtual_network =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption) v_encryption
@@ -216,7 +216,7 @@ let yojson_of_azurerm_virtual_network =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ddos_protection_plan then bnds
+         if Stdlib.( = ) [] v_ddos_protection_plan then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ddos_protection_plan)
@@ -306,7 +306,7 @@ let yojson_of_azurerm_virtual_network =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_address_space then bnds
+         if Stdlib.( = ) [] v_address_space then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -243,10 +243,10 @@ type aws_servicecatalog_provisioned_product = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   provisioning_parameters : provisioning_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stack_set_provisioning_preferences :
     stack_set_provisioning_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -283,7 +283,8 @@ let yojson_of_aws_servicecatalog_provisioned_product =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stack_set_provisioning_preferences then bnds
+         if Stdlib.( = ) [] v_stack_set_provisioning_preferences then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -294,7 +295,7 @@ let yojson_of_aws_servicecatalog_provisioned_product =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_provisioning_parameters then bnds
+         if Stdlib.( = ) [] v_provisioning_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_provisioning_parameters)

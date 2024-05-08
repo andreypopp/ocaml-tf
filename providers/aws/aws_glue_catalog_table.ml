@@ -43,7 +43,7 @@ let _ = yojson_of_open_table_format_input__iceberg_input
 
 type open_table_format_input = {
   iceberg_input : open_table_format_input__iceberg_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_open_table_format_input =
          []
        in
        let bnds =
-         if [] = v_iceberg_input then bnds
+         if Stdlib.( = ) [] v_iceberg_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -75,7 +75,8 @@ let _ = yojson_of_open_table_format_input
 
 type partition_index = {
   index_name : string prop;
-  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
+  keys : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,7 +89,7 @@ let yojson_of_partition_index =
          []
        in
        let bnds =
-         if [] = v_keys then bnds
+         if Stdlib.( = ) [] v_keys then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -271,7 +272,7 @@ type storage_descriptor__schema_reference = {
   schema_version_id : string prop option; [@option]
   schema_version_number : float prop;
   schema_id : storage_descriptor__schema_reference__schema_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -288,7 +289,7 @@ let yojson_of_storage_descriptor__schema_reference =
          []
        in
        let bnds =
-         if [] = v_schema_id then bnds
+         if Stdlib.( = ) [] v_schema_id then bnds
          else
            let arg =
              (yojson_of_list
@@ -485,15 +486,15 @@ type storage_descriptor = {
   parameters : (string * string prop) list option; [@option]
   stored_as_sub_directories : bool prop option; [@option]
   columns : storage_descriptor__columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_reference : storage_descriptor__schema_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ser_de_info : storage_descriptor__ser_de_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   skewed_info : storage_descriptor__skewed_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sort_columns : storage_descriptor__sort_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -520,7 +521,7 @@ let yojson_of_storage_descriptor =
          []
        in
        let bnds =
-         if [] = v_sort_columns then bnds
+         if Stdlib.( = ) [] v_sort_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -531,7 +532,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_skewed_info then bnds
+         if Stdlib.( = ) [] v_skewed_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -542,7 +543,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ser_de_info then bnds
+         if Stdlib.( = ) [] v_ser_de_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -553,7 +554,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schema_reference then bnds
+         if Stdlib.( = ) [] v_schema_reference then bnds
          else
            let arg =
              (yojson_of_list
@@ -564,7 +565,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_columns then bnds
+         if Stdlib.( = ) [] v_columns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_descriptor__columns)
@@ -715,15 +716,15 @@ type aws_glue_catalog_table = {
   view_expanded_text : string prop option; [@option]
   view_original_text : string prop option; [@option]
   open_table_format_input : open_table_format_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   partition_index : partition_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   partition_keys : partition_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_descriptor : storage_descriptor list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_table : target_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -753,7 +754,7 @@ let yojson_of_aws_glue_catalog_table =
          []
        in
        let bnds =
-         if [] = v_target_table then bnds
+         if Stdlib.( = ) [] v_target_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_table) v_target_table
@@ -762,7 +763,7 @@ let yojson_of_aws_glue_catalog_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_descriptor then bnds
+         if Stdlib.( = ) [] v_storage_descriptor then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_descriptor)
@@ -772,7 +773,7 @@ let yojson_of_aws_glue_catalog_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partition_keys then bnds
+         if Stdlib.( = ) [] v_partition_keys then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partition_keys)
@@ -782,7 +783,7 @@ let yojson_of_aws_glue_catalog_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partition_index then bnds
+         if Stdlib.( = ) [] v_partition_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partition_index)
@@ -792,7 +793,7 @@ let yojson_of_aws_glue_catalog_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_open_table_format_input then bnds
+         if Stdlib.( = ) [] v_open_table_format_input then bnds
          else
            let arg =
              (yojson_of_list yojson_of_open_table_format_input)

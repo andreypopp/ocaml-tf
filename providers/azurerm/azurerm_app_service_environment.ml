@@ -99,7 +99,7 @@ type azurerm_app_service_environment = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   cluster_setting : cluster_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,7 +129,7 @@ let yojson_of_azurerm_app_service_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cluster_setting then bnds
+         if Stdlib.( = ) [] v_cluster_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cluster_setting)

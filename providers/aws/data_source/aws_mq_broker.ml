@@ -65,7 +65,7 @@ let _ = yojson_of_encryption_options
 type instances = {
   console_url : string prop;
   endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_address : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -87,7 +87,7 @@ let yojson_of_instances =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoints then bnds
+         if Stdlib.( = ) [] v_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -109,7 +109,7 @@ let _ = yojson_of_instances
 
 type ldap_server_metadata = {
   hosts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   role_base : string prop;
   role_name : string prop;
   role_search_matching : string prop;
@@ -198,7 +198,7 @@ let yojson_of_ldap_server_metadata =
          ("role_base", arg) :: bnds
        in
        let bnds =
-         if [] = v_hosts then bnds
+         if Stdlib.( = ) [] v_hosts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -282,7 +282,7 @@ let _ = yojson_of_maintenance_window_start_time
 type user = {
   console_access : bool prop;
   groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   replication_user : bool prop;
   username : string prop;
 }
@@ -312,7 +312,7 @@ let yojson_of_user =
          ("replication_user", arg) :: bnds
        in
        let bnds =
-         if [] = v_groups then bnds
+         if Stdlib.( = ) [] v_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

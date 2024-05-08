@@ -5,7 +5,7 @@ open! Tf_core
 type aws_proxy_protocol_policy = {
   id : string prop option; [@option]
   instance_ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -27,7 +27,7 @@ let yojson_of_aws_proxy_protocol_policy =
          ("load_balancer", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_ports then bnds
+         if Stdlib.( = ) [] v_instance_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

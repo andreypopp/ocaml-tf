@@ -13,21 +13,21 @@ type logging_filter__filter__condition__label_name_condition = {
 [@@@deriving.end]
 
 type logging_filter__filter__condition = {
-  action_condition: logging_filter__filter__condition__action_condition list; [@default []] [@yojson_drop_default ( = )]
-  label_name_condition: logging_filter__filter__condition__label_name_condition list; [@default []] [@yojson_drop_default ( = )]
+  action_condition: logging_filter__filter__condition__action_condition list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  label_name_condition: logging_filter__filter__condition__label_name_condition list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logging_filter__filter = {
   behavior: string prop; 
   requirement: string prop; 
-  condition: logging_filter__filter__condition list; [@default []] [@yojson_drop_default ( = )]
+  condition: logging_filter__filter__condition list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logging_filter = {
   default_behavior: string prop; 
-  filter: logging_filter__filter list; [@default []] [@yojson_drop_default ( = )]
+  filter: logging_filter__filter list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -46,19 +46,19 @@ type redacted_fields__uri_path = unit [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type redacted_fields = {
-  method_: redacted_fields__method list; [@key "method"] [@default []] [@yojson_drop_default ( = )]
-  query_string: redacted_fields__query_string list; [@default []] [@yojson_drop_default ( = )]
-  single_header: redacted_fields__single_header list; [@default []] [@yojson_drop_default ( = )]
-  uri_path: redacted_fields__uri_path list; [@default []] [@yojson_drop_default ( = )]
+  method_: redacted_fields__method list; [@key "method"] [@default []] [@yojson_drop_default Stdlib.( = )]
+  query_string: redacted_fields__query_string list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  single_header: redacted_fields__single_header list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  uri_path: redacted_fields__uri_path list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type aws_wafv2_web_acl_logging_configuration = {
   id: string  prop option; [@option]
-  log_destination_configs: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  log_destination_configs: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_arn: string prop; 
-  logging_filter: logging_filter list; [@default []] [@yojson_drop_default ( = )]
-  redacted_fields: redacted_fields list; [@default []] [@yojson_drop_default ( = )]
+  logging_filter: logging_filter list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  redacted_fields: redacted_fields list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

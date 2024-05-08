@@ -15,7 +15,7 @@ type projects = {
   owner_uuid : string prop;  (** owner_uuid *)
   purpose : string prop;  (** purpose *)
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resources *)
   updated_at : string prop;  (** updated_at *)
 }

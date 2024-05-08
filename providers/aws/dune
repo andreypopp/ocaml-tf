@@ -34,12 +34,7 @@
   ; TODO: empty inputs, investigate
   aws_ram_sharing_with_organization
   aws_macie2_account)
- (flags
-  :standard
-  -open
-  ContainersLabels
-  -open
-  Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
  (lint
   (pps ppx_yojson_conv))
  (libraries tf yojson ppx_yojson_conv_lib))

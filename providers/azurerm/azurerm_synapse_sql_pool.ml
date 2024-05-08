@@ -108,7 +108,8 @@ type azurerm_synapse_sql_pool = {
   storage_account_type : string prop option; [@option]
   synapse_workspace_id : string prop;
   tags : (string * string prop) list option; [@option]
-  restore : restore list; [@default []] [@yojson_drop_default ( = )]
+  restore : restore list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,7 +141,7 @@ let yojson_of_azurerm_synapse_sql_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_restore then bnds
+         if Stdlib.( = ) [] v_restore then bnds
          else
            let arg = (yojson_of_list yojson_of_restore) v_restore in
            let bnd = "restore", arg in

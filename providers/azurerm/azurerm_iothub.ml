@@ -56,7 +56,7 @@ type cloud_to_device = {
   default_ttl : string prop option; [@option]
   max_delivery_count : float prop option; [@option]
   feedback : cloud_to_device__feedback list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_cloud_to_device =
          []
        in
        let bnds =
-         if [] = v_feedback then bnds
+         if Stdlib.( = ) [] v_feedback then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_to_device__feedback)
@@ -350,7 +350,7 @@ type network_rule_set = {
   apply_to_builtin_eventhub_endpoint : bool prop option; [@option]
   default_action : string prop option; [@option]
   ip_rule : network_rule_set__ip_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,7 +368,7 @@ let yojson_of_network_rule_set =
          []
        in
        let bnds =
-         if [] = v_ip_rule then bnds
+         if Stdlib.( = ) [] v_ip_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_set__ip_rule)
@@ -601,7 +601,7 @@ let _ = yojson_of_endpoint
 
 type enrichment = {
   endpoint_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key : string prop;
   value : string prop;
 }
@@ -628,7 +628,7 @@ let yojson_of_enrichment =
          ("key", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint_names then bnds
+         if Stdlib.( = ) [] v_endpoint_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -648,7 +648,7 @@ type route = {
   condition : string prop;
   enabled : bool prop;
   endpoint_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   source : string prop;
 }
@@ -677,7 +677,7 @@ let yojson_of_route =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint_names then bnds
+         if Stdlib.( = ) [] v_endpoint_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -760,16 +760,16 @@ type azurerm_iothub = {
   route : route list option; [@option]
   tags : (string * string prop) list option; [@option]
   cloud_to_device : cloud_to_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fallback_route : fallback_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file_upload : file_upload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_rule_set : network_rule_set list;
-      [@default []] [@yojson_drop_default ( = )]
-  sku : sku list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sku : sku list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -809,14 +809,14 @@ let yojson_of_azurerm_iothub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sku then bnds
+         if Stdlib.( = ) [] v_sku then bnds
          else
            let arg = (yojson_of_list yojson_of_sku) v_sku in
            let bnd = "sku", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_rule_set then bnds
+         if Stdlib.( = ) [] v_network_rule_set then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_set)
@@ -826,7 +826,7 @@ let yojson_of_azurerm_iothub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -835,7 +835,7 @@ let yojson_of_azurerm_iothub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file_upload then bnds
+         if Stdlib.( = ) [] v_file_upload then bnds
          else
            let arg =
              (yojson_of_list yojson_of_file_upload) v_file_upload
@@ -844,7 +844,7 @@ let yojson_of_azurerm_iothub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fallback_route then bnds
+         if Stdlib.( = ) [] v_fallback_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fallback_route)
@@ -854,7 +854,7 @@ let yojson_of_azurerm_iothub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_to_device then bnds
+         if Stdlib.( = ) [] v_cloud_to_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_to_device)

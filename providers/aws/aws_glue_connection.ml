@@ -68,7 +68,7 @@ type aws_glue_connection = {
   tags_all : (string * string prop) list option; [@option]
   physical_connection_requirements :
     physical_connection_requirements list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,7 +93,8 @@ let yojson_of_aws_glue_connection =
          []
        in
        let bnds =
-         if [] = v_physical_connection_requirements then bnds
+         if Stdlib.( = ) [] v_physical_connection_requirements then
+           bnds
          else
            let arg =
              (yojson_of_list

@@ -440,61 +440,61 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   accelerator_count :
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   accelerator_manufacturers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   accelerator_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   accelerator_total_memory_mib :
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   accelerator_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_instance_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bare_metal : string prop;
   baseline_ebs_bandwidth_mbps :
     mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   burstable_performance : string prop;
   cpu_manufacturers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   excluded_instance_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_generations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_storage : string prop;
   local_storage_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   memory_gib_per_vcpu :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   memory_mib :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_bandwidth_gbps :
     mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface_count :
     mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   on_demand_max_price_percentage_over_lowest_price : float prop;
   require_hibernate_support : bool prop;
   spot_max_price_percentage_over_lowest_price : float prop;
   total_local_storage_gb :
     mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vcpu_count :
     mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -537,7 +537,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
          []
        in
        let bnds =
-         if [] = v_vcpu_count then bnds
+         if Stdlib.( = ) [] v_vcpu_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -548,7 +548,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_total_local_storage_gb then bnds
+         if Stdlib.( = ) [] v_total_local_storage_gb then bnds
          else
            let arg =
              (yojson_of_list
@@ -580,7 +580,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
          :: bnds
        in
        let bnds =
-         if [] = v_network_interface_count then bnds
+         if Stdlib.( = ) [] v_network_interface_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -591,7 +591,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_bandwidth_gbps then bnds
+         if Stdlib.( = ) [] v_network_bandwidth_gbps then bnds
          else
            let arg =
              (yojson_of_list
@@ -602,7 +602,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_memory_mib then bnds
+         if Stdlib.( = ) [] v_memory_mib then bnds
          else
            let arg =
              (yojson_of_list
@@ -613,7 +613,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_memory_gib_per_vcpu then bnds
+         if Stdlib.( = ) [] v_memory_gib_per_vcpu then bnds
          else
            let arg =
              (yojson_of_list
@@ -624,7 +624,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_storage_types then bnds
+         if Stdlib.( = ) [] v_local_storage_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -638,7 +638,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
          ("local_storage", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_generations then bnds
+         if Stdlib.( = ) [] v_instance_generations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -648,7 +648,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_excluded_instance_types then bnds
+         if Stdlib.( = ) [] v_excluded_instance_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -658,7 +658,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cpu_manufacturers then bnds
+         if Stdlib.( = ) [] v_cpu_manufacturers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -674,7 +674,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
          ("burstable_performance", arg) :: bnds
        in
        let bnds =
-         if [] = v_baseline_ebs_bandwidth_mbps then bnds
+         if Stdlib.( = ) [] v_baseline_ebs_bandwidth_mbps then bnds
          else
            let arg =
              (yojson_of_list
@@ -689,7 +689,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
          ("bare_metal", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_instance_types then bnds
+         if Stdlib.( = ) [] v_allowed_instance_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -699,7 +699,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_types then bnds
+         if Stdlib.( = ) [] v_accelerator_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -709,7 +709,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_total_memory_mib then bnds
+         if Stdlib.( = ) [] v_accelerator_total_memory_mib then bnds
          else
            let arg =
              (yojson_of_list
@@ -720,7 +720,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_names then bnds
+         if Stdlib.( = ) [] v_accelerator_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -730,7 +730,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_manufacturers then bnds
+         if Stdlib.( = ) [] v_accelerator_manufacturers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -740,7 +740,7 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_count then bnds
+         if Stdlib.( = ) [] v_accelerator_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -763,12 +763,12 @@ type mixed_instances_policy__launch_template__override = {
   instance_requirements :
     mixed_instances_policy__launch_template__override__instance_requirements
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_type : string prop;
   launch_template_specification :
     mixed_instances_policy__launch_template__override__launch_template_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weighted_capacity : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -795,7 +795,7 @@ let yojson_of_mixed_instances_policy__launch_template__override =
          ("weighted_capacity", arg) :: bnds
        in
        let bnds =
-         if [] = v_launch_template_specification then bnds
+         if Stdlib.( = ) [] v_launch_template_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -810,7 +810,7 @@ let yojson_of_mixed_instances_policy__launch_template__override =
          ("instance_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_requirements then bnds
+         if Stdlib.( = ) [] v_instance_requirements then bnds
          else
            let arg =
              (yojson_of_list
@@ -880,9 +880,9 @@ type mixed_instances_policy__launch_template = {
   launch_template_specification :
     mixed_instances_policy__launch_template__launch_template_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   override : mixed_instances_policy__launch_template__override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -899,7 +899,7 @@ let yojson_of_mixed_instances_policy__launch_template =
          []
        in
        let bnds =
-         if [] = v_override then bnds
+         if Stdlib.( = ) [] v_override then bnds
          else
            let arg =
              (yojson_of_list
@@ -910,7 +910,7 @@ let yojson_of_mixed_instances_policy__launch_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template_specification then bnds
+         if Stdlib.( = ) [] v_launch_template_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -1005,9 +1005,9 @@ let _ = yojson_of_mixed_instances_policy__instances_distribution
 type mixed_instances_policy = {
   instances_distribution :
     mixed_instances_policy__instances_distribution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template : mixed_instances_policy__launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1023,7 +1023,7 @@ let yojson_of_mixed_instances_policy =
          []
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -1034,7 +1034,7 @@ let yojson_of_mixed_instances_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instances_distribution then bnds
+         if Stdlib.( = ) [] v_instances_distribution then bnds
          else
            let arg =
              (yojson_of_list
@@ -1149,7 +1149,7 @@ let _ = yojson_of_warm_pool__instance_reuse_policy
 
 type warm_pool = {
   instance_reuse_policy : warm_pool__instance_reuse_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_group_prepared_capacity : float prop;
   min_size : float prop;
   pool_state : string prop;
@@ -1185,7 +1185,7 @@ let yojson_of_warm_pool =
          ("max_group_prepared_capacity", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_reuse_policy then bnds
+         if Stdlib.( = ) [] v_instance_reuse_policy then bnds
          else
            let arg =
              (yojson_of_list

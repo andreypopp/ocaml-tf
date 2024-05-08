@@ -12,9 +12,10 @@ type cluster_setting = {
 type inbound_network_dependencies = {
   description : string prop;  (** description *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
-  ports : string prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
 }
 

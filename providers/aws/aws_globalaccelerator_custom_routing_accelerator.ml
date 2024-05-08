@@ -91,7 +91,7 @@ let _ = yojson_of_timeouts
 
 type ip_sets = {
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_family : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -109,7 +109,7 @@ let yojson_of_ip_sets =
          ("ip_family", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -134,7 +134,7 @@ type aws_globalaccelerator_custom_routing_accelerator = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   attributes : attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -163,7 +163,7 @@ let yojson_of_aws_globalaccelerator_custom_routing_accelerator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_attributes then bnds
+         if Stdlib.( = ) [] v_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attributes) v_attributes

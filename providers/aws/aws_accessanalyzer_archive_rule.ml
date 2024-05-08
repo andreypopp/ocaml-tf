@@ -78,7 +78,8 @@ type aws_accessanalyzer_archive_rule = {
   analyzer_name : string prop;
   id : string prop option; [@option]
   rule_name : string prop;
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,7 +97,7 @@ let yojson_of_aws_accessanalyzer_archive_rule =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

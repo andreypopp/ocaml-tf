@@ -114,11 +114,11 @@ let _ = yojson_of_instance_filter__inventories
 type instance_filter = {
   all : bool prop option; [@option]
   exclusion_labels : instance_filter__exclusion_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inclusion_labels : instance_filter__inclusion_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inventories : instance_filter__inventories list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -136,7 +136,7 @@ let yojson_of_instance_filter =
          []
        in
        let bnds =
-         if [] = v_inventories then bnds
+         if Stdlib.( = ) [] v_inventories then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_filter__inventories)
@@ -146,7 +146,7 @@ let yojson_of_instance_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inclusion_labels then bnds
+         if Stdlib.( = ) [] v_inclusion_labels then bnds
          else
            let arg =
              (yojson_of_list
@@ -157,7 +157,7 @@ let yojson_of_instance_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclusion_labels then bnds
+         if Stdlib.( = ) [] v_exclusion_labels then bnds
          else
            let arg =
              (yojson_of_list
@@ -311,11 +311,11 @@ type os_policies__resource_groups__resources__exec__enforce__file = {
   gcs :
     os_policies__resource_groups__resources__exec__enforce__file__gcs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__exec__enforce__file__remote
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__enforce__file
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -348,7 +348,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__enforce__file
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -390,7 +390,7 @@ type os_policies__resource_groups__resources__exec__enforce = {
   script : string prop option; [@option]
   file :
     os_policies__resource_groups__resources__exec__enforce__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -412,7 +412,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__enforce
          []
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -554,11 +554,11 @@ type os_policies__resource_groups__resources__exec__validate__file = {
   gcs :
     os_policies__resource_groups__resources__exec__validate__file__gcs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__exec__validate__file__remote
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -580,7 +580,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__validate__file
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -591,7 +591,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__validate__file
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -634,7 +634,7 @@ type os_policies__resource_groups__resources__exec__validate = {
   file :
     os_policies__resource_groups__resources__exec__validate__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -656,7 +656,7 @@ let yojson_of_os_policies__resource_groups__resources__exec__validate
          []
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -708,10 +708,10 @@ let _ =
 type os_policies__resource_groups__resources__exec = {
   enforce :
     os_policies__resource_groups__resources__exec__enforce list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validate :
     os_policies__resource_groups__resources__exec__validate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -724,7 +724,7 @@ let yojson_of_os_policies__resource_groups__resources__exec =
          []
        in
        let bnds =
-         if [] = v_validate then bnds
+         if Stdlib.( = ) [] v_validate then bnds
          else
            let arg =
              (yojson_of_list
@@ -735,7 +735,7 @@ let yojson_of_os_policies__resource_groups__resources__exec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_enforce then bnds
+         if Stdlib.( = ) [] v_enforce then bnds
          else
            let arg =
              (yojson_of_list
@@ -844,10 +844,10 @@ type os_policies__resource_groups__resources__file__file = {
   local_path : string prop option; [@option]
   gcs :
     os_policies__resource_groups__resources__file__file__gcs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__file__file__remote list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -866,7 +866,7 @@ let yojson_of_os_policies__resource_groups__resources__file__file =
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -877,7 +877,7 @@ let yojson_of_os_policies__resource_groups__resources__file__file =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -916,7 +916,7 @@ type os_policies__resource_groups__resources__file = {
   path : string prop;
   state : string prop;
   file : os_policies__resource_groups__resources__file__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -934,7 +934,7 @@ let yojson_of_os_policies__resource_groups__resources__file =
          []
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -1087,11 +1087,11 @@ type os_policies__resource_groups__resources__pkg__deb__source = {
   gcs :
     os_policies__resource_groups__resources__pkg__deb__source__gcs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__pkg__deb__source__remote
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1112,7 +1112,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__deb__source
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -1123,7 +1123,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__deb__source
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -1162,7 +1162,7 @@ type os_policies__resource_groups__resources__pkg__deb = {
   pull_deps : bool prop option; [@option]
   source :
     os_policies__resource_groups__resources__pkg__deb__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1176,7 +1176,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__deb =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -1322,11 +1322,11 @@ type os_policies__resource_groups__resources__pkg__msi__source = {
   gcs :
     os_policies__resource_groups__resources__pkg__msi__source__gcs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__pkg__msi__source__remote
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1347,7 +1347,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__msi__source
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -1358,7 +1358,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__msi__source
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -1397,7 +1397,7 @@ type os_policies__resource_groups__resources__pkg__msi = {
   properties : string prop list option; [@option]
   source :
     os_policies__resource_groups__resources__pkg__msi__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1411,7 +1411,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__msi =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -1532,11 +1532,11 @@ type os_policies__resource_groups__resources__pkg__rpm__source = {
   gcs :
     os_policies__resource_groups__resources__pkg__rpm__source__gcs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote :
     os_policies__resource_groups__resources__pkg__rpm__source__remote
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1557,7 +1557,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__rpm__source
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list
@@ -1568,7 +1568,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__rpm__source
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs then bnds
+         if Stdlib.( = ) [] v_gcs then bnds
          else
            let arg =
              (yojson_of_list
@@ -1607,7 +1607,7 @@ type os_policies__resource_groups__resources__pkg__rpm = {
   pull_deps : bool prop option; [@option]
   source :
     os_policies__resource_groups__resources__pkg__rpm__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1621,7 +1621,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg__rpm =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -1703,19 +1703,19 @@ let _ =
 type os_policies__resource_groups__resources__pkg = {
   desired_state : string prop;
   apt : os_policies__resource_groups__resources__pkg__apt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deb : os_policies__resource_groups__resources__pkg__deb list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   googet : os_policies__resource_groups__resources__pkg__googet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   msi : os_policies__resource_groups__resources__pkg__msi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rpm : os_policies__resource_groups__resources__pkg__rpm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   yum : os_policies__resource_groups__resources__pkg__yum list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zypper : os_policies__resource_groups__resources__pkg__zypper list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1737,7 +1737,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
          []
        in
        let bnds =
-         if [] = v_zypper then bnds
+         if Stdlib.( = ) [] v_zypper then bnds
          else
            let arg =
              (yojson_of_list
@@ -1748,7 +1748,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_yum then bnds
+         if Stdlib.( = ) [] v_yum then bnds
          else
            let arg =
              (yojson_of_list
@@ -1759,7 +1759,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rpm then bnds
+         if Stdlib.( = ) [] v_rpm then bnds
          else
            let arg =
              (yojson_of_list
@@ -1770,7 +1770,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_msi then bnds
+         if Stdlib.( = ) [] v_msi then bnds
          else
            let arg =
              (yojson_of_list
@@ -1781,7 +1781,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_googet then bnds
+         if Stdlib.( = ) [] v_googet then bnds
          else
            let arg =
              (yojson_of_list
@@ -1792,7 +1792,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deb then bnds
+         if Stdlib.( = ) [] v_deb then bnds
          else
            let arg =
              (yojson_of_list
@@ -1803,7 +1803,7 @@ let yojson_of_os_policies__resource_groups__resources__pkg =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_apt then bnds
+         if Stdlib.( = ) [] v_apt then bnds
          else
            let arg =
              (yojson_of_list
@@ -1828,7 +1828,7 @@ let _ = yojson_of_os_policies__resource_groups__resources__pkg
 type os_policies__resource_groups__resources__repository__apt = {
   archive_type : string prop;
   components : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   distribution : string prop;
   gpg_key : string prop option; [@option]
   uri : string prop;
@@ -1869,7 +1869,7 @@ let yojson_of_os_policies__resource_groups__resources__repository__apt
          ("distribution", arg) :: bnds
        in
        let bnds =
-         if [] = v_components then bnds
+         if Stdlib.( = ) [] v_components then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2047,16 +2047,16 @@ let _ =
 type os_policies__resource_groups__resources__repository = {
   apt :
     os_policies__resource_groups__resources__repository__apt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   goo :
     os_policies__resource_groups__resources__repository__goo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   yum :
     os_policies__resource_groups__resources__repository__yum list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zypper :
     os_policies__resource_groups__resources__repository__zypper list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2070,7 +2070,7 @@ let yojson_of_os_policies__resource_groups__resources__repository =
          []
        in
        let bnds =
-         if [] = v_zypper then bnds
+         if Stdlib.( = ) [] v_zypper then bnds
          else
            let arg =
              (yojson_of_list
@@ -2081,7 +2081,7 @@ let yojson_of_os_policies__resource_groups__resources__repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_yum then bnds
+         if Stdlib.( = ) [] v_yum then bnds
          else
            let arg =
              (yojson_of_list
@@ -2092,7 +2092,7 @@ let yojson_of_os_policies__resource_groups__resources__repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_goo then bnds
+         if Stdlib.( = ) [] v_goo then bnds
          else
            let arg =
              (yojson_of_list
@@ -2103,7 +2103,7 @@ let yojson_of_os_policies__resource_groups__resources__repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_apt then bnds
+         if Stdlib.( = ) [] v_apt then bnds
          else
            let arg =
              (yojson_of_list
@@ -2124,14 +2124,14 @@ let _ = yojson_of_os_policies__resource_groups__resources__repository
 type os_policies__resource_groups__resources = {
   id : string prop;
   exec : os_policies__resource_groups__resources__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file : os_policies__resource_groups__resources__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pkg : os_policies__resource_groups__resources__pkg list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   repository :
     os_policies__resource_groups__resources__repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2150,7 +2150,7 @@ let yojson_of_os_policies__resource_groups__resources =
          []
        in
        let bnds =
-         if [] = v_repository then bnds
+         if Stdlib.( = ) [] v_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -2161,7 +2161,7 @@ let yojson_of_os_policies__resource_groups__resources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pkg then bnds
+         if Stdlib.( = ) [] v_pkg then bnds
          else
            let arg =
              (yojson_of_list
@@ -2172,7 +2172,7 @@ let yojson_of_os_policies__resource_groups__resources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2183,7 +2183,7 @@ let yojson_of_os_policies__resource_groups__resources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -2208,9 +2208,9 @@ let _ = yojson_of_os_policies__resource_groups__resources
 type os_policies__resource_groups = {
   inventory_filters :
     os_policies__resource_groups__inventory_filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : os_policies__resource_groups__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2226,7 +2226,7 @@ let yojson_of_os_policies__resource_groups =
          []
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -2237,7 +2237,7 @@ let yojson_of_os_policies__resource_groups =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inventory_filters then bnds
+         if Stdlib.( = ) [] v_inventory_filters then bnds
          else
            let arg =
              (yojson_of_list
@@ -2261,7 +2261,7 @@ type os_policies = {
   id : string prop;
   mode : string prop;
   resource_groups : os_policies__resource_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2281,7 +2281,7 @@ let yojson_of_os_policies =
          []
        in
        let bnds =
-         if [] = v_resource_groups then bnds
+         if Stdlib.( = ) [] v_resource_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_policies__resource_groups)
@@ -2361,7 +2361,7 @@ let _ = yojson_of_rollout__disruption_budget
 type rollout = {
   min_wait_duration : string prop;
   disruption_budget : rollout__disruption_budget list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2377,7 +2377,7 @@ let yojson_of_rollout =
          []
        in
        let bnds =
-         if [] = v_disruption_budget then bnds
+         if Stdlib.( = ) [] v_disruption_budget then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rollout__disruption_budget)
@@ -2453,10 +2453,11 @@ type google_os_config_os_policy_assignment = {
   project : string prop option; [@option]
   skip_await_rollout : bool prop option; [@option]
   instance_filter : instance_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_policies : os_policies list;
-      [@default []] [@yojson_drop_default ( = )]
-  rollout : rollout list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rollout : rollout list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2485,14 +2486,14 @@ let yojson_of_google_os_config_os_policy_assignment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rollout then bnds
+         if Stdlib.( = ) [] v_rollout then bnds
          else
            let arg = (yojson_of_list yojson_of_rollout) v_rollout in
            let bnd = "rollout", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_policies then bnds
+         if Stdlib.( = ) [] v_os_policies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_policies) v_os_policies
@@ -2501,7 +2502,7 @@ let yojson_of_google_os_config_os_policy_assignment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_filter then bnds
+         if Stdlib.( = ) [] v_instance_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_filter)

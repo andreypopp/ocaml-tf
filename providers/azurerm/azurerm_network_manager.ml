@@ -108,9 +108,9 @@ let _ = yojson_of_timeouts
 
 type cross_tenant_scopes = {
   management_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscriptions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -132,7 +132,7 @@ let yojson_of_cross_tenant_scopes =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscriptions then bnds
+         if Stdlib.( = ) [] v_subscriptions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -142,7 +142,7 @@ let yojson_of_cross_tenant_scopes =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management_groups then bnds
+         if Stdlib.( = ) [] v_management_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -165,9 +165,10 @@ type azurerm_network_manager = {
   name : string prop;
   resource_group_name : string prop;
   scope_accesses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
-  scope : scope list; [@default []] [@yojson_drop_default ( = )]
+  scope : scope list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -195,7 +196,7 @@ let yojson_of_azurerm_network_manager =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_scope then bnds
+         if Stdlib.( = ) [] v_scope then bnds
          else
            let arg = (yojson_of_list yojson_of_scope) v_scope in
            let bnd = "scope", arg in
@@ -218,7 +219,7 @@ let yojson_of_azurerm_network_manager =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_scope_accesses then bnds
+         if Stdlib.( = ) [] v_scope_accesses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

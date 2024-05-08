@@ -6,7 +6,7 @@ open! Tf_core
 
 type allowed_publishers = {
   signing_profile_version_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** signing_profile_version_arns *)
 }
 

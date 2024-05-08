@@ -68,7 +68,7 @@ let _ = yojson_of_signed_object__s3
 
 type signed_object = {
   s3 : signed_object__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -81,7 +81,7 @@ let yojson_of_signed_object =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_signed_object__s3) v_s3
@@ -131,7 +131,8 @@ let _ = yojson_of_source__s3
 [@@@deriving.end]
 
 type source = {
-  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+  s3 : source__s3 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +145,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg = (yojson_of_list yojson_of_source__s3) v_s3 in
            let bnd = "s3", arg in

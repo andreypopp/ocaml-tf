@@ -345,9 +345,9 @@ let _ = yojson_of_action__forward__target_group
 
 type action__forward = {
   stickiness : action__forward__stickiness list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_group : action__forward__target_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -360,7 +360,7 @@ let yojson_of_action__forward =
          []
        in
        let bnds =
-         if [] = v_target_group then bnds
+         if Stdlib.( = ) [] v_target_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__forward__target_group)
@@ -370,7 +370,7 @@ let yojson_of_action__forward =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stickiness then bnds
+         if Stdlib.( = ) [] v_stickiness then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__forward__stickiness)
@@ -467,15 +467,15 @@ type action = {
   target_group_arn : string prop option; [@option]
   type_ : string prop; [@key "type"]
   authenticate_cognito : action__authenticate_cognito list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   authenticate_oidc : action__authenticate_oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fixed_response : action__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forward : action__forward list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redirect : action__redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -497,7 +497,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_redirect then bnds
+         if Stdlib.( = ) [] v_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__redirect) v_redirect
@@ -506,7 +506,7 @@ let yojson_of_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forward then bnds
+         if Stdlib.( = ) [] v_forward then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__forward) v_forward
@@ -515,7 +515,7 @@ let yojson_of_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_response then bnds
+         if Stdlib.( = ) [] v_fixed_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__fixed_response)
@@ -525,7 +525,7 @@ let yojson_of_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_oidc then bnds
+         if Stdlib.( = ) [] v_authenticate_oidc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__authenticate_oidc)
@@ -535,7 +535,7 @@ let yojson_of_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_cognito then bnds
+         if Stdlib.( = ) [] v_authenticate_cognito then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__authenticate_cognito)
@@ -573,7 +573,7 @@ let _ = yojson_of_action
 
 type condition__host_header = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -586,7 +586,7 @@ let yojson_of_condition__host_header =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -605,7 +605,7 @@ let _ = yojson_of_condition__host_header
 type condition__http_header = {
   http_header_name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -618,7 +618,7 @@ let yojson_of_condition__http_header =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -642,7 +642,7 @@ let _ = yojson_of_condition__http_header
 
 type condition__http_request_method = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -655,7 +655,7 @@ let yojson_of_condition__http_request_method =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -674,7 +674,7 @@ let _ = yojson_of_condition__http_request_method
 
 type condition__path_pattern = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -687,7 +687,7 @@ let yojson_of_condition__path_pattern =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -738,7 +738,7 @@ let _ = yojson_of_condition__query_string
 
 type condition__source_ip = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -751,7 +751,7 @@ let yojson_of_condition__source_ip =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -769,17 +769,17 @@ let _ = yojson_of_condition__source_ip
 
 type condition = {
   host_header : condition__host_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_header : condition__http_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_request_method : condition__http_request_method list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path_pattern : condition__path_pattern list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_string : condition__query_string list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_ip : condition__source_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -799,7 +799,7 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         if [] = v_source_ip then bnds
+         if Stdlib.( = ) [] v_source_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__source_ip)
@@ -809,7 +809,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_string then bnds
+         if Stdlib.( = ) [] v_query_string then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__query_string)
@@ -819,7 +819,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_path_pattern then bnds
+         if Stdlib.( = ) [] v_path_pattern then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__path_pattern)
@@ -829,7 +829,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_request_method then bnds
+         if Stdlib.( = ) [] v_http_request_method then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__http_request_method)
@@ -839,7 +839,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__http_header)
@@ -849,7 +849,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_header then bnds
+         if Stdlib.( = ) [] v_host_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__host_header)
@@ -871,9 +871,10 @@ type aws_lb_listener_rule = {
   priority : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -894,7 +895,7 @@ let yojson_of_aws_lb_listener_rule =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition
@@ -903,7 +904,7 @@ let yojson_of_aws_lb_listener_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

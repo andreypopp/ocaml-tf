@@ -203,9 +203,9 @@ type aws_ami = {
   tpm_support : string prop option; [@option]
   virtualization_type : string prop option; [@option]
   ebs_block_device : ebs_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_block_device : ephemeral_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -244,7 +244,7 @@ let yojson_of_aws_ami =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ephemeral_block_device then bnds
+         if Stdlib.( = ) [] v_ephemeral_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ephemeral_block_device)
@@ -254,7 +254,7 @@ let yojson_of_aws_ami =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebs_block_device then bnds
+         if Stdlib.( = ) [] v_ebs_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_block_device)

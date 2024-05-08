@@ -91,7 +91,8 @@ let _ = yojson_of_timeouts
 type azurerm_resource_provider_registration = {
   id : string prop option; [@option]
   name : string prop;
-  feature : feature list; [@default []] [@yojson_drop_default ( = )]
+  feature : feature list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -114,7 +115,7 @@ let yojson_of_azurerm_resource_provider_registration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_feature then bnds
+         if Stdlib.( = ) [] v_feature then bnds
          else
            let arg = (yojson_of_list yojson_of_feature) v_feature in
            let bnd = "feature", arg in

@@ -85,7 +85,7 @@ type distribution__ami_distribution_configuration = {
   launch_permission :
     distribution__ami_distribution_configuration__launch_permission
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,7 +105,7 @@ let yojson_of_distribution__ami_distribution_configuration =
          []
        in
        let bnds =
-         if [] = v_launch_permission then bnds
+         if Stdlib.( = ) [] v_launch_permission then bnds
          else
            let arg =
              (yojson_of_list
@@ -216,7 +216,7 @@ type distribution__container_distribution_configuration = {
   target_repository :
     distribution__container_distribution_configuration__target_repository
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,7 +234,7 @@ let yojson_of_distribution__container_distribution_configuration =
          []
        in
        let bnds =
-         if [] = v_target_repository then bnds
+         if Stdlib.( = ) [] v_target_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -365,11 +365,11 @@ type distribution__fast_launch_configuration = {
   max_parallel_launches : float prop option; [@option]
   launch_template :
     distribution__fast_launch_configuration__launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   snapshot_configuration :
     distribution__fast_launch_configuration__snapshot_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -388,7 +388,7 @@ let yojson_of_distribution__fast_launch_configuration =
          []
        in
        let bnds =
-         if [] = v_snapshot_configuration then bnds
+         if Stdlib.( = ) [] v_snapshot_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -399,7 +399,7 @@ let yojson_of_distribution__fast_launch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -487,16 +487,16 @@ type distribution = {
   region : string prop;
   ami_distribution_configuration :
     distribution__ami_distribution_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_distribution_configuration :
     distribution__container_distribution_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fast_launch_configuration :
     distribution__fast_launch_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template_configuration :
     distribution__launch_template_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -519,7 +519,7 @@ let yojson_of_distribution =
          []
        in
        let bnds =
-         if [] = v_launch_template_configuration then bnds
+         if Stdlib.( = ) [] v_launch_template_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -530,7 +530,7 @@ let yojson_of_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fast_launch_configuration then bnds
+         if Stdlib.( = ) [] v_fast_launch_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -541,7 +541,8 @@ let yojson_of_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_distribution_configuration then bnds
+         if Stdlib.( = ) [] v_container_distribution_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -552,7 +553,8 @@ let yojson_of_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ami_distribution_configuration then bnds
+         if Stdlib.( = ) [] v_ami_distribution_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -590,7 +592,7 @@ type aws_imagebuilder_distribution_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   distribution : distribution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -610,7 +612,7 @@ let yojson_of_aws_imagebuilder_distribution_configuration =
          []
        in
        let bnds =
-         if [] = v_distribution then bnds
+         if Stdlib.( = ) [] v_distribution then bnds
          else
            let arg =
              (yojson_of_list yojson_of_distribution) v_distribution

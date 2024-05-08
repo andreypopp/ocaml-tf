@@ -78,7 +78,7 @@ type log_publishing_options = {
   is_logging_enabled : bool prop option; [@option]
   cloudwatch_log_destination :
     log_publishing_options__cloudwatch_log_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,7 +94,7 @@ let yojson_of_log_publishing_options =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_log_destination then bnds
+         if Stdlib.( = ) [] v_cloudwatch_log_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -168,7 +168,7 @@ let _ = yojson_of_timeouts
 type vpc_options = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +184,7 @@ let yojson_of_vpc_options =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -217,14 +217,14 @@ type aws_osis_pipeline = {
   pipeline_name : string prop;
   tags : (string * string prop) list option; [@option]
   buffer_options : buffer_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_at_rest_options : encryption_at_rest_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_publishing_options : log_publishing_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_options : vpc_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -248,7 +248,7 @@ let yojson_of_aws_osis_pipeline =
          []
        in
        let bnds =
-         if [] = v_vpc_options then bnds
+         if Stdlib.( = ) [] v_vpc_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_options) v_vpc_options
@@ -261,7 +261,7 @@ let yojson_of_aws_osis_pipeline =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_log_publishing_options then bnds
+         if Stdlib.( = ) [] v_log_publishing_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_publishing_options)
@@ -271,7 +271,7 @@ let yojson_of_aws_osis_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_at_rest_options then bnds
+         if Stdlib.( = ) [] v_encryption_at_rest_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_at_rest_options)
@@ -281,7 +281,7 @@ let yojson_of_aws_osis_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_buffer_options then bnds
+         if Stdlib.( = ) [] v_buffer_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_buffer_options)

@@ -108,7 +108,7 @@ let _ = yojson_of_advanced_event_selector__field_selector
 type advanced_event_selector = {
   name : string prop option; [@option]
   field_selector : advanced_event_selector__field_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_advanced_event_selector =
          []
        in
        let bnds =
-         if [] = v_field_selector then bnds
+         if Stdlib.( = ) [] v_field_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -203,7 +203,7 @@ type aws_cloudtrail_event_data_store = {
   tags_all : (string * string prop) list option; [@option]
   termination_protection_enabled : bool prop option; [@option]
   advanced_event_selector : advanced_event_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -234,7 +234,7 @@ let yojson_of_aws_cloudtrail_event_data_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_advanced_event_selector then bnds
+         if Stdlib.( = ) [] v_advanced_event_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_event_selector)

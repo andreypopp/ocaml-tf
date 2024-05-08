@@ -69,7 +69,7 @@ type azurerm_sentinel_data_connector_aws_s3 = {
   log_analytics_workspace_id : string prop;
   name : string prop;
   sqs_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -95,7 +95,7 @@ let yojson_of_azurerm_sentinel_data_connector_aws_s3 =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sqs_urls then bnds
+         if Stdlib.( = ) [] v_sqs_urls then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

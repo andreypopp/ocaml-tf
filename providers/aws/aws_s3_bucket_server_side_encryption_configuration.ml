@@ -43,7 +43,7 @@ type rule = {
   bucket_key_enabled : bool prop option; [@option]
   apply_server_side_encryption_by_default :
     rule__apply_server_side_encryption_by_default list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,8 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_apply_server_side_encryption_by_default then bnds
+         if Stdlib.( = ) [] v_apply_server_side_encryption_by_default
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -91,7 +92,7 @@ type aws_s3_bucket_server_side_encryption_configuration = {
   bucket : string prop;
   expected_bucket_owner : string prop option; [@option]
   id : string prop option; [@option]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,7 +111,7 @@ let yojson_of_aws_s3_bucket_server_side_encryption_configuration =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

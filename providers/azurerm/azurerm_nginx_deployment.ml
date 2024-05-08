@@ -239,15 +239,15 @@ type azurerm_nginx_deployment = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   frontend_private : frontend_private list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_public : frontend_public list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logging_storage_account : logging_storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface : network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -283,7 +283,7 @@ let yojson_of_azurerm_nginx_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_interface)
@@ -293,7 +293,7 @@ let yojson_of_azurerm_nginx_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_storage_account then bnds
+         if Stdlib.( = ) [] v_logging_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_storage_account)
@@ -303,7 +303,7 @@ let yojson_of_azurerm_nginx_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -312,7 +312,7 @@ let yojson_of_azurerm_nginx_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frontend_public then bnds
+         if Stdlib.( = ) [] v_frontend_public then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_public)
@@ -322,7 +322,7 @@ let yojson_of_azurerm_nginx_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frontend_private then bnds
+         if Stdlib.( = ) [] v_frontend_private then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_private)

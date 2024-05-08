@@ -4,16 +4,16 @@ open! Tf_core
 
 type egress = {
   cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   from_port : float prop;
   ipv6_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self : bool prop;
   to_port : float prop;
 }
@@ -46,7 +46,7 @@ let yojson_of_egress =
          ("self", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -60,7 +60,7 @@ let yojson_of_egress =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_prefix_list_ids then bnds
+         if Stdlib.( = ) [] v_prefix_list_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -70,7 +70,7 @@ let yojson_of_egress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipv6_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_ipv6_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -88,7 +88,7 @@ let yojson_of_egress =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -106,16 +106,16 @@ let _ = yojson_of_egress
 
 type ingress = {
   cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   from_port : float prop;
   ipv6_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self : bool prop;
   to_port : float prop;
 }
@@ -148,7 +148,7 @@ let yojson_of_ingress =
          ("self", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -162,7 +162,7 @@ let yojson_of_ingress =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_prefix_list_ids then bnds
+         if Stdlib.( = ) [] v_prefix_list_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -172,7 +172,7 @@ let yojson_of_ingress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipv6_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_ipv6_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -190,7 +190,7 @@ let yojson_of_ingress =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

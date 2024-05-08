@@ -103,9 +103,9 @@ type routing = {
   static_vnet_local_route_override_criteria : string prop option;
       [@option]
   propagated_route_table : routing__propagated_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_vnet_route : routing__static_vnet_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         if [] = v_static_vnet_route then bnds
+         if Stdlib.( = ) [] v_static_vnet_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing__static_vnet_route)
@@ -136,7 +136,7 @@ let yojson_of_routing =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_propagated_route_table then bnds
+         if Stdlib.( = ) [] v_propagated_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -253,7 +253,8 @@ type azurerm_virtual_hub_connection = {
   name : string prop;
   remote_virtual_network_id : string prop;
   virtual_hub_id : string prop;
-  routing : routing list; [@default []] [@yojson_drop_default ( = )]
+  routing : routing list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -279,7 +280,7 @@ let yojson_of_azurerm_virtual_hub_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routing then bnds
+         if Stdlib.( = ) [] v_routing then bnds
          else
            let arg = (yojson_of_list yojson_of_routing) v_routing in
            let bnd = "routing", arg in

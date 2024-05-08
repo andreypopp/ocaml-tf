@@ -35,7 +35,7 @@ type draft__content_link = {
   uri : string prop;
   version : string prop option; [@option]
   hash : draft__content_link__hash list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_draft__content_link =
          []
        in
        let bnds =
-         if [] = v_hash then bnds
+         if Stdlib.( = ) [] v_hash then bnds
          else
            let arg =
              (yojson_of_list yojson_of_draft__content_link__hash)
@@ -142,9 +142,9 @@ type draft = {
   edit_mode_enabled : bool prop option; [@option]
   output_types : string prop list option; [@option]
   content_link : draft__content_link list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameters : draft__parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,7 +162,7 @@ let yojson_of_draft =
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_draft__parameters)
@@ -172,7 +172,7 @@ let yojson_of_draft =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_link then bnds
+         if Stdlib.( = ) [] v_content_link then bnds
          else
            let arg =
              (yojson_of_list yojson_of_draft__content_link)
@@ -239,7 +239,7 @@ type publish_content_link = {
   uri : string prop;
   version : string prop option; [@option]
   hash : publish_content_link__hash list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -252,7 +252,7 @@ let yojson_of_publish_content_link =
          []
        in
        let bnds =
-         if [] = v_hash then bnds
+         if Stdlib.( = ) [] v_hash then bnds
          else
            let arg =
              (yojson_of_list yojson_of_publish_content_link__hash)
@@ -408,9 +408,10 @@ type azurerm_automation_runbook = {
   resource_group_name : string prop;
   runbook_type : string prop;
   tags : (string * string prop) list option; [@option]
-  draft : draft list; [@default []] [@yojson_drop_default ( = )]
+  draft : draft list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   publish_content_link : publish_content_link list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -445,7 +446,7 @@ let yojson_of_azurerm_automation_runbook =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_publish_content_link then bnds
+         if Stdlib.( = ) [] v_publish_content_link then bnds
          else
            let arg =
              (yojson_of_list yojson_of_publish_content_link)
@@ -455,7 +456,7 @@ let yojson_of_azurerm_automation_runbook =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_draft then bnds
+         if Stdlib.( = ) [] v_draft then bnds
          else
            let arg = (yojson_of_list yojson_of_draft) v_draft in
            let bnd = "draft", arg in

@@ -85,7 +85,7 @@ type aws_qldb_stream = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   kinesis_configuration : kinesis_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -114,7 +114,7 @@ let yojson_of_aws_qldb_stream =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_kinesis_configuration then bnds
+         if Stdlib.( = ) [] v_kinesis_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kinesis_configuration)

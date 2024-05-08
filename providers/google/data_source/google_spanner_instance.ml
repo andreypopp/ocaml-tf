@@ -93,9 +93,9 @@ let _ = yojson_of_autoscaling_config__autoscaling_limits
 
 type autoscaling_config = {
   autoscaling_limits : autoscaling_config__autoscaling_limits list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   autoscaling_targets : autoscaling_config__autoscaling_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,7 +111,7 @@ let yojson_of_autoscaling_config =
          []
        in
        let bnds =
-         if [] = v_autoscaling_targets then bnds
+         if Stdlib.( = ) [] v_autoscaling_targets then bnds
          else
            let arg =
              (yojson_of_list
@@ -122,7 +122,7 @@ let yojson_of_autoscaling_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_limits then bnds
+         if Stdlib.( = ) [] v_autoscaling_limits then bnds
          else
            let arg =
              (yojson_of_list

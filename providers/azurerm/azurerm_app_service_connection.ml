@@ -178,9 +178,9 @@ type azurerm_app_service_connection = {
   target_resource_id : string prop;
   vnet_solution : string prop option; [@option]
   authentication : authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_store : secret_store list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -208,7 +208,7 @@ let yojson_of_azurerm_app_service_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secret_store then bnds
+         if Stdlib.( = ) [] v_secret_store then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret_store) v_secret_store
@@ -217,7 +217,7 @@ let yojson_of_azurerm_app_service_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authentication)

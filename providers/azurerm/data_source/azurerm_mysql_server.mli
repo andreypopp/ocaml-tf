@@ -12,11 +12,11 @@ type identity = {
 
 type threat_detection_policy = {
   disabled_alerts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disabled_alerts *)
   email_account_admins : bool prop;  (** email_account_admins *)
   email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** email_addresses *)
   enabled : bool prop;  (** enabled *)
   retention_days : float prop;  (** retention_days *)

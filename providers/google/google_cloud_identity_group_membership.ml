@@ -60,7 +60,7 @@ let _ = yojson_of_roles__expiry_detail
 type roles = {
   name : string prop;
   expiry_detail : roles__expiry_detail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_roles =
          []
        in
        let bnds =
-         if [] = v_expiry_detail then bnds
+         if Stdlib.( = ) [] v_expiry_detail then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__expiry_detail)
@@ -143,8 +143,9 @@ type google_cloud_identity_group_membership = {
   group : string prop;
   id : string prop option; [@option]
   preferred_member_key : preferred_member_key list;
-      [@default []] [@yojson_drop_default ( = )]
-  roles : roles list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  roles : roles list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -168,14 +169,14 @@ let yojson_of_google_cloud_identity_group_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_roles then bnds
+         if Stdlib.( = ) [] v_roles then bnds
          else
            let arg = (yojson_of_list yojson_of_roles) v_roles in
            let bnd = "roles", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_preferred_member_key then bnds
+         if Stdlib.( = ) [] v_preferred_member_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preferred_member_key)

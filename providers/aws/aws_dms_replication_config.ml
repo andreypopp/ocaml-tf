@@ -173,7 +173,7 @@ type aws_dms_replication_config = {
   tags_all : (string * string prop) list option; [@option]
   target_endpoint_arn : string prop;
   compute_config : compute_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,7 +207,7 @@ let yojson_of_aws_dms_replication_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_compute_config then bnds
+         if Stdlib.( = ) [] v_compute_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compute_config)

@@ -6,7 +6,7 @@ type cloudflare_worker_cron_trigger = {
   account_id : string prop;
   id : string prop option; [@option]
   schedules : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   script_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -29,7 +29,7 @@ let yojson_of_cloudflare_worker_cron_trigger =
          ("script_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_schedules then bnds
+         if Stdlib.( = ) [] v_schedules then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

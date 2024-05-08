@@ -186,9 +186,9 @@ let _ = yojson_of_timeouts
 
 type compliance_status = {
   acknowledged_violation_count : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   active_violation_count : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,7 +204,7 @@ let yojson_of_compliance_status =
          []
        in
        let bnds =
-         if [] = v_active_violation_count then bnds
+         if Stdlib.( = ) [] v_active_violation_count then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -214,7 +214,7 @@ let yojson_of_compliance_status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acknowledged_violation_count then bnds
+         if Stdlib.( = ) [] v_acknowledged_violation_count then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -310,7 +310,7 @@ let _ = yojson_of_resources
 
 type saa_enrollment_response = {
   setup_errors : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   setup_status : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -329,7 +329,7 @@ let yojson_of_saa_enrollment_response =
          ("setup_status", arg) :: bnds
        in
        let bnds =
-         if [] = v_setup_errors then bnds
+         if Stdlib.( = ) [] v_setup_errors then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -358,11 +358,11 @@ type google_assured_workloads_workload = {
   provisioned_resources_parent : string prop option; [@option]
   violation_notifications_enabled : bool prop option; [@option]
   kms_settings : kms_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   partner_permissions : partner_permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_settings : resource_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -397,7 +397,7 @@ let yojson_of_google_assured_workloads_workload =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_settings then bnds
+         if Stdlib.( = ) [] v_resource_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_settings)
@@ -407,7 +407,7 @@ let yojson_of_google_assured_workloads_workload =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partner_permissions then bnds
+         if Stdlib.( = ) [] v_partner_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_partner_permissions)
@@ -417,7 +417,7 @@ let yojson_of_google_assured_workloads_workload =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kms_settings then bnds
+         if Stdlib.( = ) [] v_kms_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kms_settings) v_kms_settings

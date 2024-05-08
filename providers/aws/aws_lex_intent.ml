@@ -48,7 +48,7 @@ let _ = yojson_of_conclusion_statement__message
 type conclusion_statement = {
   response_card : string prop option; [@option]
   message : conclusion_statement__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +61,7 @@ let yojson_of_conclusion_statement =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conclusion_statement__message)
@@ -132,7 +132,7 @@ type confirmation_prompt = {
   max_attempts : float prop;
   response_card : string prop option; [@option]
   message : confirmation_prompt__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,7 +149,7 @@ let yojson_of_confirmation_prompt =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_confirmation_prompt__message)
@@ -255,7 +255,7 @@ type follow_up_prompt__prompt = {
   max_attempts : float prop;
   response_card : string prop option; [@option]
   message : follow_up_prompt__prompt__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -272,7 +272,7 @@ let yojson_of_follow_up_prompt__prompt =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list
@@ -348,7 +348,7 @@ let _ = yojson_of_follow_up_prompt__rejection_statement__message
 type follow_up_prompt__rejection_statement = {
   response_card : string prop option; [@option]
   message : follow_up_prompt__rejection_statement__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -361,7 +361,7 @@ let yojson_of_follow_up_prompt__rejection_statement =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list
@@ -389,9 +389,9 @@ let _ = yojson_of_follow_up_prompt__rejection_statement
 
 type follow_up_prompt = {
   prompt : follow_up_prompt__prompt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rejection_statement : follow_up_prompt__rejection_statement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -407,7 +407,7 @@ let yojson_of_follow_up_prompt =
          []
        in
        let bnds =
-         if [] = v_rejection_statement then bnds
+         if Stdlib.( = ) [] v_rejection_statement then bnds
          else
            let arg =
              (yojson_of_list
@@ -418,7 +418,7 @@ let yojson_of_follow_up_prompt =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_prompt then bnds
+         if Stdlib.( = ) [] v_prompt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_follow_up_prompt__prompt)
@@ -469,7 +469,7 @@ let _ = yojson_of_fulfillment_activity__code_hook
 type fulfillment_activity = {
   type_ : string prop; [@key "type"]
   code_hook : fulfillment_activity__code_hook list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -482,7 +482,7 @@ let yojson_of_fulfillment_activity =
          []
        in
        let bnds =
-         if [] = v_code_hook then bnds
+         if Stdlib.( = ) [] v_code_hook then bnds
          else
            let arg =
              (yojson_of_list
@@ -549,7 +549,7 @@ let _ = yojson_of_rejection_statement__message
 type rejection_statement = {
   response_card : string prop option; [@option]
   message : rejection_statement__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -562,7 +562,7 @@ let yojson_of_rejection_statement =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rejection_statement__message)
@@ -633,7 +633,7 @@ type slot__value_elicitation_prompt = {
   max_attempts : float prop;
   response_card : string prop option; [@option]
   message : slot__value_elicitation_prompt__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -650,7 +650,7 @@ let yojson_of_slot__value_elicitation_prompt =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list
@@ -690,7 +690,7 @@ type slot = {
   slot_type : string prop;
   slot_type_version : string prop option; [@option]
   value_elicitation_prompt : slot__value_elicitation_prompt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -713,7 +713,7 @@ let yojson_of_slot =
          []
        in
        let bnds =
-         if [] = v_value_elicitation_prompt then bnds
+         if Stdlib.( = ) [] v_value_elicitation_prompt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_slot__value_elicitation_prompt)
@@ -839,18 +839,18 @@ type aws_lex_intent = {
   parent_intent_signature : string prop option; [@option]
   sample_utterances : string prop list option; [@option]
   conclusion_statement : conclusion_statement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   confirmation_prompt : confirmation_prompt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dialog_code_hook : dialog_code_hook list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   follow_up_prompt : follow_up_prompt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fulfillment_activity : fulfillment_activity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rejection_statement : rejection_statement list;
-      [@default []] [@yojson_drop_default ( = )]
-  slot : slot list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  slot : slot list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -883,14 +883,14 @@ let yojson_of_aws_lex_intent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_slot then bnds
+         if Stdlib.( = ) [] v_slot then bnds
          else
            let arg = (yojson_of_list yojson_of_slot) v_slot in
            let bnd = "slot", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rejection_statement then bnds
+         if Stdlib.( = ) [] v_rejection_statement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rejection_statement)
@@ -900,7 +900,7 @@ let yojson_of_aws_lex_intent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fulfillment_activity then bnds
+         if Stdlib.( = ) [] v_fulfillment_activity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fulfillment_activity)
@@ -910,7 +910,7 @@ let yojson_of_aws_lex_intent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_follow_up_prompt then bnds
+         if Stdlib.( = ) [] v_follow_up_prompt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_follow_up_prompt)
@@ -920,7 +920,7 @@ let yojson_of_aws_lex_intent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dialog_code_hook then bnds
+         if Stdlib.( = ) [] v_dialog_code_hook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dialog_code_hook)
@@ -930,7 +930,7 @@ let yojson_of_aws_lex_intent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_confirmation_prompt then bnds
+         if Stdlib.( = ) [] v_confirmation_prompt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_confirmation_prompt)
@@ -940,7 +940,7 @@ let yojson_of_aws_lex_intent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conclusion_statement then bnds
+         if Stdlib.( = ) [] v_conclusion_statement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conclusion_statement)

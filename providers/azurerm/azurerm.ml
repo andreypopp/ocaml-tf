@@ -576,33 +576,33 @@ let _ = yojson_of_features__virtual_machine_scale_set
 
 type features = {
   api_management : features__api_management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   app_configuration : features__app_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   application_insights : features__application_insights list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cognitive_account : features__cognitive_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault : features__key_vault list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_analytics_workspace : features__log_analytics_workspace list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_disk : features__managed_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql_flexible_server :
     features__postgresql_flexible_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_group : features__resource_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscription : features__subscription list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   template_deployment : features__template_deployment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_machine : features__virtual_machine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_machine_scale_set :
     features__virtual_machine_scale_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -629,7 +629,7 @@ let yojson_of_features =
          []
        in
        let bnds =
-         if [] = v_virtual_machine_scale_set then bnds
+         if Stdlib.( = ) [] v_virtual_machine_scale_set then bnds
          else
            let arg =
              (yojson_of_list
@@ -640,7 +640,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_virtual_machine then bnds
+         if Stdlib.( = ) [] v_virtual_machine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__virtual_machine)
@@ -650,7 +650,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_template_deployment then bnds
+         if Stdlib.( = ) [] v_template_deployment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__template_deployment)
@@ -660,7 +660,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subscription then bnds
+         if Stdlib.( = ) [] v_subscription then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__subscription)
@@ -670,7 +670,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_group then bnds
+         if Stdlib.( = ) [] v_resource_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__resource_group)
@@ -680,7 +680,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_postgresql_flexible_server then bnds
+         if Stdlib.( = ) [] v_postgresql_flexible_server then bnds
          else
            let arg =
              (yojson_of_list
@@ -691,7 +691,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_managed_disk then bnds
+         if Stdlib.( = ) [] v_managed_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__managed_disk)
@@ -701,7 +701,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_analytics_workspace then bnds
+         if Stdlib.( = ) [] v_log_analytics_workspace then bnds
          else
            let arg =
              (yojson_of_list
@@ -712,7 +712,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault then bnds
+         if Stdlib.( = ) [] v_key_vault then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__key_vault)
@@ -722,7 +722,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cognitive_account then bnds
+         if Stdlib.( = ) [] v_cognitive_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__cognitive_account)
@@ -732,7 +732,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_insights then bnds
+         if Stdlib.( = ) [] v_application_insights then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__application_insights)
@@ -742,7 +742,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_app_configuration then bnds
+         if Stdlib.( = ) [] v_app_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__app_configuration)
@@ -752,7 +752,7 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_management then bnds
+         if Stdlib.( = ) [] v_api_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features__api_management)
@@ -795,7 +795,8 @@ type azurerm = {
   use_cli : bool prop option; [@option]
   use_msi : bool prop option; [@option]
   use_oidc : bool prop option; [@option]
-  features : features list; [@default []] [@yojson_drop_default ( = )]
+  features : features list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -837,7 +838,7 @@ let yojson_of_azurerm =
          []
        in
        let bnds =
-         if [] = v_features then bnds
+         if Stdlib.( = ) [] v_features then bnds
          else
            let arg =
              (yojson_of_list yojson_of_features) v_features

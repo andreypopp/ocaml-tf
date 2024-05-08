@@ -80,7 +80,7 @@ type file_shares = {
   name : string prop;
   source_backup : string prop option; [@option]
   nfs_export_options : file_shares__nfs_export_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,7 +98,7 @@ let yojson_of_file_shares =
          []
        in
        let bnds =
-         if [] = v_nfs_export_options then bnds
+         if Stdlib.( = ) [] v_nfs_export_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -134,7 +134,7 @@ let _ = yojson_of_file_shares
 type networks = {
   connect_mode : string prop option; [@option]
   modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network : string prop;
   reserved_ip_range : string prop option; [@option]
 }
@@ -166,7 +166,7 @@ let yojson_of_networks =
          ("network", arg) :: bnds
        in
        let bnds =
-         if [] = v_modes then bnds
+         if Stdlib.( = ) [] v_modes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -247,9 +247,9 @@ type google_filestore_instance = {
   tier : string prop;
   zone : string prop option; [@option]
   file_shares : file_shares list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   networks : networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -280,7 +280,7 @@ let yojson_of_google_filestore_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_networks then bnds
+         if Stdlib.( = ) [] v_networks then bnds
          else
            let arg =
              (yojson_of_list yojson_of_networks) v_networks
@@ -289,7 +289,7 @@ let yojson_of_google_filestore_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file_shares then bnds
+         if Stdlib.( = ) [] v_file_shares then bnds
          else
            let arg =
              (yojson_of_list yojson_of_file_shares) v_file_shares

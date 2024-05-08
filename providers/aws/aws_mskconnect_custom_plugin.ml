@@ -45,7 +45,8 @@ let _ = yojson_of_location__s3
 [@@@deriving.end]
 
 type location = {
-  s3 : location__s3 list; [@default []] [@yojson_drop_default ( = )]
+  s3 : location__s3 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +59,7 @@ let yojson_of_location =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg = (yojson_of_list yojson_of_location__s3) v_s3 in
            let bnd = "s3", arg in
@@ -114,7 +115,7 @@ type aws_mskconnect_custom_plugin = {
   id : string prop option; [@option]
   name : string prop;
   location : location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -139,7 +140,7 @@ let yojson_of_aws_mskconnect_custom_plugin =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_location then bnds
+         if Stdlib.( = ) [] v_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_location) v_location

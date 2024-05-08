@@ -65,7 +65,7 @@ type aws_cognito_identity_pool = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cognito_identity_providers : cognito_identity_providers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,7 +91,7 @@ let yojson_of_aws_cognito_identity_pool =
          []
        in
        let bnds =
-         if [] = v_cognito_identity_providers then bnds
+         if Stdlib.( = ) [] v_cognito_identity_providers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cognito_identity_providers)

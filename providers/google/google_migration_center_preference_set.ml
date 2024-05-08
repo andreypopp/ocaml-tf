@@ -86,7 +86,7 @@ type virtual_machine_preferences__compute_engine_preferences__machine_preference
   allowed_machine_series :
     virtual_machine_preferences__compute_engine_preferences__machine_preferences__allowed_machine_series
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,7 +103,7 @@ let yojson_of_virtual_machine_preferences__compute_engine_preferences__machine_p
          []
        in
        let bnds =
-         if [] = v_allowed_machine_series then bnds
+         if Stdlib.( = ) [] v_allowed_machine_series then bnds
          else
            let arg =
              (yojson_of_list
@@ -127,7 +127,7 @@ type virtual_machine_preferences__compute_engine_preferences = {
   machine_preferences :
     virtual_machine_preferences__compute_engine_preferences__machine_preferences
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_virtual_machine_preferences__compute_engine_preferences
          []
        in
        let bnds =
-         if [] = v_machine_preferences then bnds
+         if Stdlib.( = ) [] v_machine_preferences then bnds
          else
            let arg =
              (yojson_of_list
@@ -246,7 +246,7 @@ type virtual_machine_preferences__sole_tenancy_preferences = {
   node_types :
     virtual_machine_preferences__sole_tenancy_preferences__node_types
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -266,7 +266,7 @@ let yojson_of_virtual_machine_preferences__sole_tenancy_preferences =
          []
        in
        let bnds =
-         if [] = v_node_types then bnds
+         if Stdlib.( = ) [] v_node_types then bnds
          else
            let arg =
              (yojson_of_list
@@ -384,16 +384,16 @@ type virtual_machine_preferences = {
   target_product : string prop option; [@option]
   compute_engine_preferences :
     virtual_machine_preferences__compute_engine_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region_preferences :
     virtual_machine_preferences__region_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sole_tenancy_preferences :
     virtual_machine_preferences__sole_tenancy_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vmware_engine_preferences :
     virtual_machine_preferences__vmware_engine_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,7 +414,7 @@ let yojson_of_virtual_machine_preferences =
          []
        in
        let bnds =
-         if [] = v_vmware_engine_preferences then bnds
+         if Stdlib.( = ) [] v_vmware_engine_preferences then bnds
          else
            let arg =
              (yojson_of_list
@@ -425,7 +425,7 @@ let yojson_of_virtual_machine_preferences =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sole_tenancy_preferences then bnds
+         if Stdlib.( = ) [] v_sole_tenancy_preferences then bnds
          else
            let arg =
              (yojson_of_list
@@ -436,7 +436,7 @@ let yojson_of_virtual_machine_preferences =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_region_preferences then bnds
+         if Stdlib.( = ) [] v_region_preferences then bnds
          else
            let arg =
              (yojson_of_list
@@ -447,7 +447,7 @@ let yojson_of_virtual_machine_preferences =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compute_engine_preferences then bnds
+         if Stdlib.( = ) [] v_compute_engine_preferences then bnds
          else
            let arg =
              (yojson_of_list
@@ -498,7 +498,7 @@ type google_migration_center_preference_set = {
   project : string prop option; [@option]
   timeouts : timeouts option;
   virtual_machine_preferences : virtual_machine_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -520,7 +520,7 @@ let yojson_of_google_migration_center_preference_set =
          []
        in
        let bnds =
-         if [] = v_virtual_machine_preferences then bnds
+         if Stdlib.( = ) [] v_virtual_machine_preferences then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_machine_preferences)

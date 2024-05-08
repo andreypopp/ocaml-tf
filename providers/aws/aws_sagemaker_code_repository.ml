@@ -56,7 +56,7 @@ type aws_sagemaker_code_repository = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   git_config : git_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_aws_sagemaker_code_repository =
          []
        in
        let bnds =
-         if [] = v_git_config then bnds
+         if Stdlib.( = ) [] v_git_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_git_config) v_git_config

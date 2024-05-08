@@ -4,7 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -253,9 +253,11 @@ type azurerm_express_route_port = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  link1 : link1 list; [@default []] [@yojson_drop_default ( = )]
-  link2 : link2 list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  link1 : link1 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  link2 : link2 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -287,21 +289,21 @@ let yojson_of_azurerm_express_route_port =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_link2 then bnds
+         if Stdlib.( = ) [] v_link2 then bnds
          else
            let arg = (yojson_of_list yojson_of_link2) v_link2 in
            let bnd = "link2", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_link1 then bnds
+         if Stdlib.( = ) [] v_link1 then bnds
          else
            let arg = (yojson_of_list yojson_of_link1) v_link1 in
            let bnd = "link1", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

@@ -43,7 +43,7 @@ let _ = yojson_of_matching__auto_merging__conflict_resolution
 
 type matching__auto_merging__consolidation = {
   matching_attributes_list : string prop list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_matching__auto_merging__consolidation =
          []
        in
        let bnds =
-         if [] = v_matching_attributes_list then bnds
+         if Stdlib.( = ) [] v_matching_attributes_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -80,9 +80,9 @@ type matching__auto_merging = {
       [@option]
   conflict_resolution :
     matching__auto_merging__conflict_resolution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   consolidation : matching__auto_merging__consolidation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,7 +101,7 @@ let yojson_of_matching__auto_merging =
          []
        in
        let bnds =
-         if [] = v_consolidation then bnds
+         if Stdlib.( = ) [] v_consolidation then bnds
          else
            let arg =
              (yojson_of_list
@@ -112,7 +112,7 @@ let yojson_of_matching__auto_merging =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conflict_resolution then bnds
+         if Stdlib.( = ) [] v_conflict_resolution then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,7 +184,7 @@ let _ = yojson_of_matching__exporting_config__s3_exporting
 
 type matching__exporting_config = {
   s3_exporting : matching__exporting_config__s3_exporting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,7 +197,7 @@ let yojson_of_matching__exporting_config =
          []
        in
        let bnds =
-         if [] = v_s3_exporting then bnds
+         if Stdlib.( = ) [] v_s3_exporting then bnds
          else
            let arg =
              (yojson_of_list
@@ -248,11 +248,11 @@ let _ = yojson_of_matching__job_schedule
 type matching = {
   enabled : bool prop;
   auto_merging : matching__auto_merging list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exporting_config : matching__exporting_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   job_schedule : matching__job_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -270,7 +270,7 @@ let yojson_of_matching =
          []
        in
        let bnds =
-         if [] = v_job_schedule then bnds
+         if Stdlib.( = ) [] v_job_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_matching__job_schedule)
@@ -280,7 +280,7 @@ let yojson_of_matching =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exporting_config then bnds
+         if Stdlib.( = ) [] v_exporting_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_matching__exporting_config)
@@ -290,7 +290,7 @@ let yojson_of_matching =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_merging then bnds
+         if Stdlib.( = ) [] v_auto_merging then bnds
          else
            let arg =
              (yojson_of_list yojson_of_matching__auto_merging)
@@ -457,7 +457,7 @@ let _ = yojson_of_rule_based_matching__exporting_config__s3_exporting
 type rule_based_matching__exporting_config = {
   s3_exporting :
     rule_based_matching__exporting_config__s3_exporting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -470,7 +470,7 @@ let yojson_of_rule_based_matching__exporting_config =
          []
        in
        let bnds =
-         if [] = v_s3_exporting then bnds
+         if Stdlib.( = ) [] v_s3_exporting then bnds
          else
            let arg =
              (yojson_of_list
@@ -489,7 +489,8 @@ let _ = yojson_of_rule_based_matching__exporting_config
 [@@@deriving.end]
 
 type rule_based_matching__matching_rules = {
-  rule : string prop list; [@default []] [@yojson_drop_default ( = )]
+  rule : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -502,7 +503,7 @@ let yojson_of_rule_based_matching__matching_rules =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -526,14 +527,14 @@ type rule_based_matching = {
   status : string prop option; [@option]
   attribute_types_selector :
     rule_based_matching__attribute_types_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conflict_resolution :
     rule_based_matching__conflict_resolution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exporting_config : rule_based_matching__exporting_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   matching_rules : rule_based_matching__matching_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -557,7 +558,7 @@ let yojson_of_rule_based_matching =
          []
        in
        let bnds =
-         if [] = v_matching_rules then bnds
+         if Stdlib.( = ) [] v_matching_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -568,7 +569,7 @@ let yojson_of_rule_based_matching =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exporting_config then bnds
+         if Stdlib.( = ) [] v_exporting_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -579,7 +580,7 @@ let yojson_of_rule_based_matching =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conflict_resolution then bnds
+         if Stdlib.( = ) [] v_conflict_resolution then bnds
          else
            let arg =
              (yojson_of_list
@@ -590,7 +591,7 @@ let yojson_of_rule_based_matching =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attribute_types_selector then bnds
+         if Stdlib.( = ) [] v_attribute_types_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -644,9 +645,9 @@ type aws_customerprofiles_domain = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   matching : matching list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule_based_matching : rule_based_matching list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -669,7 +670,7 @@ let yojson_of_aws_customerprofiles_domain =
          []
        in
        let bnds =
-         if [] = v_rule_based_matching then bnds
+         if Stdlib.( = ) [] v_rule_based_matching then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_based_matching)
@@ -679,7 +680,7 @@ let yojson_of_aws_customerprofiles_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_matching then bnds
+         if Stdlib.( = ) [] v_matching then bnds
          else
            let arg =
              (yojson_of_list yojson_of_matching) v_matching

@@ -125,11 +125,11 @@ type cdn_policy = {
   signed_url_cache_max_age_sec : float prop option; [@option]
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_key_policy : cdn_policy__cache_key_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negative_caching_policy : cdn_policy__negative_caching_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,7 +155,7 @@ let yojson_of_cdn_policy =
          []
        in
        let bnds =
-         if [] = v_negative_caching_policy then bnds
+         if Stdlib.( = ) [] v_negative_caching_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -166,7 +166,7 @@ let yojson_of_cdn_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_key_policy then bnds
+         if Stdlib.( = ) [] v_cache_key_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
@@ -176,7 +176,8 @@ let yojson_of_cdn_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bypass_cache_on_request_headers then bnds
+         if Stdlib.( = ) [] v_bypass_cache_on_request_headers then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -314,7 +315,7 @@ type google_compute_backend_bucket = {
   name : string prop;
   project : string prop option; [@option]
   cdn_policy : cdn_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -344,7 +345,7 @@ let yojson_of_google_compute_backend_bucket =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cdn_policy then bnds
+         if Stdlib.( = ) [] v_cdn_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cdn_policy) v_cdn_policy

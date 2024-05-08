@@ -53,7 +53,7 @@ let _ = yojson_of_action_point__action
 type action_point = {
   point : string prop;
   action : action_point__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_action_point =
          []
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action_point__action) v_action
@@ -138,9 +138,9 @@ type aws_appconfig_extension = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   action_point : action_point list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameter : parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_aws_appconfig_extension =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter) v_parameter
@@ -170,7 +170,7 @@ let yojson_of_aws_appconfig_extension =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action_point then bnds
+         if Stdlib.( = ) [] v_action_point then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action_point) v_action_point

@@ -78,10 +78,10 @@ type alert_strategy = {
   auto_close : string prop option; [@option]
   notification_channel_strategy :
     alert_strategy__notification_channel_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_rate_limit :
     alert_strategy__notification_rate_limit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_alert_strategy =
          []
        in
        let bnds =
-         if [] = v_notification_rate_limit then bnds
+         if Stdlib.( = ) [] v_notification_rate_limit then bnds
          else
            let arg =
              (yojson_of_list
@@ -110,7 +110,7 @@ let yojson_of_alert_strategy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_channel_strategy then bnds
+         if Stdlib.( = ) [] v_notification_channel_strategy then bnds
          else
            let arg =
              (yojson_of_list
@@ -240,9 +240,9 @@ type conditions__condition_absent = {
   duration : string prop;
   filter : string prop option; [@option]
   aggregations : conditions__condition_absent__aggregations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trigger : conditions__condition_absent__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -260,7 +260,7 @@ let yojson_of_conditions__condition_absent =
          []
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg =
              (yojson_of_list
@@ -271,7 +271,7 @@ let yojson_of_conditions__condition_absent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aggregations then bnds
+         if Stdlib.( = ) [] v_aggregations then bnds
          else
            let arg =
              (yojson_of_list
@@ -391,7 +391,7 @@ type conditions__condition_monitoring_query_language = {
   query : string prop;
   trigger :
     conditions__condition_monitoring_query_language__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -410,7 +410,7 @@ let yojson_of_conditions__condition_monitoring_query_language =
          []
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg =
              (yojson_of_list
@@ -734,15 +734,15 @@ type conditions__condition_threshold = {
   filter : string prop option; [@option]
   threshold_value : float prop option; [@option]
   aggregations : conditions__condition_threshold__aggregations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   denominator_aggregations :
     conditions__condition_threshold__denominator_aggregations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forecast_options :
     conditions__condition_threshold__forecast_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trigger : conditions__condition_threshold__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -766,7 +766,7 @@ let yojson_of_conditions__condition_threshold =
          []
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg =
              (yojson_of_list
@@ -777,7 +777,7 @@ let yojson_of_conditions__condition_threshold =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forecast_options then bnds
+         if Stdlib.( = ) [] v_forecast_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -788,7 +788,7 @@ let yojson_of_conditions__condition_threshold =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_denominator_aggregations then bnds
+         if Stdlib.( = ) [] v_denominator_aggregations then bnds
          else
            let arg =
              (yojson_of_list
@@ -799,7 +799,7 @@ let yojson_of_conditions__condition_threshold =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aggregations then bnds
+         if Stdlib.( = ) [] v_aggregations then bnds
          else
            let arg =
              (yojson_of_list
@@ -860,17 +860,17 @@ let _ = yojson_of_conditions__condition_threshold
 type conditions = {
   display_name : string prop;
   condition_absent : conditions__condition_absent list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition_matched_log : conditions__condition_matched_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition_monitoring_query_language :
     conditions__condition_monitoring_query_language list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition_prometheus_query_language :
     conditions__condition_prometheus_query_language list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition_threshold : conditions__condition_threshold list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -892,7 +892,7 @@ let yojson_of_conditions =
          []
        in
        let bnds =
-         if [] = v_condition_threshold then bnds
+         if Stdlib.( = ) [] v_condition_threshold then bnds
          else
            let arg =
              (yojson_of_list
@@ -903,7 +903,8 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition_prometheus_query_language then bnds
+         if Stdlib.( = ) [] v_condition_prometheus_query_language
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -914,7 +915,8 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition_monitoring_query_language then bnds
+         if Stdlib.( = ) [] v_condition_monitoring_query_language
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -925,7 +927,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition_matched_log then bnds
+         if Stdlib.( = ) [] v_condition_matched_log then bnds
          else
            let arg =
              (yojson_of_list
@@ -936,7 +938,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition_absent then bnds
+         if Stdlib.( = ) [] v_condition_absent then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conditions__condition_absent)
@@ -1091,11 +1093,11 @@ type google_monitoring_alert_policy = {
   severity : string prop option; [@option]
   user_labels : (string * string prop) list option; [@option]
   alert_strategy : alert_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conditions : conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   documentation : documentation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1126,7 +1128,7 @@ let yojson_of_google_monitoring_alert_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_documentation then bnds
+         if Stdlib.( = ) [] v_documentation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_documentation) v_documentation
@@ -1135,7 +1137,7 @@ let yojson_of_google_monitoring_alert_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conditions) v_conditions
@@ -1144,7 +1146,7 @@ let yojson_of_google_monitoring_alert_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alert_strategy then bnds
+         if Stdlib.( = ) [] v_alert_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_alert_strategy)

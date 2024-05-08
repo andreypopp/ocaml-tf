@@ -73,7 +73,7 @@ let _ = yojson_of_backend_address__inbound_nat_rule_port_mapping
 type backend_address = {
   inbound_nat_rule_port_mapping :
     backend_address__inbound_nat_rule_port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_address : string prop;
   name : string prop;
   virtual_network_id : string prop;
@@ -109,7 +109,7 @@ let yojson_of_backend_address =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_inbound_nat_rule_port_mapping then bnds
+         if Stdlib.( = ) [] v_inbound_nat_rule_port_mapping then bnds
          else
            let arg =
              (yojson_of_list

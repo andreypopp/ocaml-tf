@@ -96,9 +96,9 @@ type aws_ecr_repository = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   encryption_configuration : encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_scanning_configuration : image_scanning_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -126,7 +126,7 @@ let yojson_of_aws_ecr_repository =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_image_scanning_configuration then bnds
+         if Stdlib.( = ) [] v_image_scanning_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_scanning_configuration)
@@ -136,7 +136,7 @@ let yojson_of_aws_ecr_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_configuration)

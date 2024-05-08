@@ -30,9 +30,9 @@ let _ = yojson_of_timeouts
 
 type cross_tenant_scopes = {
   management_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscriptions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -54,7 +54,7 @@ let yojson_of_cross_tenant_scopes =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscriptions then bnds
+         if Stdlib.( = ) [] v_subscriptions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -64,7 +64,7 @@ let yojson_of_cross_tenant_scopes =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management_groups then bnds
+         if Stdlib.( = ) [] v_management_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -82,9 +82,9 @@ let _ = yojson_of_cross_tenant_scopes
 
 type scope = {
   management_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscription_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,7 +100,7 @@ let yojson_of_scope =
          []
        in
        let bnds =
-         if [] = v_subscription_ids then bnds
+         if Stdlib.( = ) [] v_subscription_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -110,7 +110,7 @@ let yojson_of_scope =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management_group_ids then bnds
+         if Stdlib.( = ) [] v_management_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

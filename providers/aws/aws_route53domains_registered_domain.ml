@@ -758,15 +758,15 @@ type aws_route53domains_registered_domain = {
   tech_privacy : bool prop option; [@option]
   transfer_lock : bool prop option; [@option]
   admin_contact : admin_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   billing_contact : billing_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name_server : name_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   registrant_contact : registrant_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tech_contact : tech_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -801,7 +801,7 @@ let yojson_of_aws_route53domains_registered_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tech_contact then bnds
+         if Stdlib.( = ) [] v_tech_contact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tech_contact) v_tech_contact
@@ -810,7 +810,7 @@ let yojson_of_aws_route53domains_registered_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_registrant_contact then bnds
+         if Stdlib.( = ) [] v_registrant_contact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_registrant_contact)
@@ -820,7 +820,7 @@ let yojson_of_aws_route53domains_registered_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_name_server then bnds
+         if Stdlib.( = ) [] v_name_server then bnds
          else
            let arg =
              (yojson_of_list yojson_of_name_server) v_name_server
@@ -829,7 +829,7 @@ let yojson_of_aws_route53domains_registered_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_billing_contact then bnds
+         if Stdlib.( = ) [] v_billing_contact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_billing_contact)
@@ -839,7 +839,7 @@ let yojson_of_aws_route53domains_registered_domain =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_contact then bnds
+         if Stdlib.( = ) [] v_admin_contact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_admin_contact) v_admin_contact

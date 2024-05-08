@@ -91,14 +91,15 @@ let _ = yojson_of_timeouts
 type azurerm_iot_time_series_insights_gen2_environment = {
   id : string prop option; [@option]
   id_properties : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
   tags : (string * string prop) list option; [@option]
   warm_store_data_retention_time : string prop option; [@option]
-  storage : storage list; [@default []] [@yojson_drop_default ( = )]
+  storage : storage list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,7 +130,7 @@ let yojson_of_azurerm_iot_time_series_insights_gen2_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage then bnds
+         if Stdlib.( = ) [] v_storage then bnds
          else
            let arg = (yojson_of_list yojson_of_storage) v_storage in
            let bnd = "storage", arg in
@@ -178,7 +179,7 @@ let yojson_of_azurerm_iot_time_series_insights_gen2_environment =
          ("location", arg) :: bnds
        in
        let bnds =
-         if [] = v_id_properties then bnds
+         if Stdlib.( = ) [] v_id_properties then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

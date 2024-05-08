@@ -89,10 +89,10 @@ type data_catalog_encryption_settings = {
   connection_password_encryption :
     data_catalog_encryption_settings__connection_password_encryption
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_at_rest :
     data_catalog_encryption_settings__encryption_at_rest list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_data_catalog_encryption_settings =
          []
        in
        let bnds =
-         if [] = v_encryption_at_rest then bnds
+         if Stdlib.( = ) [] v_encryption_at_rest then bnds
          else
            let arg =
              (yojson_of_list
@@ -120,7 +120,8 @@ let yojson_of_data_catalog_encryption_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connection_password_encryption then bnds
+         if Stdlib.( = ) [] v_connection_password_encryption then
+           bnds
          else
            let arg =
              (yojson_of_list

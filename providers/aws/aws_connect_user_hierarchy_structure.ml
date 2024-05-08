@@ -119,15 +119,15 @@ let _ = yojson_of_hierarchy_structure__level_two
 
 type hierarchy_structure = {
   level_five : hierarchy_structure__level_five list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_four : hierarchy_structure__level_four list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_one : hierarchy_structure__level_one list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_three : hierarchy_structure__level_three list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   level_two : hierarchy_structure__level_two list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_hierarchy_structure =
          []
        in
        let bnds =
-         if [] = v_level_two then bnds
+         if Stdlib.( = ) [] v_level_two then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_structure__level_two)
@@ -156,7 +156,7 @@ let yojson_of_hierarchy_structure =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_three then bnds
+         if Stdlib.( = ) [] v_level_three then bnds
          else
            let arg =
              (yojson_of_list
@@ -167,7 +167,7 @@ let yojson_of_hierarchy_structure =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_one then bnds
+         if Stdlib.( = ) [] v_level_one then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_structure__level_one)
@@ -177,7 +177,7 @@ let yojson_of_hierarchy_structure =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_four then bnds
+         if Stdlib.( = ) [] v_level_four then bnds
          else
            let arg =
              (yojson_of_list
@@ -188,7 +188,7 @@ let yojson_of_hierarchy_structure =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_level_five then bnds
+         if Stdlib.( = ) [] v_level_five then bnds
          else
            let arg =
              (yojson_of_list
@@ -209,7 +209,7 @@ type aws_connect_user_hierarchy_structure = {
   id : string prop option; [@option]
   instance_id : string prop;
   hierarchy_structure : hierarchy_structure list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -226,7 +226,7 @@ let yojson_of_aws_connect_user_hierarchy_structure =
          []
        in
        let bnds =
-         if [] = v_hierarchy_structure then bnds
+         if Stdlib.( = ) [] v_hierarchy_structure then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hierarchy_structure)

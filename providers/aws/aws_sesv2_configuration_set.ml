@@ -212,9 +212,9 @@ let _ = yojson_of_vdm_options__guardian_options
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   guardian_options : vdm_options__guardian_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,7 +230,7 @@ let yojson_of_vdm_options =
          []
        in
        let bnds =
-         if [] = v_guardian_options then bnds
+         if Stdlib.( = ) [] v_guardian_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vdm_options__guardian_options)
@@ -240,7 +240,7 @@ let yojson_of_vdm_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dashboard_options then bnds
+         if Stdlib.( = ) [] v_dashboard_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vdm_options__dashboard_options)
@@ -262,17 +262,17 @@ type aws_sesv2_configuration_set = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   delivery_options : delivery_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reputation_options : reputation_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sending_options : sending_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   suppression_options : suppression_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tracking_options : tracking_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vdm_options : vdm_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,7 +296,7 @@ let yojson_of_aws_sesv2_configuration_set =
          []
        in
        let bnds =
-         if [] = v_vdm_options then bnds
+         if Stdlib.( = ) [] v_vdm_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vdm_options) v_vdm_options
@@ -305,7 +305,7 @@ let yojson_of_aws_sesv2_configuration_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_tracking_options then bnds
+         if Stdlib.( = ) [] v_tracking_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tracking_options)
@@ -315,7 +315,7 @@ let yojson_of_aws_sesv2_configuration_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_suppression_options then bnds
+         if Stdlib.( = ) [] v_suppression_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_suppression_options)
@@ -325,7 +325,7 @@ let yojson_of_aws_sesv2_configuration_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sending_options then bnds
+         if Stdlib.( = ) [] v_sending_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sending_options)
@@ -335,7 +335,7 @@ let yojson_of_aws_sesv2_configuration_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reputation_options then bnds
+         if Stdlib.( = ) [] v_reputation_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reputation_options)
@@ -345,7 +345,7 @@ let yojson_of_aws_sesv2_configuration_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_delivery_options then bnds
+         if Stdlib.( = ) [] v_delivery_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delivery_options)

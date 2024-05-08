@@ -87,9 +87,9 @@ let _ = yojson_of_blocking_functions__triggers
 type blocking_functions = {
   forward_inbound_credentials :
     blocking_functions__forward_inbound_credentials list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   triggers : blocking_functions__triggers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,7 +105,7 @@ let yojson_of_blocking_functions =
          []
        in
        let bnds =
-         if [] = v_triggers then bnds
+         if Stdlib.( = ) [] v_triggers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_blocking_functions__triggers)
@@ -115,7 +115,7 @@ let yojson_of_blocking_functions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forward_inbound_credentials then bnds
+         if Stdlib.( = ) [] v_forward_inbound_credentials then bnds
          else
            let arg =
              (yojson_of_list
@@ -174,7 +174,7 @@ let _ = yojson_of_client__permissions
 
 type client = {
   permissions : client__permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -187,7 +187,7 @@ let yojson_of_client =
          []
        in
        let bnds =
-         if [] = v_permissions then bnds
+         if Stdlib.( = ) [] v_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client__permissions)
@@ -236,7 +236,7 @@ type mfa__provider_configs = {
   state : string prop option; [@option]
   totp_provider_config :
     mfa__provider_configs__totp_provider_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -252,7 +252,7 @@ let yojson_of_mfa__provider_configs =
          []
        in
        let bnds =
-         if [] = v_totp_provider_config then bnds
+         if Stdlib.( = ) [] v_totp_provider_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -281,7 +281,7 @@ type mfa = {
   enabled_providers : string prop list option; [@option]
   state : string prop option; [@option]
   provider_configs : mfa__provider_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,7 +298,7 @@ let yojson_of_mfa =
          []
        in
        let bnds =
-         if [] = v_provider_configs then bnds
+         if Stdlib.( = ) [] v_provider_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mfa__provider_configs)
@@ -363,7 +363,7 @@ let _ = yojson_of_monitoring__request_logging
 
 type monitoring = {
   request_logging : monitoring__request_logging list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -376,7 +376,7 @@ let yojson_of_monitoring =
          []
        in
        let bnds =
-         if [] = v_request_logging then bnds
+         if Stdlib.( = ) [] v_request_logging then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitoring__request_logging)
@@ -485,7 +485,7 @@ let _ = yojson_of_quota__sign_up_quota_config
 
 type quota = {
   sign_up_quota_config : quota__sign_up_quota_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -498,7 +498,7 @@ let yojson_of_quota =
          []
        in
        let bnds =
-         if [] = v_sign_up_quota_config then bnds
+         if Stdlib.( = ) [] v_sign_up_quota_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_quota__sign_up_quota_config)
@@ -669,11 +669,11 @@ let _ = yojson_of_sign_in__hash_config
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
   anonymous : sign_in__anonymous list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email : sign_in__email list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   phone_number : sign_in__phone_number list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -691,7 +691,7 @@ let yojson_of_sign_in =
          []
        in
        let bnds =
-         if [] = v_phone_number then bnds
+         if Stdlib.( = ) [] v_phone_number then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__phone_number)
@@ -701,7 +701,7 @@ let yojson_of_sign_in =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email then bnds
+         if Stdlib.( = ) [] v_email then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__email) v_email
@@ -710,7 +710,7 @@ let yojson_of_sign_in =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_anonymous then bnds
+         if Stdlib.( = ) [] v_anonymous then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__anonymous)
@@ -798,9 +798,9 @@ let _ = yojson_of_sms_region_config__allowlist_only
 
 type sms_region_config = {
   allow_by_default : sms_region_config__allow_by_default list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowlist_only : sms_region_config__allowlist_only list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -816,7 +816,7 @@ let yojson_of_sms_region_config =
          []
        in
        let bnds =
-         if [] = v_allowlist_only then bnds
+         if Stdlib.( = ) [] v_allowlist_only then bnds
          else
            let arg =
              (yojson_of_list
@@ -827,7 +827,7 @@ let yojson_of_sms_region_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow_by_default then bnds
+         if Stdlib.( = ) [] v_allow_by_default then bnds
          else
            let arg =
              (yojson_of_list
@@ -896,17 +896,20 @@ type google_identity_platform_config = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   blocking_functions : blocking_functions list;
-      [@default []] [@yojson_drop_default ( = )]
-  client : client list; [@default []] [@yojson_drop_default ( = )]
-  mfa : mfa list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  client : client list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  mfa : mfa list; [@default []] [@yojson_drop_default Stdlib.( = )]
   monitoring : monitoring list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   multi_tenant : multi_tenant list;
-      [@default []] [@yojson_drop_default ( = )]
-  quota : quota list; [@default []] [@yojson_drop_default ( = )]
-  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  quota : quota list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sign_in : sign_in list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sms_region_config : sms_region_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -938,7 +941,7 @@ let yojson_of_google_identity_platform_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sms_region_config then bnds
+         if Stdlib.( = ) [] v_sms_region_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sms_region_config)
@@ -948,21 +951,21 @@ let yojson_of_google_identity_platform_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sign_in then bnds
+         if Stdlib.( = ) [] v_sign_in then bnds
          else
            let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
            let bnd = "sign_in", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_quota then bnds
+         if Stdlib.( = ) [] v_quota then bnds
          else
            let arg = (yojson_of_list yojson_of_quota) v_quota in
            let bnd = "quota", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multi_tenant then bnds
+         if Stdlib.( = ) [] v_multi_tenant then bnds
          else
            let arg =
              (yojson_of_list yojson_of_multi_tenant) v_multi_tenant
@@ -971,7 +974,7 @@ let yojson_of_google_identity_platform_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitoring then bnds
+         if Stdlib.( = ) [] v_monitoring then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitoring) v_monitoring
@@ -980,21 +983,21 @@ let yojson_of_google_identity_platform_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mfa then bnds
+         if Stdlib.( = ) [] v_mfa then bnds
          else
            let arg = (yojson_of_list yojson_of_mfa) v_mfa in
            let bnd = "mfa", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client then bnds
+         if Stdlib.( = ) [] v_client then bnds
          else
            let arg = (yojson_of_list yojson_of_client) v_client in
            let bnd = "client", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_blocking_functions then bnds
+         if Stdlib.( = ) [] v_blocking_functions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_blocking_functions)

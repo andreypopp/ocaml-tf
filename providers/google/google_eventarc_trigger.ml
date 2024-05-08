@@ -151,13 +151,13 @@ let _ = yojson_of_destination__network_config
 type destination = {
   workflow : string prop option; [@option]
   cloud_run_service : destination__cloud_run_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gke : destination__gke list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_endpoint : destination__http_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : destination__network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -176,7 +176,7 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__network_config)
@@ -186,7 +186,7 @@ let yojson_of_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_endpoint then bnds
+         if Stdlib.( = ) [] v_http_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__http_endpoint)
@@ -196,7 +196,7 @@ let yojson_of_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gke then bnds
+         if Stdlib.( = ) [] v_gke then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__gke) v_gke
@@ -205,7 +205,7 @@ let yojson_of_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_run_service then bnds
+         if Stdlib.( = ) [] v_cloud_run_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__cloud_run_service)
@@ -345,7 +345,7 @@ let _ = yojson_of_transport__pubsub
 
 type transport = {
   pubsub : transport__pubsub list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -358,7 +358,7 @@ let yojson_of_transport =
          []
        in
        let bnds =
-         if [] = v_pubsub then bnds
+         if Stdlib.( = ) [] v_pubsub then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transport__pubsub) v_pubsub
@@ -383,12 +383,12 @@ type google_eventarc_trigger = {
   project : string prop option; [@option]
   service_account : string prop option; [@option]
   destination : destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   matching_criteria : matching_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   transport : transport list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,7 +414,7 @@ let yojson_of_google_eventarc_trigger =
          []
        in
        let bnds =
-         if [] = v_transport then bnds
+         if Stdlib.( = ) [] v_transport then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transport) v_transport
@@ -427,7 +427,7 @@ let yojson_of_google_eventarc_trigger =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_matching_criteria then bnds
+         if Stdlib.( = ) [] v_matching_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_matching_criteria)
@@ -437,7 +437,7 @@ let yojson_of_google_eventarc_trigger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination) v_destination

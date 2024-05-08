@@ -271,13 +271,13 @@ type azurerm_spring_cloud_app = {
   service_name : string prop;
   tls_enabled : bool prop option; [@option]
   custom_persistent_disk : custom_persistent_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_settings : ingress_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   persistent_disk : persistent_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -310,7 +310,7 @@ let yojson_of_azurerm_spring_cloud_app =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_persistent_disk then bnds
+         if Stdlib.( = ) [] v_persistent_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_persistent_disk)
@@ -320,7 +320,7 @@ let yojson_of_azurerm_spring_cloud_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_settings then bnds
+         if Stdlib.( = ) [] v_ingress_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_settings)
@@ -330,7 +330,7 @@ let yojson_of_azurerm_spring_cloud_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -339,7 +339,7 @@ let yojson_of_azurerm_spring_cloud_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_persistent_disk then bnds
+         if Stdlib.( = ) [] v_custom_persistent_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_persistent_disk)

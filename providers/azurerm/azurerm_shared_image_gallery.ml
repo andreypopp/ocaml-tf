@@ -51,7 +51,7 @@ let _ = yojson_of_sharing__community_gallery
 type sharing = {
   permission : string prop;
   community_gallery : sharing__community_gallery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_sharing =
          []
        in
        let bnds =
-         if [] = v_community_gallery then bnds
+         if Stdlib.( = ) [] v_community_gallery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sharing__community_gallery)
@@ -154,7 +154,8 @@ type azurerm_shared_image_gallery = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  sharing : sharing list; [@default []] [@yojson_drop_default ( = )]
+  sharing : sharing list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -181,7 +182,7 @@ let yojson_of_azurerm_shared_image_gallery =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sharing then bnds
+         if Stdlib.( = ) [] v_sharing then bnds
          else
            let arg = (yojson_of_list yojson_of_sharing) v_sharing in
            let bnd = "sharing", arg in

@@ -5,7 +5,7 @@ open! Tf_core
 type nfs_exports__client_configurations = {
   clients : string prop;
   options : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_nfs_exports__client_configurations =
          []
        in
        let bnds =
-         if [] = v_options then bnds
+         if Stdlib.( = ) [] v_options then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -41,7 +41,7 @@ let _ = yojson_of_nfs_exports__client_configurations
 
 type nfs_exports = {
   client_configurations : nfs_exports__client_configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_nfs_exports =
          []
        in
        let bnds =
-         if [] = v_client_configurations then bnds
+         if Stdlib.( = ) [] v_client_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -205,12 +205,12 @@ type aws_fsx_openzfs_volume = {
   tags_all : (string * string prop) list option; [@option]
   volume_type : string prop option; [@option]
   nfs_exports : nfs_exports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_snapshot : origin_snapshot list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   user_and_group_quotas : user_and_group_quotas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +242,7 @@ let yojson_of_aws_fsx_openzfs_volume =
          []
        in
        let bnds =
-         if [] = v_user_and_group_quotas then bnds
+         if Stdlib.( = ) [] v_user_and_group_quotas then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_and_group_quotas)
@@ -256,7 +256,7 @@ let yojson_of_aws_fsx_openzfs_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_origin_snapshot then bnds
+         if Stdlib.( = ) [] v_origin_snapshot then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_snapshot)
@@ -266,7 +266,7 @@ let yojson_of_aws_fsx_openzfs_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nfs_exports then bnds
+         if Stdlib.( = ) [] v_nfs_exports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nfs_exports) v_nfs_exports

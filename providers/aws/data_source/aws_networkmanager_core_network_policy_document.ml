@@ -123,9 +123,9 @@ type attachment_policies = {
   description : string prop option; [@option]
   rule_number : float prop;
   action : attachment_policies__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conditions : attachment_policies__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_attachment_policies =
          []
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list
@@ -155,7 +155,7 @@ let yojson_of_attachment_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attachment_policies__action)
@@ -242,11 +242,11 @@ let _ = yojson_of_core_network_configuration__edge_locations
 
 type core_network_configuration = {
   asn_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inside_cidr_blocks : string prop list option; [@option]
   vpn_ecmp_support : bool prop option; [@option]
   edge_locations : core_network_configuration__edge_locations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -264,7 +264,7 @@ let yojson_of_core_network_configuration =
          []
        in
        let bnds =
-         if [] = v_edge_locations then bnds
+         if Stdlib.( = ) [] v_edge_locations then bnds
          else
            let arg =
              (yojson_of_list
@@ -293,7 +293,7 @@ let yojson_of_core_network_configuration =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_asn_ranges then bnds
+         if Stdlib.( = ) [] v_asn_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -506,12 +506,13 @@ type aws_networkmanager_core_network_policy_document = {
   id : string prop option; [@option]
   version : string prop option; [@option]
   attachment_policies : attachment_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   core_network_configuration : core_network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   segment_actions : segment_actions list;
-      [@default []] [@yojson_drop_default ( = )]
-  segments : segments list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  segments : segments list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -532,7 +533,7 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
          []
        in
        let bnds =
-         if [] = v_segments then bnds
+         if Stdlib.( = ) [] v_segments then bnds
          else
            let arg =
              (yojson_of_list yojson_of_segments) v_segments
@@ -541,7 +542,7 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_segment_actions then bnds
+         if Stdlib.( = ) [] v_segment_actions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_segment_actions)
@@ -551,7 +552,7 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_core_network_configuration then bnds
+         if Stdlib.( = ) [] v_core_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_core_network_configuration)
@@ -561,7 +562,7 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attachment_policies then bnds
+         if Stdlib.( = ) [] v_attachment_policies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attachment_policies)

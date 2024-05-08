@@ -72,7 +72,7 @@ type magnetic_store_write_properties__magnetic_store_rejected_data_location = {
   s3_configuration :
     magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_loca
          []
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -113,7 +113,7 @@ type magnetic_store_write_properties = {
   magnetic_store_rejected_data_location :
     magnetic_store_write_properties__magnetic_store_rejected_data_location
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,7 +130,8 @@ let yojson_of_magnetic_store_write_properties =
          []
        in
        let bnds =
-         if [] = v_magnetic_store_rejected_data_location then bnds
+         if Stdlib.( = ) [] v_magnetic_store_rejected_data_location
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,7 +246,7 @@ let _ = yojson_of_schema__composite_partition_key
 
 type schema = {
   composite_partition_key : schema__composite_partition_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -258,7 +259,7 @@ let yojson_of_schema =
          []
        in
        let bnds =
-         if [] = v_composite_partition_key then bnds
+         if Stdlib.( = ) [] v_composite_partition_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -283,10 +284,11 @@ type aws_timestreamwrite_table = {
   tags_all : (string * string prop) list option; [@option]
   magnetic_store_write_properties :
     magnetic_store_write_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_properties : retention_properties list;
-      [@default []] [@yojson_drop_default ( = )]
-  schema : schema list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  schema : schema list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,14 +311,14 @@ let yojson_of_aws_timestreamwrite_table =
          []
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg = (yojson_of_list yojson_of_schema) v_schema in
            let bnd = "schema", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retention_properties then bnds
+         if Stdlib.( = ) [] v_retention_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_properties)
@@ -326,7 +328,8 @@ let yojson_of_aws_timestreamwrite_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_magnetic_store_write_properties then bnds
+         if Stdlib.( = ) [] v_magnetic_store_write_properties then
+           bnds
          else
            let arg =
              (yojson_of_list

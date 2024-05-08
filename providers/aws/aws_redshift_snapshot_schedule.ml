@@ -4,7 +4,7 @@ open! Tf_core
 
 type aws_redshift_snapshot_schedule = {
   definitions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop option; [@option]
   force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
@@ -105,7 +105,7 @@ let yojson_of_aws_redshift_snapshot_schedule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_definitions then bnds
+         if Stdlib.( = ) [] v_definitions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

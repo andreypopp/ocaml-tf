@@ -210,13 +210,13 @@ type storage_descriptor = {
   parameters : (string * string prop) list option; [@option]
   stored_as_sub_directories : bool prop option; [@option]
   columns : storage_descriptor__columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ser_de_info : storage_descriptor__ser_de_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   skewed_info : storage_descriptor__skewed_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sort_columns : storage_descriptor__sort_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +242,7 @@ let yojson_of_storage_descriptor =
          []
        in
        let bnds =
-         if [] = v_sort_columns then bnds
+         if Stdlib.( = ) [] v_sort_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -253,7 +253,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_skewed_info then bnds
+         if Stdlib.( = ) [] v_skewed_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -264,7 +264,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ser_de_info then bnds
+         if Stdlib.( = ) [] v_ser_de_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -275,7 +275,7 @@ let yojson_of_storage_descriptor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_columns then bnds
+         if Stdlib.( = ) [] v_columns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_descriptor__columns)
@@ -371,10 +371,10 @@ type aws_glue_partition = {
   id : string prop option; [@option]
   parameters : (string * string prop) list option; [@option]
   partition_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   table_name : string prop;
   storage_descriptor : storage_descriptor list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -395,7 +395,7 @@ let yojson_of_aws_glue_partition =
          []
        in
        let bnds =
-         if [] = v_storage_descriptor then bnds
+         if Stdlib.( = ) [] v_storage_descriptor then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_descriptor)
@@ -409,7 +409,7 @@ let yojson_of_aws_glue_partition =
          ("table_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_partition_values then bnds
+         if Stdlib.( = ) [] v_partition_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

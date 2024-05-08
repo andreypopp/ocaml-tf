@@ -13,7 +13,7 @@ type identity__oidc = { issuer : string prop  (** issuer *) }
 
 type identity = {
   oidc : identity__oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oidc *)
 }
 
@@ -32,10 +32,10 @@ type outpost_config = {
       (** control_plane_instance_type *)
   control_plane_placement :
     outpost_config__control_plane_placement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** control_plane_placement *)
   outpost_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** outpost_arns *)
 }
 
@@ -46,13 +46,13 @@ type vpc_config = {
       (** endpoint_private_access *)
   endpoint_public_access : bool prop;  (** endpoint_public_access *)
   public_access_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_access_cidrs *)
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_group_ids *)
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }

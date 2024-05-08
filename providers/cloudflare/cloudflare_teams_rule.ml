@@ -309,21 +309,21 @@ type rule_settings = {
   override_host : string prop option; [@option]
   override_ips : string prop list option; [@option]
   audit_ssh : rule_settings__audit_ssh list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   biso_admin_controls : rule_settings__biso_admin_controls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   check_session : rule_settings__check_session list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   egress : rule_settings__egress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   l4override : rule_settings__l4override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_settings : rule_settings__notification_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   payload_log : rule_settings__payload_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   untrusted_cert : rule_settings__untrusted_cert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -355,7 +355,7 @@ let yojson_of_rule_settings =
          []
        in
        let bnds =
-         if [] = v_untrusted_cert then bnds
+         if Stdlib.( = ) [] v_untrusted_cert then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__untrusted_cert)
@@ -365,7 +365,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_payload_log then bnds
+         if Stdlib.( = ) [] v_payload_log then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__payload_log)
@@ -375,7 +375,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_settings then bnds
+         if Stdlib.( = ) [] v_notification_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -386,7 +386,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_l4override then bnds
+         if Stdlib.( = ) [] v_l4override then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__l4override)
@@ -396,7 +396,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress then bnds
+         if Stdlib.( = ) [] v_egress then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__egress)
@@ -406,7 +406,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_check_session then bnds
+         if Stdlib.( = ) [] v_check_session then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__check_session)
@@ -416,7 +416,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_biso_admin_controls then bnds
+         if Stdlib.( = ) [] v_biso_admin_controls then bnds
          else
            let arg =
              (yojson_of_list
@@ -427,7 +427,7 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audit_ssh then bnds
+         if Stdlib.( = ) [] v_audit_ssh then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings__audit_ssh)
@@ -538,7 +538,7 @@ type cloudflare_teams_rule = {
   precedence : float prop;
   traffic : string prop option; [@option]
   rule_settings : rule_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -564,7 +564,7 @@ let yojson_of_cloudflare_teams_rule =
          []
        in
        let bnds =
-         if [] = v_rule_settings then bnds
+         if Stdlib.( = ) [] v_rule_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_settings) v_rule_settings

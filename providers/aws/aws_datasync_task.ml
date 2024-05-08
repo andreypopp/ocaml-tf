@@ -382,9 +382,9 @@ type task_report_config = {
   report_level : string prop option; [@option]
   s3_object_versioning : string prop option; [@option]
   report_overrides : task_report_config__report_overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_destination : task_report_config__s3_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -403,7 +403,7 @@ let yojson_of_task_report_config =
          []
        in
        let bnds =
-         if [] = v_s3_destination then bnds
+         if Stdlib.( = ) [] v_s3_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -414,7 +414,7 @@ let yojson_of_task_report_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_report_overrides then bnds
+         if Stdlib.( = ) [] v_report_overrides then bnds
          else
            let arg =
              (yojson_of_list
@@ -490,14 +490,15 @@ type aws_datasync_task = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   excludes : excludes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   includes : includes list;
-      [@default []] [@yojson_drop_default ( = )]
-  options : options list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  options : options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   task_report_config : task_report_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -529,7 +530,7 @@ let yojson_of_aws_datasync_task =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_task_report_config then bnds
+         if Stdlib.( = ) [] v_task_report_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_task_report_config)
@@ -539,7 +540,7 @@ let yojson_of_aws_datasync_task =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule) v_schedule
@@ -548,14 +549,14 @@ let yojson_of_aws_datasync_task =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_options then bnds
+         if Stdlib.( = ) [] v_options then bnds
          else
            let arg = (yojson_of_list yojson_of_options) v_options in
            let bnd = "options", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_includes then bnds
+         if Stdlib.( = ) [] v_includes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_includes) v_includes
@@ -564,7 +565,7 @@ let yojson_of_aws_datasync_task =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_excludes then bnds
+         if Stdlib.( = ) [] v_excludes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_excludes) v_excludes

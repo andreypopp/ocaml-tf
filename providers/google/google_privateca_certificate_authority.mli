@@ -8,7 +8,7 @@ type access_urls = {
   ca_certificate_access_url : string prop;
       (** ca_certificate_access_url *)
   crl_access_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** crl_access_urls *)
 }
 

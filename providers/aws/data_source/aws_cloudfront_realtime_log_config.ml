@@ -34,7 +34,7 @@ let _ = yojson_of_endpoint__kinesis_stream_config
 
 type endpoint = {
   kinesis_stream_config : endpoint__kinesis_stream_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stream_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -55,7 +55,7 @@ let yojson_of_endpoint =
          ("stream_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_kinesis_stream_config then bnds
+         if Stdlib.( = ) [] v_kinesis_stream_config then bnds
          else
            let arg =
              (yojson_of_list

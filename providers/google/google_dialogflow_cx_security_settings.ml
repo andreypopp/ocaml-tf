@@ -147,9 +147,9 @@ type google_dialogflow_cx_security_settings = {
   retention_strategy : string prop option; [@option]
   retention_window_days : float prop option; [@option]
   audio_export_settings : audio_export_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   insights_export_settings : insights_export_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -182,7 +182,7 @@ let yojson_of_google_dialogflow_cx_security_settings =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_insights_export_settings then bnds
+         if Stdlib.( = ) [] v_insights_export_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_insights_export_settings)
@@ -192,7 +192,7 @@ let yojson_of_google_dialogflow_cx_security_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_export_settings then bnds
+         if Stdlib.( = ) [] v_audio_export_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_audio_export_settings)

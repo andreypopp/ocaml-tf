@@ -36,7 +36,7 @@ type replication__user_managed__replicas = {
   customer_managed_encryption :
     replication__user_managed__replicas__customer_managed_encryption
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -57,7 +57,7 @@ let yojson_of_replication__user_managed__replicas =
          ("location", arg) :: bnds
        in
        let bnds =
-         if [] = v_customer_managed_encryption then bnds
+         if Stdlib.( = ) [] v_customer_managed_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -77,7 +77,7 @@ let _ = yojson_of_replication__user_managed__replicas
 
 type replication__user_managed = {
   replicas : replication__user_managed__replicas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,7 +90,7 @@ let yojson_of_replication__user_managed =
          []
        in
        let bnds =
-         if [] = v_replicas then bnds
+         if Stdlib.( = ) [] v_replicas then bnds
          else
            let arg =
              (yojson_of_list
@@ -136,7 +136,7 @@ let _ = yojson_of_replication__auto__customer_managed_encryption
 type replication__auto = {
   customer_managed_encryption :
     replication__auto__customer_managed_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,7 +150,7 @@ let yojson_of_replication__auto =
          []
        in
        let bnds =
-         if [] = v_customer_managed_encryption then bnds
+         if Stdlib.( = ) [] v_customer_managed_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,9 +169,9 @@ let _ = yojson_of_replication__auto
 
 type replication = {
   auto : replication__auto list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_managed : replication__user_managed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +184,7 @@ let yojson_of_replication =
          []
        in
        let bnds =
-         if [] = v_user_managed then bnds
+         if Stdlib.( = ) [] v_user_managed then bnds
          else
            let arg =
              (yojson_of_list yojson_of_replication__user_managed)
@@ -194,7 +194,7 @@ let yojson_of_replication =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto then bnds
+         if Stdlib.( = ) [] v_auto then bnds
          else
            let arg =
              (yojson_of_list yojson_of_replication__auto) v_auto

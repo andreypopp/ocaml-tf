@@ -6,7 +6,7 @@ open! Tf_core
 
 type active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns_ips *)
   domain_name : string prop;  (** domain_name *)
   file_system_administrators_group : string prop;
@@ -21,50 +21,50 @@ type active_directory_configuration = {
   self_managed_active_directory_configuration :
     active_directory_configuration__self_managed_active_directory_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** self_managed_active_directory_configuration *)
 }
 
 type endpoints__smb = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__nfs = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__iscsi = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints = {
   iscsi : endpoints__iscsi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** iscsi *)
   management : endpoints__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management *)
   nfs : endpoints__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** nfs *)
   smb : endpoints__smb list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** smb *)
 }
 

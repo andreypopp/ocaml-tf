@@ -358,11 +358,11 @@ type azurerm_redis_cache = {
   tenant_settings : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   patch_schedule : patch_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redis_configuration : redis_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -405,7 +405,7 @@ let yojson_of_azurerm_redis_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_redis_configuration then bnds
+         if Stdlib.( = ) [] v_redis_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redis_configuration)
@@ -415,7 +415,7 @@ let yojson_of_azurerm_redis_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_patch_schedule then bnds
+         if Stdlib.( = ) [] v_patch_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_schedule)
@@ -425,7 +425,7 @@ let yojson_of_azurerm_redis_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

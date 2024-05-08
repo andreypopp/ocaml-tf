@@ -137,7 +137,7 @@ type azurerm_cosmosdb_postgresql_cluster = {
   sql_version : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,7 +185,7 @@ let yojson_of_azurerm_cosmosdb_postgresql_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)

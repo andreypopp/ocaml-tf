@@ -48,12 +48,12 @@ type google_clouddeploy_custom_target_type_iam_binding = {
   id : string prop option; [@option]
   location : string prop option; [@option]
   members : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   project : string prop option; [@option]
   role : string prop;
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_google_clouddeploy_custom_target_type_iam_binding =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition
@@ -100,7 +100,7 @@ let yojson_of_google_clouddeploy_custom_target_type_iam_binding =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_members then bnds
+         if Stdlib.( = ) [] v_members then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

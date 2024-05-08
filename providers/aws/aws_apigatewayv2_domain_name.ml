@@ -139,9 +139,9 @@ type aws_apigatewayv2_domain_name = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   domain_name_configuration : domain_name_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mutual_tls_authentication : mutual_tls_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -167,7 +167,7 @@ let yojson_of_aws_apigatewayv2_domain_name =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_mutual_tls_authentication then bnds
+         if Stdlib.( = ) [] v_mutual_tls_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mutual_tls_authentication)
@@ -177,7 +177,7 @@ let yojson_of_aws_apigatewayv2_domain_name =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_domain_name_configuration then bnds
+         if Stdlib.( = ) [] v_domain_name_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_domain_name_configuration)

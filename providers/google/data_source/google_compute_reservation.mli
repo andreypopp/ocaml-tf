@@ -11,7 +11,7 @@ type share_settings__project_map = {
 
 type share_settings = {
   project_map : share_settings__project_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** project_map *)
   share_type : string prop;  (** share_type *)
 }
@@ -30,11 +30,11 @@ type specific_reservation__instance_properties = {
   guest_accelerators :
     specific_reservation__instance_properties__guest_accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** guest_accelerators *)
   local_ssds :
     specific_reservation__instance_properties__local_ssds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_ssds *)
   machine_type : string prop;  (** machine_type *)
   min_cpu_platform : string prop;  (** min_cpu_platform *)
@@ -45,7 +45,7 @@ type specific_reservation = {
   in_use_count : float prop;  (** in_use_count *)
   instance_properties :
     specific_reservation__instance_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instance_properties *)
 }
 

@@ -102,7 +102,8 @@ type azurerm_vpn_server_configuration_policy_group = {
   name : string prop;
   priority : float prop option; [@option]
   vpn_server_configuration_id : string prop;
-  policy : policy list; [@default []] [@yojson_drop_default ( = )]
+  policy : policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -128,7 +129,7 @@ let yojson_of_azurerm_vpn_server_configuration_policy_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_policy then bnds
+         if Stdlib.( = ) [] v_policy then bnds
          else
            let arg = (yojson_of_list yojson_of_policy) v_policy in
            let bnd = "policy", arg in

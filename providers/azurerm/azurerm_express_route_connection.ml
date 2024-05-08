@@ -49,7 +49,7 @@ type routing = {
   inbound_route_map_id : string prop option; [@option]
   outbound_route_map_id : string prop option; [@option]
   propagated_route_table : routing__propagated_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         if [] = v_propagated_route_table then bnds
+         if Stdlib.( = ) [] v_propagated_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -177,7 +177,8 @@ type azurerm_express_route_connection = {
   id : string prop option; [@option]
   name : string prop;
   routing_weight : float prop option; [@option]
-  routing : routing list; [@default []] [@yojson_drop_default ( = )]
+  routing : routing list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -208,7 +209,7 @@ let yojson_of_azurerm_express_route_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routing then bnds
+         if Stdlib.( = ) [] v_routing then bnds
          else
            let arg = (yojson_of_list yojson_of_routing) v_routing in
            let bnd = "routing", arg in

@@ -5,7 +5,7 @@ open! Tf_core
 type action__ssm_automation__parameter = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_action__ssm_automation__parameter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -44,7 +44,7 @@ type action__ssm_automation = {
   document_version : string prop;
   dynamic_parameters : (string * string prop) list;
   parameter : action__ssm_automation__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   role_arn : string prop;
   target_account : string prop;
 }
@@ -76,7 +76,7 @@ let yojson_of_action__ssm_automation =
          ("role_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -117,7 +117,7 @@ let _ = yojson_of_action__ssm_automation
 
 type action = {
   ssm_automation : action__ssm_automation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,7 +130,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_ssm_automation then bnds
+         if Stdlib.( = ) [] v_ssm_automation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__ssm_automation)
@@ -176,7 +176,7 @@ type incident_template = {
   impact : float prop;
   incident_tags : (string * string prop) list;
   notification_target : incident_template__notification_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   summary : string prop;
   title : string prop;
 }
@@ -206,7 +206,7 @@ let yojson_of_incident_template =
          ("summary", arg) :: bnds
        in
        let bnds =
-         if [] = v_notification_target then bnds
+         if Stdlib.( = ) [] v_notification_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -283,7 +283,7 @@ let _ = yojson_of_integration__pagerduty
 
 type integration = {
   pagerduty : integration__pagerduty list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,7 +296,7 @@ let yojson_of_integration =
          []
        in
        let bnds =
-         if [] = v_pagerduty then bnds
+         if Stdlib.( = ) [] v_pagerduty then bnds
          else
            let arg =
              (yojson_of_list yojson_of_integration__pagerduty)

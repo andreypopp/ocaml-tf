@@ -120,14 +120,14 @@ let _ = yojson_of_endpoint__target_ref
 
 type endpoint = {
   addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hostname : string prop option; [@option]
   node_name : string prop option; [@option]
   zone : string prop option; [@option]
   condition : endpoint__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_ref : endpoint__target_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         if [] = v_target_ref then bnds
+         if Stdlib.( = ) [] v_target_ref then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__target_ref)
@@ -157,7 +157,7 @@ let yojson_of_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__condition)
@@ -191,7 +191,7 @@ let yojson_of_endpoint =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_addresses then bnds
+         if Stdlib.( = ) [] v_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -349,10 +349,10 @@ type kubernetes_endpoint_slice_v1 = {
   address_type : string prop;
   id : string prop option; [@option]
   endpoint : endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  port : port list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  port : port list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -371,14 +371,14 @@ let yojson_of_kubernetes_endpoint_slice_v1 =
          []
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg = (yojson_of_list yojson_of_port) v_port in
            let bnd = "port", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata
@@ -387,7 +387,7 @@ let yojson_of_kubernetes_endpoint_slice_v1 =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint then bnds
+         if Stdlib.( = ) [] v_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint) v_endpoint

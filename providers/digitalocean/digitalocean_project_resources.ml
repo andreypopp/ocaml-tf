@@ -6,7 +6,7 @@ type digitalocean_project_resources = {
   id : string prop option; [@option]
   project : string prop;
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_digitalocean_project_resources =
          []
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

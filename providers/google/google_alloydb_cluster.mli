@@ -11,7 +11,7 @@ type backup_source = {
 type continuous_backup_info__encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kms_key_versions *)
 }
 
@@ -20,17 +20,17 @@ type continuous_backup_info = {
       (** earliest_restorable_time *)
   enabled_time : string prop;  (** enabled_time *)
   encryption_info : continuous_backup_info__encryption_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** encryption_info *)
   schedule : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schedule *)
 }
 
 type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kms_key_versions *)
 }
 

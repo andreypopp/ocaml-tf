@@ -158,7 +158,7 @@ type automated_backup_policy__weekly_schedule = {
   days_of_week : string prop list option; [@option]
   start_times :
     automated_backup_policy__weekly_schedule__start_times list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +172,7 @@ let yojson_of_automated_backup_policy__weekly_schedule =
          []
        in
        let bnds =
-         if [] = v_start_times then bnds
+         if Stdlib.( = ) [] v_start_times then bnds
          else
            let arg =
              (yojson_of_list
@@ -207,15 +207,15 @@ type automated_backup_policy = {
   location : string prop option; [@option]
   encryption_config :
     automated_backup_policy__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   quantity_based_retention :
     automated_backup_policy__quantity_based_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_based_retention :
     automated_backup_policy__time_based_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weekly_schedule : automated_backup_policy__weekly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,7 +237,7 @@ let yojson_of_automated_backup_policy =
          []
        in
        let bnds =
-         if [] = v_weekly_schedule then bnds
+         if Stdlib.( = ) [] v_weekly_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -248,7 +248,7 @@ let yojson_of_automated_backup_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_time_based_retention then bnds
+         if Stdlib.( = ) [] v_time_based_retention then bnds
          else
            let arg =
              (yojson_of_list
@@ -259,7 +259,7 @@ let yojson_of_automated_backup_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_quantity_based_retention then bnds
+         if Stdlib.( = ) [] v_quantity_based_retention then bnds
          else
            let arg =
              (yojson_of_list
@@ -270,7 +270,7 @@ let yojson_of_automated_backup_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -361,7 +361,7 @@ type continuous_backup_config = {
   recovery_window_days : float prop option; [@option]
   encryption_config :
     continuous_backup_config__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_continuous_backup_config =
          []
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -659,7 +659,7 @@ let _ = yojson_of_backup_source
 type continuous_backup_info__encryption_info = {
   encryption_type : string prop;
   kms_key_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -675,7 +675,7 @@ let yojson_of_continuous_backup_info__encryption_info =
          []
        in
        let bnds =
-         if [] = v_kms_key_versions then bnds
+         if Stdlib.( = ) [] v_kms_key_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -702,9 +702,9 @@ type continuous_backup_info = {
   earliest_restorable_time : string prop;
   enabled_time : string prop;
   encryption_info : continuous_backup_info__encryption_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -722,7 +722,7 @@ let yojson_of_continuous_backup_info =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -732,7 +732,7 @@ let yojson_of_continuous_backup_info =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_info then bnds
+         if Stdlib.( = ) [] v_encryption_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -762,7 +762,7 @@ let _ = yojson_of_continuous_backup_info
 type encryption_info = {
   encryption_type : string prop;
   kms_key_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -778,7 +778,7 @@ let yojson_of_encryption_info =
          []
        in
        let bnds =
-         if [] = v_kms_key_versions then bnds
+         if Stdlib.( = ) [] v_kms_key_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -852,22 +852,22 @@ type google_alloydb_cluster = {
   network : string prop option; [@option]
   project : string prop option; [@option]
   automated_backup_policy : automated_backup_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   continuous_backup_config : continuous_backup_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_config : encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_user : initial_user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   restore_backup_source : restore_backup_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   restore_continuous_backup_source :
     restore_continuous_backup_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secondary_config : secondary_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -908,7 +908,7 @@ let yojson_of_google_alloydb_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secondary_config then bnds
+         if Stdlib.( = ) [] v_secondary_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secondary_config)
@@ -918,7 +918,8 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_restore_continuous_backup_source then bnds
+         if Stdlib.( = ) [] v_restore_continuous_backup_source then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -929,7 +930,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_restore_backup_source then bnds
+         if Stdlib.( = ) [] v_restore_backup_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restore_backup_source)
@@ -939,7 +940,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -949,7 +950,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_initial_user then bnds
+         if Stdlib.( = ) [] v_initial_user then bnds
          else
            let arg =
              (yojson_of_list yojson_of_initial_user) v_initial_user
@@ -958,7 +959,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config)
@@ -968,7 +969,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_continuous_backup_config then bnds
+         if Stdlib.( = ) [] v_continuous_backup_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_continuous_backup_config)
@@ -978,7 +979,7 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automated_backup_policy then bnds
+         if Stdlib.( = ) [] v_automated_backup_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_automated_backup_policy)

@@ -17,7 +17,7 @@ type firewall_status__sync_states__attachment = {
 
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** attachment *)
   availability_zone : string prop;  (** availability_zone *)
 }
@@ -31,27 +31,27 @@ type firewall_status__capacity_usage_summary__cidrs = {
   ip_set_references :
     firewall_status__capacity_usage_summary__cidrs__ip_set_references
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_set_references *)
   utilized_cidr_count : float prop;  (** utilized_cidr_count *)
 }
 
 type firewall_status__capacity_usage_summary = {
   cidrs : firewall_status__capacity_usage_summary__cidrs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cidrs *)
 }
 
 type firewall_status = {
   capacity_usage_summary :
     firewall_status__capacity_usage_summary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** capacity_usage_summary *)
   configuration_sync_state_summary : string prop;
       (** configuration_sync_state_summary *)
   status : string prop;  (** status *)
   sync_states : firewall_status__sync_states list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sync_states *)
 }
 

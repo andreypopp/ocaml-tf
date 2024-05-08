@@ -55,7 +55,7 @@ let _ = yojson_of_endpoint__vpc_endpoint__network_interface
 
 type endpoint__vpc_endpoint = {
   network_interface : endpoint__vpc_endpoint__network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_endpoint_id : string prop;
   vpc_id : string prop;
 }
@@ -84,7 +84,7 @@ let yojson_of_endpoint__vpc_endpoint =
          ("vpc_endpoint_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list
@@ -105,7 +105,7 @@ type endpoint = {
   address : string prop;
   port : float prop;
   vpc_endpoint : endpoint__vpc_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         if [] = v_vpc_endpoint then bnds
+         if Stdlib.( = ) [] v_vpc_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__vpc_endpoint)

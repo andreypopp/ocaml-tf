@@ -36,7 +36,7 @@ type container_network_interface = {
   name : string prop;
   ip_configuration :
     container_network_interface__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,7 +49,7 @@ let yojson_of_container_network_interface =
          []
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -138,7 +138,7 @@ type azurerm_network_profile = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   container_network_interface : container_network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,7 +164,7 @@ let yojson_of_azurerm_network_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_container_network_interface then bnds
+         if Stdlib.( = ) [] v_container_network_interface then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container_network_interface)

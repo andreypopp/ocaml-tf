@@ -90,9 +90,9 @@ let _ = yojson_of_authentication__certificate
 
 type authentication = {
   active_directory : authentication__active_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   certificate : authentication__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +108,7 @@ let yojson_of_authentication =
          []
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authentication__certificate)
@@ -118,7 +118,7 @@ let yojson_of_authentication =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_active_directory then bnds
+         if Stdlib.( = ) [] v_active_directory then bnds
          else
            let arg =
              (yojson_of_list
@@ -262,7 +262,7 @@ let _ = yojson_of_node_type__vm_secrets__certificates
 type node_type__vm_secrets = {
   vault_id : string prop;
   certificates : node_type__vm_secrets__certificates list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,7 +275,7 @@ let yojson_of_node_type__vm_secrets =
          []
        in
        let bnds =
-         if [] = v_certificates then bnds
+         if Stdlib.( = ) [] v_certificates then bnds
          else
            let arg =
              (yojson_of_list
@@ -315,7 +315,7 @@ type node_type = {
   vm_instance_count : float prop;
   vm_size : string prop;
   vm_secrets : node_type__vm_secrets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -347,7 +347,7 @@ let yojson_of_node_type =
          []
        in
        let bnds =
-         if [] = v_vm_secrets then bnds
+         if Stdlib.( = ) [] v_vm_secrets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type__vm_secrets)
@@ -557,12 +557,13 @@ type azurerm_service_fabric_managed_cluster = {
   upgrade_wave : string prop option; [@option]
   username : string prop option; [@option]
   authentication : authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_fabric_setting : custom_fabric_setting list;
-      [@default []] [@yojson_drop_default ( = )]
-  lb_rule : lb_rule list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  lb_rule : lb_rule list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_type : node_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -600,7 +601,7 @@ let yojson_of_azurerm_service_fabric_managed_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_node_type then bnds
+         if Stdlib.( = ) [] v_node_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type) v_node_type
@@ -609,14 +610,14 @@ let yojson_of_azurerm_service_fabric_managed_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lb_rule then bnds
+         if Stdlib.( = ) [] v_lb_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_lb_rule) v_lb_rule in
            let bnd = "lb_rule", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_fabric_setting then bnds
+         if Stdlib.( = ) [] v_custom_fabric_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_fabric_setting)
@@ -626,7 +627,7 @@ let yojson_of_azurerm_service_fabric_managed_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authentication)

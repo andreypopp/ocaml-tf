@@ -16,7 +16,7 @@ let _ = yojson_of_control_sets__controls
 
 type control_sets = {
   controls : control_sets__controls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29,7 +29,7 @@ let yojson_of_control_sets =
          []
        in
        let bnds =
-         if [] = v_controls then bnds
+         if Stdlib.( = ) [] v_controls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_sets__controls)
@@ -49,7 +49,7 @@ type aws_auditmanager_framework = {
   framework_type : string prop;
   name : string prop;
   control_sets : control_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_aws_auditmanager_framework =
          []
        in
        let bnds =
-         if [] = v_control_sets then bnds
+         if Stdlib.( = ) [] v_control_sets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_sets) v_control_sets

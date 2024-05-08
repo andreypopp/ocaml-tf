@@ -4,7 +4,7 @@ open! Tf_core
 
 type allowed_publishers = {
   signing_profile_version_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_allowed_publishers =
          []
        in
        let bnds =
-         if [] = v_signing_profile_version_arns then bnds
+         if Stdlib.( = ) [] v_signing_profile_version_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -67,8 +67,9 @@ type aws_lambda_code_signing_config = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   allowed_publishers : allowed_publishers list;
-      [@default []] [@yojson_drop_default ( = )]
-  policies : policies list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  policies : policies list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,7 +87,7 @@ let yojson_of_aws_lambda_code_signing_config =
          []
        in
        let bnds =
-         if [] = v_policies then bnds
+         if Stdlib.( = ) [] v_policies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policies) v_policies
@@ -95,7 +96,7 @@ let yojson_of_aws_lambda_code_signing_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_publishers then bnds
+         if Stdlib.( = ) [] v_allowed_publishers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_allowed_publishers)

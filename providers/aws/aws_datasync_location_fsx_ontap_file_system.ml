@@ -33,7 +33,7 @@ let _ = yojson_of_protocol__nfs__mount_options
 
 type protocol__nfs = {
   mount_options : protocol__nfs__mount_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +46,7 @@ let yojson_of_protocol__nfs =
          []
        in
        let bnds =
-         if [] = v_mount_options then bnds
+         if Stdlib.( = ) [] v_mount_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol__nfs__mount_options)
@@ -96,7 +96,7 @@ type protocol__smb = {
   password : string prop;
   user : string prop;
   mount_options : protocol__smb__mount_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,7 +114,7 @@ let yojson_of_protocol__smb =
          []
        in
        let bnds =
-         if [] = v_mount_options then bnds
+         if Stdlib.( = ) [] v_mount_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol__smb__mount_options)
@@ -148,8 +148,9 @@ let _ = yojson_of_protocol__smb
 
 type protocol = {
   nfs : protocol__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
-  smb : protocol__smb list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  smb : protocol__smb list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,7 +163,7 @@ let yojson_of_protocol =
          []
        in
        let bnds =
-         if [] = v_smb then bnds
+         if Stdlib.( = ) [] v_smb then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol__smb) v_smb
@@ -171,7 +172,7 @@ let yojson_of_protocol =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nfs then bnds
+         if Stdlib.( = ) [] v_nfs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol__nfs) v_nfs
@@ -189,12 +190,13 @@ let _ = yojson_of_protocol
 type aws_datasync_location_fsx_ontap_file_system = {
   id : string prop option; [@option]
   security_group_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_virtual_machine_arn : string prop;
   subdirectory : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  protocol : protocol list; [@default []] [@yojson_drop_default ( = )]
+  protocol : protocol list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -215,7 +217,7 @@ let yojson_of_aws_datasync_location_fsx_ontap_file_system =
          []
        in
        let bnds =
-         if [] = v_protocol then bnds
+         if Stdlib.( = ) [] v_protocol then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocol) v_protocol
@@ -271,7 +273,7 @@ let yojson_of_aws_datasync_location_fsx_ontap_file_system =
          ("storage_virtual_machine_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_group_arns then bnds
+         if Stdlib.( = ) [] v_security_group_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

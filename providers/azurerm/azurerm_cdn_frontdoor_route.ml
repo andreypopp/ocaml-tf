@@ -133,7 +133,7 @@ type azurerm_cdn_frontdoor_route = {
   cdn_frontdoor_endpoint_id : string prop;
   cdn_frontdoor_origin_group_id : string prop;
   cdn_frontdoor_origin_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cdn_frontdoor_origin_path : string prop option; [@option]
   cdn_frontdoor_rule_set_ids : string prop list option; [@option]
   enabled : bool prop option; [@option]
@@ -143,10 +143,11 @@ type azurerm_cdn_frontdoor_route = {
   link_to_default_domain : bool prop option; [@option]
   name : string prop;
   patterns_to_match : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   supported_protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  cache : cache list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  cache : cache list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -183,14 +184,14 @@ let yojson_of_azurerm_cdn_frontdoor_route =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cache then bnds
+         if Stdlib.( = ) [] v_cache then bnds
          else
            let arg = (yojson_of_list yojson_of_cache) v_cache in
            let bnd = "cache", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_supported_protocols then bnds
+         if Stdlib.( = ) [] v_supported_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -200,7 +201,7 @@ let yojson_of_azurerm_cdn_frontdoor_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_patterns_to_match then bnds
+         if Stdlib.( = ) [] v_patterns_to_match then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -272,7 +273,7 @@ let yojson_of_azurerm_cdn_frontdoor_route =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cdn_frontdoor_origin_ids then bnds
+         if Stdlib.( = ) [] v_cdn_frontdoor_origin_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

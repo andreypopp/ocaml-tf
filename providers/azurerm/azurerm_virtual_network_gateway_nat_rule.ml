@@ -139,9 +139,9 @@ type azurerm_virtual_network_gateway_nat_rule = {
   type_ : string prop option; [@option] [@key "type"]
   virtual_network_gateway_id : string prop;
   external_mapping : external_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   internal_mapping : internal_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -170,7 +170,7 @@ let yojson_of_azurerm_virtual_network_gateway_nat_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_internal_mapping then bnds
+         if Stdlib.( = ) [] v_internal_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_internal_mapping)
@@ -180,7 +180,7 @@ let yojson_of_azurerm_virtual_network_gateway_nat_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_mapping then bnds
+         if Stdlib.( = ) [] v_external_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_external_mapping)

@@ -91,16 +91,16 @@ let _ = yojson_of_agent_configuration__extensions_allow_list
 type agent_configuration = {
   extensions_allow_list :
     agent_configuration__extensions_allow_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extensions_block_list :
     agent_configuration__extensions_block_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extensions_enabled : bool prop;
   guest_configuration_enabled : bool prop;
   incoming_connections_ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy_bypass : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy_url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -126,7 +126,7 @@ let yojson_of_agent_configuration =
          ("proxy_url", arg) :: bnds
        in
        let bnds =
-         if [] = v_proxy_bypass then bnds
+         if Stdlib.( = ) [] v_proxy_bypass then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -136,7 +136,7 @@ let yojson_of_agent_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_incoming_connections_ports then bnds
+         if Stdlib.( = ) [] v_incoming_connections_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -159,7 +159,7 @@ let yojson_of_agent_configuration =
          ("extensions_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_extensions_block_list then bnds
+         if Stdlib.( = ) [] v_extensions_block_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -170,7 +170,7 @@ let yojson_of_agent_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extensions_allow_list then bnds
+         if Stdlib.( = ) [] v_extensions_allow_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -241,7 +241,7 @@ let _ = yojson_of_error_details__additional_info
 
 type error_details = {
   additional_info : error_details__additional_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   code : string prop;
   message : string prop;
   target : string prop;
@@ -274,7 +274,7 @@ let yojson_of_error_details =
          ("code", arg) :: bnds
        in
        let bnds =
-         if [] = v_additional_info then bnds
+         if Stdlib.( = ) [] v_additional_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_error_details__additional_info)
@@ -413,7 +413,7 @@ let _ = yojson_of_os_profile__windows_configuration__patch_settings
 type os_profile__windows_configuration = {
   patch_settings :
     os_profile__windows_configuration__patch_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -426,7 +426,7 @@ let yojson_of_os_profile__windows_configuration =
          []
        in
        let bnds =
-         if [] = v_patch_settings then bnds
+         if Stdlib.( = ) [] v_patch_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -483,7 +483,7 @@ let _ = yojson_of_os_profile__linux_configuration__patch_settings
 type os_profile__linux_configuration = {
   patch_settings :
     os_profile__linux_configuration__patch_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -496,7 +496,7 @@ let yojson_of_os_profile__linux_configuration =
          []
        in
        let bnds =
-         if [] = v_patch_settings then bnds
+         if Stdlib.( = ) [] v_patch_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -517,9 +517,9 @@ let _ = yojson_of_os_profile__linux_configuration
 type os_profile = {
   computer_name : string prop;
   linux_configuration : os_profile__linux_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_configuration : os_profile__windows_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -536,7 +536,7 @@ let yojson_of_os_profile =
          []
        in
        let bnds =
-         if [] = v_windows_configuration then bnds
+         if Stdlib.( = ) [] v_windows_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -547,7 +547,7 @@ let yojson_of_os_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_configuration then bnds
+         if Stdlib.( = ) [] v_linux_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -630,10 +630,10 @@ let _ = yojson_of_service_status__extension_service
 
 type service_status = {
   extension_service : service_status__extension_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   guest_configuration_service :
     service_status__guest_configuration_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -649,7 +649,7 @@ let yojson_of_service_status =
          []
        in
        let bnds =
-         if [] = v_guest_configuration_service then bnds
+         if Stdlib.( = ) [] v_guest_configuration_service then bnds
          else
            let arg =
              (yojson_of_list
@@ -660,7 +660,7 @@ let yojson_of_service_status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extension_service then bnds
+         if Stdlib.( = ) [] v_extension_service then bnds
          else
            let arg =
              (yojson_of_list

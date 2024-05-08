@@ -98,9 +98,9 @@ type node_pool_config = {
   labels : (string * string prop) list option; [@option]
   operating_system : string prop option; [@option]
   node_configs : node_pool_config__node_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   taints : node_pool_config__taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,7 +118,7 @@ let yojson_of_node_pool_config =
          []
        in
        let bnds =
-         if [] = v_taints then bnds
+         if Stdlib.( = ) [] v_taints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool_config__taints)
@@ -128,7 +128,7 @@ let yojson_of_node_pool_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_configs then bnds
+         if Stdlib.( = ) [] v_node_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool_config__node_configs)
@@ -268,7 +268,7 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error_message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -287,7 +287,7 @@ let yojson_of_status =
          ("error_message", arg) :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__conditions)
@@ -312,7 +312,7 @@ type google_gkeonprem_bare_metal_node_pool = {
   name : string prop;
   project : string prop option; [@option]
   node_pool_config : node_pool_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -340,7 +340,7 @@ let yojson_of_google_gkeonprem_bare_metal_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_node_pool_config then bnds
+         if Stdlib.( = ) [] v_node_pool_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool_config)

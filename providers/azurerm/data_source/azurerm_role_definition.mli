@@ -6,18 +6,18 @@ open! Tf_core
 
 type permissions = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** actions *)
   condition : string prop;  (** condition *)
   condition_version : string prop;  (** condition_version *)
   data_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** data_actions *)
   not_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** not_actions *)
   not_data_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** not_data_actions *)
 }
 

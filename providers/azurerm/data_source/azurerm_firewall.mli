@@ -21,7 +21,7 @@ type management_ip_configuration = {
 type virtual_hub = {
   private_ip_address : string prop;  (** private_ip_address *)
   public_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_ip_addresses *)
   public_ip_count : float prop;  (** public_ip_count *)
   virtual_hub_id : string prop;  (** virtual_hub_id *)

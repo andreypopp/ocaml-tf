@@ -15,12 +15,13 @@ type images = {
   name : string prop;  (** name *)
   private_ : bool prop; [@key "private"]  (** private *)
   regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** regions *)
   size_gigabytes : float prop;  (** size_gigabytes *)
   slug : string prop;  (** slug *)
   status : string prop;  (** status *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
 }

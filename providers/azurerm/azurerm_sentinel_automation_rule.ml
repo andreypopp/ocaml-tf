@@ -136,7 +136,7 @@ type condition = {
   operator : string prop;
   property : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -249,11 +249,11 @@ type azurerm_sentinel_automation_rule = {
   triggers_on : string prop option; [@option]
   triggers_when : string prop option; [@option]
   action_incident : action_incident list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   action_playbook : action_playbook list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -286,7 +286,7 @@ let yojson_of_azurerm_sentinel_automation_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition
@@ -295,7 +295,7 @@ let yojson_of_azurerm_sentinel_automation_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action_playbook then bnds
+         if Stdlib.( = ) [] v_action_playbook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action_playbook)
@@ -305,7 +305,7 @@ let yojson_of_azurerm_sentinel_automation_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action_incident then bnds
+         if Stdlib.( = ) [] v_action_incident then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action_incident)

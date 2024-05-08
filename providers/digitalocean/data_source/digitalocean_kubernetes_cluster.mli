@@ -46,13 +46,14 @@ type node_pool = {
   name : string prop;  (** name *)
   node_count : float prop;  (** node_count *)
   nodes : node_pool__nodes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** nodes *)
   size : string prop;  (** size *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   taint : node_pool__taint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** taint *)
 }
 

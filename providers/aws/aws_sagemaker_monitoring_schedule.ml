@@ -33,7 +33,7 @@ type monitoring_schedule_config = {
   monitoring_job_definition_name : string prop;
   monitoring_type : string prop;
   schedule_config : monitoring_schedule_config__schedule_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_monitoring_schedule_config =
          []
        in
        let bnds =
-         if [] = v_schedule_config then bnds
+         if Stdlib.( = ) [] v_schedule_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -87,7 +87,7 @@ type aws_sagemaker_monitoring_schedule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   monitoring_schedule_config : monitoring_schedule_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_aws_sagemaker_monitoring_schedule =
          []
        in
        let bnds =
-         if [] = v_monitoring_schedule_config then bnds
+         if Stdlib.( = ) [] v_monitoring_schedule_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitoring_schedule_config)

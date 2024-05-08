@@ -79,7 +79,7 @@ type aws_securityhub_organization_configuration = {
   auto_enable_standards : string prop option; [@option]
   id : string prop option; [@option]
   organization_configuration : organization_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -103,7 +103,7 @@ let yojson_of_aws_securityhub_organization_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_organization_configuration then bnds
+         if Stdlib.( = ) [] v_organization_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_organization_configuration)

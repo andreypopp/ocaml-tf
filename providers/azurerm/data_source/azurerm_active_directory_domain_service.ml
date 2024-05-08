@@ -30,7 +30,7 @@ let _ = yojson_of_timeouts
 
 type notifications = {
   additional_recipients : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notify_dc_admins : bool prop;
   notify_global_admins : bool prop;
 }
@@ -61,7 +61,7 @@ let yojson_of_notifications =
          ("notify_dc_admins", arg) :: bnds
        in
        let bnds =
-         if [] = v_additional_recipients then bnds
+         if Stdlib.( = ) [] v_additional_recipients then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -79,7 +79,7 @@ let _ = yojson_of_notifications
 
 type replica_sets = {
   domain_controller_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_access_ip_address : string prop;
   id : string prop;
   location : string prop;
@@ -130,7 +130,8 @@ let yojson_of_replica_sets =
          ("external_access_ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_domain_controller_ip_addresses then bnds
+         if Stdlib.( = ) [] v_domain_controller_ip_addresses then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -59,9 +59,9 @@ let _ = yojson_of_configuration__provider_identity
 
 type configuration = {
   crawler_configuration : configuration__crawler_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provider_identity : configuration__provider_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,7 +77,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_provider_identity then bnds
+         if Stdlib.( = ) [] v_provider_identity then bnds
          else
            let arg =
              (yojson_of_list
@@ -88,7 +88,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_crawler_configuration then bnds
+         if Stdlib.( = ) [] v_crawler_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -177,7 +177,7 @@ type aws_securitylake_custom_log_source = {
   source_name : string prop;
   source_version : string prop option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,7 +195,7 @@ let yojson_of_aws_securitylake_custom_log_source =
          []
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

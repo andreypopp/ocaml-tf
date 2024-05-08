@@ -6,16 +6,16 @@ open! Tf_core
 
 type webhook__rule = {
   api_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** api_groups *)
   api_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** api_versions *)
   operations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** operations *)
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resources *)
   scope : string prop;  (** scope *)
 }
@@ -24,14 +24,14 @@ type webhook__object_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type webhook__object_selector = {
   match_expressions :
     webhook__object_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -40,14 +40,14 @@ type webhook__namespace_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type webhook__namespace_selector = {
   match_expressions :
     webhook__namespace_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -62,30 +62,30 @@ type webhook__client_config__service = {
 type webhook__client_config = {
   ca_bundle : string prop;  (** ca_bundle *)
   service : webhook__client_config__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service *)
   url : string prop;  (** url *)
 }
 
 type webhook = {
   admission_review_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** admission_review_versions *)
   client_config : webhook__client_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** client_config *)
   failure_policy : string prop;  (** failure_policy *)
   match_policy : string prop;  (** match_policy *)
   name : string prop;  (** name *)
   namespace_selector : webhook__namespace_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** namespace_selector *)
   object_selector : webhook__object_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_selector *)
   reinvocation_policy : string prop;  (** reinvocation_policy *)
   rule : webhook__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rule *)
   side_effects : string prop;  (** side_effects *)
   timeout_seconds : float prop;  (** timeout_seconds *)

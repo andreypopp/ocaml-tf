@@ -154,11 +154,11 @@ let _ = yojson_of_nodes__status__addresses
 
 type nodes__status = {
   addresses : nodes__status__addresses list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allocatable : (string * string prop) list;
   capacity : (string * string prop) list;
   node_info : nodes__status__node_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -176,7 +176,7 @@ let yojson_of_nodes__status =
          []
        in
        let bnds =
-         if [] = v_node_info then bnds
+         if Stdlib.( = ) [] v_node_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nodes__status__node_info)
@@ -210,7 +210,7 @@ let yojson_of_nodes__status =
          ("allocatable", arg) :: bnds
        in
        let bnds =
-         if [] = v_addresses then bnds
+         if Stdlib.( = ) [] v_addresses then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nodes__status__addresses)
@@ -263,10 +263,10 @@ let _ = yojson_of_nodes__spec__taints
 type nodes__spec = {
   pod_cidr : string prop;
   pod_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provider_id : string prop;
   taints : nodes__spec__taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unschedulable : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -290,7 +290,7 @@ let yojson_of_nodes__spec =
          ("unschedulable", arg) :: bnds
        in
        let bnds =
-         if [] = v_taints then bnds
+         if Stdlib.( = ) [] v_taints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nodes__spec__taints) v_taints
@@ -303,7 +303,7 @@ let yojson_of_nodes__spec =
          ("provider_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_pod_cidrs then bnds
+         if Stdlib.( = ) [] v_pod_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -399,10 +399,11 @@ let _ = yojson_of_nodes__metadata
 
 type nodes = {
   metadata : nodes__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : nodes__spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : nodes__spec list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status : nodes__status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -415,7 +416,7 @@ let yojson_of_nodes =
          []
        in
        let bnds =
-         if [] = v_status then bnds
+         if Stdlib.( = ) [] v_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nodes__status) v_status
@@ -424,14 +425,14 @@ let yojson_of_nodes =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_nodes__spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nodes__metadata) v_metadata
@@ -448,7 +449,8 @@ let _ = yojson_of_nodes
 
 type kubernetes_nodes = {
   id : string prop option; [@option]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -461,7 +463,7 @@ let yojson_of_kubernetes_nodes =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

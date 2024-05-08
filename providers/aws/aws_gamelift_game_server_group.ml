@@ -32,7 +32,7 @@ type auto_scaling_policy = {
   estimated_instance_warmup : float prop option; [@option]
   target_tracking_configuration :
     auto_scaling_policy__target_tracking_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,7 +49,7 @@ let yojson_of_auto_scaling_policy =
          []
        in
        let bnds =
-         if [] = v_target_tracking_configuration then bnds
+         if Stdlib.( = ) [] v_target_tracking_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -205,11 +205,11 @@ type aws_gamelift_game_server_group = {
   tags_all : (string * string prop) list option; [@option]
   vpc_subnets : string prop list option; [@option]
   auto_scaling_policy : auto_scaling_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_definition : instance_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template : launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -243,7 +243,7 @@ let yojson_of_aws_gamelift_game_server_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_launch_template)
@@ -253,7 +253,7 @@ let yojson_of_aws_gamelift_game_server_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_definition then bnds
+         if Stdlib.( = ) [] v_instance_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_definition)
@@ -263,7 +263,7 @@ let yojson_of_aws_gamelift_game_server_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_scaling_policy then bnds
+         if Stdlib.( = ) [] v_auto_scaling_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_scaling_policy)

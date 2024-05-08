@@ -61,7 +61,7 @@ type shards__nodes = {
   availability_zone : string prop;
   create_time : string prop;
   endpoint : shards__nodes__endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -84,7 +84,7 @@ let yojson_of_shards__nodes =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint then bnds
+         if Stdlib.( = ) [] v_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shards__nodes__endpoint)
@@ -113,7 +113,7 @@ let _ = yojson_of_shards__nodes
 type shards = {
   name : string prop;
   nodes : shards__nodes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   num_nodes : float prop;
   slots : string prop;
 }
@@ -141,7 +141,7 @@ let yojson_of_shards =
          ("num_nodes", arg) :: bnds
        in
        let bnds =
-         if [] = v_nodes then bnds
+         if Stdlib.( = ) [] v_nodes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shards__nodes) v_nodes

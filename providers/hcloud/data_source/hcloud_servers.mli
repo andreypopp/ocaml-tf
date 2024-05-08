@@ -10,7 +10,7 @@ type servers = {
   datacenter : string prop;  (** datacenter *)
   delete_protection : bool prop;  (** delete_protection *)
   firewall_ids : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** firewall_ids *)
   id : float prop;  (** id *)
   image : string prop;  (** image *)

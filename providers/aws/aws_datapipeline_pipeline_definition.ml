@@ -35,7 +35,7 @@ let _ = yojson_of_parameter_object__attribute
 type parameter_object = {
   id : string prop;
   attribute : parameter_object__attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_parameter_object =
          []
        in
        let bnds =
-         if [] = v_attribute then bnds
+         if Stdlib.( = ) [] v_attribute then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter_object__attribute)
@@ -147,7 +147,7 @@ type pipeline_object = {
   id : string prop;
   name : string prop;
   field : pipeline_object__field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,7 +160,7 @@ let yojson_of_pipeline_object =
          []
        in
        let bnds =
-         if [] = v_field then bnds
+         if Stdlib.( = ) [] v_field then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pipeline_object__field)
@@ -188,11 +188,11 @@ type aws_datapipeline_pipeline_definition = {
   id : string prop option; [@option]
   pipeline_id : string prop;
   parameter_object : parameter_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameter_value : parameter_value list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pipeline_object : pipeline_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,7 +211,7 @@ let yojson_of_aws_datapipeline_pipeline_definition =
          []
        in
        let bnds =
-         if [] = v_pipeline_object then bnds
+         if Stdlib.( = ) [] v_pipeline_object then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pipeline_object)
@@ -221,7 +221,7 @@ let yojson_of_aws_datapipeline_pipeline_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameter_value then bnds
+         if Stdlib.( = ) [] v_parameter_value then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter_value)
@@ -231,7 +231,7 @@ let yojson_of_aws_datapipeline_pipeline_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameter_object then bnds
+         if Stdlib.( = ) [] v_parameter_object then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter_object)

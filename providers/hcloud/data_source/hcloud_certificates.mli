@@ -8,7 +8,7 @@ type certificates = {
   certificate : string prop;  (** certificate *)
   created : string prop;  (** created *)
   domain_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** domain_names *)
   fingerprint : string prop;  (** fingerprint *)
   id : float prop;  (** id *)

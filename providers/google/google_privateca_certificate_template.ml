@@ -67,7 +67,7 @@ type identity_constraints = {
   allow_subject_alt_names_passthrough : bool prop;
   allow_subject_passthrough : bool prop;
   cel_expression : identity_constraints__cel_expression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,7 +85,7 @@ let yojson_of_identity_constraints =
          []
        in
        let bnds =
-         if [] = v_cel_expression then bnds
+         if Stdlib.( = ) [] v_cel_expression then bnds
          else
            let arg =
              (yojson_of_list
@@ -117,7 +117,7 @@ let _ = yojson_of_identity_constraints
 
 type passthrough_extensions__additional_extensions = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,7 +130,7 @@ let yojson_of_passthrough_extensions__additional_extensions =
          []
        in
        let bnds =
-         if [] = v_object_id_path then bnds
+         if Stdlib.( = ) [] v_object_id_path then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -151,7 +151,7 @@ type passthrough_extensions = {
   known_extensions : string prop list option; [@option]
   additional_extensions :
     passthrough_extensions__additional_extensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,7 +167,7 @@ let yojson_of_passthrough_extensions =
          []
        in
        let bnds =
-         if [] = v_additional_extensions then bnds
+         if Stdlib.( = ) [] v_additional_extensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -196,7 +196,7 @@ let _ = yojson_of_passthrough_extensions
 
 type predefined_values__additional_extensions__object_id = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +210,7 @@ let yojson_of_predefined_values__additional_extensions__object_id =
          []
        in
        let bnds =
-         if [] = v_object_id_path then bnds
+         if Stdlib.( = ) [] v_object_id_path then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -232,7 +232,7 @@ type predefined_values__additional_extensions = {
   value : string prop;
   object_id :
     predefined_values__additional_extensions__object_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +249,7 @@ let yojson_of_predefined_values__additional_extensions =
          []
        in
        let bnds =
-         if [] = v_object_id then bnds
+         if Stdlib.( = ) [] v_object_id then bnds
          else
            let arg =
              (yojson_of_list
@@ -515,7 +515,7 @@ let _ = yojson_of_predefined_values__key_usage__extended_key_usage
 
 type predefined_values__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -531,7 +531,7 @@ let yojson_of_predefined_values__key_usage__unknown_extended_key_usages
          []
        in
        let bnds =
-         if [] = v_object_id_path then bnds
+         if Stdlib.( = ) [] v_object_id_path then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -551,13 +551,13 @@ let _ =
 
 type predefined_values__key_usage = {
   base_key_usage : predefined_values__key_usage__base_key_usage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extended_key_usage :
     predefined_values__key_usage__extended_key_usage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unknown_extended_key_usages :
     predefined_values__key_usage__unknown_extended_key_usages list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -574,7 +574,7 @@ let yojson_of_predefined_values__key_usage =
          []
        in
        let bnds =
-         if [] = v_unknown_extended_key_usages then bnds
+         if Stdlib.( = ) [] v_unknown_extended_key_usages then bnds
          else
            let arg =
              (yojson_of_list
@@ -585,7 +585,7 @@ let yojson_of_predefined_values__key_usage =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extended_key_usage then bnds
+         if Stdlib.( = ) [] v_extended_key_usage then bnds
          else
            let arg =
              (yojson_of_list
@@ -596,7 +596,7 @@ let yojson_of_predefined_values__key_usage =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_base_key_usage then bnds
+         if Stdlib.( = ) [] v_base_key_usage then bnds
          else
            let arg =
              (yojson_of_list
@@ -616,7 +616,7 @@ let _ = yojson_of_predefined_values__key_usage
 
 type predefined_values__policy_ids = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -629,7 +629,7 @@ let yojson_of_predefined_values__policy_ids =
          []
        in
        let bnds =
-         if [] = v_object_id_path then bnds
+         if Stdlib.( = ) [] v_object_id_path then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -650,13 +650,13 @@ type predefined_values = {
   aia_ocsp_servers : string prop list option; [@option]
   additional_extensions :
     predefined_values__additional_extensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ca_options : predefined_values__ca_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_usage : predefined_values__key_usage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy_ids : predefined_values__policy_ids list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -675,7 +675,7 @@ let yojson_of_predefined_values =
          []
        in
        let bnds =
-         if [] = v_policy_ids then bnds
+         if Stdlib.( = ) [] v_policy_ids then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predefined_values__policy_ids)
@@ -685,7 +685,7 @@ let yojson_of_predefined_values =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_usage then bnds
+         if Stdlib.( = ) [] v_key_usage then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predefined_values__key_usage)
@@ -695,7 +695,7 @@ let yojson_of_predefined_values =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ca_options then bnds
+         if Stdlib.( = ) [] v_ca_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predefined_values__ca_options)
@@ -705,7 +705,7 @@ let yojson_of_predefined_values =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_extensions then bnds
+         if Stdlib.( = ) [] v_additional_extensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -786,11 +786,11 @@ type google_privateca_certificate_template = {
   name : string prop;
   project : string prop option; [@option]
   identity_constraints : identity_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   passthrough_extensions : passthrough_extensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_values : predefined_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -819,7 +819,7 @@ let yojson_of_google_privateca_certificate_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_predefined_values then bnds
+         if Stdlib.( = ) [] v_predefined_values then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predefined_values)
@@ -829,7 +829,7 @@ let yojson_of_google_privateca_certificate_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_passthrough_extensions then bnds
+         if Stdlib.( = ) [] v_passthrough_extensions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_passthrough_extensions)
@@ -839,7 +839,7 @@ let yojson_of_google_privateca_certificate_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity_constraints then bnds
+         if Stdlib.( = ) [] v_identity_constraints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity_constraints)

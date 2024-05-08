@@ -54,7 +54,7 @@ let _ = yojson_of_index_config__indexes
 
 type index_config = {
   indexes : index_config__indexes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_index_config =
          []
        in
        let bnds =
-         if [] = v_indexes then bnds
+         if Stdlib.( = ) [] v_indexes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_config__indexes)
@@ -147,10 +147,10 @@ type google_firestore_field = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   index_config : index_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   ttl_config : ttl_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +172,7 @@ let yojson_of_google_firestore_field =
          []
        in
        let bnds =
-         if [] = v_ttl_config then bnds
+         if Stdlib.( = ) [] v_ttl_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ttl_config) v_ttl_config
@@ -185,7 +185,7 @@ let yojson_of_google_firestore_field =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_index_config then bnds
+         if Stdlib.( = ) [] v_index_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_config) v_index_config

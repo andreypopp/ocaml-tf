@@ -120,7 +120,7 @@ let _ = yojson_of_amount__specified_amount
 type amount = {
   last_period_amount : bool prop option; [@option]
   specified_amount : amount__specified_amount list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -136,7 +136,7 @@ let yojson_of_amount =
          []
        in
        let bnds =
-         if [] = v_specified_amount then bnds
+         if Stdlib.( = ) [] v_specified_amount then bnds
          else
            let arg =
              (yojson_of_list yojson_of_amount__specified_amount)
@@ -232,9 +232,9 @@ let _ = yojson_of_budget_filter__custom_period__start_date
 
 type budget_filter__custom_period = {
   end_date : budget_filter__custom_period__end_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_date : budget_filter__custom_period__start_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,7 +247,7 @@ let yojson_of_budget_filter__custom_period =
          []
        in
        let bnds =
-         if [] = v_start_date then bnds
+         if Stdlib.( = ) [] v_start_date then bnds
          else
            let arg =
              (yojson_of_list
@@ -258,7 +258,7 @@ let yojson_of_budget_filter__custom_period =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_end_date then bnds
+         if Stdlib.( = ) [] v_end_date then bnds
          else
            let arg =
              (yojson_of_list
@@ -286,7 +286,7 @@ type budget_filter = {
   services : string prop list option; [@option]
   subaccounts : string prop list option; [@option]
   custom_period : budget_filter__custom_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,7 +309,7 @@ let yojson_of_budget_filter =
          []
        in
        let bnds =
-         if [] = v_custom_period then bnds
+         if Stdlib.( = ) [] v_custom_period then bnds
          else
            let arg =
              (yojson_of_list yojson_of_budget_filter__custom_period)
@@ -496,12 +496,13 @@ type google_billing_budget = {
   display_name : string prop option; [@option]
   id : string prop option; [@option]
   all_updates_rule : all_updates_rule list;
-      [@default []] [@yojson_drop_default ( = )]
-  amount : amount list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  amount : amount list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   budget_filter : budget_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threshold_rules : threshold_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -528,7 +529,7 @@ let yojson_of_google_billing_budget =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threshold_rules then bnds
+         if Stdlib.( = ) [] v_threshold_rules then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_rules)
@@ -538,7 +539,7 @@ let yojson_of_google_billing_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_budget_filter then bnds
+         if Stdlib.( = ) [] v_budget_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_budget_filter) v_budget_filter
@@ -547,14 +548,14 @@ let yojson_of_google_billing_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_amount then bnds
+         if Stdlib.( = ) [] v_amount then bnds
          else
            let arg = (yojson_of_list yojson_of_amount) v_amount in
            let bnd = "amount", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_all_updates_rule then bnds
+         if Stdlib.( = ) [] v_all_updates_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_all_updates_rule)

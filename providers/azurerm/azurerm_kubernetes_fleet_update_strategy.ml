@@ -28,7 +28,7 @@ type stage = {
   after_stage_wait_in_seconds : float prop option; [@option]
   name : string prop;
   group : stage__group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -45,7 +45,7 @@ let yojson_of_stage =
          []
        in
        let bnds =
-         if [] = v_group then bnds
+         if Stdlib.( = ) [] v_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stage__group) v_group
@@ -136,7 +136,8 @@ type azurerm_kubernetes_fleet_update_strategy = {
   id : string prop option; [@option]
   kubernetes_fleet_manager_id : string prop;
   name : string prop;
-  stage : stage list; [@default []] [@yojson_drop_default ( = )]
+  stage : stage list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,7 +161,7 @@ let yojson_of_azurerm_kubernetes_fleet_update_strategy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stage then bnds
+         if Stdlib.( = ) [] v_stage then bnds
          else
            let arg = (yojson_of_list yojson_of_stage) v_stage in
            let bnd = "stage", arg in

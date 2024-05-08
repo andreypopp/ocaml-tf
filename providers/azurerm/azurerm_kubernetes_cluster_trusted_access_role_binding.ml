@@ -67,7 +67,7 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding = {
   kubernetes_cluster_id : string prop;
   name : string prop;
   roles : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_resource_id : string prop;
   timeouts : timeouts option;
 }
@@ -102,7 +102,7 @@ let yojson_of_azurerm_kubernetes_cluster_trusted_access_role_binding
          ("source_resource_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_roles then bnds
+         if Stdlib.( = ) [] v_roles then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

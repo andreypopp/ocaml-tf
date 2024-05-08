@@ -117,9 +117,9 @@ type google_bigtable_app_profile = {
   multi_cluster_routing_use_any : bool prop option; [@option]
   project : string prop option; [@option]
   single_cluster_routing : single_cluster_routing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   standard_isolation : standard_isolation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -151,7 +151,7 @@ let yojson_of_google_bigtable_app_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_standard_isolation then bnds
+         if Stdlib.( = ) [] v_standard_isolation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_standard_isolation)
@@ -161,7 +161,7 @@ let yojson_of_google_bigtable_app_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_single_cluster_routing then bnds
+         if Stdlib.( = ) [] v_single_cluster_routing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_single_cluster_routing)

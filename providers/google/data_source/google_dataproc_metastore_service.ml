@@ -52,7 +52,7 @@ let _ = yojson_of_hive_metastore_config__kerberos_config__keytab
 
 type hive_metastore_config__kerberos_config = {
   keytab : hive_metastore_config__kerberos_config__keytab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   krb5_config_gcs_uri : string prop;
   principal : string prop;
 }
@@ -81,7 +81,7 @@ let yojson_of_hive_metastore_config__kerberos_config =
          ("krb5_config_gcs_uri", arg) :: bnds
        in
        let bnds =
-         if [] = v_keytab then bnds
+         if Stdlib.( = ) [] v_keytab then bnds
          else
            let arg =
              (yojson_of_list
@@ -149,11 +149,11 @@ let _ = yojson_of_hive_metastore_config__auxiliary_versions
 type hive_metastore_config = {
   auxiliary_versions :
     hive_metastore_config__auxiliary_versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   config_overrides : (string * string prop) list;
   endpoint_protocol : string prop;
   kerberos_config : hive_metastore_config__kerberos_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   version : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -177,7 +177,7 @@ let yojson_of_hive_metastore_config =
          ("version", arg) :: bnds
        in
        let bnds =
-         if [] = v_kerberos_config then bnds
+         if Stdlib.( = ) [] v_kerberos_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -206,7 +206,7 @@ let yojson_of_hive_metastore_config =
          ("config_overrides", arg) :: bnds
        in
        let bnds =
-         if [] = v_auxiliary_versions then bnds
+         if Stdlib.( = ) [] v_auxiliary_versions then bnds
          else
            let arg =
              (yojson_of_list
@@ -280,7 +280,7 @@ let _ = yojson_of_metadata_integration__data_catalog_config
 type metadata_integration = {
   data_catalog_config :
     metadata_integration__data_catalog_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -293,7 +293,7 @@ let yojson_of_metadata_integration =
          []
        in
        let bnds =
-         if [] = v_data_catalog_config then bnds
+         if Stdlib.( = ) [] v_data_catalog_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +341,7 @@ let _ = yojson_of_network_config__consumers
 
 type network_config = {
   consumers : network_config__consumers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -354,7 +354,7 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         if [] = v_consumers then bnds
+         if Stdlib.( = ) [] v_consumers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config__consumers)

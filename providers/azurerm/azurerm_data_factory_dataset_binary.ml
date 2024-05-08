@@ -294,13 +294,13 @@ type azurerm_data_factory_dataset_binary = {
   name : string prop;
   parameters : (string * string prop) list option; [@option]
   azure_blob_storage_location : azure_blob_storage_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compression : compression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_server_location : http_server_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sftp_server_location : sftp_server_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -333,7 +333,7 @@ let yojson_of_azurerm_data_factory_dataset_binary =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sftp_server_location then bnds
+         if Stdlib.( = ) [] v_sftp_server_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sftp_server_location)
@@ -343,7 +343,7 @@ let yojson_of_azurerm_data_factory_dataset_binary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_server_location then bnds
+         if Stdlib.( = ) [] v_http_server_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_server_location)
@@ -353,7 +353,7 @@ let yojson_of_azurerm_data_factory_dataset_binary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compression then bnds
+         if Stdlib.( = ) [] v_compression then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compression) v_compression
@@ -362,7 +362,7 @@ let yojson_of_azurerm_data_factory_dataset_binary =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_blob_storage_location then bnds
+         if Stdlib.( = ) [] v_azure_blob_storage_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_blob_storage_location)

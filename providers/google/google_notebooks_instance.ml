@@ -287,15 +287,16 @@ type google_notebooks_instance = {
   tags : string prop list option; [@option]
   update_time : string prop option; [@option]
   accelerator_config : accelerator_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_image : container_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reservation_affinity : reservation_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shielded_instance_config : shielded_instance_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  vm_image : vm_image list; [@default []] [@yojson_drop_default ( = )]
+  vm_image : vm_image list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -344,7 +345,7 @@ let yojson_of_google_notebooks_instance =
          []
        in
        let bnds =
-         if [] = v_vm_image then bnds
+         if Stdlib.( = ) [] v_vm_image then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vm_image) v_vm_image
@@ -357,7 +358,7 @@ let yojson_of_google_notebooks_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_shielded_instance_config then bnds
+         if Stdlib.( = ) [] v_shielded_instance_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shielded_instance_config)
@@ -367,7 +368,7 @@ let yojson_of_google_notebooks_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reservation_affinity then bnds
+         if Stdlib.( = ) [] v_reservation_affinity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reservation_affinity)
@@ -377,7 +378,7 @@ let yojson_of_google_notebooks_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_image then bnds
+         if Stdlib.( = ) [] v_container_image then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container_image)
@@ -387,7 +388,7 @@ let yojson_of_google_notebooks_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_config then bnds
+         if Stdlib.( = ) [] v_accelerator_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_accelerator_config)

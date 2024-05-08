@@ -155,7 +155,7 @@ let _ = yojson_of_import_table__input_format_options__csv
 
 type import_table__input_format_options = {
   csv : import_table__input_format_options__csv list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_import_table__input_format_options =
          []
        in
        let bnds =
-         if [] = v_csv then bnds
+         if Stdlib.( = ) [] v_csv then bnds
          else
            let arg =
              (yojson_of_list
@@ -237,9 +237,9 @@ type import_table = {
   input_compression_type : string prop option; [@option]
   input_format : string prop;
   input_format_options : import_table__input_format_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_bucket_source : import_table__s3_bucket_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,7 +257,7 @@ let yojson_of_import_table =
          []
        in
        let bnds =
-         if [] = v_s3_bucket_source then bnds
+         if Stdlib.( = ) [] v_s3_bucket_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_import_table__s3_bucket_source)
@@ -267,7 +267,7 @@ let yojson_of_import_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_format_options then bnds
+         if Stdlib.( = ) [] v_input_format_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -558,20 +558,21 @@ type aws_dynamodb_table = {
   tags_all : (string * string prop) list option; [@option]
   write_capacity : float prop option; [@option]
   attribute : attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   global_secondary_index : global_secondary_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   import_table : import_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_secondary_index : local_secondary_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   point_in_time_recovery : point_in_time_recovery list;
-      [@default []] [@yojson_drop_default ( = )]
-  replica : replica list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  replica : replica list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_side_encryption : server_side_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  ttl : ttl list; [@default []] [@yojson_drop_default ( = )]
+  ttl : ttl list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -610,7 +611,7 @@ let yojson_of_aws_dynamodb_table =
          []
        in
        let bnds =
-         if [] = v_ttl then bnds
+         if Stdlib.( = ) [] v_ttl then bnds
          else
            let arg = (yojson_of_list yojson_of_ttl) v_ttl in
            let bnd = "ttl", arg in
@@ -621,7 +622,7 @@ let yojson_of_aws_dynamodb_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_server_side_encryption then bnds
+         if Stdlib.( = ) [] v_server_side_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_side_encryption)
@@ -631,14 +632,14 @@ let yojson_of_aws_dynamodb_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_replica then bnds
+         if Stdlib.( = ) [] v_replica then bnds
          else
            let arg = (yojson_of_list yojson_of_replica) v_replica in
            let bnd = "replica", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_point_in_time_recovery then bnds
+         if Stdlib.( = ) [] v_point_in_time_recovery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_point_in_time_recovery)
@@ -648,7 +649,7 @@ let yojson_of_aws_dynamodb_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_secondary_index then bnds
+         if Stdlib.( = ) [] v_local_secondary_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_local_secondary_index)
@@ -658,7 +659,7 @@ let yojson_of_aws_dynamodb_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_import_table then bnds
+         if Stdlib.( = ) [] v_import_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_import_table) v_import_table
@@ -667,7 +668,7 @@ let yojson_of_aws_dynamodb_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_global_secondary_index then bnds
+         if Stdlib.( = ) [] v_global_secondary_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_global_secondary_index)
@@ -677,7 +678,7 @@ let yojson_of_aws_dynamodb_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attribute then bnds
+         if Stdlib.( = ) [] v_attribute then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attribute) v_attribute

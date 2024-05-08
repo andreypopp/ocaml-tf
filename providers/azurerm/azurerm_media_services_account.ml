@@ -47,7 +47,7 @@ type encryption = {
   key_vault_key_identifier : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   managed_identity : encryption__managed_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_encryption =
          []
        in
        let bnds =
-         if [] = v_managed_identity then bnds
+         if Stdlib.( = ) [] v_managed_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption__managed_identity)
@@ -219,7 +219,7 @@ type storage_account = {
   id : string prop;
   is_primary : bool prop option; [@option]
   managed_identity : storage_account__managed_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +236,7 @@ let yojson_of_storage_account =
          []
        in
        let bnds =
-         if [] = v_managed_identity then bnds
+         if Stdlib.( = ) [] v_managed_identity then bnds
          else
            let arg =
              (yojson_of_list
@@ -334,13 +334,13 @@ type azurerm_media_services_account = {
   storage_authentication_type : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   encryption : encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_delivery_access_control : key_delivery_access_control list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_account : storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -372,7 +372,7 @@ let yojson_of_azurerm_media_services_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_account then bnds
+         if Stdlib.( = ) [] v_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_account)
@@ -382,7 +382,7 @@ let yojson_of_azurerm_media_services_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_delivery_access_control then bnds
+         if Stdlib.( = ) [] v_key_delivery_access_control then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_delivery_access_control)
@@ -392,7 +392,7 @@ let yojson_of_azurerm_media_services_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -401,7 +401,7 @@ let yojson_of_azurerm_media_services_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption) v_encryption

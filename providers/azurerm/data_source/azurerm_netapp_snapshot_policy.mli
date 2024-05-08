@@ -17,7 +17,7 @@ type hourly_schedule = {
 
 type monthly_schedule = {
   days_of_month : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** days_of_month *)
   hour : float prop;  (** hour *)
   minute : float prop;  (** minute *)
@@ -26,7 +26,7 @@ type monthly_schedule = {
 
 type weekly_schedule = {
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** days_of_week *)
   hour : float prop;  (** hour *)
   minute : float prop;  (** minute *)

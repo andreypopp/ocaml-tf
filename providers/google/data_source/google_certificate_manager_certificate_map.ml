@@ -4,7 +4,8 @@ open! Tf_core
 
 type gclb_targets__ip_configs = {
   ip_address : string prop;
-  ports : float prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +18,7 @@ let yojson_of_gclb_targets__ip_configs =
          []
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -39,7 +40,7 @@ let _ = yojson_of_gclb_targets__ip_configs
 
 type gclb_targets = {
   ip_configs : gclb_targets__ip_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_https_proxy : string prop;
   target_ssl_proxy : string prop;
 }
@@ -70,7 +71,7 @@ let yojson_of_gclb_targets =
          ("target_https_proxy", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_configs then bnds
+         if Stdlib.( = ) [] v_ip_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gclb_targets__ip_configs)

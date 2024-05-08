@@ -32,11 +32,11 @@ type pcc_rule__service_data_flow_template = {
   direction : string prop;
   name : string prop;
   ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_ip_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_pcc_rule__service_data_flow_template =
          []
        in
        let bnds =
-         if [] = v_remote_ip_list then bnds
+         if Stdlib.( = ) [] v_remote_ip_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -65,7 +65,7 @@ let yojson_of_pcc_rule__service_data_flow_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protocol then bnds
+         if Stdlib.( = ) [] v_protocol then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -75,7 +75,7 @@ let yojson_of_pcc_rule__service_data_flow_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -164,9 +164,9 @@ type pcc_rule__qos_policy = {
   allocation_and_retention_priority_level : float prop;
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   preemption_capability : string prop;
   preemption_vulnerability : string prop;
   qos_indicator : float prop;
@@ -206,7 +206,7 @@ let yojson_of_pcc_rule__qos_policy =
          ("preemption_capability", arg) :: bnds
        in
        let bnds =
-         if [] = v_maximum_bit_rate then bnds
+         if Stdlib.( = ) [] v_maximum_bit_rate then bnds
          else
            let arg =
              (yojson_of_list
@@ -217,7 +217,7 @@ let yojson_of_pcc_rule__qos_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guaranteed_bit_rate then bnds
+         if Stdlib.( = ) [] v_guaranteed_bit_rate then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,10 +245,10 @@ type pcc_rule = {
   name : string prop;
   precedence : float prop;
   qos_policy : pcc_rule__qos_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   traffic_control_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -274,7 +274,7 @@ let yojson_of_pcc_rule =
          ("traffic_control_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_data_flow_template then bnds
+         if Stdlib.( = ) [] v_service_data_flow_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -285,7 +285,7 @@ let yojson_of_pcc_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_qos_policy then bnds
+         if Stdlib.( = ) [] v_qos_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pcc_rule__qos_policy)
@@ -342,7 +342,7 @@ let _ = yojson_of_service_qos_policy__maximum_bit_rate
 type service_qos_policy = {
   allocation_and_retention_priority_level : float prop;
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   preemption_capability : string prop;
   preemption_vulnerability : string prop;
   qos_indicator : float prop;
@@ -381,7 +381,7 @@ let yojson_of_service_qos_policy =
          ("preemption_capability", arg) :: bnds
        in
        let bnds =
-         if [] = v_maximum_bit_rate then bnds
+         if Stdlib.( = ) [] v_maximum_bit_rate then bnds
          else
            let arg =
              (yojson_of_list

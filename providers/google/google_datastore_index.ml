@@ -71,7 +71,7 @@ type google_datastore_index = {
   kind : string prop;
   project : string prop option; [@option]
   properties : properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -96,7 +96,7 @@ let yojson_of_google_datastore_index =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_properties then bnds
+         if Stdlib.( = ) [] v_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_properties) v_properties

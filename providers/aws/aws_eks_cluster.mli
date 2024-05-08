@@ -9,7 +9,7 @@ type identity__oidc = { issuer : string prop  (** issuer *) }
 
 type identity = {
   oidc : identity__oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oidc *)
 }
 

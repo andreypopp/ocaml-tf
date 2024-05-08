@@ -6,19 +6,19 @@ open! Tf_core
 
 type explicit_resource_order = {
   backend_pool_health_probe_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backend_pool_health_probe_ids *)
   backend_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backend_pool_ids *)
   backend_pool_load_balancing_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backend_pool_load_balancing_ids *)
   frontend_endpoint_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** frontend_endpoint_ids *)
   routing_rule_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** routing_rule_ids *)
 }
 

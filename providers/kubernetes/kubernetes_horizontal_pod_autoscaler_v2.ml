@@ -131,7 +131,7 @@ type spec__behavior__scale_down = {
   select_policy : string prop option; [@option]
   stabilization_window_seconds : float prop option; [@option]
   policy : spec__behavior__scale_down__policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_spec__behavior__scale_down =
          []
        in
        let bnds =
-         if [] = v_policy then bnds
+         if Stdlib.( = ) [] v_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -224,7 +224,7 @@ type spec__behavior__scale_up = {
   select_policy : string prop option; [@option]
   stabilization_window_seconds : float prop option; [@option]
   policy : spec__behavior__scale_up__policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,7 +241,7 @@ let yojson_of_spec__behavior__scale_up =
          []
        in
        let bnds =
-         if [] = v_policy then bnds
+         if Stdlib.( = ) [] v_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -276,9 +276,9 @@ let _ = yojson_of_spec__behavior__scale_up
 
 type spec__behavior = {
   scale_down : spec__behavior__scale_down list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_up : spec__behavior__scale_up list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -291,7 +291,7 @@ let yojson_of_spec__behavior =
          []
        in
        let bnds =
-         if [] = v_scale_up then bnds
+         if Stdlib.( = ) [] v_scale_up then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__behavior__scale_up)
@@ -301,7 +301,7 @@ let yojson_of_spec__behavior =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scale_down then bnds
+         if Stdlib.( = ) [] v_scale_down then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__behavior__scale_down)
@@ -378,7 +378,7 @@ type spec__metric__container_resource = {
   container : string prop;
   name : string prop;
   target : spec__metric__container_resource__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -391,7 +391,7 @@ let yojson_of_spec__metric__container_resource =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -475,7 +475,7 @@ type spec__metric__external__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__metric__external__metric__selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,7 +491,7 @@ let yojson_of_spec__metric__external__metric__selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -528,7 +528,7 @@ let _ = yojson_of_spec__metric__external__metric__selector
 type spec__metric__external__metric = {
   name : string prop;
   selector : spec__metric__external__metric__selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -541,7 +541,7 @@ let yojson_of_spec__metric__external__metric =
          []
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -622,9 +622,9 @@ let _ = yojson_of_spec__metric__external__target
 
 type spec__metric__external = {
   metric : spec__metric__external__metric list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target : spec__metric__external__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -637,7 +637,7 @@ let yojson_of_spec__metric__external =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__external__target)
@@ -647,7 +647,7 @@ let yojson_of_spec__metric__external =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__external__metric)
@@ -755,7 +755,7 @@ type spec__metric__object__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__metric__object__metric__selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,7 +771,7 @@ let yojson_of_spec__metric__object__metric__selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -808,7 +808,7 @@ let _ = yojson_of_spec__metric__object__metric__selector
 type spec__metric__object__metric = {
   name : string prop;
   selector : spec__metric__object__metric__selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -821,7 +821,7 @@ let yojson_of_spec__metric__object__metric =
          []
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -902,11 +902,11 @@ let _ = yojson_of_spec__metric__object__target
 
 type spec__metric__object = {
   described_object : spec__metric__object__described_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric : spec__metric__object__metric list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target : spec__metric__object__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -923,7 +923,7 @@ let yojson_of_spec__metric__object =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__object__target)
@@ -933,7 +933,7 @@ let yojson_of_spec__metric__object =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__object__metric)
@@ -943,7 +943,7 @@ let yojson_of_spec__metric__object =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_described_object then bnds
+         if Stdlib.( = ) [] v_described_object then bnds
          else
            let arg =
              (yojson_of_list
@@ -1017,7 +1017,7 @@ type spec__metric__pods__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__metric__pods__metric__selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1033,7 +1033,7 @@ let yojson_of_spec__metric__pods__metric__selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1070,7 +1070,7 @@ let _ = yojson_of_spec__metric__pods__metric__selector
 type spec__metric__pods__metric = {
   name : string prop;
   selector : spec__metric__pods__metric__selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1083,7 +1083,7 @@ let yojson_of_spec__metric__pods__metric =
          []
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -1162,9 +1162,9 @@ let _ = yojson_of_spec__metric__pods__target
 
 type spec__metric__pods = {
   metric : spec__metric__pods__metric list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target : spec__metric__pods__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1177,7 +1177,7 @@ let yojson_of_spec__metric__pods =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__pods__target)
@@ -1187,7 +1187,7 @@ let yojson_of_spec__metric__pods =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__pods__metric)
@@ -1263,7 +1263,7 @@ let _ = yojson_of_spec__metric__resource__target
 type spec__metric__resource = {
   name : string prop;
   target : spec__metric__resource__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1276,7 +1276,7 @@ let yojson_of_spec__metric__resource =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__resource__target)
@@ -1299,15 +1299,19 @@ let _ = yojson_of_spec__metric__resource
 type spec__metric = {
   type_ : string prop; [@key "type"]
   container_resource : spec__metric__container_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_ : spec__metric__external list;
-      [@key "external"] [@default []] [@yojson_drop_default ( = )]
+      [@key "external"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
   object_ : spec__metric__object list;
-      [@key "object"] [@default []] [@yojson_drop_default ( = )]
+      [@key "object"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
   pods : spec__metric__pods list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource : spec__metric__resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1327,7 +1331,7 @@ let yojson_of_spec__metric =
          []
        in
        let bnds =
-         if [] = v_resource then bnds
+         if Stdlib.( = ) [] v_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__resource)
@@ -1337,7 +1341,7 @@ let yojson_of_spec__metric =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pods then bnds
+         if Stdlib.( = ) [] v_pods then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__pods) v_pods
@@ -1346,7 +1350,7 @@ let yojson_of_spec__metric =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_object_ then bnds
+         if Stdlib.( = ) [] v_object_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__object)
@@ -1356,7 +1360,7 @@ let yojson_of_spec__metric =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_ then bnds
+         if Stdlib.( = ) [] v_external_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric__external)
@@ -1366,7 +1370,7 @@ let yojson_of_spec__metric =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_resource then bnds
+         if Stdlib.( = ) [] v_container_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -1430,11 +1434,11 @@ type spec = {
   min_replicas : float prop option; [@option]
   target_cpu_utilization_percentage : float prop option; [@option]
   behavior : spec__behavior list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric : spec__metric list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_target_ref : spec__scale_target_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1455,7 +1459,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_scale_target_ref then bnds
+         if Stdlib.( = ) [] v_scale_target_ref then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__scale_target_ref)
@@ -1465,7 +1469,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__metric) v_metric
@@ -1474,7 +1478,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_behavior then bnds
+         if Stdlib.( = ) [] v_behavior then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__behavior) v_behavior
@@ -1512,8 +1516,8 @@ let _ = yojson_of_spec
 type kubernetes_horizontal_pod_autoscaler_v2 = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1526,14 +1530,14 @@ let yojson_of_kubernetes_horizontal_pod_autoscaler_v2 =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

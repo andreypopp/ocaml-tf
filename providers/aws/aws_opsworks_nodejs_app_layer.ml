@@ -130,7 +130,7 @@ let _ = yojson_of_cloudwatch_configuration__log_streams
 type cloudwatch_configuration = {
   enabled : bool prop option; [@option]
   log_streams : cloudwatch_configuration__log_streams list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,7 +143,7 @@ let yojson_of_cloudwatch_configuration =
          []
        in
        let bnds =
-         if [] = v_log_streams then bnds
+         if Stdlib.( = ) [] v_log_streams then bnds
          else
            let arg =
              (yojson_of_list
@@ -437,9 +437,9 @@ let _ = yojson_of_load_based_auto_scaling__upscaling
 type load_based_auto_scaling = {
   enable : bool prop option; [@option]
   downscaling : load_based_auto_scaling__downscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   upscaling : load_based_auto_scaling__upscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -456,7 +456,7 @@ let yojson_of_load_based_auto_scaling =
          []
        in
        let bnds =
-         if [] = v_upscaling then bnds
+         if Stdlib.( = ) [] v_upscaling then bnds
          else
            let arg =
              (yojson_of_list
@@ -467,7 +467,7 @@ let yojson_of_load_based_auto_scaling =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_downscaling then bnds
+         if Stdlib.( = ) [] v_downscaling then bnds
          else
            let arg =
              (yojson_of_list
@@ -517,11 +517,11 @@ type aws_opsworks_nodejs_app_layer = {
   tags_all : (string * string prop) list option; [@option]
   use_ebs_optimized_instances : bool prop option; [@option]
   cloudwatch_configuration : cloudwatch_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_volume : ebs_volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_based_auto_scaling : load_based_auto_scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -561,7 +561,7 @@ let yojson_of_aws_opsworks_nodejs_app_layer =
          []
        in
        let bnds =
-         if [] = v_load_based_auto_scaling then bnds
+         if Stdlib.( = ) [] v_load_based_auto_scaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_based_auto_scaling)
@@ -571,7 +571,7 @@ let yojson_of_aws_opsworks_nodejs_app_layer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebs_volume then bnds
+         if Stdlib.( = ) [] v_ebs_volume then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_volume) v_ebs_volume
@@ -580,7 +580,7 @@ let yojson_of_aws_opsworks_nodejs_app_layer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_configuration then bnds
+         if Stdlib.( = ) [] v_cloudwatch_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudwatch_configuration)

@@ -86,9 +86,9 @@ type git_repository = {
   path : string prop option; [@option]
   url : string prop;
   basic_auth : git_repository__basic_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssh_auth : git_repository__ssh_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,7 +111,7 @@ let yojson_of_git_repository =
          []
        in
        let bnds =
-         if [] = v_ssh_auth then bnds
+         if Stdlib.( = ) [] v_ssh_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_git_repository__ssh_auth)
@@ -121,7 +121,7 @@ let yojson_of_git_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_basic_auth then bnds
+         if Stdlib.( = ) [] v_basic_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_git_repository__basic_auth)
@@ -259,7 +259,7 @@ type azurerm_spring_cloud_customized_accelerator = {
   name : string prop;
   spring_cloud_accelerator_id : string prop;
   git_repository : git_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -288,7 +288,7 @@ let yojson_of_azurerm_spring_cloud_customized_accelerator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_git_repository then bnds
+         if Stdlib.( = ) [] v_git_repository then bnds
          else
            let arg =
              (yojson_of_list yojson_of_git_repository)

@@ -72,11 +72,11 @@ let _ = yojson_of_authentication_configuration
 type cors_configuration = {
   allow_credentials : bool prop;
   allowed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_age_in_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -102,7 +102,7 @@ let yojson_of_cors_configuration =
          ("max_age_in_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -112,7 +112,7 @@ let yojson_of_cors_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -122,7 +122,7 @@ let yojson_of_cors_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_headers then bnds
+         if Stdlib.( = ) [] v_allowed_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

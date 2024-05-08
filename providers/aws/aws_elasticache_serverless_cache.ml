@@ -57,9 +57,9 @@ let _ = yojson_of_cache_usage_limits__ecpu_per_second
 
 type cache_usage_limits = {
   data_storage : cache_usage_limits__data_storage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ecpu_per_second : cache_usage_limits__ecpu_per_second list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_cache_usage_limits =
          []
        in
        let bnds =
-         if [] = v_ecpu_per_second then bnds
+         if Stdlib.( = ) [] v_ecpu_per_second then bnds
          else
            let arg =
              (yojson_of_list
@@ -86,7 +86,7 @@ let yojson_of_cache_usage_limits =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_storage then bnds
+         if Stdlib.( = ) [] v_data_storage then bnds
          else
            let arg =
              (yojson_of_list
@@ -215,7 +215,7 @@ type aws_elasticache_serverless_cache = {
   tags : (string * string prop) list option; [@option]
   user_group_id : string prop option; [@option]
   cache_usage_limits : cache_usage_limits list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -248,7 +248,7 @@ let yojson_of_aws_elasticache_serverless_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cache_usage_limits then bnds
+         if Stdlib.( = ) [] v_cache_usage_limits then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cache_usage_limits)

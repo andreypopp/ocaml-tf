@@ -27,7 +27,7 @@ let _ = yojson_of_validation_settings
 type aws_verifiedpermissions_policy_store = {
   description : string prop option; [@option]
   validation_settings : validation_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,7 +43,7 @@ let yojson_of_aws_verifiedpermissions_policy_store =
          []
        in
        let bnds =
-         if [] = v_validation_settings then bnds
+         if Stdlib.( = ) [] v_validation_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_settings)

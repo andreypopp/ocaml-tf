@@ -5,7 +5,7 @@ open! Tf_core
 type destination_configuration = {
   from_port : float prop;
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   to_port : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -27,7 +27,7 @@ let yojson_of_destination_configuration =
          ("to_port", arg) :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -117,9 +117,9 @@ type aws_globalaccelerator_custom_routing_endpoint_group = {
   id : string prop option; [@option]
   listener_arn : string prop;
   destination_configuration : destination_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   endpoint_configuration : endpoint_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -145,7 +145,7 @@ let yojson_of_aws_globalaccelerator_custom_routing_endpoint_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint_configuration then bnds
+         if Stdlib.( = ) [] v_endpoint_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint_configuration)
@@ -155,7 +155,7 @@ let yojson_of_aws_globalaccelerator_custom_routing_endpoint_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_configuration then bnds
+         if Stdlib.( = ) [] v_destination_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_configuration)

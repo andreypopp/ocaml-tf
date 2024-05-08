@@ -78,11 +78,11 @@ type configuration__s3_configuration = {
   access_control_list_configuration :
     configuration__s3_configuration__access_control_list_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   documents_metadata_configuration :
     configuration__s3_configuration__documents_metadata_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,8 @@ let yojson_of_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_documents_metadata_configuration then bnds
+         if Stdlib.( = ) [] v_documents_metadata_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +116,8 @@ let yojson_of_configuration__s3_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control_list_configuration then bnds
+         if Stdlib.( = ) [] v_access_control_list_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -211,7 +213,7 @@ type configuration__web_crawler_configuration__authentication_configuration = {
   basic_authentication :
     configuration__web_crawler_configuration__authentication_configuration__basic_authentication
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,7 +230,7 @@ let yojson_of_configuration__web_crawler_configuration__authentication_configura
          []
        in
        let bnds =
-         if [] = v_basic_authentication then bnds
+         if Stdlib.( = ) [] v_basic_authentication then bnds
          else
            let arg =
              (yojson_of_list
@@ -293,7 +295,7 @@ let _ =
 
 type configuration__web_crawler_configuration__urls__seed_url_configuration = {
   seed_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   web_crawler_mode : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -322,7 +324,7 @@ let yojson_of_configuration__web_crawler_configuration__urls__seed_url_configura
              bnd :: bnds
        in
        let bnds =
-         if [] = v_seed_urls then bnds
+         if Stdlib.( = ) [] v_seed_urls then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -342,7 +344,7 @@ let _ =
 
 type configuration__web_crawler_configuration__urls__site_maps_configuration = {
   site_maps : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -359,7 +361,7 @@ let yojson_of_configuration__web_crawler_configuration__urls__site_maps_configur
          []
        in
        let bnds =
-         if [] = v_site_maps then bnds
+         if Stdlib.( = ) [] v_site_maps then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -381,11 +383,11 @@ type configuration__web_crawler_configuration__urls = {
   seed_url_configuration :
     configuration__web_crawler_configuration__urls__seed_url_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   site_maps_configuration :
     configuration__web_crawler_configuration__urls__site_maps_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -402,7 +404,7 @@ let yojson_of_configuration__web_crawler_configuration__urls =
          []
        in
        let bnds =
-         if [] = v_site_maps_configuration then bnds
+         if Stdlib.( = ) [] v_site_maps_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -413,7 +415,7 @@ let yojson_of_configuration__web_crawler_configuration__urls =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_seed_url_configuration then bnds
+         if Stdlib.( = ) [] v_seed_url_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -442,13 +444,13 @@ type configuration__web_crawler_configuration = {
   authentication_configuration :
     configuration__web_crawler_configuration__authentication_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy_configuration :
     configuration__web_crawler_configuration__proxy_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   urls : configuration__web_crawler_configuration__urls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -473,7 +475,7 @@ let yojson_of_configuration__web_crawler_configuration =
          []
        in
        let bnds =
-         if [] = v_urls then bnds
+         if Stdlib.( = ) [] v_urls then bnds
          else
            let arg =
              (yojson_of_list
@@ -484,7 +486,7 @@ let yojson_of_configuration__web_crawler_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy_configuration then bnds
+         if Stdlib.( = ) [] v_proxy_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -495,7 +497,7 @@ let yojson_of_configuration__web_crawler_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication_configuration then bnds
+         if Stdlib.( = ) [] v_authentication_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -569,10 +571,10 @@ let _ = yojson_of_configuration__web_crawler_configuration
 
 type configuration = {
   s3_configuration : configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   web_crawler_configuration :
     configuration__web_crawler_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -588,7 +590,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_web_crawler_configuration then bnds
+         if Stdlib.( = ) [] v_web_crawler_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -599,7 +601,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -690,7 +692,7 @@ type custom_document_enrichment_configuration__inline_configurations__condition 
   condition_on_value :
     custom_document_enrichment_configuration__inline_configurations__condition__condition_on_value
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -712,7 +714,7 @@ let yojson_of_custom_document_enrichment_configuration__inline_configurations__c
          []
        in
        let bnds =
-         if [] = v_condition_on_value then bnds
+         if Stdlib.( = ) [] v_condition_on_value then bnds
          else
            let arg =
              (yojson_of_list
@@ -817,7 +819,7 @@ type custom_document_enrichment_configuration__inline_configurations__target = {
   target_document_attribute_value :
     custom_document_enrichment_configuration__inline_configurations__target__target_document_attribute_value
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -841,7 +843,8 @@ let yojson_of_custom_document_enrichment_configuration__inline_configurations__t
          []
        in
        let bnds =
-         if [] = v_target_document_attribute_value then bnds
+         if Stdlib.( = ) [] v_target_document_attribute_value then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -883,11 +886,11 @@ type custom_document_enrichment_configuration__inline_configurations = {
   condition :
     custom_document_enrichment_configuration__inline_configurations__condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target :
     custom_document_enrichment_configuration__inline_configurations__target
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -908,7 +911,7 @@ let yojson_of_custom_document_enrichment_configuration__inline_configurations
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -919,7 +922,7 @@ let yojson_of_custom_document_enrichment_configuration__inline_configurations
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1020,7 +1023,7 @@ type custom_document_enrichment_configuration__post_extraction_hook_configuratio
   condition_on_value :
     custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition__condition_on_value
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1042,7 +1045,7 @@ let yojson_of_custom_document_enrichment_configuration__post_extraction_hook_con
          []
        in
        let bnds =
-         if [] = v_condition_on_value then bnds
+         if Stdlib.( = ) [] v_condition_on_value then bnds
          else
            let arg =
              (yojson_of_list
@@ -1078,7 +1081,7 @@ type custom_document_enrichment_configuration__post_extraction_hook_configuratio
   invocation_condition :
     custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1099,7 +1102,7 @@ let yojson_of_custom_document_enrichment_configuration__post_extraction_hook_con
          []
        in
        let bnds =
-         if [] = v_invocation_condition then bnds
+         if Stdlib.( = ) [] v_invocation_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1200,7 +1203,7 @@ type custom_document_enrichment_configuration__pre_extraction_hook_configuration
   condition_on_value :
     custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition__condition_on_value
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1222,7 +1225,7 @@ let yojson_of_custom_document_enrichment_configuration__pre_extraction_hook_conf
          []
        in
        let bnds =
-         if [] = v_condition_on_value then bnds
+         if Stdlib.( = ) [] v_condition_on_value then bnds
          else
            let arg =
              (yojson_of_list
@@ -1258,7 +1261,7 @@ type custom_document_enrichment_configuration__pre_extraction_hook_configuration
   invocation_condition :
     custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1279,7 +1282,7 @@ let yojson_of_custom_document_enrichment_configuration__pre_extraction_hook_conf
          []
        in
        let bnds =
-         if [] = v_invocation_condition then bnds
+         if Stdlib.( = ) [] v_invocation_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1311,15 +1314,15 @@ type custom_document_enrichment_configuration = {
   inline_configurations :
     custom_document_enrichment_configuration__inline_configurations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   post_extraction_hook_configuration :
     custom_document_enrichment_configuration__post_extraction_hook_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_extraction_hook_configuration :
     custom_document_enrichment_configuration__pre_extraction_hook_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1339,7 +1342,8 @@ let yojson_of_custom_document_enrichment_configuration =
          []
        in
        let bnds =
-         if [] = v_pre_extraction_hook_configuration then bnds
+         if Stdlib.( = ) [] v_pre_extraction_hook_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1350,7 +1354,8 @@ let yojson_of_custom_document_enrichment_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_extraction_hook_configuration then bnds
+         if Stdlib.( = ) [] v_post_extraction_hook_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1361,7 +1366,7 @@ let yojson_of_custom_document_enrichment_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inline_configurations then bnds
+         if Stdlib.( = ) [] v_inline_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -1445,10 +1450,10 @@ type aws_kendra_data_source = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_document_enrichment_configuration :
     custom_document_enrichment_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1481,7 +1486,9 @@ let yojson_of_aws_kendra_data_source =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom_document_enrichment_configuration then bnds
+         if
+           Stdlib.( = ) [] v_custom_document_enrichment_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1494,7 +1501,7 @@ let yojson_of_aws_kendra_data_source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

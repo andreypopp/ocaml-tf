@@ -168,9 +168,9 @@ type azurerm_mssql_server = {
       [@option]
   version : string prop;
   azuread_administrator : azuread_administrator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -210,7 +210,7 @@ let yojson_of_azurerm_mssql_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -219,7 +219,7 @@ let yojson_of_azurerm_mssql_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azuread_administrator then bnds
+         if Stdlib.( = ) [] v_azuread_administrator then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azuread_administrator)

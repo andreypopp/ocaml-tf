@@ -18,7 +18,7 @@ type block_device_mappings__ebs = {
 type block_device_mappings = {
   device_name : string prop;  (** device_name *)
   ebs : block_device_mappings__ebs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ebs *)
   no_device : string prop;  (** no_device *)
   virtual_name : string prop;  (** virtual_name *)
@@ -37,7 +37,7 @@ type capacity_reservation_specification = {
   capacity_reservation_target :
     capacity_reservation_specification__capacity_reservation_target
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** capacity_reservation_target *)
 }
 
@@ -82,7 +82,7 @@ type instance_market_options__spot_options = {
 type instance_market_options = {
   market_type : string prop;  (** market_type *)
   spot_options : instance_market_options__spot_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** spot_options *)
 }
 
@@ -133,57 +133,57 @@ type instance_requirements__accelerator_count = {
 
 type instance_requirements = {
   accelerator_count : instance_requirements__accelerator_count list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerator_count *)
   accelerator_manufacturers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerator_manufacturers *)
   accelerator_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerator_names *)
   accelerator_total_memory_mib :
     instance_requirements__accelerator_total_memory_mib list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerator_total_memory_mib *)
   accelerator_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerator_types *)
   allowed_instance_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_instance_types *)
   bare_metal : string prop;  (** bare_metal *)
   baseline_ebs_bandwidth_mbps :
     instance_requirements__baseline_ebs_bandwidth_mbps list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** baseline_ebs_bandwidth_mbps *)
   burstable_performance : string prop;  (** burstable_performance *)
   cpu_manufacturers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cpu_manufacturers *)
   excluded_instance_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** excluded_instance_types *)
   instance_generations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instance_generations *)
   local_storage : string prop;  (** local_storage *)
   local_storage_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_storage_types *)
   memory_gib_per_vcpu :
     instance_requirements__memory_gib_per_vcpu list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** memory_gib_per_vcpu *)
   memory_mib : instance_requirements__memory_mib list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** memory_mib *)
   network_bandwidth_gbps :
     instance_requirements__network_bandwidth_gbps list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_bandwidth_gbps *)
   network_interface_count :
     instance_requirements__network_interface_count list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_interface_count *)
   on_demand_max_price_percentage_over_lowest_price : float prop;
       (** on_demand_max_price_percentage_over_lowest_price *)
@@ -193,10 +193,10 @@ type instance_requirements = {
       (** spot_max_price_percentage_over_lowest_price *)
   total_local_storage_gb :
     instance_requirements__total_local_storage_gb list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** total_local_storage_gb *)
   vcpu_count : instance_requirements__vcpu_count list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vcpu_count *)
 }
 
@@ -231,25 +231,25 @@ type network_interfaces = {
   interface_type : string prop;  (** interface_type *)
   ipv4_address_count : float prop;  (** ipv4_address_count *)
   ipv4_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv4_addresses *)
   ipv4_prefix_count : float prop;  (** ipv4_prefix_count *)
   ipv4_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv4_prefixes *)
   ipv6_address_count : float prop;  (** ipv6_address_count *)
   ipv6_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv6_addresses *)
   ipv6_prefix_count : float prop;  (** ipv6_prefix_count *)
   ipv6_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv6_prefixes *)
   network_card_index : float prop;  (** network_card_index *)
   network_interface_id : string prop;  (** network_interface_id *)
   private_ip_address : string prop;  (** private_ip_address *)
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_groups *)
   subnet_id : string prop;  (** subnet_id *)
 }

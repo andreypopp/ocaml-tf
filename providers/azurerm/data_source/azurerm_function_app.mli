@@ -12,7 +12,7 @@ type connection_string = {
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
@@ -21,23 +21,23 @@ type identity = {
 
 type site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_azure_fdid *)
   x_fd_health_probe : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_fd_health_probe *)
   x_forwarded_for : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_forwarded_for *)
   x_forwarded_host : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_forwarded_host *)
 }
 
 type site_config__scm_ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__scm_ip_restriction__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -49,23 +49,23 @@ type site_config__scm_ip_restriction = {
 
 type site_config__ip_restriction__headers = {
   x_azure_fdid : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_azure_fdid *)
   x_fd_health_probe : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_fd_health_probe *)
   x_forwarded_for : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_forwarded_for *)
   x_forwarded_host : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x_forwarded_host *)
 }
 
 type site_config__ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__ip_restriction__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -77,7 +77,7 @@ type site_config__ip_restriction = {
 
 type site_config__cors = {
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_origins *)
   support_credentials : bool prop;  (** support_credentials *)
 }
@@ -87,7 +87,7 @@ type site_config = {
   app_scale_limit : float prop;  (** app_scale_limit *)
   auto_swap_slot_name : string prop;  (** auto_swap_slot_name *)
   cors : site_config__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cors *)
   dotnet_framework_version : string prop;
       (** dotnet_framework_version *)
@@ -97,7 +97,7 @@ type site_config = {
   health_check_path : string prop;  (** health_check_path *)
   http2_enabled : bool prop;  (** http2_enabled *)
   ip_restriction : site_config__ip_restriction list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_restriction *)
   java_version : string prop;  (** java_version *)
   linux_fx_version : string prop;  (** linux_fx_version *)
@@ -107,7 +107,7 @@ type site_config = {
   runtime_scale_monitoring_enabled : bool prop;
       (** runtime_scale_monitoring_enabled *)
   scm_ip_restriction : site_config__scm_ip_restriction list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scm_ip_restriction *)
   scm_type : string prop;  (** scm_type *)
   scm_use_main_ip_restriction : bool prop;

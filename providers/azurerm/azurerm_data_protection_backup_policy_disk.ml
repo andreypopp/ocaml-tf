@@ -35,7 +35,7 @@ type retention_rule = {
   name : string prop;
   priority : float prop;
   criteria : retention_rule__criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,7 +53,7 @@ let yojson_of_retention_rule =
          []
        in
        let bnds =
-         if [] = v_criteria then bnds
+         if Stdlib.( = ) [] v_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_rule__criteria)
@@ -129,14 +129,14 @@ let _ = yojson_of_timeouts
 
 type azurerm_data_protection_backup_policy_disk = {
   backup_repeating_time_intervals : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_retention_duration : string prop;
   id : string prop option; [@option]
   name : string prop;
   time_zone : string prop option; [@option]
   vault_id : string prop;
   retention_rule : retention_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,7 +164,7 @@ let yojson_of_azurerm_data_protection_backup_policy_disk =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_rule then bnds
+         if Stdlib.( = ) [] v_retention_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_rule)
@@ -205,7 +205,8 @@ let yojson_of_azurerm_data_protection_backup_policy_disk =
          ("default_retention_duration", arg) :: bnds
        in
        let bnds =
-         if [] = v_backup_repeating_time_intervals then bnds
+         if Stdlib.( = ) [] v_backup_repeating_time_intervals then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

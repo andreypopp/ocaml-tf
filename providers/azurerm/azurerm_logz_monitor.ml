@@ -165,9 +165,9 @@ type azurerm_logz_monitor = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  user : user list; [@default []] [@yojson_drop_default ( = )]
+  user : user list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,7 +192,7 @@ let yojson_of_azurerm_logz_monitor =
          []
        in
        let bnds =
-         if [] = v_user then bnds
+         if Stdlib.( = ) [] v_user then bnds
          else
            let arg = (yojson_of_list yojson_of_user) v_user in
            let bnd = "user", arg in
@@ -203,7 +203,7 @@ let yojson_of_azurerm_logz_monitor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in

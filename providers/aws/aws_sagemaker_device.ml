@@ -51,7 +51,8 @@ let _ = yojson_of_device
 type aws_sagemaker_device = {
   device_fleet_name : string prop;
   id : string prop option; [@option]
-  device : device list; [@default []] [@yojson_drop_default ( = )]
+  device : device list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,7 +69,7 @@ let yojson_of_aws_sagemaker_device =
          []
        in
        let bnds =
-         if [] = v_device then bnds
+         if Stdlib.( = ) [] v_device then bnds
          else
            let arg = (yojson_of_list yojson_of_device) v_device in
            let bnd = "device", arg in

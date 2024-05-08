@@ -240,13 +240,13 @@ type azurerm_machine_learning_workspace = {
   tags : (string * string prop) list option; [@option]
   v1_legacy_mode_enabled : bool prop option; [@option]
   encryption : encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   feature_store : feature_store list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_network : managed_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -292,7 +292,7 @@ let yojson_of_azurerm_machine_learning_workspace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_managed_network then bnds
+         if Stdlib.( = ) [] v_managed_network then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_network)
@@ -302,7 +302,7 @@ let yojson_of_azurerm_machine_learning_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -311,7 +311,7 @@ let yojson_of_azurerm_machine_learning_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_feature_store then bnds
+         if Stdlib.( = ) [] v_feature_store then bnds
          else
            let arg =
              (yojson_of_list yojson_of_feature_store) v_feature_store
@@ -320,7 +320,7 @@ let yojson_of_azurerm_machine_learning_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption) v_encryption

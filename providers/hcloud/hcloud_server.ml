@@ -157,9 +157,10 @@ type hcloud_server = {
   shutdown_before_deletion : bool prop option; [@option]
   ssh_keys : string prop list option; [@option]
   user_data : string prop option; [@option]
-  network : network list; [@default []] [@yojson_drop_default ( = )]
+  network : network list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_net : public_net list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -201,7 +202,7 @@ let yojson_of_hcloud_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_net then bnds
+         if Stdlib.( = ) [] v_public_net then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_net) v_public_net
@@ -210,7 +211,7 @@ let yojson_of_hcloud_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network then bnds
+         if Stdlib.( = ) [] v_network then bnds
          else
            let arg = (yojson_of_list yojson_of_network) v_network in
            let bnd = "network", arg in

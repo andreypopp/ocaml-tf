@@ -116,7 +116,7 @@ type azurerm_bastion_host = {
   tags : (string * string prop) list option; [@option]
   tunneling_enabled : bool prop option; [@option]
   ip_configuration : ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -149,7 +149,7 @@ let yojson_of_azurerm_bastion_host =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ip_configuration)

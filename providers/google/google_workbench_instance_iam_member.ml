@@ -16,7 +16,7 @@ type google_workbench_instance_iam_member = {
   name: string prop; 
   project: string  prop option; [@option]
   role: string prop; 
-  condition: condition list; [@default []] [@yojson_drop_default ( = )]
+  condition: condition list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

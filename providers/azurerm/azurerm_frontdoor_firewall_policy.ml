@@ -4,7 +4,7 @@ open! Tf_core
 
 type custom_rule__match_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_variable : string prop;
   negation_condition : bool prop option; [@option]
   operator : string prop;
@@ -65,7 +65,7 @@ let yojson_of_custom_rule__match_condition =
          ("match_variable", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -91,7 +91,7 @@ type custom_rule = {
   rate_limit_threshold : float prop option; [@option]
   type_ : string prop; [@key "type"]
   match_condition : custom_rule__match_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,7 +114,7 @@ let yojson_of_custom_rule =
          []
        in
        let bnds =
-         if [] = v_match_condition then bnds
+         if Stdlib.( = ) [] v_match_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_rule__match_condition)
@@ -301,7 +301,7 @@ type managed_rule__override__rule = {
   enabled : bool prop option; [@option]
   rule_id : string prop;
   exclusion : managed_rule__override__rule__exclusion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -319,7 +319,7 @@ let yojson_of_managed_rule__override__rule =
          []
        in
        let bnds =
-         if [] = v_exclusion then bnds
+         if Stdlib.( = ) [] v_exclusion then bnds
          else
            let arg =
              (yojson_of_list
@@ -356,9 +356,9 @@ let _ = yojson_of_managed_rule__override__rule
 type managed_rule__override = {
   rule_group_name : string prop;
   exclusion : managed_rule__override__exclusion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule : managed_rule__override__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -375,7 +375,7 @@ let yojson_of_managed_rule__override =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_rule__override__rule)
@@ -385,7 +385,7 @@ let yojson_of_managed_rule__override =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclusion then bnds
+         if Stdlib.( = ) [] v_exclusion then bnds
          else
            let arg =
              (yojson_of_list
@@ -412,9 +412,9 @@ type managed_rule = {
   type_ : string prop; [@key "type"]
   version : string prop;
   exclusion : managed_rule__exclusion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   override : managed_rule__override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -432,7 +432,7 @@ let yojson_of_managed_rule =
          []
        in
        let bnds =
-         if [] = v_override then bnds
+         if Stdlib.( = ) [] v_override then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_rule__override)
@@ -442,7 +442,7 @@ let yojson_of_managed_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclusion then bnds
+         if Stdlib.( = ) [] v_exclusion then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_rule__exclusion)
@@ -537,9 +537,9 @@ type azurerm_frontdoor_firewall_policy = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   custom_rule : custom_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_rule : managed_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -571,7 +571,7 @@ let yojson_of_azurerm_frontdoor_firewall_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_managed_rule then bnds
+         if Stdlib.( = ) [] v_managed_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_rule) v_managed_rule
@@ -580,7 +580,7 @@ let yojson_of_azurerm_frontdoor_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_rule then bnds
+         if Stdlib.( = ) [] v_custom_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_rule) v_custom_rule

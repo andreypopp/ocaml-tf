@@ -52,7 +52,7 @@ type aws_opensearchserverless_vpc_endpoint = {
   name : string prop;
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
   timeouts : timeouts option;
 }
@@ -81,7 +81,7 @@ let yojson_of_aws_opensearchserverless_vpc_endpoint =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

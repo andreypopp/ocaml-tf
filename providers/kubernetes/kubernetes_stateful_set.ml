@@ -180,7 +180,7 @@ let _ = yojson_of_spec__selector__match_expressions
 type spec__selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions : spec__selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,7 +196,7 @@ let yojson_of_spec__selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -419,11 +419,11 @@ type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_
   match_expressions :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_fields :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -443,7 +443,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_sc
          []
        in
        let bnds =
-         if [] = v_match_fields then bnds
+         if Stdlib.( = ) [] v_match_fields then bnds
          else
            let arg =
              (yojson_of_list
@@ -454,7 +454,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_sc
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -478,7 +478,7 @@ type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_
   preference :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,7 +495,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_sc
          []
        in
        let bnds =
-         if [] = v_preference then bnds
+         if Stdlib.( = ) [] v_preference then bnds
          else
            let arg =
              (yojson_of_list
@@ -622,11 +622,11 @@ type spec__template__spec__affinity__node_affinity__required_during_scheduling_i
   match_expressions :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_fields :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -646,7 +646,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__required_during_sch
          []
        in
        let bnds =
-         if [] = v_match_fields then bnds
+         if Stdlib.( = ) [] v_match_fields then bnds
          else
            let arg =
              (yojson_of_list
@@ -657,7 +657,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__required_during_sch
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -680,7 +680,7 @@ type spec__template__spec__affinity__node_affinity__required_during_scheduling_i
   node_selector_term :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -697,7 +697,7 @@ let yojson_of_spec__template__spec__affinity__node_affinity__required_during_sch
          []
        in
        let bnds =
-         if [] = v_node_selector_term then bnds
+         if Stdlib.( = ) [] v_node_selector_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -720,11 +720,11 @@ type spec__template__spec__affinity__node_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -743,7 +743,8 @@ let yojson_of_spec__template__spec__affinity__node_affinity =
        in
        let bnds =
          if
-           [] = v_required_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_required_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -759,8 +760,8 @@ let yojson_of_spec__template__spec__affinity__node_affinity =
        in
        let bnds =
          if
-           []
-           = v_preferred_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_preferred_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -841,7 +842,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   match_expressions :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -861,7 +862,7 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -902,7 +903,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   label_selector :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -923,7 +924,7 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         if [] = v_label_selector then bnds
+         if Stdlib.( = ) [] v_label_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -961,7 +962,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   pod_affinity_term :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -979,7 +980,7 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         if [] = v_pod_affinity_term then bnds
+         if Stdlib.( = ) [] v_pod_affinity_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -1061,7 +1062,7 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
   match_expressions :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1081,7 +1082,7 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_sche
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1122,7 +1123,7 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
   label_selector :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1143,7 +1144,7 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_sche
          []
        in
        let bnds =
-         if [] = v_label_selector then bnds
+         if Stdlib.( = ) [] v_label_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -1180,11 +1181,11 @@ type spec__template__spec__affinity__pod_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1203,7 +1204,8 @@ let yojson_of_spec__template__spec__affinity__pod_affinity =
        in
        let bnds =
          if
-           [] = v_required_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_required_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -1219,8 +1221,8 @@ let yojson_of_spec__template__spec__affinity__pod_affinity =
        in
        let bnds =
          if
-           []
-           = v_preferred_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_preferred_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -1301,7 +1303,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1321,7 +1323,7 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1362,7 +1364,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1383,7 +1385,7 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         if [] = v_label_selector then bnds
+         if Stdlib.( = ) [] v_label_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -1421,7 +1423,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   pod_affinity_term :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1439,7 +1441,7 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         if [] = v_pod_affinity_term then bnds
+         if Stdlib.( = ) [] v_pod_affinity_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -1521,7 +1523,7 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1541,7 +1543,7 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1582,7 +1584,7 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1603,7 +1605,7 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during
          []
        in
        let bnds =
-         if [] = v_label_selector then bnds
+         if Stdlib.( = ) [] v_label_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -1640,11 +1642,11 @@ type spec__template__spec__affinity__pod_anti_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1664,7 +1666,8 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity =
        in
        let bnds =
          if
-           [] = v_required_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_required_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -1680,8 +1683,8 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity =
        in
        let bnds =
          if
-           []
-           = v_preferred_during_scheduling_ignored_during_execution
+           Stdlib.( = ) []
+             v_preferred_during_scheduling_ignored_during_execution
          then bnds
          else
            let arg =
@@ -1705,12 +1708,12 @@ let _ = yojson_of_spec__template__spec__affinity__pod_anti_affinity
 
 type spec__template__spec__affinity = {
   node_affinity : spec__template__spec__affinity__node_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_affinity : spec__template__spec__affinity__pod_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_anti_affinity :
     spec__template__spec__affinity__pod_anti_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1727,7 +1730,7 @@ let yojson_of_spec__template__spec__affinity =
          []
        in
        let bnds =
-         if [] = v_pod_anti_affinity then bnds
+         if Stdlib.( = ) [] v_pod_anti_affinity then bnds
          else
            let arg =
              (yojson_of_list
@@ -1738,7 +1741,7 @@ let yojson_of_spec__template__spec__affinity =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pod_affinity then bnds
+         if Stdlib.( = ) [] v_pod_affinity then bnds
          else
            let arg =
              (yojson_of_list
@@ -1749,7 +1752,7 @@ let yojson_of_spec__template__spec__affinity =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_affinity then bnds
+         if Stdlib.( = ) [] v_node_affinity then bnds
          else
            let arg =
              (yojson_of_list
@@ -1970,18 +1973,18 @@ type spec__template__spec__container__env__value_from = {
   config_map_key_ref :
     spec__template__spec__container__env__value_from__config_map_key_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   field_ref :
     spec__template__spec__container__env__value_from__field_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_field_ref :
     spec__template__spec__container__env__value_from__resource_field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_key_ref :
     spec__template__spec__container__env__value_from__secret_key_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2000,7 +2003,7 @@ let yojson_of_spec__template__spec__container__env__value_from =
          []
        in
        let bnds =
-         if [] = v_secret_key_ref then bnds
+         if Stdlib.( = ) [] v_secret_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2011,7 +2014,7 @@ let yojson_of_spec__template__spec__container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_field_ref then bnds
+         if Stdlib.( = ) [] v_resource_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2022,7 +2025,7 @@ let yojson_of_spec__template__spec__container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_ref then bnds
+         if Stdlib.( = ) [] v_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2033,7 +2036,7 @@ let yojson_of_spec__template__spec__container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map_key_ref then bnds
+         if Stdlib.( = ) [] v_config_map_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2055,7 +2058,7 @@ type spec__template__spec__container__env = {
   name : string prop;
   value : string prop option; [@option]
   value_from : spec__template__spec__container__env__value_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2068,7 +2071,7 @@ let yojson_of_spec__template__spec__container__env =
          []
        in
        let bnds =
-         if [] = v_value_from then bnds
+         if Stdlib.( = ) [] v_value_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -2177,10 +2180,10 @@ type spec__template__spec__container__env_from = {
   prefix : string prop option; [@option]
   config_map_ref :
     spec__template__spec__container__env_from__config_map_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_ref :
     spec__template__spec__container__env_from__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2197,7 +2200,7 @@ let yojson_of_spec__template__spec__container__env_from =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2208,7 +2211,7 @@ let yojson_of_spec__template__spec__container__env_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map_ref then bnds
+         if Stdlib.( = ) [] v_config_map_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -2321,7 +2324,7 @@ type spec__template__spec__container__lifecycle__post_start__http_get = {
   http_header :
     spec__template__spec__container__lifecycle__post_start__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2344,7 +2347,7 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -2428,15 +2431,15 @@ let _ =
 type spec__template__spec__container__lifecycle__post_start = {
   exec :
     spec__template__spec__container__lifecycle__post_start__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__container__lifecycle__post_start__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__container__lifecycle__post_start__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2456,7 +2459,7 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -2467,7 +2470,7 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -2478,7 +2481,7 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -2583,7 +2586,7 @@ type spec__template__spec__container__lifecycle__pre_stop__http_get = {
   http_header :
     spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2606,7 +2609,7 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -2690,15 +2693,15 @@ let _ =
 type spec__template__spec__container__lifecycle__pre_stop = {
   exec :
     spec__template__spec__container__lifecycle__pre_stop__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__container__lifecycle__pre_stop__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2716,7 +2719,7 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -2727,7 +2730,7 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -2738,7 +2741,7 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -2760,10 +2763,10 @@ let _ =
 type spec__template__spec__container__lifecycle = {
   post_start :
     spec__template__spec__container__lifecycle__post_start list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_stop :
     spec__template__spec__container__lifecycle__pre_stop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2776,7 +2779,7 @@ let yojson_of_spec__template__spec__container__lifecycle =
          []
        in
        let bnds =
-         if [] = v_pre_stop then bnds
+         if Stdlib.( = ) [] v_pre_stop then bnds
          else
            let arg =
              (yojson_of_list
@@ -2787,7 +2790,7 @@ let yojson_of_spec__template__spec__container__lifecycle =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_start then bnds
+         if Stdlib.( = ) [] v_post_start then bnds
          else
            let arg =
              (yojson_of_list
@@ -2927,7 +2930,7 @@ type spec__template__spec__container__liveness_probe__http_get = {
   http_header :
     spec__template__spec__container__liveness_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2949,7 +2952,7 @@ let yojson_of_spec__template__spec__container__liveness_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -3037,15 +3040,15 @@ type spec__template__spec__container__liveness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__liveness_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc : spec__template__spec__container__liveness_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__container__liveness_probe__http_get list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__container__liveness_probe__tcp_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3069,7 +3072,7 @@ let yojson_of_spec__template__spec__container__liveness_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -3080,7 +3083,7 @@ let yojson_of_spec__template__spec__container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -3091,7 +3094,7 @@ let yojson_of_spec__template__spec__container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -3102,7 +3105,7 @@ let yojson_of_spec__template__spec__container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -3351,7 +3354,7 @@ type spec__template__spec__container__readiness_probe__http_get = {
   http_header :
     spec__template__spec__container__readiness_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3373,7 +3376,7 @@ let yojson_of_spec__template__spec__container__readiness_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -3461,15 +3464,15 @@ type spec__template__spec__container__readiness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__readiness_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc : spec__template__spec__container__readiness_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__container__readiness_probe__http_get list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__container__readiness_probe__tcp_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3493,7 +3496,7 @@ let yojson_of_spec__template__spec__container__readiness_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -3504,7 +3507,7 @@ let yojson_of_spec__template__spec__container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -3515,7 +3518,7 @@ let yojson_of_spec__template__spec__container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -3526,7 +3529,7 @@ let yojson_of_spec__template__spec__container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -3804,15 +3807,15 @@ type spec__template__spec__container__security_context = {
   capabilities :
     spec__template__spec__container__security_context__capabilities
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   se_linux_options :
     spec__template__spec__container__security_context__se_linux_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   seccomp_profile :
     spec__template__spec__container__security_context__seccomp_profile
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3836,7 +3839,7 @@ let yojson_of_spec__template__spec__container__security_context =
          []
        in
        let bnds =
-         if [] = v_seccomp_profile then bnds
+         if Stdlib.( = ) [] v_seccomp_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -3847,7 +3850,7 @@ let yojson_of_spec__template__spec__container__security_context =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_se_linux_options then bnds
+         if Stdlib.( = ) [] v_se_linux_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -3858,7 +3861,7 @@ let yojson_of_spec__template__spec__container__security_context =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capabilities then bnds
+         if Stdlib.( = ) [] v_capabilities then bnds
          else
            let arg =
              (yojson_of_list
@@ -4044,7 +4047,7 @@ type spec__template__spec__container__startup_probe__http_get = {
   http_header :
     spec__template__spec__container__startup_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4066,7 +4069,7 @@ let yojson_of_spec__template__spec__container__startup_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -4153,15 +4156,15 @@ type spec__template__spec__container__startup_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__startup_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc : spec__template__spec__container__startup_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__container__startup_probe__http_get list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__container__startup_probe__tcp_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4185,7 +4188,7 @@ let yojson_of_spec__template__spec__container__startup_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -4196,7 +4199,7 @@ let yojson_of_spec__template__spec__container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -4207,7 +4210,7 @@ let yojson_of_spec__template__spec__container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -4218,7 +4221,7 @@ let yojson_of_spec__template__spec__container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -4352,29 +4355,29 @@ type spec__template__spec__container = {
   tty : bool prop option; [@option]
   working_dir : string prop option; [@option]
   env : spec__template__spec__container__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env_from : spec__template__spec__container__env_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lifecycle : spec__template__spec__container__lifecycle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   liveness_probe :
     spec__template__spec__container__liveness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port : spec__template__spec__container__port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   readiness_probe :
     spec__template__spec__container__readiness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : spec__template__spec__container__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_context :
     spec__template__spec__container__security_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   startup_probe :
     spec__template__spec__container__startup_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_mount : spec__template__spec__container__volume_mount list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4409,7 +4412,7 @@ let yojson_of_spec__template__spec__container =
          []
        in
        let bnds =
-         if [] = v_volume_mount then bnds
+         if Stdlib.( = ) [] v_volume_mount then bnds
          else
            let arg =
              (yojson_of_list
@@ -4420,7 +4423,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_startup_probe then bnds
+         if Stdlib.( = ) [] v_startup_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -4431,7 +4434,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_context then bnds
+         if Stdlib.( = ) [] v_security_context then bnds
          else
            let arg =
              (yojson_of_list
@@ -4442,7 +4445,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -4453,7 +4456,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_readiness_probe then bnds
+         if Stdlib.( = ) [] v_readiness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -4464,7 +4467,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -4475,7 +4478,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_liveness_probe then bnds
+         if Stdlib.( = ) [] v_liveness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -4486,7 +4489,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle then bnds
+         if Stdlib.( = ) [] v_lifecycle then bnds
          else
            let arg =
              (yojson_of_list
@@ -4497,7 +4500,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env_from then bnds
+         if Stdlib.( = ) [] v_env_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -4508,7 +4511,7 @@ let yojson_of_spec__template__spec__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg =
              (yojson_of_list
@@ -4652,7 +4655,9 @@ type spec__template__spec__dns_config = {
   nameservers : string prop list option; [@option]
   searches : string prop list option; [@option]
   option_ : spec__template__spec__dns_config__option list;
-      [@key "option"] [@default []] [@yojson_drop_default ( = )]
+      [@key "option"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4669,7 +4674,7 @@ let yojson_of_spec__template__spec__dns_config =
          []
        in
        let bnds =
-         if [] = v_option_ then bnds
+         if Stdlib.( = ) [] v_option_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -4709,7 +4714,7 @@ let _ = yojson_of_spec__template__spec__dns_config
 
 type spec__template__spec__host_aliases = {
   hostnames : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -4727,7 +4732,7 @@ let yojson_of_spec__template__spec__host_aliases =
          ("ip", arg) :: bnds
        in
        let bnds =
-         if [] = v_hostnames then bnds
+         if Stdlib.( = ) [] v_hostnames then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -4972,19 +4977,19 @@ type spec__template__spec__init_container__env__value_from = {
   config_map_key_ref :
     spec__template__spec__init_container__env__value_from__config_map_key_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   field_ref :
     spec__template__spec__init_container__env__value_from__field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_field_ref :
     spec__template__spec__init_container__env__value_from__resource_field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_key_ref :
     spec__template__spec__init_container__env__value_from__secret_key_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5004,7 +5009,7 @@ let yojson_of_spec__template__spec__init_container__env__value_from =
          []
        in
        let bnds =
-         if [] = v_secret_key_ref then bnds
+         if Stdlib.( = ) [] v_secret_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5015,7 +5020,7 @@ let yojson_of_spec__template__spec__init_container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_field_ref then bnds
+         if Stdlib.( = ) [] v_resource_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5026,7 +5031,7 @@ let yojson_of_spec__template__spec__init_container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_ref then bnds
+         if Stdlib.( = ) [] v_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5037,7 +5042,7 @@ let yojson_of_spec__template__spec__init_container__env__value_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map_key_ref then bnds
+         if Stdlib.( = ) [] v_config_map_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5061,7 +5066,7 @@ type spec__template__spec__init_container__env = {
   value : string prop option; [@option]
   value_from :
     spec__template__spec__init_container__env__value_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5074,7 +5079,7 @@ let yojson_of_spec__template__spec__init_container__env =
          []
        in
        let bnds =
-         if [] = v_value_from then bnds
+         if Stdlib.( = ) [] v_value_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -5186,10 +5191,10 @@ type spec__template__spec__init_container__env_from = {
   config_map_ref :
     spec__template__spec__init_container__env_from__config_map_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_ref :
     spec__template__spec__init_container__env_from__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5207,7 +5212,7 @@ let yojson_of_spec__template__spec__init_container__env_from =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5218,7 +5223,7 @@ let yojson_of_spec__template__spec__init_container__env_from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map_ref then bnds
+         if Stdlib.( = ) [] v_config_map_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -5331,7 +5336,7 @@ type spec__template__spec__init_container__lifecycle__post_start__http_get = {
   http_header :
     spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5354,7 +5359,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -5439,15 +5444,15 @@ type spec__template__spec__init_container__lifecycle__post_start = {
   exec :
     spec__template__spec__init_container__lifecycle__post_start__exec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__init_container__lifecycle__post_start__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5468,7 +5473,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -5479,7 +5484,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -5490,7 +5495,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -5596,7 +5601,7 @@ type spec__template__spec__init_container__lifecycle__pre_stop__http_get = {
   http_header :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5619,7 +5624,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_ge
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -5704,15 +5709,15 @@ type spec__template__spec__init_container__lifecycle__pre_stop = {
   exec :
     spec__template__spec__init_container__lifecycle__pre_stop__exec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5732,7 +5737,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -5743,7 +5748,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -5754,7 +5759,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -5776,10 +5781,10 @@ let _ =
 type spec__template__spec__init_container__lifecycle = {
   post_start :
     spec__template__spec__init_container__lifecycle__post_start list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_stop :
     spec__template__spec__init_container__lifecycle__pre_stop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5793,7 +5798,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle =
          []
        in
        let bnds =
-         if [] = v_pre_stop then bnds
+         if Stdlib.( = ) [] v_pre_stop then bnds
          else
            let arg =
              (yojson_of_list
@@ -5804,7 +5809,7 @@ let yojson_of_spec__template__spec__init_container__lifecycle =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_start then bnds
+         if Stdlib.( = ) [] v_post_start then bnds
          else
            let arg =
              (yojson_of_list
@@ -5946,7 +5951,7 @@ type spec__template__spec__init_container__liveness_probe__http_get = {
   http_header :
     spec__template__spec__init_container__liveness_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5969,7 +5974,7 @@ let yojson_of_spec__template__spec__init_container__liveness_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -6058,18 +6063,18 @@ type spec__template__spec__init_container__liveness_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__liveness_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc :
     spec__template__spec__init_container__liveness_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__init_container__liveness_probe__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__init_container__liveness_probe__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6093,7 +6098,7 @@ let yojson_of_spec__template__spec__init_container__liveness_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -6104,7 +6109,7 @@ let yojson_of_spec__template__spec__init_container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -6115,7 +6120,7 @@ let yojson_of_spec__template__spec__init_container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -6126,7 +6131,7 @@ let yojson_of_spec__template__spec__init_container__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -6378,7 +6383,7 @@ type spec__template__spec__init_container__readiness_probe__http_get = {
   http_header :
     spec__template__spec__init_container__readiness_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6401,7 +6406,7 @@ let yojson_of_spec__template__spec__init_container__readiness_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -6490,18 +6495,18 @@ type spec__template__spec__init_container__readiness_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__readiness_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc :
     spec__template__spec__init_container__readiness_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__init_container__readiness_probe__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__init_container__readiness_probe__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6526,7 +6531,7 @@ let yojson_of_spec__template__spec__init_container__readiness_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -6537,7 +6542,7 @@ let yojson_of_spec__template__spec__init_container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -6548,7 +6553,7 @@ let yojson_of_spec__template__spec__init_container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -6559,7 +6564,7 @@ let yojson_of_spec__template__spec__init_container__readiness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -6839,15 +6844,15 @@ type spec__template__spec__init_container__security_context = {
   capabilities :
     spec__template__spec__init_container__security_context__capabilities
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   se_linux_options :
     spec__template__spec__init_container__security_context__se_linux_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   seccomp_profile :
     spec__template__spec__init_container__security_context__seccomp_profile
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6873,7 +6878,7 @@ let yojson_of_spec__template__spec__init_container__security_context
          []
        in
        let bnds =
-         if [] = v_seccomp_profile then bnds
+         if Stdlib.( = ) [] v_seccomp_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -6884,7 +6889,7 @@ let yojson_of_spec__template__spec__init_container__security_context
            bnd :: bnds
        in
        let bnds =
-         if [] = v_se_linux_options then bnds
+         if Stdlib.( = ) [] v_se_linux_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -6895,7 +6900,7 @@ let yojson_of_spec__template__spec__init_container__security_context
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capabilities then bnds
+         if Stdlib.( = ) [] v_capabilities then bnds
          else
            let arg =
              (yojson_of_list
@@ -7086,7 +7091,7 @@ type spec__template__spec__init_container__startup_probe__http_get = {
   http_header :
     spec__template__spec__init_container__startup_probe__http_get__http_header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7109,7 +7114,7 @@ let yojson_of_spec__template__spec__init_container__startup_probe__http_get
          []
        in
        let bnds =
-         if [] = v_http_header then bnds
+         if Stdlib.( = ) [] v_http_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -7198,18 +7203,18 @@ type spec__template__spec__init_container__startup_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__startup_probe__exec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grpc :
     spec__template__spec__init_container__startup_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     spec__template__spec__init_container__startup_probe__http_get
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_socket :
     spec__template__spec__init_container__startup_probe__tcp_socket
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7233,7 +7238,7 @@ let yojson_of_spec__template__spec__init_container__startup_probe =
          []
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -7244,7 +7249,7 @@ let yojson_of_spec__template__spec__init_container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -7255,7 +7260,7 @@ let yojson_of_spec__template__spec__init_container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -7266,7 +7271,7 @@ let yojson_of_spec__template__spec__init_container__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exec then bnds
+         if Stdlib.( = ) [] v_exec then bnds
          else
            let arg =
              (yojson_of_list
@@ -7401,30 +7406,30 @@ type spec__template__spec__init_container = {
   tty : bool prop option; [@option]
   working_dir : string prop option; [@option]
   env : spec__template__spec__init_container__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env_from : spec__template__spec__init_container__env_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lifecycle : spec__template__spec__init_container__lifecycle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   liveness_probe :
     spec__template__spec__init_container__liveness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port : spec__template__spec__init_container__port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   readiness_probe :
     spec__template__spec__init_container__readiness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : spec__template__spec__init_container__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_context :
     spec__template__spec__init_container__security_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   startup_probe :
     spec__template__spec__init_container__startup_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_mount :
     spec__template__spec__init_container__volume_mount list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7459,7 +7464,7 @@ let yojson_of_spec__template__spec__init_container =
          []
        in
        let bnds =
-         if [] = v_volume_mount then bnds
+         if Stdlib.( = ) [] v_volume_mount then bnds
          else
            let arg =
              (yojson_of_list
@@ -7470,7 +7475,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_startup_probe then bnds
+         if Stdlib.( = ) [] v_startup_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -7481,7 +7486,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_context then bnds
+         if Stdlib.( = ) [] v_security_context then bnds
          else
            let arg =
              (yojson_of_list
@@ -7492,7 +7497,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -7503,7 +7508,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_readiness_probe then bnds
+         if Stdlib.( = ) [] v_readiness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -7514,7 +7519,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -7525,7 +7530,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_liveness_probe then bnds
+         if Stdlib.( = ) [] v_liveness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -7536,7 +7541,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle then bnds
+         if Stdlib.( = ) [] v_lifecycle then bnds
          else
            let arg =
              (yojson_of_list
@@ -7547,7 +7552,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env_from then bnds
+         if Stdlib.( = ) [] v_env_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -7558,7 +7563,7 @@ let yojson_of_spec__template__spec__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg =
              (yojson_of_list
@@ -7925,15 +7930,15 @@ type spec__template__spec__security_context = {
   supplemental_groups : float prop list option; [@option]
   se_linux_options :
     spec__template__spec__security_context__se_linux_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   seccomp_profile :
     spec__template__spec__security_context__seccomp_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sysctl : spec__template__spec__security_context__sysctl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_options :
     spec__template__spec__security_context__windows_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7957,7 +7962,7 @@ let yojson_of_spec__template__spec__security_context =
          []
        in
        let bnds =
-         if [] = v_windows_options then bnds
+         if Stdlib.( = ) [] v_windows_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -7968,7 +7973,7 @@ let yojson_of_spec__template__spec__security_context =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sysctl then bnds
+         if Stdlib.( = ) [] v_sysctl then bnds
          else
            let arg =
              (yojson_of_list
@@ -7979,7 +7984,7 @@ let yojson_of_spec__template__spec__security_context =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_seccomp_profile then bnds
+         if Stdlib.( = ) [] v_seccomp_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -7990,7 +7995,7 @@ let yojson_of_spec__template__spec__security_context =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_se_linux_options then bnds
+         if Stdlib.( = ) [] v_se_linux_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -8188,7 +8193,7 @@ type spec__template__spec__topology_spread_constraint__label_selector = {
   match_expressions :
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8208,7 +8213,7 @@ let yojson_of_spec__template__spec__topology_spread_constraint__label_selector
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -8254,7 +8259,7 @@ type spec__template__spec__topology_spread_constraint = {
   label_selector :
     spec__template__spec__topology_spread_constraint__label_selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8277,7 +8282,7 @@ let yojson_of_spec__template__spec__topology_spread_constraint =
          []
        in
        let bnds =
-         if [] = v_label_selector then bnds
+         if Stdlib.( = ) [] v_label_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -8576,13 +8581,13 @@ let _ = yojson_of_spec__template__spec__volume__ceph_fs__secret_ref
 
 type spec__template__spec__volume__ceph_fs = {
   monitors : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_file : string prop option; [@option]
   user : string prop option; [@option]
   secret_ref : spec__template__spec__volume__ceph_fs__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8602,7 +8607,7 @@ let yojson_of_spec__template__spec__volume__ceph_fs =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -8645,7 +8650,7 @@ let yojson_of_spec__template__spec__volume__ceph_fs =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_monitors then bnds
+         if Stdlib.( = ) [] v_monitors then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -8762,7 +8767,7 @@ type spec__template__spec__volume__config_map = {
   name : string prop option; [@option]
   optional : bool prop option; [@option]
   items : spec__template__spec__volume__config_map__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8780,7 +8785,7 @@ let yojson_of_spec__template__spec__volume__config_map =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -8862,7 +8867,7 @@ type spec__template__spec__volume__csi = {
   volume_attributes : (string * string prop) list option; [@option]
   node_publish_secret_ref :
     spec__template__spec__volume__csi__node_publish_secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8881,7 +8886,7 @@ let yojson_of_spec__template__spec__volume__csi =
          []
        in
        let bnds =
-         if [] = v_node_publish_secret_ref then bnds
+         if Stdlib.( = ) [] v_node_publish_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -9033,11 +9038,11 @@ type spec__template__spec__volume__downward_api__items = {
   path : string prop;
   field_ref :
     spec__template__spec__volume__downward_api__items__field_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_field_ref :
     spec__template__spec__volume__downward_api__items__resource_field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9056,7 +9061,7 @@ let yojson_of_spec__template__spec__volume__downward_api__items =
          []
        in
        let bnds =
-         if [] = v_resource_field_ref then bnds
+         if Stdlib.( = ) [] v_resource_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -9067,7 +9072,7 @@ let yojson_of_spec__template__spec__volume__downward_api__items =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_ref then bnds
+         if Stdlib.( = ) [] v_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -9100,7 +9105,7 @@ let _ = yojson_of_spec__template__spec__volume__downward_api__items
 type spec__template__spec__volume__downward_api = {
   default_mode : string prop option; [@option]
   items : spec__template__spec__volume__downward_api__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9113,7 +9118,7 @@ let yojson_of_spec__template__spec__volume__downward_api =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -9354,7 +9359,7 @@ type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selec
   match_expressions :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9374,7 +9379,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -9411,18 +9416,18 @@ let _ =
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
   access_modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_class_name : string prop option; [@option]
   volume_mode : string prop option; [@option]
   volume_name : string prop option; [@option]
   resources :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selector :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9446,7 +9451,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          []
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -9457,7 +9462,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -9492,7 +9497,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
              bnd :: bnds
        in
        let bnds =
-         if [] = v_access_modes then bnds
+         if Stdlib.( = ) [] v_access_modes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -9514,11 +9519,11 @@ type spec__template__spec__volume__ephemeral__volume_claim_template = {
   metadata :
     spec__template__spec__volume__ephemeral__volume_claim_template__metadata
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spec :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9535,7 +9540,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -9546,7 +9551,7 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list
@@ -9569,7 +9574,7 @@ type spec__template__spec__volume__ephemeral = {
   volume_claim_template :
     spec__template__spec__volume__ephemeral__volume_claim_template
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9582,7 +9587,7 @@ let yojson_of_spec__template__spec__volume__ephemeral =
          []
        in
        let bnds =
-         if [] = v_volume_claim_template then bnds
+         if Stdlib.( = ) [] v_volume_claim_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -9605,7 +9610,7 @@ type spec__template__spec__volume__fc = {
   lun : float prop;
   read_only : bool prop option; [@option]
   target_ww_ns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9623,7 +9628,7 @@ let yojson_of_spec__template__spec__volume__fc =
          []
        in
        let bnds =
-         if [] = v_target_ww_ns then bnds
+         if Stdlib.( = ) [] v_target_ww_ns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -9708,7 +9713,7 @@ type spec__template__spec__volume__flex_volume = {
   read_only : bool prop option; [@option]
   secret_ref :
     spec__template__spec__volume__flex_volume__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9727,7 +9732,7 @@ let yojson_of_spec__template__spec__volume__flex_volume =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -10288,7 +10293,7 @@ type spec__template__spec__volume__projected__sources__config_map = {
   items :
     spec__template__spec__volume__projected__sources__config_map__items
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10305,7 +10310,7 @@ let yojson_of_spec__template__spec__volume__projected__sources__config_map
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -10439,11 +10444,11 @@ type spec__template__spec__volume__projected__sources__downward_api__items = {
   field_ref :
     spec__template__spec__volume__projected__sources__downward_api__items__field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_field_ref :
     spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10465,7 +10470,7 @@ let yojson_of_spec__template__spec__volume__projected__sources__downward_api__it
          []
        in
        let bnds =
-         if [] = v_resource_field_ref then bnds
+         if Stdlib.( = ) [] v_resource_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -10476,7 +10481,7 @@ let yojson_of_spec__template__spec__volume__projected__sources__downward_api__it
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_ref then bnds
+         if Stdlib.( = ) [] v_field_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -10511,7 +10516,7 @@ type spec__template__spec__volume__projected__sources__downward_api = {
   items :
     spec__template__spec__volume__projected__sources__downward_api__items
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10528,7 +10533,7 @@ let yojson_of_spec__template__spec__volume__projected__sources__downward_api
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -10605,7 +10610,7 @@ type spec__template__spec__volume__projected__sources__secret = {
   items :
     spec__template__spec__volume__projected__sources__secret__items
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10621,7 +10626,7 @@ let yojson_of_spec__template__spec__volume__projected__sources__secret
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -10711,18 +10716,18 @@ let _ =
 type spec__template__spec__volume__projected__sources = {
   config_map :
     spec__template__spec__volume__projected__sources__config_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   downward_api :
     spec__template__spec__volume__projected__sources__downward_api
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret :
     spec__template__spec__volume__projected__sources__secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_account_token :
     spec__template__spec__volume__projected__sources__service_account_token
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10741,7 +10746,7 @@ let yojson_of_spec__template__spec__volume__projected__sources =
          []
        in
        let bnds =
-         if [] = v_service_account_token then bnds
+         if Stdlib.( = ) [] v_service_account_token then bnds
          else
            let arg =
              (yojson_of_list
@@ -10752,7 +10757,7 @@ let yojson_of_spec__template__spec__volume__projected__sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg =
              (yojson_of_list
@@ -10763,7 +10768,7 @@ let yojson_of_spec__template__spec__volume__projected__sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_downward_api then bnds
+         if Stdlib.( = ) [] v_downward_api then bnds
          else
            let arg =
              (yojson_of_list
@@ -10774,7 +10779,7 @@ let yojson_of_spec__template__spec__volume__projected__sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map then bnds
+         if Stdlib.( = ) [] v_config_map then bnds
          else
            let arg =
              (yojson_of_list
@@ -10795,7 +10800,7 @@ let _ = yojson_of_spec__template__spec__volume__projected__sources
 type spec__template__spec__volume__projected = {
   default_mode : string prop option; [@option]
   sources : spec__template__spec__volume__projected__sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10808,7 +10813,7 @@ let yojson_of_spec__template__spec__volume__projected =
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -10937,7 +10942,7 @@ let _ = yojson_of_spec__template__spec__volume__rbd__secret_ref
 
 type spec__template__spec__volume__rbd = {
   ceph_monitors : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fs_type : string prop option; [@option]
   keyring : string prop option; [@option]
   rados_user : string prop option; [@option]
@@ -10945,7 +10950,7 @@ type spec__template__spec__volume__rbd = {
   rbd_pool : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_ref : spec__template__spec__volume__rbd__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10967,7 +10972,7 @@ let yojson_of_spec__template__spec__volume__rbd =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -11022,7 +11027,7 @@ let yojson_of_spec__template__spec__volume__rbd =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_ceph_monitors then bnds
+         if Stdlib.( = ) [] v_ceph_monitors then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -11091,7 +11096,7 @@ type spec__template__spec__volume__secret = {
   optional : bool prop option; [@option]
   secret_name : string prop option; [@option]
   items : spec__template__spec__volume__secret__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11109,7 +11114,7 @@ let yojson_of_spec__template__spec__volume__secret =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -11189,62 +11194,62 @@ type spec__template__spec__volume = {
   name : string prop option; [@option]
   aws_elastic_block_store :
     spec__template__spec__volume__aws_elastic_block_store list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_disk : spec__template__spec__volume__azure_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_file : spec__template__spec__volume__azure_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ceph_fs : spec__template__spec__volume__ceph_fs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cinder : spec__template__spec__volume__cinder list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   config_map : spec__template__spec__volume__config_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   csi : spec__template__spec__volume__csi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   downward_api : spec__template__spec__volume__downward_api list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   empty_dir : spec__template__spec__volume__empty_dir list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral : spec__template__spec__volume__ephemeral list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fc : spec__template__spec__volume__fc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   flex_volume : spec__template__spec__volume__flex_volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   flocker : spec__template__spec__volume__flocker list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gce_persistent_disk :
     spec__template__spec__volume__gce_persistent_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   git_repo : spec__template__spec__volume__git_repo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   glusterfs : spec__template__spec__volume__glusterfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host_path : spec__template__spec__volume__host_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   iscsi : spec__template__spec__volume__iscsi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local : spec__template__spec__volume__local list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nfs : spec__template__spec__volume__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   persistent_volume_claim :
     spec__template__spec__volume__persistent_volume_claim list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   photon_persistent_disk :
     spec__template__spec__volume__photon_persistent_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   projected : spec__template__spec__volume__projected list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   quobyte : spec__template__spec__volume__quobyte list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rbd : spec__template__spec__volume__rbd list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret : spec__template__spec__volume__secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vsphere_volume : spec__template__spec__volume__vsphere_volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11286,7 +11291,7 @@ let yojson_of_spec__template__spec__volume =
          []
        in
        let bnds =
-         if [] = v_vsphere_volume then bnds
+         if Stdlib.( = ) [] v_vsphere_volume then bnds
          else
            let arg =
              (yojson_of_list
@@ -11297,7 +11302,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg =
              (yojson_of_list
@@ -11308,7 +11313,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rbd then bnds
+         if Stdlib.( = ) [] v_rbd then bnds
          else
            let arg =
              (yojson_of_list
@@ -11319,7 +11324,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_quobyte then bnds
+         if Stdlib.( = ) [] v_quobyte then bnds
          else
            let arg =
              (yojson_of_list
@@ -11330,7 +11335,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_projected then bnds
+         if Stdlib.( = ) [] v_projected then bnds
          else
            let arg =
              (yojson_of_list
@@ -11341,7 +11346,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_photon_persistent_disk then bnds
+         if Stdlib.( = ) [] v_photon_persistent_disk then bnds
          else
            let arg =
              (yojson_of_list
@@ -11352,7 +11357,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_persistent_volume_claim then bnds
+         if Stdlib.( = ) [] v_persistent_volume_claim then bnds
          else
            let arg =
              (yojson_of_list
@@ -11363,7 +11368,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nfs then bnds
+         if Stdlib.( = ) [] v_nfs then bnds
          else
            let arg =
              (yojson_of_list
@@ -11374,7 +11379,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local then bnds
+         if Stdlib.( = ) [] v_local then bnds
          else
            let arg =
              (yojson_of_list
@@ -11385,7 +11390,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_iscsi then bnds
+         if Stdlib.( = ) [] v_iscsi then bnds
          else
            let arg =
              (yojson_of_list
@@ -11396,7 +11401,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_path then bnds
+         if Stdlib.( = ) [] v_host_path then bnds
          else
            let arg =
              (yojson_of_list
@@ -11407,7 +11412,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_glusterfs then bnds
+         if Stdlib.( = ) [] v_glusterfs then bnds
          else
            let arg =
              (yojson_of_list
@@ -11418,7 +11423,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_git_repo then bnds
+         if Stdlib.( = ) [] v_git_repo then bnds
          else
            let arg =
              (yojson_of_list
@@ -11429,7 +11434,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gce_persistent_disk then bnds
+         if Stdlib.( = ) [] v_gce_persistent_disk then bnds
          else
            let arg =
              (yojson_of_list
@@ -11440,7 +11445,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_flocker then bnds
+         if Stdlib.( = ) [] v_flocker then bnds
          else
            let arg =
              (yojson_of_list
@@ -11451,7 +11456,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_flex_volume then bnds
+         if Stdlib.( = ) [] v_flex_volume then bnds
          else
            let arg =
              (yojson_of_list
@@ -11462,7 +11467,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fc then bnds
+         if Stdlib.( = ) [] v_fc then bnds
          else
            let arg =
              (yojson_of_list
@@ -11473,7 +11478,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ephemeral then bnds
+         if Stdlib.( = ) [] v_ephemeral then bnds
          else
            let arg =
              (yojson_of_list
@@ -11484,7 +11489,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_empty_dir then bnds
+         if Stdlib.( = ) [] v_empty_dir then bnds
          else
            let arg =
              (yojson_of_list
@@ -11495,7 +11500,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_downward_api then bnds
+         if Stdlib.( = ) [] v_downward_api then bnds
          else
            let arg =
              (yojson_of_list
@@ -11506,7 +11511,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csi then bnds
+         if Stdlib.( = ) [] v_csi then bnds
          else
            let arg =
              (yojson_of_list
@@ -11517,7 +11522,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config_map then bnds
+         if Stdlib.( = ) [] v_config_map then bnds
          else
            let arg =
              (yojson_of_list
@@ -11528,7 +11533,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cinder then bnds
+         if Stdlib.( = ) [] v_cinder then bnds
          else
            let arg =
              (yojson_of_list
@@ -11539,7 +11544,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ceph_fs then bnds
+         if Stdlib.( = ) [] v_ceph_fs then bnds
          else
            let arg =
              (yojson_of_list
@@ -11550,7 +11555,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_file then bnds
+         if Stdlib.( = ) [] v_azure_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -11561,7 +11566,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_disk then bnds
+         if Stdlib.( = ) [] v_azure_disk then bnds
          else
            let arg =
              (yojson_of_list
@@ -11572,7 +11577,7 @@ let yojson_of_spec__template__spec__volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_elastic_block_store then bnds
+         if Stdlib.( = ) [] v_aws_elastic_block_store then bnds
          else
            let arg =
              (yojson_of_list
@@ -11618,30 +11623,30 @@ type spec__template__spec = {
   subdomain : string prop option; [@option]
   termination_grace_period_seconds : float prop option; [@option]
   affinity : spec__template__spec__affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container : spec__template__spec__container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dns_config : spec__template__spec__dns_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host_aliases : spec__template__spec__host_aliases list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_pull_secrets : spec__template__spec__image_pull_secrets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   init_container : spec__template__spec__init_container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os : spec__template__spec__os list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   readiness_gate : spec__template__spec__readiness_gate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_context : spec__template__spec__security_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   toleration : spec__template__spec__toleration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   topology_spread_constraint :
     spec__template__spec__topology_spread_constraint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume : spec__template__spec__volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11687,7 +11692,7 @@ let yojson_of_spec__template__spec =
          []
        in
        let bnds =
-         if [] = v_volume then bnds
+         if Stdlib.( = ) [] v_volume then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template__spec__volume)
@@ -11697,7 +11702,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_topology_spread_constraint then bnds
+         if Stdlib.( = ) [] v_topology_spread_constraint then bnds
          else
            let arg =
              (yojson_of_list
@@ -11708,7 +11713,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_toleration then bnds
+         if Stdlib.( = ) [] v_toleration then bnds
          else
            let arg =
              (yojson_of_list
@@ -11719,7 +11724,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_context then bnds
+         if Stdlib.( = ) [] v_security_context then bnds
          else
            let arg =
              (yojson_of_list
@@ -11730,7 +11735,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_readiness_gate then bnds
+         if Stdlib.( = ) [] v_readiness_gate then bnds
          else
            let arg =
              (yojson_of_list
@@ -11741,7 +11746,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os then bnds
+         if Stdlib.( = ) [] v_os then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template__spec__os) v_os
@@ -11750,7 +11755,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_init_container then bnds
+         if Stdlib.( = ) [] v_init_container then bnds
          else
            let arg =
              (yojson_of_list
@@ -11761,7 +11766,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_pull_secrets then bnds
+         if Stdlib.( = ) [] v_image_pull_secrets then bnds
          else
            let arg =
              (yojson_of_list
@@ -11772,7 +11777,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_aliases then bnds
+         if Stdlib.( = ) [] v_host_aliases then bnds
          else
            let arg =
              (yojson_of_list
@@ -11783,7 +11788,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_config then bnds
+         if Stdlib.( = ) [] v_dns_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -11794,7 +11799,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container then bnds
+         if Stdlib.( = ) [] v_container then bnds
          else
            let arg =
              (yojson_of_list
@@ -11805,7 +11810,7 @@ let yojson_of_spec__template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_affinity then bnds
+         if Stdlib.( = ) [] v_affinity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template__spec__affinity)
@@ -11975,9 +11980,9 @@ let _ = yojson_of_spec__template__spec
 
 type spec__template = {
   metadata : spec__template__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spec : spec__template__spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11990,7 +11995,7 @@ let yojson_of_spec__template =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template__spec) v_spec
@@ -11999,7 +12004,7 @@ let yojson_of_spec__template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template__metadata)
@@ -12047,7 +12052,7 @@ let _ = yojson_of_spec__update_strategy__rolling_update
 type spec__update_strategy = {
   type_ : string prop option; [@option] [@key "type"]
   rolling_update : spec__update_strategy__rolling_update list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12060,7 +12065,7 @@ let yojson_of_spec__update_strategy =
          []
        in
        let bnds =
-         if [] = v_rolling_update then bnds
+         if Stdlib.( = ) [] v_rolling_update then bnds
          else
            let arg =
              (yojson_of_list
@@ -12285,7 +12290,7 @@ type spec__volume_claim_template__spec__selector = {
   match_expressions :
     spec__volume_claim_template__spec__selector__match_expressions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12301,7 +12306,7 @@ let yojson_of_spec__volume_claim_template__spec__selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -12337,14 +12342,14 @@ let _ = yojson_of_spec__volume_claim_template__spec__selector
 
 type spec__volume_claim_template__spec = {
   access_modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_class_name : string prop option; [@option]
   volume_mode : string prop option; [@option]
   volume_name : string prop option; [@option]
   resources : spec__volume_claim_template__spec__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selector : spec__volume_claim_template__spec__selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12364,7 +12369,7 @@ let yojson_of_spec__volume_claim_template__spec =
          []
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -12375,7 +12380,7 @@ let yojson_of_spec__volume_claim_template__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -12410,7 +12415,7 @@ let yojson_of_spec__volume_claim_template__spec =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_access_modes then bnds
+         if Stdlib.( = ) [] v_access_modes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -12429,9 +12434,9 @@ let _ = yojson_of_spec__volume_claim_template__spec
 
 type spec__volume_claim_template = {
   metadata : spec__volume_claim_template__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spec : spec__volume_claim_template__spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12444,7 +12449,7 @@ let yojson_of_spec__volume_claim_template =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -12455,7 +12460,7 @@ let yojson_of_spec__volume_claim_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list
@@ -12480,15 +12485,15 @@ type spec = {
   service_name : string prop;
   persistent_volume_claim_retention_policy :
     spec__persistent_volume_claim_retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selector : spec__selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   template : spec__template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   update_strategy : spec__update_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_claim_template : spec__volume_claim_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12512,7 +12517,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_volume_claim_template then bnds
+         if Stdlib.( = ) [] v_volume_claim_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__volume_claim_template)
@@ -12522,7 +12527,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_update_strategy then bnds
+         if Stdlib.( = ) [] v_update_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__update_strategy)
@@ -12532,7 +12537,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_template then bnds
+         if Stdlib.( = ) [] v_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__template) v_template
@@ -12541,7 +12546,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__selector) v_selector
@@ -12550,7 +12555,9 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_persistent_volume_claim_retention_policy then bnds
+         if
+           Stdlib.( = ) [] v_persistent_volume_claim_retention_policy
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -12661,8 +12668,8 @@ type kubernetes_stateful_set = {
   id : string prop option; [@option]
   wait_for_rollout : bool prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -12686,14 +12693,14 @@ let yojson_of_kubernetes_stateful_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

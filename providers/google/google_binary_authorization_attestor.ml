@@ -53,7 +53,7 @@ type attestation_authority_note__public_keys = {
   id : string prop option; [@option]
   pkix_public_key :
     attestation_authority_note__public_keys__pkix_public_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_attestation_authority_note__public_keys =
          []
        in
        let bnds =
-         if [] = v_pkix_public_key then bnds
+         if Stdlib.( = ) [] v_pkix_public_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -116,7 +116,7 @@ let _ = yojson_of_attestation_authority_note__public_keys
 type attestation_authority_note = {
   note_reference : string prop;
   public_keys : attestation_authority_note__public_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,7 +132,7 @@ let yojson_of_attestation_authority_note =
          []
        in
        let bnds =
-         if [] = v_public_keys then bnds
+         if Stdlib.( = ) [] v_public_keys then bnds
          else
            let arg =
              (yojson_of_list
@@ -207,7 +207,7 @@ type google_binary_authorization_attestor = {
   name : string prop;
   project : string prop option; [@option]
   attestation_authority_note : attestation_authority_note list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -232,7 +232,7 @@ let yojson_of_google_binary_authorization_attestor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_attestation_authority_note then bnds
+         if Stdlib.( = ) [] v_attestation_authority_note then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attestation_authority_note)

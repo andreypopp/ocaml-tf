@@ -347,9 +347,9 @@ let _ = yojson_of_default_action__forward__target_group
 
 type default_action__forward = {
   stickiness : default_action__forward__stickiness list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_group : default_action__forward__target_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -362,7 +362,7 @@ let yojson_of_default_action__forward =
          []
        in
        let bnds =
-         if [] = v_target_group then bnds
+         if Stdlib.( = ) [] v_target_group then bnds
          else
            let arg =
              (yojson_of_list
@@ -373,7 +373,7 @@ let yojson_of_default_action__forward =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stickiness then bnds
+         if Stdlib.( = ) [] v_stickiness then bnds
          else
            let arg =
              (yojson_of_list
@@ -471,15 +471,15 @@ type default_action = {
   target_group_arn : string prop option; [@option]
   type_ : string prop; [@key "type"]
   authenticate_cognito : default_action__authenticate_cognito list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   authenticate_oidc : default_action__authenticate_oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fixed_response : default_action__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forward : default_action__forward list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redirect : default_action__redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -501,7 +501,7 @@ let yojson_of_default_action =
          []
        in
        let bnds =
-         if [] = v_redirect then bnds
+         if Stdlib.( = ) [] v_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__redirect)
@@ -511,7 +511,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forward then bnds
+         if Stdlib.( = ) [] v_forward then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__forward)
@@ -521,7 +521,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_response then bnds
+         if Stdlib.( = ) [] v_fixed_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__fixed_response)
@@ -531,7 +531,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_oidc then bnds
+         if Stdlib.( = ) [] v_authenticate_oidc then bnds
          else
            let arg =
              (yojson_of_list
@@ -542,7 +542,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_cognito then bnds
+         if Stdlib.( = ) [] v_authenticate_cognito then bnds
          else
            let arg =
              (yojson_of_list
@@ -674,9 +674,9 @@ type aws_alb_listener = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   default_action : default_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mutual_authentication : mutual_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -707,7 +707,7 @@ let yojson_of_aws_alb_listener =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_mutual_authentication then bnds
+         if Stdlib.( = ) [] v_mutual_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mutual_authentication)
@@ -717,7 +717,7 @@ let yojson_of_aws_alb_listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_action then bnds
+         if Stdlib.( = ) [] v_default_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action)

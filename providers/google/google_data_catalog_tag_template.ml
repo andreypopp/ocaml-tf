@@ -29,7 +29,7 @@ let _ = yojson_of_fields__type__enum_type__allowed_values
 
 type fields__type__enum_type = {
   allowed_values : fields__type__enum_type__allowed_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42,7 +42,7 @@ let yojson_of_fields__type__enum_type =
          []
        in
        let bnds =
-         if [] = v_allowed_values then bnds
+         if Stdlib.( = ) [] v_allowed_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -62,7 +62,7 @@ let _ = yojson_of_fields__type__enum_type
 type fields__type = {
   primitive_type : string prop option; [@option]
   enum_type : fields__type__enum_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +76,7 @@ let yojson_of_fields__type =
          []
        in
        let bnds =
-         if [] = v_enum_type then bnds
+         if Stdlib.( = ) [] v_enum_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fields__type__enum_type)
@@ -107,7 +107,7 @@ type fields = {
   is_required : bool prop option; [@option]
   order : float prop option; [@option]
   type_ : fields__type list;
-      [@key "type"] [@default []] [@yojson_drop_default ( = )]
+      [@key "type"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,7 +127,7 @@ let yojson_of_fields =
          []
        in
        let bnds =
-         if [] = v_type_ then bnds
+         if Stdlib.( = ) [] v_type_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fields__type) v_type_
@@ -231,7 +231,8 @@ type google_data_catalog_tag_template = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   tag_template_id : string prop;
-  fields : fields list; [@default []] [@yojson_drop_default ( = )]
+  fields : fields list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -258,7 +259,7 @@ let yojson_of_google_data_catalog_tag_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_fields then bnds
+         if Stdlib.( = ) [] v_fields then bnds
          else
            let arg = (yojson_of_list yojson_of_fields) v_fields in
            let bnd = "fields", arg in

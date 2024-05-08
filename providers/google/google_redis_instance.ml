@@ -71,7 +71,7 @@ type maintenance_policy__weekly_maintenance_window = {
   day : string prop;
   start_time :
     maintenance_policy__weekly_maintenance_window__start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,7 +84,7 @@ let yojson_of_maintenance_policy__weekly_maintenance_window =
          []
        in
        let bnds =
-         if [] = v_start_time then bnds
+         if Stdlib.( = ) [] v_start_time then bnds
          else
            let arg =
              (yojson_of_list
@@ -110,7 +110,7 @@ type maintenance_policy = {
   description : string prop option; [@option]
   weekly_maintenance_window :
     maintenance_policy__weekly_maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_maintenance_policy =
          []
        in
        let bnds =
-         if [] = v_weekly_maintenance_window then bnds
+         if Stdlib.( = ) [] v_weekly_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list
@@ -388,9 +388,9 @@ type google_redis_instance = {
   tier : string prop option; [@option]
   transit_encryption_mode : string prop option; [@option]
   maintenance_policy : maintenance_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   persistence_config : persistence_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -433,7 +433,7 @@ let yojson_of_google_redis_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_persistence_config then bnds
+         if Stdlib.( = ) [] v_persistence_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_persistence_config)
@@ -443,7 +443,7 @@ let yojson_of_google_redis_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_policy then bnds
+         if Stdlib.( = ) [] v_maintenance_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_policy)

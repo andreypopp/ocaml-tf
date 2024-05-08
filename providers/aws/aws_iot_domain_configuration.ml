@@ -79,9 +79,9 @@ type aws_iot_domain_configuration = {
   tags_all : (string * string prop) list option; [@option]
   validation_certificate_arn : string prop option; [@option]
   authorizer_config : authorizer_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tls_config : tls_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_aws_iot_domain_configuration =
          []
        in
        let bnds =
-         if [] = v_tls_config then bnds
+         if Stdlib.( = ) [] v_tls_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tls_config) v_tls_config
@@ -115,7 +115,7 @@ let yojson_of_aws_iot_domain_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorizer_config then bnds
+         if Stdlib.( = ) [] v_authorizer_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorizer_config)

@@ -30,7 +30,7 @@ let _ = yojson_of_timeouts
 
 type routing__static_vnet_route = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   next_hop_ip_address : string prop;
 }
@@ -59,7 +59,7 @@ let yojson_of_routing__static_vnet_route =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_address_prefixes then bnds
+         if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -77,9 +77,9 @@ let _ = yojson_of_routing__static_vnet_route
 
 type routing__propagated_route_table = {
   labels : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_table_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,7 +92,7 @@ let yojson_of_routing__propagated_route_table =
          []
        in
        let bnds =
-         if [] = v_route_table_ids then bnds
+         if Stdlib.( = ) [] v_route_table_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -102,7 +102,7 @@ let yojson_of_routing__propagated_route_table =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_labels then bnds
+         if Stdlib.( = ) [] v_labels then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -124,10 +124,10 @@ type routing = {
   inbound_route_map_id : string prop;
   outbound_route_map_id : string prop;
   propagated_route_table : routing__propagated_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_vnet_local_route_override_criteria : string prop;
   static_vnet_route : routing__static_vnet_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         if [] = v_static_vnet_route then bnds
+         if Stdlib.( = ) [] v_static_vnet_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing__static_vnet_route)
@@ -165,7 +165,7 @@ let yojson_of_routing =
          ("static_vnet_local_route_override_criteria", arg) :: bnds
        in
        let bnds =
-         if [] = v_propagated_route_table then bnds
+         if Stdlib.( = ) [] v_propagated_route_table then bnds
          else
            let arg =
              (yojson_of_list

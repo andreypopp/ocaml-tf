@@ -315,7 +315,7 @@ type extension = {
   type_handler_version : string prop;
   protected_settings_from_key_vault :
     extension__protected_settings_from_key_vault list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -341,7 +341,8 @@ let yojson_of_extension =
          []
        in
        let bnds =
-         if [] = v_protected_settings_from_key_vault then bnds
+         if Stdlib.( = ) [] v_protected_settings_from_key_vault then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -620,7 +621,7 @@ type network_interface__ip_configuration__public_ip_address = {
   ip_tag :
     network_interface__ip_configuration__public_ip_address__ip_tag
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -643,7 +644,7 @@ let yojson_of_network_interface__ip_configuration__public_ip_address
          []
        in
        let bnds =
-         if [] = v_ip_tag then bnds
+         if Stdlib.( = ) [] v_ip_tag then bnds
          else
            let arg =
              (yojson_of_list
@@ -713,7 +714,7 @@ type network_interface__ip_configuration = {
   version : string prop option; [@option]
   public_ip_address :
     network_interface__ip_configuration__public_ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -740,7 +741,7 @@ let yojson_of_network_interface__ip_configuration =
          []
        in
        let bnds =
-         if [] = v_public_ip_address then bnds
+         if Stdlib.( = ) [] v_public_ip_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -838,7 +839,7 @@ type network_interface = {
   network_security_group_id : string prop option; [@option]
   primary : bool prop option; [@option]
   ip_configuration : network_interface__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -860,7 +861,7 @@ let yojson_of_network_interface =
          []
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -966,7 +967,7 @@ type os_disk = {
   storage_account_type : string prop;
   write_accelerator_enabled : bool prop option; [@option]
   diff_disk_settings : os_disk__diff_disk_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -989,7 +990,7 @@ let yojson_of_os_disk =
          []
        in
        let bnds =
-         if [] = v_diff_disk_settings then bnds
+         if Stdlib.( = ) [] v_diff_disk_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_disk__diff_disk_settings)
@@ -1240,7 +1241,7 @@ let _ = yojson_of_secret__certificate
 type secret = {
   key_vault_id : string prop;
   certificate : secret__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1254,7 +1255,7 @@ let yojson_of_secret =
          []
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret__certificate)
@@ -1557,45 +1558,47 @@ type azurerm_windows_virtual_machine_scale_set = {
   zone_balance : bool prop option; [@option]
   zones : string prop list option; [@option]
   additional_capabilities : additional_capabilities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   additional_unattend_content : additional_unattend_content list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   automatic_instance_repair : automatic_instance_repair list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   automatic_os_upgrade_policy : automatic_os_upgrade_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   boot_diagnostics : boot_diagnostics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_disk : data_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extension : extension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gallery_application : gallery_application list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gallery_applications : gallery_applications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface : network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
-  os_disk : os_disk list; [@default []] [@yojson_drop_default ( = )]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  os_disk : os_disk list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   rolling_upgrade_policy : rolling_upgrade_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_in : scale_in list;
-      [@default []] [@yojson_drop_default ( = )]
-  secret : secret list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secret : secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_image_reference : source_image_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spot_restore : spot_restore list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   terminate_notification : terminate_notification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   termination_notification : termination_notification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   winrm_listener : winrm_listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1671,7 +1674,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
          []
        in
        let bnds =
-         if [] = v_winrm_listener then bnds
+         if Stdlib.( = ) [] v_winrm_listener then bnds
          else
            let arg =
              (yojson_of_list yojson_of_winrm_listener)
@@ -1685,7 +1688,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_termination_notification then bnds
+         if Stdlib.( = ) [] v_termination_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_termination_notification)
@@ -1695,7 +1698,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_terminate_notification then bnds
+         if Stdlib.( = ) [] v_terminate_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_terminate_notification)
@@ -1705,7 +1708,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spot_restore then bnds
+         if Stdlib.( = ) [] v_spot_restore then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spot_restore) v_spot_restore
@@ -1714,7 +1717,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_image_reference then bnds
+         if Stdlib.( = ) [] v_source_image_reference then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_image_reference)
@@ -1724,14 +1727,14 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg = (yojson_of_list yojson_of_secret) v_secret in
            let bnd = "secret", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scale_in then bnds
+         if Stdlib.( = ) [] v_scale_in then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scale_in) v_scale_in
@@ -1740,7 +1743,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rolling_upgrade_policy then bnds
+         if Stdlib.( = ) [] v_rolling_upgrade_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rolling_upgrade_policy)
@@ -1750,21 +1753,21 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_disk then bnds
+         if Stdlib.( = ) [] v_os_disk then bnds
          else
            let arg = (yojson_of_list yojson_of_os_disk) v_os_disk in
            let bnd = "os_disk", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_interface)
@@ -1774,7 +1777,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -1783,7 +1786,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gallery_applications then bnds
+         if Stdlib.( = ) [] v_gallery_applications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gallery_applications)
@@ -1793,7 +1796,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gallery_application then bnds
+         if Stdlib.( = ) [] v_gallery_application then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gallery_application)
@@ -1803,7 +1806,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extension then bnds
+         if Stdlib.( = ) [] v_extension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extension) v_extension
@@ -1812,7 +1815,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_disk then bnds
+         if Stdlib.( = ) [] v_data_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_disk) v_data_disk
@@ -1821,7 +1824,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_boot_diagnostics then bnds
+         if Stdlib.( = ) [] v_boot_diagnostics then bnds
          else
            let arg =
              (yojson_of_list yojson_of_boot_diagnostics)
@@ -1831,7 +1834,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automatic_os_upgrade_policy then bnds
+         if Stdlib.( = ) [] v_automatic_os_upgrade_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_automatic_os_upgrade_policy)
@@ -1841,7 +1844,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automatic_instance_repair then bnds
+         if Stdlib.( = ) [] v_automatic_instance_repair then bnds
          else
            let arg =
              (yojson_of_list yojson_of_automatic_instance_repair)
@@ -1851,7 +1854,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_unattend_content then bnds
+         if Stdlib.( = ) [] v_additional_unattend_content then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_unattend_content)
@@ -1861,7 +1864,7 @@ let yojson_of_azurerm_windows_virtual_machine_scale_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_capabilities then bnds
+         if Stdlib.( = ) [] v_additional_capabilities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_capabilities)

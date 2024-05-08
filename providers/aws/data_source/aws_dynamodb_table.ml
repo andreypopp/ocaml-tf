@@ -47,7 +47,7 @@ type global_secondary_index = {
   hash_key : string prop;
   name : string prop;
   non_key_attributes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   projection_type : string prop;
   range_key : string prop;
   read_capacity : float prop;
@@ -90,7 +90,7 @@ let yojson_of_global_secondary_index =
          ("projection_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_non_key_attributes then bnds
+         if Stdlib.( = ) [] v_non_key_attributes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -117,7 +117,7 @@ let _ = yojson_of_global_secondary_index
 type local_secondary_index = {
   name : string prop;
   non_key_attributes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   projection_type : string prop;
   range_key : string prop;
 }
@@ -147,7 +147,7 @@ let yojson_of_local_secondary_index =
          ("projection_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_non_key_attributes then bnds
+         if Stdlib.( = ) [] v_non_key_attributes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -251,7 +251,7 @@ type aws_dynamodb_table = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   server_side_encryption : server_side_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,7 +269,7 @@ let yojson_of_aws_dynamodb_table =
          []
        in
        let bnds =
-         if [] = v_server_side_encryption then bnds
+         if Stdlib.( = ) [] v_server_side_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_side_encryption)

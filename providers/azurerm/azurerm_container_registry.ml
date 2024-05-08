@@ -265,9 +265,9 @@ let _ = yojson_of_network_rule_set__ip_rule
 type network_rule_set = {
   default_action : string prop;
   ip_rule : network_rule_set__ip_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_network : network_rule_set__virtual_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -284,7 +284,7 @@ let yojson_of_network_rule_set =
          []
        in
        let bnds =
-         if [] = v_virtual_network then bnds
+         if Stdlib.( = ) [] v_virtual_network then bnds
          else
            let arg =
              (yojson_of_list
@@ -295,7 +295,7 @@ let yojson_of_network_rule_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_rule then bnds
+         if Stdlib.( = ) [] v_ip_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_set__ip_rule)
@@ -385,9 +385,9 @@ type azurerm_container_registry = {
   trust_policy : trust_policy list option; [@option]
   zone_redundancy_enabled : bool prop option; [@option]
   georeplications : georeplications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -428,7 +428,7 @@ let yojson_of_azurerm_container_registry =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -437,7 +437,7 @@ let yojson_of_azurerm_container_registry =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_georeplications then bnds
+         if Stdlib.( = ) [] v_georeplications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_georeplications)

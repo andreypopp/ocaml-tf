@@ -7,17 +7,17 @@ open! Tf_core
 type resource_tag_mapping_list__compliance_details = {
   compliance_status : bool prop;  (** compliance_status *)
   keys_with_noncompliant_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** keys_with_noncompliant_values *)
   non_compliant_keys : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** non_compliant_keys *)
 }
 
 type resource_tag_mapping_list = {
   compliance_details :
     resource_tag_mapping_list__compliance_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** compliance_details *)
   resource_arn : string prop;  (** resource_arn *)
   tags : (string * string prop) list;  (** tags *)

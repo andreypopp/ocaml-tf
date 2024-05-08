@@ -8,7 +8,7 @@ type tiers = {
   disk_quota : float prop;  (** disk_quota *)
   ram : float prop;  (** ram *)
   region : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** region *)
   tier : string prop;  (** tier *)
 }

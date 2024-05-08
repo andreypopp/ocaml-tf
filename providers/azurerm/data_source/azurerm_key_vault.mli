@@ -7,17 +7,17 @@ open! Tf_core
 type access_policy = {
   application_id : string prop;  (** application_id *)
   certificate_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate_permissions *)
   key_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** key_permissions *)
   object_id : string prop;  (** object_id *)
   secret_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_permissions *)
   storage_permissions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** storage_permissions *)
   tenant_id : string prop;  (** tenant_id *)
 }
@@ -26,10 +26,10 @@ type network_acls = {
   bypass : string prop;  (** bypass *)
   default_action : string prop;  (** default_action *)
   ip_rules : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_rules *)
   virtual_network_subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** virtual_network_subnet_ids *)
 }
 

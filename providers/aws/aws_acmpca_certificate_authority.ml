@@ -157,7 +157,7 @@ type certificate_authority_configuration = {
   key_algorithm : string prop;
   signing_algorithm : string prop;
   subject : certificate_authority_configuration__subject list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,7 +174,7 @@ let yojson_of_certificate_authority_configuration =
          []
        in
        let bnds =
-         if [] = v_subject then bnds
+         if Stdlib.( = ) [] v_subject then bnds
          else
            let arg =
              (yojson_of_list
@@ -311,10 +311,10 @@ let _ = yojson_of_revocation_configuration__ocsp_configuration
 type revocation_configuration = {
   crl_configuration :
     revocation_configuration__crl_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ocsp_configuration :
     revocation_configuration__ocsp_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -330,7 +330,7 @@ let yojson_of_revocation_configuration =
          []
        in
        let bnds =
-         if [] = v_ocsp_configuration then bnds
+         if Stdlib.( = ) [] v_ocsp_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +341,7 @@ let yojson_of_revocation_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_crl_configuration then bnds
+         if Stdlib.( = ) [] v_crl_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -395,9 +395,9 @@ type aws_acmpca_certificate_authority = {
   usage_mode : string prop option; [@option]
   certificate_authority_configuration :
     certificate_authority_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   revocation_configuration : revocation_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -430,7 +430,7 @@ let yojson_of_aws_acmpca_certificate_authority =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_revocation_configuration then bnds
+         if Stdlib.( = ) [] v_revocation_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_revocation_configuration)
@@ -440,7 +440,8 @@ let yojson_of_aws_acmpca_certificate_authority =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate_authority_configuration then bnds
+         if Stdlib.( = ) [] v_certificate_authority_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list

@@ -11,7 +11,8 @@ type settings__acl = {
 }
 
 type settings = {
-  acl : settings__acl list; [@default []] [@yojson_drop_default ( = )]
+  acl : settings__acl list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** acl *)
 }
 

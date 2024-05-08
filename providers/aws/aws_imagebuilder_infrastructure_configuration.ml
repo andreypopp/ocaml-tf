@@ -82,7 +82,7 @@ let _ = yojson_of_logging__s3_logs
 
 type logging = {
   s3_logs : logging__s3_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,7 +95,7 @@ let yojson_of_logging =
          []
        in
        let bnds =
-         if [] = v_s3_logs then bnds
+         if Stdlib.( = ) [] v_s3_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging__s3_logs) v_s3_logs
@@ -125,8 +125,9 @@ type aws_imagebuilder_infrastructure_configuration = {
   tags_all : (string * string prop) list option; [@option]
   terminate_instance_on_failure : bool prop option; [@option]
   instance_metadata_options : instance_metadata_options list;
-      [@default []] [@yojson_drop_default ( = )]
-  logging : logging list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  logging : logging list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -156,14 +157,14 @@ let yojson_of_aws_imagebuilder_infrastructure_configuration =
          []
        in
        let bnds =
-         if [] = v_logging then bnds
+         if Stdlib.( = ) [] v_logging then bnds
          else
            let arg = (yojson_of_list yojson_of_logging) v_logging in
            let bnd = "logging", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_metadata_options then bnds
+         if Stdlib.( = ) [] v_instance_metadata_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_metadata_options)

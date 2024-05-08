@@ -34,7 +34,7 @@ let _ = yojson_of_connection_properties__cross_cluster_search
 type connection_properties = {
   cross_cluster_search :
     connection_properties__cross_cluster_search list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_connection_properties =
          []
        in
        let bnds =
-         if [] = v_cross_cluster_search then bnds
+         if Stdlib.( = ) [] v_cross_cluster_search then bnds
          else
            let arg =
              (yojson_of_list
@@ -183,11 +183,11 @@ type aws_opensearch_outbound_connection = {
   connection_mode : string prop option; [@option]
   id : string prop option; [@option]
   connection_properties : connection_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_domain_info : local_domain_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_domain_info : remote_domain_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -214,7 +214,7 @@ let yojson_of_aws_opensearch_outbound_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_remote_domain_info then bnds
+         if Stdlib.( = ) [] v_remote_domain_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_remote_domain_info)
@@ -224,7 +224,7 @@ let yojson_of_aws_opensearch_outbound_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_domain_info then bnds
+         if Stdlib.( = ) [] v_local_domain_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_local_domain_info)
@@ -234,7 +234,7 @@ let yojson_of_aws_opensearch_outbound_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connection_properties then bnds
+         if Stdlib.( = ) [] v_connection_properties then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connection_properties)

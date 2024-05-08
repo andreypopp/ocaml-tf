@@ -143,9 +143,9 @@ type offline_store_config = {
   table_format : string prop option; [@option]
   data_catalog_config :
     offline_store_config__data_catalog_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_storage_config : offline_store_config__s3_storage_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -163,7 +163,7 @@ let yojson_of_offline_store_config =
          []
        in
        let bnds =
-         if [] = v_s3_storage_config then bnds
+         if Stdlib.( = ) [] v_s3_storage_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -174,7 +174,7 @@ let yojson_of_offline_store_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_catalog_config then bnds
+         if Stdlib.( = ) [] v_data_catalog_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -278,9 +278,9 @@ type online_store_config = {
   enable_online_store : bool prop option; [@option]
   storage_type : string prop option; [@option]
   security_config : online_store_config__security_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ttl_duration : online_store_config__ttl_duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,7 +298,7 @@ let yojson_of_online_store_config =
          []
        in
        let bnds =
-         if [] = v_ttl_duration then bnds
+         if Stdlib.( = ) [] v_ttl_duration then bnds
          else
            let arg =
              (yojson_of_list
@@ -309,7 +309,7 @@ let yojson_of_online_store_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_config then bnds
+         if Stdlib.( = ) [] v_security_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -352,11 +352,11 @@ type aws_sagemaker_feature_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   feature_definition : feature_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   offline_store_config : offline_store_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   online_store_config : online_store_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -382,7 +382,7 @@ let yojson_of_aws_sagemaker_feature_group =
          []
        in
        let bnds =
-         if [] = v_online_store_config then bnds
+         if Stdlib.( = ) [] v_online_store_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_online_store_config)
@@ -392,7 +392,7 @@ let yojson_of_aws_sagemaker_feature_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_offline_store_config then bnds
+         if Stdlib.( = ) [] v_offline_store_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_offline_store_config)
@@ -402,7 +402,7 @@ let yojson_of_aws_sagemaker_feature_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_feature_definition then bnds
+         if Stdlib.( = ) [] v_feature_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_feature_definition)

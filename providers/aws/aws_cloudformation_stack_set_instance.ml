@@ -209,9 +209,9 @@ type aws_cloudformation_stack_set_instance = {
   retain_stack : bool prop option; [@option]
   stack_set_name : string prop;
   deployment_targets : deployment_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   operation_preferences : operation_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -240,7 +240,7 @@ let yojson_of_aws_cloudformation_stack_set_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_operation_preferences then bnds
+         if Stdlib.( = ) [] v_operation_preferences then bnds
          else
            let arg =
              (yojson_of_list yojson_of_operation_preferences)
@@ -250,7 +250,7 @@ let yojson_of_aws_cloudformation_stack_set_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deployment_targets then bnds
+         if Stdlib.( = ) [] v_deployment_targets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment_targets)

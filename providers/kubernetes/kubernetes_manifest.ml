@@ -126,7 +126,7 @@ type wait = {
   fields : (string * string prop) list option; [@option]
   rollout : bool prop option; [@option]
   condition : wait__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,7 +143,7 @@ let yojson_of_wait =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_wait__condition) v_condition
@@ -218,10 +218,10 @@ type kubernetes_manifest = {
   object_ : json prop option; [@option] [@key "object"]
   wait_for : wait_for option; [@option]
   field_manager : field_manager list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts list;
-      [@default []] [@yojson_drop_default ( = )]
-  wait : wait list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  wait : wait list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,14 +242,14 @@ let yojson_of_kubernetes_manifest =
          []
        in
        let bnds =
-         if [] = v_wait then bnds
+         if Stdlib.( = ) [] v_wait then bnds
          else
            let arg = (yojson_of_list yojson_of_wait) v_wait in
            let bnd = "wait", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_timeouts then bnds
+         if Stdlib.( = ) [] v_timeouts then bnds
          else
            let arg =
              (yojson_of_list yojson_of_timeouts) v_timeouts
@@ -258,7 +258,7 @@ let yojson_of_kubernetes_manifest =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_field_manager then bnds
+         if Stdlib.( = ) [] v_field_manager then bnds
          else
            let arg =
              (yojson_of_list yojson_of_field_manager) v_field_manager

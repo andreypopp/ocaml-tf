@@ -107,7 +107,7 @@ type space_settings__code_editor_app_settings = {
   default_resource_spec :
     space_settings__code_editor_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,7 +120,7 @@ let yojson_of_space_settings__code_editor_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,7 +169,7 @@ let _ = yojson_of_space_settings__custom_file_system__efs_file_system
 type space_settings__custom_file_system = {
   efs_file_system :
     space_settings__custom_file_system__efs_file_system list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,7 +182,7 @@ let yojson_of_space_settings__custom_file_system =
          []
        in
        let bnds =
-         if [] = v_efs_file_system then bnds
+         if Stdlib.( = ) [] v_efs_file_system then bnds
          else
            let arg =
              (yojson_of_list
@@ -311,11 +311,11 @@ let _ =
 type space_settings__jupyter_lab_app_settings = {
   code_repository :
     space_settings__jupyter_lab_app_settings__code_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     space_settings__jupyter_lab_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -331,7 +331,7 @@ let yojson_of_space_settings__jupyter_lab_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -342,7 +342,7 @@ let yojson_of_space_settings__jupyter_lab_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -473,11 +473,11 @@ type space_settings__jupyter_server_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
   code_repository :
     space_settings__jupyter_server_app_settings__code_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     space_settings__jupyter_server_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -494,7 +494,7 @@ let yojson_of_space_settings__jupyter_server_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -505,7 +505,7 @@ let yojson_of_space_settings__jupyter_server_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -663,11 +663,11 @@ type space_settings__kernel_gateway_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
   custom_image :
     space_settings__kernel_gateway_app_settings__custom_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     space_settings__kernel_gateway_app_settings__default_resource_spec
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -684,7 +684,7 @@ let yojson_of_space_settings__kernel_gateway_app_settings =
          []
        in
        let bnds =
-         if [] = v_default_resource_spec then bnds
+         if Stdlib.( = ) [] v_default_resource_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -695,7 +695,7 @@ let yojson_of_space_settings__kernel_gateway_app_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_image then bnds
+         if Stdlib.( = ) [] v_custom_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -758,7 +758,7 @@ let _ =
 type space_settings__space_storage_settings = {
   ebs_storage_settings :
     space_settings__space_storage_settings__ebs_storage_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,7 +771,7 @@ let yojson_of_space_settings__space_storage_settings =
          []
        in
        let bnds =
-         if [] = v_ebs_storage_settings then bnds
+         if Stdlib.( = ) [] v_ebs_storage_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -793,21 +793,21 @@ type space_settings = {
   app_type : string prop option; [@option]
   code_editor_app_settings :
     space_settings__code_editor_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_file_system : space_settings__custom_file_system list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jupyter_lab_app_settings :
     space_settings__jupyter_lab_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jupyter_server_app_settings :
     space_settings__jupyter_server_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_gateway_app_settings :
     space_settings__kernel_gateway_app_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   space_storage_settings :
     space_settings__space_storage_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -828,7 +828,7 @@ let yojson_of_space_settings =
          []
        in
        let bnds =
-         if [] = v_space_storage_settings then bnds
+         if Stdlib.( = ) [] v_space_storage_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -839,7 +839,7 @@ let yojson_of_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kernel_gateway_app_settings then bnds
+         if Stdlib.( = ) [] v_kernel_gateway_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -850,7 +850,7 @@ let yojson_of_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_server_app_settings then bnds
+         if Stdlib.( = ) [] v_jupyter_server_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -861,7 +861,7 @@ let yojson_of_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_lab_app_settings then bnds
+         if Stdlib.( = ) [] v_jupyter_lab_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -872,7 +872,7 @@ let yojson_of_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_file_system then bnds
+         if Stdlib.( = ) [] v_custom_file_system then bnds
          else
            let arg =
              (yojson_of_list
@@ -883,7 +883,7 @@ let yojson_of_space_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_editor_app_settings then bnds
+         if Stdlib.( = ) [] v_code_editor_app_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -938,11 +938,11 @@ type aws_sagemaker_space = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ownership_settings : ownership_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   space_settings : space_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   space_sharing_settings : space_sharing_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -965,7 +965,7 @@ let yojson_of_aws_sagemaker_space =
          []
        in
        let bnds =
-         if [] = v_space_sharing_settings then bnds
+         if Stdlib.( = ) [] v_space_sharing_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_space_sharing_settings)
@@ -975,7 +975,7 @@ let yojson_of_aws_sagemaker_space =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_space_settings then bnds
+         if Stdlib.( = ) [] v_space_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_space_settings)
@@ -985,7 +985,7 @@ let yojson_of_aws_sagemaker_space =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ownership_settings then bnds
+         if Stdlib.( = ) [] v_ownership_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ownership_settings)

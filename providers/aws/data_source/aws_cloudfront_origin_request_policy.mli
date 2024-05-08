@@ -5,38 +5,41 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type cookies_config__cookies = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
 type cookies_config = {
   cookie_behavior : string prop;  (** cookie_behavior *)
   cookies : cookies_config__cookies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cookies *)
 }
 
 type headers_config__headers = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
 type headers_config = {
   header_behavior : string prop;  (** header_behavior *)
   headers : headers_config__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers *)
 }
 
 type query_strings_config__query_strings = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
 type query_strings_config = {
   query_string_behavior : string prop;  (** query_string_behavior *)
   query_strings : query_strings_config__query_strings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** query_strings *)
 }
 

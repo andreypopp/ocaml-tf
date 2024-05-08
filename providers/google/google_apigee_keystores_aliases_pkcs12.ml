@@ -49,7 +49,7 @@ type certs_info__cert_info = {
   sig_alg_name : string prop;
   subject : string prop;
   subject_alternative_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   valid_from : string prop;
   version : float prop;
 }
@@ -84,7 +84,7 @@ let yojson_of_certs_info__cert_info =
          ("valid_from", arg) :: bnds
        in
        let bnds =
-         if [] = v_subject_alternative_names then bnds
+         if Stdlib.( = ) [] v_subject_alternative_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -136,7 +136,7 @@ let _ = yojson_of_certs_info__cert_info
 
 type certs_info = {
   cert_info : certs_info__cert_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,7 +149,7 @@ let yojson_of_certs_info =
          []
        in
        let bnds =
-         if [] = v_cert_info then bnds
+         if Stdlib.( = ) [] v_cert_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certs_info__cert_info)

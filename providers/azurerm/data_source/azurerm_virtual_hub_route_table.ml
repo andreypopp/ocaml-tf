@@ -30,7 +30,7 @@ let _ = yojson_of_timeouts
 
 type route = {
   destinations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destinations_type : string prop;
   name : string prop;
   next_hop : string prop;
@@ -71,7 +71,7 @@ let yojson_of_route =
          ("destinations_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_destinations then bnds
+         if Stdlib.( = ) [] v_destinations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

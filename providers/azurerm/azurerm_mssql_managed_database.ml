@@ -174,9 +174,9 @@ type azurerm_mssql_managed_database = {
   name : string prop;
   short_term_retention_days : float prop option; [@option]
   long_term_retention_policy : long_term_retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   point_in_time_restore : point_in_time_restore list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -202,7 +202,7 @@ let yojson_of_azurerm_mssql_managed_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_point_in_time_restore then bnds
+         if Stdlib.( = ) [] v_point_in_time_restore then bnds
          else
            let arg =
              (yojson_of_list yojson_of_point_in_time_restore)
@@ -212,7 +212,7 @@ let yojson_of_azurerm_mssql_managed_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_long_term_retention_policy then bnds
+         if Stdlib.( = ) [] v_long_term_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_long_term_retention_policy)

@@ -98,7 +98,7 @@ type azurerm_data_share_dataset_blob_storage = {
   id : string prop option; [@option]
   name : string prop;
   storage_account : storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -125,7 +125,7 @@ let yojson_of_azurerm_data_share_dataset_blob_storage =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_account then bnds
+         if Stdlib.( = ) [] v_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_account)

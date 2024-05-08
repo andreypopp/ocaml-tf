@@ -10,7 +10,7 @@ type node_info_list = {
   client_subnet : string prop;  (** client_subnet *)
   client_vpc_ip_address : string prop;  (** client_vpc_ip_address *)
   endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** endpoints *)
   node_arn : string prop;  (** node_arn *)
 }

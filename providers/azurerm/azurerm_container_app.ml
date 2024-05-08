@@ -241,11 +241,11 @@ type ingress = {
   target_port : float prop;
   transport : string prop option; [@option]
   custom_domain : ingress__custom_domain list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_security_restriction : ingress__ip_security_restriction list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   traffic_weight : ingress__traffic_weight list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -267,7 +267,7 @@ let yojson_of_ingress =
          []
        in
        let bnds =
-         if [] = v_traffic_weight then bnds
+         if Stdlib.( = ) [] v_traffic_weight then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress__traffic_weight)
@@ -277,7 +277,7 @@ let yojson_of_ingress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_security_restriction then bnds
+         if Stdlib.( = ) [] v_ip_security_restriction then bnds
          else
            let arg =
              (yojson_of_list
@@ -288,7 +288,7 @@ let yojson_of_ingress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_domain then bnds
+         if Stdlib.( = ) [] v_custom_domain then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress__custom_domain)
@@ -464,7 +464,7 @@ type template__azure_queue_scale_rule = {
   queue_name : string prop;
   authentication :
     template__azure_queue_scale_rule__authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -482,7 +482,7 @@ let yojson_of_template__azure_queue_scale_rule =
          []
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list
@@ -595,7 +595,7 @@ type template__container__liveness_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__liveness_probe__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -618,7 +618,7 @@ let yojson_of_template__container__liveness_probe =
          []
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -732,7 +732,7 @@ type template__container__readiness_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__readiness_probe__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -755,7 +755,7 @@ let yojson_of_template__container__readiness_probe =
          []
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -868,7 +868,7 @@ type template__container__startup_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__startup_probe__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -890,7 +890,7 @@ let yojson_of_template__container__startup_probe =
          []
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -994,15 +994,15 @@ type template__container = {
   memory : string prop;
   name : string prop;
   env : template__container__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   liveness_probe : template__container__liveness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   readiness_probe : template__container__readiness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   startup_probe : template__container__startup_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_mounts : template__container__volume_mounts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1027,7 +1027,7 @@ let yojson_of_template__container =
          []
        in
        let bnds =
-         if [] = v_volume_mounts then bnds
+         if Stdlib.( = ) [] v_volume_mounts then bnds
          else
            let arg =
              (yojson_of_list
@@ -1038,7 +1038,7 @@ let yojson_of_template__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_startup_probe then bnds
+         if Stdlib.( = ) [] v_startup_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -1049,7 +1049,7 @@ let yojson_of_template__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_readiness_probe then bnds
+         if Stdlib.( = ) [] v_readiness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -1060,7 +1060,7 @@ let yojson_of_template__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_liveness_probe then bnds
+         if Stdlib.( = ) [] v_liveness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -1071,7 +1071,7 @@ let yojson_of_template__container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__container__env)
@@ -1163,7 +1163,7 @@ type template__custom_scale_rule = {
   metadata : (string * string prop) list;
   name : string prop;
   authentication : template__custom_scale_rule__authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1181,7 +1181,7 @@ let yojson_of_template__custom_scale_rule =
          []
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list
@@ -1262,7 +1262,7 @@ type template__http_scale_rule = {
   concurrent_requests : string prop;
   name : string prop;
   authentication : template__http_scale_rule__authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1279,7 +1279,7 @@ let yojson_of_template__http_scale_rule =
          []
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list
@@ -1388,9 +1388,9 @@ type template__init_container = {
   memory : string prop option; [@option]
   name : string prop;
   env : template__init_container__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_mounts : template__init_container__volume_mounts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1412,7 +1412,7 @@ let yojson_of_template__init_container =
          []
        in
        let bnds =
-         if [] = v_volume_mounts then bnds
+         if Stdlib.( = ) [] v_volume_mounts then bnds
          else
            let arg =
              (yojson_of_list
@@ -1423,7 +1423,7 @@ let yojson_of_template__init_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__init_container__env)
@@ -1524,7 +1524,7 @@ type template__tcp_scale_rule = {
   concurrent_requests : string prop;
   name : string prop;
   authentication : template__tcp_scale_rule__authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1541,7 +1541,7 @@ let yojson_of_template__tcp_scale_rule =
          []
        in
        let bnds =
-         if [] = v_authentication then bnds
+         if Stdlib.( = ) [] v_authentication then bnds
          else
            let arg =
              (yojson_of_list
@@ -1619,19 +1619,19 @@ type template = {
   min_replicas : float prop option; [@option]
   revision_suffix : string prop option; [@option]
   azure_queue_scale_rule : template__azure_queue_scale_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container : template__container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_scale_rule : template__custom_scale_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_scale_rule : template__http_scale_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   init_container : template__init_container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_scale_rule : template__tcp_scale_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume : template__volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1655,7 +1655,7 @@ let yojson_of_template =
          []
        in
        let bnds =
-         if [] = v_volume then bnds
+         if Stdlib.( = ) [] v_volume then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__volume) v_volume
@@ -1664,7 +1664,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_tcp_scale_rule then bnds
+         if Stdlib.( = ) [] v_tcp_scale_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__tcp_scale_rule)
@@ -1674,7 +1674,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_init_container then bnds
+         if Stdlib.( = ) [] v_init_container then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__init_container)
@@ -1684,7 +1684,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_scale_rule then bnds
+         if Stdlib.( = ) [] v_http_scale_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__http_scale_rule)
@@ -1694,7 +1694,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_scale_rule then bnds
+         if Stdlib.( = ) [] v_custom_scale_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__custom_scale_rule)
@@ -1704,7 +1704,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container then bnds
+         if Stdlib.( = ) [] v_container then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__container)
@@ -1714,7 +1714,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_queue_scale_rule then bnds
+         if Stdlib.( = ) [] v_azure_queue_scale_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1823,15 +1823,17 @@ type azurerm_container_app = {
   revision_mode : string prop;
   tags : (string * string prop) list option; [@option]
   workload_profile_name : string prop option; [@option]
-  dapr : dapr list; [@default []] [@yojson_drop_default ( = )]
+  dapr : dapr list; [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  ingress : ingress list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  ingress : ingress list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   registry : registry list;
-      [@default []] [@yojson_drop_default ( = )]
-  secret : secret list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secret : secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   template : template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1864,7 +1866,7 @@ let yojson_of_azurerm_container_app =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_template then bnds
+         if Stdlib.( = ) [] v_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template) v_template
@@ -1873,14 +1875,14 @@ let yojson_of_azurerm_container_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg = (yojson_of_list yojson_of_secret) v_secret in
            let bnd = "secret", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_registry then bnds
+         if Stdlib.( = ) [] v_registry then bnds
          else
            let arg =
              (yojson_of_list yojson_of_registry) v_registry
@@ -1889,14 +1891,14 @@ let yojson_of_azurerm_container_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress then bnds
+         if Stdlib.( = ) [] v_ingress then bnds
          else
            let arg = (yojson_of_list yojson_of_ingress) v_ingress in
            let bnd = "ingress", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -1905,7 +1907,7 @@ let yojson_of_azurerm_container_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dapr then bnds
+         if Stdlib.( = ) [] v_dapr then bnds
          else
            let arg = (yojson_of_list yojson_of_dapr) v_dapr in
            let bnd = "dapr", arg in

@@ -45,7 +45,7 @@ let _ = yojson_of_condition__request_ip
 
 type condition = {
   request_ip : condition__request_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         if [] = v_request_ip then bnds
+         if Stdlib.( = ) [] v_request_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__request_ip)
@@ -77,7 +77,7 @@ let _ = yojson_of_condition
 type policy = {
   effect : string prop option; [@option]
   permission_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -107,7 +107,7 @@ let yojson_of_policy =
          ("resources", arg) :: bnds
        in
        let bnds =
-         if [] = v_permission_groups then bnds
+         if Stdlib.( = ) [] v_permission_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -137,8 +137,9 @@ type cloudflare_api_token = {
   name : string prop;
   not_before : string prop option; [@option]
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
-  policy : policy list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  policy : policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,14 +159,14 @@ let yojson_of_cloudflare_api_token =
          []
        in
        let bnds =
-         if [] = v_policy then bnds
+         if Stdlib.( = ) [] v_policy then bnds
          else
            let arg = (yojson_of_list yojson_of_policy) v_policy in
            let bnd = "policy", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition

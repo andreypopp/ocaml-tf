@@ -17,7 +17,7 @@ let _ = yojson_of_application_assignments
 type aws_ssoadmin_application_assignments = {
   application_arn : string prop;
   application_assignments : application_assignments list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33,7 +33,7 @@ let yojson_of_aws_ssoadmin_application_assignments =
          []
        in
        let bnds =
-         if [] = v_application_assignments then bnds
+         if Stdlib.( = ) [] v_application_assignments then bnds
          else
            let arg =
              (yojson_of_list yojson_of_application_assignments)

@@ -20,7 +20,7 @@ type auto_tune_options__maintenance_schedule = {
   cron_expression_for_recurrence : string prop;
       (** cron_expression_for_recurrence *)
   duration : auto_tune_options__maintenance_schedule__duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** duration *)
   start_at : string prop;  (** start_at *)
 }
@@ -29,7 +29,7 @@ type auto_tune_options = {
   desired_state : string prop;  (** desired_state *)
   maintenance_schedule :
     auto_tune_options__maintenance_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maintenance_schedule *)
   rollback_on_disable : string prop;  (** rollback_on_disable *)
   use_off_peak_window : bool prop;  (** use_off_peak_window *)
@@ -46,7 +46,7 @@ type cluster_config__cold_storage_options = {
 
 type cluster_config = {
   cold_storage_options : cluster_config__cold_storage_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cold_storage_options *)
   dedicated_master_count : float prop;  (** dedicated_master_count *)
   dedicated_master_enabled : bool prop;
@@ -60,7 +60,7 @@ type cluster_config = {
   warm_enabled : bool prop;  (** warm_enabled *)
   warm_type : string prop;  (** warm_type *)
   zone_awareness_config : cluster_config__zone_awareness_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** zone_awareness_config *)
   zone_awareness_enabled : bool prop;  (** zone_awareness_enabled *)
 }
@@ -108,13 +108,13 @@ type software_update_options = {
 
 type vpc_options = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** availability_zones *)
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_group_ids *)
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
@@ -127,7 +127,7 @@ type off_peak_window_options__off_peak_window__window_start_time = {
 type off_peak_window_options__off_peak_window = {
   window_start_time :
     off_peak_window_options__off_peak_window__window_start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** window_start_time *)
 }
 

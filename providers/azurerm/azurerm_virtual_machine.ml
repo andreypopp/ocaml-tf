@@ -177,7 +177,7 @@ let _ = yojson_of_os_profile_linux_config__ssh_keys
 type os_profile_linux_config = {
   disable_password_authentication : bool prop;
   ssh_keys : os_profile_linux_config__ssh_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,7 +194,7 @@ let yojson_of_os_profile_linux_config =
          []
        in
        let bnds =
-         if [] = v_ssh_keys then bnds
+         if Stdlib.( = ) [] v_ssh_keys then bnds
          else
            let arg =
              (yojson_of_list
@@ -260,7 +260,7 @@ let _ = yojson_of_os_profile_secrets__vault_certificates
 type os_profile_secrets = {
   source_vault_id : string prop;
   vault_certificates : os_profile_secrets__vault_certificates list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -276,7 +276,7 @@ let yojson_of_os_profile_secrets =
          []
        in
        let bnds =
-         if [] = v_vault_certificates then bnds
+         if Stdlib.( = ) [] v_vault_certificates then bnds
          else
            let arg =
              (yojson_of_list
@@ -388,9 +388,9 @@ type os_profile_windows_config = {
   timezone : string prop option; [@option]
   additional_unattend_config :
     os_profile_windows_config__additional_unattend_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   winrm : os_profile_windows_config__winrm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -409,7 +409,7 @@ let yojson_of_os_profile_windows_config =
          []
        in
        let bnds =
-         if [] = v_winrm then bnds
+         if Stdlib.( = ) [] v_winrm then bnds
          else
            let arg =
              (yojson_of_list
@@ -420,7 +420,7 @@ let yojson_of_os_profile_windows_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_unattend_config then bnds
+         if Stdlib.( = ) [] v_additional_unattend_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -845,7 +845,7 @@ type azurerm_virtual_machine = {
   location : string prop;
   name : string prop;
   network_interface_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   primary_network_interface_id : string prop option; [@option]
   proximity_placement_group_id : string prop option; [@option]
   resource_group_name : string prop;
@@ -853,26 +853,26 @@ type azurerm_virtual_machine = {
   vm_size : string prop;
   zones : string prop list option; [@option]
   additional_capabilities : additional_capabilities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   boot_diagnostics : boot_diagnostics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_profile : os_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_profile_linux_config : os_profile_linux_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_profile_secrets : os_profile_secrets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_profile_windows_config : os_profile_windows_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_data_disk : storage_data_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_image_reference : storage_image_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_os_disk : storage_os_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -919,7 +919,7 @@ let yojson_of_azurerm_virtual_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_os_disk then bnds
+         if Stdlib.( = ) [] v_storage_os_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_os_disk)
@@ -929,7 +929,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_image_reference then bnds
+         if Stdlib.( = ) [] v_storage_image_reference then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_image_reference)
@@ -939,7 +939,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_data_disk then bnds
+         if Stdlib.( = ) [] v_storage_data_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_data_disk)
@@ -949,14 +949,14 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_profile_windows_config then bnds
+         if Stdlib.( = ) [] v_os_profile_windows_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_profile_windows_config)
@@ -966,7 +966,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_profile_secrets then bnds
+         if Stdlib.( = ) [] v_os_profile_secrets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_profile_secrets)
@@ -976,7 +976,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_profile_linux_config then bnds
+         if Stdlib.( = ) [] v_os_profile_linux_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_profile_linux_config)
@@ -986,7 +986,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_profile then bnds
+         if Stdlib.( = ) [] v_os_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_profile) v_os_profile
@@ -995,7 +995,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -1004,7 +1004,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_boot_diagnostics then bnds
+         if Stdlib.( = ) [] v_boot_diagnostics then bnds
          else
            let arg =
              (yojson_of_list yojson_of_boot_diagnostics)
@@ -1014,7 +1014,7 @@ let yojson_of_azurerm_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_capabilities then bnds
+         if Stdlib.( = ) [] v_additional_capabilities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_capabilities)
@@ -1076,7 +1076,7 @@ let yojson_of_azurerm_virtual_machine =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface_ids then bnds
+         if Stdlib.( = ) [] v_network_interface_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

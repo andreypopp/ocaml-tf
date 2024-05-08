@@ -186,10 +186,10 @@ type core_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
   configurations :
     core_instance_fleet__instance_type_configs__configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_config :
     core_instance_fleet__instance_type_configs__ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +210,7 @@ let yojson_of_core_instance_fleet__instance_type_configs =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -221,7 +221,7 @@ let yojson_of_core_instance_fleet__instance_type_configs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configurations then bnds
+         if Stdlib.( = ) [] v_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -365,11 +365,11 @@ type core_instance_fleet__launch_specifications = {
   on_demand_specification :
     core_instance_fleet__launch_specifications__on_demand_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spot_specification :
     core_instance_fleet__launch_specifications__spot_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -385,7 +385,7 @@ let yojson_of_core_instance_fleet__launch_specifications =
          []
        in
        let bnds =
-         if [] = v_spot_specification then bnds
+         if Stdlib.( = ) [] v_spot_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -396,7 +396,7 @@ let yojson_of_core_instance_fleet__launch_specifications =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_demand_specification then bnds
+         if Stdlib.( = ) [] v_on_demand_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -420,10 +420,10 @@ type core_instance_fleet = {
   target_spot_capacity : float prop option; [@option]
   instance_type_configs :
     core_instance_fleet__instance_type_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_specifications :
     core_instance_fleet__launch_specifications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -442,7 +442,7 @@ let yojson_of_core_instance_fleet =
          []
        in
        let bnds =
-         if [] = v_launch_specifications then bnds
+         if Stdlib.( = ) [] v_launch_specifications then bnds
          else
            let arg =
              (yojson_of_list
@@ -453,7 +453,7 @@ let yojson_of_core_instance_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_type_configs then bnds
+         if Stdlib.( = ) [] v_instance_type_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -564,7 +564,7 @@ type core_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : core_instance_group__ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -584,7 +584,7 @@ let yojson_of_core_instance_group =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -935,10 +935,10 @@ type master_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
   configurations :
     master_instance_fleet__instance_type_configs__configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebs_config :
     master_instance_fleet__instance_type_configs__ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -959,7 +959,7 @@ let yojson_of_master_instance_fleet__instance_type_configs =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -970,7 +970,7 @@ let yojson_of_master_instance_fleet__instance_type_configs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configurations then bnds
+         if Stdlib.( = ) [] v_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -1114,11 +1114,11 @@ type master_instance_fleet__launch_specifications = {
   on_demand_specification :
     master_instance_fleet__launch_specifications__on_demand_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spot_specification :
     master_instance_fleet__launch_specifications__spot_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1134,7 +1134,7 @@ let yojson_of_master_instance_fleet__launch_specifications =
          []
        in
        let bnds =
-         if [] = v_spot_specification then bnds
+         if Stdlib.( = ) [] v_spot_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -1145,7 +1145,7 @@ let yojson_of_master_instance_fleet__launch_specifications =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_demand_specification then bnds
+         if Stdlib.( = ) [] v_on_demand_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -1169,10 +1169,10 @@ type master_instance_fleet = {
   target_spot_capacity : float prop option; [@option]
   instance_type_configs :
     master_instance_fleet__instance_type_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_specifications :
     master_instance_fleet__launch_specifications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1191,7 +1191,7 @@ let yojson_of_master_instance_fleet =
          []
        in
        let bnds =
-         if [] = v_launch_specifications then bnds
+         if Stdlib.( = ) [] v_launch_specifications then bnds
          else
            let arg =
              (yojson_of_list
@@ -1202,7 +1202,7 @@ let yojson_of_master_instance_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_type_configs then bnds
+         if Stdlib.( = ) [] v_instance_type_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -1312,7 +1312,7 @@ type master_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : master_instance_group__ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1331,7 +1331,7 @@ let yojson_of_master_instance_group =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1411,7 +1411,8 @@ let _ = yojson_of_placement_group_config
 [@@@deriving.end]
 
 type step__hadoop_jar_step = {
-  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+  args : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jar : string prop;
   main_class : string prop;
   properties : (string * string prop) list;
@@ -1452,7 +1453,7 @@ let yojson_of_step__hadoop_jar_step =
          ("jar", arg) :: bnds
        in
        let bnds =
-         if [] = v_args then bnds
+         if Stdlib.( = ) [] v_args then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1471,7 +1472,7 @@ let _ = yojson_of_step__hadoop_jar_step
 type step = {
   action_on_failure : string prop;
   hadoop_jar_step : step__hadoop_jar_step list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1493,7 +1494,7 @@ let yojson_of_step =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_hadoop_jar_step then bnds
+         if Stdlib.( = ) [] v_hadoop_jar_step then bnds
          else
            let arg =
              (yojson_of_list yojson_of_step__hadoop_jar_step)
@@ -1542,21 +1543,21 @@ type aws_emr_cluster = {
   termination_protection : bool prop option; [@option]
   visible_to_all_users : bool prop option; [@option]
   auto_termination_policy : auto_termination_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bootstrap_action : bootstrap_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   core_instance_fleet : core_instance_fleet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   core_instance_group : core_instance_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ec2_attributes : ec2_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kerberos_attributes : kerberos_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   master_instance_fleet : master_instance_fleet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   master_instance_group : master_instance_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1603,7 +1604,7 @@ let yojson_of_aws_emr_cluster =
          []
        in
        let bnds =
-         if [] = v_master_instance_group then bnds
+         if Stdlib.( = ) [] v_master_instance_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_master_instance_group)
@@ -1613,7 +1614,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_master_instance_fleet then bnds
+         if Stdlib.( = ) [] v_master_instance_fleet then bnds
          else
            let arg =
              (yojson_of_list yojson_of_master_instance_fleet)
@@ -1623,7 +1624,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kerberos_attributes then bnds
+         if Stdlib.( = ) [] v_kerberos_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kerberos_attributes)
@@ -1633,7 +1634,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ec2_attributes then bnds
+         if Stdlib.( = ) [] v_ec2_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ec2_attributes)
@@ -1643,7 +1644,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_core_instance_group then bnds
+         if Stdlib.( = ) [] v_core_instance_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_core_instance_group)
@@ -1653,7 +1654,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_core_instance_fleet then bnds
+         if Stdlib.( = ) [] v_core_instance_fleet then bnds
          else
            let arg =
              (yojson_of_list yojson_of_core_instance_fleet)
@@ -1663,7 +1664,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bootstrap_action then bnds
+         if Stdlib.( = ) [] v_bootstrap_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bootstrap_action)
@@ -1673,7 +1674,7 @@ let yojson_of_aws_emr_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_termination_policy then bnds
+         if Stdlib.( = ) [] v_auto_termination_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_termination_policy)

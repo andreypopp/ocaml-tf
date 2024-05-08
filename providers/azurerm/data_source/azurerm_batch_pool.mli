@@ -14,7 +14,7 @@ type certificate = {
   store_location : string prop;  (** store_location *)
   store_name : string prop;  (** store_name *)
   visibility : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** visibility *)
 }
 
@@ -28,11 +28,11 @@ type container_configuration__container_registries = {
 
 type container_configuration = {
   container_image_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** container_image_names *)
   container_registries :
     container_configuration__container_registries list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** container_registries *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -54,7 +54,7 @@ type extensions = {
   name : string prop;  (** name *)
   protected_settings : string prop;  (** protected_settings *)
   provision_after_extensions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** provision_after_extensions *)
   publisher : string prop;  (** publisher *)
   settings_json : string prop;  (** settings_json *)
@@ -103,16 +103,16 @@ type mount__azure_blob_file_system = {
 
 type mount = {
   azure_blob_file_system : mount__azure_blob_file_system list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** azure_blob_file_system *)
   azure_file_share : mount__azure_file_share list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** azure_file_share *)
   cifs_mount : mount__cifs_mount list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cifs_mount *)
   nfs_mount : mount__nfs_mount list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** nfs_mount *)
 }
 
@@ -121,7 +121,7 @@ type network_configuration__endpoint_configuration__network_security_group_rules
   priority : float prop;  (** priority *)
   source_address_prefix : string prop;  (** source_address_prefix *)
   source_port_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_port_ranges *)
 }
 
@@ -132,7 +132,7 @@ type network_configuration__endpoint_configuration = {
   network_security_group_rules :
     network_configuration__endpoint_configuration__network_security_group_rules
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_security_group_rules *)
   protocol : string prop;  (** protocol *)
 }
@@ -144,12 +144,12 @@ type network_configuration = {
       (** dynamic_vnet_assignment_scope *)
   endpoint_configuration :
     network_configuration__endpoint_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** endpoint_configuration *)
   public_address_provisioning_type : string prop;
       (** public_address_provisioning_type *)
   public_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_ips *)
   subnet_id : string prop;  (** subnet_id *)
 }
@@ -163,7 +163,7 @@ type start_task__user_identity__auto_user = {
 
 type start_task__user_identity = {
   auto_user : start_task__user_identity__auto_user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** auto_user *)
   user_name : string prop;  (** user_name *)
 }
@@ -191,7 +191,7 @@ type start_task__container__registry = {
 type start_task__container = {
   image_name : string prop;  (** image_name *)
   registry : start_task__container__registry list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** registry *)
   run_options : string prop;  (** run_options *)
   working_directory : string prop;  (** working_directory *)
@@ -202,14 +202,14 @@ type start_task = {
   common_environment_properties : (string * string prop) list;
       (** common_environment_properties *)
   container : start_task__container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** container *)
   resource_file : start_task__resource_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resource_file *)
   task_retry_maximum : float prop;  (** task_retry_maximum *)
   user_identity : start_task__user_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_identity *)
   wait_for_success : bool prop;  (** wait_for_success *)
 }
@@ -240,13 +240,13 @@ type user_accounts = {
   elevation_level : string prop;  (** elevation_level *)
   linux_user_configuration :
     user_accounts__linux_user_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux_user_configuration *)
   name : string prop;  (** name *)
   password : string prop;  (** password *)
   windows_user_configuration :
     user_accounts__windows_user_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** windows_user_configuration *)
 }
 

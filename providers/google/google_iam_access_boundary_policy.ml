@@ -65,7 +65,7 @@ type rules__access_boundary_rule = {
   available_resource : string prop option; [@option]
   availability_condition :
     rules__access_boundary_rule__availability_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +82,7 @@ let yojson_of_rules__access_boundary_rule =
          []
        in
        let bnds =
-         if [] = v_availability_condition then bnds
+         if Stdlib.( = ) [] v_availability_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -121,7 +121,7 @@ let _ = yojson_of_rules__access_boundary_rule
 type rules = {
   description : string prop option; [@option]
   access_boundary_rule : rules__access_boundary_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -137,7 +137,7 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         if [] = v_access_boundary_rule then bnds
+         if Stdlib.( = ) [] v_access_boundary_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__access_boundary_rule)
@@ -212,7 +212,8 @@ type google_iam_access_boundary_policy = {
   id : string prop option; [@option]
   name : string prop;
   parent : string prop;
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -237,7 +238,7 @@ let yojson_of_google_iam_access_boundary_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

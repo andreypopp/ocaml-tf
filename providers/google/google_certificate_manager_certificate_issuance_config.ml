@@ -36,7 +36,7 @@ type certificate_authority_config = {
   certificate_authority_service_config :
     certificate_authority_config__certificate_authority_service_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,7 +52,8 @@ let yojson_of_certificate_authority_config =
          []
        in
        let bnds =
-         if [] = v_certificate_authority_service_config then bnds
+         if Stdlib.( = ) [] v_certificate_authority_service_config
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -127,7 +128,7 @@ type google_certificate_manager_certificate_issuance_config = {
   project : string prop option; [@option]
   rotation_window_percentage : float prop;
   certificate_authority_config : certificate_authority_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,7 +161,7 @@ let yojson_of_google_certificate_manager_certificate_issuance_config
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_certificate_authority_config then bnds
+         if Stdlib.( = ) [] v_certificate_authority_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certificate_authority_config)

@@ -139,7 +139,7 @@ type aws_dax_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   server_side_encryption : server_side_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -176,7 +176,7 @@ let yojson_of_aws_dax_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_server_side_encryption then bnds
+         if Stdlib.( = ) [] v_server_side_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_side_encryption)

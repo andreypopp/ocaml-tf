@@ -381,13 +381,13 @@ type azurerm_synapse_workspace = {
   storage_data_lake_gen2_filesystem_id : string prop;
   tags : (string * string prop) list option; [@option]
   azure_devops_repo : azure_devops_repo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_managed_key : customer_managed_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github_repo : github_repo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -436,7 +436,7 @@ let yojson_of_azurerm_synapse_workspace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -445,7 +445,7 @@ let yojson_of_azurerm_synapse_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github_repo then bnds
+         if Stdlib.( = ) [] v_github_repo then bnds
          else
            let arg =
              (yojson_of_list yojson_of_github_repo) v_github_repo
@@ -454,7 +454,7 @@ let yojson_of_azurerm_synapse_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customer_managed_key then bnds
+         if Stdlib.( = ) [] v_customer_managed_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_customer_managed_key)
@@ -464,7 +464,7 @@ let yojson_of_azurerm_synapse_workspace =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_devops_repo then bnds
+         if Stdlib.( = ) [] v_azure_devops_repo then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_devops_repo)

@@ -84,10 +84,10 @@ type thing_group_indexing_configuration = {
   thing_group_indexing_mode : string prop;
   custom_field :
     thing_group_indexing_configuration__custom_field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_field :
     thing_group_indexing_configuration__managed_field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_thing_group_indexing_configuration =
          []
        in
        let bnds =
-         if [] = v_managed_field then bnds
+         if Stdlib.( = ) [] v_managed_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +115,7 @@ let yojson_of_thing_group_indexing_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_field then bnds
+         if Stdlib.( = ) [] v_custom_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -253,11 +253,11 @@ type thing_indexing_configuration = {
   thing_connectivity_indexing_mode : string prop option; [@option]
   thing_indexing_mode : string prop;
   custom_field : thing_indexing_configuration__custom_field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter : thing_indexing_configuration__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_field : thing_indexing_configuration__managed_field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -280,7 +280,7 @@ let yojson_of_thing_indexing_configuration =
          []
        in
        let bnds =
-         if [] = v_managed_field then bnds
+         if Stdlib.( = ) [] v_managed_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -291,7 +291,7 @@ let yojson_of_thing_indexing_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list
@@ -302,7 +302,7 @@ let yojson_of_thing_indexing_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_field then bnds
+         if Stdlib.( = ) [] v_custom_field then bnds
          else
            let arg =
              (yojson_of_list
@@ -354,9 +354,9 @@ type aws_iot_indexing_configuration = {
   id : string prop option; [@option]
   thing_group_indexing_configuration :
     thing_group_indexing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   thing_indexing_configuration : thing_indexing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,7 +374,7 @@ let yojson_of_aws_iot_indexing_configuration =
          []
        in
        let bnds =
-         if [] = v_thing_indexing_configuration then bnds
+         if Stdlib.( = ) [] v_thing_indexing_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_thing_indexing_configuration)
@@ -384,7 +384,8 @@ let yojson_of_aws_iot_indexing_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_thing_group_indexing_configuration then bnds
+         if Stdlib.( = ) [] v_thing_group_indexing_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list

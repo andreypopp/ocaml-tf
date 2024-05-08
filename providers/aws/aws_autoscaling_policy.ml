@@ -43,7 +43,7 @@ type predictive_scaling_configuration__metric_specification__customized_capacity
   dimensions :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries__metric_stat__metric__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -97,7 +97,7 @@ type predictive_scaling_configuration__metric_specification__customized_capacity
   metric :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries__metric_stat__metric
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,7 +114,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list
@@ -153,7 +153,7 @@ type predictive_scaling_configuration__metric_specification__customized_capacity
   metric_stat :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries__metric_stat
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -176,7 +176,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_stat then bnds
+         if Stdlib.( = ) [] v_metric_stat then bnds
          else
            let arg =
              (yojson_of_list
@@ -227,7 +227,7 @@ type predictive_scaling_configuration__metric_specification__customized_capacity
   metric_data_queries :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -244,7 +244,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_data_queries then bnds
+         if Stdlib.( = ) [] v_metric_data_queries then bnds
          else
            let arg =
              (yojson_of_list
@@ -304,7 +304,7 @@ type predictive_scaling_configuration__metric_specification__customized_load_met
   dimensions :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries__metric_stat__metric__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,7 +325,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -358,7 +358,7 @@ type predictive_scaling_configuration__metric_specification__customized_load_met
   metric :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries__metric_stat__metric
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -375,7 +375,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list
@@ -414,7 +414,7 @@ type predictive_scaling_configuration__metric_specification__customized_load_met
   metric_stat :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries__metric_stat
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -437,7 +437,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_stat then bnds
+         if Stdlib.( = ) [] v_metric_stat then bnds
          else
            let arg =
              (yojson_of_list
@@ -488,7 +488,7 @@ type predictive_scaling_configuration__metric_specification__customized_load_met
   metric_data_queries :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -505,7 +505,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_data_queries then bnds
+         if Stdlib.( = ) [] v_metric_data_queries then bnds
          else
            let arg =
              (yojson_of_list
@@ -565,7 +565,7 @@ type predictive_scaling_configuration__metric_specification__customized_scaling_
   dimensions :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries__metric_stat__metric__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -586,7 +586,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -619,7 +619,7 @@ type predictive_scaling_configuration__metric_specification__customized_scaling_
   metric :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries__metric_stat__metric
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -636,7 +636,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list
@@ -675,7 +675,7 @@ type predictive_scaling_configuration__metric_specification__customized_scaling_
   metric_stat :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries__metric_stat
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -698,7 +698,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_stat then bnds
+         if Stdlib.( = ) [] v_metric_stat then bnds
          else
            let arg =
              (yojson_of_list
@@ -749,7 +749,7 @@ type predictive_scaling_configuration__metric_specification__customized_scaling_
   metric_data_queries :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -766,7 +766,7 @@ let yojson_of_predictive_scaling_configuration__metric_specification__customized
          []
        in
        let bnds =
-         if [] = v_metric_data_queries then bnds
+         if Stdlib.( = ) [] v_metric_data_queries then bnds
          else
            let arg =
              (yojson_of_list
@@ -922,27 +922,27 @@ type predictive_scaling_configuration__metric_specification = {
   customized_capacity_metric_specification :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customized_load_metric_specification :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customized_scaling_metric_specification :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_load_metric_specification :
     predictive_scaling_configuration__metric_specification__predefined_load_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_metric_pair_specification :
     predictive_scaling_configuration__metric_specification__predefined_metric_pair_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_scaling_metric_specification :
     predictive_scaling_configuration__metric_specification__predefined_scaling_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -972,7 +972,8 @@ let yojson_of_predictive_scaling_configuration__metric_specification
          []
        in
        let bnds =
-         if [] = v_predefined_scaling_metric_specification then bnds
+         if Stdlib.( = ) [] v_predefined_scaling_metric_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -985,7 +986,8 @@ let yojson_of_predictive_scaling_configuration__metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predefined_metric_pair_specification then bnds
+         if Stdlib.( = ) [] v_predefined_metric_pair_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -996,7 +998,8 @@ let yojson_of_predictive_scaling_configuration__metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predefined_load_metric_specification then bnds
+         if Stdlib.( = ) [] v_predefined_load_metric_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1007,7 +1010,8 @@ let yojson_of_predictive_scaling_configuration__metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customized_scaling_metric_specification then bnds
+         if Stdlib.( = ) [] v_customized_scaling_metric_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1020,7 +1024,8 @@ let yojson_of_predictive_scaling_configuration__metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customized_load_metric_specification then bnds
+         if Stdlib.( = ) [] v_customized_load_metric_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1031,7 +1036,9 @@ let yojson_of_predictive_scaling_configuration__metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customized_capacity_metric_specification then bnds
+         if
+           Stdlib.( = ) [] v_customized_capacity_metric_specification
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1063,7 +1070,7 @@ type predictive_scaling_configuration = {
   scheduling_buffer_time : string prop option; [@option]
   metric_specification :
     predictive_scaling_configuration__metric_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1082,7 +1089,7 @@ let yojson_of_predictive_scaling_configuration =
          []
        in
        let bnds =
-         if [] = v_metric_specification then bnds
+         if Stdlib.( = ) [] v_metric_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -1256,7 +1263,7 @@ type target_tracking_configuration__customized_metric_specification__metrics__me
   dimensions :
     target_tracking_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1277,7 +1284,7 @@ let yojson_of_target_tracking_configuration__customized_metric_specification__me
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1310,7 +1317,7 @@ type target_tracking_configuration__customized_metric_specification__metrics__me
   metric :
     target_tracking_configuration__customized_metric_specification__metrics__metric_stat__metric
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1327,7 +1334,7 @@ let yojson_of_target_tracking_configuration__customized_metric_specification__me
          []
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list
@@ -1366,7 +1373,7 @@ type target_tracking_configuration__customized_metric_specification__metrics = {
   metric_stat :
     target_tracking_configuration__customized_metric_specification__metrics__metric_stat
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1389,7 +1396,7 @@ let yojson_of_target_tracking_configuration__customized_metric_specification__me
          []
        in
        let bnds =
-         if [] = v_metric_stat then bnds
+         if Stdlib.( = ) [] v_metric_stat then bnds
          else
            let arg =
              (yojson_of_list
@@ -1444,11 +1451,11 @@ type target_tracking_configuration__customized_metric_specification = {
   metric_dimension :
     target_tracking_configuration__customized_metric_specification__metric_dimension
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metrics :
     target_tracking_configuration__customized_metric_specification__metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1472,7 +1479,7 @@ let yojson_of_target_tracking_configuration__customized_metric_specification
          []
        in
        let bnds =
-         if [] = v_metrics then bnds
+         if Stdlib.( = ) [] v_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -1483,7 +1490,7 @@ let yojson_of_target_tracking_configuration__customized_metric_specification
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metric_dimension then bnds
+         if Stdlib.( = ) [] v_metric_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -1584,11 +1591,11 @@ type target_tracking_configuration = {
   customized_metric_specification :
     target_tracking_configuration__customized_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_metric_specification :
     target_tracking_configuration__predefined_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1608,7 +1615,8 @@ let yojson_of_target_tracking_configuration =
          []
        in
        let bnds =
-         if [] = v_predefined_metric_specification then bnds
+         if Stdlib.( = ) [] v_predefined_metric_specification then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1619,7 +1627,8 @@ let yojson_of_target_tracking_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customized_metric_specification then bnds
+         if Stdlib.( = ) [] v_customized_metric_specification then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1663,11 +1672,11 @@ type aws_autoscaling_policy = {
   scaling_adjustment : float prop option; [@option]
   predictive_scaling_configuration :
     predictive_scaling_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   step_adjustment : step_adjustment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_tracking_configuration : target_tracking_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1697,7 +1706,7 @@ let yojson_of_aws_autoscaling_policy =
          []
        in
        let bnds =
-         if [] = v_target_tracking_configuration then bnds
+         if Stdlib.( = ) [] v_target_tracking_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_tracking_configuration)
@@ -1707,7 +1716,7 @@ let yojson_of_aws_autoscaling_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_step_adjustment then bnds
+         if Stdlib.( = ) [] v_step_adjustment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_step_adjustment)
@@ -1717,7 +1726,8 @@ let yojson_of_aws_autoscaling_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predictive_scaling_configuration then bnds
+         if Stdlib.( = ) [] v_predictive_scaling_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list

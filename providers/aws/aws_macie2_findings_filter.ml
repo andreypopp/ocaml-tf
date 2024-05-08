@@ -107,7 +107,7 @@ let _ = yojson_of_finding_criteria__criterion
 
 type finding_criteria = {
   criterion : finding_criteria__criterion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,7 +120,7 @@ let yojson_of_finding_criteria =
          []
        in
        let bnds =
-         if [] = v_criterion then bnds
+         if Stdlib.( = ) [] v_criterion then bnds
          else
            let arg =
              (yojson_of_list yojson_of_finding_criteria__criterion)
@@ -146,7 +146,7 @@ type aws_macie2_findings_filter = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   finding_criteria : finding_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_aws_macie2_findings_filter =
          []
        in
        let bnds =
-         if [] = v_finding_criteria then bnds
+         if Stdlib.( = ) [] v_finding_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_finding_criteria)

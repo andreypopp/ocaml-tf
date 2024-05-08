@@ -7,7 +7,7 @@ open! Tf_core
 type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kms_key_versions *)
 }
 

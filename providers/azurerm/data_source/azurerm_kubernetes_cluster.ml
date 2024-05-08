@@ -86,17 +86,18 @@ type agent_pool_profile = {
   node_labels : (string * string prop) list;
   node_public_ip_prefix_id : string prop;
   node_taints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   orchestrator_version : string prop;
   os_disk_size_gb : float prop;
   os_type : string prop;
   tags : (string * string prop) list;
   type_ : string prop; [@key "type"]
   upgrade_settings : agent_pool_profile__upgrade_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vm_size : string prop;
   vnet_subnet_id : string prop;
-  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+  zones : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,7 +130,7 @@ let yojson_of_agent_pool_profile =
          []
        in
        let bnds =
-         if [] = v_zones then bnds
+         if Stdlib.( = ) [] v_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -149,7 +150,7 @@ let yojson_of_agent_pool_profile =
          ("vm_size", arg) :: bnds
        in
        let bnds =
-         if [] = v_upgrade_settings then bnds
+         if Stdlib.( = ) [] v_upgrade_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -192,7 +193,7 @@ let yojson_of_agent_pool_profile =
          ("orchestrator_version", arg) :: bnds
        in
        let bnds =
-         if [] = v_node_taints then bnds
+         if Stdlib.( = ) [] v_node_taints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -260,7 +261,7 @@ let _ = yojson_of_agent_pool_profile
 
 type azure_active_directory_role_based_access_control = {
   admin_group_object_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_rbac_enabled : bool prop;
   client_app_id : string prop;
   managed : bool prop;
@@ -308,7 +309,7 @@ let yojson_of_azure_active_directory_role_based_access_control =
          ("azure_rbac_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_admin_group_object_ids then bnds
+         if Stdlib.( = ) [] v_admin_group_object_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -327,7 +328,7 @@ let _ = yojson_of_azure_active_directory_role_based_access_control
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -360,7 +361,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -430,7 +431,7 @@ type ingress_application_gateway = {
   ingress_application_gateway_identity :
     ingress_application_gateway__ingress_application_gateway_identity
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_cidr : string prop;
   subnet_id : string prop;
 }
@@ -461,7 +462,8 @@ let yojson_of_ingress_application_gateway =
          ("subnet_cidr", arg) :: bnds
        in
        let bnds =
-         if [] = v_ingress_application_gateway_identity then bnds
+         if Stdlib.( = ) [] v_ingress_application_gateway_identity
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -573,7 +575,7 @@ let _ = yojson_of_key_vault_secrets_provider__secret_identity
 
 type key_vault_secrets_provider = {
   secret_identity : key_vault_secrets_provider__secret_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_rotation_enabled : bool prop;
   secret_rotation_interval : string prop;
 }
@@ -604,7 +606,7 @@ let yojson_of_key_vault_secrets_provider =
          ("secret_rotation_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_secret_identity then bnds
+         if Stdlib.( = ) [] v_secret_identity then bnds
          else
            let arg =
              (yojson_of_list
@@ -807,7 +809,7 @@ let _ = yojson_of_linux_profile__ssh_key
 type linux_profile = {
   admin_username : string prop;
   ssh_key : linux_profile__ssh_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -820,7 +822,7 @@ let yojson_of_linux_profile =
          []
        in
        let bnds =
-         if [] = v_ssh_key then bnds
+         if Stdlib.( = ) [] v_ssh_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linux_profile__ssh_key)
@@ -987,7 +989,7 @@ type oms_agent = {
   log_analytics_workspace_id : string prop;
   msi_auth_for_monitoring_enabled : bool prop;
   oms_agent_identity : oms_agent__oms_agent_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1005,7 +1007,7 @@ let yojson_of_oms_agent =
          []
        in
        let bnds =
-         if [] = v_oms_agent_identity then bnds
+         if Stdlib.( = ) [] v_oms_agent_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oms_agent__oms_agent_identity)

@@ -248,12 +248,12 @@ let _ = yojson_of_notebook__infrastructure_spec__vpc_network
 
 type notebook__infrastructure_spec = {
   batch : notebook__infrastructure_spec__batch list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_image :
     notebook__infrastructure_spec__container_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_network : notebook__infrastructure_spec__vpc_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -270,7 +270,7 @@ let yojson_of_notebook__infrastructure_spec =
          []
        in
        let bnds =
-         if [] = v_vpc_network then bnds
+         if Stdlib.( = ) [] v_vpc_network then bnds
          else
            let arg =
              (yojson_of_list
@@ -281,7 +281,7 @@ let yojson_of_notebook__infrastructure_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_image then bnds
+         if Stdlib.( = ) [] v_container_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -292,7 +292,7 @@ let yojson_of_notebook__infrastructure_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_batch then bnds
+         if Stdlib.( = ) [] v_batch then bnds
          else
            let arg =
              (yojson_of_list
@@ -315,7 +315,7 @@ type notebook = {
   file_uris : string prop list option; [@option]
   notebook : string prop;
   infrastructure_spec : notebook__infrastructure_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -333,7 +333,7 @@ let yojson_of_notebook =
          []
        in
        let bnds =
-         if [] = v_infrastructure_spec then bnds
+         if Stdlib.( = ) [] v_infrastructure_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notebook__infrastructure_spec)
@@ -542,11 +542,11 @@ let _ = yojson_of_spark__infrastructure_spec__vpc_network
 
 type spark__infrastructure_spec = {
   batch : spark__infrastructure_spec__batch list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_image : spark__infrastructure_spec__container_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_network : spark__infrastructure_spec__vpc_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -563,7 +563,7 @@ let yojson_of_spark__infrastructure_spec =
          []
        in
        let bnds =
-         if [] = v_vpc_network then bnds
+         if Stdlib.( = ) [] v_vpc_network then bnds
          else
            let arg =
              (yojson_of_list
@@ -574,7 +574,7 @@ let yojson_of_spark__infrastructure_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_image then bnds
+         if Stdlib.( = ) [] v_container_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -585,7 +585,7 @@ let yojson_of_spark__infrastructure_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_batch then bnds
+         if Stdlib.( = ) [] v_batch then bnds
          else
            let arg =
              (yojson_of_list
@@ -611,7 +611,7 @@ type spark = {
   sql_script : string prop option; [@option]
   sql_script_file : string prop option; [@option]
   infrastructure_spec : spark__infrastructure_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -633,7 +633,7 @@ let yojson_of_spark =
          []
        in
        let bnds =
-         if [] = v_infrastructure_spec then bnds
+         if Stdlib.( = ) [] v_infrastructure_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spark__infrastructure_spec)
@@ -898,7 +898,7 @@ let _ = yojson_of_execution_status__latest_job
 
 type execution_status = {
   latest_job : execution_status__latest_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   update_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -916,7 +916,7 @@ let yojson_of_execution_status =
          ("update_time", arg) :: bnds
        in
        let bnds =
-         if [] = v_latest_job then bnds
+         if Stdlib.( = ) [] v_latest_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_status__latest_job)
@@ -942,13 +942,14 @@ type google_dataplex_task = {
   project : string prop option; [@option]
   task_id : string prop option; [@option]
   execution_spec : execution_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notebook : notebook list;
-      [@default []] [@yojson_drop_default ( = )]
-  spark : spark list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spark : spark list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   trigger_spec : trigger_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -975,7 +976,7 @@ let yojson_of_google_dataplex_task =
          []
        in
        let bnds =
-         if [] = v_trigger_spec then bnds
+         if Stdlib.( = ) [] v_trigger_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trigger_spec) v_trigger_spec
@@ -988,14 +989,14 @@ let yojson_of_google_dataplex_task =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_spark then bnds
+         if Stdlib.( = ) [] v_spark then bnds
          else
            let arg = (yojson_of_list yojson_of_spark) v_spark in
            let bnd = "spark", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notebook then bnds
+         if Stdlib.( = ) [] v_notebook then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notebook) v_notebook
@@ -1004,7 +1005,7 @@ let yojson_of_google_dataplex_task =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_execution_spec then bnds
+         if Stdlib.( = ) [] v_execution_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_spec)

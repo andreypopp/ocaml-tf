@@ -108,7 +108,7 @@ type kubernetes_namespace = {
   id : string prop option; [@option]
   wait_for_default_service_account : bool prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -132,7 +132,7 @@ let yojson_of_kubernetes_namespace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

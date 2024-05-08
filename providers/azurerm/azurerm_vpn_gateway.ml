@@ -4,7 +4,7 @@ open! Tf_core
 
 type bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
          []
        in
        let bnds =
-         if [] = v_custom_ips then bnds
+         if Stdlib.( = ) [] v_custom_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -36,7 +36,7 @@ let _ = yojson_of_bgp_settings__instance_0_bgp_peering_address
 
 type bgp_settings__instance_1_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,7 +49,7 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
          []
        in
        let bnds =
-         if [] = v_custom_ips then bnds
+         if Stdlib.( = ) [] v_custom_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -71,10 +71,10 @@ type bgp_settings = {
   peer_weight : float prop;
   instance_0_bgp_peering_address :
     bgp_settings__instance_0_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_1_bgp_peering_address :
     bgp_settings__instance_1_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,7 +94,8 @@ let yojson_of_bgp_settings =
          []
        in
        let bnds =
-         if [] = v_instance_1_bgp_peering_address then bnds
+         if Stdlib.( = ) [] v_instance_1_bgp_peering_address then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -105,7 +106,8 @@ let yojson_of_bgp_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_0_bgp_peering_address then bnds
+         if Stdlib.( = ) [] v_instance_0_bgp_peering_address then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -201,7 +203,7 @@ type azurerm_vpn_gateway = {
   tags : (string * string prop) list option; [@option]
   virtual_hub_id : string prop;
   bgp_settings : bgp_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -232,7 +234,7 @@ let yojson_of_azurerm_vpn_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_bgp_settings then bnds
+         if Stdlib.( = ) [] v_bgp_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bgp_settings) v_bgp_settings

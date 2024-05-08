@@ -16,7 +16,7 @@ type status__conditions = {
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** conditions *)
   error_message : string prop;  (** error_message *)
 }
@@ -31,7 +31,7 @@ type validation_check__status__result = {
 
 type validation_check__status = {
   result : validation_check__status__result list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** result *)
 }
 
@@ -39,7 +39,7 @@ type validation_check = {
   options : string prop;  (** options *)
   scenario : string prop;  (** scenario *)
   status : validation_check__status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status *)
 }
 

@@ -84,10 +84,10 @@ type policy_details__action__cross_region_copy = {
   encryption_configuration :
     policy_details__action__cross_region_copy__encryption_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retain_rule :
     policy_details__action__cross_region_copy__retain_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_policy_details__action__cross_region_copy =
          []
        in
        let bnds =
-         if [] = v_retain_rule then bnds
+         if Stdlib.( = ) [] v_retain_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +115,7 @@ let yojson_of_policy_details__action__cross_region_copy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -140,7 +140,7 @@ let _ = yojson_of_policy_details__action__cross_region_copy
 type policy_details__action = {
   name : string prop;
   cross_region_copy : policy_details__action__cross_region_copy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_policy_details__action =
          []
        in
        let bnds =
-         if [] = v_cross_region_copy then bnds
+         if Stdlib.( = ) [] v_cross_region_copy then bnds
          else
            let arg =
              (yojson_of_list
@@ -178,7 +178,7 @@ type policy_details__event_source__parameters = {
   description_regex : string prop;
   event_type : string prop;
   snapshot_owner : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,7 +195,7 @@ let yojson_of_policy_details__event_source__parameters =
          []
        in
        let bnds =
-         if [] = v_snapshot_owner then bnds
+         if Stdlib.( = ) [] v_snapshot_owner then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -225,7 +225,7 @@ let _ = yojson_of_policy_details__event_source__parameters
 type policy_details__event_source = {
   type_ : string prop; [@key "type"]
   parameters : policy_details__event_source__parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -238,7 +238,7 @@ let yojson_of_policy_details__event_source =
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -451,11 +451,11 @@ type policy_details__schedule__cross_region_copy_rule = {
   deprecate_rule :
     policy_details__schedule__cross_region_copy_rule__deprecate_rule
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retain_rule :
     policy_details__schedule__cross_region_copy_rule__retain_rule
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -476,7 +476,7 @@ let yojson_of_policy_details__schedule__cross_region_copy_rule =
          []
        in
        let bnds =
-         if [] = v_retain_rule then bnds
+         if Stdlib.( = ) [] v_retain_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -487,7 +487,7 @@ let yojson_of_policy_details__schedule__cross_region_copy_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deprecate_rule then bnds
+         if Stdlib.( = ) [] v_deprecate_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -582,7 +582,7 @@ let _ = yojson_of_policy_details__schedule__deprecate_rule
 
 type policy_details__schedule__fast_restore_rule = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   count : float prop option; [@option]
   interval : float prop option; [@option]
   interval_unit : string prop option; [@option]
@@ -627,7 +627,7 @@ let yojson_of_policy_details__schedule__fast_restore_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -697,7 +697,7 @@ let _ = yojson_of_policy_details__schedule__retain_rule
 
 type policy_details__schedule__share_rule = {
   target_accounts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unshare_interval : float prop option; [@option]
   unshare_interval_unit : string prop option; [@option]
 }
@@ -732,7 +732,7 @@ let yojson_of_policy_details__schedule__share_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_target_accounts then bnds
+         if Stdlib.( = ) [] v_target_accounts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -755,19 +755,19 @@ type policy_details__schedule = {
   tags_to_add : (string * string prop) list option; [@option]
   variable_tags : (string * string prop) list option; [@option]
   create_rule : policy_details__schedule__create_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cross_region_copy_rule :
     policy_details__schedule__cross_region_copy_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deprecate_rule : policy_details__schedule__deprecate_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fast_restore_rule :
     policy_details__schedule__fast_restore_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retain_rule : policy_details__schedule__retain_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   share_rule : policy_details__schedule__share_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -791,7 +791,7 @@ let yojson_of_policy_details__schedule =
          []
        in
        let bnds =
-         if [] = v_share_rule then bnds
+         if Stdlib.( = ) [] v_share_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -802,7 +802,7 @@ let yojson_of_policy_details__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retain_rule then bnds
+         if Stdlib.( = ) [] v_retain_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -813,7 +813,7 @@ let yojson_of_policy_details__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fast_restore_rule then bnds
+         if Stdlib.( = ) [] v_fast_restore_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -824,7 +824,7 @@ let yojson_of_policy_details__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deprecate_rule then bnds
+         if Stdlib.( = ) [] v_deprecate_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -835,7 +835,7 @@ let yojson_of_policy_details__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cross_region_copy_rule then bnds
+         if Stdlib.( = ) [] v_cross_region_copy_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -846,7 +846,7 @@ let yojson_of_policy_details__schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_create_rule then bnds
+         if Stdlib.( = ) [] v_create_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -913,13 +913,13 @@ type policy_details = {
   resource_types : string prop list option; [@option]
   target_tags : (string * string prop) list option; [@option]
   action : policy_details__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_source : policy_details__event_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameters : policy_details__parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : policy_details__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -941,7 +941,7 @@ let yojson_of_policy_details =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_details__schedule)
@@ -951,7 +951,7 @@ let yojson_of_policy_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_details__parameters)
@@ -961,7 +961,7 @@ let yojson_of_policy_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_source then bnds
+         if Stdlib.( = ) [] v_event_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_details__event_source)
@@ -971,7 +971,7 @@ let yojson_of_policy_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_details__action)
@@ -1039,7 +1039,7 @@ type aws_dlm_lifecycle_policy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   policy_details : policy_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1060,7 +1060,7 @@ let yojson_of_aws_dlm_lifecycle_policy =
          []
        in
        let bnds =
-         if [] = v_policy_details then bnds
+         if Stdlib.( = ) [] v_policy_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_details)

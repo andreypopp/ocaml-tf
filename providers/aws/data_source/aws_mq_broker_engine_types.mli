@@ -11,7 +11,7 @@ type broker_engine_types__engine_versions = {
 type broker_engine_types = {
   engine_type : string prop;  (** engine_type *)
   engine_versions : broker_engine_types__engine_versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** engine_versions *)
 }
 

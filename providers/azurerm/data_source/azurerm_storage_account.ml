@@ -90,7 +90,7 @@ let _ = yojson_of_azure_files_authentication__active_directory
 type azure_files_authentication = {
   active_directory :
     azure_files_authentication__active_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   directory_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -113,7 +113,7 @@ let yojson_of_azure_files_authentication =
          ("directory_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_active_directory then bnds
+         if Stdlib.( = ) [] v_active_directory then bnds
          else
            let arg =
              (yojson_of_list
@@ -154,7 +154,7 @@ let _ = yojson_of_custom_domain
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -187,7 +187,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

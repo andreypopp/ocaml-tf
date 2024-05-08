@@ -9,13 +9,13 @@ type secret__customer_certificate = {
   key_vault_certificate_id : string prop;
       (** key_vault_certificate_id *)
   subject_alternative_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
 }
 
 type secret = {
   customer_certificate : secret__customer_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** customer_certificate *)
 }
 

@@ -9,7 +9,7 @@ type placement_groups = {
   labels : (string * string prop) list;  (** labels *)
   name : string prop;  (** name *)
   servers : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** servers *)
   type_ : string prop; [@key "type"]  (** type *)
 }

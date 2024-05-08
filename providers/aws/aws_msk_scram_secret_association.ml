@@ -6,7 +6,7 @@ type aws_msk_scram_secret_association = {
   cluster_arn : string prop;
   id : string prop option; [@option]
   secret_arn_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23,7 +23,7 @@ let yojson_of_aws_msk_scram_secret_association =
          []
        in
        let bnds =
-         if [] = v_secret_arn_list then bnds
+         if Stdlib.( = ) [] v_secret_arn_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

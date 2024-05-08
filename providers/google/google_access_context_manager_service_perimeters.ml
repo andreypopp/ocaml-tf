@@ -43,7 +43,7 @@ type service_perimeters__spec__egress_policies__egress_from = {
   sources :
     service_perimeters__spec__egress_policies__egress_from__sources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_service_perimeters__spec__egress_policies__egress_from
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -157,7 +157,7 @@ type service_perimeters__spec__egress_policies__egress_to__operations = {
   method_selectors :
     service_perimeters__spec__egress_policies__egress_to__operations__method_selectors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,7 +177,7 @@ let yojson_of_service_perimeters__spec__egress_policies__egress_to__operations
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -210,7 +210,7 @@ type service_perimeters__spec__egress_policies__egress_to = {
   operations :
     service_perimeters__spec__egress_policies__egress_to__operations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,7 +228,7 @@ let yojson_of_service_perimeters__spec__egress_policies__egress_to =
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list
@@ -270,10 +270,10 @@ let _ =
 type service_perimeters__spec__egress_policies = {
   egress_from :
     service_perimeters__spec__egress_policies__egress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   egress_to :
     service_perimeters__spec__egress_policies__egress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,7 +286,7 @@ let yojson_of_service_perimeters__spec__egress_policies =
          []
        in
        let bnds =
-         if [] = v_egress_to then bnds
+         if Stdlib.( = ) [] v_egress_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -297,7 +297,7 @@ let yojson_of_service_perimeters__spec__egress_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_from then bnds
+         if Stdlib.( = ) [] v_egress_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -364,7 +364,7 @@ type service_perimeters__spec__ingress_policies__ingress_from = {
   sources :
     service_perimeters__spec__ingress_policies__ingress_from__sources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -384,7 +384,7 @@ let yojson_of_service_perimeters__spec__ingress_policies__ingress_from
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -469,7 +469,7 @@ type service_perimeters__spec__ingress_policies__ingress_to__operations = {
   method_selectors :
     service_perimeters__spec__ingress_policies__ingress_to__operations__method_selectors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -489,7 +489,7 @@ let yojson_of_service_perimeters__spec__ingress_policies__ingress_to__operations
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -521,7 +521,7 @@ type service_perimeters__spec__ingress_policies__ingress_to = {
   operations :
     service_perimeters__spec__ingress_policies__ingress_to__operations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -537,7 +537,7 @@ let yojson_of_service_perimeters__spec__ingress_policies__ingress_to
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list
@@ -569,10 +569,10 @@ let _ =
 type service_perimeters__spec__ingress_policies = {
   ingress_from :
     service_perimeters__spec__ingress_policies__ingress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_to :
     service_perimeters__spec__ingress_policies__ingress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,7 +585,7 @@ let yojson_of_service_perimeters__spec__ingress_policies =
          []
        in
        let bnds =
-         if [] = v_ingress_to then bnds
+         if Stdlib.( = ) [] v_ingress_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -596,7 +596,7 @@ let yojson_of_service_perimeters__spec__ingress_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_from then bnds
+         if Stdlib.( = ) [] v_ingress_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -663,12 +663,12 @@ type service_perimeters__spec = {
   resources : string prop list option; [@option]
   restricted_services : string prop list option; [@option]
   egress_policies : service_perimeters__spec__egress_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_policies : service_perimeters__spec__ingress_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_accessible_services :
     service_perimeters__spec__vpc_accessible_services list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -688,7 +688,7 @@ let yojson_of_service_perimeters__spec =
          []
        in
        let bnds =
-         if [] = v_vpc_accessible_services then bnds
+         if Stdlib.( = ) [] v_vpc_accessible_services then bnds
          else
            let arg =
              (yojson_of_list
@@ -699,7 +699,7 @@ let yojson_of_service_perimeters__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_policies then bnds
+         if Stdlib.( = ) [] v_ingress_policies then bnds
          else
            let arg =
              (yojson_of_list
@@ -710,7 +710,7 @@ let yojson_of_service_perimeters__spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_policies then bnds
+         if Stdlib.( = ) [] v_egress_policies then bnds
          else
            let arg =
              (yojson_of_list
@@ -798,7 +798,7 @@ type service_perimeters__status__egress_policies__egress_from = {
   sources :
     service_perimeters__status__egress_policies__egress_from__sources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -819,7 +819,7 @@ let yojson_of_service_perimeters__status__egress_policies__egress_from
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -912,7 +912,7 @@ type service_perimeters__status__egress_policies__egress_to__operations = {
   method_selectors :
     service_perimeters__status__egress_policies__egress_to__operations__method_selectors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -932,7 +932,7 @@ let yojson_of_service_perimeters__status__egress_policies__egress_to__operations
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -965,7 +965,7 @@ type service_perimeters__status__egress_policies__egress_to = {
   operations :
     service_perimeters__status__egress_policies__egress_to__operations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -985,7 +985,7 @@ let yojson_of_service_perimeters__status__egress_policies__egress_to
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list
@@ -1027,10 +1027,10 @@ let _ =
 type service_perimeters__status__egress_policies = {
   egress_from :
     service_perimeters__status__egress_policies__egress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   egress_to :
     service_perimeters__status__egress_policies__egress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1043,7 +1043,7 @@ let yojson_of_service_perimeters__status__egress_policies =
          []
        in
        let bnds =
-         if [] = v_egress_to then bnds
+         if Stdlib.( = ) [] v_egress_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -1054,7 +1054,7 @@ let yojson_of_service_perimeters__status__egress_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_from then bnds
+         if Stdlib.( = ) [] v_egress_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -1121,7 +1121,7 @@ type service_perimeters__status__ingress_policies__ingress_from = {
   sources :
     service_perimeters__status__ingress_policies__ingress_from__sources
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1141,7 +1141,7 @@ let yojson_of_service_perimeters__status__ingress_policies__ingress_from
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list
@@ -1226,7 +1226,7 @@ type service_perimeters__status__ingress_policies__ingress_to__operations = {
   method_selectors :
     service_perimeters__status__ingress_policies__ingress_to__operations__method_selectors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1246,7 +1246,7 @@ let yojson_of_service_perimeters__status__ingress_policies__ingress_to__operatio
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -1278,7 +1278,7 @@ type service_perimeters__status__ingress_policies__ingress_to = {
   operations :
     service_perimeters__status__ingress_policies__ingress_to__operations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1294,7 +1294,7 @@ let yojson_of_service_perimeters__status__ingress_policies__ingress_to
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list
@@ -1326,10 +1326,10 @@ let _ =
 type service_perimeters__status__ingress_policies = {
   ingress_from :
     service_perimeters__status__ingress_policies__ingress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_to :
     service_perimeters__status__ingress_policies__ingress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1342,7 +1342,7 @@ let yojson_of_service_perimeters__status__ingress_policies =
          []
        in
        let bnds =
-         if [] = v_ingress_to then bnds
+         if Stdlib.( = ) [] v_ingress_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -1353,7 +1353,7 @@ let yojson_of_service_perimeters__status__ingress_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_from then bnds
+         if Stdlib.( = ) [] v_ingress_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -1420,13 +1420,13 @@ type service_perimeters__status = {
   resources : string prop list option; [@option]
   restricted_services : string prop list option; [@option]
   egress_policies : service_perimeters__status__egress_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_policies :
     service_perimeters__status__ingress_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_accessible_services :
     service_perimeters__status__vpc_accessible_services list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1446,7 +1446,7 @@ let yojson_of_service_perimeters__status =
          []
        in
        let bnds =
-         if [] = v_vpc_accessible_services then bnds
+         if Stdlib.( = ) [] v_vpc_accessible_services then bnds
          else
            let arg =
              (yojson_of_list
@@ -1457,7 +1457,7 @@ let yojson_of_service_perimeters__status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_policies then bnds
+         if Stdlib.( = ) [] v_ingress_policies then bnds
          else
            let arg =
              (yojson_of_list
@@ -1468,7 +1468,7 @@ let yojson_of_service_perimeters__status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_policies then bnds
+         if Stdlib.( = ) [] v_egress_policies then bnds
          else
            let arg =
              (yojson_of_list
@@ -1522,9 +1522,9 @@ type service_perimeters = {
   title : string prop;
   use_explicit_dry_run_spec : bool prop option; [@option]
   spec : service_perimeters__spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status : service_perimeters__status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1545,7 +1545,7 @@ let yojson_of_service_perimeters =
          []
        in
        let bnds =
-         if [] = v_status then bnds
+         if Stdlib.( = ) [] v_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_perimeters__status)
@@ -1555,7 +1555,7 @@ let yojson_of_service_perimeters =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_perimeters__spec)
@@ -1653,7 +1653,7 @@ type google_access_context_manager_service_perimeters = {
   id : string prop option; [@option]
   parent : string prop;
   service_perimeters : service_perimeters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1677,7 +1677,7 @@ let yojson_of_google_access_context_manager_service_perimeters =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_perimeters then bnds
+         if Stdlib.( = ) [] v_service_perimeters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_perimeters)

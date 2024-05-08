@@ -112,7 +112,7 @@ type google_tpu_node = {
   use_service_networking : bool prop option; [@option]
   zone : string prop option; [@option]
   scheduling_config : scheduling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -144,7 +144,7 @@ let yojson_of_google_tpu_node =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_scheduling_config then bnds
+         if Stdlib.( = ) [] v_scheduling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scheduling_config)

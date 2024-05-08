@@ -5,7 +5,7 @@ open! Tf_core
 type posix_user = {
   gid : float prop;
   secondary_gids : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   uid : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -24,7 +24,7 @@ let yojson_of_posix_user =
          ("uid", arg) :: bnds
        in
        let bnds =
-         if [] = v_secondary_gids then bnds
+         if Stdlib.( = ) [] v_secondary_gids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -85,7 +85,7 @@ let _ = yojson_of_root_directory__creation_info
 
 type root_directory = {
   creation_info : root_directory__creation_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -103,7 +103,7 @@ let yojson_of_root_directory =
          ("path", arg) :: bnds
        in
        let bnds =
-         if [] = v_creation_info then bnds
+         if Stdlib.( = ) [] v_creation_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_directory__creation_info)

@@ -135,7 +135,7 @@ let _ = yojson_of_spec__scope_selector__match_expression
 
 type spec__scope_selector = {
   match_expression : spec__scope_selector__match_expression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_spec__scope_selector =
          []
        in
        let bnds =
-         if [] = v_match_expression then bnds
+         if Stdlib.( = ) [] v_match_expression then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,7 +169,7 @@ type spec = {
   hard : (string * string prop) list option; [@option]
   scopes : string prop list option; [@option]
   scope_selector : spec__scope_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_scope_selector then bnds
+         if Stdlib.( = ) [] v_scope_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__scope_selector)
@@ -268,8 +268,8 @@ let _ = yojson_of_timeouts
 type kubernetes_resource_quota = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -292,14 +292,14 @@ let yojson_of_kubernetes_resource_quota =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

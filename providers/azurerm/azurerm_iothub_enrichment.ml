@@ -64,7 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_iothub_enrichment = {
   endpoint_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   iothub_name : string prop;
   key : string prop;
@@ -121,7 +121,7 @@ let yojson_of_azurerm_iothub_enrichment =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint_names then bnds
+         if Stdlib.( = ) [] v_endpoint_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

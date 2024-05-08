@@ -4,7 +4,7 @@ open! Tf_core
 
 type ec2_config = {
   security_group_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -25,7 +25,7 @@ let yojson_of_ec2_config =
          ("subnet_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_group_arns then bnds
+         if Stdlib.( = ) [] v_security_group_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -51,7 +51,7 @@ type aws_datasync_location_efs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ec2_config : ec2_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_aws_datasync_location_efs =
          []
        in
        let bnds =
-         if [] = v_ec2_config then bnds
+         if Stdlib.( = ) [] v_ec2_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ec2_config) v_ec2_config

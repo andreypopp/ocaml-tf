@@ -34,7 +34,7 @@ let _ = yojson_of_component__parameter
 type component = {
   component_arn : string prop;
   parameter : component__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_component =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component__parameter)
@@ -174,7 +174,7 @@ type instance_configuration__block_device_mapping = {
   no_device : bool prop option; [@option]
   virtual_name : string prop option; [@option]
   ebs : instance_configuration__block_device_mapping__ebs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,7 +192,7 @@ let yojson_of_instance_configuration__block_device_mapping =
          []
        in
        let bnds =
-         if [] = v_ebs then bnds
+         if Stdlib.( = ) [] v_ebs then bnds
          else
            let arg =
              (yojson_of_list
@@ -238,7 +238,7 @@ type instance_configuration = {
   image : string prop option; [@option]
   block_device_mapping :
     instance_configuration__block_device_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,7 +254,7 @@ let yojson_of_instance_configuration =
          []
        in
        let bnds =
-         if [] = v_block_device_mapping then bnds
+         if Stdlib.( = ) [] v_block_device_mapping then bnds
          else
            let arg =
              (yojson_of_list
@@ -325,11 +325,11 @@ type aws_imagebuilder_container_recipe = {
   version : string prop;
   working_directory : string prop option; [@option]
   component : component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_configuration : instance_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_repository : target_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -359,7 +359,7 @@ let yojson_of_aws_imagebuilder_container_recipe =
          []
        in
        let bnds =
-         if [] = v_target_repository then bnds
+         if Stdlib.( = ) [] v_target_repository then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_repository)
@@ -369,7 +369,7 @@ let yojson_of_aws_imagebuilder_container_recipe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_configuration then bnds
+         if Stdlib.( = ) [] v_instance_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_configuration)
@@ -379,7 +379,7 @@ let yojson_of_aws_imagebuilder_container_recipe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component) v_component

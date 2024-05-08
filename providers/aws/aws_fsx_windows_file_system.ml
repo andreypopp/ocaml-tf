@@ -92,7 +92,7 @@ let _ = yojson_of_disk_iops_configuration
 
 type self_managed_active_directory = {
   dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_name : string prop;
   file_system_administrators_group : string prop option; [@option]
   organizational_unit_distinguished_name : string prop option;
@@ -150,7 +150,7 @@ let yojson_of_self_managed_active_directory =
          ("domain_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_dns_ips then bnds
+         if Stdlib.( = ) [] v_dns_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -229,17 +229,17 @@ type aws_fsx_windows_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   throughput_capacity : float prop;
   weekly_maintenance_start_time : string prop option; [@option]
   audit_log_configuration : audit_log_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_iops_configuration : disk_iops_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self_managed_active_directory : self_managed_active_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -285,7 +285,7 @@ let yojson_of_aws_fsx_windows_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_self_managed_active_directory then bnds
+         if Stdlib.( = ) [] v_self_managed_active_directory then bnds
          else
            let arg =
              (yojson_of_list yojson_of_self_managed_active_directory)
@@ -295,7 +295,7 @@ let yojson_of_aws_fsx_windows_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_iops_configuration then bnds
+         if Stdlib.( = ) [] v_disk_iops_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_iops_configuration)
@@ -305,7 +305,7 @@ let yojson_of_aws_fsx_windows_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audit_log_configuration then bnds
+         if Stdlib.( = ) [] v_audit_log_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_audit_log_configuration)
@@ -361,7 +361,7 @@ let yojson_of_aws_fsx_windows_file_system =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

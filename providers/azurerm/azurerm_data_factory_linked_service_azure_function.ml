@@ -109,7 +109,7 @@ type azurerm_data_factory_linked_service_azure_function = {
   parameters : (string * string prop) list option; [@option]
   url : string prop;
   key_vault_key : key_vault_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -141,7 +141,7 @@ let yojson_of_azurerm_data_factory_linked_service_azure_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_key_vault_key then bnds
+         if Stdlib.( = ) [] v_key_vault_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_key) v_key_vault_key

@@ -26,13 +26,13 @@ type distribution__fast_launch_configuration = {
   enabled : bool prop;  (** enabled *)
   launch_template :
     distribution__fast_launch_configuration__launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** launch_template *)
   max_parallel_launches : float prop;  (** max_parallel_launches *)
   snapshot_configuration :
     distribution__fast_launch_configuration__snapshot_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** snapshot_configuration *)
 }
 
@@ -43,28 +43,28 @@ type distribution__container_distribution_configuration__target_repository = {
 
 type distribution__container_distribution_configuration = {
   container_tags : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** container_tags *)
   description : string prop;  (** description *)
   target_repository :
     distribution__container_distribution_configuration__target_repository
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_repository *)
 }
 
 type distribution__ami_distribution_configuration__launch_permission = {
   organization_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** organization_arns *)
   organizational_unit_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** organizational_unit_arns *)
   user_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_groups *)
   user_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_ids *)
 }
 
@@ -75,33 +75,33 @@ type distribution__ami_distribution_configuration = {
   launch_permission :
     distribution__ami_distribution_configuration__launch_permission
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** launch_permission *)
   name : string prop;  (** name *)
   target_account_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_account_ids *)
 }
 
 type distribution = {
   ami_distribution_configuration :
     distribution__ami_distribution_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ami_distribution_configuration *)
   container_distribution_configuration :
     distribution__container_distribution_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** container_distribution_configuration *)
   fast_launch_configuration :
     distribution__fast_launch_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fast_launch_configuration *)
   launch_template_configuration :
     distribution__launch_template_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** launch_template_configuration *)
   license_configuration_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** license_configuration_arns *)
   region : string prop;  (** region *)
 }

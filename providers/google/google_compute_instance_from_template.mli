@@ -29,7 +29,7 @@ type scratch_disk = {
 type service_account = {
   email : string prop;  (** email *)
   scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scopes *)
 }
 

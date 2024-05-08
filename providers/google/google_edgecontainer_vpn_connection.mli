@@ -9,10 +9,10 @@ type details__cloud_router = { name : string prop  (** name *) }
 
 type details = {
   cloud_router : details__cloud_router list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cloud_router *)
   cloud_vpns : details__cloud_vpns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cloud_vpns *)
   error : string prop;  (** error *)
   state : string prop;  (** state *)

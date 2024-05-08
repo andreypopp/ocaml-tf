@@ -12,7 +12,7 @@ type discovery_endpoints = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
   psc_config : discovery_endpoints__psc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** psc_config *)
 }
 
@@ -31,7 +31,7 @@ type state_info__update_info = {
 
 type state_info = {
   update_info : state_info__update_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** update_info *)
 }
 

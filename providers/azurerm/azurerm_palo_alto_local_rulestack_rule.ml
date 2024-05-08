@@ -4,7 +4,7 @@ open! Tf_core
 
 type category = {
   custom_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   feeds : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -28,7 +28,7 @@ let yojson_of_category =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_urls then bnds
+         if Stdlib.( = ) [] v_custom_urls then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -258,7 +258,7 @@ let _ = yojson_of_timeouts
 type azurerm_palo_alto_local_rulestack_rule = {
   action : string prop;
   applications : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audit_comment : string prop option; [@option]
   decryption_rule_type : string prop option; [@option]
   description : string prop option; [@option]
@@ -275,10 +275,11 @@ type azurerm_palo_alto_local_rulestack_rule = {
   rulestack_id : string prop;
   tags : (string * string prop) list option; [@option]
   category : category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination : destination list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -318,14 +319,14 @@ let yojson_of_azurerm_palo_alto_local_rulestack_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination) v_destination
@@ -334,7 +335,7 @@ let yojson_of_azurerm_palo_alto_local_rulestack_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_category then bnds
+         if Stdlib.( = ) [] v_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_category) v_category
@@ -461,7 +462,7 @@ let yojson_of_azurerm_palo_alto_local_rulestack_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_applications then bnds
+         if Stdlib.( = ) [] v_applications then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -47,7 +47,7 @@ type service_catalog_provisioning_details = {
   provisioning_artifact_id : string prop option; [@option]
   provisioning_parameter :
     service_catalog_provisioning_details__provisioning_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_service_catalog_provisioning_details =
          []
        in
        let bnds =
-         if [] = v_provisioning_parameter then bnds
+         if Stdlib.( = ) [] v_provisioning_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -111,7 +111,7 @@ type aws_sagemaker_project = {
   tags_all : (string * string prop) list option; [@option]
   service_catalog_provisioning_details :
     service_catalog_provisioning_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,7 +132,8 @@ let yojson_of_aws_sagemaker_project =
          []
        in
        let bnds =
-         if [] = v_service_catalog_provisioning_details then bnds
+         if Stdlib.( = ) [] v_service_catalog_provisioning_details
+         then bnds
          else
            let arg =
              (yojson_of_list

@@ -30,7 +30,7 @@ let _ = yojson_of_timeouts
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -48,7 +48,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -105,7 +105,7 @@ type network_interface__ip_configuration__public_ip_address = {
   ip_tag :
     network_interface__ip_configuration__public_ip_address__ip_tag
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   public_ip_prefix_id : string prop;
   version : string prop;
@@ -145,7 +145,7 @@ let yojson_of_network_interface__ip_configuration__public_ip_address
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_tag then bnds
+         if Stdlib.( = ) [] v_ip_tag then bnds
          else
            let arg =
              (yojson_of_list
@@ -178,18 +178,18 @@ let _ =
 
 type network_interface__ip_configuration = {
   application_gateway_backend_address_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   application_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_backend_address_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_inbound_nat_rules_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   primary : bool prop;
   public_ip_address :
     network_interface__ip_configuration__public_ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_id : string prop;
   version : string prop;
 }
@@ -226,7 +226,7 @@ let yojson_of_network_interface__ip_configuration =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_ip_address then bnds
+         if Stdlib.( = ) [] v_public_ip_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,7 +245,8 @@ let yojson_of_network_interface__ip_configuration =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_inbound_nat_rules_ids then bnds
+         if Stdlib.( = ) [] v_load_balancer_inbound_nat_rules_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -255,7 +256,8 @@ let yojson_of_network_interface__ip_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_backend_address_pool_ids then bnds
+         if Stdlib.( = ) [] v_load_balancer_backend_address_pool_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -265,7 +267,8 @@ let yojson_of_network_interface__ip_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_security_group_ids then bnds
+         if Stdlib.( = ) [] v_application_security_group_ids then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -275,8 +278,10 @@ let yojson_of_network_interface__ip_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_gateway_backend_address_pool_ids then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_application_gateway_backend_address_pool_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -298,9 +303,9 @@ let _ = yojson_of_network_interface__ip_configuration
 type network_interface = {
   accelerated_networking_enabled : bool prop;
   dns_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_configuration : network_interface__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_forwarding_enabled : bool prop;
   name : string prop;
   network_security_group_id : string prop;
@@ -347,7 +352,7 @@ let yojson_of_network_interface =
          ("ip_forwarding_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -358,7 +363,7 @@ let yojson_of_network_interface =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_servers then bnds
+         if Stdlib.( = ) [] v_dns_servers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

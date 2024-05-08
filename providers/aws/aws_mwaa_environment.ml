@@ -195,15 +195,15 @@ let _ = yojson_of_logging_configuration__worker_logs
 type logging_configuration = {
   dag_processing_logs :
     logging_configuration__dag_processing_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scheduler_logs : logging_configuration__scheduler_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   task_logs : logging_configuration__task_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webserver_logs : logging_configuration__webserver_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   worker_logs : logging_configuration__worker_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,7 +222,7 @@ let yojson_of_logging_configuration =
          []
        in
        let bnds =
-         if [] = v_worker_logs then bnds
+         if Stdlib.( = ) [] v_worker_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -233,7 +233,7 @@ let yojson_of_logging_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_webserver_logs then bnds
+         if Stdlib.( = ) [] v_webserver_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -244,7 +244,7 @@ let yojson_of_logging_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_task_logs then bnds
+         if Stdlib.( = ) [] v_task_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -255,7 +255,7 @@ let yojson_of_logging_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scheduler_logs then bnds
+         if Stdlib.( = ) [] v_scheduler_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -266,7 +266,7 @@ let yojson_of_logging_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dag_processing_logs then bnds
+         if Stdlib.( = ) [] v_dag_processing_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -285,9 +285,9 @@ let _ = yojson_of_logging_configuration
 
 type network_configuration = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -303,7 +303,7 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -313,7 +313,7 @@ let yojson_of_network_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -408,7 +408,7 @@ let _ = yojson_of_last_updated__error
 type last_updated = {
   created_at : string prop;
   error : last_updated__error list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -430,7 +430,7 @@ let yojson_of_last_updated =
          ("status", arg) :: bnds
        in
        let bnds =
-         if [] = v_error then bnds
+         if Stdlib.( = ) [] v_error then bnds
          else
            let arg =
              (yojson_of_list yojson_of_last_updated__error) v_error
@@ -475,9 +475,9 @@ type aws_mwaa_environment = {
   webserver_access_mode : string prop option; [@option]
   weekly_maintenance_window_start : string prop option; [@option]
   logging_configuration : logging_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -526,7 +526,7 @@ let yojson_of_aws_mwaa_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_configuration)
@@ -536,7 +536,7 @@ let yojson_of_aws_mwaa_environment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_configuration then bnds
+         if Stdlib.( = ) [] v_logging_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_configuration)

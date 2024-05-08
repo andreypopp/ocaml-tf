@@ -232,8 +232,9 @@ type azurerm_image = {
   tags : (string * string prop) list option; [@option]
   zone_resilient : bool prop option; [@option]
   data_disk : data_disk list;
-      [@default []] [@yojson_drop_default ( = )]
-  os_disk : os_disk list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  os_disk : os_disk list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -263,14 +264,14 @@ let yojson_of_azurerm_image =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_os_disk then bnds
+         if Stdlib.( = ) [] v_os_disk then bnds
          else
            let arg = (yojson_of_list yojson_of_os_disk) v_os_disk in
            let bnd = "os_disk", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_disk then bnds
+         if Stdlib.( = ) [] v_data_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_disk) v_data_disk

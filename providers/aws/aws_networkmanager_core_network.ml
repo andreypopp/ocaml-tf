@@ -52,7 +52,7 @@ type edges = {
   asn : float prop;
   edge_location : string prop;
   inside_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_edges =
          []
        in
        let bnds =
-         if [] = v_inside_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_inside_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -95,10 +95,10 @@ let _ = yojson_of_edges
 
 type segments = {
   edge_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   shared_segments : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_segments =
          []
        in
        let bnds =
-         if [] = v_shared_segments then bnds
+         if Stdlib.( = ) [] v_shared_segments then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -129,7 +129,7 @@ let yojson_of_segments =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_edge_locations then bnds
+         if Stdlib.( = ) [] v_edge_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

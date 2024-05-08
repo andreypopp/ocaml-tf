@@ -575,19 +575,19 @@ type google_compute_region_health_check = {
   timeout_sec : float prop option; [@option]
   unhealthy_threshold : float prop option; [@option]
   grpc_health_check : grpc_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http2_health_check : http2_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_health_check : http_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   https_health_check : https_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_config : log_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssl_health_check : ssl_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_health_check : tcp_health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -623,7 +623,7 @@ let yojson_of_google_compute_region_health_check =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tcp_health_check then bnds
+         if Stdlib.( = ) [] v_tcp_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tcp_health_check)
@@ -633,7 +633,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ssl_health_check then bnds
+         if Stdlib.( = ) [] v_ssl_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ssl_health_check)
@@ -643,7 +643,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_config then bnds
+         if Stdlib.( = ) [] v_log_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_config) v_log_config
@@ -652,7 +652,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_https_health_check then bnds
+         if Stdlib.( = ) [] v_https_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_https_health_check)
@@ -662,7 +662,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_health_check then bnds
+         if Stdlib.( = ) [] v_http_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_health_check)
@@ -672,7 +672,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http2_health_check then bnds
+         if Stdlib.( = ) [] v_http2_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http2_health_check)
@@ -682,7 +682,7 @@ let yojson_of_google_compute_region_health_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc_health_check then bnds
+         if Stdlib.( = ) [] v_grpc_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_grpc_health_check)

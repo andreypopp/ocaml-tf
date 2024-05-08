@@ -6,10 +6,10 @@ open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** types *)
   vpc_endpoint_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vpc_endpoint_ids *)
 }
 

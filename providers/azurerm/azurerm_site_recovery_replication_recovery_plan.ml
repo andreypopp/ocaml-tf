@@ -65,9 +65,9 @@ let _ = yojson_of_azure_to_azure_settings
 type boot_recovery_group__post_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -126,7 +126,7 @@ let yojson_of_boot_recovery_group__post_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -136,7 +136,7 @@ let yojson_of_boot_recovery_group__post_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -164,9 +164,9 @@ let _ = yojson_of_boot_recovery_group__post_action
 type boot_recovery_group__pre_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -225,7 +225,7 @@ let yojson_of_boot_recovery_group__pre_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -235,7 +235,7 @@ let yojson_of_boot_recovery_group__pre_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -263,9 +263,9 @@ let _ = yojson_of_boot_recovery_group__pre_action
 type boot_recovery_group = {
   replicated_protected_items : string prop list option; [@option]
   post_action : boot_recovery_group__post_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_action : boot_recovery_group__pre_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,7 +282,7 @@ let yojson_of_boot_recovery_group =
          []
        in
        let bnds =
-         if [] = v_pre_action then bnds
+         if Stdlib.( = ) [] v_pre_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -293,7 +293,7 @@ let yojson_of_boot_recovery_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_action then bnds
+         if Stdlib.( = ) [] v_post_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -323,9 +323,9 @@ let _ = yojson_of_boot_recovery_group
 type failover_recovery_group__post_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -384,7 +384,7 @@ let yojson_of_failover_recovery_group__post_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -394,7 +394,7 @@ let yojson_of_failover_recovery_group__post_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -422,9 +422,9 @@ let _ = yojson_of_failover_recovery_group__post_action
 type failover_recovery_group__pre_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -483,7 +483,7 @@ let yojson_of_failover_recovery_group__pre_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -493,7 +493,7 @@ let yojson_of_failover_recovery_group__pre_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -520,9 +520,9 @@ let _ = yojson_of_failover_recovery_group__pre_action
 
 type failover_recovery_group = {
   post_action : failover_recovery_group__post_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_action : failover_recovery_group__pre_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -535,7 +535,7 @@ let yojson_of_failover_recovery_group =
          []
        in
        let bnds =
-         if [] = v_pre_action then bnds
+         if Stdlib.( = ) [] v_pre_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -546,7 +546,7 @@ let yojson_of_failover_recovery_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_action then bnds
+         if Stdlib.( = ) [] v_post_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -566,9 +566,9 @@ let _ = yojson_of_failover_recovery_group
 type recovery_group__post_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -627,7 +627,7 @@ let yojson_of_recovery_group__post_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -637,7 +637,7 @@ let yojson_of_recovery_group__post_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -665,9 +665,9 @@ let _ = yojson_of_recovery_group__post_action
 type recovery_group__pre_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -726,7 +726,7 @@ let yojson_of_recovery_group__pre_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -736,7 +736,7 @@ let yojson_of_recovery_group__pre_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -764,9 +764,9 @@ type recovery_group = {
   replicated_protected_items : string prop list option; [@option]
   type_ : string prop; [@key "type"]
   post_action : recovery_group__post_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_action : recovery_group__pre_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -784,7 +784,7 @@ let yojson_of_recovery_group =
          []
        in
        let bnds =
-         if [] = v_pre_action then bnds
+         if Stdlib.( = ) [] v_pre_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recovery_group__pre_action)
@@ -794,7 +794,7 @@ let yojson_of_recovery_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_action then bnds
+         if Stdlib.( = ) [] v_post_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recovery_group__post_action)
@@ -827,9 +827,9 @@ let _ = yojson_of_recovery_group
 type shutdown_recovery_group__post_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -888,7 +888,7 @@ let yojson_of_shutdown_recovery_group__post_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -898,7 +898,7 @@ let yojson_of_shutdown_recovery_group__post_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -926,9 +926,9 @@ let _ = yojson_of_shutdown_recovery_group__post_action
 type shutdown_recovery_group__pre_action = {
   fabric_location : string prop option; [@option]
   fail_over_directions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fail_over_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_action_instruction : string prop option; [@option]
   name : string prop;
   runbook_id : string prop option; [@option]
@@ -987,7 +987,7 @@ let yojson_of_shutdown_recovery_group__pre_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_types then bnds
+         if Stdlib.( = ) [] v_fail_over_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -997,7 +997,7 @@ let yojson_of_shutdown_recovery_group__pre_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fail_over_directions then bnds
+         if Stdlib.( = ) [] v_fail_over_directions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1024,9 +1024,9 @@ let _ = yojson_of_shutdown_recovery_group__pre_action
 
 type shutdown_recovery_group = {
   post_action : shutdown_recovery_group__post_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_action : shutdown_recovery_group__pre_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1039,7 +1039,7 @@ let yojson_of_shutdown_recovery_group =
          []
        in
        let bnds =
-         if [] = v_pre_action then bnds
+         if Stdlib.( = ) [] v_pre_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -1050,7 +1050,7 @@ let yojson_of_shutdown_recovery_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_action then bnds
+         if Stdlib.( = ) [] v_post_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -1134,15 +1134,15 @@ type azurerm_site_recovery_replication_recovery_plan = {
   source_recovery_fabric_id : string prop;
   target_recovery_fabric_id : string prop;
   azure_to_azure_settings : azure_to_azure_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   boot_recovery_group : boot_recovery_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   failover_recovery_group : failover_recovery_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   recovery_group : recovery_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shutdown_recovery_group : shutdown_recovery_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1173,7 +1173,7 @@ let yojson_of_azurerm_site_recovery_replication_recovery_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_shutdown_recovery_group then bnds
+         if Stdlib.( = ) [] v_shutdown_recovery_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shutdown_recovery_group)
@@ -1183,7 +1183,7 @@ let yojson_of_azurerm_site_recovery_replication_recovery_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_recovery_group then bnds
+         if Stdlib.( = ) [] v_recovery_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recovery_group)
@@ -1193,7 +1193,7 @@ let yojson_of_azurerm_site_recovery_replication_recovery_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_failover_recovery_group then bnds
+         if Stdlib.( = ) [] v_failover_recovery_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_failover_recovery_group)
@@ -1203,7 +1203,7 @@ let yojson_of_azurerm_site_recovery_replication_recovery_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_boot_recovery_group then bnds
+         if Stdlib.( = ) [] v_boot_recovery_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_boot_recovery_group)
@@ -1213,7 +1213,7 @@ let yojson_of_azurerm_site_recovery_replication_recovery_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_to_azure_settings then bnds
+         if Stdlib.( = ) [] v_azure_to_azure_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_to_azure_settings)

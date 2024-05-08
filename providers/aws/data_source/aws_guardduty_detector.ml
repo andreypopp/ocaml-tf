@@ -34,7 +34,7 @@ let _ = yojson_of_features__additional_configuration
 
 type features = {
   additional_configuration : features__additional_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   status : string prop;
 }
@@ -61,7 +61,7 @@ let yojson_of_features =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_additional_configuration then bnds
+         if Stdlib.( = ) [] v_additional_configuration then bnds
          else
            let arg =
              (yojson_of_list

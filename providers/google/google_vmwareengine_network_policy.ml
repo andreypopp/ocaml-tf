@@ -109,9 +109,9 @@ type google_vmwareengine_network_policy = {
   project : string prop option; [@option]
   vmware_engine_network : string prop;
   external_ip : external_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   internet_access : internet_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,7 +140,7 @@ let yojson_of_google_vmwareengine_network_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_internet_access then bnds
+         if Stdlib.( = ) [] v_internet_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_internet_access)
@@ -150,7 +150,7 @@ let yojson_of_google_vmwareengine_network_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_ip then bnds
+         if Stdlib.( = ) [] v_external_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_external_ip) v_external_ip

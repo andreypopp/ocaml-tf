@@ -11,7 +11,7 @@ type sizes = {
   price_hourly : float prop;  (** price_hourly *)
   price_monthly : float prop;  (** price_monthly *)
   regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** regions *)
   slug : string prop;  (** slug *)
   transfer : float prop;  (** transfer *)

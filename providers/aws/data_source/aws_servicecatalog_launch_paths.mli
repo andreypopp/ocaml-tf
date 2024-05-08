@@ -11,7 +11,7 @@ type summaries__constraint_summaries = {
 
 type summaries = {
   constraint_summaries : summaries__constraint_summaries list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** constraint_summaries *)
   name : string prop;  (** name *)
   path_id : string prop;  (** path_id *)

@@ -109,7 +109,7 @@ let _ = yojson_of_indexing_policy__composite_index__index
 
 type indexing_policy__composite_index = {
   index : indexing_policy__composite_index__index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_indexing_policy__composite_index =
          []
        in
        let bnds =
-         if [] = v_index then bnds
+         if Stdlib.( = ) [] v_index then bnds
          else
            let arg =
              (yojson_of_list
@@ -212,13 +212,13 @@ let _ = yojson_of_indexing_policy__spatial_index
 type indexing_policy = {
   indexing_mode : string prop option; [@option]
   composite_index : indexing_policy__composite_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   excluded_path : indexing_policy__excluded_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   included_path : indexing_policy__included_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spatial_index : indexing_policy__spatial_index list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,7 +237,7 @@ let yojson_of_indexing_policy =
          []
        in
        let bnds =
-         if [] = v_spatial_index then bnds
+         if Stdlib.( = ) [] v_spatial_index then bnds
          else
            let arg =
              (yojson_of_list yojson_of_indexing_policy__spatial_index)
@@ -247,7 +247,7 @@ let yojson_of_indexing_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_included_path then bnds
+         if Stdlib.( = ) [] v_included_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_indexing_policy__included_path)
@@ -257,7 +257,7 @@ let yojson_of_indexing_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_excluded_path then bnds
+         if Stdlib.( = ) [] v_excluded_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_indexing_policy__excluded_path)
@@ -267,7 +267,7 @@ let yojson_of_indexing_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_composite_index then bnds
+         if Stdlib.( = ) [] v_composite_index then bnds
          else
            let arg =
              (yojson_of_list
@@ -353,7 +353,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type unique_key = {
-  paths : string prop list; [@default []] [@yojson_drop_default ( = )]
+  paths : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -366,7 +367,7 @@ let yojson_of_unique_key =
          []
        in
        let bnds =
-         if [] = v_paths then bnds
+         if Stdlib.( = ) [] v_paths then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -394,14 +395,14 @@ type azurerm_cosmosdb_sql_container = {
   resource_group_name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conflict_resolution_policy : conflict_resolution_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   indexing_policy : indexing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   unique_key : unique_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -430,7 +431,7 @@ let yojson_of_azurerm_cosmosdb_sql_container =
          []
        in
        let bnds =
-         if [] = v_unique_key then bnds
+         if Stdlib.( = ) [] v_unique_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_unique_key) v_unique_key
@@ -443,7 +444,7 @@ let yojson_of_azurerm_cosmosdb_sql_container =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_indexing_policy then bnds
+         if Stdlib.( = ) [] v_indexing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_indexing_policy)
@@ -453,7 +454,7 @@ let yojson_of_azurerm_cosmosdb_sql_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_conflict_resolution_policy then bnds
+         if Stdlib.( = ) [] v_conflict_resolution_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conflict_resolution_policy)
@@ -463,7 +464,7 @@ let yojson_of_azurerm_cosmosdb_sql_container =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscale_settings then bnds
+         if Stdlib.( = ) [] v_autoscale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscale_settings)

@@ -53,7 +53,7 @@ type aws_gamelift_game_session_queue = {
   tags_all : (string * string prop) list option; [@option]
   timeout_in_seconds : float prop option; [@option]
   player_latency_policy : player_latency_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +76,7 @@ let yojson_of_aws_gamelift_game_session_queue =
          []
        in
        let bnds =
-         if [] = v_player_latency_policy then bnds
+         if Stdlib.( = ) [] v_player_latency_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_player_latency_policy)

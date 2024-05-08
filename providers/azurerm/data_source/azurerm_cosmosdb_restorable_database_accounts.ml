@@ -83,7 +83,7 @@ type accounts = {
   deletion_time : string prop;
   id : string prop;
   restorable_locations : accounts__restorable_locations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,7 +102,7 @@ let yojson_of_accounts =
          []
        in
        let bnds =
-         if [] = v_restorable_locations then bnds
+         if Stdlib.( = ) [] v_restorable_locations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_accounts__restorable_locations)

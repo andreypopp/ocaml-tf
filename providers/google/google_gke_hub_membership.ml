@@ -48,7 +48,7 @@ let _ = yojson_of_endpoint__gke_cluster
 
 type endpoint = {
   gke_cluster : endpoint__gke_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +61,7 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         if [] = v_gke_cluster then bnds
+         if Stdlib.( = ) [] v_gke_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__gke_cluster)
@@ -130,9 +130,9 @@ type google_gke_hub_membership = {
   membership_id : string prop;
   project : string prop option; [@option]
   authority : authority list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   endpoint : endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -159,7 +159,7 @@ let yojson_of_google_gke_hub_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint then bnds
+         if Stdlib.( = ) [] v_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint) v_endpoint
@@ -168,7 +168,7 @@ let yojson_of_google_gke_hub_membership =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authority then bnds
+         if Stdlib.( = ) [] v_authority then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authority) v_authority

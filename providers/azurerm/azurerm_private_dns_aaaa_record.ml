@@ -66,7 +66,7 @@ type azurerm_private_dns_aaaa_record = {
   id : string prop option; [@option]
   name : string prop;
   records : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   ttl : float prop;
@@ -127,7 +127,7 @@ let yojson_of_azurerm_private_dns_aaaa_record =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_records then bnds
+         if Stdlib.( = ) [] v_records then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -50,7 +50,7 @@ let _ = yojson_of_rule__default_retention
 
 type rule = {
   default_retention : rule__default_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_default_retention then bnds
+         if Stdlib.( = ) [] v_default_retention then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__default_retention)
@@ -85,7 +85,7 @@ type aws_s3_bucket_object_lock_configuration = {
   id : string prop option; [@option]
   object_lock_enabled : string prop option; [@option]
   token : string prop option; [@option]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,7 +105,7 @@ let yojson_of_aws_s3_bucket_object_lock_configuration =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

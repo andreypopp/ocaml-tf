@@ -80,7 +80,7 @@ type google_ml_engine_model = {
   project : string prop option; [@option]
   regions : string prop list option; [@option]
   default_version : default_version list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -110,7 +110,7 @@ let yojson_of_google_ml_engine_model =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_version then bnds
+         if Stdlib.( = ) [] v_default_version then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_version)

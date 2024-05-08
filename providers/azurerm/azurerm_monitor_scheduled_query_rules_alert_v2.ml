@@ -56,7 +56,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -140,9 +140,9 @@ type criteria = {
   threshold : float prop;
   time_aggregation_method : string prop;
   dimension : criteria__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   failing_periods : criteria__failing_periods list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         if [] = v_failing_periods then bnds
+         if Stdlib.( = ) [] v_failing_periods then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__failing_periods)
@@ -174,7 +174,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__dimension)
@@ -297,16 +297,17 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
   query_time_range_override : string prop option; [@option]
   resource_group_name : string prop;
   scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   severity : float prop;
   skip_query_validation : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   target_resource_types : string prop list option; [@option]
   window_duration : string prop;
   workspace_alerts_storage_enabled : bool prop option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   criteria : criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -349,7 +350,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_criteria then bnds
+         if Stdlib.( = ) [] v_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria) v_criteria
@@ -358,7 +359,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in
@@ -417,7 +418,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          ("severity", arg) :: bnds
        in
        let bnds =
-         if [] = v_scopes then bnds
+         if Stdlib.( = ) [] v_scopes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

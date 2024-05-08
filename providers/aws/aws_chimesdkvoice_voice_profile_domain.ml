@@ -80,7 +80,7 @@ type aws_chimesdkvoice_voice_profile_domain = {
   tags_all : (string * string prop) list option; [@option]
   server_side_encryption_configuration :
     server_side_encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -106,7 +106,8 @@ let yojson_of_aws_chimesdkvoice_voice_profile_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_server_side_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_server_side_encryption_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list

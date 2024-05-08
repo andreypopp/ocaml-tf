@@ -320,9 +320,9 @@ let _ = yojson_of_tracing_config
 type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop option; [@option]
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -339,7 +339,7 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -349,7 +349,7 @@ let yojson_of_vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -401,24 +401,24 @@ type aws_lambda_function = {
   tags_all : (string * string prop) list option; [@option]
   timeout : float prop option; [@option]
   dead_letter_config : dead_letter_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   environment : environment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_storage : ephemeral_storage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file_system_config : file_system_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_config : image_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logging_config : logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   snap_start : snap_start list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   tracing_config : tracing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -471,7 +471,7 @@ let yojson_of_aws_lambda_function =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -480,7 +480,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_tracing_config then bnds
+         if Stdlib.( = ) [] v_tracing_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tracing_config)
@@ -494,7 +494,7 @@ let yojson_of_aws_lambda_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_snap_start then bnds
+         if Stdlib.( = ) [] v_snap_start then bnds
          else
            let arg =
              (yojson_of_list yojson_of_snap_start) v_snap_start
@@ -503,7 +503,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_config)
@@ -513,7 +513,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_config then bnds
+         if Stdlib.( = ) [] v_image_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_config) v_image_config
@@ -522,7 +522,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file_system_config then bnds
+         if Stdlib.( = ) [] v_file_system_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_file_system_config)
@@ -532,7 +532,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ephemeral_storage then bnds
+         if Stdlib.( = ) [] v_ephemeral_storage then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ephemeral_storage)
@@ -542,7 +542,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_environment then bnds
+         if Stdlib.( = ) [] v_environment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_environment) v_environment
@@ -551,7 +551,7 @@ let yojson_of_aws_lambda_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dead_letter_config then bnds
+         if Stdlib.( = ) [] v_dead_letter_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dead_letter_config)

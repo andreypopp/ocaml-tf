@@ -35,7 +35,7 @@ type aws_amplify_domain_association = {
   id : string prop option; [@option]
   wait_for_verification : bool prop option; [@option]
   sub_domain : sub_domain list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_aws_amplify_domain_association =
          []
        in
        let bnds =
-         if [] = v_sub_domain then bnds
+         if Stdlib.( = ) [] v_sub_domain then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sub_domain) v_sub_domain

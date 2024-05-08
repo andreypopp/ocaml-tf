@@ -64,7 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_container_registry_webhook = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_headers : (string * string prop) list option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -183,7 +183,7 @@ let yojson_of_azurerm_container_registry_webhook =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

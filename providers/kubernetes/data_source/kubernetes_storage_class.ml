@@ -45,7 +45,7 @@ let _ = yojson_of_allowed_topologies__match_label_expressions
 type allowed_topologies = {
   match_label_expressions :
     allowed_topologies__match_label_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_allowed_topologies =
          []
        in
        let bnds =
-         if [] = v_match_label_expressions then bnds
+         if Stdlib.( = ) [] v_match_label_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -149,8 +149,9 @@ type kubernetes_storage_class = {
   reclaim_policy : string prop option; [@option]
   volume_binding_mode : string prop option; [@option]
   allowed_topologies : allowed_topologies list;
-      [@default []] [@yojson_drop_default ( = )]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +173,7 @@ let yojson_of_kubernetes_storage_class =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata
@@ -181,7 +182,7 @@ let yojson_of_kubernetes_storage_class =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_topologies then bnds
+         if Stdlib.( = ) [] v_allowed_topologies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_allowed_topologies)

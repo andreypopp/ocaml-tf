@@ -107,7 +107,7 @@ type azurerm_logz_tag_rule = {
   send_activity_logs : bool prop option; [@option]
   send_subscription_logs : bool prop option; [@option]
   tag_filter : tag_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -133,7 +133,7 @@ let yojson_of_azurerm_logz_tag_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tag_filter then bnds
+         if Stdlib.( = ) [] v_tag_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tag_filter) v_tag_filter

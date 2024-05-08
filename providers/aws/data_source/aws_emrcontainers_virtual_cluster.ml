@@ -27,7 +27,7 @@ let _ = yojson_of_container_provider__info__eks_info
 
 type container_provider__info = {
   eks_info : container_provider__info__eks_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_container_provider__info =
          []
        in
        let bnds =
-         if [] = v_eks_info then bnds
+         if Stdlib.( = ) [] v_eks_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -60,7 +60,7 @@ let _ = yojson_of_container_provider__info
 type container_provider = {
   id : string prop;
   info : container_provider__info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -78,7 +78,7 @@ let yojson_of_container_provider =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_info then bnds
+         if Stdlib.( = ) [] v_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container_provider__info)

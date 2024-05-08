@@ -7,7 +7,7 @@ open! Tf_core
 type instances = {
   console_url : string prop;  (** console_url *)
   endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** endpoints *)
   ip_address : string prop;  (** ip_address *)
 }

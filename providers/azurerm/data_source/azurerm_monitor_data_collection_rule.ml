@@ -31,10 +31,10 @@ let _ = yojson_of_timeouts
 type data_flow = {
   built_in_transform : string prop;
   destinations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_stream : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transform_kql : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -58,7 +58,7 @@ let yojson_of_data_flow =
          ("transform_kql", arg) :: bnds
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -72,7 +72,7 @@ let yojson_of_data_flow =
          ("output_stream", arg) :: bnds
        in
        let bnds =
-         if [] = v_destinations then bnds
+         if Stdlib.( = ) [] v_destinations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -97,7 +97,7 @@ let _ = yojson_of_data_flow
 type data_sources__windows_firewall_log = {
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,7 +110,7 @@ let yojson_of_data_sources__windows_firewall_log =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -134,9 +134,9 @@ let _ = yojson_of_data_sources__windows_firewall_log
 type data_sources__windows_event_log = {
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_path_queries : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_data_sources__windows_event_log =
          []
        in
        let bnds =
-         if [] = v_x_path_queries then bnds
+         if Stdlib.( = ) [] v_x_path_queries then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -163,7 +163,7 @@ let yojson_of_data_sources__windows_event_log =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -186,12 +186,12 @@ let _ = yojson_of_data_sources__windows_event_log
 
 type data_sources__syslog = {
   facility_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_levels : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,7 +209,7 @@ let yojson_of_data_sources__syslog =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -223,7 +223,7 @@ let yojson_of_data_sources__syslog =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_log_levels then bnds
+         if Stdlib.( = ) [] v_log_levels then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -233,7 +233,7 @@ let yojson_of_data_sources__syslog =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_facility_names then bnds
+         if Stdlib.( = ) [] v_facility_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -286,10 +286,10 @@ let _ =
 type data_sources__prometheus_forwarder = {
   label_include_filter :
     data_sources__prometheus_forwarder__label_include_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -306,7 +306,7 @@ let yojson_of_data_sources__prometheus_forwarder =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -320,7 +320,7 @@ let yojson_of_data_sources__prometheus_forwarder =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_label_include_filter then bnds
+         if Stdlib.( = ) [] v_label_include_filter then bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +341,7 @@ let _ = yojson_of_data_sources__prometheus_forwarder
 type data_sources__platform_telemetry = {
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -354,7 +354,7 @@ let yojson_of_data_sources__platform_telemetry =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -377,11 +377,11 @@ let _ = yojson_of_data_sources__platform_telemetry
 
 type data_sources__performance_counter = {
   counter_specifiers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   sampling_frequency_in_seconds : float prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -400,7 +400,7 @@ let yojson_of_data_sources__performance_counter =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -421,7 +421,7 @@ let yojson_of_data_sources__performance_counter =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_counter_specifiers then bnds
+         if Stdlib.( = ) [] v_counter_specifiers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -471,7 +471,7 @@ let _ = yojson_of_data_sources__log_file__settings__text
 
 type data_sources__log_file__settings = {
   text : data_sources__log_file__settings__text list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -484,7 +484,7 @@ let yojson_of_data_sources__log_file__settings =
          []
        in
        let bnds =
-         if [] = v_text then bnds
+         if Stdlib.( = ) [] v_text then bnds
          else
            let arg =
              (yojson_of_list
@@ -504,13 +504,13 @@ let _ = yojson_of_data_sources__log_file__settings
 
 type data_sources__log_file = {
   file_patterns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   format : string prop;
   name : string prop;
   settings : data_sources__log_file__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -529,7 +529,7 @@ let yojson_of_data_sources__log_file =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -539,7 +539,7 @@ let yojson_of_data_sources__log_file =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -558,7 +558,7 @@ let yojson_of_data_sources__log_file =
          ("format", arg) :: bnds
        in
        let bnds =
-         if [] = v_file_patterns then bnds
+         if Stdlib.( = ) [] v_file_patterns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -576,10 +576,10 @@ let _ = yojson_of_data_sources__log_file
 
 type data_sources__iis_log = {
   log_directories : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -596,7 +596,7 @@ let yojson_of_data_sources__iis_log =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -610,7 +610,7 @@ let yojson_of_data_sources__iis_log =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_log_directories then bnds
+         if Stdlib.( = ) [] v_log_directories then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -630,10 +630,10 @@ type data_sources__extension = {
   extension_json : string prop;
   extension_name : string prop;
   input_data_sources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   streams : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -652,7 +652,7 @@ let yojson_of_data_sources__extension =
          []
        in
        let bnds =
-         if [] = v_streams then bnds
+         if Stdlib.( = ) [] v_streams then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -666,7 +666,7 @@ let yojson_of_data_sources__extension =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_input_data_sources then bnds
+         if Stdlib.( = ) [] v_input_data_sources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -739,7 +739,7 @@ let _ = yojson_of_data_sources__data_import__event_hub_data_source
 type data_sources__data_import = {
   event_hub_data_source :
     data_sources__data_import__event_hub_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -752,7 +752,7 @@ let yojson_of_data_sources__data_import =
          []
        in
        let bnds =
-         if [] = v_event_hub_data_source then bnds
+         if Stdlib.( = ) [] v_event_hub_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -771,25 +771,25 @@ let _ = yojson_of_data_sources__data_import
 
 type data_sources = {
   data_import : data_sources__data_import list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extension : data_sources__extension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   iis_log : data_sources__iis_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_file : data_sources__log_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   performance_counter : data_sources__performance_counter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   platform_telemetry : data_sources__platform_telemetry list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prometheus_forwarder : data_sources__prometheus_forwarder list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   syslog : data_sources__syslog list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_event_log : data_sources__windows_event_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_firewall_log : data_sources__windows_firewall_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -813,7 +813,7 @@ let yojson_of_data_sources =
          []
        in
        let bnds =
-         if [] = v_windows_firewall_log then bnds
+         if Stdlib.( = ) [] v_windows_firewall_log then bnds
          else
            let arg =
              (yojson_of_list
@@ -824,7 +824,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_windows_event_log then bnds
+         if Stdlib.( = ) [] v_windows_event_log then bnds
          else
            let arg =
              (yojson_of_list
@@ -835,7 +835,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_syslog then bnds
+         if Stdlib.( = ) [] v_syslog then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_sources__syslog) v_syslog
@@ -844,7 +844,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_prometheus_forwarder then bnds
+         if Stdlib.( = ) [] v_prometheus_forwarder then bnds
          else
            let arg =
              (yojson_of_list
@@ -855,7 +855,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_platform_telemetry then bnds
+         if Stdlib.( = ) [] v_platform_telemetry then bnds
          else
            let arg =
              (yojson_of_list
@@ -866,7 +866,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_performance_counter then bnds
+         if Stdlib.( = ) [] v_performance_counter then bnds
          else
            let arg =
              (yojson_of_list
@@ -877,7 +877,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_file then bnds
+         if Stdlib.( = ) [] v_log_file then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_sources__log_file)
@@ -887,7 +887,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_iis_log then bnds
+         if Stdlib.( = ) [] v_iis_log then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_sources__iis_log)
@@ -897,7 +897,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extension then bnds
+         if Stdlib.( = ) [] v_extension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_sources__extension)
@@ -907,7 +907,7 @@ let yojson_of_data_sources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_import then bnds
+         if Stdlib.( = ) [] v_data_import then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_sources__data_import)
@@ -1200,21 +1200,21 @@ let _ = yojson_of_destinations__azure_monitor_metrics
 
 type destinations = {
   azure_monitor_metrics : destinations__azure_monitor_metrics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_hub : destinations__event_hub list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_hub_direct : destinations__event_hub_direct list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_analytics : destinations__log_analytics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitor_account : destinations__monitor_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_blob : destinations__storage_blob list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_blob_direct : destinations__storage_blob_direct list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_table_direct : destinations__storage_table_direct list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1236,7 +1236,7 @@ let yojson_of_destinations =
          []
        in
        let bnds =
-         if [] = v_storage_table_direct then bnds
+         if Stdlib.( = ) [] v_storage_table_direct then bnds
          else
            let arg =
              (yojson_of_list
@@ -1247,7 +1247,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_blob_direct then bnds
+         if Stdlib.( = ) [] v_storage_blob_direct then bnds
          else
            let arg =
              (yojson_of_list
@@ -1258,7 +1258,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_blob then bnds
+         if Stdlib.( = ) [] v_storage_blob then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__storage_blob)
@@ -1268,7 +1268,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitor_account then bnds
+         if Stdlib.( = ) [] v_monitor_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__monitor_account)
@@ -1278,7 +1278,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_analytics then bnds
+         if Stdlib.( = ) [] v_log_analytics then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__log_analytics)
@@ -1288,7 +1288,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_hub_direct then bnds
+         if Stdlib.( = ) [] v_event_hub_direct then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__event_hub_direct)
@@ -1298,7 +1298,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_hub then bnds
+         if Stdlib.( = ) [] v_event_hub then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__event_hub)
@@ -1308,7 +1308,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_monitor_metrics then bnds
+         if Stdlib.( = ) [] v_azure_monitor_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -1327,7 +1327,7 @@ let _ = yojson_of_destinations
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -1360,7 +1360,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1407,7 +1407,7 @@ let _ = yojson_of_stream_declaration__column
 
 type stream_declaration = {
   column : stream_declaration__column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stream_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1425,7 +1425,7 @@ let yojson_of_stream_declaration =
          ("stream_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_column then bnds
+         if Stdlib.( = ) [] v_column then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stream_declaration__column)

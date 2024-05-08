@@ -102,7 +102,7 @@ let _ = yojson_of_source__rule_set__rule
 
 type source__rule_set = {
   rule : source__rule_set__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_source__rule_set =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__rule_set__rule) v_rule
@@ -133,7 +133,7 @@ let _ = yojson_of_source__rule_set
 type source = {
   event_source : string prop;
   rule_set : source__rule_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_rule_set then bnds
+         if Stdlib.( = ) [] v_rule_set then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__rule_set) v_rule_set
@@ -233,10 +233,12 @@ type azurerm_security_center_automation = {
   name : string prop;
   resource_group_name : string prop;
   scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -266,14 +268,14 @@ let yojson_of_azurerm_security_center_automation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in
@@ -296,7 +298,7 @@ let yojson_of_azurerm_security_center_automation =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_scopes then bnds
+         if Stdlib.( = ) [] v_scopes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

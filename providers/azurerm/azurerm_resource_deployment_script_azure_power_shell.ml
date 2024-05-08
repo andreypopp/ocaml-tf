@@ -78,7 +78,7 @@ let _ = yojson_of_environment_variable
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -96,7 +96,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -214,13 +214,13 @@ type azurerm_resource_deployment_script_azure_power_shell = {
   timeout : string prop option; [@option]
   version : string prop;
   container : container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   environment_variable : environment_variable list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_account : storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -259,7 +259,7 @@ let yojson_of_azurerm_resource_deployment_script_azure_power_shell =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_account then bnds
+         if Stdlib.( = ) [] v_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_account)
@@ -269,7 +269,7 @@ let yojson_of_azurerm_resource_deployment_script_azure_power_shell =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -278,7 +278,7 @@ let yojson_of_azurerm_resource_deployment_script_azure_power_shell =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_environment_variable then bnds
+         if Stdlib.( = ) [] v_environment_variable then bnds
          else
            let arg =
              (yojson_of_list yojson_of_environment_variable)
@@ -288,7 +288,7 @@ let yojson_of_azurerm_resource_deployment_script_azure_power_shell =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container then bnds
+         if Stdlib.( = ) [] v_container then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container) v_container

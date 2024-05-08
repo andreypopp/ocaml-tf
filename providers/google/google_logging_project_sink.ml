@@ -89,9 +89,9 @@ type google_logging_project_sink = {
   project : string prop option; [@option]
   unique_writer_identity : bool prop option; [@option]
   bigquery_options : bigquery_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exclusions : exclusions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,7 +116,7 @@ let yojson_of_google_logging_project_sink =
          []
        in
        let bnds =
-         if [] = v_exclusions then bnds
+         if Stdlib.( = ) [] v_exclusions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclusions) v_exclusions
@@ -125,7 +125,7 @@ let yojson_of_google_logging_project_sink =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bigquery_options then bnds
+         if Stdlib.( = ) [] v_bigquery_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_options)

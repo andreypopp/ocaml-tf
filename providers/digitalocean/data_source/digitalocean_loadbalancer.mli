@@ -6,9 +6,10 @@ open! Tf_core
 
 type firewall = {
   allow : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow *)
-  deny : string prop list; [@default []] [@yojson_drop_default ( = )]
+  deny : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deny *)
 }
 

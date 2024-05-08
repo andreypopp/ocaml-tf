@@ -4,7 +4,7 @@ open! Tf_core
 
 type big_query_source = {
   entity_id_columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   uri : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_big_query_source =
          ("uri", arg) :: bnds
        in
        let bnds =
-         if [] = v_entity_id_columns then bnds
+         if Stdlib.( = ) [] v_entity_id_columns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -41,7 +41,7 @@ let _ = yojson_of_big_query_source
 type feature_registry_source__feature_groups = {
   feature_group_id : string prop;
   feature_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_feature_registry_source__feature_groups =
          []
        in
        let bnds =
-         if [] = v_feature_ids then bnds
+         if Stdlib.( = ) [] v_feature_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -82,7 +82,7 @@ let _ = yojson_of_feature_registry_source__feature_groups
 
 type feature_registry_source = {
   feature_groups : feature_registry_source__feature_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,7 +95,7 @@ let yojson_of_feature_registry_source =
          []
        in
        let bnds =
-         if [] = v_feature_groups then bnds
+         if Stdlib.( = ) [] v_feature_groups then bnds
          else
            let arg =
              (yojson_of_list
@@ -192,11 +192,11 @@ type google_vertex_ai_feature_online_store_featureview = {
   project : string prop option; [@option]
   region : string prop;
   big_query_source : big_query_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   feature_registry_source : feature_registry_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sync_config : sync_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -226,7 +226,7 @@ let yojson_of_google_vertex_ai_feature_online_store_featureview =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sync_config then bnds
+         if Stdlib.( = ) [] v_sync_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sync_config) v_sync_config
@@ -235,7 +235,7 @@ let yojson_of_google_vertex_ai_feature_online_store_featureview =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_feature_registry_source then bnds
+         if Stdlib.( = ) [] v_feature_registry_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_feature_registry_source)
@@ -245,7 +245,7 @@ let yojson_of_google_vertex_ai_feature_online_store_featureview =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_big_query_source then bnds
+         if Stdlib.( = ) [] v_big_query_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_big_query_source)

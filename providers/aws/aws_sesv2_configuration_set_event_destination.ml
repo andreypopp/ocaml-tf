@@ -56,7 +56,7 @@ type event_destination__cloud_watch_destination = {
   dimension_configuration :
     event_destination__cloud_watch_destination__dimension_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_event_destination__cloud_watch_destination =
          []
        in
        let bnds =
-         if [] = v_dimension_configuration then bnds
+         if Stdlib.( = ) [] v_dimension_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -176,18 +176,18 @@ let _ = yojson_of_event_destination__sns_destination
 type event_destination = {
   enabled : bool prop option; [@option]
   matching_event_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_watch_destination :
     event_destination__cloud_watch_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_firehose_destination :
     event_destination__kinesis_firehose_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pinpoint_destination :
     event_destination__pinpoint_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sns_destination : event_destination__sns_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -207,7 +207,7 @@ let yojson_of_event_destination =
          []
        in
        let bnds =
-         if [] = v_sns_destination then bnds
+         if Stdlib.( = ) [] v_sns_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -218,7 +218,7 @@ let yojson_of_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pinpoint_destination then bnds
+         if Stdlib.( = ) [] v_pinpoint_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -229,7 +229,7 @@ let yojson_of_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose_destination then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -240,7 +240,7 @@ let yojson_of_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_watch_destination then bnds
+         if Stdlib.( = ) [] v_cloud_watch_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -251,7 +251,7 @@ let yojson_of_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_matching_event_types then bnds
+         if Stdlib.( = ) [] v_matching_event_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -280,7 +280,7 @@ type aws_sesv2_configuration_set_event_destination = {
   event_destination_name : string prop;
   id : string prop option; [@option]
   event_destination : event_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,7 +298,7 @@ let yojson_of_aws_sesv2_configuration_set_event_destination =
          []
        in
        let bnds =
-         if [] = v_event_destination then bnds
+         if Stdlib.( = ) [] v_event_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_destination)

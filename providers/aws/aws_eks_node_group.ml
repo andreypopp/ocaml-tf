@@ -273,7 +273,7 @@ let _ = yojson_of_resources__autoscaling_groups
 
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_access_security_group_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -298,7 +298,7 @@ let yojson_of_resources =
          ("remote_access_security_group_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_groups then bnds
+         if Stdlib.( = ) [] v_autoscaling_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resources__autoscaling_groups)
@@ -328,20 +328,21 @@ type aws_eks_node_group = {
   node_role_arn : string prop;
   release_version : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   version : string prop option; [@option]
   launch_template : launch_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_access : remote_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scaling_config : scaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  taint : taint list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  taint : taint list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   update_config : update_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -377,7 +378,7 @@ let yojson_of_aws_eks_node_group =
          []
        in
        let bnds =
-         if [] = v_update_config then bnds
+         if Stdlib.( = ) [] v_update_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_update_config) v_update_config
@@ -390,14 +391,14 @@ let yojson_of_aws_eks_node_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_taint then bnds
+         if Stdlib.( = ) [] v_taint then bnds
          else
            let arg = (yojson_of_list yojson_of_taint) v_taint in
            let bnd = "taint", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scaling_config then bnds
+         if Stdlib.( = ) [] v_scaling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scaling_config)
@@ -407,7 +408,7 @@ let yojson_of_aws_eks_node_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_remote_access then bnds
+         if Stdlib.( = ) [] v_remote_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_remote_access) v_remote_access
@@ -416,7 +417,7 @@ let yojson_of_aws_eks_node_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template then bnds
+         if Stdlib.( = ) [] v_launch_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_launch_template)
@@ -466,7 +467,7 @@ let yojson_of_aws_eks_node_group =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -19,14 +19,14 @@ type spec__worker__log_destination__datadog = {
 
 type spec__worker__log_destination = {
   datadog : spec__worker__log_destination__datadog list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** datadog *)
   logtail : spec__worker__log_destination__logtail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__worker__log_destination__papertrail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** papertrail *)
 }
 
@@ -36,7 +36,7 @@ type spec__worker__image__deploy_on_push = {
 
 type spec__worker__image = {
   deploy_on_push : spec__worker__image__deploy_on_push list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -78,30 +78,30 @@ type spec__worker__alert = {
 
 type spec__worker = {
   alert : spec__worker__alert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alert *)
   build_command : string prop;  (** build_command *)
   dockerfile_path : string prop;  (** dockerfile_path *)
   env : spec__worker__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   environment_slug : string prop;  (** environment_slug *)
   git : spec__worker__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** git *)
   github : spec__worker__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** github *)
   gitlab : spec__worker__gitlab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gitlab *)
   image : spec__worker__image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
   log_destination : spec__worker__log_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   run_command : string prop;  (** run_command *)
@@ -146,16 +146,16 @@ type spec__static_site__cors__allow_origins = {
 type spec__static_site__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_headers *)
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_methods *)
   allow_origins : spec__static_site__cors__allow_origins list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_origins *)
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
@@ -164,28 +164,28 @@ type spec__static_site = {
   build_command : string prop;  (** build_command *)
   catchall_document : string prop;  (** catchall_document *)
   cors : spec__static_site__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cors *)
   dockerfile_path : string prop;  (** dockerfile_path *)
   env : spec__static_site__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   environment_slug : string prop;  (** environment_slug *)
   error_document : string prop;  (** error_document *)
   git : spec__static_site__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** git *)
   github : spec__static_site__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** github *)
   gitlab : spec__static_site__gitlab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gitlab *)
   index_document : string prop;  (** index_document *)
   name : string prop;  (** name *)
   output_dir : string prop;  (** output_dir *)
   routes : spec__static_site__routes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** routes *)
   source_dir : string prop;  (** source_dir *)
 }
@@ -210,14 +210,14 @@ type spec__service__log_destination__datadog = {
 
 type spec__service__log_destination = {
   datadog : spec__service__log_destination__datadog list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** datadog *)
   logtail : spec__service__log_destination__logtail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__service__log_destination__papertrail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** papertrail *)
 }
 
@@ -227,7 +227,7 @@ type spec__service__image__deploy_on_push = {
 
 type spec__service__image = {
   deploy_on_push : spec__service__image__deploy_on_push list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -278,16 +278,16 @@ type spec__service__cors__allow_origins = {
 type spec__service__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_headers *)
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_methods *)
   allow_origins : spec__service__cors__allow_origins list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_origins *)
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
@@ -302,44 +302,44 @@ type spec__service__alert = {
 
 type spec__service = {
   alert : spec__service__alert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alert *)
   build_command : string prop;  (** build_command *)
   cors : spec__service__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cors *)
   dockerfile_path : string prop;  (** dockerfile_path *)
   env : spec__service__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   environment_slug : string prop;  (** environment_slug *)
   git : spec__service__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** git *)
   github : spec__service__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** github *)
   gitlab : spec__service__gitlab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gitlab *)
   health_check : spec__service__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** health_check *)
   http_port : float prop;  (** http_port *)
   image : spec__service__image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
   internal_ports : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** internal_ports *)
   log_destination : spec__service__log_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   routes : spec__service__routes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** routes *)
   run_command : string prop;  (** run_command *)
   source_dir : string prop;  (** source_dir *)
@@ -360,14 +360,14 @@ type spec__job__log_destination__datadog = {
 
 type spec__job__log_destination = {
   datadog : spec__job__log_destination__datadog list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** datadog *)
   logtail : spec__job__log_destination__logtail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__job__log_destination__papertrail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** papertrail *)
 }
 
@@ -377,7 +377,7 @@ type spec__job__image__deploy_on_push = {
 
 type spec__job__image = {
   deploy_on_push : spec__job__image__deploy_on_push list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -419,31 +419,31 @@ type spec__job__alert = {
 
 type spec__job = {
   alert : spec__job__alert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alert *)
   build_command : string prop;  (** build_command *)
   dockerfile_path : string prop;  (** dockerfile_path *)
   env : spec__job__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   environment_slug : string prop;  (** environment_slug *)
   git : spec__job__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** git *)
   github : spec__job__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** github *)
   gitlab : spec__job__gitlab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gitlab *)
   image : spec__job__image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
   kind : string prop;  (** kind *)
   log_destination : spec__job__log_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   run_command : string prop;  (** run_command *)
@@ -464,7 +464,7 @@ type spec__ingress__rule__match__path = {
 
 type spec__ingress__rule__match = {
   path : spec__ingress__rule__match__path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** path *)
 }
 
@@ -477,16 +477,16 @@ type spec__ingress__rule__cors__allow_origins = {
 type spec__ingress__rule__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_headers *)
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_methods *)
   allow_origins : spec__ingress__rule__cors__allow_origins list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_origins *)
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
@@ -499,22 +499,24 @@ type spec__ingress__rule__component = {
 
 type spec__ingress__rule = {
   component : spec__ingress__rule__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** component *)
   cors : spec__ingress__rule__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cors *)
   match_ : spec__ingress__rule__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
       (** match *)
   redirect : spec__ingress__rule__redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** redirect *)
 }
 
 type spec__ingress = {
   rule : spec__ingress__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rule *)
 }
 
@@ -538,14 +540,14 @@ type spec__function__log_destination__datadog = {
 
 type spec__function__log_destination = {
   datadog : spec__function__log_destination__datadog list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** datadog *)
   logtail : spec__function__log_destination__logtail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__function__log_destination__papertrail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** papertrail *)
 }
 
@@ -582,16 +584,16 @@ type spec__function__cors__allow_origins = {
 type spec__function__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_headers *)
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_methods *)
   allow_origins : spec__function__cors__allow_origins list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_origins *)
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
@@ -606,29 +608,29 @@ type spec__function__alert = {
 
 type spec__function = {
   alert : spec__function__alert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alert *)
   cors : spec__function__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cors *)
   env : spec__function__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   git : spec__function__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** git *)
   github : spec__function__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** github *)
   gitlab : spec__function__gitlab list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gitlab *)
   log_destination : spec__function__log_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   routes : spec__function__routes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** routes *)
   source_dir : string prop;  (** source_dir *)
 }
@@ -664,40 +666,44 @@ type spec__alert = {
 
 type spec = {
   alert : spec__alert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** alert *)
   database : spec__database list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** database *)
   domain : spec__domain list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** domain *)
   domains : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** domains *)
-  env : spec__env list; [@default []] [@yojson_drop_default ( = )]
+  env : spec__env list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   features : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** features *)
   function_ : spec__function list;
-      [@default []] [@yojson_drop_default ( = )] [@key "function"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "function"]
       (** function *)
   ingress : spec__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ingress *)
-  job : spec__job list; [@default []] [@yojson_drop_default ( = )]
+  job : spec__job list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** job *)
   name : string prop;  (** name *)
   region : string prop;  (** region *)
   service : spec__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service *)
   static_site : spec__static_site list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** static_site *)
   worker : spec__worker list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** worker *)
 }
 

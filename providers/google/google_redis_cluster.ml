@@ -97,7 +97,7 @@ type discovery_endpoints = {
   address : string prop;
   port : float prop;
   psc_config : discovery_endpoints__psc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,7 +114,7 @@ let yojson_of_discovery_endpoints =
          []
        in
        let bnds =
-         if [] = v_psc_config then bnds
+         if Stdlib.( = ) [] v_psc_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -231,7 +231,7 @@ let _ = yojson_of_state_info__update_info
 
 type state_info = {
   update_info : state_info__update_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -244,7 +244,7 @@ let yojson_of_state_info =
          []
        in
        let bnds =
-         if [] = v_update_info then bnds
+         if Stdlib.( = ) [] v_update_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_state_info__update_info)
@@ -270,7 +270,7 @@ type google_redis_cluster = {
   shard_count : float prop;
   transit_encryption_mode : string prop option; [@option]
   psc_configs : psc_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -299,7 +299,7 @@ let yojson_of_google_redis_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_psc_configs then bnds
+         if Stdlib.( = ) [] v_psc_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_psc_configs) v_psc_configs

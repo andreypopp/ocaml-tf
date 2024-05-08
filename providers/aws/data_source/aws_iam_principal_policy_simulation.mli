@@ -16,10 +16,10 @@ type results = {
   decision_details : (string * string prop) list;
       (** decision_details *)
   matched_statements : results__matched_statements list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** matched_statements *)
   missing_context_keys : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** missing_context_keys *)
   resource_arn : string prop;  (** resource_arn *)
 }

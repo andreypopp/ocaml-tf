@@ -60,9 +60,9 @@ type action = {
   name : string prop;
   start_after : string prop list option; [@option]
   parameter : action__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target : action__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +82,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__target) v_target
@@ -91,7 +91,7 @@ let yojson_of_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__parameter) v_parameter
@@ -196,9 +196,9 @@ type log_configuration = {
   log_schema_version : float prop;
   cloudwatch_logs_configuration :
     log_configuration__cloudwatch_logs_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : log_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,7 +216,7 @@ let yojson_of_log_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -227,7 +227,7 @@ let yojson_of_log_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logs_configuration then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logs_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -286,7 +286,7 @@ let _ = yojson_of_stop_condition
 type target__filter = {
   path : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -299,7 +299,7 @@ let yojson_of_target__filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -355,9 +355,9 @@ type target = {
   resource_type : string prop;
   selection_mode : string prop;
   filter : target__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_tag : target__resource_tag list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_target =
          []
        in
        let bnds =
-         if [] = v_resource_tag then bnds
+         if Stdlib.( = ) [] v_resource_tag then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target__resource_tag)
@@ -388,7 +388,7 @@ let yojson_of_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target__filter) v_filter
@@ -495,12 +495,14 @@ type aws_fis_experiment_template = {
   role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_configuration : log_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stop_condition : stop_condition list;
-      [@default []] [@yojson_drop_default ( = )]
-  target : target list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  target : target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -529,14 +531,14 @@ let yojson_of_aws_fis_experiment_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg = (yojson_of_list yojson_of_target) v_target in
            let bnd = "target", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stop_condition then bnds
+         if Stdlib.( = ) [] v_stop_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stop_condition)
@@ -546,7 +548,7 @@ let yojson_of_aws_fis_experiment_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_configuration then bnds
+         if Stdlib.( = ) [] v_log_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_configuration)
@@ -556,7 +558,7 @@ let yojson_of_aws_fis_experiment_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

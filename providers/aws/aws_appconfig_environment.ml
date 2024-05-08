@@ -41,7 +41,8 @@ type aws_appconfig_environment = {
   description : string prop option; [@option]
   name : string prop;
   tags : (string * string prop) list option; [@option]
-  monitor : monitor list; [@default []] [@yojson_drop_default ( = )]
+  monitor : monitor list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +61,7 @@ let yojson_of_aws_appconfig_environment =
          []
        in
        let bnds =
-         if [] = v_monitor then bnds
+         if Stdlib.( = ) [] v_monitor then bnds
          else
            let arg = (yojson_of_list yojson_of_monitor) v_monitor in
            let bnd = "monitor", arg in

@@ -5,7 +5,7 @@ open! Tf_core
 type contact = {
   company_name : string prop;
   emails : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   phone_number : string prop;
 }
@@ -33,7 +33,7 @@ let yojson_of_contact =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_emails then bnds
+         if Stdlib.( = ) [] v_emails then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -55,7 +55,7 @@ let _ = yojson_of_contact
 
 type shipment_address = {
   address : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   city : string prop;
   country : string prop;
   postal_code : string prop;
@@ -94,7 +94,7 @@ let yojson_of_shipment_address =
          ("city", arg) :: bnds
        in
        let bnds =
-         if [] = v_address then bnds
+         if Stdlib.( = ) [] v_address then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -360,9 +360,10 @@ type azurerm_databox_edge_order = {
   device_name : string prop;
   id : string prop option; [@option]
   resource_group_name : string prop;
-  contact : contact list; [@default []] [@yojson_drop_default ( = )]
+  contact : contact list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shipment_address : shipment_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -387,7 +388,7 @@ let yojson_of_azurerm_databox_edge_order =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_shipment_address then bnds
+         if Stdlib.( = ) [] v_shipment_address then bnds
          else
            let arg =
              (yojson_of_list yojson_of_shipment_address)
@@ -397,7 +398,7 @@ let yojson_of_azurerm_databox_edge_order =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_contact then bnds
+         if Stdlib.( = ) [] v_contact then bnds
          else
            let arg = (yojson_of_list yojson_of_contact) v_contact in
            let bnd = "contact", arg in

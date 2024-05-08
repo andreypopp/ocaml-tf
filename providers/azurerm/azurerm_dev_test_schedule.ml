@@ -202,14 +202,14 @@ type azurerm_dev_test_schedule = {
   task_type : string prop;
   time_zone_id : string prop;
   daily_recurrence : daily_recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hourly_recurrence : hourly_recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_settings : notification_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   weekly_recurrence : weekly_recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,7 +237,7 @@ let yojson_of_azurerm_dev_test_schedule =
          []
        in
        let bnds =
-         if [] = v_weekly_recurrence then bnds
+         if Stdlib.( = ) [] v_weekly_recurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_weekly_recurrence)
@@ -251,7 +251,7 @@ let yojson_of_azurerm_dev_test_schedule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_notification_settings then bnds
+         if Stdlib.( = ) [] v_notification_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_settings)
@@ -261,7 +261,7 @@ let yojson_of_azurerm_dev_test_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hourly_recurrence then bnds
+         if Stdlib.( = ) [] v_hourly_recurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hourly_recurrence)
@@ -271,7 +271,7 @@ let yojson_of_azurerm_dev_test_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_daily_recurrence then bnds
+         if Stdlib.( = ) [] v_daily_recurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_daily_recurrence)

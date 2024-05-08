@@ -71,9 +71,9 @@ let _ = yojson_of_encryption_config__provider
 
 type encryption_config = {
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provider : encryption_config__provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,7 +86,7 @@ let yojson_of_encryption_config =
          []
        in
        let bnds =
-         if [] = v_provider then bnds
+         if Stdlib.( = ) [] v_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config__provider)
@@ -96,7 +96,7 @@ let yojson_of_encryption_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -180,10 +180,10 @@ let _ = yojson_of_outpost_config__control_plane_placement
 type outpost_config = {
   control_plane_instance_type : string prop;
   outpost_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   control_plane_placement :
     outpost_config__control_plane_placement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -200,7 +200,7 @@ let yojson_of_outpost_config =
          []
        in
        let bnds =
-         if [] = v_control_plane_placement then bnds
+         if Stdlib.( = ) [] v_control_plane_placement then bnds
          else
            let arg =
              (yojson_of_list
@@ -211,7 +211,7 @@ let yojson_of_outpost_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_outpost_arns then bnds
+         if Stdlib.( = ) [] v_outpost_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -286,7 +286,7 @@ type vpc_config = {
   public_access_cidrs : string prop list option; [@option]
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -305,7 +305,7 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -403,7 +403,7 @@ let _ = yojson_of_identity__oidc
 
 type identity = {
   oidc : identity__oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -416,7 +416,7 @@ let yojson_of_identity =
          []
        in
        let bnds =
-         if [] = v_oidc then bnds
+         if Stdlib.( = ) [] v_oidc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity__oidc) v_oidc
@@ -440,16 +440,16 @@ type aws_eks_cluster = {
   tags_all : (string * string prop) list option; [@option]
   version : string prop option; [@option]
   access_config : access_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_config : encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kubernetes_network_config : kubernetes_network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outpost_config : outpost_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -476,7 +476,7 @@ let yojson_of_aws_eks_cluster =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -489,7 +489,7 @@ let yojson_of_aws_eks_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_outpost_config then bnds
+         if Stdlib.( = ) [] v_outpost_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outpost_config)
@@ -499,7 +499,7 @@ let yojson_of_aws_eks_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kubernetes_network_config then bnds
+         if Stdlib.( = ) [] v_kubernetes_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kubernetes_network_config)
@@ -509,7 +509,7 @@ let yojson_of_aws_eks_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config)
@@ -519,7 +519,7 @@ let yojson_of_aws_eks_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_config then bnds
+         if Stdlib.( = ) [] v_access_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_config) v_access_config

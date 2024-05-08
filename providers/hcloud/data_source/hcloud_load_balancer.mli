@@ -8,7 +8,7 @@ type algorithm = { type_ : string prop [@key "type"]  (** type *) }
 
 type service__http = {
   certificates : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificates *)
   cookie_lifetime : float prop;  (** cookie_lifetime *)
   cookie_name : string prop;  (** cookie_name *)
@@ -21,14 +21,14 @@ type service__health_check__http = {
   path : string prop;  (** path *)
   response : string prop;  (** response *)
   status_codes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status_codes *)
   tls : bool prop;  (** tls *)
 }
 
 type service__health_check = {
   http : service__health_check__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   interval : float prop;  (** interval *)
   port : float prop;  (** port *)
@@ -40,10 +40,10 @@ type service__health_check = {
 type service = {
   destination_port : float prop;  (** destination_port *)
   health_check : service__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** health_check *)
   http : service__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   listen_port : float prop;  (** listen_port *)
   protocol : string prop;  (** protocol *)

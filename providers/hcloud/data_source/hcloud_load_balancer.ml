@@ -26,7 +26,7 @@ let _ = yojson_of_algorithm
 
 type service__http = {
   certificates : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cookie_lifetime : float prop;
   cookie_name : string prop;
   redirect_http : bool prop;
@@ -67,7 +67,7 @@ let yojson_of_service__http =
          ("cookie_lifetime", arg) :: bnds
        in
        let bnds =
-         if [] = v_certificates then bnds
+         if Stdlib.( = ) [] v_certificates then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -88,7 +88,7 @@ type service__health_check__http = {
   path : string prop;
   response : string prop;
   status_codes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tls : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -112,7 +112,7 @@ let yojson_of_service__health_check__http =
          ("tls", arg) :: bnds
        in
        let bnds =
-         if [] = v_status_codes then bnds
+         if Stdlib.( = ) [] v_status_codes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -143,7 +143,7 @@ let _ = yojson_of_service__health_check__http
 
 type service__health_check = {
   http : service__health_check__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   interval : float prop;
   port : float prop;
   protocol : string prop;
@@ -188,7 +188,7 @@ let yojson_of_service__health_check =
          ("interval", arg) :: bnds
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service__health_check__http)
@@ -207,9 +207,9 @@ let _ = yojson_of_service__health_check
 type service = {
   destination_port : float prop;
   health_check : service__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http : service__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   listen_port : float prop;
   protocol : string prop;
   proxyprotocol : bool prop;
@@ -244,7 +244,7 @@ let yojson_of_service =
          ("listen_port", arg) :: bnds
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service__http) v_http
@@ -253,7 +253,7 @@ let yojson_of_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service__health_check)

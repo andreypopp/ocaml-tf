@@ -220,12 +220,12 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   latest_created_revision_name : string prop;
   latest_ready_revision_name : string prop;
   observed_generation : float prop;
   traffic : status__traffic list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -250,7 +250,7 @@ let yojson_of_status =
          ("url", arg) :: bnds
        in
        let bnds =
-         if [] = v_traffic then bnds
+         if Stdlib.( = ) [] v_traffic then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__traffic) v_traffic
@@ -279,7 +279,7 @@ let yojson_of_status =
          ("latest_created_revision_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__conditions)
@@ -333,7 +333,7 @@ let _ = yojson_of_template__spec__volumes__secret__items
 type template__spec__volumes__secret = {
   default_mode : float prop;
   items : template__spec__volumes__secret__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -355,7 +355,7 @@ let yojson_of_template__spec__volumes__secret =
          ("secret_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list
@@ -380,7 +380,7 @@ let _ = yojson_of_template__spec__volumes__secret
 type template__spec__volumes = {
   name : string prop;
   secret : template__spec__volumes__secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -393,7 +393,7 @@ let yojson_of_template__spec__volumes =
          []
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg =
              (yojson_of_list
@@ -511,7 +511,7 @@ type template__spec__containers__startup_probe__http_get = {
   http_headers :
     template__spec__containers__startup_probe__http_get__http_headers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path : string prop;
   port : float prop;
 }
@@ -536,7 +536,7 @@ let yojson_of_template__spec__containers__startup_probe__http_get =
          ("path", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_headers then bnds
+         if Stdlib.( = ) [] v_http_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -588,15 +588,15 @@ let _ = yojson_of_template__spec__containers__startup_probe__grpc
 type template__spec__containers__startup_probe = {
   failure_threshold : float prop;
   grpc : template__spec__containers__startup_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     template__spec__containers__startup_probe__http_get list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_delay_seconds : float prop;
   period_seconds : float prop;
   tcp_socket :
     template__spec__containers__startup_probe__tcp_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -624,7 +624,7 @@ let yojson_of_template__spec__containers__startup_probe =
          ("timeout_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_tcp_socket then bnds
+         if Stdlib.( = ) [] v_tcp_socket then bnds
          else
            let arg =
              (yojson_of_list
@@ -645,7 +645,7 @@ let yojson_of_template__spec__containers__startup_probe =
          ("initial_delay_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -656,7 +656,7 @@ let yojson_of_template__spec__containers__startup_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -804,7 +804,7 @@ type template__spec__containers__liveness_probe__http_get = {
   http_headers :
     template__spec__containers__liveness_probe__http_get__http_headers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path : string prop;
   port : float prop;
 }
@@ -829,7 +829,7 @@ let yojson_of_template__spec__containers__liveness_probe__http_get =
          ("path", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_headers then bnds
+         if Stdlib.( = ) [] v_http_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -882,10 +882,10 @@ let _ = yojson_of_template__spec__containers__liveness_probe__grpc
 type template__spec__containers__liveness_probe = {
   failure_threshold : float prop;
   grpc : template__spec__containers__liveness_probe__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_get :
     template__spec__containers__liveness_probe__http_get list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_delay_seconds : float prop;
   period_seconds : float prop;
   timeout_seconds : float prop;
@@ -924,7 +924,7 @@ let yojson_of_template__spec__containers__liveness_probe =
          ("initial_delay_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_get then bnds
+         if Stdlib.( = ) [] v_http_get then bnds
          else
            let arg =
              (yojson_of_list
@@ -935,7 +935,7 @@ let yojson_of_template__spec__containers__liveness_probe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -993,7 +993,7 @@ type template__spec__containers__env_from__secret_ref = {
   local_object_reference :
     template__spec__containers__env_from__secret_ref__local_object_reference
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   optional : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -1015,7 +1015,7 @@ let yojson_of_template__spec__containers__env_from__secret_ref =
          ("optional", arg) :: bnds
        in
        let bnds =
-         if [] = v_local_object_reference then bnds
+         if Stdlib.( = ) [] v_local_object_reference then bnds
          else
            let arg =
              (yojson_of_list
@@ -1067,7 +1067,7 @@ type template__spec__containers__env_from__config_map_ref = {
   local_object_reference :
     template__spec__containers__env_from__config_map_ref__local_object_reference
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   optional : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -1089,7 +1089,7 @@ let yojson_of_template__spec__containers__env_from__config_map_ref =
          ("optional", arg) :: bnds
        in
        let bnds =
-         if [] = v_local_object_reference then bnds
+         if Stdlib.( = ) [] v_local_object_reference then bnds
          else
            let arg =
              (yojson_of_list
@@ -1111,10 +1111,10 @@ let _ =
 type template__spec__containers__env_from = {
   config_map_ref :
     template__spec__containers__env_from__config_map_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix : string prop;
   secret_ref : template__spec__containers__env_from__secret_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1131,7 +1131,7 @@ let yojson_of_template__spec__containers__env_from =
          []
        in
        let bnds =
-         if [] = v_secret_ref then bnds
+         if Stdlib.( = ) [] v_secret_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -1146,7 +1146,7 @@ let yojson_of_template__spec__containers__env_from =
          ("prefix", arg) :: bnds
        in
        let bnds =
-         if [] = v_config_map_ref then bnds
+         if Stdlib.( = ) [] v_config_map_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -1202,7 +1202,7 @@ let _ =
 type template__spec__containers__env__value_from = {
   secret_key_ref :
     template__spec__containers__env__value_from__secret_key_ref list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1215,7 +1215,7 @@ let yojson_of_template__spec__containers__env__value_from =
          []
        in
        let bnds =
-         if [] = v_secret_key_ref then bnds
+         if Stdlib.( = ) [] v_secret_key_ref then bnds
          else
            let arg =
              (yojson_of_list
@@ -1237,7 +1237,7 @@ type template__spec__containers__env = {
   name : string prop;
   value : string prop;
   value_from : template__spec__containers__env__value_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1250,7 +1250,7 @@ let yojson_of_template__spec__containers__env =
          []
        in
        let bnds =
-         if [] = v_value_from then bnds
+         if Stdlib.( = ) [] v_value_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -1277,25 +1277,26 @@ let _ = yojson_of_template__spec__containers__env
 [@@@deriving.end]
 
 type template__spec__containers = {
-  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+  args : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   command : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env : template__spec__containers__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env_from : template__spec__containers__env_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image : string prop;
   liveness_probe : template__spec__containers__liveness_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   ports : template__spec__containers__ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : template__spec__containers__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   startup_probe : template__spec__containers__startup_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_mounts : template__spec__containers__volume_mounts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   working_dir : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1326,7 +1327,7 @@ let yojson_of_template__spec__containers =
          ("working_dir", arg) :: bnds
        in
        let bnds =
-         if [] = v_volume_mounts then bnds
+         if Stdlib.( = ) [] v_volume_mounts then bnds
          else
            let arg =
              (yojson_of_list
@@ -1337,7 +1338,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_startup_probe then bnds
+         if Stdlib.( = ) [] v_startup_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -1348,7 +1349,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list
@@ -1359,7 +1360,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list
@@ -1374,7 +1375,7 @@ let yojson_of_template__spec__containers =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_liveness_probe then bnds
+         if Stdlib.( = ) [] v_liveness_probe then bnds
          else
            let arg =
              (yojson_of_list
@@ -1389,7 +1390,7 @@ let yojson_of_template__spec__containers =
          ("image", arg) :: bnds
        in
        let bnds =
-         if [] = v_env_from then bnds
+         if Stdlib.( = ) [] v_env_from then bnds
          else
            let arg =
              (yojson_of_list
@@ -1400,7 +1401,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_env then bnds
+         if Stdlib.( = ) [] v_env then bnds
          else
            let arg =
              (yojson_of_list
@@ -1411,7 +1412,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_command then bnds
+         if Stdlib.( = ) [] v_command then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1421,7 +1422,7 @@ let yojson_of_template__spec__containers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_args then bnds
+         if Stdlib.( = ) [] v_args then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1440,12 +1441,12 @@ let _ = yojson_of_template__spec__containers
 type template__spec = {
   container_concurrency : float prop;
   containers : template__spec__containers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_account_name : string prop;
   serving_state : string prop;
   timeout_seconds : float prop;
   volumes : template__spec__volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1465,7 +1466,7 @@ let yojson_of_template__spec =
          []
        in
        let bnds =
-         if [] = v_volumes then bnds
+         if Stdlib.( = ) [] v_volumes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__spec__volumes)
@@ -1491,7 +1492,7 @@ let yojson_of_template__spec =
          ("service_account_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_containers then bnds
+         if Stdlib.( = ) [] v_containers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__spec__containers)
@@ -1601,9 +1602,9 @@ let _ = yojson_of_template__metadata
 
 type template = {
   metadata : template__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spec : template__spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1616,7 +1617,7 @@ let yojson_of_template =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__spec) v_spec
@@ -1625,7 +1626,7 @@ let yojson_of_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template__metadata) v_metadata

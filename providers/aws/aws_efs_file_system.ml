@@ -133,9 +133,9 @@ type aws_efs_file_system = {
   tags_all : (string * string prop) list option; [@option]
   throughput_mode : string prop option; [@option]
   lifecycle_policy : lifecycle_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protection : protection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,7 +162,7 @@ let yojson_of_aws_efs_file_system =
          []
        in
        let bnds =
-         if [] = v_protection then bnds
+         if Stdlib.( = ) [] v_protection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protection) v_protection
@@ -171,7 +171,7 @@ let yojson_of_aws_efs_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle_policy then bnds
+         if Stdlib.( = ) [] v_lifecycle_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_policy)

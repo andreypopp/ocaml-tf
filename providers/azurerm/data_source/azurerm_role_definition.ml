@@ -30,15 +30,15 @@ let _ = yojson_of_timeouts
 
 type permissions = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition : string prop;
   condition_version : string prop;
   data_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not_data_actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_permissions =
          []
        in
        let bnds =
-         if [] = v_not_data_actions then bnds
+         if Stdlib.( = ) [] v_not_data_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -68,7 +68,7 @@ let yojson_of_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_not_actions then bnds
+         if Stdlib.( = ) [] v_not_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -78,7 +78,7 @@ let yojson_of_permissions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_actions then bnds
+         if Stdlib.( = ) [] v_data_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -98,7 +98,7 @@ let yojson_of_permissions =
          ("condition", arg) :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

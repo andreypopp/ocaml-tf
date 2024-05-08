@@ -51,7 +51,7 @@ type google_secret_manager_secret_iam_member = {
   role : string prop;
   secret_id : string prop;
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_google_secret_manager_secret_iam_member =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition

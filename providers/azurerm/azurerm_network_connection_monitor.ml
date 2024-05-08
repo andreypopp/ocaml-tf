@@ -42,7 +42,7 @@ let _ = yojson_of_endpoint__filter__item
 type endpoint__filter = {
   type_ : string prop option; [@option] [@key "type"]
   item : endpoint__filter__item list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_endpoint__filter =
          []
        in
        let bnds =
-         if [] = v_item then bnds
+         if Stdlib.( = ) [] v_item then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__filter__item) v_item
@@ -87,7 +87,7 @@ type endpoint = {
   target_resource_id : string prop option; [@option]
   target_resource_type : string prop option; [@option]
   filter : endpoint__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint__filter) v_filter
@@ -222,7 +222,7 @@ type test_configuration__http_configuration = {
   valid_status_code_ranges : string prop list option; [@option]
   request_header :
     test_configuration__http_configuration__request_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +242,7 @@ let yojson_of_test_configuration__http_configuration =
          []
        in
        let bnds =
-         if [] = v_request_header then bnds
+         if Stdlib.( = ) [] v_request_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -425,13 +425,13 @@ type test_configuration = {
   protocol : string prop;
   test_frequency_in_seconds : float prop option; [@option]
   http_configuration : test_configuration__http_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   icmp_configuration : test_configuration__icmp_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   success_threshold : test_configuration__success_threshold list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_configuration : test_configuration__tcp_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -453,7 +453,7 @@ let yojson_of_test_configuration =
          []
        in
        let bnds =
-         if [] = v_tcp_configuration then bnds
+         if Stdlib.( = ) [] v_tcp_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -464,7 +464,7 @@ let yojson_of_test_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_success_threshold then bnds
+         if Stdlib.( = ) [] v_success_threshold then bnds
          else
            let arg =
              (yojson_of_list
@@ -475,7 +475,7 @@ let yojson_of_test_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_icmp_configuration then bnds
+         if Stdlib.( = ) [] v_icmp_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -486,7 +486,7 @@ let yojson_of_test_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_configuration then bnds
+         if Stdlib.( = ) [] v_http_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -529,13 +529,13 @@ let _ = yojson_of_test_configuration
 
 type test_group = {
   destination_endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enabled : bool prop option; [@option]
   name : string prop;
   source_endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   test_configuration_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -554,7 +554,7 @@ let yojson_of_test_group =
          []
        in
        let bnds =
-         if [] = v_test_configuration_names then bnds
+         if Stdlib.( = ) [] v_test_configuration_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -564,7 +564,7 @@ let yojson_of_test_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_endpoints then bnds
+         if Stdlib.( = ) [] v_source_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -586,7 +586,7 @@ let yojson_of_test_group =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_endpoints then bnds
+         if Stdlib.( = ) [] v_destination_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -671,11 +671,11 @@ type azurerm_network_connection_monitor = {
   output_workspace_resource_ids : string prop list option; [@option]
   tags : (string * string prop) list option; [@option]
   endpoint : endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   test_configuration : test_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   test_group : test_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -706,7 +706,7 @@ let yojson_of_azurerm_network_connection_monitor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_test_group then bnds
+         if Stdlib.( = ) [] v_test_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_test_group) v_test_group
@@ -715,7 +715,7 @@ let yojson_of_azurerm_network_connection_monitor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_test_configuration then bnds
+         if Stdlib.( = ) [] v_test_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_test_configuration)
@@ -725,7 +725,7 @@ let yojson_of_azurerm_network_connection_monitor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint then bnds
+         if Stdlib.( = ) [] v_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint) v_endpoint

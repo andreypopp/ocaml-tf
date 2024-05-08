@@ -107,9 +107,9 @@ type aws_api_gateway_stage = {
   variables : (string * string prop) list option; [@option]
   xray_tracing_enabled : bool prop option; [@option]
   access_log_settings : access_log_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   canary_settings : canary_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +138,7 @@ let yojson_of_aws_api_gateway_stage =
          []
        in
        let bnds =
-         if [] = v_canary_settings then bnds
+         if Stdlib.( = ) [] v_canary_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_canary_settings)
@@ -148,7 +148,7 @@ let yojson_of_aws_api_gateway_stage =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_log_settings then bnds
+         if Stdlib.( = ) [] v_access_log_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_log_settings)

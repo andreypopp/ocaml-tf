@@ -4,7 +4,7 @@ open! Tf_core
 
 type lambda_function = {
   events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -59,7 +59,7 @@ let yojson_of_lambda_function =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_events then bnds
+         if Stdlib.( = ) [] v_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -77,7 +77,7 @@ let _ = yojson_of_lambda_function
 
 type queue = {
   events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -128,7 +128,7 @@ let yojson_of_queue =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_events then bnds
+         if Stdlib.( = ) [] v_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -146,7 +146,7 @@ let _ = yojson_of_queue
 
 type topic = {
   events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -197,7 +197,7 @@ let yojson_of_topic =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_events then bnds
+         if Stdlib.( = ) [] v_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -218,9 +218,11 @@ type aws_s3_bucket_notification = {
   eventbridge : bool prop option; [@option]
   id : string prop option; [@option]
   lambda_function : lambda_function list;
-      [@default []] [@yojson_drop_default ( = )]
-  queue : queue list; [@default []] [@yojson_drop_default ( = )]
-  topic : topic list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  queue : queue list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  topic : topic list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,21 +242,21 @@ let yojson_of_aws_s3_bucket_notification =
          []
        in
        let bnds =
-         if [] = v_topic then bnds
+         if Stdlib.( = ) [] v_topic then bnds
          else
            let arg = (yojson_of_list yojson_of_topic) v_topic in
            let bnd = "topic", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_queue then bnds
+         if Stdlib.( = ) [] v_queue then bnds
          else
            let arg = (yojson_of_list yojson_of_queue) v_queue in
            let bnd = "queue", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda_function then bnds
+         if Stdlib.( = ) [] v_lambda_function then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lambda_function)

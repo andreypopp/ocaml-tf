@@ -18,7 +18,7 @@ let _ = yojson_of_application_providers__display_data
 
 type application_providers = {
   display_data : application_providers__display_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31,7 +31,7 @@ let yojson_of_application_providers =
          []
        in
        let bnds =
-         if [] = v_display_data then bnds
+         if Stdlib.( = ) [] v_display_data then bnds
          else
            let arg =
              (yojson_of_list
@@ -50,7 +50,7 @@ let _ = yojson_of_application_providers
 
 type aws_ssoadmin_application_providers = {
   application_providers : application_providers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_aws_ssoadmin_application_providers =
          []
        in
        let bnds =
-         if [] = v_application_providers then bnds
+         if Stdlib.( = ) [] v_application_providers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_application_providers)

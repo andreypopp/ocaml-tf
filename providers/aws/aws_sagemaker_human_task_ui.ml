@@ -34,7 +34,7 @@ type aws_sagemaker_human_task_ui = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ui_template : ui_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,7 +53,7 @@ let yojson_of_aws_sagemaker_human_task_ui =
          []
        in
        let bnds =
-         if [] = v_ui_template then bnds
+         if Stdlib.( = ) [] v_ui_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ui_template) v_ui_template

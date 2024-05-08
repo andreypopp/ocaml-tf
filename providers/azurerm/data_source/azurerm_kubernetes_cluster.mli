@@ -24,7 +24,7 @@ type agent_pool_profile = {
   node_public_ip_prefix_id : string prop;
       (** node_public_ip_prefix_id *)
   node_taints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_taints *)
   orchestrator_version : string prop;  (** orchestrator_version *)
   os_disk_size_gb : float prop;  (** os_disk_size_gb *)
@@ -32,17 +32,18 @@ type agent_pool_profile = {
   tags : (string * string prop) list;  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
   upgrade_settings : agent_pool_profile__upgrade_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upgrade_settings *)
   vm_size : string prop;  (** vm_size *)
   vnet_subnet_id : string prop;  (** vnet_subnet_id *)
-  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+  zones : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** zones *)
 }
 
 type azure_active_directory_role_based_access_control = {
   admin_group_object_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** admin_group_object_ids *)
   azure_rbac_enabled : bool prop;  (** azure_rbac_enabled *)
   client_app_id : string prop;  (** client_app_id *)
@@ -53,7 +54,7 @@ type azure_active_directory_role_based_access_control = {
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
@@ -74,7 +75,7 @@ type ingress_application_gateway = {
   ingress_application_gateway_identity :
     ingress_application_gateway__ingress_application_gateway_identity
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ingress_application_gateway_identity *)
   subnet_cidr : string prop;  (** subnet_cidr *)
   subnet_id : string prop;  (** subnet_id *)
@@ -95,7 +96,7 @@ type key_vault_secrets_provider__secret_identity = {
 
 type key_vault_secrets_provider = {
   secret_identity : key_vault_secrets_provider__secret_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_identity *)
   secret_rotation_enabled : bool prop;
       (** secret_rotation_enabled *)
@@ -137,7 +138,7 @@ type linux_profile__ssh_key = {
 type linux_profile = {
   admin_username : string prop;  (** admin_username *)
   ssh_key : linux_profile__ssh_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ssh_key *)
 }
 
@@ -169,7 +170,7 @@ type oms_agent = {
   msi_auth_for_monitoring_enabled : bool prop;
       (** msi_auth_for_monitoring_enabled *)
   oms_agent_identity : oms_agent__oms_agent_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oms_agent_identity *)
 }
 

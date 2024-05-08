@@ -6,7 +6,8 @@ type aws_iam_group_membership = {
   group : string prop;
   id : string prop option; [@option]
   name : string prop;
-  users : string prop list; [@default []] [@yojson_drop_default ( = )]
+  users : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,7 +21,7 @@ let yojson_of_aws_iam_group_membership =
          []
        in
        let bnds =
-         if [] = v_users then bnds
+         if Stdlib.( = ) [] v_users then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -70,9 +70,9 @@ type pcc_rule__qos_policy = {
   qos_indicator : float prop;
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,7 +93,7 @@ let yojson_of_pcc_rule__qos_policy =
          []
        in
        let bnds =
-         if [] = v_maximum_bit_rate then bnds
+         if Stdlib.( = ) [] v_maximum_bit_rate then bnds
          else
            let arg =
              (yojson_of_list
@@ -104,7 +104,7 @@ let yojson_of_pcc_rule__qos_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guaranteed_bit_rate then bnds
+         if Stdlib.( = ) [] v_guaranteed_bit_rate then bnds
          else
            let arg =
              (yojson_of_list
@@ -156,9 +156,9 @@ type pcc_rule__service_data_flow_template = {
   name : string prop;
   ports : string prop list option; [@option]
   protocol : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_ip_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,7 +177,7 @@ let yojson_of_pcc_rule__service_data_flow_template =
          []
        in
        let bnds =
-         if [] = v_remote_ip_list then bnds
+         if Stdlib.( = ) [] v_remote_ip_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -187,7 +187,7 @@ let yojson_of_pcc_rule__service_data_flow_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protocol then bnds
+         if Stdlib.( = ) [] v_protocol then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -227,10 +227,10 @@ type pcc_rule = {
   precedence : float prop;
   traffic_control_enabled : bool prop option; [@option]
   qos_policy : pcc_rule__qos_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +249,7 @@ let yojson_of_pcc_rule =
          []
        in
        let bnds =
-         if [] = v_service_data_flow_template then bnds
+         if Stdlib.( = ) [] v_service_data_flow_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -260,7 +260,7 @@ let yojson_of_pcc_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_qos_policy then bnds
+         if Stdlib.( = ) [] v_qos_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pcc_rule__qos_policy)
@@ -329,7 +329,7 @@ type service_qos_policy = {
   preemption_vulnerability : string prop option; [@option]
   qos_indicator : float prop option; [@option]
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -349,7 +349,7 @@ let yojson_of_service_qos_policy =
          []
        in
        let bnds =
-         if [] = v_maximum_bit_rate then bnds
+         if Stdlib.( = ) [] v_maximum_bit_rate then bnds
          else
            let arg =
              (yojson_of_list
@@ -468,9 +468,9 @@ type azurerm_mobile_network_service = {
   service_precedence : float prop;
   tags : (string * string prop) list option; [@option]
   pcc_rule : pcc_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_qos_policy : service_qos_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -498,7 +498,7 @@ let yojson_of_azurerm_mobile_network_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_qos_policy then bnds
+         if Stdlib.( = ) [] v_service_qos_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_qos_policy)
@@ -508,7 +508,7 @@ let yojson_of_azurerm_mobile_network_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pcc_rule then bnds
+         if Stdlib.( = ) [] v_pcc_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pcc_rule) v_pcc_rule

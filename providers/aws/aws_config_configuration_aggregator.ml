@@ -4,7 +4,7 @@ open! Tf_core
 
 type account_aggregation_source = {
   account_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   all_regions : bool prop option; [@option]
   regions : string prop list option; [@option]
 }
@@ -41,7 +41,7 @@ let yojson_of_account_aggregation_source =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_account_ids then bnds
+         if Stdlib.( = ) [] v_account_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -112,10 +112,10 @@ type aws_config_configuration_aggregator = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   account_aggregation_source : account_aggregation_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   organization_aggregation_source :
     organization_aggregation_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -136,7 +136,8 @@ let yojson_of_aws_config_configuration_aggregator =
          []
        in
        let bnds =
-         if [] = v_organization_aggregation_source then bnds
+         if Stdlib.( = ) [] v_organization_aggregation_source then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -147,7 +148,7 @@ let yojson_of_aws_config_configuration_aggregator =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_account_aggregation_source then bnds
+         if Stdlib.( = ) [] v_account_aggregation_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_account_aggregation_source)

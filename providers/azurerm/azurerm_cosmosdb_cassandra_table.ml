@@ -112,11 +112,11 @@ let _ = yojson_of_schema__partition_key
 
 type schema = {
   cluster_key : schema__cluster_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   column : schema__column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   partition_key : schema__partition_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_schema =
          []
        in
        let bnds =
-         if [] = v_partition_key then bnds
+         if Stdlib.( = ) [] v_partition_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema__partition_key)
@@ -143,7 +143,7 @@ let yojson_of_schema =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_column then bnds
+         if Stdlib.( = ) [] v_column then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema__column) v_column
@@ -152,7 +152,7 @@ let yojson_of_schema =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_key then bnds
+         if Stdlib.( = ) [] v_cluster_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema__cluster_key)
@@ -236,8 +236,9 @@ type azurerm_cosmosdb_cassandra_table = {
   name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
-  schema : schema list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  schema : schema list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -265,14 +266,14 @@ let yojson_of_azurerm_cosmosdb_cassandra_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema then bnds
+         if Stdlib.( = ) [] v_schema then bnds
          else
            let arg = (yojson_of_list yojson_of_schema) v_schema in
            let bnd = "schema", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscale_settings then bnds
+         if Stdlib.( = ) [] v_autoscale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscale_settings)

@@ -169,7 +169,7 @@ type public_endpoint = {
   container_name : string prop;
   container_port : float prop;
   health_check : public_endpoint__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_public_endpoint =
          []
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_endpoint__health_check)
@@ -242,9 +242,9 @@ type aws_lightsail_container_service_deployment_version = {
   id : string prop option; [@option]
   service_name : string prop;
   container : container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_endpoint : public_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -269,7 +269,7 @@ let yojson_of_aws_lightsail_container_service_deployment_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_endpoint then bnds
+         if Stdlib.( = ) [] v_public_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_endpoint)
@@ -279,7 +279,7 @@ let yojson_of_aws_lightsail_container_service_deployment_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container then bnds
+         if Stdlib.( = ) [] v_container then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container) v_container

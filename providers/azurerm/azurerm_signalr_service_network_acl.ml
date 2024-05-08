@@ -161,9 +161,9 @@ type azurerm_signalr_service_network_acl = {
   id : string prop option; [@option]
   signalr_service_id : string prop;
   private_endpoint : private_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_network : public_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -188,7 +188,7 @@ let yojson_of_azurerm_signalr_service_network_acl =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_network then bnds
+         if Stdlib.( = ) [] v_public_network then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_network)
@@ -198,7 +198,7 @@ let yojson_of_azurerm_signalr_service_network_acl =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_private_endpoint then bnds
+         if Stdlib.( = ) [] v_private_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_endpoint)

@@ -196,12 +196,12 @@ type azurerm_data_factory_integration_runtime_managed = {
   node_size : string prop;
   number_of_nodes : float prop option; [@option]
   catalog_info : catalog_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_setup_script : custom_setup_script list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vnet_integration : vnet_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -232,7 +232,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_managed =
          []
        in
        let bnds =
-         if [] = v_vnet_integration then bnds
+         if Stdlib.( = ) [] v_vnet_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vnet_integration)
@@ -246,7 +246,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_managed =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom_setup_script then bnds
+         if Stdlib.( = ) [] v_custom_setup_script then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_setup_script)
@@ -256,7 +256,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_managed =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_catalog_info then bnds
+         if Stdlib.( = ) [] v_catalog_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_catalog_info) v_catalog_info

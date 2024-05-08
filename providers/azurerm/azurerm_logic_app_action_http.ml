@@ -102,7 +102,7 @@ type azurerm_logic_app_action_http = {
   queries : (string * string prop) list option; [@option]
   uri : string prop;
   run_after : run_after list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -131,7 +131,7 @@ let yojson_of_azurerm_logic_app_action_http =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_run_after then bnds
+         if Stdlib.( = ) [] v_run_after then bnds
          else
            let arg =
              (yojson_of_list yojson_of_run_after) v_run_after

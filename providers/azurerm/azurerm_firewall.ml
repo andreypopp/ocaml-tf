@@ -202,12 +202,12 @@ type azurerm_firewall = {
   threat_intel_mode : string prop option; [@option]
   zones : string prop list option; [@option]
   ip_configuration : ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management_ip_configuration : management_ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_hub : virtual_hub list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -238,7 +238,7 @@ let yojson_of_azurerm_firewall =
          []
        in
        let bnds =
-         if [] = v_virtual_hub then bnds
+         if Stdlib.( = ) [] v_virtual_hub then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_hub) v_virtual_hub
@@ -251,7 +251,7 @@ let yojson_of_azurerm_firewall =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_management_ip_configuration then bnds
+         if Stdlib.( = ) [] v_management_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management_ip_configuration)
@@ -261,7 +261,7 @@ let yojson_of_azurerm_firewall =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ip_configuration)

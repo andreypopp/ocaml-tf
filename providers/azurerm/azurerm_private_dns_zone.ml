@@ -162,7 +162,7 @@ type azurerm_private_dns_zone = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   soa_record : soa_record list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -187,7 +187,7 @@ let yojson_of_azurerm_private_dns_zone =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_soa_record then bnds
+         if Stdlib.( = ) [] v_soa_record then bnds
          else
            let arg =
              (yojson_of_list yojson_of_soa_record) v_soa_record

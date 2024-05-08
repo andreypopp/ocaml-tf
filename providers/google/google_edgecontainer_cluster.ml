@@ -26,7 +26,7 @@ let _ = yojson_of_authorization__admin_users
 
 type authorization = {
   admin_users : authorization__admin_users list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +39,7 @@ let yojson_of_authorization =
          []
        in
        let bnds =
-         if [] = v_admin_users then bnds
+         if Stdlib.( = ) [] v_admin_users then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization__admin_users)
@@ -145,9 +145,9 @@ let _ = yojson_of_control_plane__remote
 
 type control_plane = {
   local : control_plane__local list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote : control_plane__remote list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,7 +160,7 @@ let yojson_of_control_plane =
          []
        in
        let bnds =
-         if [] = v_remote then bnds
+         if Stdlib.( = ) [] v_remote then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_plane__remote)
@@ -170,7 +170,7 @@ let yojson_of_control_plane =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local then bnds
+         if Stdlib.( = ) [] v_local then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_plane__local) v_local
@@ -307,7 +307,7 @@ let _ =
 type maintenance_policy__window__recurring_window = {
   recurrence : string prop option; [@option]
   window : maintenance_policy__window__recurring_window__window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -320,7 +320,7 @@ let yojson_of_maintenance_policy__window__recurring_window =
          []
        in
        let bnds =
-         if [] = v_window then bnds
+         if Stdlib.( = ) [] v_window then bnds
          else
            let arg =
              (yojson_of_list
@@ -349,7 +349,7 @@ let _ = yojson_of_maintenance_policy__window__recurring_window
 type maintenance_policy__window = {
   recurring_window :
     maintenance_policy__window__recurring_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -362,7 +362,7 @@ let yojson_of_maintenance_policy__window =
          []
        in
        let bnds =
-         if [] = v_recurring_window then bnds
+         if Stdlib.( = ) [] v_recurring_window then bnds
          else
            let arg =
              (yojson_of_list
@@ -381,7 +381,7 @@ let _ = yojson_of_maintenance_policy__window
 
 type maintenance_policy = {
   window : maintenance_policy__window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -394,7 +394,7 @@ let yojson_of_maintenance_policy =
          []
        in
        let bnds =
-         if [] = v_window then bnds
+         if Stdlib.( = ) [] v_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_policy__window)
@@ -412,10 +412,10 @@ let _ = yojson_of_maintenance_policy
 
 type networking = {
   cluster_ipv4_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cluster_ipv6_cidr_blocks : string prop list option; [@option]
   services_ipv4_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   services_ipv6_cidr_blocks : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -444,7 +444,7 @@ let yojson_of_networking =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_services_ipv4_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_services_ipv4_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -464,7 +464,7 @@ let yojson_of_networking =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_ipv4_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_cluster_ipv4_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -520,7 +520,7 @@ let _ = yojson_of_system_addons_config__ingress
 
 type system_addons_config = {
   ingress : system_addons_config__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -533,7 +533,7 @@ let yojson_of_system_addons_config =
          []
        in
        let bnds =
-         if [] = v_ingress then bnds
+         if Stdlib.( = ) [] v_ingress then bnds
          else
            let arg =
              (yojson_of_list yojson_of_system_addons_config__ingress)
@@ -690,18 +690,19 @@ type google_edgecontainer_cluster = {
   release_channel : string prop option; [@option]
   target_version : string prop option; [@option]
   authorization : authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   control_plane : control_plane list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   control_plane_encryption : control_plane_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
-  fleet : fleet list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  fleet : fleet list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_policy : maintenance_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   networking : networking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   system_addons_config : system_addons_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -738,7 +739,7 @@ let yojson_of_google_edgecontainer_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_system_addons_config then bnds
+         if Stdlib.( = ) [] v_system_addons_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_system_addons_config)
@@ -748,7 +749,7 @@ let yojson_of_google_edgecontainer_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_networking then bnds
+         if Stdlib.( = ) [] v_networking then bnds
          else
            let arg =
              (yojson_of_list yojson_of_networking) v_networking
@@ -757,7 +758,7 @@ let yojson_of_google_edgecontainer_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_policy then bnds
+         if Stdlib.( = ) [] v_maintenance_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_policy)
@@ -767,14 +768,14 @@ let yojson_of_google_edgecontainer_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fleet then bnds
+         if Stdlib.( = ) [] v_fleet then bnds
          else
            let arg = (yojson_of_list yojson_of_fleet) v_fleet in
            let bnd = "fleet", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_control_plane_encryption then bnds
+         if Stdlib.( = ) [] v_control_plane_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_plane_encryption)
@@ -784,7 +785,7 @@ let yojson_of_google_edgecontainer_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_control_plane then bnds
+         if Stdlib.( = ) [] v_control_plane then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_plane) v_control_plane
@@ -793,7 +794,7 @@ let yojson_of_google_edgecontainer_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorization then bnds
+         if Stdlib.( = ) [] v_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization) v_authorization

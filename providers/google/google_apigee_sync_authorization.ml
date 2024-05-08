@@ -51,7 +51,7 @@ let _ = yojson_of_timeouts
 type google_apigee_sync_authorization = {
   id : string prop option; [@option]
   identities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   timeouts : timeouts option;
 }
@@ -79,7 +79,7 @@ let yojson_of_google_apigee_sync_authorization =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_identities then bnds
+         if Stdlib.( = ) [] v_identities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -121,13 +121,13 @@ let _ = yojson_of_condition__string_not_like
 
 type condition = {
   string_equals : condition__string_equals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_like : condition__string_like list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_equals : condition__string_not_equals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   string_not_like : condition__string_not_like list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +145,7 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         if [] = v_string_not_like then bnds
+         if Stdlib.( = ) [] v_string_not_like then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__string_not_like)
@@ -155,7 +155,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_not_equals then bnds
+         if Stdlib.( = ) [] v_string_not_equals then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__string_not_equals)
@@ -165,7 +165,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_like then bnds
+         if Stdlib.( = ) [] v_string_like then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__string_like)
@@ -175,7 +175,7 @@ let yojson_of_condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_equals then bnds
+         if Stdlib.( = ) [] v_string_equals then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition__string_equals)
@@ -233,9 +233,9 @@ type aws_backup_selection = {
   plan_id : string prop;
   resources : string prop list option; [@option]
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selection_tag : selection_tag list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,7 +257,7 @@ let yojson_of_aws_backup_selection =
          []
        in
        let bnds =
-         if [] = v_selection_tag then bnds
+         if Stdlib.( = ) [] v_selection_tag then bnds
          else
            let arg =
              (yojson_of_list yojson_of_selection_tag) v_selection_tag
@@ -266,7 +266,7 @@ let yojson_of_aws_backup_selection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition

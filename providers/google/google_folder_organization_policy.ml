@@ -106,9 +106,9 @@ type list_policy = {
   inherit_from_parent : bool prop option; [@option]
   suggested_value : string prop option; [@option]
   allow : list_policy__allow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deny : list_policy__deny list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_list_policy =
          []
        in
        let bnds =
-         if [] = v_deny then bnds
+         if Stdlib.( = ) [] v_deny then bnds
          else
            let arg =
              (yojson_of_list yojson_of_list_policy__deny) v_deny
@@ -135,7 +135,7 @@ let yojson_of_list_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow then bnds
+         if Stdlib.( = ) [] v_allow then bnds
          else
            let arg =
              (yojson_of_list yojson_of_list_policy__allow) v_allow
@@ -254,11 +254,11 @@ type google_folder_organization_policy = {
   id : string prop option; [@option]
   version : float prop option; [@option]
   boolean_policy : boolean_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   list_policy : list_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   restore_policy : restore_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -285,7 +285,7 @@ let yojson_of_google_folder_organization_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_restore_policy then bnds
+         if Stdlib.( = ) [] v_restore_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restore_policy)
@@ -295,7 +295,7 @@ let yojson_of_google_folder_organization_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_list_policy then bnds
+         if Stdlib.( = ) [] v_list_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_list_policy) v_list_policy
@@ -304,7 +304,7 @@ let yojson_of_google_folder_organization_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_boolean_policy then bnds
+         if Stdlib.( = ) [] v_boolean_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_boolean_policy)

@@ -5,9 +5,9 @@ open! Tf_core
 type aws_apprunner_vpc_connector = {
   id : string prop option; [@option]
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vpc_connector_name : string prop;
@@ -68,7 +68,7 @@ let yojson_of_aws_apprunner_vpc_connector =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -78,7 +78,7 @@ let yojson_of_aws_apprunner_vpc_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

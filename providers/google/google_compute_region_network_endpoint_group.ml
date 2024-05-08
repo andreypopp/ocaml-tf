@@ -183,11 +183,11 @@ type google_compute_region_network_endpoint_group = {
   region : string prop;
   subnetwork : string prop option; [@option]
   app_engine : app_engine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_function : cloud_function list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_run : cloud_run list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -219,7 +219,7 @@ let yojson_of_google_compute_region_network_endpoint_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cloud_run then bnds
+         if Stdlib.( = ) [] v_cloud_run then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_run) v_cloud_run
@@ -228,7 +228,7 @@ let yojson_of_google_compute_region_network_endpoint_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_function then bnds
+         if Stdlib.( = ) [] v_cloud_function then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_function)
@@ -238,7 +238,7 @@ let yojson_of_google_compute_region_network_endpoint_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_app_engine then bnds
+         if Stdlib.( = ) [] v_app_engine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_app_engine) v_app_engine

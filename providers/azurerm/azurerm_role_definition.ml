@@ -138,7 +138,7 @@ type azurerm_role_definition = {
   role_definition_id : string prop option; [@option]
   scope : string prop;
   permissions : permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -165,7 +165,7 @@ let yojson_of_azurerm_role_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_permissions then bnds
+         if Stdlib.( = ) [] v_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_permissions) v_permissions

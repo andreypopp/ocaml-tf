@@ -67,7 +67,7 @@ type monitor_config = {
   timeout_in_seconds : float prop option; [@option]
   tolerated_number_of_failures : float prop option; [@option]
   custom_header : monitor_config__custom_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_monitor_config =
          []
        in
        let bnds =
-         if [] = v_custom_header then bnds
+         if Stdlib.( = ) [] v_custom_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitor_config__custom_header)
@@ -225,9 +225,9 @@ type azurerm_traffic_manager_profile = {
   traffic_routing_method : string prop;
   traffic_view_enabled : bool prop option; [@option]
   dns_config : dns_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitor_config : monitor_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -257,7 +257,7 @@ let yojson_of_azurerm_traffic_manager_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_monitor_config then bnds
+         if Stdlib.( = ) [] v_monitor_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitor_config)
@@ -267,7 +267,7 @@ let yojson_of_azurerm_traffic_manager_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_config then bnds
+         if Stdlib.( = ) [] v_dns_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_config) v_dns_config

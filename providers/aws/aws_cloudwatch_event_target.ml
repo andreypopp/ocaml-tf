@@ -135,7 +135,7 @@ type ecs_target__network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,7 +152,7 @@ let yojson_of_ecs_target__network_configuration =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -267,14 +267,14 @@ type ecs_target = {
   task_definition_arn : string prop;
   capacity_provider_strategy :
     ecs_target__capacity_provider_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : ecs_target__network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ordered_placement_strategy :
     ecs_target__ordered_placement_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_constraint : ecs_target__placement_constraint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -301,7 +301,7 @@ let yojson_of_ecs_target =
          []
        in
        let bnds =
-         if [] = v_placement_constraint then bnds
+         if Stdlib.( = ) [] v_placement_constraint then bnds
          else
            let arg =
              (yojson_of_list
@@ -312,7 +312,7 @@ let yojson_of_ecs_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ordered_placement_strategy then bnds
+         if Stdlib.( = ) [] v_ordered_placement_strategy then bnds
          else
            let arg =
              (yojson_of_list
@@ -323,7 +323,7 @@ let yojson_of_ecs_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -334,7 +334,7 @@ let yojson_of_ecs_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity_provider_strategy then bnds
+         if Stdlib.( = ) [] v_capacity_provider_strategy then bnds
          else
            let arg =
              (yojson_of_list
@@ -691,7 +691,7 @@ let _ = yojson_of_retry_policy
 type run_command_targets = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -704,7 +704,7 @@ let yojson_of_run_command_targets =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -758,7 +758,7 @@ let _ = yojson_of_sagemaker_pipeline_target__pipeline_parameter_list
 type sagemaker_pipeline_target = {
   pipeline_parameter_list :
     sagemaker_pipeline_target__pipeline_parameter_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,7 +771,7 @@ let yojson_of_sagemaker_pipeline_target =
          []
        in
        let bnds =
-         if [] = v_pipeline_parameter_list then bnds
+         if Stdlib.( = ) [] v_pipeline_parameter_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -824,27 +824,27 @@ type aws_cloudwatch_event_target = {
   rule : string prop;
   target_id : string prop option; [@option]
   batch_target : batch_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dead_letter_config : dead_letter_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ecs_target : ecs_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_target : http_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_transformer : input_transformer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_target : kinesis_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redshift_target : redshift_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retry_policy : retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   run_command_targets : run_command_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sagemaker_pipeline_target : sagemaker_pipeline_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sqs_target : sqs_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -877,7 +877,7 @@ let yojson_of_aws_cloudwatch_event_target =
          []
        in
        let bnds =
-         if [] = v_sqs_target then bnds
+         if Stdlib.( = ) [] v_sqs_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sqs_target) v_sqs_target
@@ -886,7 +886,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sagemaker_pipeline_target then bnds
+         if Stdlib.( = ) [] v_sagemaker_pipeline_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sagemaker_pipeline_target)
@@ -896,7 +896,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_run_command_targets then bnds
+         if Stdlib.( = ) [] v_run_command_targets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_run_command_targets)
@@ -906,7 +906,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retry_policy) v_retry_policy
@@ -915,7 +915,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_redshift_target then bnds
+         if Stdlib.( = ) [] v_redshift_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redshift_target)
@@ -925,7 +925,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_target then bnds
+         if Stdlib.( = ) [] v_kinesis_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kinesis_target)
@@ -935,7 +935,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_transformer then bnds
+         if Stdlib.( = ) [] v_input_transformer then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_transformer)
@@ -945,7 +945,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_target then bnds
+         if Stdlib.( = ) [] v_http_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_target) v_http_target
@@ -954,7 +954,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ecs_target then bnds
+         if Stdlib.( = ) [] v_ecs_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ecs_target) v_ecs_target
@@ -963,7 +963,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dead_letter_config then bnds
+         if Stdlib.( = ) [] v_dead_letter_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dead_letter_config)
@@ -973,7 +973,7 @@ let yojson_of_aws_cloudwatch_event_target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_batch_target then bnds
+         if Stdlib.( = ) [] v_batch_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_batch_target) v_batch_target

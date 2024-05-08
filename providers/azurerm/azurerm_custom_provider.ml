@@ -158,12 +158,13 @@ type azurerm_custom_provider = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_type : resource_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   validation : validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +187,7 @@ let yojson_of_azurerm_custom_provider =
          []
        in
        let bnds =
-         if [] = v_validation then bnds
+         if Stdlib.( = ) [] v_validation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation) v_validation
@@ -199,7 +200,7 @@ let yojson_of_azurerm_custom_provider =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_type then bnds
+         if Stdlib.( = ) [] v_resource_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_type) v_resource_type
@@ -208,7 +209,7 @@ let yojson_of_azurerm_custom_provider =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

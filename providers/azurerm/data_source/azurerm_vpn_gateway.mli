@@ -6,27 +6,27 @@ open! Tf_core
 
 type bgp_settings__instance_1_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_ips *)
   default_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** default_ips *)
   ip_configuration_id : string prop;  (** ip_configuration_id *)
   tunnel_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tunnel_ips *)
 }
 
 type bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_ips *)
   default_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** default_ips *)
   ip_configuration_id : string prop;  (** ip_configuration_id *)
   tunnel_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tunnel_ips *)
 }
 
@@ -35,11 +35,11 @@ type bgp_settings = {
   bgp_peering_address : string prop;  (** bgp_peering_address *)
   instance_0_bgp_peering_address :
     bgp_settings__instance_0_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instance_0_bgp_peering_address *)
   instance_1_bgp_peering_address :
     bgp_settings__instance_1_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instance_1_bgp_peering_address *)
   peer_weight : float prop;  (** peer_weight *)
 }

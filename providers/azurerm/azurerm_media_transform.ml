@@ -167,7 +167,7 @@ type output__builtin_preset = {
   preset_name : string prop;
   preset_configuration :
     output__builtin_preset__preset_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -183,7 +183,7 @@ let yojson_of_output__builtin_preset =
          []
        in
        let bnds =
-         if [] = v_preset_configuration then bnds
+         if Stdlib.( = ) [] v_preset_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -571,7 +571,7 @@ type output__custom_preset__codec__h264_video = {
   stretch_mode : string prop option; [@option]
   sync_mode : string prop option; [@option]
   layer : output__custom_preset__codec__h264_video__layer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -594,7 +594,7 @@ let yojson_of_output__custom_preset__codec__h264_video =
          []
        in
        let bnds =
-         if [] = v_layer then bnds
+         if Stdlib.( = ) [] v_layer then bnds
          else
            let arg =
              (yojson_of_list
@@ -834,7 +834,7 @@ type output__custom_preset__codec__h265_video = {
   stretch_mode : string prop option; [@option]
   sync_mode : string prop option; [@option]
   layer : output__custom_preset__codec__h265_video__layer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -856,7 +856,7 @@ let yojson_of_output__custom_preset__codec__h265_video =
          []
        in
        let bnds =
-         if [] = v_layer then bnds
+         if Stdlib.( = ) [] v_layer then bnds
          else
            let arg =
              (yojson_of_list
@@ -994,7 +994,7 @@ type output__custom_preset__codec__jpg_image = {
   stretch_mode : string prop option; [@option]
   sync_mode : string prop option; [@option]
   layer : output__custom_preset__codec__jpg_image__layer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1017,7 +1017,7 @@ let yojson_of_output__custom_preset__codec__jpg_image =
          []
        in
        let bnds =
-         if [] = v_layer then bnds
+         if Stdlib.( = ) [] v_layer then bnds
          else
            let arg =
              (yojson_of_list
@@ -1152,7 +1152,7 @@ type output__custom_preset__codec__png_image = {
   stretch_mode : string prop option; [@option]
   sync_mode : string prop option; [@option]
   layer : output__custom_preset__codec__png_image__layer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1174,7 +1174,7 @@ let yojson_of_output__custom_preset__codec__png_image =
          []
        in
        let bnds =
-         if [] = v_layer then bnds
+         if Stdlib.( = ) [] v_layer then bnds
          else
            let arg =
              (yojson_of_list
@@ -1246,21 +1246,21 @@ let _ = yojson_of_output__custom_preset__codec__png_image
 
 type output__custom_preset__codec = {
   aac_audio : output__custom_preset__codec__aac_audio list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   copy_audio : output__custom_preset__codec__copy_audio list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   copy_video : output__custom_preset__codec__copy_video list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dd_audio : output__custom_preset__codec__dd_audio list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   h264_video : output__custom_preset__codec__h264_video list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   h265_video : output__custom_preset__codec__h265_video list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jpg_image : output__custom_preset__codec__jpg_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   png_image : output__custom_preset__codec__png_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1282,7 +1282,7 @@ let yojson_of_output__custom_preset__codec =
          []
        in
        let bnds =
-         if [] = v_png_image then bnds
+         if Stdlib.( = ) [] v_png_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1293,7 +1293,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jpg_image then bnds
+         if Stdlib.( = ) [] v_jpg_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1304,7 +1304,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_h265_video then bnds
+         if Stdlib.( = ) [] v_h265_video then bnds
          else
            let arg =
              (yojson_of_list
@@ -1315,7 +1315,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_h264_video then bnds
+         if Stdlib.( = ) [] v_h264_video then bnds
          else
            let arg =
              (yojson_of_list
@@ -1326,7 +1326,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dd_audio then bnds
+         if Stdlib.( = ) [] v_dd_audio then bnds
          else
            let arg =
              (yojson_of_list
@@ -1337,7 +1337,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_copy_video then bnds
+         if Stdlib.( = ) [] v_copy_video then bnds
          else
            let arg =
              (yojson_of_list
@@ -1348,7 +1348,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_copy_audio then bnds
+         if Stdlib.( = ) [] v_copy_audio then bnds
          else
            let arg =
              (yojson_of_list
@@ -1359,7 +1359,7 @@ let yojson_of_output__custom_preset__codec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aac_audio then bnds
+         if Stdlib.( = ) [] v_aac_audio then bnds
          else
            let arg =
              (yojson_of_list
@@ -1781,10 +1781,10 @@ type output__custom_preset__filter__overlay__video = {
   crop_rectangle :
     output__custom_preset__filter__overlay__video__crop_rectangle
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   position :
     output__custom_preset__filter__overlay__video__position list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1807,7 +1807,7 @@ let yojson_of_output__custom_preset__filter__overlay__video =
          []
        in
        let bnds =
-         if [] = v_position then bnds
+         if Stdlib.( = ) [] v_position then bnds
          else
            let arg =
              (yojson_of_list
@@ -1818,7 +1818,7 @@ let yojson_of_output__custom_preset__filter__overlay__video =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_crop_rectangle then bnds
+         if Stdlib.( = ) [] v_crop_rectangle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1890,9 +1890,9 @@ let _ = yojson_of_output__custom_preset__filter__overlay__video
 
 type output__custom_preset__filter__overlay = {
   audio : output__custom_preset__filter__overlay__audio list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video : output__custom_preset__filter__overlay__video list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1905,7 +1905,7 @@ let yojson_of_output__custom_preset__filter__overlay =
          []
        in
        let bnds =
-         if [] = v_video then bnds
+         if Stdlib.( = ) [] v_video then bnds
          else
            let arg =
              (yojson_of_list
@@ -1916,7 +1916,7 @@ let yojson_of_output__custom_preset__filter__overlay =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio then bnds
+         if Stdlib.( = ) [] v_audio then bnds
          else
            let arg =
              (yojson_of_list
@@ -1938,15 +1938,15 @@ type output__custom_preset__filter = {
   rotation : string prop option; [@option]
   crop_rectangle :
     output__custom_preset__filter__crop_rectangle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deinterlace : output__custom_preset__filter__deinterlace list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fade_in : output__custom_preset__filter__fade_in list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fade_out : output__custom_preset__filter__fade_out list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   overlay : output__custom_preset__filter__overlay list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1966,7 +1966,7 @@ let yojson_of_output__custom_preset__filter =
          []
        in
        let bnds =
-         if [] = v_overlay then bnds
+         if Stdlib.( = ) [] v_overlay then bnds
          else
            let arg =
              (yojson_of_list
@@ -1977,7 +1977,7 @@ let yojson_of_output__custom_preset__filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fade_out then bnds
+         if Stdlib.( = ) [] v_fade_out then bnds
          else
            let arg =
              (yojson_of_list
@@ -1988,7 +1988,7 @@ let yojson_of_output__custom_preset__filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fade_in then bnds
+         if Stdlib.( = ) [] v_fade_in then bnds
          else
            let arg =
              (yojson_of_list
@@ -1999,7 +1999,7 @@ let yojson_of_output__custom_preset__filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deinterlace then bnds
+         if Stdlib.( = ) [] v_deinterlace then bnds
          else
            let arg =
              (yojson_of_list
@@ -2010,7 +2010,7 @@ let yojson_of_output__custom_preset__filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_crop_rectangle then bnds
+         if Stdlib.( = ) [] v_crop_rectangle then bnds
          else
            let arg =
              (yojson_of_list
@@ -2065,7 +2065,7 @@ let _ = yojson_of_output__custom_preset__format__jpg
 
 type output__custom_preset__format__mp4__output_file = {
   labels : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2079,7 +2079,7 @@ let yojson_of_output__custom_preset__format__mp4__output_file =
          []
        in
        let bnds =
-         if [] = v_labels then bnds
+         if Stdlib.( = ) [] v_labels then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2099,7 +2099,7 @@ let _ = yojson_of_output__custom_preset__format__mp4__output_file
 type output__custom_preset__format__mp4 = {
   filename_pattern : string prop;
   output_file : output__custom_preset__format__mp4__output_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2115,7 +2115,7 @@ let yojson_of_output__custom_preset__format__mp4 =
          []
        in
        let bnds =
-         if [] = v_output_file then bnds
+         if Stdlib.( = ) [] v_output_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2168,7 +2168,7 @@ let _ = yojson_of_output__custom_preset__format__png
 
 type output__custom_preset__format__transport_stream__output_file = {
   labels : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2185,7 +2185,7 @@ let yojson_of_output__custom_preset__format__transport_stream__output_file
          []
        in
        let bnds =
-         if [] = v_labels then bnds
+         if Stdlib.( = ) [] v_labels then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2207,7 +2207,7 @@ type output__custom_preset__format__transport_stream = {
   filename_pattern : string prop;
   output_file :
     output__custom_preset__format__transport_stream__output_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2224,7 +2224,7 @@ let yojson_of_output__custom_preset__format__transport_stream =
          []
        in
        let bnds =
-         if [] = v_output_file then bnds
+         if Stdlib.( = ) [] v_output_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2250,14 +2250,14 @@ let _ = yojson_of_output__custom_preset__format__transport_stream
 
 type output__custom_preset__format = {
   jpg : output__custom_preset__format__jpg list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mp4 : output__custom_preset__format__mp4 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   png : output__custom_preset__format__png list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transport_stream :
     output__custom_preset__format__transport_stream list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2275,7 +2275,7 @@ let yojson_of_output__custom_preset__format =
          []
        in
        let bnds =
-         if [] = v_transport_stream then bnds
+         if Stdlib.( = ) [] v_transport_stream then bnds
          else
            let arg =
              (yojson_of_list
@@ -2286,7 +2286,7 @@ let yojson_of_output__custom_preset__format =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_png then bnds
+         if Stdlib.( = ) [] v_png then bnds
          else
            let arg =
              (yojson_of_list
@@ -2297,7 +2297,7 @@ let yojson_of_output__custom_preset__format =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mp4 then bnds
+         if Stdlib.( = ) [] v_mp4 then bnds
          else
            let arg =
              (yojson_of_list
@@ -2308,7 +2308,7 @@ let yojson_of_output__custom_preset__format =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jpg then bnds
+         if Stdlib.( = ) [] v_jpg then bnds
          else
            let arg =
              (yojson_of_list
@@ -2330,11 +2330,11 @@ type output__custom_preset = {
   experimental_options : (string * string prop) list option;
       [@option]
   codec : output__custom_preset__codec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter : output__custom_preset__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   format : output__custom_preset__format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2352,7 +2352,7 @@ let yojson_of_output__custom_preset =
          []
        in
        let bnds =
-         if [] = v_format then bnds
+         if Stdlib.( = ) [] v_format then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__custom_preset__format)
@@ -2362,7 +2362,7 @@ let yojson_of_output__custom_preset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__custom_preset__filter)
@@ -2372,7 +2372,7 @@ let yojson_of_output__custom_preset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_codec then bnds
+         if Stdlib.( = ) [] v_codec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__custom_preset__codec)
@@ -2548,15 +2548,15 @@ type output = {
   on_error_action : string prop option; [@option]
   relative_priority : string prop option; [@option]
   audio_analyzer_preset : output__audio_analyzer_preset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   builtin_preset : output__builtin_preset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_preset : output__custom_preset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   face_detector_preset : output__face_detector_preset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_analyzer_preset : output__video_analyzer_preset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2577,7 +2577,7 @@ let yojson_of_output =
          []
        in
        let bnds =
-         if [] = v_video_analyzer_preset then bnds
+         if Stdlib.( = ) [] v_video_analyzer_preset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__video_analyzer_preset)
@@ -2587,7 +2587,7 @@ let yojson_of_output =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_face_detector_preset then bnds
+         if Stdlib.( = ) [] v_face_detector_preset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__face_detector_preset)
@@ -2597,7 +2597,7 @@ let yojson_of_output =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_preset then bnds
+         if Stdlib.( = ) [] v_custom_preset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__custom_preset)
@@ -2607,7 +2607,7 @@ let yojson_of_output =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_builtin_preset then bnds
+         if Stdlib.( = ) [] v_builtin_preset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__builtin_preset)
@@ -2617,7 +2617,7 @@ let yojson_of_output =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_analyzer_preset then bnds
+         if Stdlib.( = ) [] v_audio_analyzer_preset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output__audio_analyzer_preset)
@@ -2715,7 +2715,8 @@ type azurerm_media_transform = {
   media_services_account_name : string prop;
   name : string prop;
   resource_group_name : string prop;
-  output : output list; [@default []] [@yojson_drop_default ( = )]
+  output : output list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2741,7 +2742,7 @@ let yojson_of_azurerm_media_transform =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_output then bnds
+         if Stdlib.( = ) [] v_output then bnds
          else
            let arg = (yojson_of_list yojson_of_output) v_output in
            let bnd = "output", arg in

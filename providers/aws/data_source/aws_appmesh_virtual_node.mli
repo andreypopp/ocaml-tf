@@ -18,10 +18,10 @@ type spec__service_discovery__aws_cloud_map = {
 
 type spec__service_discovery = {
   aws_cloud_map : spec__service_discovery__aws_cloud_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** aws_cloud_map *)
   dns : spec__service_discovery__dns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns *)
 }
 
@@ -32,27 +32,27 @@ type spec__logging__access_log__file__format__json = {
 
 type spec__logging__access_log__file__format = {
   json : spec__logging__access_log__file__format__json list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** json *)
   text : string prop;  (** text *)
 }
 
 type spec__logging__access_log__file = {
   format : spec__logging__access_log__file__format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** format *)
   path : string prop;  (** path *)
 }
 
 type spec__logging__access_log = {
   file : spec__logging__access_log__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
 }
 
 type spec__logging = {
   access_log : spec__logging__access_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** access_log *)
 }
 
@@ -66,15 +66,16 @@ type spec__listener__tls__validation__trust__file = {
 
 type spec__listener__tls__validation__trust = {
   file : spec__listener__tls__validation__trust__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds : spec__listener__tls__validation__trust__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
 type spec__listener__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exact *)
 }
 
@@ -82,17 +83,19 @@ type spec__listener__tls__validation__subject_alternative_names = {
   match_ :
     spec__listener__tls__validation__subject_alternative_names__match
     list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
       (** match *)
 }
 
 type spec__listener__tls__validation = {
   subject_alternative_names :
     spec__listener__tls__validation__subject_alternative_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
   trust : spec__listener__tls__validation__trust list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trust *)
 }
 
@@ -111,23 +114,23 @@ type spec__listener__tls__certificate__acm = {
 
 type spec__listener__tls__certificate = {
   acm : spec__listener__tls__certificate__acm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** acm *)
   file : spec__listener__tls__certificate__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds : spec__listener__tls__certificate__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
 type spec__listener__tls = {
   certificate : spec__listener__tls__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate *)
   mode : string prop;  (** mode *)
   validation : spec__listener__tls__validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** validation *)
 }
 
@@ -138,7 +141,7 @@ type spec__listener__timeout__tcp__idle = {
 
 type spec__listener__timeout__tcp = {
   idle : spec__listener__timeout__tcp__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** idle *)
 }
 
@@ -154,10 +157,10 @@ type spec__listener__timeout__http2__idle = {
 
 type spec__listener__timeout__http2 = {
   idle : spec__listener__timeout__http2__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** idle *)
   per_request : spec__listener__timeout__http2__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** per_request *)
 }
 
@@ -173,10 +176,10 @@ type spec__listener__timeout__http__idle = {
 
 type spec__listener__timeout__http = {
   idle : spec__listener__timeout__http__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** idle *)
   per_request : spec__listener__timeout__http__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** per_request *)
 }
 
@@ -192,25 +195,25 @@ type spec__listener__timeout__grpc__idle = {
 
 type spec__listener__timeout__grpc = {
   idle : spec__listener__timeout__grpc__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** idle *)
   per_request : spec__listener__timeout__grpc__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** per_request *)
 }
 
 type spec__listener__timeout = {
   grpc : spec__listener__timeout__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** grpc *)
   http : spec__listener__timeout__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   http2 : spec__listener__timeout__http2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http2 *)
   tcp : spec__listener__timeout__tcp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tcp *)
 }
 
@@ -232,10 +235,10 @@ type spec__listener__outlier_detection__base_ejection_duration = {
 type spec__listener__outlier_detection = {
   base_ejection_duration :
     spec__listener__outlier_detection__base_ejection_duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** base_ejection_duration *)
   interval : spec__listener__outlier_detection__interval list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** interval *)
   max_ejection_percent : float prop;  (** max_ejection_percent *)
   max_server_errors : float prop;  (** max_server_errors *)
@@ -270,37 +273,37 @@ type spec__listener__connection_pool__grpc = {
 
 type spec__listener__connection_pool = {
   grpc : spec__listener__connection_pool__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** grpc *)
   http : spec__listener__connection_pool__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   http2 : spec__listener__connection_pool__http2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http2 *)
   tcp : spec__listener__connection_pool__tcp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tcp *)
 }
 
 type spec__listener = {
   connection_pool : spec__listener__connection_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** connection_pool *)
   health_check : spec__listener__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** health_check *)
   outlier_detection : spec__listener__outlier_detection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** outlier_detection *)
   port_mapping : spec__listener__port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** port_mapping *)
   timeout : spec__listener__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** timeout *)
   tls : spec__listener__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tls *)
 }
 
@@ -314,7 +317,7 @@ type spec__backend_defaults__client_policy__tls__validation__trust__file = {
 
 type spec__backend_defaults__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate_authority_arns *)
 }
 
@@ -322,22 +325,23 @@ type spec__backend_defaults__client_policy__tls__validation__trust = {
   acm :
     spec__backend_defaults__client_policy__tls__validation__trust__acm
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** acm *)
   file :
     spec__backend_defaults__client_policy__tls__validation__trust__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds :
     spec__backend_defaults__client_policy__tls__validation__trust__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
 type spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exact *)
 }
 
@@ -345,7 +349,9 @@ type spec__backend_defaults__client_policy__tls__validation__subject_alternative
   match_ :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
       (** match *)
 }
 
@@ -353,12 +359,12 @@ type spec__backend_defaults__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
   trust :
     spec__backend_defaults__client_policy__tls__validation__trust
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trust *)
 }
 
@@ -375,37 +381,38 @@ type spec__backend_defaults__client_policy__tls__certificate = {
   file :
     spec__backend_defaults__client_policy__tls__certificate__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds :
     spec__backend_defaults__client_policy__tls__certificate__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
 type spec__backend_defaults__client_policy__tls = {
   certificate :
     spec__backend_defaults__client_policy__tls__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate *)
   enforce : bool prop;  (** enforce *)
-  ports : float prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
   validation :
     spec__backend_defaults__client_policy__tls__validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** validation *)
 }
 
 type spec__backend_defaults__client_policy = {
   tls : spec__backend_defaults__client_policy__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tls *)
 }
 
 type spec__backend_defaults = {
   client_policy : spec__backend_defaults__client_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** client_policy *)
 }
 
@@ -419,7 +426,7 @@ type spec__backend__virtual_service__client_policy__tls__validation__trust__file
 
 type spec__backend__virtual_service__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate_authority_arns *)
 }
 
@@ -427,22 +434,23 @@ type spec__backend__virtual_service__client_policy__tls__validation__trust = {
   acm :
     spec__backend__virtual_service__client_policy__tls__validation__trust__acm
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** acm *)
   file :
     spec__backend__virtual_service__client_policy__tls__validation__trust__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds :
     spec__backend__virtual_service__client_policy__tls__validation__trust__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
 type spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exact *)
 }
 
@@ -450,7 +458,9 @@ type spec__backend__virtual_service__client_policy__tls__validation__subject_alt
   match_ :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
       (** match *)
 }
 
@@ -458,12 +468,12 @@ type spec__backend__virtual_service__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
   trust :
     spec__backend__virtual_service__client_policy__tls__validation__trust
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trust *)
 }
 
@@ -480,12 +490,12 @@ type spec__backend__virtual_service__client_policy__tls__certificate = {
   file :
     spec__backend__virtual_service__client_policy__tls__certificate__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** file *)
   sds :
     spec__backend__virtual_service__client_policy__tls__certificate__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sds *)
 }
 
@@ -493,52 +503,53 @@ type spec__backend__virtual_service__client_policy__tls = {
   certificate :
     spec__backend__virtual_service__client_policy__tls__certificate
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificate *)
   enforce : bool prop;  (** enforce *)
-  ports : float prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
   validation :
     spec__backend__virtual_service__client_policy__tls__validation
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** validation *)
 }
 
 type spec__backend__virtual_service__client_policy = {
   tls : spec__backend__virtual_service__client_policy__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tls *)
 }
 
 type spec__backend__virtual_service = {
   client_policy : spec__backend__virtual_service__client_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** client_policy *)
   virtual_service_name : string prop;  (** virtual_service_name *)
 }
 
 type spec__backend = {
   virtual_service : spec__backend__virtual_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** virtual_service *)
 }
 
 type spec = {
   backend : spec__backend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backend *)
   backend_defaults : spec__backend_defaults list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backend_defaults *)
   listener : spec__listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** listener *)
   logging : spec__logging list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logging *)
   service_discovery : spec__service_discovery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service_discovery *)
 }
 

@@ -104,9 +104,9 @@ type aws_signer_signing_profile = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   signature_validity_period : signature_validity_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   signing_material : signing_material list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_aws_signer_signing_profile =
          []
        in
        let bnds =
-         if [] = v_signing_material then bnds
+         if Stdlib.( = ) [] v_signing_material then bnds
          else
            let arg =
              (yojson_of_list yojson_of_signing_material)
@@ -138,7 +138,7 @@ let yojson_of_aws_signer_signing_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_signature_validity_period then bnds
+         if Stdlib.( = ) [] v_signature_validity_period then bnds
          else
            let arg =
              (yojson_of_list yojson_of_signature_validity_period)

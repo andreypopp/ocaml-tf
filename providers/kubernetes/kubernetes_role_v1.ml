@@ -90,11 +90,12 @@ let _ = yojson_of_metadata
 
 type rule = {
   api_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_names : string prop list option; [@option]
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  verbs : string prop list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  verbs : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +113,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_verbs then bnds
+         if Stdlib.( = ) [] v_verbs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -122,7 +123,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -142,7 +143,7 @@ let yojson_of_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_api_groups then bnds
+         if Stdlib.( = ) [] v_api_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -161,8 +162,8 @@ let _ = yojson_of_rule
 type kubernetes_role_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,14 +176,14 @@ let yojson_of_kubernetes_role_v1 =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

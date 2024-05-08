@@ -5,7 +5,7 @@ open! Tf_core
 type cloudflare_origin_ca_certificate = {
   csr : string prop;
   hostnames : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   min_days_for_renewal : float prop option; [@option]
   request_type : string prop;
@@ -57,7 +57,7 @@ let yojson_of_cloudflare_origin_ca_certificate =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_hostnames then bnds
+         if Stdlib.( = ) [] v_hostnames then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

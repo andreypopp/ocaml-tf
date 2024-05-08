@@ -190,13 +190,13 @@ type google_bigquery_analytics_hub_listing = {
   project : string prop option; [@option]
   request_access : string prop option; [@option]
   bigquery_dataset : bigquery_dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_provider : data_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   publisher : publisher list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   restricted_export_config : restricted_export_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -232,7 +232,7 @@ let yojson_of_google_bigquery_analytics_hub_listing =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_restricted_export_config then bnds
+         if Stdlib.( = ) [] v_restricted_export_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restricted_export_config)
@@ -242,7 +242,7 @@ let yojson_of_google_bigquery_analytics_hub_listing =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_publisher then bnds
+         if Stdlib.( = ) [] v_publisher then bnds
          else
            let arg =
              (yojson_of_list yojson_of_publisher) v_publisher
@@ -251,7 +251,7 @@ let yojson_of_google_bigquery_analytics_hub_listing =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_provider then bnds
+         if Stdlib.( = ) [] v_data_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_provider) v_data_provider
@@ -260,7 +260,7 @@ let yojson_of_google_bigquery_analytics_hub_listing =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bigquery_dataset then bnds
+         if Stdlib.( = ) [] v_bigquery_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_dataset)

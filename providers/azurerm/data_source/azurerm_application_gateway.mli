@@ -16,11 +16,11 @@ type autoscale_configuration = {
 
 type backend_address_pool = {
   fqdns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fqdns *)
   id : string prop;  (** id *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
   name : string prop;  (** name *)
 }
@@ -39,11 +39,11 @@ type backend_http_settings = {
   affinity_cookie_name : string prop;  (** affinity_cookie_name *)
   authentication_certificate :
     backend_http_settings__authentication_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** authentication_certificate *)
   connection_draining :
     backend_http_settings__connection_draining list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** connection_draining *)
   cookie_based_affinity : string prop;  (** cookie_based_affinity *)
   host_name : string prop;  (** host_name *)
@@ -58,7 +58,7 @@ type backend_http_settings = {
   protocol : string prop;  (** protocol *)
   request_timeout : float prop;  (** request_timeout *)
   trusted_root_certificate_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trusted_root_certificate_names *)
 }
 
@@ -110,7 +110,7 @@ type http_listener__custom_error_configuration = {
 type http_listener = {
   custom_error_configuration :
     http_listener__custom_error_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_error_configuration *)
   firewall_policy_id : string prop;  (** firewall_policy_id *)
   frontend_ip_configuration_id : string prop;
@@ -121,7 +121,7 @@ type http_listener = {
   frontend_port_name : string prop;  (** frontend_port_name *)
   host_name : string prop;  (** host_name *)
   host_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** host_names *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
@@ -135,7 +135,7 @@ type http_listener = {
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -158,7 +158,7 @@ type private_link_configuration = {
   id : string prop;  (** id *)
   ip_configuration :
     private_link_configuration__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_configuration *)
   name : string prop;  (** name *)
 }
@@ -166,7 +166,7 @@ type private_link_configuration = {
 type probe__match = {
   body : string prop;  (** body *)
   status_code : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status_code *)
 }
 
@@ -175,7 +175,9 @@ type probe = {
   id : string prop;  (** id *)
   interval : float prop;  (** interval *)
   match_ : probe__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
       (** match *)
   minimum_servers : float prop;  (** minimum_servers *)
   name : string prop;  (** name *)
@@ -250,21 +252,21 @@ type rewrite_rule_set__rewrite_rule__condition = {
 
 type rewrite_rule_set__rewrite_rule = {
   condition : rewrite_rule_set__rewrite_rule__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** condition *)
   name : string prop;  (** name *)
   request_header_configuration :
     rewrite_rule_set__rewrite_rule__request_header_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** request_header_configuration *)
   response_header_configuration :
     rewrite_rule_set__rewrite_rule__response_header_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** response_header_configuration *)
   rule_sequence : float prop;  (** rule_sequence *)
   url : rewrite_rule_set__rewrite_rule__url list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** url *)
 }
 
@@ -272,7 +274,7 @@ type rewrite_rule_set = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   rewrite_rule : rewrite_rule_set__rewrite_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rewrite_rule *)
 }
 
@@ -291,10 +293,10 @@ type ssl_certificate = {
 
 type ssl_policy = {
   cipher_suites : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cipher_suites *)
   disabled_protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disabled_protocols *)
   min_protocol_version : string prop;  (** min_protocol_version *)
   policy_name : string prop;  (** policy_name *)
@@ -303,10 +305,10 @@ type ssl_policy = {
 
 type ssl_profile__ssl_policy = {
   cipher_suites : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cipher_suites *)
   disabled_protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disabled_protocols *)
   min_protocol_version : string prop;  (** min_protocol_version *)
   policy_name : string prop;  (** policy_name *)
@@ -317,10 +319,10 @@ type ssl_profile = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   ssl_policy : ssl_profile__ssl_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ssl_policy *)
   trusted_client_certificate_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trusted_client_certificate_names *)
   verify_client_certificate_issuer_dn : bool prop;
       (** verify_client_certificate_issuer_dn *)
@@ -353,7 +355,7 @@ type url_path_map__path_rule = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   paths : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** paths *)
   redirect_configuration_id : string prop;
       (** redirect_configuration_id *)
@@ -383,7 +385,7 @@ type url_path_map = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   path_rule : url_path_map__path_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** path_rule *)
 }
 
@@ -396,17 +398,18 @@ type waf_configuration__exclusion = {
 
 type waf_configuration__disabled_rule_group = {
   rule_group_name : string prop;  (** rule_group_name *)
-  rules : float prop list; [@default []] [@yojson_drop_default ( = )]
+  rules : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rules *)
 }
 
 type waf_configuration = {
   disabled_rule_group : waf_configuration__disabled_rule_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** disabled_rule_group *)
   enabled : bool prop;  (** enabled *)
   exclusion : waf_configuration__exclusion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exclusion *)
   file_upload_limit_mb : float prop;  (** file_upload_limit_mb *)
   firewall_mode : string prop;  (** firewall_mode *)

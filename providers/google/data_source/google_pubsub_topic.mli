@@ -6,7 +6,7 @@ open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_persistence_regions *)
 }
 

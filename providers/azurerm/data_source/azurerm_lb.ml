@@ -36,7 +36,8 @@ type frontend_ip_configuration = {
   private_ip_address_version : string prop;
   public_ip_address_id : string prop;
   subnet_id : string prop;
-  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+  zones : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +60,7 @@ let yojson_of_frontend_ip_configuration =
          []
        in
        let bnds =
-         if [] = v_zones then bnds
+         if Stdlib.( = ) [] v_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

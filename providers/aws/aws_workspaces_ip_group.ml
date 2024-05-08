@@ -41,7 +41,8 @@ type aws_workspaces_ip_group = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +62,7 @@ let yojson_of_aws_workspaces_ip_group =
          []
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

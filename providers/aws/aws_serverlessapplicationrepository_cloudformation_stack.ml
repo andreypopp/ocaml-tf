@@ -51,7 +51,7 @@ let _ = yojson_of_timeouts
 type aws_serverlessapplicationrepository_cloudformation_stack = {
   application_id : string prop;
   capabilities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   parameters : (string * string prop) list option; [@option]
@@ -156,7 +156,7 @@ let yojson_of_aws_serverlessapplicationrepository_cloudformation_stack
              bnd :: bnds
        in
        let bnds =
-         if [] = v_capabilities then bnds
+         if Stdlib.( = ) [] v_capabilities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

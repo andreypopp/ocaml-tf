@@ -509,14 +509,16 @@ type aws_elastictranscoder_preset = {
   name : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   video_codec_options : (string * string prop) list option; [@option]
-  audio : audio list; [@default []] [@yojson_drop_default ( = )]
+  audio : audio list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audio_codec_options : audio_codec_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   thumbnails : thumbnails list;
-      [@default []] [@yojson_drop_default ( = )]
-  video : video list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  video : video list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_watermarks : video_watermarks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -541,7 +543,7 @@ let yojson_of_aws_elastictranscoder_preset =
          []
        in
        let bnds =
-         if [] = v_video_watermarks then bnds
+         if Stdlib.( = ) [] v_video_watermarks then bnds
          else
            let arg =
              (yojson_of_list yojson_of_video_watermarks)
@@ -551,14 +553,14 @@ let yojson_of_aws_elastictranscoder_preset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_video then bnds
+         if Stdlib.( = ) [] v_video then bnds
          else
            let arg = (yojson_of_list yojson_of_video) v_video in
            let bnd = "video", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_thumbnails then bnds
+         if Stdlib.( = ) [] v_thumbnails then bnds
          else
            let arg =
              (yojson_of_list yojson_of_thumbnails) v_thumbnails
@@ -567,7 +569,7 @@ let yojson_of_aws_elastictranscoder_preset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_codec_options then bnds
+         if Stdlib.( = ) [] v_audio_codec_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_audio_codec_options)
@@ -577,7 +579,7 @@ let yojson_of_aws_elastictranscoder_preset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio then bnds
+         if Stdlib.( = ) [] v_audio then bnds
          else
            let arg = (yojson_of_list yojson_of_audio) v_audio in
            let bnd = "audio", arg in

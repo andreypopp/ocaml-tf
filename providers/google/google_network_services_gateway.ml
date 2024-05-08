@@ -59,7 +59,8 @@ type google_network_services_gateway = {
   location : string prop option; [@option]
   name : string prop;
   network : string prop option; [@option]
-  ports : float prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   project : string prop option; [@option]
   scope : string prop option; [@option]
   server_tls_policy : string prop option; [@option]
@@ -137,7 +138,7 @@ let yojson_of_google_network_services_gateway =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))

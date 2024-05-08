@@ -5,7 +5,8 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
@@ -14,12 +15,13 @@ type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config = {
   query_strings :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** query_strings *)
 }
 
 type parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
@@ -28,12 +30,13 @@ type parameters_in_cache_key_and_forwarded_to_origin__headers_config = {
   headers :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers *)
 }
 
 type parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies = {
-  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+  items : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
 }
 
@@ -42,7 +45,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__cookies_config = {
   cookies :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cookies *)
 }
 
@@ -50,7 +53,7 @@ type parameters_in_cache_key_and_forwarded_to_origin = {
   cookies_config :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cookies_config *)
   enable_accept_encoding_brotli : bool prop;
       (** enable_accept_encoding_brotli *)
@@ -59,12 +62,12 @@ type parameters_in_cache_key_and_forwarded_to_origin = {
   headers_config :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers_config *)
   query_strings_config :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** query_strings_config *)
 }
 

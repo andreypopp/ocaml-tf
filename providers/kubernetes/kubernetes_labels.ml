@@ -42,7 +42,8 @@ type kubernetes_labels = {
   id : string prop option; [@option]
   kind : string prop;
   labels : (string * string prop) list;
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +64,7 @@ let yojson_of_kubernetes_labels =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

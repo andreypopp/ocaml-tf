@@ -212,11 +212,11 @@ let _ = yojson_of_schedule__start_time_of_day
 type schedule = {
   repeat_interval : string prop option; [@option]
   schedule_end_date : schedule__schedule_end_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule_start_date : schedule__schedule_start_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_time_of_day : schedule__start_time_of_day list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,7 +234,7 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         if [] = v_start_time_of_day then bnds
+         if Stdlib.( = ) [] v_start_time_of_day then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule__start_time_of_day)
@@ -244,7 +244,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule_start_date then bnds
+         if Stdlib.( = ) [] v_schedule_start_date then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule__schedule_start_date)
@@ -254,7 +254,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule_end_date then bnds
+         if Stdlib.( = ) [] v_schedule_end_date then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule__schedule_end_date)
@@ -320,7 +320,7 @@ type transfer_spec__aws_s3_data_source = {
   role_arn : string prop option; [@option]
   aws_access_key :
     transfer_spec__aws_s3_data_source__aws_access_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -338,7 +338,7 @@ let yojson_of_transfer_spec__aws_s3_data_source =
          []
        in
        let bnds =
-         if [] = v_aws_access_key then bnds
+         if Stdlib.( = ) [] v_aws_access_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -413,7 +413,7 @@ type transfer_spec__azure_blob_storage_data_source = {
   azure_credentials :
     transfer_spec__azure_blob_storage_data_source__azure_credentials
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -431,7 +431,7 @@ let yojson_of_transfer_spec__azure_blob_storage_data_source =
          []
        in
        let bnds =
-         if [] = v_azure_credentials then bnds
+         if Stdlib.( = ) [] v_azure_credentials then bnds
          else
            let arg =
              (yojson_of_list
@@ -779,24 +779,24 @@ type transfer_spec = {
   sink_agent_pool_name : string prop option; [@option]
   source_agent_pool_name : string prop option; [@option]
   aws_s3_data_source : transfer_spec__aws_s3_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_blob_storage_data_source :
     transfer_spec__azure_blob_storage_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gcs_data_sink : transfer_spec__gcs_data_sink list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gcs_data_source : transfer_spec__gcs_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_data_source : transfer_spec__http_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   object_conditions : transfer_spec__object_conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   posix_data_sink : transfer_spec__posix_data_sink list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   posix_data_source : transfer_spec__posix_data_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transfer_options : transfer_spec__transfer_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -822,7 +822,7 @@ let yojson_of_transfer_spec =
          []
        in
        let bnds =
-         if [] = v_transfer_options then bnds
+         if Stdlib.( = ) [] v_transfer_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -833,7 +833,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_posix_data_source then bnds
+         if Stdlib.( = ) [] v_posix_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -844,7 +844,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_posix_data_sink then bnds
+         if Stdlib.( = ) [] v_posix_data_sink then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transfer_spec__posix_data_sink)
@@ -854,7 +854,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_object_conditions then bnds
+         if Stdlib.( = ) [] v_object_conditions then bnds
          else
            let arg =
              (yojson_of_list
@@ -865,7 +865,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_data_source then bnds
+         if Stdlib.( = ) [] v_http_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -876,7 +876,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs_data_source then bnds
+         if Stdlib.( = ) [] v_gcs_data_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transfer_spec__gcs_data_source)
@@ -886,7 +886,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gcs_data_sink then bnds
+         if Stdlib.( = ) [] v_gcs_data_sink then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transfer_spec__gcs_data_sink)
@@ -896,7 +896,8 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_blob_storage_data_source then bnds
+         if Stdlib.( = ) [] v_azure_blob_storage_data_source then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -907,7 +908,7 @@ let yojson_of_transfer_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_s3_data_source then bnds
+         if Stdlib.( = ) [] v_aws_s3_data_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -947,13 +948,13 @@ type google_storage_transfer_job = {
   project : string prop option; [@option]
   status : string prop option; [@option]
   event_stream : event_stream list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_config : notification_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transfer_spec : transfer_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -976,7 +977,7 @@ let yojson_of_google_storage_transfer_job =
          []
        in
        let bnds =
-         if [] = v_transfer_spec then bnds
+         if Stdlib.( = ) [] v_transfer_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_transfer_spec) v_transfer_spec
@@ -985,7 +986,7 @@ let yojson_of_google_storage_transfer_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule) v_schedule
@@ -994,7 +995,7 @@ let yojson_of_google_storage_transfer_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_config then bnds
+         if Stdlib.( = ) [] v_notification_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_config)
@@ -1004,7 +1005,7 @@ let yojson_of_google_storage_transfer_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_stream then bnds
+         if Stdlib.( = ) [] v_event_stream then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_stream) v_event_stream

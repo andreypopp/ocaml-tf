@@ -51,7 +51,7 @@ let _ = yojson_of_timeouts
 type vpc_options = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_vpc_options =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -98,7 +98,7 @@ type aws_opensearch_vpc_endpoint = {
   id : string prop option; [@option]
   timeouts : timeouts option;
   vpc_options : vpc_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,7 +116,7 @@ let yojson_of_aws_opensearch_vpc_endpoint =
          []
        in
        let bnds =
-         if [] = v_vpc_options then bnds
+         if Stdlib.( = ) [] v_vpc_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_options) v_vpc_options

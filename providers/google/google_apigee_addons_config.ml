@@ -150,16 +150,16 @@ let _ = yojson_of_addons_config__monetization_config
 type addons_config = {
   advanced_api_ops_config :
     addons_config__advanced_api_ops_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   api_security_config : addons_config__api_security_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   connectors_platform_config :
     addons_config__connectors_platform_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   integration_config : addons_config__integration_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monetization_config : addons_config__monetization_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -178,7 +178,7 @@ let yojson_of_addons_config =
          []
        in
        let bnds =
-         if [] = v_monetization_config then bnds
+         if Stdlib.( = ) [] v_monetization_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,7 +189,7 @@ let yojson_of_addons_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_integration_config then bnds
+         if Stdlib.( = ) [] v_integration_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -200,7 +200,7 @@ let yojson_of_addons_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connectors_platform_config then bnds
+         if Stdlib.( = ) [] v_connectors_platform_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -211,7 +211,7 @@ let yojson_of_addons_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_security_config then bnds
+         if Stdlib.( = ) [] v_api_security_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -222,7 +222,7 @@ let yojson_of_addons_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_api_ops_config then bnds
+         if Stdlib.( = ) [] v_advanced_api_ops_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -289,7 +289,7 @@ type google_apigee_addons_config = {
   id : string prop option; [@option]
   org : string prop;
   addons_config : addons_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -312,7 +312,7 @@ let yojson_of_google_apigee_addons_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_addons_config then bnds
+         if Stdlib.( = ) [] v_addons_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_addons_config) v_addons_config

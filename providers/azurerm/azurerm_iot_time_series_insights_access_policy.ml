@@ -68,7 +68,7 @@ type azurerm_iot_time_series_insights_access_policy = {
   name : string prop;
   principal_object_id : string prop;
   roles : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_series_insights_environment_id : string prop;
   timeouts : timeouts option;
 }
@@ -104,7 +104,7 @@ let yojson_of_azurerm_iot_time_series_insights_access_policy =
          ("time_series_insights_environment_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_roles then bnds
+         if Stdlib.( = ) [] v_roles then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

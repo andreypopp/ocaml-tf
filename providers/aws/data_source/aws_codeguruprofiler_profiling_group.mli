@@ -20,7 +20,7 @@ type profiling_status = {
       (** latest_agent_profile_reported_at *)
   latest_aggregated_profile :
     profiling_status__latest_aggregated_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** latest_aggregated_profile *)
 }
 

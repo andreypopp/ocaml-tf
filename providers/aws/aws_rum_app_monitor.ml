@@ -154,9 +154,9 @@ type aws_rum_app_monitor = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   app_monitor_configuration : app_monitor_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_events : custom_events list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -178,7 +178,7 @@ let yojson_of_aws_rum_app_monitor =
          []
        in
        let bnds =
-         if [] = v_custom_events then bnds
+         if Stdlib.( = ) [] v_custom_events then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_events) v_custom_events
@@ -187,7 +187,7 @@ let yojson_of_aws_rum_app_monitor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_app_monitor_configuration then bnds
+         if Stdlib.( = ) [] v_app_monitor_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_app_monitor_configuration)

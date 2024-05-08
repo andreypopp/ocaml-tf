@@ -80,7 +80,7 @@ type google_bigquery_datapolicy_data_policy = {
   policy_tag : string prop;
   project : string prop option; [@option]
   data_masking_policy : data_masking_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -107,7 +107,7 @@ let yojson_of_google_bigquery_datapolicy_data_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_masking_policy then bnds
+         if Stdlib.( = ) [] v_data_masking_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_masking_policy)

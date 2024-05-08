@@ -101,7 +101,7 @@ type default_cache_behavior__forwarded_values = {
   query_string : bool prop;
   query_string_cache_keys : string prop list option; [@option]
   cookies : default_cache_behavior__forwarded_values__cookies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_default_cache_behavior__forwarded_values =
          []
        in
        let bnds =
-         if [] = v_cookies then bnds
+         if Stdlib.( = ) [] v_cookies then bnds
          else
            let arg =
              (yojson_of_list
@@ -237,10 +237,10 @@ let _ = yojson_of_default_cache_behavior__lambda_function_association
 
 type default_cache_behavior = {
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_policy_id : string prop option; [@option]
   cached_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compress : bool prop option; [@option]
   default_ttl : float prop option; [@option]
   field_level_encryption_id : string prop option; [@option]
@@ -255,13 +255,13 @@ type default_cache_behavior = {
   trusted_signers : string prop list option; [@option]
   viewer_protocol_policy : string prop;
   forwarded_values : default_cache_behavior__forwarded_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   function_association :
     default_cache_behavior__function_association list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_function_association :
     default_cache_behavior__lambda_function_association list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,7 +294,7 @@ let yojson_of_default_cache_behavior =
          []
        in
        let bnds =
-         if [] = v_lambda_function_association then bnds
+         if Stdlib.( = ) [] v_lambda_function_association then bnds
          else
            let arg =
              (yojson_of_list
@@ -305,7 +305,7 @@ let yojson_of_default_cache_behavior =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_function_association then bnds
+         if Stdlib.( = ) [] v_function_association then bnds
          else
            let arg =
              (yojson_of_list
@@ -316,7 +316,7 @@ let yojson_of_default_cache_behavior =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarded_values then bnds
+         if Stdlib.( = ) [] v_forwarded_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -431,7 +431,7 @@ let yojson_of_default_cache_behavior =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cached_methods then bnds
+         if Stdlib.( = ) [] v_cached_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -449,7 +449,7 @@ let yojson_of_default_cache_behavior =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -554,7 +554,7 @@ type ordered_cache_behavior__forwarded_values = {
   query_string : bool prop;
   query_string_cache_keys : string prop list option; [@option]
   cookies : ordered_cache_behavior__forwarded_values__cookies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -572,7 +572,7 @@ let yojson_of_ordered_cache_behavior__forwarded_values =
          []
        in
        let bnds =
-         if [] = v_cookies then bnds
+         if Stdlib.( = ) [] v_cookies then bnds
          else
            let arg =
              (yojson_of_list
@@ -690,10 +690,10 @@ let _ = yojson_of_ordered_cache_behavior__lambda_function_association
 
 type ordered_cache_behavior = {
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_policy_id : string prop option; [@option]
   cached_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compress : bool prop option; [@option]
   default_ttl : float prop option; [@option]
   field_level_encryption_id : string prop option; [@option]
@@ -709,13 +709,13 @@ type ordered_cache_behavior = {
   trusted_signers : string prop list option; [@option]
   viewer_protocol_policy : string prop;
   forwarded_values : ordered_cache_behavior__forwarded_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   function_association :
     ordered_cache_behavior__function_association list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_function_association :
     ordered_cache_behavior__lambda_function_association list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -749,7 +749,7 @@ let yojson_of_ordered_cache_behavior =
          []
        in
        let bnds =
-         if [] = v_lambda_function_association then bnds
+         if Stdlib.( = ) [] v_lambda_function_association then bnds
          else
            let arg =
              (yojson_of_list
@@ -760,7 +760,7 @@ let yojson_of_ordered_cache_behavior =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_function_association then bnds
+         if Stdlib.( = ) [] v_function_association then bnds
          else
            let arg =
              (yojson_of_list
@@ -771,7 +771,7 @@ let yojson_of_ordered_cache_behavior =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarded_values then bnds
+         if Stdlib.( = ) [] v_forwarded_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -890,7 +890,7 @@ let yojson_of_ordered_cache_behavior =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cached_methods then bnds
+         if Stdlib.( = ) [] v_cached_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -908,7 +908,7 @@ let yojson_of_ordered_cache_behavior =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -960,7 +960,7 @@ type origin__custom_origin_config = {
   origin_protocol_policy : string prop;
   origin_read_timeout : float prop option; [@option]
   origin_ssl_protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -980,7 +980,7 @@ let yojson_of_origin__custom_origin_config =
          []
        in
        let bnds =
-         if [] = v_origin_ssl_protocols then bnds
+         if Stdlib.( = ) [] v_origin_ssl_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1097,13 +1097,13 @@ type origin = {
   origin_id : string prop;
   origin_path : string prop option; [@option]
   custom_header : origin__custom_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_origin_config : origin__custom_origin_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_shield : origin__origin_shield list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_origin_config : origin__s3_origin_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1127,7 +1127,7 @@ let yojson_of_origin =
          []
        in
        let bnds =
-         if [] = v_s3_origin_config then bnds
+         if Stdlib.( = ) [] v_s3_origin_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin__s3_origin_config)
@@ -1137,7 +1137,7 @@ let yojson_of_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_shield then bnds
+         if Stdlib.( = ) [] v_origin_shield then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin__origin_shield)
@@ -1147,7 +1147,7 @@ let yojson_of_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_origin_config then bnds
+         if Stdlib.( = ) [] v_custom_origin_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin__custom_origin_config)
@@ -1157,7 +1157,7 @@ let yojson_of_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_header then bnds
+         if Stdlib.( = ) [] v_custom_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin__custom_header)
@@ -1215,7 +1215,7 @@ let _ = yojson_of_origin
 
 type origin_group__failover_criteria = {
   status_codes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1228,7 +1228,7 @@ let yojson_of_origin_group__failover_criteria =
          []
        in
        let bnds =
-         if [] = v_status_codes then bnds
+         if Stdlib.( = ) [] v_status_codes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -1270,9 +1270,9 @@ let _ = yojson_of_origin_group__member
 type origin_group = {
   origin_id : string prop;
   failover_criteria : origin_group__failover_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   member : origin_group__member list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1289,7 +1289,7 @@ let yojson_of_origin_group =
          []
        in
        let bnds =
-         if [] = v_member then bnds
+         if Stdlib.( = ) [] v_member then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_group__member) v_member
@@ -1298,7 +1298,7 @@ let yojson_of_origin_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_failover_criteria then bnds
+         if Stdlib.( = ) [] v_failover_criteria then bnds
          else
            let arg =
              (yojson_of_list
@@ -1362,7 +1362,7 @@ let _ = yojson_of_restrictions__geo_restriction
 
 type restrictions = {
   geo_restriction : restrictions__geo_restriction list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1375,7 +1375,7 @@ let yojson_of_restrictions =
          []
        in
        let bnds =
-         if [] = v_geo_restriction then bnds
+         if Stdlib.( = ) [] v_geo_restriction then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restrictions__geo_restriction)
@@ -1465,7 +1465,7 @@ let _ = yojson_of_viewer_certificate
 type trusted_key_groups__items = {
   key_group_id : string prop;
   key_pair_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1479,7 +1479,7 @@ let yojson_of_trusted_key_groups__items =
          []
        in
        let bnds =
-         if [] = v_key_pair_ids then bnds
+         if Stdlib.( = ) [] v_key_pair_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1502,7 +1502,7 @@ let _ = yojson_of_trusted_key_groups__items
 type trusted_key_groups = {
   enabled : bool prop;
   items : trusted_key_groups__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1515,7 +1515,7 @@ let yojson_of_trusted_key_groups =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trusted_key_groups__items)
@@ -1538,7 +1538,7 @@ let _ = yojson_of_trusted_key_groups
 type trusted_signers__items = {
   aws_account_number : string prop;
   key_pair_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1554,7 +1554,7 @@ let yojson_of_trusted_signers__items =
          []
        in
        let bnds =
-         if [] = v_key_pair_ids then bnds
+         if Stdlib.( = ) [] v_key_pair_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1579,7 +1579,7 @@ let _ = yojson_of_trusted_signers__items
 type trusted_signers = {
   enabled : bool prop;
   items : trusted_signers__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1592,7 +1592,7 @@ let yojson_of_trusted_signers =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trusted_signers__items)
@@ -1629,20 +1629,21 @@ type aws_cloudfront_distribution = {
   wait_for_deployment : bool prop option; [@option]
   web_acl_id : string prop option; [@option]
   custom_error_response : custom_error_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_cache_behavior : default_cache_behavior list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logging_config : logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ordered_cache_behavior : ordered_cache_behavior list;
-      [@default []] [@yojson_drop_default ( = )]
-  origin : origin list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  origin : origin list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   origin_group : origin_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   restrictions : restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   viewer_certificate : viewer_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1680,7 +1681,7 @@ let yojson_of_aws_cloudfront_distribution =
          []
        in
        let bnds =
-         if [] = v_viewer_certificate then bnds
+         if Stdlib.( = ) [] v_viewer_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_viewer_certificate)
@@ -1690,7 +1691,7 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_restrictions then bnds
+         if Stdlib.( = ) [] v_restrictions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restrictions) v_restrictions
@@ -1699,7 +1700,7 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin_group then bnds
+         if Stdlib.( = ) [] v_origin_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_origin_group) v_origin_group
@@ -1708,14 +1709,14 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin then bnds
+         if Stdlib.( = ) [] v_origin then bnds
          else
            let arg = (yojson_of_list yojson_of_origin) v_origin in
            let bnd = "origin", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ordered_cache_behavior then bnds
+         if Stdlib.( = ) [] v_ordered_cache_behavior then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ordered_cache_behavior)
@@ -1725,7 +1726,7 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_config)
@@ -1735,7 +1736,7 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_cache_behavior then bnds
+         if Stdlib.( = ) [] v_default_cache_behavior then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_cache_behavior)
@@ -1745,7 +1746,7 @@ let yojson_of_aws_cloudfront_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_error_response then bnds
+         if Stdlib.( = ) [] v_custom_error_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_error_response)

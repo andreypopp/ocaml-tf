@@ -44,7 +44,7 @@ type credentials = {
   header : (string * string prop) list option; [@option]
   query : (string * string prop) list option; [@option]
   authorization : credentials__authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,7 +62,7 @@ let yojson_of_credentials =
          []
        in
        let bnds =
-         if [] = v_authorization then bnds
+         if Stdlib.( = ) [] v_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_credentials__authorization)
@@ -199,11 +199,11 @@ type service_fabric_cluster = {
   client_certificate_id : string prop option; [@option]
   client_certificate_thumbprint : string prop option; [@option]
   management_endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_partition_resolution_retries : float prop;
   server_certificate_thumbprints : string prop list option; [@option]
   server_x509_name : service_fabric_cluster__server_x509_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -226,7 +226,7 @@ let yojson_of_service_fabric_cluster =
          []
        in
        let bnds =
-         if [] = v_server_x509_name then bnds
+         if Stdlib.( = ) [] v_server_x509_name then bnds
          else
            let arg =
              (yojson_of_list
@@ -254,7 +254,7 @@ let yojson_of_service_fabric_cluster =
          ("max_partition_resolution_retries", arg) :: bnds
        in
        let bnds =
-         if [] = v_management_endpoints then bnds
+         if Stdlib.( = ) [] v_management_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -397,12 +397,13 @@ type azurerm_api_management_backend = {
   title : string prop option; [@option]
   url : string prop;
   credentials : credentials list;
-      [@default []] [@yojson_drop_default ( = )]
-  proxy : proxy list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  proxy : proxy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_fabric_cluster : service_fabric_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  tls : tls list; [@default []] [@yojson_drop_default ( = )]
+  tls : tls list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -430,7 +431,7 @@ let yojson_of_azurerm_api_management_backend =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg = (yojson_of_list yojson_of_tls) v_tls in
            let bnd = "tls", arg in
@@ -441,7 +442,7 @@ let yojson_of_azurerm_api_management_backend =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_fabric_cluster then bnds
+         if Stdlib.( = ) [] v_service_fabric_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_fabric_cluster)
@@ -451,14 +452,14 @@ let yojson_of_azurerm_api_management_backend =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy then bnds
+         if Stdlib.( = ) [] v_proxy then bnds
          else
            let arg = (yojson_of_list yojson_of_proxy) v_proxy in
            let bnd = "proxy", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_credentials then bnds
+         if Stdlib.( = ) [] v_credentials then bnds
          else
            let arg =
              (yojson_of_list yojson_of_credentials) v_credentials

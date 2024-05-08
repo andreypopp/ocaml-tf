@@ -7,7 +7,7 @@ open! Tf_core
 type rule = {
   access : string prop;  (** access *)
   communities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** communities *)
   name : string prop;  (** name *)
   rule_type : string prop;  (** rule_type *)

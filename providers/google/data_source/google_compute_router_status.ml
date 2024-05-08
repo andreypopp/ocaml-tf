@@ -17,7 +17,8 @@ type best_routes = {
   priority : float prop;
   project : string prop;
   self_link : string prop;
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +47,7 @@ let yojson_of_best_routes =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -143,7 +144,8 @@ type best_routes_for_router = {
   priority : float prop;
   project : string prop;
   self_link : string prop;
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +174,7 @@ let yojson_of_best_routes_for_router =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -127,7 +127,7 @@ type azurerm_dev_test_global_vm_shutdown_schedule = {
   timezone : string prop;
   virtual_machine_id : string prop;
   notification_settings : notification_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,7 +155,7 @@ let yojson_of_azurerm_dev_test_global_vm_shutdown_schedule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_notification_settings then bnds
+         if Stdlib.( = ) [] v_notification_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_settings)

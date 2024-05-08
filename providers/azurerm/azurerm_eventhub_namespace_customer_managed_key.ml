@@ -67,7 +67,7 @@ type azurerm_eventhub_namespace_customer_managed_key = {
   id : string prop option; [@option]
   infrastructure_encryption_enabled : bool prop option; [@option]
   key_vault_key_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_assigned_identity_id : string prop option; [@option]
   timeouts : timeouts option;
 }
@@ -103,7 +103,7 @@ let yojson_of_azurerm_eventhub_namespace_customer_managed_key =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_key_ids then bnds
+         if Stdlib.( = ) [] v_key_vault_key_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -70,7 +70,7 @@ let _ = yojson_of_export_config__s3_destination
 type export_config = {
   type_ : string prop; [@key "type"]
   s3_destination : export_config__s3_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,7 +83,7 @@ let yojson_of_export_config =
          []
        in
        let bnds =
-         if [] = v_s3_destination then bnds
+         if Stdlib.( = ) [] v_s3_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_export_config__s3_destination)
@@ -111,7 +111,7 @@ type aws_codebuild_report_group = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   export_config : export_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,7 +132,7 @@ let yojson_of_aws_codebuild_report_group =
          []
        in
        let bnds =
-         if [] = v_export_config then bnds
+         if Stdlib.( = ) [] v_export_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_export_config) v_export_config

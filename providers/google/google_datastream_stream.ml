@@ -93,7 +93,7 @@ type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables = {
   mysql_columns :
     backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,7 +110,7 @@ let yojson_of_backfill_all__mysql_excluded_objects__mysql_databases__mysql_table
          []
        in
        let bnds =
-         if [] = v_mysql_columns then bnds
+         if Stdlib.( = ) [] v_mysql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -138,7 +138,7 @@ type backfill_all__mysql_excluded_objects__mysql_databases = {
   mysql_tables :
     backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_backfill_all__mysql_excluded_objects__mysql_databases =
          []
        in
        let bnds =
-         if [] = v_mysql_tables then bnds
+         if Stdlib.( = ) [] v_mysql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -179,7 +179,7 @@ let _ =
 type backfill_all__mysql_excluded_objects = {
   mysql_databases :
     backfill_all__mysql_excluded_objects__mysql_databases list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,7 +192,7 @@ let yojson_of_backfill_all__mysql_excluded_objects =
          []
        in
        let bnds =
-         if [] = v_mysql_databases then bnds
+         if Stdlib.( = ) [] v_mysql_databases then bnds
          else
            let arg =
              (yojson_of_list
@@ -258,7 +258,7 @@ type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables = {
   oracle_columns :
     backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,7 +275,7 @@ let yojson_of_backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tabl
          []
        in
        let bnds =
-         if [] = v_oracle_columns then bnds
+         if Stdlib.( = ) [] v_oracle_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -303,7 +303,7 @@ type backfill_all__oracle_excluded_objects__oracle_schemas = {
   oracle_tables :
     backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -318,7 +318,7 @@ let yojson_of_backfill_all__oracle_excluded_objects__oracle_schemas =
          []
        in
        let bnds =
-         if [] = v_oracle_tables then bnds
+         if Stdlib.( = ) [] v_oracle_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -344,7 +344,7 @@ let _ =
 type backfill_all__oracle_excluded_objects = {
   oracle_schemas :
     backfill_all__oracle_excluded_objects__oracle_schemas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,7 +357,7 @@ let yojson_of_backfill_all__oracle_excluded_objects =
          []
        in
        let bnds =
-         if [] = v_oracle_schemas then bnds
+         if Stdlib.( = ) [] v_oracle_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -456,7 +456,7 @@ type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_t
   postgresql_columns :
     backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,7 +474,7 @@ let yojson_of_backfill_all__postgresql_excluded_objects__postgresql_schemas__pos
          []
        in
        let bnds =
-         if [] = v_postgresql_columns then bnds
+         if Stdlib.( = ) [] v_postgresql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -502,7 +502,7 @@ type backfill_all__postgresql_excluded_objects__postgresql_schemas = {
   postgresql_tables :
     backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -520,7 +520,7 @@ let yojson_of_backfill_all__postgresql_excluded_objects__postgresql_schemas
          []
        in
        let bnds =
-         if [] = v_postgresql_tables then bnds
+         if Stdlib.( = ) [] v_postgresql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -547,7 +547,7 @@ type backfill_all__postgresql_excluded_objects = {
   postgresql_schemas :
     backfill_all__postgresql_excluded_objects__postgresql_schemas
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -560,7 +560,7 @@ let yojson_of_backfill_all__postgresql_excluded_objects =
          []
        in
        let bnds =
-         if [] = v_postgresql_schemas then bnds
+         if Stdlib.( = ) [] v_postgresql_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -580,13 +580,13 @@ let _ = yojson_of_backfill_all__postgresql_excluded_objects
 
 type backfill_all = {
   mysql_excluded_objects : backfill_all__mysql_excluded_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oracle_excluded_objects :
     backfill_all__oracle_excluded_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql_excluded_objects :
     backfill_all__postgresql_excluded_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -603,7 +603,7 @@ let yojson_of_backfill_all =
          []
        in
        let bnds =
-         if [] = v_postgresql_excluded_objects then bnds
+         if Stdlib.( = ) [] v_postgresql_excluded_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -614,7 +614,7 @@ let yojson_of_backfill_all =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oracle_excluded_objects then bnds
+         if Stdlib.( = ) [] v_oracle_excluded_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -625,7 +625,7 @@ let yojson_of_backfill_all =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mysql_excluded_objects then bnds
+         if Stdlib.( = ) [] v_mysql_excluded_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -740,7 +740,7 @@ type destination_config__bigquery_destination_config__source_hierarchy_datasets 
   dataset_template :
     destination_config__bigquery_destination_config__source_hierarchy_datasets__dataset_template
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -757,7 +757,7 @@ let yojson_of_destination_config__bigquery_destination_config__source_hierarchy_
          []
        in
        let bnds =
-         if [] = v_dataset_template then bnds
+         if Stdlib.( = ) [] v_dataset_template then bnds
          else
            let arg =
              (yojson_of_list
@@ -781,11 +781,11 @@ type destination_config__bigquery_destination_config = {
   single_target_dataset :
     destination_config__bigquery_destination_config__single_target_dataset
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_hierarchy_datasets :
     destination_config__bigquery_destination_config__source_hierarchy_datasets
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -803,7 +803,7 @@ let yojson_of_destination_config__bigquery_destination_config =
          []
        in
        let bnds =
-         if [] = v_source_hierarchy_datasets then bnds
+         if Stdlib.( = ) [] v_source_hierarchy_datasets then bnds
          else
            let arg =
              (yojson_of_list
@@ -814,7 +814,7 @@ let yojson_of_destination_config__bigquery_destination_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_single_target_dataset then bnds
+         if Stdlib.( = ) [] v_single_target_dataset then bnds
          else
            let arg =
              (yojson_of_list
@@ -912,10 +912,10 @@ type destination_config__gcs_destination_config = {
   path : string prop option; [@option]
   avro_file_format :
     destination_config__gcs_destination_config__avro_file_format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json_file_format :
     destination_config__gcs_destination_config__json_file_format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -934,7 +934,7 @@ let yojson_of_destination_config__gcs_destination_config =
          []
        in
        let bnds =
-         if [] = v_json_file_format then bnds
+         if Stdlib.( = ) [] v_json_file_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -945,7 +945,7 @@ let yojson_of_destination_config__gcs_destination_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_avro_file_format then bnds
+         if Stdlib.( = ) [] v_avro_file_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -991,10 +991,10 @@ type destination_config = {
   destination_connection_profile : string prop;
   bigquery_destination_config :
     destination_config__bigquery_destination_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gcs_destination_config :
     destination_config__gcs_destination_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1012,7 +1012,7 @@ let yojson_of_destination_config =
          []
        in
        let bnds =
-         if [] = v_gcs_destination_config then bnds
+         if Stdlib.( = ) [] v_gcs_destination_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1023,7 +1023,7 @@ let yojson_of_destination_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bigquery_destination_config then bnds
+         if Stdlib.( = ) [] v_bigquery_destination_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1138,7 +1138,7 @@ type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql
   mysql_columns :
     source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1155,7 +1155,7 @@ let yojson_of_source_config__mysql_source_config__exclude_objects__mysql_databas
          []
        in
        let bnds =
-         if [] = v_mysql_columns then bnds
+         if Stdlib.( = ) [] v_mysql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -1183,7 +1183,7 @@ type source_config__mysql_source_config__exclude_objects__mysql_databases = {
   mysql_tables :
     source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1200,7 +1200,7 @@ let yojson_of_source_config__mysql_source_config__exclude_objects__mysql_databas
          []
        in
        let bnds =
-         if [] = v_mysql_tables then bnds
+         if Stdlib.( = ) [] v_mysql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -1227,7 +1227,7 @@ type source_config__mysql_source_config__exclude_objects = {
   mysql_databases :
     source_config__mysql_source_config__exclude_objects__mysql_databases
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1241,7 +1241,7 @@ let yojson_of_source_config__mysql_source_config__exclude_objects =
          []
        in
        let bnds =
-         if [] = v_mysql_databases then bnds
+         if Stdlib.( = ) [] v_mysql_databases then bnds
          else
            let arg =
              (yojson_of_list
@@ -1350,7 +1350,7 @@ type source_config__mysql_source_config__include_objects__mysql_databases__mysql
   mysql_columns :
     source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1367,7 +1367,7 @@ let yojson_of_source_config__mysql_source_config__include_objects__mysql_databas
          []
        in
        let bnds =
-         if [] = v_mysql_columns then bnds
+         if Stdlib.( = ) [] v_mysql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -1395,7 +1395,7 @@ type source_config__mysql_source_config__include_objects__mysql_databases = {
   mysql_tables :
     source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1412,7 +1412,7 @@ let yojson_of_source_config__mysql_source_config__include_objects__mysql_databas
          []
        in
        let bnds =
-         if [] = v_mysql_tables then bnds
+         if Stdlib.( = ) [] v_mysql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -1439,7 +1439,7 @@ type source_config__mysql_source_config__include_objects = {
   mysql_databases :
     source_config__mysql_source_config__include_objects__mysql_databases
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1453,7 +1453,7 @@ let yojson_of_source_config__mysql_source_config__include_objects =
          []
        in
        let bnds =
-         if [] = v_mysql_databases then bnds
+         if Stdlib.( = ) [] v_mysql_databases then bnds
          else
            let arg =
              (yojson_of_list
@@ -1476,10 +1476,10 @@ type source_config__mysql_source_config = {
   max_concurrent_cdc_tasks : float prop option; [@option]
   exclude_objects :
     source_config__mysql_source_config__exclude_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_objects :
     source_config__mysql_source_config__include_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1498,7 +1498,7 @@ let yojson_of_source_config__mysql_source_config =
          []
        in
        let bnds =
-         if [] = v_include_objects then bnds
+         if Stdlib.( = ) [] v_include_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -1509,7 +1509,7 @@ let yojson_of_source_config__mysql_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude_objects then bnds
+         if Stdlib.( = ) [] v_exclude_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -1609,7 +1609,7 @@ type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracl
   oracle_columns :
     source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1626,7 +1626,7 @@ let yojson_of_source_config__oracle_source_config__exclude_objects__oracle_schem
          []
        in
        let bnds =
-         if [] = v_oracle_columns then bnds
+         if Stdlib.( = ) [] v_oracle_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -1654,7 +1654,7 @@ type source_config__oracle_source_config__exclude_objects__oracle_schemas = {
   oracle_tables :
     source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1671,7 +1671,7 @@ let yojson_of_source_config__oracle_source_config__exclude_objects__oracle_schem
          []
        in
        let bnds =
-         if [] = v_oracle_tables then bnds
+         if Stdlib.( = ) [] v_oracle_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -1698,7 +1698,7 @@ type source_config__oracle_source_config__exclude_objects = {
   oracle_schemas :
     source_config__oracle_source_config__exclude_objects__oracle_schemas
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1712,7 +1712,7 @@ let yojson_of_source_config__oracle_source_config__exclude_objects =
          []
        in
        let bnds =
-         if [] = v_oracle_schemas then bnds
+         if Stdlib.( = ) [] v_oracle_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -1779,7 +1779,7 @@ type source_config__oracle_source_config__include_objects__oracle_schemas__oracl
   oracle_columns :
     source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1796,7 +1796,7 @@ let yojson_of_source_config__oracle_source_config__include_objects__oracle_schem
          []
        in
        let bnds =
-         if [] = v_oracle_columns then bnds
+         if Stdlib.( = ) [] v_oracle_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -1824,7 +1824,7 @@ type source_config__oracle_source_config__include_objects__oracle_schemas = {
   oracle_tables :
     source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1841,7 +1841,7 @@ let yojson_of_source_config__oracle_source_config__include_objects__oracle_schem
          []
        in
        let bnds =
-         if [] = v_oracle_tables then bnds
+         if Stdlib.( = ) [] v_oracle_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -1868,7 +1868,7 @@ type source_config__oracle_source_config__include_objects = {
   oracle_schemas :
     source_config__oracle_source_config__include_objects__oracle_schemas
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1882,7 +1882,7 @@ let yojson_of_source_config__oracle_source_config__include_objects =
          []
        in
        let bnds =
-         if [] = v_oracle_schemas then bnds
+         if Stdlib.( = ) [] v_oracle_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -1924,16 +1924,16 @@ type source_config__oracle_source_config = {
   max_concurrent_cdc_tasks : float prop option; [@option]
   drop_large_objects :
     source_config__oracle_source_config__drop_large_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exclude_objects :
     source_config__oracle_source_config__exclude_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_objects :
     source_config__oracle_source_config__include_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stream_large_objects :
     source_config__oracle_source_config__stream_large_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1954,7 +1954,7 @@ let yojson_of_source_config__oracle_source_config =
          []
        in
        let bnds =
-         if [] = v_stream_large_objects then bnds
+         if Stdlib.( = ) [] v_stream_large_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -1965,7 +1965,7 @@ let yojson_of_source_config__oracle_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_include_objects then bnds
+         if Stdlib.( = ) [] v_include_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -1976,7 +1976,7 @@ let yojson_of_source_config__oracle_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude_objects then bnds
+         if Stdlib.( = ) [] v_exclude_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -1987,7 +1987,7 @@ let yojson_of_source_config__oracle_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_drop_large_objects then bnds
+         if Stdlib.( = ) [] v_drop_large_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -2102,7 +2102,7 @@ type source_config__postgresql_source_config__exclude_objects__postgresql_schema
   postgresql_columns :
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2120,7 +2120,7 @@ let yojson_of_source_config__postgresql_source_config__exclude_objects__postgres
          []
        in
        let bnds =
-         if [] = v_postgresql_columns then bnds
+         if Stdlib.( = ) [] v_postgresql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -2148,7 +2148,7 @@ type source_config__postgresql_source_config__exclude_objects__postgresql_schema
   postgresql_tables :
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2166,7 +2166,7 @@ let yojson_of_source_config__postgresql_source_config__exclude_objects__postgres
          []
        in
        let bnds =
-         if [] = v_postgresql_tables then bnds
+         if Stdlib.( = ) [] v_postgresql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -2193,7 +2193,7 @@ type source_config__postgresql_source_config__exclude_objects = {
   postgresql_schemas :
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2209,7 +2209,7 @@ let yojson_of_source_config__postgresql_source_config__exclude_objects
          []
        in
        let bnds =
-         if [] = v_postgresql_schemas then bnds
+         if Stdlib.( = ) [] v_postgresql_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -2309,7 +2309,7 @@ type source_config__postgresql_source_config__include_objects__postgresql_schema
   postgresql_columns :
     source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2327,7 +2327,7 @@ let yojson_of_source_config__postgresql_source_config__include_objects__postgres
          []
        in
        let bnds =
-         if [] = v_postgresql_columns then bnds
+         if Stdlib.( = ) [] v_postgresql_columns then bnds
          else
            let arg =
              (yojson_of_list
@@ -2355,7 +2355,7 @@ type source_config__postgresql_source_config__include_objects__postgresql_schema
   postgresql_tables :
     source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2373,7 +2373,7 @@ let yojson_of_source_config__postgresql_source_config__include_objects__postgres
          []
        in
        let bnds =
-         if [] = v_postgresql_tables then bnds
+         if Stdlib.( = ) [] v_postgresql_tables then bnds
          else
            let arg =
              (yojson_of_list
@@ -2400,7 +2400,7 @@ type source_config__postgresql_source_config__include_objects = {
   postgresql_schemas :
     source_config__postgresql_source_config__include_objects__postgresql_schemas
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2416,7 +2416,7 @@ let yojson_of_source_config__postgresql_source_config__include_objects
          []
        in
        let bnds =
-         if [] = v_postgresql_schemas then bnds
+         if Stdlib.( = ) [] v_postgresql_schemas then bnds
          else
            let arg =
              (yojson_of_list
@@ -2441,10 +2441,10 @@ type source_config__postgresql_source_config = {
   replication_slot : string prop;
   exclude_objects :
     source_config__postgresql_source_config__exclude_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_objects :
     source_config__postgresql_source_config__include_objects list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2464,7 +2464,7 @@ let yojson_of_source_config__postgresql_source_config =
          []
        in
        let bnds =
-         if [] = v_include_objects then bnds
+         if Stdlib.( = ) [] v_include_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -2475,7 +2475,7 @@ let yojson_of_source_config__postgresql_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude_objects then bnds
+         if Stdlib.( = ) [] v_exclude_objects then bnds
          else
            let arg =
              (yojson_of_list
@@ -2514,12 +2514,12 @@ let _ = yojson_of_source_config__postgresql_source_config
 type source_config = {
   source_connection_profile : string prop;
   mysql_source_config : source_config__mysql_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oracle_source_config : source_config__oracle_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql_source_config :
     source_config__postgresql_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2537,7 +2537,7 @@ let yojson_of_source_config =
          []
        in
        let bnds =
-         if [] = v_postgresql_source_config then bnds
+         if Stdlib.( = ) [] v_postgresql_source_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2548,7 +2548,7 @@ let yojson_of_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oracle_source_config then bnds
+         if Stdlib.( = ) [] v_oracle_source_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2559,7 +2559,7 @@ let yojson_of_source_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mysql_source_config then bnds
+         if Stdlib.( = ) [] v_mysql_source_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2639,13 +2639,13 @@ type google_datastream_stream = {
   project : string prop option; [@option]
   stream_id : string prop;
   backfill_all : backfill_all list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backfill_none : backfill_none list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_config : destination_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_config : source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2678,7 +2678,7 @@ let yojson_of_google_datastream_stream =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_config then bnds
+         if Stdlib.( = ) [] v_source_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_config) v_source_config
@@ -2687,7 +2687,7 @@ let yojson_of_google_datastream_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_config then bnds
+         if Stdlib.( = ) [] v_destination_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_config)
@@ -2697,7 +2697,7 @@ let yojson_of_google_datastream_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backfill_none then bnds
+         if Stdlib.( = ) [] v_backfill_none then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backfill_none) v_backfill_none
@@ -2706,7 +2706,7 @@ let yojson_of_google_datastream_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backfill_all then bnds
+         if Stdlib.( = ) [] v_backfill_all then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backfill_all) v_backfill_all

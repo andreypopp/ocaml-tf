@@ -109,9 +109,9 @@ let _ = yojson_of_access__dataset__dataset
 
 type access__dataset = {
   dataset : access__dataset__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_access__dataset =
          []
        in
        let bnds =
-         if [] = v_target_types then bnds
+         if Stdlib.( = ) [] v_target_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -134,7 +134,7 @@ let yojson_of_access__dataset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__dataset__dataset)
@@ -152,16 +152,17 @@ let _ = yojson_of_access__dataset
 
 type access = {
   dataset : access__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain : string prop;
   group_by_email : string prop;
   iam_member : string prop;
   role : string prop;
   routine : access__routine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   special_group : string prop;
   user_by_email : string prop;
-  view : access__view list; [@default []] [@yojson_drop_default ( = )]
+  view : access__view list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +185,7 @@ let yojson_of_access =
          []
        in
        let bnds =
-         if [] = v_view then bnds
+         if Stdlib.( = ) [] v_view then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__view) v_view
@@ -201,7 +202,7 @@ let yojson_of_access =
          ("special_group", arg) :: bnds
        in
        let bnds =
-         if [] = v_routine then bnds
+         if Stdlib.( = ) [] v_routine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__routine) v_routine
@@ -228,7 +229,7 @@ let yojson_of_access =
          ("domain", arg) :: bnds
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__dataset) v_dataset

@@ -64,9 +64,9 @@ let _ = yojson_of_backend_request__data_masking__query_params
 
 type backend_request__data_masking = {
   headers : backend_request__data_masking__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_params : backend_request__data_masking__query_params list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_backend_request__data_masking =
          []
        in
        let bnds =
-         if [] = v_query_params then bnds
+         if Stdlib.( = ) [] v_query_params then bnds
          else
            let arg =
              (yojson_of_list
@@ -90,7 +90,7 @@ let yojson_of_backend_request__data_masking =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -112,7 +112,7 @@ type backend_request = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : backend_request__data_masking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,7 +129,7 @@ let yojson_of_backend_request =
          []
        in
        let bnds =
-         if [] = v_data_masking then bnds
+         if Stdlib.( = ) [] v_data_masking then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_request__data_masking)
@@ -225,9 +225,9 @@ let _ = yojson_of_backend_response__data_masking__query_params
 
 type backend_response__data_masking = {
   headers : backend_response__data_masking__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_params : backend_response__data_masking__query_params list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,7 +240,7 @@ let yojson_of_backend_response__data_masking =
          []
        in
        let bnds =
-         if [] = v_query_params then bnds
+         if Stdlib.( = ) [] v_query_params then bnds
          else
            let arg =
              (yojson_of_list
@@ -251,7 +251,7 @@ let yojson_of_backend_response__data_masking =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -273,7 +273,7 @@ type backend_response = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : backend_response__data_masking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -290,7 +290,7 @@ let yojson_of_backend_response =
          []
        in
        let bnds =
-         if [] = v_data_masking then bnds
+         if Stdlib.( = ) [] v_data_masking then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_response__data_masking)
@@ -386,9 +386,9 @@ let _ = yojson_of_frontend_request__data_masking__query_params
 
 type frontend_request__data_masking = {
   headers : frontend_request__data_masking__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_params : frontend_request__data_masking__query_params list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -401,7 +401,7 @@ let yojson_of_frontend_request__data_masking =
          []
        in
        let bnds =
-         if [] = v_query_params then bnds
+         if Stdlib.( = ) [] v_query_params then bnds
          else
            let arg =
              (yojson_of_list
@@ -412,7 +412,7 @@ let yojson_of_frontend_request__data_masking =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -434,7 +434,7 @@ type frontend_request = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : frontend_request__data_masking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -451,7 +451,7 @@ let yojson_of_frontend_request =
          []
        in
        let bnds =
-         if [] = v_data_masking then bnds
+         if Stdlib.( = ) [] v_data_masking then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_request__data_masking)
@@ -547,9 +547,9 @@ let _ = yojson_of_frontend_response__data_masking__query_params
 
 type frontend_response__data_masking = {
   headers : frontend_response__data_masking__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_params : frontend_response__data_masking__query_params list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -562,7 +562,7 @@ let yojson_of_frontend_response__data_masking =
          []
        in
        let bnds =
-         if [] = v_query_params then bnds
+         if Stdlib.( = ) [] v_query_params then bnds
          else
            let arg =
              (yojson_of_list
@@ -573,7 +573,7 @@ let yojson_of_frontend_response__data_masking =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -595,7 +595,7 @@ type frontend_response = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : frontend_response__data_masking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -612,7 +612,7 @@ let yojson_of_frontend_response =
          []
        in
        let bnds =
-         if [] = v_data_masking then bnds
+         if Stdlib.( = ) [] v_data_masking then bnds
          else
            let arg =
              (yojson_of_list
@@ -720,13 +720,13 @@ type azurerm_api_management_diagnostic = {
   sampling_percentage : float prop option; [@option]
   verbosity : string prop option; [@option]
   backend_request : backend_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_response : backend_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_request : frontend_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_response : frontend_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -761,7 +761,7 @@ let yojson_of_azurerm_api_management_diagnostic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_frontend_response then bnds
+         if Stdlib.( = ) [] v_frontend_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_response)
@@ -771,7 +771,7 @@ let yojson_of_azurerm_api_management_diagnostic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frontend_request then bnds
+         if Stdlib.( = ) [] v_frontend_request then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_request)
@@ -781,7 +781,7 @@ let yojson_of_azurerm_api_management_diagnostic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_response then bnds
+         if Stdlib.( = ) [] v_backend_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_response)
@@ -791,7 +791,7 @@ let yojson_of_azurerm_api_management_diagnostic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_request then bnds
+         if Stdlib.( = ) [] v_backend_request then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_request)

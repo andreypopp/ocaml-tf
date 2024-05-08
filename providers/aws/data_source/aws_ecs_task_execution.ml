@@ -54,7 +54,7 @@ type network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -175,10 +175,10 @@ type overrides__container_overrides = {
   memory_reservation : float prop option; [@option]
   name : string prop;
   environment : overrides__container_overrides__environment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_requirements :
     overrides__container_overrides__resource_requirements list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_overrides__container_overrides =
          []
        in
        let bnds =
-         if [] = v_resource_requirements then bnds
+         if Stdlib.( = ) [] v_resource_requirements then bnds
          else
            let arg =
              (yojson_of_list
@@ -210,7 +210,7 @@ let yojson_of_overrides__container_overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_environment then bnds
+         if Stdlib.( = ) [] v_environment then bnds
          else
            let arg =
              (yojson_of_list
@@ -310,10 +310,10 @@ type overrides = {
   memory : string prop option; [@option]
   task_role_arn : string prop option; [@option]
   container_overrides : overrides__container_overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inference_accelerator_overrides :
     overrides__inference_accelerator_overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,7 +334,8 @@ let yojson_of_overrides =
          []
        in
        let bnds =
-         if [] = v_inference_accelerator_overrides then bnds
+         if Stdlib.( = ) [] v_inference_accelerator_overrides then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -345,7 +346,7 @@ let yojson_of_overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_overrides then bnds
+         if Stdlib.( = ) [] v_container_overrides then bnds
          else
            let arg =
              (yojson_of_list yojson_of_overrides__container_overrides)
@@ -475,15 +476,15 @@ type aws_ecs_task_execution = {
   tags : (string * string prop) list option; [@option]
   task_definition : string prop;
   capacity_provider_strategy : capacity_provider_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   overrides : overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_constraints : placement_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_strategy : placement_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -516,7 +517,7 @@ let yojson_of_aws_ecs_task_execution =
          []
        in
        let bnds =
-         if [] = v_placement_strategy then bnds
+         if Stdlib.( = ) [] v_placement_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement_strategy)
@@ -526,7 +527,7 @@ let yojson_of_aws_ecs_task_execution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_placement_constraints then bnds
+         if Stdlib.( = ) [] v_placement_constraints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement_constraints)
@@ -536,7 +537,7 @@ let yojson_of_aws_ecs_task_execution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_overrides then bnds
+         if Stdlib.( = ) [] v_overrides then bnds
          else
            let arg =
              (yojson_of_list yojson_of_overrides) v_overrides
@@ -545,7 +546,7 @@ let yojson_of_aws_ecs_task_execution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_configuration)
@@ -555,7 +556,7 @@ let yojson_of_aws_ecs_task_execution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity_provider_strategy then bnds
+         if Stdlib.( = ) [] v_capacity_provider_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity_provider_strategy)

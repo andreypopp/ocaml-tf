@@ -4,7 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -194,11 +194,11 @@ type single_server_configuration__virtual_machine_configuration = {
   image :
     single_server_configuration__virtual_machine_configuration__image
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_profile :
     single_server_configuration__virtual_machine_configuration__os_profile
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -218,7 +218,7 @@ let yojson_of_single_server_configuration__virtual_machine_configuration
          []
        in
        let bnds =
-         if [] = v_os_profile then bnds
+         if Stdlib.( = ) [] v_os_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -229,7 +229,7 @@ let yojson_of_single_server_configuration__virtual_machine_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image then bnds
+         if Stdlib.( = ) [] v_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -256,7 +256,7 @@ let _ =
 
 type single_server_configuration__virtual_machine_resource_names__data_disk = {
   names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -278,7 +278,7 @@ let yojson_of_single_server_configuration__virtual_machine_resource_names__data_
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_names then bnds
+         if Stdlib.( = ) [] v_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -304,7 +304,7 @@ type single_server_configuration__virtual_machine_resource_names = {
   data_disk :
     single_server_configuration__virtual_machine_resource_names__data_disk
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -327,7 +327,7 @@ let yojson_of_single_server_configuration__virtual_machine_resource_names
          []
        in
        let bnds =
-         if [] = v_data_disk then bnds
+         if Stdlib.( = ) [] v_data_disk then bnds
          else
            let arg =
              (yojson_of_list
@@ -387,13 +387,13 @@ type single_server_configuration = {
   subnet_id : string prop;
   disk_volume_configuration :
     single_server_configuration__disk_volume_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_machine_configuration :
     single_server_configuration__virtual_machine_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_machine_resource_names :
     single_server_configuration__virtual_machine_resource_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -416,7 +416,8 @@ let yojson_of_single_server_configuration =
          []
        in
        let bnds =
-         if [] = v_virtual_machine_resource_names then bnds
+         if Stdlib.( = ) [] v_virtual_machine_resource_names then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -427,7 +428,7 @@ let yojson_of_single_server_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_virtual_machine_configuration then bnds
+         if Stdlib.( = ) [] v_virtual_machine_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -438,7 +439,7 @@ let yojson_of_single_server_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_volume_configuration then bnds
+         if Stdlib.( = ) [] v_disk_volume_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -554,9 +555,9 @@ type azurerm_workloads_sap_single_node_virtual_instance = {
   sap_product : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   single_server_configuration : single_server_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -589,7 +590,7 @@ let yojson_of_azurerm_workloads_sap_single_node_virtual_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_single_server_configuration then bnds
+         if Stdlib.( = ) [] v_single_server_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_single_server_configuration)
@@ -599,7 +600,7 @@ let yojson_of_azurerm_workloads_sap_single_node_virtual_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

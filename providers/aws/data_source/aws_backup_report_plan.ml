@@ -4,7 +4,7 @@ open! Tf_core
 
 type report_delivery_channel = {
   formats : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_bucket_name : string prop;
   s3_key_prefix : string prop;
 }
@@ -33,7 +33,7 @@ let yojson_of_report_delivery_channel =
          ("s3_bucket_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_formats then bnds
+         if Stdlib.( = ) [] v_formats then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -51,14 +51,14 @@ let _ = yojson_of_report_delivery_channel
 
 type report_setting = {
   accounts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   framework_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   number_of_frameworks : float prop;
   organization_units : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   report_template : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -85,7 +85,7 @@ let yojson_of_report_setting =
          ("report_template", arg) :: bnds
        in
        let bnds =
-         if [] = v_regions then bnds
+         if Stdlib.( = ) [] v_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -95,7 +95,7 @@ let yojson_of_report_setting =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_organization_units then bnds
+         if Stdlib.( = ) [] v_organization_units then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -111,7 +111,7 @@ let yojson_of_report_setting =
          ("number_of_frameworks", arg) :: bnds
        in
        let bnds =
-         if [] = v_framework_arns then bnds
+         if Stdlib.( = ) [] v_framework_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -121,7 +121,7 @@ let yojson_of_report_setting =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accounts then bnds
+         if Stdlib.( = ) [] v_accounts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

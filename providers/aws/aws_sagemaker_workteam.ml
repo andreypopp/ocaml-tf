@@ -43,7 +43,7 @@ let _ = yojson_of_member_definition__cognito_member_definition
 
 type member_definition__oidc_member_definition = {
   groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_member_definition__oidc_member_definition =
          []
        in
        let bnds =
-         if [] = v_groups then bnds
+         if Stdlib.( = ) [] v_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -76,10 +76,10 @@ let _ = yojson_of_member_definition__oidc_member_definition
 type member_definition = {
   cognito_member_definition :
     member_definition__cognito_member_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oidc_member_definition :
     member_definition__oidc_member_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,7 +95,7 @@ let yojson_of_member_definition =
          []
        in
        let bnds =
-         if [] = v_oidc_member_definition then bnds
+         if Stdlib.( = ) [] v_oidc_member_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -106,7 +106,7 @@ let yojson_of_member_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cognito_member_definition then bnds
+         if Stdlib.( = ) [] v_cognito_member_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -159,9 +159,9 @@ type aws_sagemaker_workteam = {
   workforce_name : string prop;
   workteam_name : string prop;
   member_definition : member_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_configuration : notification_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -183,7 +183,7 @@ let yojson_of_aws_sagemaker_workteam =
          []
        in
        let bnds =
-         if [] = v_notification_configuration then bnds
+         if Stdlib.( = ) [] v_notification_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_configuration)
@@ -193,7 +193,7 @@ let yojson_of_aws_sagemaker_workteam =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_member_definition then bnds
+         if Stdlib.( = ) [] v_member_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_member_definition)

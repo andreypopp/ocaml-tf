@@ -100,9 +100,9 @@ type google_dns_response_policy = {
   project : string prop option; [@option]
   response_policy_name : string prop;
   gke_clusters : gke_clusters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   networks : networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -128,7 +128,7 @@ let yojson_of_google_dns_response_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_networks then bnds
+         if Stdlib.( = ) [] v_networks then bnds
          else
            let arg =
              (yojson_of_list yojson_of_networks) v_networks
@@ -137,7 +137,7 @@ let yojson_of_google_dns_response_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gke_clusters then bnds
+         if Stdlib.( = ) [] v_gke_clusters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gke_clusters) v_gke_clusters

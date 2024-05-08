@@ -106,7 +106,7 @@ let _ = yojson_of_cors
 
 type custom_placement_config = {
   data_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_custom_placement_config =
          []
        in
        let bnds =
-         if [] = v_data_locations then bnds
+         if Stdlib.( = ) [] v_data_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -340,9 +340,9 @@ let _ = yojson_of_lifecycle_rule__condition
 
 type lifecycle_rule = {
   action : lifecycle_rule__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition : lifecycle_rule__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -355,7 +355,7 @@ let yojson_of_lifecycle_rule =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_rule__condition)
@@ -365,7 +365,7 @@ let yojson_of_lifecycle_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_rule__action)
@@ -578,21 +578,23 @@ type google_storage_bucket = {
   storage_class : string prop option; [@option]
   uniform_bucket_level_access : bool prop option; [@option]
   autoclass : autoclass list;
-      [@default []] [@yojson_drop_default ( = )]
-  cors : cors list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  cors : cors list; [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_placement_config : custom_placement_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption : encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lifecycle_rule : lifecycle_rule list;
-      [@default []] [@yojson_drop_default ( = )]
-  logging : logging list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  logging : logging list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_policy : retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   versioning : versioning list;
-      [@default []] [@yojson_drop_default ( = )]
-  website : website list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  website : website list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -629,14 +631,14 @@ let yojson_of_google_storage_bucket =
          []
        in
        let bnds =
-         if [] = v_website then bnds
+         if Stdlib.( = ) [] v_website then bnds
          else
            let arg = (yojson_of_list yojson_of_website) v_website in
            let bnd = "website", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_versioning then bnds
+         if Stdlib.( = ) [] v_versioning then bnds
          else
            let arg =
              (yojson_of_list yojson_of_versioning) v_versioning
@@ -649,7 +651,7 @@ let yojson_of_google_storage_bucket =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_policy)
@@ -659,14 +661,14 @@ let yojson_of_google_storage_bucket =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging then bnds
+         if Stdlib.( = ) [] v_logging then bnds
          else
            let arg = (yojson_of_list yojson_of_logging) v_logging in
            let bnd = "logging", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle_rule then bnds
+         if Stdlib.( = ) [] v_lifecycle_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_rule)
@@ -676,7 +678,7 @@ let yojson_of_google_storage_bucket =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption) v_encryption
@@ -685,7 +687,7 @@ let yojson_of_google_storage_bucket =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_placement_config then bnds
+         if Stdlib.( = ) [] v_custom_placement_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_placement_config)
@@ -695,14 +697,14 @@ let yojson_of_google_storage_bucket =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg = (yojson_of_list yojson_of_cors) v_cors in
            let bnd = "cors", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoclass then bnds
+         if Stdlib.( = ) [] v_autoclass then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoclass) v_autoclass

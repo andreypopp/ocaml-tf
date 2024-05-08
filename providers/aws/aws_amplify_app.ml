@@ -253,9 +253,9 @@ type aws_amplify_app = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   auto_branch_creation_config : auto_branch_creation_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_rule : custom_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -291,7 +291,7 @@ let yojson_of_aws_amplify_app =
          []
        in
        let bnds =
-         if [] = v_custom_rule then bnds
+         if Stdlib.( = ) [] v_custom_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_rule) v_custom_rule
@@ -300,7 +300,7 @@ let yojson_of_aws_amplify_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_branch_creation_config then bnds
+         if Stdlib.( = ) [] v_auto_branch_creation_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_branch_creation_config)

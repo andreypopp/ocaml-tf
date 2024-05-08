@@ -20,7 +20,7 @@ type pools__load_shedding = {
 type pools__origins__header = {
   header : string prop;  (** header *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -28,7 +28,7 @@ type pools__origins = {
   address : string prop;  (** address *)
   enabled : bool prop;  (** enabled *)
   header : pools__origins__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** header *)
   name : string prop;  (** name *)
   weight : float prop;  (** weight *)

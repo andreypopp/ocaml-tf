@@ -86,9 +86,9 @@ let _ = yojson_of_advanced_settings__dtmf_settings
 type advanced_settings = {
   audio_export_gcs_destination :
     advanced_settings__audio_export_gcs_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dtmf_settings : advanced_settings__dtmf_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_advanced_settings =
          []
        in
        let bnds =
-         if [] = v_dtmf_settings then bnds
+         if Stdlib.( = ) [] v_dtmf_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +115,7 @@ let yojson_of_advanced_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_export_gcs_destination then bnds
+         if Stdlib.( = ) [] v_audio_export_gcs_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -207,7 +207,7 @@ let _ = yojson_of_git_integration_settings__github_settings
 
 type git_integration_settings = {
   github_settings : git_integration_settings__github_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,7 +220,7 @@ let yojson_of_git_integration_settings =
          []
        in
        let bnds =
-         if [] = v_github_settings then bnds
+         if Stdlib.( = ) [] v_github_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -353,13 +353,13 @@ type google_dialogflow_cx_agent = {
   supported_language_codes : string prop list option; [@option]
   time_zone : string prop;
   advanced_settings : advanced_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   git_integration_settings : git_integration_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   speech_to_text_settings : speech_to_text_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   text_to_speech_settings : text_to_speech_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -395,7 +395,7 @@ let yojson_of_google_dialogflow_cx_agent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_text_to_speech_settings then bnds
+         if Stdlib.( = ) [] v_text_to_speech_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_text_to_speech_settings)
@@ -405,7 +405,7 @@ let yojson_of_google_dialogflow_cx_agent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_speech_to_text_settings then bnds
+         if Stdlib.( = ) [] v_speech_to_text_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_speech_to_text_settings)
@@ -415,7 +415,7 @@ let yojson_of_google_dialogflow_cx_agent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_git_integration_settings then bnds
+         if Stdlib.( = ) [] v_git_integration_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_git_integration_settings)
@@ -425,7 +425,7 @@ let yojson_of_google_dialogflow_cx_agent =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_settings then bnds
+         if Stdlib.( = ) [] v_advanced_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_settings)

@@ -60,9 +60,9 @@ let _ = yojson_of_config__start_time
 type config = {
   day : string prop;
   end_time : config__end_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_time : config__start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_config =
          []
        in
        let bnds =
-         if [] = v_start_time then bnds
+         if Stdlib.( = ) [] v_start_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__start_time)
@@ -89,7 +89,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_end_time then bnds
+         if Stdlib.( = ) [] v_end_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__end_time) v_end_time
@@ -116,7 +116,8 @@ type aws_connect_hours_of_operation = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   time_zone : string prop;
-  config : config list; [@default []] [@yojson_drop_default ( = )]
+  config : config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +139,7 @@ let yojson_of_aws_connect_hours_of_operation =
          []
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg = (yojson_of_list yojson_of_config) v_config in
            let bnd = "config", arg in

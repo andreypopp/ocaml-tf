@@ -30,12 +30,12 @@ let _ = yojson_of_timeouts
 
 type bgp_settings__instance_1_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_configuration_id : string prop;
   tunnel_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,7 +53,7 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
          []
        in
        let bnds =
-         if [] = v_tunnel_ips then bnds
+         if Stdlib.( = ) [] v_tunnel_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -69,7 +69,7 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
          ("ip_configuration_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_ips then bnds
+         if Stdlib.( = ) [] v_default_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -79,7 +79,7 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_ips then bnds
+         if Stdlib.( = ) [] v_custom_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -98,12 +98,12 @@ let _ = yojson_of_bgp_settings__instance_1_bgp_peering_address
 
 type bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_configuration_id : string prop;
   tunnel_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
          []
        in
        let bnds =
-         if [] = v_tunnel_ips then bnds
+         if Stdlib.( = ) [] v_tunnel_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -137,7 +137,7 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
          ("ip_configuration_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_ips then bnds
+         if Stdlib.( = ) [] v_default_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -147,7 +147,7 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_ips then bnds
+         if Stdlib.( = ) [] v_custom_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -169,10 +169,10 @@ type bgp_settings = {
   bgp_peering_address : string prop;
   instance_0_bgp_peering_address :
     bgp_settings__instance_0_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_1_bgp_peering_address :
     bgp_settings__instance_1_bgp_peering_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   peer_weight : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -198,7 +198,8 @@ let yojson_of_bgp_settings =
          ("peer_weight", arg) :: bnds
        in
        let bnds =
-         if [] = v_instance_1_bgp_peering_address then bnds
+         if Stdlib.( = ) [] v_instance_1_bgp_peering_address then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -209,7 +210,8 @@ let yojson_of_bgp_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_0_bgp_peering_address then bnds
+         if Stdlib.( = ) [] v_instance_0_bgp_peering_address then
+           bnds
          else
            let arg =
              (yojson_of_list

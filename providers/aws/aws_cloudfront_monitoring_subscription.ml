@@ -42,7 +42,7 @@ type monitoring_subscription = {
   realtime_metrics_subscription_config :
     monitoring_subscription__realtime_metrics_subscription_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,8 @@ let yojson_of_monitoring_subscription =
          []
        in
        let bnds =
-         if [] = v_realtime_metrics_subscription_config then bnds
+         if Stdlib.( = ) [] v_realtime_metrics_subscription_config
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -79,7 +80,7 @@ type aws_cloudfront_monitoring_subscription = {
   distribution_id : string prop;
   id : string prop option; [@option]
   monitoring_subscription : monitoring_subscription list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,7 +97,7 @@ let yojson_of_aws_cloudfront_monitoring_subscription =
          []
        in
        let bnds =
-         if [] = v_monitoring_subscription then bnds
+         if Stdlib.( = ) [] v_monitoring_subscription then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitoring_subscription)

@@ -33,9 +33,9 @@ let _ = yojson_of_dataset__dataset
 
 type dataset = {
   target_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dataset : dataset__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_dataset =
          []
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dataset__dataset) v_dataset
@@ -57,7 +57,7 @@ let yojson_of_dataset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_target_types then bnds
+         if Stdlib.( = ) [] v_target_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -196,10 +196,12 @@ type google_bigquery_dataset_access = {
   role : string prop option; [@option]
   special_group : string prop option; [@option]
   user_by_email : string prop option; [@option]
-  dataset : dataset list; [@default []] [@yojson_drop_default ( = )]
-  routine : routine list; [@default []] [@yojson_drop_default ( = )]
+  dataset : dataset list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  routine : routine list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  view : view list; [@default []] [@yojson_drop_default ( = )]
+  view : view list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -226,7 +228,7 @@ let yojson_of_google_bigquery_dataset_access =
          []
        in
        let bnds =
-         if [] = v_view then bnds
+         if Stdlib.( = ) [] v_view then bnds
          else
            let arg = (yojson_of_list yojson_of_view) v_view in
            let bnd = "view", arg in
@@ -237,14 +239,14 @@ let yojson_of_google_bigquery_dataset_access =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routine then bnds
+         if Stdlib.( = ) [] v_routine then bnds
          else
            let arg = (yojson_of_list yojson_of_routine) v_routine in
            let bnd = "routine", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg = (yojson_of_list yojson_of_dataset) v_dataset in
            let bnd = "dataset", arg in

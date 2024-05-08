@@ -34,7 +34,7 @@ let _ = yojson_of_module_link__hash
 type module_link = {
   uri : string prop;
   hash : module_link__hash list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_module_link =
          []
        in
        let bnds =
-         if [] = v_hash then bnds
+         if Stdlib.( = ) [] v_hash then bnds
          else
            let arg =
              (yojson_of_list yojson_of_module_link__hash) v_hash
@@ -132,7 +132,7 @@ type azurerm_automation_module = {
   name : string prop;
   resource_group_name : string prop;
   module_link : module_link list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -157,7 +157,7 @@ let yojson_of_azurerm_automation_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_module_link then bnds
+         if Stdlib.( = ) [] v_module_link then bnds
          else
            let arg =
              (yojson_of_list yojson_of_module_link) v_module_link

@@ -88,7 +88,7 @@ type aws_iot_ca_certificate = {
   tags_all : (string * string prop) list option; [@option]
   verification_certificate_pem : string prop option; [@option]
   registration_config : registration_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,7 +111,7 @@ let yojson_of_aws_iot_ca_certificate =
          []
        in
        let bnds =
-         if [] = v_registration_config then bnds
+         if Stdlib.( = ) [] v_registration_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_registration_config)

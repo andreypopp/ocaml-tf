@@ -58,7 +58,7 @@ type member = {
   account_id : string prop;
   display_name : string prop;
   member_abilities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_member =
          []
        in
        let bnds =
-         if [] = v_member_abilities then bnds
+         if Stdlib.( = ) [] v_member_abilities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -148,15 +148,16 @@ let _ = yojson_of_timeouts
 type aws_cleanrooms_collaboration = {
   creator_display_name : string prop;
   creator_member_abilities : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   name : string prop;
   query_log_status : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   data_encryption_metadata : data_encryption_metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  member : member list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  member : member list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,14 +186,14 @@ let yojson_of_aws_cleanrooms_collaboration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_member then bnds
+         if Stdlib.( = ) [] v_member then bnds
          else
            let arg = (yojson_of_list yojson_of_member) v_member in
            let bnd = "member", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_encryption_metadata then bnds
+         if Stdlib.( = ) [] v_data_encryption_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_encryption_metadata)
@@ -248,7 +249,7 @@ let yojson_of_aws_cleanrooms_collaboration =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_creator_member_abilities then bnds
+         if Stdlib.( = ) [] v_creator_member_abilities then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

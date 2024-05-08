@@ -32,10 +32,10 @@ type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop;
       (** ipv6_allowed_for_dual_stack *)
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_group_ids *)
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }

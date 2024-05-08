@@ -59,7 +59,7 @@ type google_logging_linked_dataset = {
   location : string prop option; [@option]
   parent : string prop option; [@option]
   bigquery_dataset : bigquery_dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -86,7 +86,7 @@ let yojson_of_google_logging_linked_dataset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_bigquery_dataset then bnds
+         if Stdlib.( = ) [] v_bigquery_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_dataset)

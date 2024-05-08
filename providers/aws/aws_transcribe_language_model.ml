@@ -80,7 +80,7 @@ type aws_transcribe_language_model = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   input_data_config : input_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -107,7 +107,7 @@ let yojson_of_aws_transcribe_language_model =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_input_data_config then bnds
+         if Stdlib.( = ) [] v_input_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_data_config)

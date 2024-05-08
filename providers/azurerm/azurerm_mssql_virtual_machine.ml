@@ -58,7 +58,7 @@ type assessment = {
   enabled : bool prop option; [@option]
   run_immediately : bool prop option; [@option]
   schedule : assessment__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_assessment =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_assessment__schedule)
@@ -183,7 +183,7 @@ type auto_backup = {
   storage_blob_endpoint : string prop;
   system_databases_backup_enabled : bool prop option; [@option]
   manual_schedule : auto_backup__manual_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,7 +205,7 @@ let yojson_of_auto_backup =
          []
        in
        let bnds =
-         if [] = v_manual_schedule then bnds
+         if Stdlib.( = ) [] v_manual_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_backup__manual_schedule)
@@ -452,7 +452,8 @@ let _ = yojson_of_sql_instance
 
 type storage_configuration__data_settings = {
   default_file_path : string prop;
-  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
+  luns : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -465,7 +466,7 @@ let yojson_of_storage_configuration__data_settings =
          []
        in
        let bnds =
-         if [] = v_luns then bnds
+         if Stdlib.( = ) [] v_luns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
@@ -489,7 +490,8 @@ let _ = yojson_of_storage_configuration__data_settings
 
 type storage_configuration__log_settings = {
   default_file_path : string prop;
-  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
+  luns : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -502,7 +504,7 @@ let yojson_of_storage_configuration__log_settings =
          []
        in
        let bnds =
-         if [] = v_luns then bnds
+         if Stdlib.( = ) [] v_luns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
@@ -531,7 +533,8 @@ type storage_configuration__temp_db_settings = {
   default_file_path : string prop;
   log_file_growth_mb : float prop option; [@option]
   log_file_size_mb : float prop option; [@option]
-  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
+  luns : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -552,7 +555,7 @@ let yojson_of_storage_configuration__temp_db_settings =
          []
        in
        let bnds =
-         if [] = v_luns then bnds
+         if Stdlib.( = ) [] v_luns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
@@ -619,11 +622,11 @@ type storage_configuration = {
   storage_workload_type : string prop;
   system_db_on_data_disk_enabled : bool prop option; [@option]
   data_settings : storage_configuration__data_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_settings : storage_configuration__log_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   temp_db_settings : storage_configuration__temp_db_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -644,7 +647,7 @@ let yojson_of_storage_configuration =
          []
        in
        let bnds =
-         if [] = v_temp_db_settings then bnds
+         if Stdlib.( = ) [] v_temp_db_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -655,7 +658,7 @@ let yojson_of_storage_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_settings then bnds
+         if Stdlib.( = ) [] v_log_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -666,7 +669,7 @@ let yojson_of_storage_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_settings then bnds
+         if Stdlib.( = ) [] v_data_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -822,20 +825,20 @@ type azurerm_mssql_virtual_machine = {
   tags : (string * string prop) list option; [@option]
   virtual_machine_id : string prop;
   assessment : assessment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_backup : auto_backup list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_patching : auto_patching list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault_credential : key_vault_credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sql_instance : sql_instance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_configuration : storage_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   wsfc_domain_credential : wsfc_domain_credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -869,7 +872,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
          []
        in
        let bnds =
-         if [] = v_wsfc_domain_credential then bnds
+         if Stdlib.( = ) [] v_wsfc_domain_credential then bnds
          else
            let arg =
              (yojson_of_list yojson_of_wsfc_domain_credential)
@@ -883,7 +886,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_configuration then bnds
+         if Stdlib.( = ) [] v_storage_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_configuration)
@@ -893,7 +896,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sql_instance then bnds
+         if Stdlib.( = ) [] v_sql_instance then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sql_instance) v_sql_instance
@@ -902,7 +905,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_credential then bnds
+         if Stdlib.( = ) [] v_key_vault_credential then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_credential)
@@ -912,7 +915,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_patching then bnds
+         if Stdlib.( = ) [] v_auto_patching then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_patching) v_auto_patching
@@ -921,7 +924,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_backup then bnds
+         if Stdlib.( = ) [] v_auto_backup then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_backup) v_auto_backup
@@ -930,7 +933,7 @@ let yojson_of_azurerm_mssql_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_assessment then bnds
+         if Stdlib.( = ) [] v_assessment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_assessment) v_assessment

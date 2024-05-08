@@ -619,7 +619,7 @@ type webhook_receiver = {
   service_uri : string prop;
   use_common_alert_schema : bool prop option; [@option]
   aad_auth : webhook_receiver__aad_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -637,7 +637,7 @@ let yojson_of_webhook_receiver =
          []
        in
        let bnds =
-         if [] = v_aad_auth then bnds
+         if Stdlib.( = ) [] v_aad_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook_receiver__aad_auth)
@@ -678,28 +678,28 @@ type azurerm_monitor_action_group = {
   short_name : string prop;
   tags : (string * string prop) list option; [@option]
   arm_role_receiver : arm_role_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   automation_runbook_receiver : automation_runbook_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_app_push_receiver : azure_app_push_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_function_receiver : azure_function_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email_receiver : email_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_hub_receiver : event_hub_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   itsm_receiver : itsm_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logic_app_receiver : logic_app_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sms_receiver : sms_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   voice_receiver : voice_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webhook_receiver : webhook_receiver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -732,7 +732,7 @@ let yojson_of_azurerm_monitor_action_group =
          []
        in
        let bnds =
-         if [] = v_webhook_receiver then bnds
+         if Stdlib.( = ) [] v_webhook_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook_receiver)
@@ -742,7 +742,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_voice_receiver then bnds
+         if Stdlib.( = ) [] v_voice_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_voice_receiver)
@@ -756,7 +756,7 @@ let yojson_of_azurerm_monitor_action_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sms_receiver then bnds
+         if Stdlib.( = ) [] v_sms_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sms_receiver) v_sms_receiver
@@ -765,7 +765,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logic_app_receiver then bnds
+         if Stdlib.( = ) [] v_logic_app_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logic_app_receiver)
@@ -775,7 +775,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_itsm_receiver then bnds
+         if Stdlib.( = ) [] v_itsm_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_itsm_receiver) v_itsm_receiver
@@ -784,7 +784,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_hub_receiver then bnds
+         if Stdlib.( = ) [] v_event_hub_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_hub_receiver)
@@ -794,7 +794,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email_receiver then bnds
+         if Stdlib.( = ) [] v_email_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_email_receiver)
@@ -804,7 +804,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_function_receiver then bnds
+         if Stdlib.( = ) [] v_azure_function_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_function_receiver)
@@ -814,7 +814,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_app_push_receiver then bnds
+         if Stdlib.( = ) [] v_azure_app_push_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_app_push_receiver)
@@ -824,7 +824,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automation_runbook_receiver then bnds
+         if Stdlib.( = ) [] v_automation_runbook_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_automation_runbook_receiver)
@@ -834,7 +834,7 @@ let yojson_of_azurerm_monitor_action_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_arm_role_receiver then bnds
+         if Stdlib.( = ) [] v_arm_role_receiver then bnds
          else
            let arg =
              (yojson_of_list yojson_of_arm_role_receiver)

@@ -56,7 +56,7 @@ let _ = yojson_of_tunnel1_log_options__cloudwatch_log_options
 type tunnel1_log_options = {
   cloudwatch_log_options :
     tunnel1_log_options__cloudwatch_log_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_tunnel1_log_options =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_log_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_log_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -140,7 +140,7 @@ let _ = yojson_of_tunnel2_log_options__cloudwatch_log_options
 type tunnel2_log_options = {
   cloudwatch_log_options :
     tunnel2_log_options__cloudwatch_log_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_tunnel2_log_options =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_log_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_log_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -343,9 +343,9 @@ type aws_vpn_connection = {
   type_ : string prop; [@key "type"]
   vpn_gateway_id : string prop option; [@option]
   tunnel1_log_options : tunnel1_log_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tunnel2_log_options : tunnel2_log_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -438,7 +438,7 @@ let yojson_of_aws_vpn_connection =
          []
        in
        let bnds =
-         if [] = v_tunnel2_log_options then bnds
+         if Stdlib.( = ) [] v_tunnel2_log_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tunnel2_log_options)
@@ -448,7 +448,7 @@ let yojson_of_aws_vpn_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_tunnel1_log_options then bnds
+         if Stdlib.( = ) [] v_tunnel1_log_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tunnel1_log_options)

@@ -318,7 +318,7 @@ type volume__efs_volume_configuration = {
   transit_encryption_port : float prop option; [@option]
   authorization_config :
     volume__efs_volume_configuration__authorization_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_volume__efs_volume_configuration =
          []
        in
        let bnds =
-         if [] = v_authorization_config then bnds
+         if Stdlib.( = ) [] v_authorization_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -431,7 +431,7 @@ type volume__fsx_windows_file_server_volume_configuration = {
   authorization_config :
     volume__fsx_windows_file_server_volume_configuration__authorization_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -449,7 +449,7 @@ let yojson_of_volume__fsx_windows_file_server_volume_configuration =
          []
        in
        let bnds =
-         if [] = v_authorization_config then bnds
+         if Stdlib.( = ) [] v_authorization_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -485,12 +485,12 @@ type volume = {
   name : string prop;
   docker_volume_configuration :
     volume__docker_volume_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   efs_volume_configuration : volume__efs_volume_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fsx_windows_file_server_volume_configuration :
     volume__fsx_windows_file_server_volume_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -510,8 +510,10 @@ let yojson_of_volume =
          []
        in
        let bnds =
-         if [] = v_fsx_windows_file_server_volume_configuration then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_fsx_windows_file_server_volume_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -524,7 +526,7 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_efs_volume_configuration then bnds
+         if Stdlib.( = ) [] v_efs_volume_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -535,7 +537,7 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_docker_volume_configuration then bnds
+         if Stdlib.( = ) [] v_docker_volume_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -581,16 +583,17 @@ type aws_ecs_task_definition = {
   task_role_arn : string prop option; [@option]
   track_latest : bool prop option; [@option]
   ephemeral_storage : ephemeral_storage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inference_accelerator : inference_accelerator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_constraints : placement_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy_configuration : proxy_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   runtime_platform : runtime_platform list;
-      [@default []] [@yojson_drop_default ( = )]
-  volume : volume list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  volume : volume list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -625,14 +628,14 @@ let yojson_of_aws_ecs_task_definition =
          []
        in
        let bnds =
-         if [] = v_volume then bnds
+         if Stdlib.( = ) [] v_volume then bnds
          else
            let arg = (yojson_of_list yojson_of_volume) v_volume in
            let bnd = "volume", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_runtime_platform then bnds
+         if Stdlib.( = ) [] v_runtime_platform then bnds
          else
            let arg =
              (yojson_of_list yojson_of_runtime_platform)
@@ -642,7 +645,7 @@ let yojson_of_aws_ecs_task_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy_configuration then bnds
+         if Stdlib.( = ) [] v_proxy_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_proxy_configuration)
@@ -652,7 +655,7 @@ let yojson_of_aws_ecs_task_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_placement_constraints then bnds
+         if Stdlib.( = ) [] v_placement_constraints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement_constraints)
@@ -662,7 +665,7 @@ let yojson_of_aws_ecs_task_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inference_accelerator then bnds
+         if Stdlib.( = ) [] v_inference_accelerator then bnds
          else
            let arg =
              (yojson_of_list yojson_of_inference_accelerator)
@@ -672,7 +675,7 @@ let yojson_of_aws_ecs_task_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ephemeral_storage then bnds
+         if Stdlib.( = ) [] v_ephemeral_storage then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ephemeral_storage)

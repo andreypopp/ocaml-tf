@@ -70,7 +70,7 @@ let _ = yojson_of_jupyter_lab_image_config__container_config
 
 type jupyter_lab_image_config = {
   container_config : jupyter_lab_image_config__container_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,7 +83,7 @@ let yojson_of_jupyter_lab_image_config =
          []
        in
        let bnds =
-         if [] = v_container_config then bnds
+         if Stdlib.( = ) [] v_container_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,9 +189,9 @@ let _ = yojson_of_kernel_gateway_image_config__kernel_spec
 type kernel_gateway_image_config = {
   file_system_config :
     kernel_gateway_image_config__file_system_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_spec : kernel_gateway_image_config__kernel_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -207,7 +207,7 @@ let yojson_of_kernel_gateway_image_config =
          []
        in
        let bnds =
-         if [] = v_kernel_spec then bnds
+         if Stdlib.( = ) [] v_kernel_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -218,7 +218,7 @@ let yojson_of_kernel_gateway_image_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file_system_config then bnds
+         if Stdlib.( = ) [] v_file_system_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -242,9 +242,9 @@ type aws_sagemaker_app_image_config = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   jupyter_lab_image_config : jupyter_lab_image_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_gateway_image_config : kernel_gateway_image_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -264,7 +264,7 @@ let yojson_of_aws_sagemaker_app_image_config =
          []
        in
        let bnds =
-         if [] = v_kernel_gateway_image_config then bnds
+         if Stdlib.( = ) [] v_kernel_gateway_image_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kernel_gateway_image_config)
@@ -274,7 +274,7 @@ let yojson_of_aws_sagemaker_app_image_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jupyter_lab_image_config then bnds
+         if Stdlib.( = ) [] v_jupyter_lab_image_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jupyter_lab_image_config)

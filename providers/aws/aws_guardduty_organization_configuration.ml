@@ -27,7 +27,7 @@ let _ = yojson_of_datasources__kubernetes__audit_logs
 
 type datasources__kubernetes = {
   audit_logs : datasources__kubernetes__audit_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_datasources__kubernetes =
          []
        in
        let bnds =
-         if [] = v_audit_logs then bnds
+         if Stdlib.( = ) [] v_audit_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -91,7 +91,7 @@ type datasources__malware_protection__scan_ec2_instance_with_findings = {
   ebs_volumes :
     datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +108,7 @@ let yojson_of_datasources__malware_protection__scan_ec2_instance_with_findings
          []
        in
        let bnds =
-         if [] = v_ebs_volumes then bnds
+         if Stdlib.( = ) [] v_ebs_volumes then bnds
          else
            let arg =
              (yojson_of_list
@@ -131,7 +131,7 @@ type datasources__malware_protection = {
   scan_ec2_instance_with_findings :
     datasources__malware_protection__scan_ec2_instance_with_findings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,8 @@ let yojson_of_datasources__malware_protection =
          []
        in
        let bnds =
-         if [] = v_scan_ec2_instance_with_findings then bnds
+         if Stdlib.( = ) [] v_scan_ec2_instance_with_findings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -189,11 +190,11 @@ let _ = yojson_of_datasources__s3_logs
 
 type datasources = {
   kubernetes : datasources__kubernetes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   malware_protection : datasources__malware_protection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_logs : datasources__s3_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +211,7 @@ let yojson_of_datasources =
          []
        in
        let bnds =
-         if [] = v_s3_logs then bnds
+         if Stdlib.( = ) [] v_s3_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_datasources__s3_logs)
@@ -220,7 +221,7 @@ let yojson_of_datasources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_malware_protection then bnds
+         if Stdlib.( = ) [] v_malware_protection then bnds
          else
            let arg =
              (yojson_of_list
@@ -231,7 +232,7 @@ let yojson_of_datasources =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kubernetes then bnds
+         if Stdlib.( = ) [] v_kubernetes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_datasources__kubernetes)
@@ -253,7 +254,7 @@ type aws_guardduty_organization_configuration = {
   detector_id : string prop;
   id : string prop option; [@option]
   datasources : datasources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -273,7 +274,7 @@ let yojson_of_aws_guardduty_organization_configuration =
          []
        in
        let bnds =
-         if [] = v_datasources then bnds
+         if Stdlib.( = ) [] v_datasources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_datasources) v_datasources

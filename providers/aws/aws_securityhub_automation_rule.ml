@@ -137,14 +137,14 @@ type actions__finding_fields_update = {
   user_defined_fields : (string * string prop) list option; [@option]
   verification_state : string prop option; [@option]
   note : actions__finding_fields_update__note list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   related_findings :
     actions__finding_fields_update__related_findings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   severity : actions__finding_fields_update__severity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workflow : actions__finding_fields_update__workflow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,7 +167,7 @@ let yojson_of_actions__finding_fields_update =
          []
        in
        let bnds =
-         if [] = v_workflow then bnds
+         if Stdlib.( = ) [] v_workflow then bnds
          else
            let arg =
              (yojson_of_list
@@ -178,7 +178,7 @@ let yojson_of_actions__finding_fields_update =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_severity then bnds
+         if Stdlib.( = ) [] v_severity then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,7 +189,7 @@ let yojson_of_actions__finding_fields_update =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_related_findings then bnds
+         if Stdlib.( = ) [] v_related_findings then bnds
          else
            let arg =
              (yojson_of_list
@@ -200,7 +200,7 @@ let yojson_of_actions__finding_fields_update =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_note then bnds
+         if Stdlib.( = ) [] v_note then bnds
          else
            let arg =
              (yojson_of_list
@@ -271,7 +271,7 @@ let _ = yojson_of_actions__finding_fields_update
 type actions = {
   type_ : string prop option; [@option] [@key "type"]
   finding_fields_update : actions__finding_fields_update list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -287,7 +287,7 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         if [] = v_finding_fields_update then bnds
+         if Stdlib.( = ) [] v_finding_fields_update then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__finding_fields_update)
@@ -586,7 +586,7 @@ type criteria__created_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : criteria__created_at__date_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -599,7 +599,7 @@ let yojson_of_criteria__created_at =
          []
        in
        let bnds =
-         if [] = v_date_range then bnds
+         if Stdlib.( = ) [] v_date_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -759,7 +759,7 @@ type criteria__first_observed_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : criteria__first_observed_at__date_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -772,7 +772,7 @@ let yojson_of_criteria__first_observed_at =
          []
        in
        let bnds =
-         if [] = v_date_range then bnds
+         if Stdlib.( = ) [] v_date_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -895,7 +895,7 @@ type criteria__last_observed_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : criteria__last_observed_at__date_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -908,7 +908,7 @@ let yojson_of_criteria__last_observed_at =
          []
        in
        let bnds =
-         if [] = v_date_range then bnds
+         if Stdlib.( = ) [] v_date_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1004,7 +1004,7 @@ type criteria__note_updated_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : criteria__note_updated_at__date_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1017,7 +1017,7 @@ let yojson_of_criteria__note_updated_at =
          []
        in
        let bnds =
-         if [] = v_date_range then bnds
+         if Stdlib.( = ) [] v_date_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1622,7 +1622,7 @@ type criteria__updated_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : criteria__updated_at__date_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1635,7 +1635,7 @@ let yojson_of_criteria__updated_at =
          []
        in
        let bnds =
-         if [] = v_date_range then bnds
+         if Stdlib.( = ) [] v_date_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1764,84 +1764,85 @@ let _ = yojson_of_criteria__workflow_status
 
 type criteria = {
   aws_account_id : criteria__aws_account_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   aws_account_name : criteria__aws_account_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   company_name : criteria__company_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compliance_associated_standards_id :
     criteria__compliance_associated_standards_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compliance_security_control_id :
     criteria__compliance_security_control_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compliance_status : criteria__compliance_status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   confidence : criteria__confidence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   created_at : criteria__created_at list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   criticality : criteria__criticality list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : criteria__description list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   first_observed_at : criteria__first_observed_at list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   generator_id : criteria__generator_id list;
-      [@default []] [@yojson_drop_default ( = )]
-  id : criteria__id list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  id : criteria__id list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   last_observed_at : criteria__last_observed_at list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   note_text : criteria__note_text list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   note_updated_at : criteria__note_updated_at list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   note_updated_by : criteria__note_updated_by list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   product_arn : criteria__product_arn list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   product_name : criteria__product_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   record_state : criteria__record_state list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   related_findings_id : criteria__related_findings_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   related_findings_product_arn :
     criteria__related_findings_product_arn list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_application_arn : criteria__resource_application_arn list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_application_name :
     criteria__resource_application_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_details_other : criteria__resource_details_other list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_id : criteria__resource_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_partition : criteria__resource_partition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_region : criteria__resource_region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_tags : criteria__resource_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_type : criteria__resource_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   severity_label : criteria__severity_label list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_url : criteria__source_url list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   title : criteria__title list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : criteria__type list;
-      [@key "type"] [@default []] [@yojson_drop_default ( = )]
+      [@key "type"] [@default []] [@yojson_drop_default Stdlib.( = )]
   updated_at : criteria__updated_at list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_defined_fields : criteria__user_defined_fields list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   verification_state : criteria__verification_state list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workflow_status : criteria__workflow_status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1895,7 +1896,7 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         if [] = v_workflow_status then bnds
+         if Stdlib.( = ) [] v_workflow_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__workflow_status)
@@ -1905,7 +1906,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_verification_state then bnds
+         if Stdlib.( = ) [] v_verification_state then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__verification_state)
@@ -1915,7 +1916,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_user_defined_fields then bnds
+         if Stdlib.( = ) [] v_user_defined_fields then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__user_defined_fields)
@@ -1925,7 +1926,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_updated_at then bnds
+         if Stdlib.( = ) [] v_updated_at then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__updated_at)
@@ -1935,7 +1936,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_type_ then bnds
+         if Stdlib.( = ) [] v_type_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__type) v_type_
@@ -1944,7 +1945,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_title then bnds
+         if Stdlib.( = ) [] v_title then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__title) v_title
@@ -1953,7 +1954,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_url then bnds
+         if Stdlib.( = ) [] v_source_url then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__source_url)
@@ -1963,7 +1964,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_severity_label then bnds
+         if Stdlib.( = ) [] v_severity_label then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__severity_label)
@@ -1973,7 +1974,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_type then bnds
+         if Stdlib.( = ) [] v_resource_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__resource_type)
@@ -1983,7 +1984,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_tags then bnds
+         if Stdlib.( = ) [] v_resource_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__resource_tags)
@@ -1993,7 +1994,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_region then bnds
+         if Stdlib.( = ) [] v_resource_region then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__resource_region)
@@ -2003,7 +2004,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_partition then bnds
+         if Stdlib.( = ) [] v_resource_partition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__resource_partition)
@@ -2013,7 +2014,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_id then bnds
+         if Stdlib.( = ) [] v_resource_id then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__resource_id)
@@ -2023,7 +2024,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_details_other then bnds
+         if Stdlib.( = ) [] v_resource_details_other then bnds
          else
            let arg =
              (yojson_of_list
@@ -2034,7 +2035,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_application_name then bnds
+         if Stdlib.( = ) [] v_resource_application_name then bnds
          else
            let arg =
              (yojson_of_list
@@ -2045,7 +2046,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_application_arn then bnds
+         if Stdlib.( = ) [] v_resource_application_arn then bnds
          else
            let arg =
              (yojson_of_list
@@ -2056,7 +2057,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_related_findings_product_arn then bnds
+         if Stdlib.( = ) [] v_related_findings_product_arn then bnds
          else
            let arg =
              (yojson_of_list
@@ -2067,7 +2068,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_related_findings_id then bnds
+         if Stdlib.( = ) [] v_related_findings_id then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__related_findings_id)
@@ -2077,7 +2078,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_record_state then bnds
+         if Stdlib.( = ) [] v_record_state then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__record_state)
@@ -2087,7 +2088,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_product_name then bnds
+         if Stdlib.( = ) [] v_product_name then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__product_name)
@@ -2097,7 +2098,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_product_arn then bnds
+         if Stdlib.( = ) [] v_product_arn then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__product_arn)
@@ -2107,7 +2108,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_note_updated_by then bnds
+         if Stdlib.( = ) [] v_note_updated_by then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__note_updated_by)
@@ -2117,7 +2118,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_note_updated_at then bnds
+         if Stdlib.( = ) [] v_note_updated_at then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__note_updated_at)
@@ -2127,7 +2128,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_note_text then bnds
+         if Stdlib.( = ) [] v_note_text then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__note_text)
@@ -2137,7 +2138,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_last_observed_at then bnds
+         if Stdlib.( = ) [] v_last_observed_at then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__last_observed_at)
@@ -2147,14 +2148,14 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_id then bnds
+         if Stdlib.( = ) [] v_id then bnds
          else
            let arg = (yojson_of_list yojson_of_criteria__id) v_id in
            let bnd = "id", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_generator_id then bnds
+         if Stdlib.( = ) [] v_generator_id then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__generator_id)
@@ -2164,7 +2165,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_first_observed_at then bnds
+         if Stdlib.( = ) [] v_first_observed_at then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__first_observed_at)
@@ -2174,7 +2175,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_description then bnds
+         if Stdlib.( = ) [] v_description then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__description)
@@ -2184,7 +2185,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_criticality then bnds
+         if Stdlib.( = ) [] v_criticality then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__criticality)
@@ -2194,7 +2195,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_created_at then bnds
+         if Stdlib.( = ) [] v_created_at then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__created_at)
@@ -2204,7 +2205,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_confidence then bnds
+         if Stdlib.( = ) [] v_confidence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__confidence)
@@ -2214,7 +2215,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compliance_status then bnds
+         if Stdlib.( = ) [] v_compliance_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__compliance_status)
@@ -2224,7 +2225,8 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compliance_security_control_id then bnds
+         if Stdlib.( = ) [] v_compliance_security_control_id then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2235,7 +2237,8 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compliance_associated_standards_id then bnds
+         if Stdlib.( = ) [] v_compliance_associated_standards_id then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -2246,7 +2249,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_company_name then bnds
+         if Stdlib.( = ) [] v_company_name then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__company_name)
@@ -2256,7 +2259,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_account_name then bnds
+         if Stdlib.( = ) [] v_aws_account_name then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__aws_account_name)
@@ -2266,7 +2269,7 @@ let yojson_of_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_account_id then bnds
+         if Stdlib.( = ) [] v_aws_account_id then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__aws_account_id)
@@ -2289,8 +2292,10 @@ type aws_securityhub_automation_rule = {
   rule_order : float prop;
   rule_status : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  actions : actions list; [@default []] [@yojson_drop_default ( = )]
-  criteria : criteria list; [@default []] [@yojson_drop_default ( = )]
+  actions : actions list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  criteria : criteria list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2312,7 +2317,7 @@ let yojson_of_aws_securityhub_automation_rule =
          []
        in
        let bnds =
-         if [] = v_criteria then bnds
+         if Stdlib.( = ) [] v_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria) v_criteria
@@ -2321,7 +2326,7 @@ let yojson_of_aws_securityhub_automation_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg = (yojson_of_list yojson_of_actions) v_actions in
            let bnd = "actions", arg in

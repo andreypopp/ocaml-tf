@@ -125,7 +125,8 @@ type azurerm_storage_object_replication = {
   destination_storage_account_id : string prop;
   id : string prop option; [@option]
   source_storage_account_id : string prop;
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -150,7 +151,7 @@ let yojson_of_azurerm_storage_object_replication =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

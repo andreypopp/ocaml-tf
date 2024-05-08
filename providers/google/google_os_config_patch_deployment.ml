@@ -41,7 +41,7 @@ type instance_filter = {
   instances : string prop list option; [@option]
   zones : string prop list option; [@option]
   group_labels : instance_filter__group_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_instance_filter =
          []
        in
        let bnds =
-         if [] = v_group_labels then bnds
+         if Stdlib.( = ) [] v_group_labels then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_filter__group_labels)
@@ -264,7 +264,7 @@ type patch_config__post_step__linux_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__post_step__linux_exec_step_config__gcs_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,7 +283,7 @@ let yojson_of_patch_config__post_step__linux_exec_step_config =
          []
        in
        let bnds =
-         if [] = v_gcs_object then bnds
+         if Stdlib.( = ) [] v_gcs_object then bnds
          else
            let arg =
              (yojson_of_list
@@ -380,7 +380,7 @@ type patch_config__post_step__windows_exec_step_config = {
   gcs_object :
     patch_config__post_step__windows_exec_step_config__gcs_object
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,7 +399,7 @@ let yojson_of_patch_config__post_step__windows_exec_step_config =
          []
        in
        let bnds =
-         if [] = v_gcs_object then bnds
+         if Stdlib.( = ) [] v_gcs_object then bnds
          else
            let arg =
              (yojson_of_list
@@ -446,10 +446,10 @@ let _ = yojson_of_patch_config__post_step__windows_exec_step_config
 type patch_config__post_step = {
   linux_exec_step_config :
     patch_config__post_step__linux_exec_step_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_exec_step_config :
     patch_config__post_step__windows_exec_step_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -465,7 +465,7 @@ let yojson_of_patch_config__post_step =
          []
        in
        let bnds =
-         if [] = v_windows_exec_step_config then bnds
+         if Stdlib.( = ) [] v_windows_exec_step_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -476,7 +476,7 @@ let yojson_of_patch_config__post_step =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_exec_step_config then bnds
+         if Stdlib.( = ) [] v_linux_exec_step_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -544,7 +544,7 @@ type patch_config__pre_step__linux_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__pre_step__linux_exec_step_config__gcs_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -563,7 +563,7 @@ let yojson_of_patch_config__pre_step__linux_exec_step_config =
          []
        in
        let bnds =
-         if [] = v_gcs_object then bnds
+         if Stdlib.( = ) [] v_gcs_object then bnds
          else
            let arg =
              (yojson_of_list
@@ -659,7 +659,7 @@ type patch_config__pre_step__windows_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__pre_step__windows_exec_step_config__gcs_object list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -678,7 +678,7 @@ let yojson_of_patch_config__pre_step__windows_exec_step_config =
          []
        in
        let bnds =
-         if [] = v_gcs_object then bnds
+         if Stdlib.( = ) [] v_gcs_object then bnds
          else
            let arg =
              (yojson_of_list
@@ -725,10 +725,10 @@ let _ = yojson_of_patch_config__pre_step__windows_exec_step_config
 type patch_config__pre_step = {
   linux_exec_step_config :
     patch_config__pre_step__linux_exec_step_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_exec_step_config :
     patch_config__pre_step__windows_exec_step_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -744,7 +744,7 @@ let yojson_of_patch_config__pre_step =
          []
        in
        let bnds =
-         if [] = v_windows_exec_step_config then bnds
+         if Stdlib.( = ) [] v_windows_exec_step_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -755,7 +755,7 @@ let yojson_of_patch_config__pre_step =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_exec_step_config then bnds
+         if Stdlib.( = ) [] v_linux_exec_step_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -985,19 +985,19 @@ type patch_config = {
   mig_instances_allowed : bool prop option; [@option]
   reboot_config : string prop option; [@option]
   apt : patch_config__apt list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   goo : patch_config__goo list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   post_step : patch_config__post_step list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pre_step : patch_config__pre_step list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_update : patch_config__windows_update list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   yum : patch_config__yum list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zypper : patch_config__zypper list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1020,7 +1020,7 @@ let yojson_of_patch_config =
          []
        in
        let bnds =
-         if [] = v_zypper then bnds
+         if Stdlib.( = ) [] v_zypper then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__zypper) v_zypper
@@ -1029,7 +1029,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_yum then bnds
+         if Stdlib.( = ) [] v_yum then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__yum) v_yum
@@ -1038,7 +1038,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_windows_update then bnds
+         if Stdlib.( = ) [] v_windows_update then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__windows_update)
@@ -1048,7 +1048,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pre_step then bnds
+         if Stdlib.( = ) [] v_pre_step then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__pre_step)
@@ -1058,7 +1058,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_step then bnds
+         if Stdlib.( = ) [] v_post_step then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__post_step)
@@ -1068,7 +1068,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_goo then bnds
+         if Stdlib.( = ) [] v_goo then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__goo) v_goo
@@ -1077,7 +1077,7 @@ let yojson_of_patch_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_apt then bnds
+         if Stdlib.( = ) [] v_apt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config__apt) v_apt
@@ -1156,7 +1156,7 @@ type recurring_schedule__monthly = {
   month_day : float prop option; [@option]
   week_day_of_month :
     recurring_schedule__monthly__week_day_of_month list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1172,7 +1172,7 @@ let yojson_of_recurring_schedule__monthly =
          []
        in
        let bnds =
-         if [] = v_week_day_of_month then bnds
+         if Stdlib.( = ) [] v_week_day_of_month then bnds
          else
            let arg =
              (yojson_of_list
@@ -1319,13 +1319,13 @@ type recurring_schedule = {
   end_time : string prop option; [@option]
   start_time : string prop option; [@option]
   monthly : recurring_schedule__monthly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_of_day : recurring_schedule__time_of_day list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_zone : recurring_schedule__time_zone list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weekly : recurring_schedule__weekly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1345,7 +1345,7 @@ let yojson_of_recurring_schedule =
          []
        in
        let bnds =
-         if [] = v_weekly then bnds
+         if Stdlib.( = ) [] v_weekly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recurring_schedule__weekly)
@@ -1355,7 +1355,7 @@ let yojson_of_recurring_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_time_zone then bnds
+         if Stdlib.( = ) [] v_time_zone then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recurring_schedule__time_zone)
@@ -1365,7 +1365,7 @@ let yojson_of_recurring_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_time_of_day then bnds
+         if Stdlib.( = ) [] v_time_of_day then bnds
          else
            let arg =
              (yojson_of_list
@@ -1376,7 +1376,7 @@ let yojson_of_recurring_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monthly then bnds
+         if Stdlib.( = ) [] v_monthly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recurring_schedule__monthly)
@@ -1448,7 +1448,7 @@ let _ = yojson_of_rollout__disruption_budget
 type rollout = {
   mode : string prop;
   disruption_budget : rollout__disruption_budget list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1461,7 +1461,7 @@ let yojson_of_rollout =
          []
        in
        let bnds =
-         if [] = v_disruption_budget then bnds
+         if Stdlib.( = ) [] v_disruption_budget then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rollout__disruption_budget)
@@ -1525,14 +1525,15 @@ type google_os_config_patch_deployment = {
   patch_deployment_id : string prop;
   project : string prop option; [@option]
   instance_filter : instance_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   one_time_schedule : one_time_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   patch_config : patch_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   recurring_schedule : recurring_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
-  rollout : rollout list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rollout : rollout list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1562,14 +1563,14 @@ let yojson_of_google_os_config_patch_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rollout then bnds
+         if Stdlib.( = ) [] v_rollout then bnds
          else
            let arg = (yojson_of_list yojson_of_rollout) v_rollout in
            let bnd = "rollout", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_recurring_schedule then bnds
+         if Stdlib.( = ) [] v_recurring_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_recurring_schedule)
@@ -1579,7 +1580,7 @@ let yojson_of_google_os_config_patch_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_patch_config then bnds
+         if Stdlib.( = ) [] v_patch_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_patch_config) v_patch_config
@@ -1588,7 +1589,7 @@ let yojson_of_google_os_config_patch_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_one_time_schedule then bnds
+         if Stdlib.( = ) [] v_one_time_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_one_time_schedule)
@@ -1598,7 +1599,7 @@ let yojson_of_google_os_config_patch_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_filter then bnds
+         if Stdlib.( = ) [] v_instance_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_filter)

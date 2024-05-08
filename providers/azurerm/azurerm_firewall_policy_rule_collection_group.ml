@@ -76,9 +76,9 @@ type application_rule_collection__rule = {
   web_categories : string prop list option; [@option]
   http_headers :
     application_rule_collection__rule__http_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocols : application_rule_collection__rule__protocols list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_application_rule_collection__rule =
          []
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +115,7 @@ let yojson_of_application_rule_collection__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_headers then bnds
+         if Stdlib.( = ) [] v_http_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -228,7 +228,7 @@ type application_rule_collection = {
   name : string prop;
   priority : float prop;
   rule : application_rule_collection__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,7 +246,7 @@ let yojson_of_application_rule_collection =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -282,7 +282,7 @@ type nat_rule_collection__rule = {
   destination_ports : string prop list option; [@option]
   name : string prop;
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_addresses : string prop list option; [@option]
   source_ip_groups : string prop list option; [@option]
   translated_address : string prop option; [@option]
@@ -353,7 +353,7 @@ let yojson_of_nat_rule_collection__rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -404,7 +404,7 @@ type nat_rule_collection = {
   name : string prop;
   priority : float prop;
   rule : nat_rule_collection__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -422,7 +422,7 @@ let yojson_of_nat_rule_collection =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nat_rule_collection__rule)
@@ -456,10 +456,10 @@ type network_rule_collection__rule = {
   destination_fqdns : string prop list option; [@option]
   destination_ip_groups : string prop list option; [@option]
   destination_ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_addresses : string prop list option; [@option]
   source_ip_groups : string prop list option; [@option]
 }
@@ -504,7 +504,7 @@ let yojson_of_network_rule_collection__rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -518,7 +518,7 @@ let yojson_of_network_rule_collection__rule =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_ports then bnds
+         if Stdlib.( = ) [] v_destination_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -578,7 +578,7 @@ type network_rule_collection = {
   name : string prop;
   priority : float prop;
   rule : network_rule_collection__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -596,7 +596,7 @@ let yojson_of_network_rule_collection =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_collection__rule)
@@ -690,11 +690,11 @@ type azurerm_firewall_policy_rule_collection_group = {
   name : string prop;
   priority : float prop;
   application_rule_collection : application_rule_collection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nat_rule_collection : nat_rule_collection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_rule_collection : network_rule_collection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -721,7 +721,7 @@ let yojson_of_azurerm_firewall_policy_rule_collection_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_rule_collection then bnds
+         if Stdlib.( = ) [] v_network_rule_collection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule_collection)
@@ -731,7 +731,7 @@ let yojson_of_azurerm_firewall_policy_rule_collection_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nat_rule_collection then bnds
+         if Stdlib.( = ) [] v_nat_rule_collection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nat_rule_collection)
@@ -741,7 +741,7 @@ let yojson_of_azurerm_firewall_policy_rule_collection_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_rule_collection then bnds
+         if Stdlib.( = ) [] v_application_rule_collection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_application_rule_collection)

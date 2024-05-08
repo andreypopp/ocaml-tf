@@ -30,7 +30,7 @@ let _ = yojson_of_mount_options
 
 type aws_datasync_location_smb = {
   agent_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain : string prop option; [@option]
   id : string prop option; [@option]
   password : string prop;
@@ -40,7 +40,7 @@ type aws_datasync_location_smb = {
   tags_all : (string * string prop) list option; [@option]
   user : string prop;
   mount_options : mount_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_aws_datasync_location_smb =
          []
        in
        let bnds =
-         if [] = v_mount_options then bnds
+         if Stdlib.( = ) [] v_mount_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mount_options) v_mount_options
@@ -139,7 +139,7 @@ let yojson_of_aws_datasync_location_smb =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_agent_arns then bnds
+         if Stdlib.( = ) [] v_agent_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

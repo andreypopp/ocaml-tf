@@ -18,7 +18,7 @@ type images = {
   name : string prop;  (** name *)
   tags : (string * string prop) list;  (** tags *)
   target_region : images__target_region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_region *)
 }
 

@@ -110,9 +110,9 @@ let _ = yojson_of_access_control__ip_allow
 type access_control = {
   akamai_signature_header_authentication_key :
     access_control__akamai_signature_header_authentication_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_allow : access_control__ip_allow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,7 +129,7 @@ let yojson_of_access_control =
          []
        in
        let bnds =
-         if [] = v_ip_allow then bnds
+         if Stdlib.( = ) [] v_ip_allow then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control__ip_allow)
@@ -139,8 +139,10 @@ let yojson_of_access_control =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_akamai_signature_header_authentication_key then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_akamai_signature_header_authentication_key
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -301,9 +303,9 @@ type azurerm_media_streaming_endpoint = {
   scale_units : float prop;
   tags : (string * string prop) list option; [@option]
   access_control : access_control list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cross_site_access_policy : cross_site_access_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -339,7 +341,7 @@ let yojson_of_azurerm_media_streaming_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cross_site_access_policy then bnds
+         if Stdlib.( = ) [] v_cross_site_access_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cross_site_access_policy)
@@ -349,7 +351,7 @@ let yojson_of_azurerm_media_streaming_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control then bnds
+         if Stdlib.( = ) [] v_access_control then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control)

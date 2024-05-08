@@ -100,9 +100,9 @@ let _ = yojson_of_details__region
 type details = {
   name : string prop;
   public_access_block : details__public_access_block list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region : details__region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_details =
          []
        in
        let bnds =
-         if [] = v_region then bnds
+         if Stdlib.( = ) [] v_region then bnds
          else
            let arg =
              (yojson_of_list yojson_of_details__region) v_region
@@ -128,7 +128,7 @@ let yojson_of_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_public_access_block then bnds
+         if Stdlib.( = ) [] v_public_access_block then bnds
          else
            let arg =
              (yojson_of_list yojson_of_details__public_access_block)
@@ -188,7 +188,8 @@ let _ = yojson_of_timeouts
 type aws_s3control_multi_region_access_point = {
   account_id : string prop option; [@option]
   id : string prop option; [@option]
-  details : details list; [@default []] [@yojson_drop_default ( = )]
+  details : details list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -211,7 +212,7 @@ let yojson_of_aws_s3control_multi_region_access_point =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_details then bnds
+         if Stdlib.( = ) [] v_details then bnds
          else
            let arg = (yojson_of_list yojson_of_details) v_details in
            let bnd = "details", arg in

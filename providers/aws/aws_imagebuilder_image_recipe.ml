@@ -107,7 +107,7 @@ type block_device_mapping = {
   no_device : bool prop option; [@option]
   virtual_name : string prop option; [@option]
   ebs : block_device_mapping__ebs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -125,7 +125,7 @@ let yojson_of_block_device_mapping =
          []
        in
        let bnds =
-         if [] = v_ebs then bnds
+         if Stdlib.( = ) [] v_ebs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_block_device_mapping__ebs)
@@ -197,7 +197,7 @@ let _ = yojson_of_component__parameter
 type component = {
   component_arn : string prop;
   parameter : component__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +210,7 @@ let yojson_of_component =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component__parameter)
@@ -265,11 +265,11 @@ type aws_imagebuilder_image_recipe = {
   version : string prop;
   working_directory : string prop option; [@option]
   block_device_mapping : block_device_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   component : component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   systems_manager_agent : systems_manager_agent list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -295,7 +295,7 @@ let yojson_of_aws_imagebuilder_image_recipe =
          []
        in
        let bnds =
-         if [] = v_systems_manager_agent then bnds
+         if Stdlib.( = ) [] v_systems_manager_agent then bnds
          else
            let arg =
              (yojson_of_list yojson_of_systems_manager_agent)
@@ -305,7 +305,7 @@ let yojson_of_aws_imagebuilder_image_recipe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component) v_component
@@ -314,7 +314,7 @@ let yojson_of_aws_imagebuilder_image_recipe =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_block_device_mapping then bnds
+         if Stdlib.( = ) [] v_block_device_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_block_device_mapping)

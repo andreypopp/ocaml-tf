@@ -56,14 +56,15 @@ let _ = yojson_of_schedule__monthly
 
 type schedule = {
   days_of_month : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  hours : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   minutes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monthly : schedule__monthly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,7 +83,7 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         if [] = v_monthly then bnds
+         if Stdlib.( = ) [] v_monthly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule__monthly) v_monthly
@@ -91,7 +92,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_minutes then bnds
+         if Stdlib.( = ) [] v_minutes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -101,7 +102,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hours then bnds
+         if Stdlib.( = ) [] v_hours then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -111,7 +112,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_days_of_week then bnds
+         if Stdlib.( = ) [] v_days_of_week then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -121,7 +122,7 @@ let yojson_of_schedule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_days_of_month then bnds
+         if Stdlib.( = ) [] v_days_of_month then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))

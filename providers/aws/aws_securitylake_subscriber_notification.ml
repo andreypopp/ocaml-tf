@@ -91,10 +91,10 @@ let _ = yojson_of_configuration__sqs_notification_configuration
 type configuration = {
   https_notification_configuration :
     configuration__https_notification_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sqs_notification_configuration :
     configuration__sqs_notification_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,8 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_sqs_notification_configuration then bnds
+         if Stdlib.( = ) [] v_sqs_notification_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -123,7 +124,8 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_https_notification_configuration then bnds
+         if Stdlib.( = ) [] v_https_notification_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -143,7 +145,7 @@ let _ = yojson_of_configuration
 type aws_securitylake_subscriber_notification = {
   subscriber_id : string prop;
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -159,7 +161,7 @@ let yojson_of_aws_securitylake_subscriber_notification =
          []
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

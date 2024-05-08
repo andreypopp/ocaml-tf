@@ -206,11 +206,12 @@ type node_pool = {
   name : string prop;
   node_count : float prop;
   nodes : node_pool__nodes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   size : string prop;
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   taint : node_pool__taint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +237,7 @@ let yojson_of_node_pool =
          []
        in
        let bnds =
-         if [] = v_taint then bnds
+         if Stdlib.( = ) [] v_taint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool__taint) v_taint
@@ -245,7 +246,7 @@ let yojson_of_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -259,7 +260,7 @@ let yojson_of_node_pool =
          ("size", arg) :: bnds
        in
        let bnds =
-         if [] = v_nodes then bnds
+         if Stdlib.( = ) [] v_nodes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_pool__nodes) v_nodes

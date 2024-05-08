@@ -79,7 +79,7 @@ let _ = yojson_of_hsm_setting
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -97,7 +97,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -217,15 +217,15 @@ type azurerm_managed_lustre_file_system = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_key : encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hsm_setting : hsm_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -258,7 +258,7 @@ let yojson_of_azurerm_managed_lustre_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)
@@ -268,7 +268,7 @@ let yojson_of_azurerm_managed_lustre_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -277,7 +277,7 @@ let yojson_of_azurerm_managed_lustre_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hsm_setting then bnds
+         if Stdlib.( = ) [] v_hsm_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hsm_setting) v_hsm_setting
@@ -286,7 +286,7 @@ let yojson_of_azurerm_managed_lustre_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_key then bnds
+         if Stdlib.( = ) [] v_encryption_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_key)
@@ -296,7 +296,7 @@ let yojson_of_azurerm_managed_lustre_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_zones then bnds
+         if Stdlib.( = ) [] v_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

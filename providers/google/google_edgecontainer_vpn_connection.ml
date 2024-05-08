@@ -120,9 +120,9 @@ let _ = yojson_of_details__cloud_router
 
 type details = {
   cloud_router : details__cloud_router list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_vpns : details__cloud_vpns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error : string prop;
   state : string prop;
 }
@@ -150,7 +150,7 @@ let yojson_of_details =
          ("error", arg) :: bnds
        in
        let bnds =
-         if [] = v_cloud_vpns then bnds
+         if Stdlib.( = ) [] v_cloud_vpns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_details__cloud_vpns)
@@ -160,7 +160,7 @@ let yojson_of_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_router then bnds
+         if Stdlib.( = ) [] v_cloud_router then bnds
          else
            let arg =
              (yojson_of_list yojson_of_details__cloud_router)
@@ -189,7 +189,7 @@ type google_edgecontainer_vpn_connection = {
   vpc : string prop option; [@option]
   timeouts : timeouts option;
   vpc_project : vpc_project list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -215,7 +215,7 @@ let yojson_of_google_edgecontainer_vpn_connection =
          []
        in
        let bnds =
-         if [] = v_vpc_project then bnds
+         if Stdlib.( = ) [] v_vpc_project then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_project) v_vpc_project

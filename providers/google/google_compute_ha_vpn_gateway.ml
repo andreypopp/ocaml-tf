@@ -89,7 +89,7 @@ type google_compute_ha_vpn_gateway = {
   stack_type : string prop option; [@option]
   timeouts : timeouts option;
   vpn_interfaces : vpn_interfaces list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,7 @@ let yojson_of_google_compute_ha_vpn_gateway =
          []
        in
        let bnds =
-         if [] = v_vpn_interfaces then bnds
+         if Stdlib.( = ) [] v_vpn_interfaces then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpn_interfaces)

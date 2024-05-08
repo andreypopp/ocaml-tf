@@ -36,7 +36,8 @@ type link = {
   name : string prop;
   provider_name : string prop option; [@option]
   speed_in_mbps : float prop option; [@option]
-  bgp : link__bgp list; [@default []] [@yojson_drop_default ( = )]
+  bgp : link__bgp list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +57,7 @@ let yojson_of_link =
          []
        in
        let bnds =
-         if [] = v_bgp then bnds
+         if Stdlib.( = ) [] v_bgp then bnds
          else
            let arg = (yojson_of_list yojson_of_link__bgp) v_bgp in
            let bnd = "bgp", arg in
@@ -158,7 +159,7 @@ let _ = yojson_of_o365_policy__traffic_category
 
 type o365_policy = {
   traffic_category : o365_policy__traffic_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -171,7 +172,7 @@ let yojson_of_o365_policy =
          []
        in
        let bnds =
-         if [] = v_traffic_category then bnds
+         if Stdlib.( = ) [] v_traffic_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_o365_policy__traffic_category)
@@ -257,9 +258,9 @@ type azurerm_vpn_site = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   virtual_wan_id : string prop;
-  link : link list; [@default []] [@yojson_drop_default ( = )]
+  link : link list; [@default []] [@yojson_drop_default Stdlib.( = )]
   o365_policy : o365_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -290,7 +291,7 @@ let yojson_of_azurerm_vpn_site =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_o365_policy then bnds
+         if Stdlib.( = ) [] v_o365_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_o365_policy) v_o365_policy
@@ -299,7 +300,7 @@ let yojson_of_azurerm_vpn_site =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_link then bnds
+         if Stdlib.( = ) [] v_link then bnds
          else
            let arg = (yojson_of_list yojson_of_link) v_link in
            let bnd = "link", arg in

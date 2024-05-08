@@ -63,9 +63,9 @@ type google_logging_project_bucket_config = {
   project : string prop;
   retention_days : float prop option; [@option]
   cmek_settings : cmek_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   index_configs : index_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_google_logging_project_bucket_config =
          []
        in
        let bnds =
-         if [] = v_index_configs then bnds
+         if Stdlib.( = ) [] v_index_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_index_configs) v_index_configs
@@ -98,7 +98,7 @@ let yojson_of_google_logging_project_bucket_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cmek_settings then bnds
+         if Stdlib.( = ) [] v_cmek_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cmek_settings) v_cmek_settings

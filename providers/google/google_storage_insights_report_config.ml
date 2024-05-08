@@ -125,9 +125,9 @@ let _ = yojson_of_frequency_options__start_date
 type frequency_options = {
   frequency : string prop;
   end_date : frequency_options__end_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_date : frequency_options__start_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_frequency_options =
          []
        in
        let bnds =
-         if [] = v_start_date then bnds
+         if Stdlib.( = ) [] v_start_date then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frequency_options__start_date)
@@ -154,7 +154,7 @@ let yojson_of_frequency_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_end_date then bnds
+         if Stdlib.( = ) [] v_end_date then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frequency_options__end_date)
@@ -245,13 +245,13 @@ let _ = yojson_of_object_metadata_report_options__storage_filters
 
 type object_metadata_report_options = {
   metadata_fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_destination_options :
     object_metadata_report_options__storage_destination_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_filters :
     object_metadata_report_options__storage_filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -268,7 +268,7 @@ let yojson_of_object_metadata_report_options =
          []
        in
        let bnds =
-         if [] = v_storage_filters then bnds
+         if Stdlib.( = ) [] v_storage_filters then bnds
          else
            let arg =
              (yojson_of_list
@@ -279,7 +279,7 @@ let yojson_of_object_metadata_report_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_destination_options then bnds
+         if Stdlib.( = ) [] v_storage_destination_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -290,7 +290,7 @@ let yojson_of_object_metadata_report_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata_fields then bnds
+         if Stdlib.( = ) [] v_metadata_fields then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -359,12 +359,12 @@ type google_storage_insights_report_config = {
   location : string prop;
   project : string prop option; [@option]
   csv_options : csv_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frequency_options : frequency_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   object_metadata_report_options :
     object_metadata_report_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -392,7 +392,8 @@ let yojson_of_google_storage_insights_report_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_object_metadata_report_options then bnds
+         if Stdlib.( = ) [] v_object_metadata_report_options then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_object_metadata_report_options)
@@ -402,7 +403,7 @@ let yojson_of_google_storage_insights_report_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frequency_options then bnds
+         if Stdlib.( = ) [] v_frequency_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frequency_options)
@@ -412,7 +413,7 @@ let yojson_of_google_storage_insights_report_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv_options then bnds
+         if Stdlib.( = ) [] v_csv_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_csv_options) v_csv_options

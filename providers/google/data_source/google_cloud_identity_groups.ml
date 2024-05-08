@@ -63,12 +63,12 @@ let _ = yojson_of_groups__additional_group_keys
 
 type groups = {
   additional_group_keys : groups__additional_group_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   create_time : string prop;
   description : string prop;
   display_name : string prop;
   group_key : groups__group_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_group_config : string prop;
   labels : (string * string prop) list;
   name : string prop;
@@ -127,7 +127,7 @@ let yojson_of_groups =
          ("initial_group_config", arg) :: bnds
        in
        let bnds =
-         if [] = v_group_key then bnds
+         if Stdlib.( = ) [] v_group_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_groups__group_key) v_group_key
@@ -148,7 +148,7 @@ let yojson_of_groups =
          ("create_time", arg) :: bnds
        in
        let bnds =
-         if [] = v_additional_group_keys then bnds
+         if Stdlib.( = ) [] v_additional_group_keys then bnds
          else
            let arg =
              (yojson_of_list yojson_of_groups__additional_group_keys)

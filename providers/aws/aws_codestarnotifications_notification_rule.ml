@@ -38,14 +38,15 @@ let _ = yojson_of_target
 type aws_codestarnotifications_notification_rule = {
   detail_type : string prop;
   event_type_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   resource : string prop;
   status : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  target : target list; [@default []] [@yojson_drop_default ( = )]
+  target : target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,7 +69,7 @@ let yojson_of_aws_codestarnotifications_notification_rule =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg = (yojson_of_list yojson_of_target) v_target in
            let bnd = "target", arg in
@@ -131,7 +132,7 @@ let yojson_of_aws_codestarnotifications_notification_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_event_type_ids then bnds
+         if Stdlib.( = ) [] v_event_type_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

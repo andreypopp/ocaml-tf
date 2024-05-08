@@ -7,7 +7,7 @@ open! Tf_core
 type cleanup_policies__most_recent_versions = {
   keep_count : float prop;  (** keep_count *)
   package_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** package_name_prefixes *)
 }
 
@@ -15,25 +15,25 @@ type cleanup_policies__condition = {
   newer_than : string prop;  (** newer_than *)
   older_than : string prop;  (** older_than *)
   package_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** package_name_prefixes *)
   tag_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag_prefixes *)
   tag_state : string prop;  (** tag_state *)
   version_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** version_name_prefixes *)
 }
 
 type cleanup_policies = {
   action : string prop;  (** action *)
   condition : cleanup_policies__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** condition *)
   id : string prop;  (** id *)
   most_recent_versions : cleanup_policies__most_recent_versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** most_recent_versions *)
 }
 
@@ -55,7 +55,7 @@ type remote_repository_config__yum_repository__public_repository = {
 type remote_repository_config__yum_repository = {
   public_repository :
     remote_repository_config__yum_repository__public_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_repository *)
 }
 
@@ -69,7 +69,7 @@ type remote_repository_config__upstream_credentials = {
   username_password_credentials :
     remote_repository_config__upstream_credentials__username_password_credentials
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** username_password_credentials *)
 }
 
@@ -97,35 +97,35 @@ type remote_repository_config__apt_repository__public_repository = {
 type remote_repository_config__apt_repository = {
   public_repository :
     remote_repository_config__apt_repository__public_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_repository *)
 }
 
 type remote_repository_config = {
   apt_repository : remote_repository_config__apt_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** apt_repository *)
   description : string prop;  (** description *)
   docker_repository :
     remote_repository_config__docker_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** docker_repository *)
   maven_repository : remote_repository_config__maven_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maven_repository *)
   npm_repository : remote_repository_config__npm_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** npm_repository *)
   python_repository :
     remote_repository_config__python_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** python_repository *)
   upstream_credentials :
     remote_repository_config__upstream_credentials list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upstream_credentials *)
   yum_repository : remote_repository_config__yum_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** yum_repository *)
 }
 
@@ -138,7 +138,7 @@ type virtual_repository_config__upstream_policies = {
 type virtual_repository_config = {
   upstream_policies :
     virtual_repository_config__upstream_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upstream_policies *)
 }
 

@@ -113,7 +113,7 @@ type aws_cloudhsm_v2_cluster = {
   id : string prop option; [@option]
   source_backup_identifier : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   timeouts : timeouts option;
@@ -173,7 +173,7 @@ let yojson_of_aws_cloudhsm_v2_cluster =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

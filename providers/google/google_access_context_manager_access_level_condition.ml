@@ -44,7 +44,7 @@ type device_policy = {
   require_corp_owned : bool prop option; [@option]
   require_screen_lock : bool prop option; [@option]
   os_constraints : device_policy__os_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_device_policy =
          []
        in
        let bnds =
-         if [] = v_os_constraints then bnds
+         if Stdlib.( = ) [] v_os_constraints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_device_policy__os_constraints)
@@ -203,7 +203,7 @@ let _ = yojson_of_vpc_network_sources__vpc_subnetwork
 
 type vpc_network_sources = {
   vpc_subnetwork : vpc_network_sources__vpc_subnetwork list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,7 +216,7 @@ let yojson_of_vpc_network_sources =
          []
        in
        let bnds =
-         if [] = v_vpc_subnetwork then bnds
+         if Stdlib.( = ) [] v_vpc_subnetwork then bnds
          else
            let arg =
              (yojson_of_list
@@ -242,10 +242,10 @@ type google_access_context_manager_access_level_condition = {
   regions : string prop list option; [@option]
   required_access_levels : string prop list option; [@option]
   device_policy : device_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_network_sources : vpc_network_sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -270,7 +270,7 @@ let yojson_of_google_access_context_manager_access_level_condition =
          []
        in
        let bnds =
-         if [] = v_vpc_network_sources then bnds
+         if Stdlib.( = ) [] v_vpc_network_sources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_network_sources)
@@ -284,7 +284,7 @@ let yojson_of_google_access_context_manager_access_level_condition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_device_policy then bnds
+         if Stdlib.( = ) [] v_device_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_device_policy) v_device_policy

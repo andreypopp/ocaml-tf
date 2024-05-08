@@ -35,7 +35,7 @@ let _ = yojson_of_metadata_filters__filter_labels
 type metadata_filters = {
   filter_match_criteria : string prop;
   filter_labels : metadata_filters__filter_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_metadata_filters =
          []
        in
        let bnds =
-         if [] = v_filter_labels then bnds
+         if Stdlib.( = ) [] v_filter_labels then bnds
          else
            let arg =
              (yojson_of_list
@@ -178,10 +178,10 @@ type google_compute_global_forwarding_rule = {
   subnetwork : string prop option; [@option]
   target : string prop;
   metadata_filters : metadata_filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_directory_registrations :
     service_directory_registrations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -219,7 +219,8 @@ let yojson_of_google_compute_global_forwarding_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_directory_registrations then bnds
+         if Stdlib.( = ) [] v_service_directory_registrations then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -230,7 +231,7 @@ let yojson_of_google_compute_global_forwarding_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata_filters then bnds
+         if Stdlib.( = ) [] v_metadata_filters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata_filters)

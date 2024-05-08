@@ -11,16 +11,16 @@ type log_config = {
 
 type rules__action = {
   source_nat_active_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_nat_active_ips *)
   source_nat_drain_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_nat_drain_ips *)
 }
 
 type rules = {
   action : rules__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** action *)
   description : string prop;  (** description *)
   match_ : string prop; [@key "match"]  (** match *)
@@ -30,10 +30,10 @@ type rules = {
 type subnetwork = {
   name : string prop;  (** name *)
   secondary_ip_range_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secondary_ip_range_names *)
   source_ip_ranges_to_nat : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_ip_ranges_to_nat *)
 }
 

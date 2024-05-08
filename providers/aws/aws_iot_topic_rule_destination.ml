@@ -52,7 +52,7 @@ type vpc_configuration = {
   role_arn : string prop;
   security_groups : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -75,7 +75,7 @@ let yojson_of_vpc_configuration =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -110,7 +110,7 @@ type aws_iot_topic_rule_destination = {
   id : string prop option; [@option]
   timeouts : timeouts option;
   vpc_configuration : vpc_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_aws_iot_topic_rule_destination =
          []
        in
        let bnds =
-         if [] = v_vpc_configuration then bnds
+         if Stdlib.( = ) [] v_vpc_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_configuration)

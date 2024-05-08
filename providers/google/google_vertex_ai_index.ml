@@ -65,10 +65,10 @@ let _ = yojson_of_metadata__config__algorithm_config__tree_ah_config
 type metadata__config__algorithm_config = {
   brute_force_config :
     metadata__config__algorithm_config__brute_force_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tree_ah_config :
     metadata__config__algorithm_config__tree_ah_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,7 +84,7 @@ let yojson_of_metadata__config__algorithm_config =
          []
        in
        let bnds =
-         if [] = v_tree_ah_config then bnds
+         if Stdlib.( = ) [] v_tree_ah_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -95,7 +95,7 @@ let yojson_of_metadata__config__algorithm_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_brute_force_config then bnds
+         if Stdlib.( = ) [] v_brute_force_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -120,7 +120,7 @@ type metadata__config = {
   feature_norm_type : string prop option; [@option]
   shard_size : string prop option; [@option]
   algorithm_config : metadata__config__algorithm_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -140,7 +140,7 @@ let yojson_of_metadata__config =
          []
        in
        let bnds =
-         if [] = v_algorithm_config then bnds
+         if Stdlib.( = ) [] v_algorithm_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +197,7 @@ type metadata = {
   contents_delta_uri : string prop;
   is_complete_overwrite : bool prop option; [@option]
   config : metadata__config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,7 +214,7 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata__config) v_config
@@ -366,7 +366,7 @@ type google_vertex_ai_index = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -394,7 +394,7 @@ let yojson_of_google_vertex_ai_index =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

@@ -96,7 +96,7 @@ let _ = yojson_of_sending_options
 
 type suppression_options = {
   suppressed_reasons : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_suppression_options =
          []
        in
        let bnds =
-         if [] = v_suppressed_reasons then bnds
+         if Stdlib.( = ) [] v_suppressed_reasons then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -206,9 +206,9 @@ let _ = yojson_of_vdm_options__dashboard_options
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   guardian_options : vdm_options__guardian_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,7 +224,7 @@ let yojson_of_vdm_options =
          []
        in
        let bnds =
-         if [] = v_guardian_options then bnds
+         if Stdlib.( = ) [] v_guardian_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vdm_options__guardian_options)
@@ -234,7 +234,7 @@ let yojson_of_vdm_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dashboard_options then bnds
+         if Stdlib.( = ) [] v_dashboard_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vdm_options__dashboard_options)

@@ -41,7 +41,7 @@ let _ = yojson_of_delegation__service_delegation
 type delegation = {
   name : string prop;
   service_delegation : delegation__service_delegation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_delegation =
          []
        in
        let bnds =
-         if [] = v_service_delegation then bnds
+         if Stdlib.( = ) [] v_service_delegation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delegation__service_delegation)
@@ -136,7 +136,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_subnet = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enforce_private_link_endpoint_network_policies : bool prop option;
       [@option]
   enforce_private_link_service_network_policies : bool prop option;
@@ -152,7 +152,7 @@ type azurerm_subnet = {
   service_endpoints : string prop list option; [@option]
   virtual_network_name : string prop;
   delegation : delegation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -188,7 +188,7 @@ let yojson_of_azurerm_subnet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_delegation then bnds
+         if Stdlib.( = ) [] v_delegation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delegation) v_delegation
@@ -281,7 +281,7 @@ let yojson_of_azurerm_subnet =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_address_prefixes then bnds
+         if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

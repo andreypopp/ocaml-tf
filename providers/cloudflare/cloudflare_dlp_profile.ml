@@ -40,7 +40,7 @@ type entry = {
   id : string prop option; [@option]
   name : string prop;
   pattern : entry__pattern list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_entry =
          []
        in
        let bnds =
-         if [] = v_pattern then bnds
+         if Stdlib.( = ) [] v_pattern then bnds
          else
            let arg =
              (yojson_of_list yojson_of_entry__pattern) v_pattern
@@ -100,7 +100,8 @@ type cloudflare_dlp_profile = {
   id : string prop option; [@option]
   name : string prop;
   type_ : string prop; [@key "type"]
-  entry : entry list; [@default []] [@yojson_drop_default ( = )]
+  entry : entry list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +122,7 @@ let yojson_of_cloudflare_dlp_profile =
          []
        in
        let bnds =
-         if [] = v_entry then bnds
+         if Stdlib.( = ) [] v_entry then bnds
          else
            let arg = (yojson_of_list yojson_of_entry) v_entry in
            let bnd = "entry", arg in

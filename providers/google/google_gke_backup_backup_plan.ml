@@ -66,7 +66,7 @@ let _ =
 type backup_config__selected_applications = {
   namespaced_names :
     backup_config__selected_applications__namespaced_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_backup_config__selected_applications =
          []
        in
        let bnds =
-         if [] = v_namespaced_names then bnds
+         if Stdlib.( = ) [] v_namespaced_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -99,7 +99,7 @@ let _ = yojson_of_backup_config__selected_applications
 
 type backup_config__selected_namespaces = {
   namespaces : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,7 @@ let yojson_of_backup_config__selected_namespaces =
          []
        in
        let bnds =
-         if [] = v_namespaces then bnds
+         if Stdlib.( = ) [] v_namespaces then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -134,11 +134,11 @@ type backup_config = {
   include_secrets : bool prop option; [@option]
   include_volume_data : bool prop option; [@option]
   encryption_key : backup_config__encryption_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selected_applications : backup_config__selected_applications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selected_namespaces : backup_config__selected_namespaces list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,7 +158,7 @@ let yojson_of_backup_config =
          []
        in
        let bnds =
-         if [] = v_selected_namespaces then bnds
+         if Stdlib.( = ) [] v_selected_namespaces then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,7 +169,7 @@ let yojson_of_backup_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_selected_applications then bnds
+         if Stdlib.( = ) [] v_selected_applications then bnds
          else
            let arg =
              (yojson_of_list
@@ -180,7 +180,7 @@ let yojson_of_backup_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_key then bnds
+         if Stdlib.( = ) [] v_encryption_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backup_config__encryption_key)
@@ -363,11 +363,11 @@ type google_gke_backup_backup_plan = {
   name : string prop;
   project : string prop option; [@option]
   backup_config : backup_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backup_schedule : backup_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_policy : retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -398,7 +398,7 @@ let yojson_of_google_gke_backup_backup_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_policy)
@@ -408,7 +408,7 @@ let yojson_of_google_gke_backup_backup_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backup_schedule then bnds
+         if Stdlib.( = ) [] v_backup_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backup_schedule)
@@ -418,7 +418,7 @@ let yojson_of_google_gke_backup_backup_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backup_config then bnds
+         if Stdlib.( = ) [] v_backup_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backup_config) v_backup_config

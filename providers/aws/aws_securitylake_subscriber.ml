@@ -156,10 +156,10 @@ let _ = yojson_of_source__custom_log_source_resource
 
 type source = {
   aws_log_source_resource : source__aws_log_source_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_log_source_resource :
     source__custom_log_source_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,7 +175,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_custom_log_source_resource then bnds
+         if Stdlib.( = ) [] v_custom_log_source_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -186,7 +186,7 @@ let yojson_of_source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_log_source_resource then bnds
+         if Stdlib.( = ) [] v_aws_log_source_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -283,9 +283,10 @@ type aws_securitylake_subscriber = {
   subscriber_description : string prop option; [@option]
   subscriber_name : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscriber_identity : subscriber_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,7 +312,7 @@ let yojson_of_aws_securitylake_subscriber =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscriber_identity then bnds
+         if Stdlib.( = ) [] v_subscriber_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subscriber_identity)
@@ -321,7 +322,7 @@ let yojson_of_aws_securitylake_subscriber =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in

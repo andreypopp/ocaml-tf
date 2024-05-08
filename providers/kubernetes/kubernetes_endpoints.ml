@@ -216,10 +216,11 @@ let _ = yojson_of_subset__port
 
 type subset = {
   address : subset__address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not_ready_address : subset__not_ready_address list;
-      [@default []] [@yojson_drop_default ( = )]
-  port : subset__port list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  port : subset__port list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +237,7 @@ let yojson_of_subset =
          []
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subset__port) v_port
@@ -245,7 +246,7 @@ let yojson_of_subset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_not_ready_address then bnds
+         if Stdlib.( = ) [] v_not_ready_address then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subset__not_ready_address)
@@ -255,7 +256,7 @@ let yojson_of_subset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_address then bnds
+         if Stdlib.( = ) [] v_address then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subset__address) v_address
@@ -273,8 +274,9 @@ let _ = yojson_of_subset
 type kubernetes_endpoints = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  subset : subset list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  subset : subset list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -287,14 +289,14 @@ let yojson_of_kubernetes_endpoints =
          []
        in
        let bnds =
-         if [] = v_subset then bnds
+         if Stdlib.( = ) [] v_subset then bnds
          else
            let arg = (yojson_of_list yojson_of_subset) v_subset in
            let bnd = "subset", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

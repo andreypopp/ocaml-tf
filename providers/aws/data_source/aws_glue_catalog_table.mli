@@ -7,7 +7,8 @@ open! Tf_core
 type partition_index = {
   index_name : string prop;  (** index_name *)
   index_status : string prop;  (** index_status *)
-  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
+  keys : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** keys *)
 }
 
@@ -24,12 +25,12 @@ type storage_descriptor__sort_columns = {
 
 type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** skewed_column_names *)
   skewed_column_value_location_maps : (string * string prop) list;
       (** skewed_column_value_location_maps *)
   skewed_column_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** skewed_column_values *)
 }
 
@@ -47,7 +48,7 @@ type storage_descriptor__schema_reference__schema_id = {
 
 type storage_descriptor__schema_reference = {
   schema_id : storage_descriptor__schema_reference__schema_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schema_id *)
   schema_version_id : string prop;  (** schema_version_id *)
   schema_version_number : float prop;  (** schema_version_number *)
@@ -62,10 +63,10 @@ type storage_descriptor__columns = {
 
 type storage_descriptor = {
   bucket_columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** bucket_columns *)
   columns : storage_descriptor__columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** columns *)
   compressed : bool prop;  (** compressed *)
   input_format : string prop;  (** input_format *)
@@ -74,16 +75,16 @@ type storage_descriptor = {
   output_format : string prop;  (** output_format *)
   parameters : (string * string prop) list;  (** parameters *)
   schema_reference : storage_descriptor__schema_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schema_reference *)
   ser_de_info : storage_descriptor__ser_de_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ser_de_info *)
   skewed_info : storage_descriptor__skewed_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** skewed_info *)
   sort_columns : storage_descriptor__sort_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sort_columns *)
   stored_as_sub_directories : bool prop;
       (** stored_as_sub_directories *)

@@ -7,7 +7,7 @@ type aws_dms_replication_subnet_group = {
   replication_subnet_group_description : string prop;
   replication_subnet_group_id : string prop;
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
 }
@@ -62,7 +62,7 @@ let yojson_of_aws_dms_replication_subnet_group =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

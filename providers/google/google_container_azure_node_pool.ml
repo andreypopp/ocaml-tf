@@ -123,11 +123,11 @@ type config = {
   tags : (string * string prop) list option; [@option]
   vm_size : string prop option; [@option]
   proxy_config : config__proxy_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_volume : config__root_volume list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssh_config : config__ssh_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_config =
          []
        in
        let bnds =
-         if [] = v_ssh_config then bnds
+         if Stdlib.( = ) [] v_ssh_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__ssh_config)
@@ -157,7 +157,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_root_volume then bnds
+         if Stdlib.( = ) [] v_root_volume then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__root_volume)
@@ -167,7 +167,7 @@ let yojson_of_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy_config then bnds
+         if Stdlib.( = ) [] v_proxy_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_config__proxy_config)
@@ -330,12 +330,13 @@ type google_container_azure_node_pool = {
   subnet_id : string prop;
   version : string prop;
   autoscaling : autoscaling list;
-      [@default []] [@yojson_drop_default ( = )]
-  config : config list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  config : config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_pods_constraint : max_pods_constraint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -368,7 +369,7 @@ let yojson_of_google_container_azure_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_max_pods_constraint then bnds
+         if Stdlib.( = ) [] v_max_pods_constraint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_max_pods_constraint)
@@ -378,7 +379,7 @@ let yojson_of_google_container_azure_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management) v_management
@@ -387,14 +388,14 @@ let yojson_of_google_container_azure_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg = (yojson_of_list yojson_of_config) v_config in
            let bnd = "config", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling then bnds
+         if Stdlib.( = ) [] v_autoscaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscaling) v_autoscaling

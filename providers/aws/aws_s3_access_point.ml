@@ -94,9 +94,9 @@ type aws_s3_access_point = {
   policy : string prop option; [@option]
   public_access_block_configuration :
     public_access_block_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_configuration : vpc_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_aws_s3_access_point =
          []
        in
        let bnds =
-         if [] = v_vpc_configuration then bnds
+         if Stdlib.( = ) [] v_vpc_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_configuration)
@@ -129,7 +129,8 @@ let yojson_of_aws_s3_access_point =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_public_access_block_configuration then bnds
+         if Stdlib.( = ) [] v_public_access_block_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list

@@ -78,7 +78,7 @@ type request__header = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : request__header__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,7 +101,7 @@ let yojson_of_request__header =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request__header__example)
@@ -248,7 +248,7 @@ type request__query_parameter = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : request__query_parameter__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -271,7 +271,7 @@ let yojson_of_request__query_parameter =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list
@@ -487,7 +487,7 @@ type request__representation__form_parameter = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : request__representation__form_parameter__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -510,7 +510,7 @@ let yojson_of_request__representation__form_parameter =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list
@@ -587,9 +587,9 @@ type request__representation = {
   schema_id : string prop option; [@option]
   type_name : string prop option; [@option]
   example : request__representation__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   form_parameter : request__representation__form_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -608,7 +608,7 @@ let yojson_of_request__representation =
          []
        in
        let bnds =
-         if [] = v_form_parameter then bnds
+         if Stdlib.( = ) [] v_form_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -619,7 +619,7 @@ let yojson_of_request__representation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list
@@ -659,11 +659,11 @@ let _ = yojson_of_request__representation
 type request = {
   description : string prop option; [@option]
   header : request__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_parameter : request__query_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   representation : request__representation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -681,7 +681,7 @@ let yojson_of_request =
          []
        in
        let bnds =
-         if [] = v_representation then bnds
+         if Stdlib.( = ) [] v_representation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request__representation)
@@ -691,7 +691,7 @@ let yojson_of_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_parameter then bnds
+         if Stdlib.( = ) [] v_query_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request__query_parameter)
@@ -701,7 +701,7 @@ let yojson_of_request =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_request__header) v_header
@@ -800,7 +800,7 @@ type response__header = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : response__header__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -823,7 +823,7 @@ let yojson_of_response__header =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list yojson_of_response__header__example)
@@ -1038,7 +1038,7 @@ type response__representation__form_parameter = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : response__representation__form_parameter__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1061,7 +1061,7 @@ let yojson_of_response__representation__form_parameter =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list
@@ -1138,9 +1138,9 @@ type response__representation = {
   schema_id : string prop option; [@option]
   type_name : string prop option; [@option]
   example : response__representation__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   form_parameter : response__representation__form_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1159,7 +1159,7 @@ let yojson_of_response__representation =
          []
        in
        let bnds =
-         if [] = v_form_parameter then bnds
+         if Stdlib.( = ) [] v_form_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -1170,7 +1170,7 @@ let yojson_of_response__representation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list
@@ -1211,9 +1211,9 @@ type response = {
   description : string prop option; [@option]
   status_code : float prop;
   header : response__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   representation : response__representation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1231,7 +1231,7 @@ let yojson_of_response =
          []
        in
        let bnds =
-         if [] = v_representation then bnds
+         if Stdlib.( = ) [] v_representation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_response__representation)
@@ -1241,7 +1241,7 @@ let yojson_of_response =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_response__header) v_header
@@ -1345,7 +1345,7 @@ type template_parameter = {
   type_name : string prop option; [@option]
   values : string prop list option; [@option]
   example : template_parameter__example list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1368,7 +1368,7 @@ let yojson_of_template_parameter =
          []
        in
        let bnds =
-         if [] = v_example then bnds
+         if Stdlib.( = ) [] v_example then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template_parameter__example)
@@ -1508,11 +1508,12 @@ type azurerm_api_management_api_operation = {
   operation_id : string prop;
   resource_group_name : string prop;
   url_template : string prop;
-  request : request list; [@default []] [@yojson_drop_default ( = )]
+  request : request list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response : response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   template_parameter : template_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1544,7 +1545,7 @@ let yojson_of_azurerm_api_management_api_operation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_template_parameter then bnds
+         if Stdlib.( = ) [] v_template_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_template_parameter)
@@ -1554,7 +1555,7 @@ let yojson_of_azurerm_api_management_api_operation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_response then bnds
+         if Stdlib.( = ) [] v_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_response) v_response
@@ -1563,7 +1564,7 @@ let yojson_of_azurerm_api_management_api_operation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request then bnds
+         if Stdlib.( = ) [] v_request then bnds
          else
            let arg = (yojson_of_list yojson_of_request) v_request in
            let bnd = "request", arg in

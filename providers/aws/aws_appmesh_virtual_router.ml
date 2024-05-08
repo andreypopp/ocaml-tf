@@ -34,7 +34,7 @@ let _ = yojson_of_spec__listener__port_mapping
 
 type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_spec__listener =
          []
        in
        let bnds =
-         if [] = v_port_mapping then bnds
+         if Stdlib.( = ) [] v_port_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__port_mapping)
@@ -65,7 +65,7 @@ let _ = yojson_of_spec__listener
 
 type spec = {
   listener : spec__listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,7 +78,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_listener then bnds
+         if Stdlib.( = ) [] v_listener then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener) v_listener
@@ -100,7 +100,7 @@ type aws_appmesh_virtual_router = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_aws_appmesh_virtual_router =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in

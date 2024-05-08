@@ -41,7 +41,7 @@ type log = {
   resource_log_enabled : bool prop option; [@option]
   subscription_log_enabled : bool prop option; [@option]
   filter : log__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +59,7 @@ let yojson_of_log =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log__filter) v_filter
@@ -134,7 +134,7 @@ let _ = yojson_of_metric__filter
 
 type metric = {
   filter : metric__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_metric =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metric__filter) v_filter
@@ -226,8 +226,9 @@ type azurerm_datadog_monitor_tag_rule = {
   datadog_monitor_id : string prop;
   id : string prop option; [@option]
   name : string prop option; [@option]
-  log : log list; [@default []] [@yojson_drop_default ( = )]
-  metric : metric list; [@default []] [@yojson_drop_default ( = )]
+  log : log list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  metric : metric list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -252,14 +253,14 @@ let yojson_of_azurerm_datadog_monitor_tag_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg = (yojson_of_list yojson_of_metric) v_metric in
            let bnd = "metric", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log then bnds
+         if Stdlib.( = ) [] v_log then bnds
          else
            let arg = (yojson_of_list yojson_of_log) v_log in
            let bnd = "log", arg in

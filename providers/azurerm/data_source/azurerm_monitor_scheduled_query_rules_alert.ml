@@ -30,7 +30,7 @@ let _ = yojson_of_timeouts
 
 type action = {
   action_group : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_webhook_payload : string prop;
   email_subject : string prop;
 }
@@ -59,7 +59,7 @@ let yojson_of_action =
          ("custom_webhook_payload", arg) :: bnds
        in
        let bnds =
-         if [] = v_action_group then bnds
+         if Stdlib.( = ) [] v_action_group then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -123,7 +123,7 @@ let _ = yojson_of_trigger__metric_trigger
 
 type trigger = {
   metric_trigger : trigger__metric_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   operator : string prop;
   threshold : float prop;
 }
@@ -150,7 +150,7 @@ let yojson_of_trigger =
          ("operator", arg) :: bnds
        in
        let bnds =
-         if [] = v_metric_trigger then bnds
+         if Stdlib.( = ) [] v_metric_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trigger__metric_trigger)

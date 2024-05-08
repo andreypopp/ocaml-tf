@@ -26,7 +26,7 @@ let _ = yojson_of_destination__amp
 
 type destination = {
   amp : destination__amp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +39,7 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         if [] = v_amp then bnds
+         if Stdlib.( = ) [] v_amp then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination__amp) v_amp
@@ -58,7 +58,7 @@ type source__eks = {
   cluster_arn : string prop;
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_source__eks =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -106,7 +106,8 @@ let _ = yojson_of_source__eks
 [@@@deriving.end]
 
 type source = {
-  eks : source__eks list; [@default []] [@yojson_drop_default ( = )]
+  eks : source__eks list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +120,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_eks then bnds
+         if Stdlib.( = ) [] v_eks then bnds
          else
            let arg = (yojson_of_list yojson_of_source__eks) v_eks in
            let bnd = "eks", arg in
@@ -174,8 +175,9 @@ type aws_prometheus_scraper = {
   scrape_configuration : string prop;
   tags : (string * string prop) list option; [@option]
   destination : destination list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -200,14 +202,14 @@ let yojson_of_aws_prometheus_scraper =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination) v_destination

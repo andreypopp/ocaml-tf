@@ -34,7 +34,7 @@ let _ = yojson_of_spec__tcp_route__timeout__idle
 
 type spec__tcp_route__timeout = {
   idle : spec__tcp_route__timeout__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_spec__tcp_route__timeout =
          []
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__tcp_route__timeout__idle)
@@ -126,7 +126,7 @@ let _ = yojson_of_spec__tcp_route__action__weighted_target
 
 type spec__tcp_route__action = {
   weighted_target : spec__tcp_route__action__weighted_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -139,7 +139,7 @@ let yojson_of_spec__tcp_route__action =
          []
        in
        let bnds =
-         if [] = v_weighted_target then bnds
+         if Stdlib.( = ) [] v_weighted_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -158,11 +158,13 @@ let _ = yojson_of_spec__tcp_route__action
 
 type spec__tcp_route = {
   action : spec__tcp_route__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_ : spec__tcp_route__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   timeout : spec__tcp_route__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,7 +177,7 @@ let yojson_of_spec__tcp_route =
          []
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__tcp_route__timeout)
@@ -185,7 +187,7 @@ let yojson_of_spec__tcp_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__tcp_route__match)
@@ -195,7 +197,7 @@ let yojson_of_spec__tcp_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__tcp_route__action)
@@ -273,9 +275,9 @@ let _ = yojson_of_spec__http_route__timeout__idle
 
 type spec__http_route__timeout = {
   idle : spec__http_route__timeout__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__http_route__timeout__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -288,7 +290,7 @@ let yojson_of_spec__http_route__timeout =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -299,7 +301,7 @@ let yojson_of_spec__http_route__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -349,13 +351,13 @@ let _ = yojson_of_spec__http_route__retry_policy__per_retry_timeout
 
 type spec__http_route__retry_policy = {
   http_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_retries : float prop;
   per_retry_timeout :
     spec__http_route__retry_policy__per_retry_timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -373,7 +375,7 @@ let yojson_of_spec__http_route__retry_policy =
          []
        in
        let bnds =
-         if [] = v_tcp_retry_events then bnds
+         if Stdlib.( = ) [] v_tcp_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -383,7 +385,7 @@ let yojson_of_spec__http_route__retry_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_per_retry_timeout then bnds
+         if Stdlib.( = ) [] v_per_retry_timeout then bnds
          else
            let arg =
              (yojson_of_list
@@ -398,7 +400,7 @@ let yojson_of_spec__http_route__retry_policy =
          ("max_retries", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_retry_events then bnds
+         if Stdlib.( = ) [] v_http_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -443,7 +445,9 @@ let _ = yojson_of_spec__http_route__match__query_parameter__match
 
 type spec__http_route__match__query_parameter = {
   match_ : spec__http_route__match__query_parameter__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -461,7 +465,7 @@ let yojson_of_spec__http_route__match__query_parameter =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -543,7 +547,7 @@ type spec__http_route__match__header__match = {
   exact : string prop;
   prefix : string prop;
   range : spec__http_route__match__header__match__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regex : string prop;
   suffix : string prop;
 }
@@ -572,7 +576,7 @@ let yojson_of_spec__http_route__match__header__match =
          ("regex", arg) :: bnds
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -601,7 +605,9 @@ let _ = yojson_of_spec__http_route__match__header__match
 type spec__http_route__match__header = {
   invert : bool prop;
   match_ : spec__http_route__match__header__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -619,7 +625,7 @@ let yojson_of_spec__http_route__match__header =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -643,14 +649,14 @@ let _ = yojson_of_spec__http_route__match__header
 
 type spec__http_route__match = {
   header : spec__http_route__match__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   method_ : string prop; [@key "method"]
   path : spec__http_route__match__path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port : float prop;
   prefix : string prop;
   query_parameter : spec__http_route__match__query_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scheme : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -676,7 +682,7 @@ let yojson_of_spec__http_route__match =
          ("scheme", arg) :: bnds
        in
        let bnds =
-         if [] = v_query_parameter then bnds
+         if Stdlib.( = ) [] v_query_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -695,7 +701,7 @@ let yojson_of_spec__http_route__match =
          ("port", arg) :: bnds
        in
        let bnds =
-         if [] = v_path then bnds
+         if Stdlib.( = ) [] v_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route__match__path)
@@ -709,7 +715,7 @@ let yojson_of_spec__http_route__match =
          ("method", arg) :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -767,7 +773,7 @@ let _ = yojson_of_spec__http_route__action__weighted_target
 
 type spec__http_route__action = {
   weighted_target : spec__http_route__action__weighted_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -780,7 +786,7 @@ let yojson_of_spec__http_route__action =
          []
        in
        let bnds =
-         if [] = v_weighted_target then bnds
+         if Stdlib.( = ) [] v_weighted_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -799,13 +805,15 @@ let _ = yojson_of_spec__http_route__action
 
 type spec__http_route = {
   action : spec__http_route__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_ : spec__http_route__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   retry_policy : spec__http_route__retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : spec__http_route__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -823,7 +831,7 @@ let yojson_of_spec__http_route =
          []
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route__timeout)
@@ -833,7 +841,7 @@ let yojson_of_spec__http_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route__retry_policy)
@@ -843,7 +851,7 @@ let yojson_of_spec__http_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route__match)
@@ -853,7 +861,7 @@ let yojson_of_spec__http_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route__action)
@@ -931,9 +939,9 @@ let _ = yojson_of_spec__http2_route__timeout__idle
 
 type spec__http2_route__timeout = {
   idle : spec__http2_route__timeout__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__http2_route__timeout__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -946,7 +954,7 @@ let yojson_of_spec__http2_route__timeout =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -957,7 +965,7 @@ let yojson_of_spec__http2_route__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1007,13 +1015,13 @@ let _ = yojson_of_spec__http2_route__retry_policy__per_retry_timeout
 
 type spec__http2_route__retry_policy = {
   http_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_retries : float prop;
   per_retry_timeout :
     spec__http2_route__retry_policy__per_retry_timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1031,7 +1039,7 @@ let yojson_of_spec__http2_route__retry_policy =
          []
        in
        let bnds =
-         if [] = v_tcp_retry_events then bnds
+         if Stdlib.( = ) [] v_tcp_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1041,7 +1049,7 @@ let yojson_of_spec__http2_route__retry_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_per_retry_timeout then bnds
+         if Stdlib.( = ) [] v_per_retry_timeout then bnds
          else
            let arg =
              (yojson_of_list
@@ -1056,7 +1064,7 @@ let yojson_of_spec__http2_route__retry_policy =
          ("max_retries", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_retry_events then bnds
+         if Stdlib.( = ) [] v_http_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1101,7 +1109,9 @@ let _ = yojson_of_spec__http2_route__match__query_parameter__match
 
 type spec__http2_route__match__query_parameter = {
   match_ : spec__http2_route__match__query_parameter__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1119,7 +1129,7 @@ let yojson_of_spec__http2_route__match__query_parameter =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1202,7 +1212,7 @@ type spec__http2_route__match__header__match = {
   exact : string prop;
   prefix : string prop;
   range : spec__http2_route__match__header__match__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regex : string prop;
   suffix : string prop;
 }
@@ -1231,7 +1241,7 @@ let yojson_of_spec__http2_route__match__header__match =
          ("regex", arg) :: bnds
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1260,7 +1270,9 @@ let _ = yojson_of_spec__http2_route__match__header__match
 type spec__http2_route__match__header = {
   invert : bool prop;
   match_ : spec__http2_route__match__header__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1278,7 +1290,7 @@ let yojson_of_spec__http2_route__match__header =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1302,14 +1314,14 @@ let _ = yojson_of_spec__http2_route__match__header
 
 type spec__http2_route__match = {
   header : spec__http2_route__match__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   method_ : string prop; [@key "method"]
   path : spec__http2_route__match__path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port : float prop;
   prefix : string prop;
   query_parameter : spec__http2_route__match__query_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scheme : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1335,7 +1347,7 @@ let yojson_of_spec__http2_route__match =
          ("scheme", arg) :: bnds
        in
        let bnds =
-         if [] = v_query_parameter then bnds
+         if Stdlib.( = ) [] v_query_parameter then bnds
          else
            let arg =
              (yojson_of_list
@@ -1354,7 +1366,7 @@ let yojson_of_spec__http2_route__match =
          ("port", arg) :: bnds
        in
        let bnds =
-         if [] = v_path then bnds
+         if Stdlib.( = ) [] v_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http2_route__match__path)
@@ -1368,7 +1380,7 @@ let yojson_of_spec__http2_route__match =
          ("method", arg) :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -1426,7 +1438,7 @@ let _ = yojson_of_spec__http2_route__action__weighted_target
 
 type spec__http2_route__action = {
   weighted_target : spec__http2_route__action__weighted_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1439,7 +1451,7 @@ let yojson_of_spec__http2_route__action =
          []
        in
        let bnds =
-         if [] = v_weighted_target then bnds
+         if Stdlib.( = ) [] v_weighted_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -1458,13 +1470,15 @@ let _ = yojson_of_spec__http2_route__action
 
 type spec__http2_route = {
   action : spec__http2_route__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_ : spec__http2_route__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   retry_policy : spec__http2_route__retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : spec__http2_route__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1482,7 +1496,7 @@ let yojson_of_spec__http2_route =
          []
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http2_route__timeout)
@@ -1492,7 +1506,7 @@ let yojson_of_spec__http2_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -1503,7 +1517,7 @@ let yojson_of_spec__http2_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http2_route__match)
@@ -1513,7 +1527,7 @@ let yojson_of_spec__http2_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http2_route__action)
@@ -1591,9 +1605,9 @@ let _ = yojson_of_spec__grpc_route__timeout__idle
 
 type spec__grpc_route__timeout = {
   idle : spec__grpc_route__timeout__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__grpc_route__timeout__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1606,7 +1620,7 @@ let yojson_of_spec__grpc_route__timeout =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -1617,7 +1631,7 @@ let yojson_of_spec__grpc_route__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1667,15 +1681,15 @@ let _ = yojson_of_spec__grpc_route__retry_policy__per_retry_timeout
 
 type spec__grpc_route__retry_policy = {
   grpc_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_retries : float prop;
   per_retry_timeout :
     spec__grpc_route__retry_policy__per_retry_timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_retry_events : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1694,7 +1708,7 @@ let yojson_of_spec__grpc_route__retry_policy =
          []
        in
        let bnds =
-         if [] = v_tcp_retry_events then bnds
+         if Stdlib.( = ) [] v_tcp_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1704,7 +1718,7 @@ let yojson_of_spec__grpc_route__retry_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_per_retry_timeout then bnds
+         if Stdlib.( = ) [] v_per_retry_timeout then bnds
          else
            let arg =
              (yojson_of_list
@@ -1719,7 +1733,7 @@ let yojson_of_spec__grpc_route__retry_policy =
          ("max_retries", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_retry_events then bnds
+         if Stdlib.( = ) [] v_http_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1729,7 +1743,7 @@ let yojson_of_spec__grpc_route__retry_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc_retry_events then bnds
+         if Stdlib.( = ) [] v_grpc_retry_events then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1781,7 +1795,7 @@ type spec__grpc_route__match__metadata__match = {
   exact : string prop;
   prefix : string prop;
   range : spec__grpc_route__match__metadata__match__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regex : string prop;
   suffix : string prop;
 }
@@ -1810,7 +1824,7 @@ let yojson_of_spec__grpc_route__match__metadata__match =
          ("regex", arg) :: bnds
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1839,7 +1853,9 @@ let _ = yojson_of_spec__grpc_route__match__metadata__match
 type spec__grpc_route__match__metadata = {
   invert : bool prop;
   match_ : spec__grpc_route__match__metadata__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1857,7 +1873,7 @@ let yojson_of_spec__grpc_route__match__metadata =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1881,7 +1897,7 @@ let _ = yojson_of_spec__grpc_route__match__metadata
 
 type spec__grpc_route__match = {
   metadata : spec__grpc_route__match__metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   method_name : string prop;
   port : float prop;
   prefix : string prop;
@@ -1920,7 +1936,7 @@ let yojson_of_spec__grpc_route__match =
          ("method_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list
@@ -1978,7 +1994,7 @@ let _ = yojson_of_spec__grpc_route__action__weighted_target
 
 type spec__grpc_route__action = {
   weighted_target : spec__grpc_route__action__weighted_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1991,7 +2007,7 @@ let yojson_of_spec__grpc_route__action =
          []
        in
        let bnds =
-         if [] = v_weighted_target then bnds
+         if Stdlib.( = ) [] v_weighted_target then bnds
          else
            let arg =
              (yojson_of_list
@@ -2010,13 +2026,15 @@ let _ = yojson_of_spec__grpc_route__action
 
 type spec__grpc_route = {
   action : spec__grpc_route__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_ : spec__grpc_route__match list;
-      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "match"]
   retry_policy : spec__grpc_route__retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : spec__grpc_route__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2034,7 +2052,7 @@ let yojson_of_spec__grpc_route =
          []
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__grpc_route__timeout)
@@ -2044,7 +2062,7 @@ let yojson_of_spec__grpc_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__grpc_route__retry_policy)
@@ -2054,7 +2072,7 @@ let yojson_of_spec__grpc_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__grpc_route__match)
@@ -2064,7 +2082,7 @@ let yojson_of_spec__grpc_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__grpc_route__action)
@@ -2082,14 +2100,14 @@ let _ = yojson_of_spec__grpc_route
 
 type spec = {
   grpc_route : spec__grpc_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http2_route : spec__http2_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_route : spec__http_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   priority : float prop;
   tcp_route : spec__tcp_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2108,7 +2126,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_tcp_route then bnds
+         if Stdlib.( = ) [] v_tcp_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__tcp_route) v_tcp_route
@@ -2121,7 +2139,7 @@ let yojson_of_spec =
          ("priority", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_route then bnds
+         if Stdlib.( = ) [] v_http_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http_route) v_http_route
@@ -2130,7 +2148,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http2_route then bnds
+         if Stdlib.( = ) [] v_http2_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__http2_route)
@@ -2140,7 +2158,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc_route then bnds
+         if Stdlib.( = ) [] v_grpc_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__grpc_route) v_grpc_route

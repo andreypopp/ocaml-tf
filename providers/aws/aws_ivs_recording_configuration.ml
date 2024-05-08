@@ -27,7 +27,7 @@ let _ = yojson_of_destination_configuration__s3
 
 type destination_configuration = {
   s3 : destination_configuration__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_destination_configuration =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_configuration__s3)
@@ -140,9 +140,9 @@ type aws_ivs_recording_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   destination_configuration : destination_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   thumbnail_configuration : thumbnail_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -170,7 +170,7 @@ let yojson_of_aws_ivs_recording_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_thumbnail_configuration then bnds
+         if Stdlib.( = ) [] v_thumbnail_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_thumbnail_configuration)
@@ -180,7 +180,7 @@ let yojson_of_aws_ivs_recording_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_configuration then bnds
+         if Stdlib.( = ) [] v_destination_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_configuration)

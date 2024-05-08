@@ -97,7 +97,7 @@ let _ = yojson_of_default_access_policy__access_rule
 
 type default_access_policy = {
   access_rule : default_access_policy__access_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,7 +110,7 @@ let yojson_of_default_access_policy =
          []
        in
        let bnds =
-         if [] = v_access_rule then bnds
+         if Stdlib.( = ) [] v_access_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -271,7 +271,7 @@ type directory_ldap = {
   encrypted : bool prop option; [@option]
   server : string prop;
   bind : directory_ldap__bind list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -292,7 +292,7 @@ let yojson_of_directory_ldap =
          []
        in
        let bnds =
-         if [] = v_bind then bnds
+         if Stdlib.( = ) [] v_bind then bnds
          else
            let arg =
              (yojson_of_list yojson_of_directory_ldap__bind) v_bind
@@ -342,7 +342,7 @@ let _ = yojson_of_directory_ldap
 type dns = {
   search_domain : string prop option; [@option]
   servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -355,7 +355,7 @@ let yojson_of_dns =
          []
        in
        let bnds =
-         if [] = v_servers then bnds
+         if Stdlib.( = ) [] v_servers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -489,16 +489,16 @@ type azurerm_hpc_cache = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   default_access_policy : default_access_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   directory_active_directory : directory_active_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   directory_flat_file : directory_flat_file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   directory_ldap : directory_ldap list;
-      [@default []] [@yojson_drop_default ( = )]
-  dns : dns list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dns : dns list; [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -537,7 +537,7 @@ let yojson_of_azurerm_hpc_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -546,14 +546,14 @@ let yojson_of_azurerm_hpc_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns then bnds
+         if Stdlib.( = ) [] v_dns then bnds
          else
            let arg = (yojson_of_list yojson_of_dns) v_dns in
            let bnd = "dns", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_directory_ldap then bnds
+         if Stdlib.( = ) [] v_directory_ldap then bnds
          else
            let arg =
              (yojson_of_list yojson_of_directory_ldap)
@@ -563,7 +563,7 @@ let yojson_of_azurerm_hpc_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_directory_flat_file then bnds
+         if Stdlib.( = ) [] v_directory_flat_file then bnds
          else
            let arg =
              (yojson_of_list yojson_of_directory_flat_file)
@@ -573,7 +573,7 @@ let yojson_of_azurerm_hpc_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_directory_active_directory then bnds
+         if Stdlib.( = ) [] v_directory_active_directory then bnds
          else
            let arg =
              (yojson_of_list yojson_of_directory_active_directory)
@@ -583,7 +583,7 @@ let yojson_of_azurerm_hpc_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_access_policy then bnds
+         if Stdlib.( = ) [] v_default_access_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_access_policy)

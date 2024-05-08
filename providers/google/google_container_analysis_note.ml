@@ -31,7 +31,7 @@ let _ = yojson_of_attestation_authority__hint
 
 type attestation_authority = {
   hint : attestation_authority__hint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,7 +44,7 @@ let yojson_of_attestation_authority =
          []
        in
        let bnds =
-         if [] = v_hint then bnds
+         if Stdlib.( = ) [] v_hint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attestation_authority__hint)
@@ -148,9 +148,9 @@ type google_container_analysis_note = {
   related_note_names : string prop list option; [@option]
   short_description : string prop option; [@option]
   attestation_authority : attestation_authority list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   related_url : related_url list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -179,7 +179,7 @@ let yojson_of_google_container_analysis_note =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_related_url then bnds
+         if Stdlib.( = ) [] v_related_url then bnds
          else
            let arg =
              (yojson_of_list yojson_of_related_url) v_related_url
@@ -188,7 +188,7 @@ let yojson_of_google_container_analysis_note =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attestation_authority then bnds
+         if Stdlib.( = ) [] v_attestation_authority then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attestation_authority)

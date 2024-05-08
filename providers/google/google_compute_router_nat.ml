@@ -77,7 +77,7 @@ type rules = {
   match_ : string prop; [@key "match"]
   rule_number : float prop;
   action : rules__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,7 +95,7 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__action) v_action
@@ -130,7 +130,7 @@ type subnetwork = {
   name : string prop;
   secondary_ip_range_names : string prop list option; [@option]
   source_ip_ranges_to_nat : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_subnetwork =
          []
        in
        let bnds =
-         if [] = v_source_ip_ranges_to_nat then bnds
+         if Stdlib.( = ) [] v_source_ip_ranges_to_nat then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -243,10 +243,11 @@ type google_compute_router_nat = {
   tcp_transitory_idle_timeout_sec : float prop option; [@option]
   udp_idle_timeout_sec : float prop option; [@option]
   log_config : log_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnetwork : subnetwork list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -292,7 +293,7 @@ let yojson_of_google_compute_router_nat =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnetwork then bnds
+         if Stdlib.( = ) [] v_subnetwork then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subnetwork) v_subnetwork
@@ -301,14 +302,14 @@ let yojson_of_google_compute_router_nat =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_config then bnds
+         if Stdlib.( = ) [] v_log_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_config) v_log_config

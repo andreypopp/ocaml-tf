@@ -104,9 +104,9 @@ let _ = yojson_of_ipsec_policy
 
 type traffic_selector_policy = {
   local_address_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_address_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_traffic_selector_policy =
          []
        in
        let bnds =
-         if [] = v_remote_address_cidrs then bnds
+         if Stdlib.( = ) [] v_remote_address_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -132,7 +132,7 @@ let yojson_of_traffic_selector_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_address_cidrs then bnds
+         if Stdlib.( = ) [] v_local_address_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

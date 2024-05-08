@@ -36,7 +36,7 @@ type instances__settings__location_preference = {
 
 type instances__settings__ip_configuration__psc_config = {
   allowed_consumer_projects : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_consumer_projects *)
   psc_enabled : bool prop;  (** psc_enabled *)
 }
@@ -51,7 +51,7 @@ type instances__settings__ip_configuration = {
   allocated_ip_range : string prop;  (** allocated_ip_range *)
   authorized_networks :
     instances__settings__ip_configuration__authorized_networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** authorized_networks *)
   enable_private_path_for_google_cloud_services : bool prop;
       (** enable_private_path_for_google_cloud_services *)
@@ -59,7 +59,7 @@ type instances__settings__ip_configuration = {
   private_network : string prop;  (** private_network *)
   psc_config :
     instances__settings__ip_configuration__psc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** psc_config *)
   require_ssl : bool prop;  (** require_ssl *)
   ssl_mode : string prop;  (** ssl_mode *)
@@ -98,7 +98,7 @@ type instances__settings__backup_configuration = {
   backup_retention_settings :
     instances__settings__backup_configuration__backup_retention_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backup_retention_settings *)
   binary_log_enabled : bool prop;  (** binary_log_enabled *)
   enabled : bool prop;  (** enabled *)
@@ -122,30 +122,30 @@ type instances__settings = {
   activation_policy : string prop;  (** activation_policy *)
   active_directory_config :
     instances__settings__active_directory_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** active_directory_config *)
   advanced_machine_features :
     instances__settings__advanced_machine_features list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advanced_machine_features *)
   availability_type : string prop;  (** availability_type *)
   backup_configuration :
     instances__settings__backup_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** backup_configuration *)
   collation : string prop;  (** collation *)
   connector_enforcement : string prop;  (** connector_enforcement *)
   data_cache_config : instances__settings__data_cache_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** data_cache_config *)
   database_flags : instances__settings__database_flags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** database_flags *)
   deletion_protection_enabled : bool prop;
       (** deletion_protection_enabled *)
   deny_maintenance_period :
     instances__settings__deny_maintenance_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deny_maintenance_period *)
   disk_autoresize : bool prop;  (** disk_autoresize *)
   disk_autoresize_limit : float prop;  (** disk_autoresize_limit *)
@@ -153,26 +153,26 @@ type instances__settings = {
   disk_type : string prop;  (** disk_type *)
   edition : string prop;  (** edition *)
   insights_config : instances__settings__insights_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** insights_config *)
   ip_configuration : instances__settings__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_configuration *)
   location_preference :
     instances__settings__location_preference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** location_preference *)
   maintenance_window : instances__settings__maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maintenance_window *)
   password_validation_policy :
     instances__settings__password_validation_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** password_validation_policy *)
   pricing_plan : string prop;  (** pricing_plan *)
   sql_server_audit_config :
     instances__settings__sql_server_audit_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sql_server_audit_config *)
   tier : string prop;  (** tier *)
   time_zone : string prop;  (** time_zone *)
@@ -219,7 +219,7 @@ type instances__ip_address = {
 type instances__clone = {
   allocated_ip_range : string prop;  (** allocated_ip_range *)
   database_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** database_names *)
   point_in_time : string prop;  (** point_in_time *)
   preferred_zone : string prop;  (** preferred_zone *)
@@ -228,10 +228,10 @@ type instances__clone = {
 
 type instances = {
   available_maintenance_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** available_maintenance_versions *)
   clone : instances__clone list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** clone *)
   connection_name : string prop;  (** connection_name *)
   database_version : string prop;  (** database_version *)
@@ -241,7 +241,7 @@ type instances = {
   first_ip_address : string prop;  (** first_ip_address *)
   instance_type : string prop;  (** instance_type *)
   ip_address : instances__ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_address *)
   maintenance_version : string prop;  (** maintenance_version *)
   master_instance_name : string prop;  (** master_instance_name *)
@@ -253,20 +253,20 @@ type instances = {
   public_ip_address : string prop;  (** public_ip_address *)
   region : string prop;  (** region *)
   replica_configuration : instances__replica_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** replica_configuration *)
   restore_backup_context : instances__restore_backup_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** restore_backup_context *)
   root_password : string prop;  (** root_password *)
   self_link : string prop;  (** self_link *)
   server_ca_cert : instances__server_ca_cert list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** server_ca_cert *)
   service_account_email_address : string prop;
       (** service_account_email_address *)
   settings : instances__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** settings *)
 }
 

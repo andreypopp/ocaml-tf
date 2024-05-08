@@ -166,11 +166,11 @@ let _ = yojson_of_filter__and__tags
 
 type filter__and = {
   cost_category : filter__and__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : filter__and__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : filter__and__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -187,7 +187,7 @@ let yojson_of_filter__and =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__and__tags) v_tags
@@ -196,7 +196,7 @@ let yojson_of_filter__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__and__dimension)
@@ -206,7 +206,7 @@ let yojson_of_filter__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__and__cost_category)
@@ -494,11 +494,11 @@ let _ = yojson_of_filter__not__tags
 
 type filter__not = {
   cost_category : filter__not__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : filter__not__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : filter__not__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -515,7 +515,7 @@ let yojson_of_filter__not =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__not__tags) v_tags
@@ -524,7 +524,7 @@ let yojson_of_filter__not =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__not__dimension)
@@ -534,7 +534,7 @@ let yojson_of_filter__not =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__not__cost_category)
@@ -714,11 +714,11 @@ let _ = yojson_of_filter__or__tags
 
 type filter__or = {
   cost_category : filter__or__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : filter__or__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : filter__or__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -735,7 +735,7 @@ let yojson_of_filter__or =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__or__tags) v_tags
@@ -744,7 +744,7 @@ let yojson_of_filter__or =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__or__dimension)
@@ -754,7 +754,7 @@ let yojson_of_filter__or =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__or__cost_category)
@@ -826,15 +826,17 @@ let _ = yojson_of_filter__tags
 
 type filter = {
   and_ : filter__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
   cost_category : filter__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : filter__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
-  not : filter__not list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  not : filter__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   or_ : filter__or list;
-      [@key "or"] [@default []] [@yojson_drop_default ( = )]
-  tags : filter__tags list; [@default []] [@yojson_drop_default ( = )]
+      [@key "or"] [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : filter__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -854,7 +856,7 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__tags) v_tags
@@ -863,21 +865,21 @@ let yojson_of_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_or_ then bnds
+         if Stdlib.( = ) [] v_or_ then bnds
          else
            let arg = (yojson_of_list yojson_of_filter__or) v_or_ in
            let bnd = "or", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_not then bnds
+         if Stdlib.( = ) [] v_not then bnds
          else
            let arg = (yojson_of_list yojson_of_filter__not) v_not in
            let bnd = "not", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__dimension) v_dimension
@@ -886,7 +888,7 @@ let yojson_of_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter__cost_category)
@@ -896,7 +898,7 @@ let yojson_of_filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg = (yojson_of_list yojson_of_filter__and) v_and_ in
            let bnd = "and", arg in
@@ -979,10 +981,12 @@ type aws_ce_tags = {
   id : string prop option; [@option]
   search_string : string prop option; [@option]
   tag_key : string prop option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
-  sort_by : sort_by list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sort_by : sort_by list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_period : time_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1002,7 +1006,7 @@ let yojson_of_aws_ce_tags =
          []
        in
        let bnds =
-         if [] = v_time_period then bnds
+         if Stdlib.( = ) [] v_time_period then bnds
          else
            let arg =
              (yojson_of_list yojson_of_time_period) v_time_period
@@ -1011,14 +1015,14 @@ let yojson_of_aws_ce_tags =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sort_by then bnds
+         if Stdlib.( = ) [] v_sort_by then bnds
          else
            let arg = (yojson_of_list yojson_of_sort_by) v_sort_by in
            let bnd = "sort_by", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

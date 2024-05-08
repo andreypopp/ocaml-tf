@@ -121,7 +121,7 @@ type azurerm_data_factory_dataset_azure_blob = {
   parameters : (string * string prop) list option; [@option]
   path : string prop option; [@option]
   schema_column : schema_column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,7 +155,7 @@ let yojson_of_azurerm_data_factory_dataset_azure_blob =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema_column then bnds
+         if Stdlib.( = ) [] v_schema_column then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema_column) v_schema_column

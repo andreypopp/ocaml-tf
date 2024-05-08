@@ -3,7 +3,8 @@
 open! Tf_core
 
 type connection_configuration__route__propagated_route_table = {
-  ids : string prop list; [@default []] [@yojson_drop_default ( = )]
+  ids : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   labels : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -30,7 +31,7 @@ let yojson_of_connection_configuration__route__propagated_route_table
              bnd :: bnds
        in
        let bnds =
-         if [] = v_ids then bnds
+         if Stdlib.( = ) [] v_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string)) v_ids
@@ -53,7 +54,7 @@ type connection_configuration__route = {
   outbound_route_map_id : string prop option; [@option]
   propagated_route_table :
     connection_configuration__route__propagated_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +72,7 @@ let yojson_of_connection_configuration__route =
          []
        in
        let bnds =
-         if [] = v_propagated_route_table then bnds
+         if Stdlib.( = ) [] v_propagated_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -114,7 +115,7 @@ let _ = yojson_of_connection_configuration__route
 
 type connection_configuration__vpn_client_address_pool = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +129,7 @@ let yojson_of_connection_configuration__vpn_client_address_pool =
          []
        in
        let bnds =
-         if [] = v_address_prefixes then bnds
+         if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -149,10 +150,10 @@ type connection_configuration = {
   internet_security_enabled : bool prop option; [@option]
   name : string prop;
   route : connection_configuration__route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpn_client_address_pool :
     connection_configuration__vpn_client_address_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -170,7 +171,7 @@ let yojson_of_connection_configuration =
          []
        in
        let bnds =
-         if [] = v_vpn_client_address_pool then bnds
+         if Stdlib.( = ) [] v_vpn_client_address_pool then bnds
          else
            let arg =
              (yojson_of_list
@@ -181,7 +182,7 @@ let yojson_of_connection_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route then bnds
+         if Stdlib.( = ) [] v_route then bnds
          else
            let arg =
              (yojson_of_list
@@ -282,7 +283,7 @@ type azurerm_point_to_site_vpn_gateway = {
   virtual_hub_id : string prop;
   vpn_server_configuration_id : string prop;
   connection_configuration : connection_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -314,7 +315,7 @@ let yojson_of_azurerm_point_to_site_vpn_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_connection_configuration then bnds
+         if Stdlib.( = ) [] v_connection_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connection_configuration)

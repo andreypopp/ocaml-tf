@@ -165,11 +165,11 @@ let _ = yojson_of_sign_in__hash_config
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
   anonymous : sign_in__anonymous list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email : sign_in__email list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   phone_number : sign_in__phone_number list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -187,7 +187,7 @@ let yojson_of_sign_in =
          []
        in
        let bnds =
-         if [] = v_phone_number then bnds
+         if Stdlib.( = ) [] v_phone_number then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__phone_number)
@@ -197,7 +197,7 @@ let yojson_of_sign_in =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_email then bnds
+         if Stdlib.( = ) [] v_email then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__email) v_email
@@ -206,7 +206,7 @@ let yojson_of_sign_in =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_anonymous then bnds
+         if Stdlib.( = ) [] v_anonymous then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_in__anonymous)
@@ -279,7 +279,8 @@ let _ = yojson_of_timeouts
 type google_identity_platform_project_default_config = {
   id : string prop option; [@option]
   project : string prop option; [@option]
-  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
+  sign_in : sign_in list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -303,7 +304,7 @@ let yojson_of_google_identity_platform_project_default_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sign_in then bnds
+         if Stdlib.( = ) [] v_sign_in then bnds
          else
            let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
            let bnd = "sign_in", arg in

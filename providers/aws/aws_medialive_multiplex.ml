@@ -111,14 +111,14 @@ let _ = yojson_of_timeouts
 
 type aws_medialive_multiplex = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   start_multiplex : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   multiplex_settings : multiplex_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -145,7 +145,7 @@ let yojson_of_aws_medialive_multiplex =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_multiplex_settings then bnds
+         if Stdlib.( = ) [] v_multiplex_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_multiplex_settings)
@@ -207,7 +207,7 @@ let yojson_of_aws_medialive_multiplex =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

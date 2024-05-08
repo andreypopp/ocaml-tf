@@ -70,13 +70,13 @@ let _ = yojson_of_metadata
 
 type webhook__rule = {
   api_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   api_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   operations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scope : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -100,7 +100,7 @@ let yojson_of_webhook__rule =
          ("scope", arg) :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -110,7 +110,7 @@ let yojson_of_webhook__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -120,7 +120,7 @@ let yojson_of_webhook__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_versions then bnds
+         if Stdlib.( = ) [] v_api_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -130,7 +130,7 @@ let yojson_of_webhook__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_groups then bnds
+         if Stdlib.( = ) [] v_api_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -150,7 +150,7 @@ type webhook__object_selector__match_expressions = {
   key : string prop;
   operator : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -163,7 +163,7 @@ let yojson_of_webhook__object_selector__match_expressions =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -191,7 +191,7 @@ let _ = yojson_of_webhook__object_selector__match_expressions
 type webhook__object_selector = {
   match_expressions :
     webhook__object_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_labels : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -220,7 +220,7 @@ let yojson_of_webhook__object_selector =
          ("match_labels", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -241,7 +241,7 @@ type webhook__namespace_selector__match_expressions = {
   key : string prop;
   operator : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -255,7 +255,7 @@ let yojson_of_webhook__namespace_selector__match_expressions =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -283,7 +283,7 @@ let _ = yojson_of_webhook__namespace_selector__match_expressions
 type webhook__namespace_selector = {
   match_expressions :
     webhook__namespace_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_labels : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -312,7 +312,7 @@ let yojson_of_webhook__namespace_selector =
          ("match_labels", arg) :: bnds
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -378,7 +378,7 @@ let _ = yojson_of_webhook__client_config__service
 type webhook__client_config = {
   ca_bundle : string prop;
   service : webhook__client_config__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -396,7 +396,7 @@ let yojson_of_webhook__client_config =
          ("url", arg) :: bnds
        in
        let bnds =
-         if [] = v_service then bnds
+         if Stdlib.( = ) [] v_service then bnds
          else
            let arg =
              (yojson_of_list
@@ -419,19 +419,19 @@ let _ = yojson_of_webhook__client_config
 
 type webhook = {
   admission_review_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_config : webhook__client_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   failure_policy : string prop;
   match_policy : string prop;
   name : string prop;
   namespace_selector : webhook__namespace_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   object_selector : webhook__object_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reinvocation_policy : string prop;
   rule : webhook__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   side_effects : string prop;
   timeout_seconds : float prop;
 }
@@ -468,7 +468,7 @@ let yojson_of_webhook =
          ("side_effects", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook__rule) v_rule
@@ -483,7 +483,7 @@ let yojson_of_webhook =
          ("reinvocation_policy", arg) :: bnds
        in
        let bnds =
-         if [] = v_object_selector then bnds
+         if Stdlib.( = ) [] v_object_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook__object_selector)
@@ -493,7 +493,7 @@ let yojson_of_webhook =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_namespace_selector then bnds
+         if Stdlib.( = ) [] v_namespace_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook__namespace_selector)
@@ -517,7 +517,7 @@ let yojson_of_webhook =
          ("failure_policy", arg) :: bnds
        in
        let bnds =
-         if [] = v_client_config then bnds
+         if Stdlib.( = ) [] v_client_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webhook__client_config)
@@ -527,7 +527,7 @@ let yojson_of_webhook =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admission_review_versions then bnds
+         if Stdlib.( = ) [] v_admission_review_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -545,7 +545,8 @@ let _ = yojson_of_webhook
 
 type kubernetes_mutating_webhook_configuration_v1 = {
   id : string prop option; [@option]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -558,7 +559,7 @@ let yojson_of_kubernetes_mutating_webhook_configuration_v1 =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

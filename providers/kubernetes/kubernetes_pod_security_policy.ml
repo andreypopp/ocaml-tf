@@ -152,7 +152,7 @@ let _ = yojson_of_spec__fs_group__range
 type spec__fs_group = {
   rule : string prop;
   range : spec__fs_group__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,7 +165,7 @@ let yojson_of_spec__fs_group =
          []
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__fs_group__range) v_range
@@ -242,7 +242,7 @@ let _ = yojson_of_spec__run_as_group__range
 type spec__run_as_group = {
   rule : string prop;
   range : spec__run_as_group__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -255,7 +255,7 @@ let yojson_of_spec__run_as_group =
          []
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__run_as_group__range)
@@ -307,7 +307,7 @@ let _ = yojson_of_spec__run_as_user__range
 type spec__run_as_user = {
   rule : string prop;
   range : spec__run_as_user__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -320,7 +320,7 @@ let yojson_of_spec__run_as_user =
          []
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__run_as_user__range)
@@ -388,7 +388,7 @@ let _ = yojson_of_spec__se_linux__se_linux_options
 type spec__se_linux = {
   rule : string prop;
   se_linux_options : spec__se_linux__se_linux_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -401,7 +401,7 @@ let yojson_of_spec__se_linux =
          []
        in
        let bnds =
-         if [] = v_se_linux_options then bnds
+         if Stdlib.( = ) [] v_se_linux_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -455,7 +455,7 @@ let _ = yojson_of_spec__supplemental_groups__range
 type spec__supplemental_groups = {
   rule : string prop;
   range : spec__supplemental_groups__range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -468,7 +468,7 @@ let yojson_of_spec__supplemental_groups =
          []
        in
        let bnds =
-         if [] = v_range then bnds
+         if Stdlib.( = ) [] v_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -505,21 +505,21 @@ type spec = {
   required_drop_capabilities : string prop list option; [@option]
   volumes : string prop list option; [@option]
   allowed_flex_volumes : spec__allowed_flex_volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_host_paths : spec__allowed_host_paths list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fs_group : spec__fs_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host_ports : spec__host_ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   run_as_group : spec__run_as_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   run_as_user : spec__run_as_user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   se_linux : spec__se_linux list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   supplemental_groups : spec__supplemental_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -556,7 +556,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_supplemental_groups then bnds
+         if Stdlib.( = ) [] v_supplemental_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__supplemental_groups)
@@ -566,7 +566,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_se_linux then bnds
+         if Stdlib.( = ) [] v_se_linux then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__se_linux) v_se_linux
@@ -575,7 +575,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_run_as_user then bnds
+         if Stdlib.( = ) [] v_run_as_user then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__run_as_user)
@@ -585,7 +585,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_run_as_group then bnds
+         if Stdlib.( = ) [] v_run_as_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__run_as_group)
@@ -595,7 +595,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_ports then bnds
+         if Stdlib.( = ) [] v_host_ports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__host_ports) v_host_ports
@@ -604,7 +604,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fs_group then bnds
+         if Stdlib.( = ) [] v_fs_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__fs_group) v_fs_group
@@ -613,7 +613,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_host_paths then bnds
+         if Stdlib.( = ) [] v_allowed_host_paths then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__allowed_host_paths)
@@ -623,7 +623,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_flex_volumes then bnds
+         if Stdlib.( = ) [] v_allowed_flex_volumes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__allowed_flex_volumes)
@@ -768,8 +768,8 @@ let _ = yojson_of_spec
 type kubernetes_pod_security_policy = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -782,14 +782,14 @@ let yojson_of_kubernetes_pod_security_policy =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

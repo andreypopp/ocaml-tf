@@ -305,16 +305,16 @@ let _ = yojson_of_actions__url_rewrite_action
 
 type actions = {
   request_header_action : actions__request_header_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response_header_action : actions__response_header_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_configuration_override_action :
     actions__route_configuration_override_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_redirect_action : actions__url_redirect_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_rewrite_action : actions__url_rewrite_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,7 +334,7 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         if [] = v_url_rewrite_action then bnds
+         if Stdlib.( = ) [] v_url_rewrite_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__url_rewrite_action)
@@ -344,7 +344,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_url_redirect_action then bnds
+         if Stdlib.( = ) [] v_url_redirect_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__url_redirect_action)
@@ -354,7 +354,8 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_configuration_override_action then bnds
+         if Stdlib.( = ) [] v_route_configuration_override_action
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -365,7 +366,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_response_header_action then bnds
+         if Stdlib.( = ) [] v_response_header_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -376,7 +377,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_header_action then bnds
+         if Stdlib.( = ) [] v_request_header_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__request_header_action)
@@ -571,7 +572,7 @@ let _ = yojson_of_conditions__host_name_condition
 
 type conditions__http_version_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -606,7 +607,7 @@ let yojson_of_conditions__http_version_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -861,7 +862,7 @@ let _ = yojson_of_conditions__remote_address_condition
 
 type conditions__request_body_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop;
   transforms : string prop list option; [@option]
@@ -904,7 +905,7 @@ let yojson_of_conditions__request_body_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -990,7 +991,7 @@ let _ = yojson_of_conditions__request_header_condition
 
 type conditions__request_method_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -1025,7 +1026,7 @@ let yojson_of_conditions__request_method_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1158,7 +1159,7 @@ let _ = yojson_of_conditions__request_uri_condition
 
 type conditions__server_port_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop;
 }
@@ -1189,7 +1190,7 @@ let yojson_of_conditions__server_port_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1261,7 +1262,7 @@ let _ = yojson_of_conditions__socket_address_condition
 
 type conditions__ssl_protocol_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -1296,7 +1297,7 @@ let yojson_of_conditions__ssl_protocol_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1315,7 +1316,7 @@ let _ = yojson_of_conditions__ssl_protocol_condition
 
 type conditions__url_file_extension_condition = {
   match_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop;
   transforms : string prop list option; [@option]
@@ -1358,7 +1359,7 @@ let yojson_of_conditions__url_file_extension_condition =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_match_values then bnds
+         if Stdlib.( = ) [] v_match_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1499,49 +1500,49 @@ let _ = yojson_of_conditions__url_path_condition
 
 type conditions = {
   client_port_condition : conditions__client_port_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cookies_condition : conditions__cookies_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host_name_condition : conditions__host_name_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_version_condition : conditions__http_version_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   is_device_condition : conditions__is_device_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   post_args_condition : conditions__post_args_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_string_condition : conditions__query_string_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_address_condition :
     conditions__remote_address_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_body_condition : conditions__request_body_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_header_condition :
     conditions__request_header_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_method_condition :
     conditions__request_method_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_scheme_condition :
     conditions__request_scheme_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_uri_condition : conditions__request_uri_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_port_condition : conditions__server_port_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   socket_address_condition :
     conditions__socket_address_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssl_protocol_condition : conditions__ssl_protocol_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_file_extension_condition :
     conditions__url_file_extension_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_filename_condition : conditions__url_filename_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   url_path_condition : conditions__url_path_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1574,7 +1575,7 @@ let yojson_of_conditions =
          []
        in
        let bnds =
-         if [] = v_url_path_condition then bnds
+         if Stdlib.( = ) [] v_url_path_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conditions__url_path_condition)
@@ -1584,7 +1585,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_url_filename_condition then bnds
+         if Stdlib.( = ) [] v_url_filename_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1595,7 +1596,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_url_file_extension_condition then bnds
+         if Stdlib.( = ) [] v_url_file_extension_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1606,7 +1607,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ssl_protocol_condition then bnds
+         if Stdlib.( = ) [] v_ssl_protocol_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1617,7 +1618,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_socket_address_condition then bnds
+         if Stdlib.( = ) [] v_socket_address_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1628,7 +1629,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_server_port_condition then bnds
+         if Stdlib.( = ) [] v_server_port_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1639,7 +1640,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_uri_condition then bnds
+         if Stdlib.( = ) [] v_request_uri_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1650,7 +1651,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_scheme_condition then bnds
+         if Stdlib.( = ) [] v_request_scheme_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1661,7 +1662,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_method_condition then bnds
+         if Stdlib.( = ) [] v_request_method_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1672,7 +1673,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_header_condition then bnds
+         if Stdlib.( = ) [] v_request_header_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1683,7 +1684,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_body_condition then bnds
+         if Stdlib.( = ) [] v_request_body_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1694,7 +1695,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_remote_address_condition then bnds
+         if Stdlib.( = ) [] v_remote_address_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1705,7 +1706,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_string_condition then bnds
+         if Stdlib.( = ) [] v_query_string_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1716,7 +1717,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_args_condition then bnds
+         if Stdlib.( = ) [] v_post_args_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1727,7 +1728,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_is_device_condition then bnds
+         if Stdlib.( = ) [] v_is_device_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1738,7 +1739,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_version_condition then bnds
+         if Stdlib.( = ) [] v_http_version_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1749,7 +1750,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_name_condition then bnds
+         if Stdlib.( = ) [] v_host_name_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1760,7 +1761,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cookies_condition then bnds
+         if Stdlib.( = ) [] v_cookies_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conditions__cookies_condition)
@@ -1770,7 +1771,7 @@ let yojson_of_conditions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_port_condition then bnds
+         if Stdlib.( = ) [] v_client_port_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1853,9 +1854,10 @@ type azurerm_cdn_frontdoor_rule = {
   id : string prop option; [@option]
   name : string prop;
   order : float prop;
-  actions : actions list; [@default []] [@yojson_drop_default ( = )]
+  actions : actions list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   conditions : conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1882,7 +1884,7 @@ let yojson_of_azurerm_cdn_frontdoor_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_conditions) v_conditions
@@ -1891,7 +1893,7 @@ let yojson_of_azurerm_cdn_frontdoor_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg = (yojson_of_list yojson_of_actions) v_actions in
            let bnd = "actions", arg in

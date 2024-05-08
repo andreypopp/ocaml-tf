@@ -198,11 +198,11 @@ let _ = yojson_of_threshold_expression__and__tags
 
 type threshold_expression__and = {
   cost_category : threshold_expression__and__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : threshold_expression__and__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : threshold_expression__and__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,7 +219,7 @@ let yojson_of_threshold_expression__and =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list
@@ -230,7 +230,7 @@ let yojson_of_threshold_expression__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -241,7 +241,7 @@ let yojson_of_threshold_expression__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list
@@ -535,11 +535,11 @@ let _ = yojson_of_threshold_expression__not__tags
 
 type threshold_expression__not = {
   cost_category : threshold_expression__not__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : threshold_expression__not__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : threshold_expression__not__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -556,7 +556,7 @@ let yojson_of_threshold_expression__not =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list
@@ -567,7 +567,7 @@ let yojson_of_threshold_expression__not =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -578,7 +578,7 @@ let yojson_of_threshold_expression__not =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list
@@ -762,11 +762,11 @@ let _ = yojson_of_threshold_expression__or__tags
 
 type threshold_expression__or = {
   cost_category : threshold_expression__or__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : threshold_expression__or__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : threshold_expression__or__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -783,7 +783,7 @@ let yojson_of_threshold_expression__or =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression__or__tags)
@@ -793,7 +793,7 @@ let yojson_of_threshold_expression__or =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -804,7 +804,7 @@ let yojson_of_threshold_expression__or =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list
@@ -877,17 +877,17 @@ let _ = yojson_of_threshold_expression__tags
 
 type threshold_expression = {
   and_ : threshold_expression__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
   cost_category : threshold_expression__cost_category list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dimension : threshold_expression__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not : threshold_expression__not list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   or_ : threshold_expression__or list;
-      [@key "or"] [@default []] [@yojson_drop_default ( = )]
+      [@key "or"] [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : threshold_expression__tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -907,7 +907,7 @@ let yojson_of_threshold_expression =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression__tags)
@@ -917,7 +917,7 @@ let yojson_of_threshold_expression =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_or_ then bnds
+         if Stdlib.( = ) [] v_or_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression__or)
@@ -927,7 +927,7 @@ let yojson_of_threshold_expression =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_not then bnds
+         if Stdlib.( = ) [] v_not then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression__not)
@@ -937,7 +937,7 @@ let yojson_of_threshold_expression =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -948,7 +948,7 @@ let yojson_of_threshold_expression =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_category then bnds
+         if Stdlib.( = ) [] v_cost_category then bnds
          else
            let arg =
              (yojson_of_list
@@ -959,7 +959,7 @@ let yojson_of_threshold_expression =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression__and)
@@ -980,14 +980,14 @@ type aws_ce_anomaly_subscription = {
   frequency : string prop;
   id : string prop option; [@option]
   monitor_arn_list : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   subscriber : subscriber list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threshold_expression : threshold_expression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1010,7 +1010,7 @@ let yojson_of_aws_ce_anomaly_subscription =
          []
        in
        let bnds =
-         if [] = v_threshold_expression then bnds
+         if Stdlib.( = ) [] v_threshold_expression then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_expression)
@@ -1020,7 +1020,7 @@ let yojson_of_aws_ce_anomaly_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subscriber then bnds
+         if Stdlib.( = ) [] v_subscriber then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subscriber) v_subscriber
@@ -1065,7 +1065,7 @@ let yojson_of_aws_ce_anomaly_subscription =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_monitor_arn_list then bnds
+         if Stdlib.( = ) [] v_monitor_arn_list then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

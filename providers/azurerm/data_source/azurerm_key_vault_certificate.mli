@@ -6,27 +6,28 @@ open! Tf_core
 
 type certificate_policy__x509_certificate_properties__subject_alternative_names = {
   dns_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns_names *)
   emails : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** emails *)
-  upns : string prop list; [@default []] [@yojson_drop_default ( = )]
+  upns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upns *)
 }
 
 type certificate_policy__x509_certificate_properties = {
   extended_key_usage : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** extended_key_usage *)
   key_usage : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** key_usage *)
   subject : string prop;  (** subject *)
   subject_alternative_names :
     certificate_policy__x509_certificate_properties__subject_alternative_names
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
   validity_in_months : float prop;  (** validity_in_months *)
 }
@@ -46,10 +47,10 @@ type certificate_policy__lifetime_action__action = {
 
 type certificate_policy__lifetime_action = {
   action : certificate_policy__lifetime_action__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** action *)
   trigger : certificate_policy__lifetime_action__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** trigger *)
 }
 
@@ -67,20 +68,20 @@ type certificate_policy__issuer_parameters = {
 
 type certificate_policy = {
   issuer_parameters : certificate_policy__issuer_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** issuer_parameters *)
   key_properties : certificate_policy__key_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** key_properties *)
   lifetime_action : certificate_policy__lifetime_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** lifetime_action *)
   secret_properties : certificate_policy__secret_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_properties *)
   x509_certificate_properties :
     certificate_policy__x509_certificate_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x509_certificate_properties *)
 }
 

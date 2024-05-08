@@ -72,7 +72,8 @@ type aws_api_gateway_documentation_part = {
   id : string prop option; [@option]
   properties : string prop;
   rest_api_id : string prop;
-  location : location list; [@default []] [@yojson_drop_default ( = )]
+  location : location list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,7 +91,7 @@ let yojson_of_aws_api_gateway_documentation_part =
          []
        in
        let bnds =
-         if [] = v_location then bnds
+         if Stdlib.( = ) [] v_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_location) v_location

@@ -39,7 +39,7 @@ let _ = yojson_of_default_action__forward__target_groups
 
 type default_action__forward = {
   target_groups : default_action__forward__target_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,7 +52,7 @@ let yojson_of_default_action__forward =
          []
        in
        let bnds =
-         if [] = v_target_groups then bnds
+         if Stdlib.( = ) [] v_target_groups then bnds
          else
            let arg =
              (yojson_of_list
@@ -94,9 +94,9 @@ let _ = yojson_of_default_action__fixed_response
 
 type default_action = {
   fixed_response : default_action__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forward : default_action__forward list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_default_action =
          []
        in
        let bnds =
-         if [] = v_forward then bnds
+         if Stdlib.( = ) [] v_forward then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__forward)
@@ -119,7 +119,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_response then bnds
+         if Stdlib.( = ) [] v_fixed_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__fixed_response)

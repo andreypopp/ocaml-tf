@@ -7,43 +7,43 @@ open! Tf_core
 type endpoints__smb = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__nfs = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints__iscsi = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 
 type endpoints = {
   iscsi : endpoints__iscsi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** iscsi *)
   management : endpoints__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management *)
   nfs : endpoints__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** nfs *)
   smb : endpoints__smb list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** smb *)
 }
 

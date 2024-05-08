@@ -80,7 +80,7 @@ type google_pubsub_lite_subscription = {
   topic : string prop;
   zone : string prop option; [@option]
   delivery_config : delivery_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -107,7 +107,7 @@ let yojson_of_google_pubsub_lite_subscription =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_delivery_config then bnds
+         if Stdlib.( = ) [] v_delivery_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delivery_config)

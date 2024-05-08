@@ -136,7 +136,7 @@ let _ = yojson_of_training_phrases__parts
 type training_phrases = {
   repeat_count : float prop option; [@option]
   parts : training_phrases__parts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,7 +149,7 @@ let yojson_of_training_phrases =
          []
        in
        let bnds =
-         if [] = v_parts then bnds
+         if Stdlib.( = ) [] v_parts then bnds
          else
            let arg =
              (yojson_of_list yojson_of_training_phrases__parts)
@@ -185,10 +185,10 @@ type google_dialogflow_cx_intent = {
   parent : string prop option; [@option]
   priority : float prop option; [@option]
   parameters : parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   training_phrases : training_phrases list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -215,7 +215,7 @@ let yojson_of_google_dialogflow_cx_intent =
          []
        in
        let bnds =
-         if [] = v_training_phrases then bnds
+         if Stdlib.( = ) [] v_training_phrases then bnds
          else
            let arg =
              (yojson_of_list yojson_of_training_phrases)
@@ -229,7 +229,7 @@ let yojson_of_google_dialogflow_cx_intent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters) v_parameters

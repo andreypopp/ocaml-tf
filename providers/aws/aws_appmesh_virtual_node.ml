@@ -76,11 +76,11 @@ type spec__backend__virtual_service__client_policy__tls__certificate = {
   file :
     spec__backend__virtual_service__client_policy__tls__certificate__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds :
     spec__backend__virtual_service__client_policy__tls__certificate__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,7 +97,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__certificate
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -108,7 +108,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__certificate
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -128,7 +128,8 @@ let _ =
 [@@@deriving.end]
 
 type spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +146,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__su
          []
        in
        let bnds =
-         if [] = v_exact then bnds
+         if Stdlib.( = ) [] v_exact then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -167,7 +168,9 @@ type spec__backend__virtual_service__client_policy__tls__validation__subject_alt
   match_ :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"] [@default []] [@yojson_drop_default ( = )]
+      [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +187,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__su
          []
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -205,7 +208,7 @@ let _ =
 
 type spec__backend__virtual_service__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,7 +225,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
          []
        in
        let bnds =
-         if [] = v_certificate_authority_arns then bnds
+         if Stdlib.( = ) [] v_certificate_authority_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -306,15 +309,15 @@ type spec__backend__virtual_service__client_policy__tls__validation__trust = {
   acm :
     spec__backend__virtual_service__client_policy__tls__validation__trust__acm
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file :
     spec__backend__virtual_service__client_policy__tls__validation__trust__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds :
     spec__backend__virtual_service__client_policy__tls__validation__trust__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -331,7 +334,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -342,7 +345,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -353,7 +356,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acm then bnds
+         if Stdlib.( = ) [] v_acm then bnds
          else
            let arg =
              (yojson_of_list
@@ -376,11 +379,11 @@ type spec__backend__virtual_service__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trust :
     spec__backend__virtual_service__client_policy__tls__validation__trust
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -400,7 +403,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation
          []
        in
        let bnds =
-         if [] = v_trust then bnds
+         if Stdlib.( = ) [] v_trust then bnds
          else
            let arg =
              (yojson_of_list
@@ -411,7 +414,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subject_alternative_names then bnds
+         if Stdlib.( = ) [] v_subject_alternative_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -436,11 +439,11 @@ type spec__backend__virtual_service__client_policy__tls = {
   certificate :
     spec__backend__virtual_service__client_policy__tls__certificate
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation :
     spec__backend__virtual_service__client_policy__tls__validation
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -459,7 +462,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls =
          []
        in
        let bnds =
-         if [] = v_validation then bnds
+         if Stdlib.( = ) [] v_validation then bnds
          else
            let arg =
              (yojson_of_list
@@ -470,7 +473,7 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -508,7 +511,7 @@ let _ = yojson_of_spec__backend__virtual_service__client_policy__tls
 
 type spec__backend__virtual_service__client_policy = {
   tls : spec__backend__virtual_service__client_policy__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -521,7 +524,7 @@ let yojson_of_spec__backend__virtual_service__client_policy =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg =
              (yojson_of_list
@@ -542,7 +545,7 @@ let _ = yojson_of_spec__backend__virtual_service__client_policy
 type spec__backend__virtual_service = {
   virtual_service_name : string prop;
   client_policy : spec__backend__virtual_service__client_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -558,7 +561,7 @@ let yojson_of_spec__backend__virtual_service =
          []
        in
        let bnds =
-         if [] = v_client_policy then bnds
+         if Stdlib.( = ) [] v_client_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -584,7 +587,7 @@ let _ = yojson_of_spec__backend__virtual_service
 
 type spec__backend = {
   virtual_service : spec__backend__virtual_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -597,7 +600,7 @@ let yojson_of_spec__backend =
          []
        in
        let bnds =
-         if [] = v_virtual_service then bnds
+         if Stdlib.( = ) [] v_virtual_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__backend__virtual_service)
@@ -687,10 +690,10 @@ type spec__backend_defaults__client_policy__tls__certificate = {
   file :
     spec__backend_defaults__client_policy__tls__certificate__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds :
     spec__backend_defaults__client_policy__tls__certificate__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -706,7 +709,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__certificate
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -717,7 +720,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__certificate
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -737,7 +740,8 @@ let _ =
 [@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -754,7 +758,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_al
          []
        in
        let bnds =
-         if [] = v_exact then bnds
+         if Stdlib.( = ) [] v_exact then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -776,7 +780,9 @@ type spec__backend_defaults__client_policy__tls__validation__subject_alternative
   match_ :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"] [@default []] [@yojson_drop_default ( = )]
+      [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -793,7 +799,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_al
          []
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -814,7 +820,7 @@ let _ =
 
 type spec__backend_defaults__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -831,7 +837,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
          []
        in
        let bnds =
-         if [] = v_certificate_authority_arns then bnds
+         if Stdlib.( = ) [] v_certificate_authority_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -915,15 +921,15 @@ type spec__backend_defaults__client_policy__tls__validation__trust = {
   acm :
     spec__backend_defaults__client_policy__tls__validation__trust__acm
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file :
     spec__backend_defaults__client_policy__tls__validation__trust__file
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds :
     spec__backend_defaults__client_policy__tls__validation__trust__sds
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -940,7 +946,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -951,7 +957,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -962,7 +968,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acm then bnds
+         if Stdlib.( = ) [] v_acm then bnds
          else
            let arg =
              (yojson_of_list
@@ -985,11 +991,11 @@ type spec__backend_defaults__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trust :
     spec__backend_defaults__client_policy__tls__validation__trust
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1008,7 +1014,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation
          []
        in
        let bnds =
-         if [] = v_trust then bnds
+         if Stdlib.( = ) [] v_trust then bnds
          else
            let arg =
              (yojson_of_list
@@ -1019,7 +1025,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subject_alternative_names then bnds
+         if Stdlib.( = ) [] v_subject_alternative_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -1043,10 +1049,10 @@ type spec__backend_defaults__client_policy__tls = {
   ports : float prop list option; [@option]
   certificate :
     spec__backend_defaults__client_policy__tls__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation :
     spec__backend_defaults__client_policy__tls__validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1064,7 +1070,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls =
          []
        in
        let bnds =
-         if [] = v_validation then bnds
+         if Stdlib.( = ) [] v_validation then bnds
          else
            let arg =
              (yojson_of_list
@@ -1075,7 +1081,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -1113,7 +1119,7 @@ let _ = yojson_of_spec__backend_defaults__client_policy__tls
 
 type spec__backend_defaults__client_policy = {
   tls : spec__backend_defaults__client_policy__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1126,7 +1132,7 @@ let yojson_of_spec__backend_defaults__client_policy =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg =
              (yojson_of_list
@@ -1146,7 +1152,7 @@ let _ = yojson_of_spec__backend_defaults__client_policy
 
 type spec__backend_defaults = {
   client_policy : spec__backend_defaults__client_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1159,7 +1165,7 @@ let yojson_of_spec__backend_defaults =
          []
        in
        let bnds =
-         if [] = v_client_policy then bnds
+         if Stdlib.( = ) [] v_client_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -1294,13 +1300,13 @@ let _ = yojson_of_spec__listener__connection_pool__tcp
 
 type spec__listener__connection_pool = {
   grpc : spec__listener__connection_pool__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http : spec__listener__connection_pool__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http2 : spec__listener__connection_pool__http2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp : spec__listener__connection_pool__tcp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1314,7 +1320,7 @@ let yojson_of_spec__listener__connection_pool =
          []
        in
        let bnds =
-         if [] = v_tcp then bnds
+         if Stdlib.( = ) [] v_tcp then bnds
          else
            let arg =
              (yojson_of_list
@@ -1325,7 +1331,7 @@ let yojson_of_spec__listener__connection_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http2 then bnds
+         if Stdlib.( = ) [] v_http2 then bnds
          else
            let arg =
              (yojson_of_list
@@ -1336,7 +1342,7 @@ let yojson_of_spec__listener__connection_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list
@@ -1347,7 +1353,7 @@ let yojson_of_spec__listener__connection_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -1511,9 +1517,9 @@ type spec__listener__outlier_detection = {
   max_server_errors : float prop;
   base_ejection_duration :
     spec__listener__outlier_detection__base_ejection_duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   interval : spec__listener__outlier_detection__interval list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1531,7 +1537,7 @@ let yojson_of_spec__listener__outlier_detection =
          []
        in
        let bnds =
-         if [] = v_interval then bnds
+         if Stdlib.( = ) [] v_interval then bnds
          else
            let arg =
              (yojson_of_list
@@ -1542,7 +1548,7 @@ let yojson_of_spec__listener__outlier_detection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_base_ejection_duration then bnds
+         if Stdlib.( = ) [] v_base_ejection_duration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1664,9 +1670,9 @@ let _ = yojson_of_spec__listener__timeout__grpc__per_request
 
 type spec__listener__timeout__grpc = {
   idle : spec__listener__timeout__grpc__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__listener__timeout__grpc__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1679,7 +1685,7 @@ let yojson_of_spec__listener__timeout__grpc =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -1690,7 +1696,7 @@ let yojson_of_spec__listener__timeout__grpc =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1770,9 +1776,9 @@ let _ = yojson_of_spec__listener__timeout__http__per_request
 
 type spec__listener__timeout__http = {
   idle : spec__listener__timeout__http__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__listener__timeout__http__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1785,7 +1791,7 @@ let yojson_of_spec__listener__timeout__http =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -1796,7 +1802,7 @@ let yojson_of_spec__listener__timeout__http =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1876,9 +1882,9 @@ let _ = yojson_of_spec__listener__timeout__http2__per_request
 
 type spec__listener__timeout__http2 = {
   idle : spec__listener__timeout__http2__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   per_request : spec__listener__timeout__http2__per_request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1891,7 +1897,7 @@ let yojson_of_spec__listener__timeout__http2 =
          []
        in
        let bnds =
-         if [] = v_per_request then bnds
+         if Stdlib.( = ) [] v_per_request then bnds
          else
            let arg =
              (yojson_of_list
@@ -1902,7 +1908,7 @@ let yojson_of_spec__listener__timeout__http2 =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1952,7 +1958,7 @@ let _ = yojson_of_spec__listener__timeout__tcp__idle
 
 type spec__listener__timeout__tcp = {
   idle : spec__listener__timeout__tcp__idle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1965,7 +1971,7 @@ let yojson_of_spec__listener__timeout__tcp =
          []
        in
        let bnds =
-         if [] = v_idle then bnds
+         if Stdlib.( = ) [] v_idle then bnds
          else
            let arg =
              (yojson_of_list
@@ -1985,13 +1991,13 @@ let _ = yojson_of_spec__listener__timeout__tcp
 
 type spec__listener__timeout = {
   grpc : spec__listener__timeout__grpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http : spec__listener__timeout__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http2 : spec__listener__timeout__http2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp : spec__listener__timeout__tcp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2005,7 +2011,7 @@ let yojson_of_spec__listener__timeout =
          []
        in
        let bnds =
-         if [] = v_tcp then bnds
+         if Stdlib.( = ) [] v_tcp then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__timeout__tcp)
@@ -2015,7 +2021,7 @@ let yojson_of_spec__listener__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http2 then bnds
+         if Stdlib.( = ) [] v_http2 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__timeout__http2)
@@ -2025,7 +2031,7 @@ let yojson_of_spec__listener__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__timeout__http)
@@ -2035,7 +2041,7 @@ let yojson_of_spec__listener__timeout =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grpc then bnds
+         if Stdlib.( = ) [] v_grpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__timeout__grpc)
@@ -2140,11 +2146,11 @@ let _ = yojson_of_spec__listener__tls__certificate__sds
 
 type spec__listener__tls__certificate = {
   acm : spec__listener__tls__certificate__acm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   file : spec__listener__tls__certificate__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds : spec__listener__tls__certificate__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2157,7 +2163,7 @@ let yojson_of_spec__listener__tls__certificate =
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -2168,7 +2174,7 @@ let yojson_of_spec__listener__tls__certificate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2179,7 +2185,7 @@ let yojson_of_spec__listener__tls__certificate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acm then bnds
+         if Stdlib.( = ) [] v_acm then bnds
          else
            let arg =
              (yojson_of_list
@@ -2198,7 +2204,8 @@ let _ = yojson_of_spec__listener__tls__certificate
 [@@@deriving.end]
 
 type spec__listener__tls__validation__subject_alternative_names__match = {
-  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
+  exact : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2215,7 +2222,7 @@ let yojson_of_spec__listener__tls__validation__subject_alternative_names__match
          []
        in
        let bnds =
-         if [] = v_exact then bnds
+         if Stdlib.( = ) [] v_exact then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2237,7 +2244,9 @@ type spec__listener__tls__validation__subject_alternative_names = {
   match_ :
     spec__listener__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"] [@default []] [@yojson_drop_default ( = )]
+      [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2253,7 +2262,7 @@ let yojson_of_spec__listener__tls__validation__subject_alternative_names
          []
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -2326,9 +2335,9 @@ let _ = yojson_of_spec__listener__tls__validation__trust__sds
 
 type spec__listener__tls__validation__trust = {
   file : spec__listener__tls__validation__trust__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sds : spec__listener__tls__validation__trust__sds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2341,7 +2350,7 @@ let yojson_of_spec__listener__tls__validation__trust =
          []
        in
        let bnds =
-         if [] = v_sds then bnds
+         if Stdlib.( = ) [] v_sds then bnds
          else
            let arg =
              (yojson_of_list
@@ -2352,7 +2361,7 @@ let yojson_of_spec__listener__tls__validation__trust =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2373,9 +2382,9 @@ let _ = yojson_of_spec__listener__tls__validation__trust
 type spec__listener__tls__validation = {
   subject_alternative_names :
     spec__listener__tls__validation__subject_alternative_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trust : spec__listener__tls__validation__trust list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2391,7 +2400,7 @@ let yojson_of_spec__listener__tls__validation =
          []
        in
        let bnds =
-         if [] = v_trust then bnds
+         if Stdlib.( = ) [] v_trust then bnds
          else
            let arg =
              (yojson_of_list
@@ -2402,7 +2411,7 @@ let yojson_of_spec__listener__tls__validation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subject_alternative_names then bnds
+         if Stdlib.( = ) [] v_subject_alternative_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -2423,9 +2432,9 @@ let _ = yojson_of_spec__listener__tls__validation
 type spec__listener__tls = {
   mode : string prop;
   certificate : spec__listener__tls__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation : spec__listener__tls__validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2442,7 +2451,7 @@ let yojson_of_spec__listener__tls =
          []
        in
        let bnds =
-         if [] = v_validation then bnds
+         if Stdlib.( = ) [] v_validation then bnds
          else
            let arg =
              (yojson_of_list
@@ -2453,7 +2462,7 @@ let yojson_of_spec__listener__tls =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -2476,17 +2485,17 @@ let _ = yojson_of_spec__listener__tls
 
 type spec__listener = {
   connection_pool : spec__listener__connection_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check : spec__listener__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outlier_detection : spec__listener__outlier_detection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port_mapping : spec__listener__port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : spec__listener__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tls : spec__listener__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2506,7 +2515,7 @@ let yojson_of_spec__listener =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__tls) v_tls
@@ -2515,7 +2524,7 @@ let yojson_of_spec__listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__timeout)
@@ -2525,7 +2534,7 @@ let yojson_of_spec__listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_port_mapping then bnds
+         if Stdlib.( = ) [] v_port_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__port_mapping)
@@ -2535,7 +2544,7 @@ let yojson_of_spec__listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_outlier_detection then bnds
+         if Stdlib.( = ) [] v_outlier_detection then bnds
          else
            let arg =
              (yojson_of_list
@@ -2546,7 +2555,7 @@ let yojson_of_spec__listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener__health_check)
@@ -2556,7 +2565,7 @@ let yojson_of_spec__listener =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connection_pool then bnds
+         if Stdlib.( = ) [] v_connection_pool then bnds
          else
            let arg =
              (yojson_of_list
@@ -2606,7 +2615,7 @@ let _ = yojson_of_spec__logging__access_log__file__format__json
 type spec__logging__access_log__file__format = {
   text : string prop option; [@option]
   json : spec__logging__access_log__file__format__json list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2619,7 +2628,7 @@ let yojson_of_spec__logging__access_log__file__format =
          []
        in
        let bnds =
-         if [] = v_json then bnds
+         if Stdlib.( = ) [] v_json then bnds
          else
            let arg =
              (yojson_of_list
@@ -2648,7 +2657,7 @@ let _ = yojson_of_spec__logging__access_log__file__format
 type spec__logging__access_log__file = {
   path : string prop;
   format : spec__logging__access_log__file__format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2661,7 +2670,7 @@ let yojson_of_spec__logging__access_log__file =
          []
        in
        let bnds =
-         if [] = v_format then bnds
+         if Stdlib.( = ) [] v_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -2685,7 +2694,7 @@ let _ = yojson_of_spec__logging__access_log__file
 
 type spec__logging__access_log = {
   file : spec__logging__access_log__file list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2698,7 +2707,7 @@ let yojson_of_spec__logging__access_log =
          []
        in
        let bnds =
-         if [] = v_file then bnds
+         if Stdlib.( = ) [] v_file then bnds
          else
            let arg =
              (yojson_of_list
@@ -2717,7 +2726,7 @@ let _ = yojson_of_spec__logging__access_log
 
 type spec__logging = {
   access_log : spec__logging__access_log list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2730,7 +2739,7 @@ let yojson_of_spec__logging =
          []
        in
        let bnds =
-         if [] = v_access_log then bnds
+         if Stdlib.( = ) [] v_access_log then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__logging__access_log)
@@ -2848,9 +2857,9 @@ let _ = yojson_of_spec__service_discovery__dns
 
 type spec__service_discovery = {
   aws_cloud_map : spec__service_discovery__aws_cloud_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dns : spec__service_discovery__dns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2863,7 +2872,7 @@ let yojson_of_spec__service_discovery =
          []
        in
        let bnds =
-         if [] = v_dns then bnds
+         if Stdlib.( = ) [] v_dns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__service_discovery__dns)
@@ -2873,7 +2882,7 @@ let yojson_of_spec__service_discovery =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_cloud_map then bnds
+         if Stdlib.( = ) [] v_aws_cloud_map then bnds
          else
            let arg =
              (yojson_of_list
@@ -2892,15 +2901,15 @@ let _ = yojson_of_spec__service_discovery
 
 type spec = {
   backend : spec__backend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_defaults : spec__backend_defaults list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   listener : spec__listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   logging : spec__logging list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_discovery : spec__service_discovery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2919,7 +2928,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_service_discovery then bnds
+         if Stdlib.( = ) [] v_service_discovery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__service_discovery)
@@ -2929,7 +2938,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging then bnds
+         if Stdlib.( = ) [] v_logging then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__logging) v_logging
@@ -2938,7 +2947,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_listener then bnds
+         if Stdlib.( = ) [] v_listener then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__listener) v_listener
@@ -2947,7 +2956,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_defaults then bnds
+         if Stdlib.( = ) [] v_backend_defaults then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__backend_defaults)
@@ -2957,7 +2966,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend then bnds
+         if Stdlib.( = ) [] v_backend then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__backend) v_backend
@@ -2979,7 +2988,7 @@ type aws_appmesh_virtual_node = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3000,7 +3009,7 @@ let yojson_of_aws_appmesh_virtual_node =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in

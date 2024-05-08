@@ -111,7 +111,7 @@ let _ = yojson_of_variations__value
 type variations = {
   name : string prop;
   value : variations__value list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_variations =
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list yojson_of_variations__value) v_value
@@ -184,7 +184,7 @@ type aws_evidently_feature = {
   tags_all : (string * string prop) list option; [@option]
   timeouts : timeouts option;
   variations : variations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,7 +209,7 @@ let yojson_of_aws_evidently_feature =
          []
        in
        let bnds =
-         if [] = v_variations then bnds
+         if Stdlib.( = ) [] v_variations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_variations) v_variations

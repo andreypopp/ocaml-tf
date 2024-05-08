@@ -108,7 +108,7 @@ let _ = yojson_of_validation_data_config__validator
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_validation_data_config =
          []
        in
        let bnds =
-         if [] = v_validator then bnds
+         if Stdlib.( = ) [] v_validator then bnds
          else
            let arg =
              (yojson_of_list
@@ -140,9 +140,9 @@ let _ = yojson_of_validation_data_config
 
 type vpc_config = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,7 +158,7 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -168,7 +168,7 @@ let yojson_of_vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -240,14 +240,14 @@ type aws_bedrock_custom_model = {
   role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   output_data_config : output_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   training_data_config : training_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validation_data_config : validation_data_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -274,7 +274,7 @@ let yojson_of_aws_bedrock_custom_model =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -283,7 +283,7 @@ let yojson_of_aws_bedrock_custom_model =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_validation_data_config then bnds
+         if Stdlib.( = ) [] v_validation_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_data_config)
@@ -293,7 +293,7 @@ let yojson_of_aws_bedrock_custom_model =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_training_data_config then bnds
+         if Stdlib.( = ) [] v_training_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_training_data_config)
@@ -307,7 +307,7 @@ let yojson_of_aws_bedrock_custom_model =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_output_data_config then bnds
+         if Stdlib.( = ) [] v_output_data_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output_data_config)

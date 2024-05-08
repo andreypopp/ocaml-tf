@@ -6,7 +6,7 @@ open! Tf_core
 
 type spec = {
   finalizers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** finalizers *)
 }
 

@@ -5,13 +5,13 @@ open! Tf_core
 type cors_configuration = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allow_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_age : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -36,7 +36,7 @@ let yojson_of_cors_configuration =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         if [] = v_expose_headers then bnds
+         if Stdlib.( = ) [] v_expose_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -46,7 +46,7 @@ let yojson_of_cors_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow_origins then bnds
+         if Stdlib.( = ) [] v_allow_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -56,7 +56,7 @@ let yojson_of_cors_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow_methods then bnds
+         if Stdlib.( = ) [] v_allow_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -66,7 +66,7 @@ let yojson_of_cors_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allow_headers then bnds
+         if Stdlib.( = ) [] v_allow_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -298,25 +298,25 @@ type cloudflare_worker_script = {
   module_ : bool prop option; [@option] [@key "module"]
   name : string prop;
   analytics_engine_binding : analytics_engine_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   d1_database_binding : d1_database_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kv_namespace_binding : kv_namespace_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement : placement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   plain_text_binding : plain_text_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   queue_binding : queue_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   r2_bucket_binding : r2_bucket_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_text_binding : secret_text_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_binding : service_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webassembly_binding : webassembly_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -348,7 +348,7 @@ let yojson_of_cloudflare_worker_script =
          []
        in
        let bnds =
-         if [] = v_webassembly_binding then bnds
+         if Stdlib.( = ) [] v_webassembly_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_webassembly_binding)
@@ -358,7 +358,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_binding then bnds
+         if Stdlib.( = ) [] v_service_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_binding)
@@ -368,7 +368,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_text_binding then bnds
+         if Stdlib.( = ) [] v_secret_text_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret_text_binding)
@@ -378,7 +378,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_r2_bucket_binding then bnds
+         if Stdlib.( = ) [] v_r2_bucket_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_r2_bucket_binding)
@@ -388,7 +388,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_queue_binding then bnds
+         if Stdlib.( = ) [] v_queue_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_queue_binding) v_queue_binding
@@ -397,7 +397,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_plain_text_binding then bnds
+         if Stdlib.( = ) [] v_plain_text_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_plain_text_binding)
@@ -407,7 +407,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_placement then bnds
+         if Stdlib.( = ) [] v_placement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement) v_placement
@@ -416,7 +416,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kv_namespace_binding then bnds
+         if Stdlib.( = ) [] v_kv_namespace_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kv_namespace_binding)
@@ -426,7 +426,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_d1_database_binding then bnds
+         if Stdlib.( = ) [] v_d1_database_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_d1_database_binding)
@@ -436,7 +436,7 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_analytics_engine_binding then bnds
+         if Stdlib.( = ) [] v_analytics_engine_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_analytics_engine_binding)

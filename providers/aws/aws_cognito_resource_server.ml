@@ -41,7 +41,8 @@ type aws_cognito_resource_server = {
   identifier : string prop;
   name : string prop;
   user_pool_id : string prop;
-  scope : scope list; [@default []] [@yojson_drop_default ( = )]
+  scope : scope list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +61,7 @@ let yojson_of_aws_cognito_resource_server =
          []
        in
        let bnds =
-         if [] = v_scope then bnds
+         if Stdlib.( = ) [] v_scope then bnds
          else
            let arg = (yojson_of_list yojson_of_scope) v_scope in
            let bnd = "scope", arg in

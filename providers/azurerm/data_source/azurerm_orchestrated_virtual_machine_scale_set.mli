@@ -6,7 +6,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -23,7 +23,7 @@ type network_interface__ip_configuration__public_ip_address = {
   ip_tag :
     network_interface__ip_configuration__public_ip_address__ip_tag
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_tag *)
   name : string prop;  (** name *)
   public_ip_prefix_id : string prop;  (** public_ip_prefix_id *)
@@ -32,22 +32,22 @@ type network_interface__ip_configuration__public_ip_address = {
 
 type network_interface__ip_configuration = {
   application_gateway_backend_address_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** application_gateway_backend_address_pool_ids *)
   application_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** application_security_group_ids *)
   load_balancer_backend_address_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** load_balancer_backend_address_pool_ids *)
   load_balancer_inbound_nat_rules_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** load_balancer_inbound_nat_rules_ids *)
   name : string prop;  (** name *)
   primary : bool prop;  (** primary *)
   public_ip_address :
     network_interface__ip_configuration__public_ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_ip_address *)
   subnet_id : string prop;  (** subnet_id *)
   version : string prop;  (** version *)
@@ -57,10 +57,10 @@ type network_interface = {
   accelerated_networking_enabled : bool prop;
       (** accelerated_networking_enabled *)
   dns_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns_servers *)
   ip_configuration : network_interface__ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_configuration *)
   ip_forwarding_enabled : bool prop;  (** ip_forwarding_enabled *)
   name : string prop;  (** name *)

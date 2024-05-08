@@ -42,7 +42,7 @@ let _ = yojson_of_disk_iops_configuration
 type root_volume_configuration__nfs_exports__client_configurations = {
   clients : string prop;
   options : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +59,7 @@ let yojson_of_root_volume_configuration__nfs_exports__client_configurations
          []
        in
        let bnds =
-         if [] = v_options then bnds
+         if Stdlib.( = ) [] v_options then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -85,7 +85,7 @@ type root_volume_configuration__nfs_exports = {
   client_configurations :
     root_volume_configuration__nfs_exports__client_configurations
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,7 +98,7 @@ let yojson_of_root_volume_configuration__nfs_exports =
          []
        in
        let bnds =
-         if [] = v_client_configurations then bnds
+         if Stdlib.( = ) [] v_client_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -165,10 +165,10 @@ type root_volume_configuration = {
   read_only : bool prop option; [@option]
   record_size_kib : float prop option; [@option]
   nfs_exports : root_volume_configuration__nfs_exports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_and_group_quotas :
     root_volume_configuration__user_and_group_quotas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,7 +188,7 @@ let yojson_of_root_volume_configuration =
          []
        in
        let bnds =
-         if [] = v_user_and_group_quotas then bnds
+         if Stdlib.( = ) [] v_user_and_group_quotas then bnds
          else
            let arg =
              (yojson_of_list
@@ -199,7 +199,7 @@ let yojson_of_root_volume_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nfs_exports then bnds
+         if Stdlib.( = ) [] v_nfs_exports then bnds
          else
            let arg =
              (yojson_of_list
@@ -311,15 +311,15 @@ type aws_fsx_openzfs_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   throughput_capacity : float prop;
   weekly_maintenance_start_time : string prop option; [@option]
   disk_iops_configuration : disk_iops_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_volume_configuration : root_volume_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -364,7 +364,7 @@ let yojson_of_aws_fsx_openzfs_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_root_volume_configuration then bnds
+         if Stdlib.( = ) [] v_root_volume_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_volume_configuration)
@@ -374,7 +374,7 @@ let yojson_of_aws_fsx_openzfs_file_system =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_iops_configuration then bnds
+         if Stdlib.( = ) [] v_disk_iops_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_iops_configuration)
@@ -430,7 +430,7 @@ let yojson_of_aws_fsx_openzfs_file_system =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

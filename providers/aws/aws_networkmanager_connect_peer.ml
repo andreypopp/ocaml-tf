@@ -116,10 +116,10 @@ let _ = yojson_of_configuration__bgp_configurations
 
 type configuration = {
   bgp_configurations : configuration__bgp_configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   core_network_address : string prop;
   inside_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   peer_address : string prop;
   protocol : string prop;
 }
@@ -148,7 +148,7 @@ let yojson_of_configuration =
          ("peer_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_inside_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_inside_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -164,7 +164,7 @@ let yojson_of_configuration =
          ("core_network_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_bgp_configurations then bnds
+         if Stdlib.( = ) [] v_bgp_configurations then bnds
          else
            let arg =
              (yojson_of_list
@@ -191,7 +191,7 @@ type aws_networkmanager_connect_peer = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   bgp_options : bgp_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -220,7 +220,7 @@ let yojson_of_aws_networkmanager_connect_peer =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_bgp_options then bnds
+         if Stdlib.( = ) [] v_bgp_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bgp_options) v_bgp_options

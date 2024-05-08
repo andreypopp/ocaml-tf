@@ -83,7 +83,7 @@ type software_config = {
   post_startup_script : string prop option; [@option]
   post_startup_script_behavior : string prop option; [@option]
   kernels : software_config__kernels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_software_config =
          []
        in
        let bnds =
-         if [] = v_kernels then bnds
+         if Stdlib.( = ) [] v_kernels then bnds
          else
            let arg =
              (yojson_of_list yojson_of_software_config__kernels)
@@ -405,7 +405,7 @@ type virtual_machine__virtual_machine_config__data_disk = {
   initialize_params :
     virtual_machine__virtual_machine_config__data_disk__initialize_params
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -425,7 +425,7 @@ let yojson_of_virtual_machine__virtual_machine_config__data_disk =
          []
        in
        let bnds =
-         if [] = v_initialize_params then bnds
+         if Stdlib.( = ) [] v_initialize_params then bnds
          else
            let arg =
              (yojson_of_list
@@ -576,20 +576,20 @@ type virtual_machine__virtual_machine_config = {
   tags : string prop list option; [@option]
   accelerator_config :
     virtual_machine__virtual_machine_config__accelerator_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   container_images :
     virtual_machine__virtual_machine_config__container_images list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_disk :
     virtual_machine__virtual_machine_config__data_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_config :
     virtual_machine__virtual_machine_config__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shielded_instance_config :
     virtual_machine__virtual_machine_config__shielded_instance_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -617,7 +617,7 @@ let yojson_of_virtual_machine__virtual_machine_config =
          []
        in
        let bnds =
-         if [] = v_shielded_instance_config then bnds
+         if Stdlib.( = ) [] v_shielded_instance_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -628,7 +628,7 @@ let yojson_of_virtual_machine__virtual_machine_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -639,7 +639,7 @@ let yojson_of_virtual_machine__virtual_machine_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_disk then bnds
+         if Stdlib.( = ) [] v_data_disk then bnds
          else
            let arg =
              (yojson_of_list
@@ -650,7 +650,7 @@ let yojson_of_virtual_machine__virtual_machine_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_images then bnds
+         if Stdlib.( = ) [] v_container_images then bnds
          else
            let arg =
              (yojson_of_list
@@ -661,7 +661,7 @@ let yojson_of_virtual_machine__virtual_machine_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_config then bnds
+         if Stdlib.( = ) [] v_accelerator_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -768,7 +768,7 @@ let _ = yojson_of_virtual_machine__virtual_machine_config
 type virtual_machine = {
   virtual_machine_config :
     virtual_machine__virtual_machine_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -781,7 +781,7 @@ let yojson_of_virtual_machine =
          []
        in
        let bnds =
-         if [] = v_virtual_machine_config then bnds
+         if Stdlib.( = ) [] v_virtual_machine_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -835,12 +835,12 @@ type google_notebooks_runtime = {
   name : string prop;
   project : string prop option; [@option]
   access_config : access_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   software_config : software_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_machine : virtual_machine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -863,7 +863,7 @@ let yojson_of_google_notebooks_runtime =
          []
        in
        let bnds =
-         if [] = v_virtual_machine then bnds
+         if Stdlib.( = ) [] v_virtual_machine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_machine)
@@ -877,7 +877,7 @@ let yojson_of_google_notebooks_runtime =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_software_config then bnds
+         if Stdlib.( = ) [] v_software_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_software_config)
@@ -887,7 +887,7 @@ let yojson_of_google_notebooks_runtime =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_config then bnds
+         if Stdlib.( = ) [] v_access_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_config) v_access_config

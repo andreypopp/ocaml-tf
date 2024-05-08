@@ -20,11 +20,11 @@ type revocation_configuration__crl_configuration = {
 type revocation_configuration = {
   crl_configuration :
     revocation_configuration__crl_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** crl_configuration *)
   ocsp_configuration :
     revocation_configuration__ocsp_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ocsp_configuration *)
 }
 

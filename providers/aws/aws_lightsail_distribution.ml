@@ -166,13 +166,13 @@ type cache_behavior_settings = {
   minimum_ttl : float prop option; [@option]
   forwarded_cookies :
     cache_behavior_settings__forwarded_cookies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarded_headers :
     cache_behavior_settings__forwarded_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarded_query_strings :
     cache_behavior_settings__forwarded_query_strings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,7 +194,7 @@ let yojson_of_cache_behavior_settings =
          []
        in
        let bnds =
-         if [] = v_forwarded_query_strings then bnds
+         if Stdlib.( = ) [] v_forwarded_query_strings then bnds
          else
            let arg =
              (yojson_of_list
@@ -205,7 +205,7 @@ let yojson_of_cache_behavior_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarded_headers then bnds
+         if Stdlib.( = ) [] v_forwarded_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -216,7 +216,7 @@ let yojson_of_cache_behavior_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarded_cookies then bnds
+         if Stdlib.( = ) [] v_forwarded_cookies then bnds
          else
            let arg =
              (yojson_of_list
@@ -427,12 +427,13 @@ type aws_lightsail_distribution = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cache_behavior : cache_behavior list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_behavior_settings : cache_behavior_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_cache_behavior : default_cache_behavior list;
-      [@default []] [@yojson_drop_default ( = )]
-  origin : origin list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  origin : origin list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -464,14 +465,14 @@ let yojson_of_aws_lightsail_distribution =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_origin then bnds
+         if Stdlib.( = ) [] v_origin then bnds
          else
            let arg = (yojson_of_list yojson_of_origin) v_origin in
            let bnd = "origin", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_cache_behavior then bnds
+         if Stdlib.( = ) [] v_default_cache_behavior then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_cache_behavior)
@@ -481,7 +482,7 @@ let yojson_of_aws_lightsail_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_behavior_settings then bnds
+         if Stdlib.( = ) [] v_cache_behavior_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cache_behavior_settings)
@@ -491,7 +492,7 @@ let yojson_of_aws_lightsail_distribution =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_behavior then bnds
+         if Stdlib.( = ) [] v_cache_behavior then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cache_behavior)

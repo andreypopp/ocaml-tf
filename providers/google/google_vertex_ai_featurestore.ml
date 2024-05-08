@@ -60,7 +60,7 @@ let _ = yojson_of_online_serving_config__scaling
 type online_serving_config = {
   fixed_node_count : float prop option; [@option]
   scaling : online_serving_config__scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_online_serving_config =
          []
        in
        let bnds =
-         if [] = v_scaling then bnds
+         if Stdlib.( = ) [] v_scaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_online_serving_config__scaling)
@@ -152,9 +152,9 @@ type google_vertex_ai_featurestore = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   encryption_spec : encryption_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   online_serving_config : online_serving_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -182,7 +182,7 @@ let yojson_of_google_vertex_ai_featurestore =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_online_serving_config then bnds
+         if Stdlib.( = ) [] v_online_serving_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_online_serving_config)
@@ -192,7 +192,7 @@ let yojson_of_google_vertex_ai_featurestore =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_spec then bnds
+         if Stdlib.( = ) [] v_encryption_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_spec)

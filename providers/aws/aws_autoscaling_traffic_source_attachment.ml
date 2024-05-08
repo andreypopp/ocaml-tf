@@ -73,7 +73,7 @@ type aws_autoscaling_traffic_source_attachment = {
   id : string prop option; [@option]
   timeouts : timeouts option;
   traffic_source : traffic_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,7 +91,7 @@ let yojson_of_aws_autoscaling_traffic_source_attachment =
          []
        in
        let bnds =
-         if [] = v_traffic_source then bnds
+         if Stdlib.( = ) [] v_traffic_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_traffic_source)

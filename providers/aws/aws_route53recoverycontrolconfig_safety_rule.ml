@@ -49,7 +49,7 @@ type aws_route53recoverycontrolconfig_safety_rule = {
   target_controls : string prop list option; [@option]
   wait_period_ms : float prop;
   rule_config : rule_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_aws_route53recoverycontrolconfig_safety_rule =
          []
        in
        let bnds =
-         if [] = v_rule_config then bnds
+         if Stdlib.( = ) [] v_rule_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_config) v_rule_config

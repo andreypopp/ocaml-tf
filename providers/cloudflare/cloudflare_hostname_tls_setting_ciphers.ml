@@ -7,7 +7,7 @@ type cloudflare_hostname_tls_setting_ciphers = {
   id : string prop option; [@option]
   ports : float prop list option; [@option]
   value : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zone_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -31,7 +31,7 @@ let yojson_of_cloudflare_hostname_tls_setting_ciphers =
          ("zone_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

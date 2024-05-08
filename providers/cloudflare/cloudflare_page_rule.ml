@@ -234,15 +234,15 @@ let _ = yojson_of_actions__cache_key_fields__user
 
 type actions__cache_key_fields = {
   cookie : actions__cache_key_fields__cookie list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   header : actions__cache_key_fields__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host : actions__cache_key_fields__host list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_string : actions__cache_key_fields__query_string list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user : actions__cache_key_fields__user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -261,7 +261,7 @@ let yojson_of_actions__cache_key_fields =
          []
        in
        let bnds =
-         if [] = v_user then bnds
+         if Stdlib.( = ) [] v_user then bnds
          else
            let arg =
              (yojson_of_list
@@ -272,7 +272,7 @@ let yojson_of_actions__cache_key_fields =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_string then bnds
+         if Stdlib.( = ) [] v_query_string then bnds
          else
            let arg =
              (yojson_of_list
@@ -283,7 +283,7 @@ let yojson_of_actions__cache_key_fields =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host then bnds
+         if Stdlib.( = ) [] v_host then bnds
          else
            let arg =
              (yojson_of_list
@@ -294,7 +294,7 @@ let yojson_of_actions__cache_key_fields =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -305,7 +305,7 @@ let yojson_of_actions__cache_key_fields =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cookie then bnds
+         if Stdlib.( = ) [] v_cookie then bnds
          else
            let arg =
              (yojson_of_list
@@ -450,13 +450,13 @@ type actions = {
   true_client_ip_header : string prop option; [@option]
   waf : string prop option; [@option]
   cache_key_fields : actions__cache_key_fields list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_ttl_by_status : actions__cache_ttl_by_status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarding_url : actions__forwarding_url list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   minify : actions__minify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -507,7 +507,7 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         if [] = v_minify then bnds
+         if Stdlib.( = ) [] v_minify then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__minify) v_minify
@@ -516,7 +516,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarding_url then bnds
+         if Stdlib.( = ) [] v_forwarding_url then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__forwarding_url)
@@ -526,7 +526,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_ttl_by_status then bnds
+         if Stdlib.( = ) [] v_cache_ttl_by_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__cache_ttl_by_status)
@@ -536,7 +536,7 @@ let yojson_of_actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cache_key_fields then bnds
+         if Stdlib.( = ) [] v_cache_key_fields then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__cache_key_fields)
@@ -822,7 +822,8 @@ type cloudflare_page_rule = {
   status : string prop option; [@option]
   target : string prop;
   zone_id : string prop;
-  actions : actions list; [@default []] [@yojson_drop_default ( = )]
+  actions : actions list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -842,7 +843,7 @@ let yojson_of_cloudflare_page_rule =
          []
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg = (yojson_of_list yojson_of_actions) v_actions in
            let bnd = "actions", arg in

@@ -4,7 +4,7 @@ open! Tf_core
 
 type aws_iam_user_group_membership = {
   groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   user : string prop;
 }
@@ -31,7 +31,7 @@ let yojson_of_aws_iam_user_group_membership =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_groups then bnds
+         if Stdlib.( = ) [] v_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

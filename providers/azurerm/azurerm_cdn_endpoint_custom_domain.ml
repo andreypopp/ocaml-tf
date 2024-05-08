@@ -162,10 +162,10 @@ type azurerm_cdn_endpoint_custom_domain = {
   id : string prop option; [@option]
   name : string prop;
   cdn_managed_https : cdn_managed_https list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   user_managed_https : user_managed_https list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_azurerm_cdn_endpoint_custom_domain =
          []
        in
        let bnds =
-         if [] = v_user_managed_https then bnds
+         if Stdlib.( = ) [] v_user_managed_https then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_managed_https)
@@ -200,7 +200,7 @@ let yojson_of_azurerm_cdn_endpoint_custom_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cdn_managed_https then bnds
+         if Stdlib.( = ) [] v_cdn_managed_https then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cdn_managed_https)

@@ -58,7 +58,8 @@ type cloudflare_waiting_room_rules = {
   id : string prop option; [@option]
   waiting_room_id : string prop;
   zone_id : string prop;
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +77,7 @@ let yojson_of_cloudflare_waiting_room_rules =
          []
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

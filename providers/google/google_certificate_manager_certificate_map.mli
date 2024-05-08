@@ -6,13 +6,14 @@ open! Tf_core
 
 type gclb_targets__ip_configs = {
   ip_address : string prop;  (** ip_address *)
-  ports : float prop list; [@default []] [@yojson_drop_default ( = )]
+  ports : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
 }
 
 type gclb_targets = {
   ip_configs : gclb_targets__ip_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_configs *)
   target_https_proxy : string prop;  (** target_https_proxy *)
   target_ssl_proxy : string prop;  (** target_ssl_proxy *)

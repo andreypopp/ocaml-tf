@@ -33,7 +33,7 @@ let _ = yojson_of_container_provider__info__eks_info
 
 type container_provider__info = {
   eks_info : container_provider__info__eks_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +46,7 @@ let yojson_of_container_provider__info =
          []
        in
        let bnds =
-         if [] = v_eks_info then bnds
+         if Stdlib.( = ) [] v_eks_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -67,7 +67,7 @@ type container_provider = {
   id : string prop;
   type_ : string prop; [@key "type"]
   info : container_provider__info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,7 +80,7 @@ let yojson_of_container_provider =
          []
        in
        let bnds =
-         if [] = v_info then bnds
+         if Stdlib.( = ) [] v_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container_provider__info)
@@ -136,7 +136,7 @@ type aws_emrcontainers_virtual_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   container_provider : container_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -161,7 +161,7 @@ let yojson_of_aws_emrcontainers_virtual_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_container_provider then bnds
+         if Stdlib.( = ) [] v_container_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_container_provider)

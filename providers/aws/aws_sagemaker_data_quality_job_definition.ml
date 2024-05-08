@@ -132,10 +132,10 @@ let _ = yojson_of_data_quality_baseline_config__statistics_resource
 type data_quality_baseline_config = {
   constraints_resource :
     data_quality_baseline_config__constraints_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   statistics_resource :
     data_quality_baseline_config__statistics_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,7 +151,7 @@ let yojson_of_data_quality_baseline_config =
          []
        in
        let bnds =
-         if [] = v_statistics_resource then bnds
+         if Stdlib.( = ) [] v_statistics_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -162,7 +162,7 @@ let yojson_of_data_quality_baseline_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_constraints_resource then bnds
+         if Stdlib.( = ) [] v_constraints_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -252,11 +252,11 @@ type data_quality_job_input__batch_transform_input__dataset_format = {
   csv :
     data_quality_job_input__batch_transform_input__dataset_format__csv
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json :
     data_quality_job_input__batch_transform_input__dataset_format__json
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -273,7 +273,7 @@ let yojson_of_data_quality_job_input__batch_transform_input__dataset_format
          []
        in
        let bnds =
-         if [] = v_json then bnds
+         if Stdlib.( = ) [] v_json then bnds
          else
            let arg =
              (yojson_of_list
@@ -284,7 +284,7 @@ let yojson_of_data_quality_job_input__batch_transform_input__dataset_format
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv then bnds
+         if Stdlib.( = ) [] v_csv then bnds
          else
            let arg =
              (yojson_of_list
@@ -311,7 +311,7 @@ type data_quality_job_input__batch_transform_input = {
   dataset_format :
     data_quality_job_input__batch_transform_input__dataset_format
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -331,7 +331,7 @@ let yojson_of_data_quality_job_input__batch_transform_input =
          []
        in
        let bnds =
-         if [] = v_dataset_format then bnds
+         if Stdlib.( = ) [] v_dataset_format then bnds
          else
            let arg =
              (yojson_of_list
@@ -440,9 +440,9 @@ let _ = yojson_of_data_quality_job_input__endpoint_input
 type data_quality_job_input = {
   batch_transform_input :
     data_quality_job_input__batch_transform_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   endpoint_input : data_quality_job_input__endpoint_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -458,7 +458,7 @@ let yojson_of_data_quality_job_input =
          []
        in
        let bnds =
-         if [] = v_endpoint_input then bnds
+         if Stdlib.( = ) [] v_endpoint_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -469,7 +469,7 @@ let yojson_of_data_quality_job_input =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_batch_transform_input then bnds
+         if Stdlib.( = ) [] v_batch_transform_input then bnds
          else
            let arg =
              (yojson_of_list
@@ -542,7 +542,7 @@ type data_quality_job_output_config__monitoring_outputs = {
   s3_output :
     data_quality_job_output_config__monitoring_outputs__s3_output
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -556,7 +556,7 @@ let yojson_of_data_quality_job_output_config__monitoring_outputs =
          []
        in
        let bnds =
-         if [] = v_s3_output then bnds
+         if Stdlib.( = ) [] v_s3_output then bnds
          else
            let arg =
              (yojson_of_list
@@ -578,7 +578,7 @@ type data_quality_job_output_config = {
   kms_key_id : string prop option; [@option]
   monitoring_outputs :
     data_quality_job_output_config__monitoring_outputs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -594,7 +594,7 @@ let yojson_of_data_quality_job_output_config =
          []
        in
        let bnds =
-         if [] = v_monitoring_outputs then bnds
+         if Stdlib.( = ) [] v_monitoring_outputs then bnds
          else
            let arg =
              (yojson_of_list
@@ -673,7 +673,7 @@ let _ = yojson_of_job_resources__cluster_config
 
 type job_resources = {
   cluster_config : job_resources__cluster_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -686,7 +686,7 @@ let yojson_of_job_resources =
          []
        in
        let bnds =
-         if [] = v_cluster_config then bnds
+         if Stdlib.( = ) [] v_cluster_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_job_resources__cluster_config)
@@ -704,9 +704,9 @@ let _ = yojson_of_job_resources
 
 type network_config__vpc_config = {
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -722,7 +722,7 @@ let yojson_of_network_config__vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -732,7 +732,7 @@ let yojson_of_network_config__vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -753,7 +753,7 @@ type network_config = {
       [@option]
   enable_network_isolation : bool prop option; [@option]
   vpc_config : network_config__vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,7 +771,7 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config__vpc_config)
@@ -841,20 +841,20 @@ type aws_sagemaker_data_quality_job_definition = {
   tags_all : (string * string prop) list option; [@option]
   data_quality_app_specification :
     data_quality_app_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_quality_baseline_config : data_quality_baseline_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_quality_job_input : data_quality_job_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_quality_job_output_config :
     data_quality_job_output_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   job_resources : job_resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stopping_condition : stopping_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -882,7 +882,7 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
          []
        in
        let bnds =
-         if [] = v_stopping_condition then bnds
+         if Stdlib.( = ) [] v_stopping_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stopping_condition)
@@ -892,7 +892,7 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -902,7 +902,7 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_job_resources then bnds
+         if Stdlib.( = ) [] v_job_resources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_job_resources) v_job_resources
@@ -911,7 +911,8 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_quality_job_output_config then bnds
+         if Stdlib.( = ) [] v_data_quality_job_output_config then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_job_output_config)
@@ -921,7 +922,7 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_quality_job_input then bnds
+         if Stdlib.( = ) [] v_data_quality_job_input then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_job_input)
@@ -931,7 +932,7 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_quality_baseline_config then bnds
+         if Stdlib.( = ) [] v_data_quality_baseline_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_baseline_config)
@@ -941,7 +942,8 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_quality_app_specification then bnds
+         if Stdlib.( = ) [] v_data_quality_app_specification then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_app_specification)

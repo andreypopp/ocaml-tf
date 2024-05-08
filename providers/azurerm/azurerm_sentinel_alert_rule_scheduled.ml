@@ -38,7 +38,7 @@ type alert_details_override = {
   severity_column_name : string prop option; [@option]
   tactics_column_name : string prop option; [@option]
   dynamic_property : alert_details_override__dynamic_property list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_alert_details_override =
          []
        in
        let bnds =
-         if [] = v_dynamic_property then bnds
+         if Stdlib.( = ) [] v_dynamic_property then bnds
          else
            let arg =
              (yojson_of_list
@@ -139,7 +139,7 @@ let _ = yojson_of_entity_mapping__field_mapping
 type entity_mapping = {
   entity_type : string prop;
   field_mapping : entity_mapping__field_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_entity_mapping =
          []
        in
        let bnds =
-         if [] = v_field_mapping then bnds
+         if Stdlib.( = ) [] v_field_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_entity_mapping__field_mapping)
@@ -297,7 +297,7 @@ let _ = yojson_of_incident_configuration__grouping
 type incident_configuration = {
   create_incident : bool prop;
   grouping : incident_configuration__grouping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -311,7 +311,7 @@ let yojson_of_incident_configuration =
          []
        in
        let bnds =
-         if [] = v_grouping then bnds
+         if Stdlib.( = ) [] v_grouping then bnds
          else
            let arg =
              (yojson_of_list
@@ -435,15 +435,15 @@ type azurerm_sentinel_alert_rule_scheduled = {
   trigger_operator : string prop option; [@option]
   trigger_threshold : float prop option; [@option]
   alert_details_override : alert_details_override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   entity_mapping : entity_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_grouping : event_grouping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   incident_configuration : incident_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sentinel_entity_mapping : sentinel_entity_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -487,7 +487,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sentinel_entity_mapping then bnds
+         if Stdlib.( = ) [] v_sentinel_entity_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sentinel_entity_mapping)
@@ -497,7 +497,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_incident_configuration then bnds
+         if Stdlib.( = ) [] v_incident_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_incident_configuration)
@@ -507,7 +507,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_grouping then bnds
+         if Stdlib.( = ) [] v_event_grouping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_grouping)
@@ -517,7 +517,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_entity_mapping then bnds
+         if Stdlib.( = ) [] v_entity_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_entity_mapping)
@@ -527,7 +527,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alert_details_override then bnds
+         if Stdlib.( = ) [] v_alert_details_override then bnds
          else
            let arg =
              (yojson_of_list yojson_of_alert_details_override)

@@ -4,7 +4,7 @@ open! Tf_core
 
 type enumeration_value = {
   synonyms : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   value : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_enumeration_value =
          ("value", arg) :: bnds
        in
        let bnds =
-         if [] = v_synonyms then bnds
+         if Stdlib.( = ) [] v_synonyms then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -113,7 +113,7 @@ type azurerm_virtual_machine_scale_set_extension = {
   virtual_machine_scale_set_id : string prop;
   protected_settings_from_key_vault :
     protected_settings_from_key_vault list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,7 +148,8 @@ let yojson_of_azurerm_virtual_machine_scale_set_extension =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_protected_settings_from_key_vault then bnds
+         if Stdlib.( = ) [] v_protected_settings_from_key_vault then
+           bnds
          else
            let arg =
              (yojson_of_list

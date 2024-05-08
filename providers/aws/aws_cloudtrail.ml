@@ -104,7 +104,7 @@ let _ = yojson_of_advanced_event_selector__field_selector
 type advanced_event_selector = {
   name : string prop option; [@option]
   field_selector : advanced_event_selector__field_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,7 +117,7 @@ let yojson_of_advanced_event_selector =
          []
        in
        let bnds =
-         if [] = v_field_selector then bnds
+         if Stdlib.( = ) [] v_field_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -145,7 +145,7 @@ let _ = yojson_of_advanced_event_selector
 type event_selector__data_resource = {
   type_ : string prop; [@key "type"]
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,7 +158,7 @@ let yojson_of_event_selector__data_resource =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -185,7 +185,7 @@ type event_selector = {
   include_management_events : bool prop option; [@option]
   read_write_type : string prop option; [@option]
   data_resource : event_selector__data_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,7 +204,7 @@ let yojson_of_event_selector =
          []
        in
        let bnds =
-         if [] = v_data_resource then bnds
+         if Stdlib.( = ) [] v_data_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_selector__data_resource)
@@ -285,11 +285,11 @@ type aws_cloudtrail = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   advanced_event_selector : advanced_event_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_selector : event_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   insight_selector : insight_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -322,7 +322,7 @@ let yojson_of_aws_cloudtrail =
          []
        in
        let bnds =
-         if [] = v_insight_selector then bnds
+         if Stdlib.( = ) [] v_insight_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_insight_selector)
@@ -332,7 +332,7 @@ let yojson_of_aws_cloudtrail =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_selector then bnds
+         if Stdlib.( = ) [] v_event_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_selector)
@@ -342,7 +342,7 @@ let yojson_of_aws_cloudtrail =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_event_selector then bnds
+         if Stdlib.( = ) [] v_advanced_event_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_advanced_event_selector)

@@ -51,7 +51,7 @@ let _ = yojson_of_emergency_contact
 type aws_shield_proactive_engagement = {
   enabled : bool prop;
   emergency_contact : emergency_contact list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_aws_shield_proactive_engagement =
          []
        in
        let bnds =
-         if [] = v_emergency_contact then bnds
+         if Stdlib.( = ) [] v_emergency_contact then bnds
          else
            let arg =
              (yojson_of_list yojson_of_emergency_contact)

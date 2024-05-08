@@ -220,10 +220,10 @@ type azurerm_dashboard_grafana = {
   zone_redundancy_enabled : bool prop option; [@option]
   azure_monitor_workspace_integrations :
     azure_monitor_workspace_integrations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  smtp : smtp list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  smtp : smtp list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -262,14 +262,14 @@ let yojson_of_azurerm_dashboard_grafana =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_smtp then bnds
+         if Stdlib.( = ) [] v_smtp then bnds
          else
            let arg = (yojson_of_list yojson_of_smtp) v_smtp in
            let bnd = "smtp", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -278,7 +278,8 @@ let yojson_of_azurerm_dashboard_grafana =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_monitor_workspace_integrations then bnds
+         if Stdlib.( = ) [] v_azure_monitor_workspace_integrations
+         then bnds
          else
            let arg =
              (yojson_of_list

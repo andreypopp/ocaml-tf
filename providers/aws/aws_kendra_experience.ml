@@ -87,10 +87,10 @@ let _ = yojson_of_configuration__user_identity_configuration
 type configuration = {
   content_source_configuration :
     configuration__content_source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_identity_configuration :
     configuration__user_identity_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_user_identity_configuration then bnds
+         if Stdlib.( = ) [] v_user_identity_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -117,7 +117,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_source_configuration then bnds
+         if Stdlib.( = ) [] v_content_source_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -216,7 +216,7 @@ type aws_kendra_experience = {
   name : string prop;
   role_arn : string prop;
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -242,7 +242,7 @@ let yojson_of_aws_kendra_experience =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

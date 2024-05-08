@@ -12,7 +12,7 @@ type load_balancers__target = {
 
 type load_balancers__service__http = {
   certificates : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** certificates *)
   cookie_lifetime : float prop;  (** cookie_lifetime *)
   cookie_name : string prop;  (** cookie_name *)
@@ -25,14 +25,14 @@ type load_balancers__service__health_check__http = {
   path : string prop;  (** path *)
   response : string prop;  (** response *)
   status_codes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status_codes *)
   tls : bool prop;  (** tls *)
 }
 
 type load_balancers__service__health_check = {
   http : load_balancers__service__health_check__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   interval : float prop;  (** interval *)
   port : float prop;  (** port *)
@@ -44,10 +44,10 @@ type load_balancers__service__health_check = {
 type load_balancers__service = {
   destination_port : float prop;  (** destination_port *)
   health_check : load_balancers__service__health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** health_check *)
   http : load_balancers__service__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http *)
   listen_port : float prop;  (** listen_port *)
   protocol : string prop;  (** protocol *)
@@ -60,7 +60,7 @@ type load_balancers__algorithm = {
 
 type load_balancers = {
   algorithm : load_balancers__algorithm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** algorithm *)
   delete_protection : bool prop;  (** delete_protection *)
   id : float prop;  (** id *)
@@ -74,10 +74,10 @@ type load_balancers = {
   network_ip : string prop;  (** network_ip *)
   network_zone : string prop;  (** network_zone *)
   service : load_balancers__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** service *)
   target : load_balancers__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target *)
 }
 

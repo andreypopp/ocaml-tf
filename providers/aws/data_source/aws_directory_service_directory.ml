@@ -4,14 +4,14 @@ open! Tf_core
 
 type connect_settings = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   connect_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_username : string prop;
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -36,7 +36,7 @@ let yojson_of_connect_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -52,7 +52,7 @@ let yojson_of_connect_settings =
          ("customer_username", arg) :: bnds
        in
        let bnds =
-         if [] = v_customer_dns_ips then bnds
+         if Stdlib.( = ) [] v_customer_dns_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -62,7 +62,7 @@ let yojson_of_connect_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connect_ips then bnds
+         if Stdlib.( = ) [] v_connect_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -72,7 +72,7 @@ let yojson_of_connect_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -94,7 +94,7 @@ type radius_settings = {
   radius_port : float prop;
   radius_retries : float prop;
   radius_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   radius_timeout : float prop;
   use_same_username : bool prop;
 }
@@ -127,7 +127,7 @@ let yojson_of_radius_settings =
          ("radius_timeout", arg) :: bnds
        in
        let bnds =
-         if [] = v_radius_servers then bnds
+         if Stdlib.( = ) [] v_radius_servers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -163,9 +163,9 @@ let _ = yojson_of_radius_settings
 
 type vpc_settings = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -187,7 +187,7 @@ let yojson_of_vpc_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -197,7 +197,7 @@ let yojson_of_vpc_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -4,7 +4,7 @@ open! Tf_core
 
 type action = {
   action_group : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_webhook_payload : string prop option; [@option]
   email_subject : string prop option; [@option]
 }
@@ -39,7 +39,7 @@ let yojson_of_action =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_action_group then bnds
+         if Stdlib.( = ) [] v_action_group then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -169,7 +169,7 @@ type trigger = {
   operator : string prop;
   threshold : float prop;
   metric_trigger : trigger__metric_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_trigger =
          []
        in
        let bnds =
-         if [] = v_metric_trigger then bnds
+         if Stdlib.( = ) [] v_metric_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trigger__metric_trigger)
@@ -227,9 +227,11 @@ type azurerm_monitor_scheduled_query_rules_alert = {
   tags : (string * string prop) list option; [@option]
   throttling : float prop option; [@option]
   time_window : float prop;
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  trigger : trigger list; [@default []] [@yojson_drop_default ( = )]
+  trigger : trigger list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -262,7 +264,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert =
          []
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg = (yojson_of_list yojson_of_trigger) v_trigger in
            let bnd = "trigger", arg in
@@ -273,7 +275,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

@@ -110,9 +110,9 @@ type item__value = {
   asn : float prop option; [@option]
   ip : string prop option; [@option]
   hostname : item__value__hostname list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redirect : item__value__redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,7 +130,7 @@ let yojson_of_item__value =
          []
        in
        let bnds =
-         if [] = v_redirect then bnds
+         if Stdlib.( = ) [] v_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_item__value__redirect)
@@ -140,7 +140,7 @@ let yojson_of_item__value =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hostname then bnds
+         if Stdlib.( = ) [] v_hostname then bnds
          else
            let arg =
              (yojson_of_list yojson_of_item__value__hostname)
@@ -174,7 +174,8 @@ let _ = yojson_of_item__value
 
 type item = {
   comment : string prop option; [@option]
-  value : item__value list; [@default []] [@yojson_drop_default ( = )]
+  value : item__value list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -187,7 +188,7 @@ let yojson_of_item =
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list yojson_of_item__value) v_value
@@ -216,7 +217,7 @@ type cloudflare_list = {
   id : string prop option; [@option]
   kind : string prop;
   name : string prop;
-  item : item list; [@default []] [@yojson_drop_default ( = )]
+  item : item list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +237,7 @@ let yojson_of_cloudflare_list =
          []
        in
        let bnds =
-         if [] = v_item then bnds
+         if Stdlib.( = ) [] v_item then bnds
          else
            let arg = (yojson_of_list yojson_of_item) v_item in
            let bnd = "item", arg in

@@ -39,11 +39,13 @@ let _ = yojson_of_autoclass
 type cors = {
   max_age_seconds : float prop;
   method_ : string prop list;
-      [@default []] [@yojson_drop_default ( = )] [@key "method"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "method"]
   origin : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response_header : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,7 +63,7 @@ let yojson_of_cors =
          []
        in
        let bnds =
-         if [] = v_response_header then bnds
+         if Stdlib.( = ) [] v_response_header then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -71,7 +73,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_origin then bnds
+         if Stdlib.( = ) [] v_origin then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -81,7 +83,7 @@ let yojson_of_cors =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_method_ then bnds
+         if Stdlib.( = ) [] v_method_ then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -105,7 +107,7 @@ let _ = yojson_of_cors
 
 type custom_placement_config = {
   data_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,7 +120,7 @@ let yojson_of_custom_placement_config =
          []
        in
        let bnds =
-         if [] = v_data_locations then bnds
+         if Stdlib.( = ) [] v_data_locations then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -165,11 +167,11 @@ type lifecycle_rule__condition = {
   days_since_custom_time : float prop;
   days_since_noncurrent_time : float prop;
   matches_prefix : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   matches_storage_class : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   matches_suffix : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   no_age : bool prop;
   noncurrent_time_before : string prop;
   num_newer_versions : float prop;
@@ -219,7 +221,7 @@ let yojson_of_lifecycle_rule__condition =
          ("no_age", arg) :: bnds
        in
        let bnds =
-         if [] = v_matches_suffix then bnds
+         if Stdlib.( = ) [] v_matches_suffix then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -229,7 +231,7 @@ let yojson_of_lifecycle_rule__condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_matches_storage_class then bnds
+         if Stdlib.( = ) [] v_matches_storage_class then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -239,7 +241,7 @@ let yojson_of_lifecycle_rule__condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_matches_prefix then bnds
+         if Stdlib.( = ) [] v_matches_prefix then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -315,9 +317,9 @@ let _ = yojson_of_lifecycle_rule__action
 
 type lifecycle_rule = {
   action : lifecycle_rule__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   condition : lifecycle_rule__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -330,7 +332,7 @@ let yojson_of_lifecycle_rule =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_rule__condition)
@@ -340,7 +342,7 @@ let yojson_of_lifecycle_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lifecycle_rule__action)

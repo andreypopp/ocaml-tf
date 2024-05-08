@@ -80,7 +80,7 @@ let _ = yojson_of_metadata
 
 type spec__tls = {
   hosts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -98,7 +98,7 @@ let yojson_of_spec__tls =
          ("secret_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_hosts then bnds
+         if Stdlib.( = ) [] v_hosts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -148,7 +148,7 @@ let _ = yojson_of_spec__rule__http__path__backend__service__port
 type spec__rule__http__path__backend__service = {
   name : string prop;
   port : spec__rule__http__path__backend__service__port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_spec__rule__http__path__backend__service =
          []
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -220,9 +220,9 @@ let _ = yojson_of_spec__rule__http__path__backend__resource
 
 type spec__rule__http__path__backend = {
   resource : spec__rule__http__path__backend__resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service : spec__rule__http__path__backend__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -235,7 +235,7 @@ let yojson_of_spec__rule__http__path__backend =
          []
        in
        let bnds =
-         if [] = v_service then bnds
+         if Stdlib.( = ) [] v_service then bnds
          else
            let arg =
              (yojson_of_list
@@ -246,7 +246,7 @@ let yojson_of_spec__rule__http__path__backend =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource then bnds
+         if Stdlib.( = ) [] v_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -266,7 +266,7 @@ let _ = yojson_of_spec__rule__http__path__backend
 
 type spec__rule__http__path = {
   backend : spec__rule__http__path__backend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   path : string prop;
   path_type : string prop;
 }
@@ -290,7 +290,7 @@ let yojson_of_spec__rule__http__path =
          ("path", arg) :: bnds
        in
        let bnds =
-         if [] = v_backend then bnds
+         if Stdlib.( = ) [] v_backend then bnds
          else
            let arg =
              (yojson_of_list
@@ -309,7 +309,7 @@ let _ = yojson_of_spec__rule__http__path
 
 type spec__rule__http = {
   path : spec__rule__http__path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -322,7 +322,7 @@ let yojson_of_spec__rule__http =
          []
        in
        let bnds =
-         if [] = v_path then bnds
+         if Stdlib.( = ) [] v_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__rule__http__path) v_path
@@ -340,7 +340,7 @@ let _ = yojson_of_spec__rule__http
 type spec__rule = {
   host : string prop;
   http : spec__rule__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -353,7 +353,7 @@ let yojson_of_spec__rule =
          []
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__rule__http) v_http
@@ -405,7 +405,7 @@ let _ = yojson_of_spec__default_backend__service__port
 type spec__default_backend__service = {
   name : string prop;
   port : spec__default_backend__service__port list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -418,7 +418,7 @@ let yojson_of_spec__default_backend__service =
          []
        in
        let bnds =
-         if [] = v_port then bnds
+         if Stdlib.( = ) [] v_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -477,9 +477,9 @@ let _ = yojson_of_spec__default_backend__resource
 
 type spec__default_backend = {
   resource : spec__default_backend__resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service : spec__default_backend__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -492,7 +492,7 @@ let yojson_of_spec__default_backend =
          []
        in
        let bnds =
-         if [] = v_service then bnds
+         if Stdlib.( = ) [] v_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__default_backend__service)
@@ -502,7 +502,7 @@ let yojson_of_spec__default_backend =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource then bnds
+         if Stdlib.( = ) [] v_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -521,10 +521,12 @@ let _ = yojson_of_spec__default_backend
 
 type spec = {
   default_backend : spec__default_backend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_class_name : string prop;
-  rule : spec__rule list; [@default []] [@yojson_drop_default ( = )]
-  tls : spec__tls list; [@default []] [@yojson_drop_default ( = )]
+  rule : spec__rule list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tls : spec__tls list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -542,14 +544,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg = (yojson_of_list yojson_of_spec__tls) v_tls in
            let bnd = "tls", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_spec__rule) v_rule in
            let bnd = "rule", arg in
@@ -562,7 +564,7 @@ let yojson_of_spec =
          ("ingress_class_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_backend then bnds
+         if Stdlib.( = ) [] v_default_backend then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__default_backend)
@@ -610,7 +612,7 @@ let _ = yojson_of_status__load_balancer__ingress
 
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -623,7 +625,7 @@ let yojson_of_status__load_balancer =
          []
        in
        let bnds =
-         if [] = v_ingress then bnds
+         if Stdlib.( = ) [] v_ingress then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__load_balancer__ingress)
@@ -641,7 +643,7 @@ let _ = yojson_of_status__load_balancer
 
 type status = {
   load_balancer : status__load_balancer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -654,7 +656,7 @@ let yojson_of_status =
          []
        in
        let bnds =
-         if [] = v_load_balancer then bnds
+         if Stdlib.( = ) [] v_load_balancer then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__load_balancer)
@@ -672,7 +674,8 @@ let _ = yojson_of_status
 
 type kubernetes_ingress_v1 = {
   id : string prop option; [@option]
-  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -685,7 +688,7 @@ let yojson_of_kubernetes_ingress_v1 =
          []
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

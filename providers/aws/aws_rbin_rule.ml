@@ -41,7 +41,7 @@ let _ = yojson_of_lock_configuration__unlock_delay
 
 type lock_configuration = {
   unlock_delay : lock_configuration__unlock_delay list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_lock_configuration =
          []
        in
        let bnds =
-         if [] = v_unlock_delay then bnds
+         if Stdlib.( = ) [] v_unlock_delay then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,11 +197,11 @@ type aws_rbin_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   lock_configuration : lock_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_tags : resource_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_period : retention_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -228,7 +228,7 @@ let yojson_of_aws_rbin_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_period then bnds
+         if Stdlib.( = ) [] v_retention_period then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_period)
@@ -238,7 +238,7 @@ let yojson_of_aws_rbin_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_tags then bnds
+         if Stdlib.( = ) [] v_resource_tags then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_tags) v_resource_tags
@@ -247,7 +247,7 @@ let yojson_of_aws_rbin_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lock_configuration then bnds
+         if Stdlib.( = ) [] v_lock_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lock_configuration)

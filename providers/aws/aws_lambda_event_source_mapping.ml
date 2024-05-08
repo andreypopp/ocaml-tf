@@ -60,7 +60,7 @@ let _ = yojson_of_destination_config__on_failure
 
 type destination_config = {
   on_failure : destination_config__on_failure list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_destination_config =
          []
        in
        let bnds =
-         if [] = v_on_failure then bnds
+         if Stdlib.( = ) [] v_on_failure then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_config__on_failure)
@@ -166,7 +166,7 @@ let _ = yojson_of_filter_criteria__filter
 
 type filter_criteria = {
   filter : filter_criteria__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,7 +179,7 @@ let yojson_of_filter_criteria =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter_criteria__filter)
@@ -333,23 +333,23 @@ type aws_lambda_event_source_mapping = {
   tumbling_window_in_seconds : float prop option; [@option]
   amazon_managed_kafka_event_source_config :
     amazon_managed_kafka_event_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_config : destination_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   document_db_event_source_config :
     document_db_event_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter_criteria : filter_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scaling_config : scaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self_managed_event_source : self_managed_event_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   self_managed_kafka_event_source_config :
     self_managed_kafka_event_source_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_access_configuration : source_access_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -393,7 +393,7 @@ let yojson_of_aws_lambda_event_source_mapping =
          []
        in
        let bnds =
-         if [] = v_source_access_configuration then bnds
+         if Stdlib.( = ) [] v_source_access_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_access_configuration)
@@ -403,7 +403,8 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_self_managed_kafka_event_source_config then bnds
+         if Stdlib.( = ) [] v_self_managed_kafka_event_source_config
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -414,7 +415,7 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_self_managed_event_source then bnds
+         if Stdlib.( = ) [] v_self_managed_event_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_self_managed_event_source)
@@ -424,7 +425,7 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scaling_config then bnds
+         if Stdlib.( = ) [] v_scaling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scaling_config)
@@ -434,7 +435,7 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter_criteria then bnds
+         if Stdlib.( = ) [] v_filter_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_filter_criteria)
@@ -444,7 +445,8 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_document_db_event_source_config then bnds
+         if Stdlib.( = ) [] v_document_db_event_source_config then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -455,7 +457,7 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_config then bnds
+         if Stdlib.( = ) [] v_destination_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_config)
@@ -465,7 +467,9 @@ let yojson_of_aws_lambda_event_source_mapping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_amazon_managed_kafka_event_source_config then bnds
+         if
+           Stdlib.( = ) [] v_amazon_managed_kafka_event_source_config
+         then bnds
          else
            let arg =
              (yojson_of_list

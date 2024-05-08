@@ -144,9 +144,9 @@ type azurerm_data_factory_linked_service_sql_server = {
   parameters : (string * string prop) list option; [@option]
   user_name : string prop option; [@option]
   key_vault_connection_string : key_vault_connection_string list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault_password : key_vault_password list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -179,7 +179,7 @@ let yojson_of_azurerm_data_factory_linked_service_sql_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_key_vault_password then bnds
+         if Stdlib.( = ) [] v_key_vault_password then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_password)
@@ -189,7 +189,7 @@ let yojson_of_azurerm_data_factory_linked_service_sql_server =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_connection_string then bnds
+         if Stdlib.( = ) [] v_key_vault_connection_string then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_connection_string)

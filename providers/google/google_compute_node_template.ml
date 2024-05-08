@@ -109,9 +109,9 @@ type google_compute_node_template = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   node_type_flexibility : node_type_flexibility list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_binding : server_binding list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -141,7 +141,7 @@ let yojson_of_google_compute_node_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_server_binding then bnds
+         if Stdlib.( = ) [] v_server_binding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_binding)
@@ -151,7 +151,7 @@ let yojson_of_google_compute_node_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_type_flexibility then bnds
+         if Stdlib.( = ) [] v_node_type_flexibility then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type_flexibility)

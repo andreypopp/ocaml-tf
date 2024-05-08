@@ -301,7 +301,7 @@ type storage_lens_configuration__account_level__bucket_level__prefix_level__stor
   selection_criteria :
     storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics__selection_criteria
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -321,7 +321,7 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level__prefix_le
          []
        in
        let bnds =
-         if [] = v_selection_criteria then bnds
+         if Stdlib.( = ) [] v_selection_criteria then bnds
          else
            let arg =
              (yojson_of_list
@@ -352,7 +352,7 @@ type storage_lens_configuration__account_level__bucket_level__prefix_level = {
   storage_metrics :
     storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -369,7 +369,7 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level__prefix_le
          []
        in
        let bnds =
-         if [] = v_storage_metrics then bnds
+         if Stdlib.( = ) [] v_storage_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -392,23 +392,23 @@ type storage_lens_configuration__account_level__bucket_level = {
   activity_metrics :
     storage_lens_configuration__account_level__bucket_level__activity_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   advanced_cost_optimization_metrics :
     storage_lens_configuration__account_level__bucket_level__advanced_cost_optimization_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   advanced_data_protection_metrics :
     storage_lens_configuration__account_level__bucket_level__advanced_data_protection_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   detailed_status_code_metrics :
     storage_lens_configuration__account_level__bucket_level__detailed_status_code_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_level :
     storage_lens_configuration__account_level__bucket_level__prefix_level
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -432,7 +432,7 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level
          []
        in
        let bnds =
-         if [] = v_prefix_level then bnds
+         if Stdlib.( = ) [] v_prefix_level then bnds
          else
            let arg =
              (yojson_of_list
@@ -443,7 +443,7 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level
            bnd :: bnds
        in
        let bnds =
-         if [] = v_detailed_status_code_metrics then bnds
+         if Stdlib.( = ) [] v_detailed_status_code_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -454,7 +454,8 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_data_protection_metrics then bnds
+         if Stdlib.( = ) [] v_advanced_data_protection_metrics then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -465,7 +466,8 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_cost_optimization_metrics then bnds
+         if Stdlib.( = ) [] v_advanced_cost_optimization_metrics then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -476,7 +478,7 @@ let yojson_of_storage_lens_configuration__account_level__bucket_level
            bnd :: bnds
        in
        let bnds =
-         if [] = v_activity_metrics then bnds
+         if Stdlib.( = ) [] v_activity_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -532,22 +534,22 @@ let _ =
 type storage_lens_configuration__account_level = {
   activity_metrics :
     storage_lens_configuration__account_level__activity_metrics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   advanced_cost_optimization_metrics :
     storage_lens_configuration__account_level__advanced_cost_optimization_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   advanced_data_protection_metrics :
     storage_lens_configuration__account_level__advanced_data_protection_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bucket_level :
     storage_lens_configuration__account_level__bucket_level list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   detailed_status_code_metrics :
     storage_lens_configuration__account_level__detailed_status_code_metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -568,7 +570,7 @@ let yojson_of_storage_lens_configuration__account_level =
          []
        in
        let bnds =
-         if [] = v_detailed_status_code_metrics then bnds
+         if Stdlib.( = ) [] v_detailed_status_code_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -579,7 +581,7 @@ let yojson_of_storage_lens_configuration__account_level =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bucket_level then bnds
+         if Stdlib.( = ) [] v_bucket_level then bnds
          else
            let arg =
              (yojson_of_list
@@ -590,7 +592,8 @@ let yojson_of_storage_lens_configuration__account_level =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_data_protection_metrics then bnds
+         if Stdlib.( = ) [] v_advanced_data_protection_metrics then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -601,7 +604,8 @@ let yojson_of_storage_lens_configuration__account_level =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_cost_optimization_metrics then bnds
+         if Stdlib.( = ) [] v_advanced_cost_optimization_metrics then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -612,7 +616,7 @@ let yojson_of_storage_lens_configuration__account_level =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_activity_metrics then bnds
+         if Stdlib.( = ) [] v_activity_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -737,11 +741,11 @@ type storage_lens_configuration__data_export__s3_bucket_destination__encryption 
   sse_kms :
     storage_lens_configuration__data_export__s3_bucket_destination__encryption__sse_kms
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sse_s3 :
     storage_lens_configuration__data_export__s3_bucket_destination__encryption__sse_s3
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -758,7 +762,7 @@ let yojson_of_storage_lens_configuration__data_export__s3_bucket_destination__en
          []
        in
        let bnds =
-         if [] = v_sse_s3 then bnds
+         if Stdlib.( = ) [] v_sse_s3 then bnds
          else
            let arg =
              (yojson_of_list
@@ -769,7 +773,7 @@ let yojson_of_storage_lens_configuration__data_export__s3_bucket_destination__en
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sse_kms then bnds
+         if Stdlib.( = ) [] v_sse_kms then bnds
          else
            let arg =
              (yojson_of_list
@@ -797,7 +801,7 @@ type storage_lens_configuration__data_export__s3_bucket_destination = {
   encryption :
     storage_lens_configuration__data_export__s3_bucket_destination__encryption
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -821,7 +825,7 @@ let yojson_of_storage_lens_configuration__data_export__s3_bucket_destination
          []
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -869,11 +873,11 @@ let _ =
 type storage_lens_configuration__data_export = {
   cloud_watch_metrics :
     storage_lens_configuration__data_export__cloud_watch_metrics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_bucket_destination :
     storage_lens_configuration__data_export__s3_bucket_destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -889,7 +893,7 @@ let yojson_of_storage_lens_configuration__data_export =
          []
        in
        let bnds =
-         if [] = v_s3_bucket_destination then bnds
+         if Stdlib.( = ) [] v_s3_bucket_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -900,7 +904,7 @@ let yojson_of_storage_lens_configuration__data_export =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_watch_metrics then bnds
+         if Stdlib.( = ) [] v_cloud_watch_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -1005,15 +1009,17 @@ let _ = yojson_of_storage_lens_configuration__include
 type storage_lens_configuration = {
   enabled : bool prop;
   account_level : storage_lens_configuration__account_level list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   aws_org : storage_lens_configuration__aws_org list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_export : storage_lens_configuration__data_export list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exclude : storage_lens_configuration__exclude list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_ : storage_lens_configuration__include list;
-      [@key "include"] [@default []] [@yojson_drop_default ( = )]
+      [@key "include"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1033,7 +1039,7 @@ let yojson_of_storage_lens_configuration =
          []
        in
        let bnds =
-         if [] = v_include_ then bnds
+         if Stdlib.( = ) [] v_include_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1044,7 +1050,7 @@ let yojson_of_storage_lens_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude then bnds
+         if Stdlib.( = ) [] v_exclude then bnds
          else
            let arg =
              (yojson_of_list
@@ -1055,7 +1061,7 @@ let yojson_of_storage_lens_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_export then bnds
+         if Stdlib.( = ) [] v_data_export then bnds
          else
            let arg =
              (yojson_of_list
@@ -1066,7 +1072,7 @@ let yojson_of_storage_lens_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws_org then bnds
+         if Stdlib.( = ) [] v_aws_org then bnds
          else
            let arg =
              (yojson_of_list
@@ -1077,7 +1083,7 @@ let yojson_of_storage_lens_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_account_level then bnds
+         if Stdlib.( = ) [] v_account_level then bnds
          else
            let arg =
              (yojson_of_list
@@ -1105,7 +1111,7 @@ type aws_s3control_storage_lens_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   storage_lens_configuration : storage_lens_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1125,7 +1131,7 @@ let yojson_of_aws_s3control_storage_lens_configuration =
          []
        in
        let bnds =
-         if [] = v_storage_lens_configuration then bnds
+         if Stdlib.( = ) [] v_storage_lens_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_lens_configuration)

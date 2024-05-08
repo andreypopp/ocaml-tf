@@ -5,7 +5,7 @@ open! Tf_core
 type header = {
   header : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_header =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -56,7 +56,8 @@ type cloudflare_load_balancer_monitor = {
   retries : float prop option; [@option]
   timeout : float prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-  header : header list; [@default []] [@yojson_drop_default ( = )]
+  header : header list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,7 +89,7 @@ let yojson_of_cloudflare_load_balancer_monitor =
          []
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg = (yojson_of_list yojson_of_header) v_header in
            let bnd = "header", arg in

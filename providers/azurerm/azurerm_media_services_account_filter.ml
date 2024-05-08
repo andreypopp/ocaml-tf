@@ -182,7 +182,7 @@ let _ = yojson_of_track_selection__condition
 
 type track_selection = {
   condition : track_selection__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,7 +195,7 @@ let yojson_of_track_selection =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_track_selection__condition)
@@ -218,10 +218,10 @@ type azurerm_media_services_account_filter = {
   name : string prop;
   resource_group_name : string prop;
   presentation_time_range : presentation_time_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   track_selection : track_selection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,7 +243,7 @@ let yojson_of_azurerm_media_services_account_filter =
          []
        in
        let bnds =
-         if [] = v_track_selection then bnds
+         if Stdlib.( = ) [] v_track_selection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_track_selection)
@@ -257,7 +257,7 @@ let yojson_of_azurerm_media_services_account_filter =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_presentation_time_range then bnds
+         if Stdlib.( = ) [] v_presentation_time_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_presentation_time_range)

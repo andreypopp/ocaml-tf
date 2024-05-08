@@ -5,7 +5,7 @@ open! Tf_core
 type filter = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -587,7 +587,7 @@ type explanations__security_group_rule = {
   cidr : string prop;
   direction : string prop;
   port_range : explanations__security_group_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -626,7 +626,7 @@ let yojson_of_explanations__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1368,7 +1368,7 @@ type explanations__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : explanations__acl_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -1403,7 +1403,7 @@ let yojson_of_explanations__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -1464,98 +1464,98 @@ let _ = yojson_of_explanations__acl
 
 type explanations = {
   acl : explanations__acl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   acl_rule : explanations__acl_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   address : string prop;
   addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   attached_to : explanations__attached_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   classic_load_balancer_listener :
     explanations__classic_load_balancer_listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   component : explanations__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_gateway : explanations__customer_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination : explanations__destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_vpc : explanations__destination_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   direction : string prop;
   elastic_load_balancer_listener :
     explanations__elastic_load_balancer_listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   explanation_code : string prop;
   ingress_route_table : explanations__ingress_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   internet_gateway : explanations__internet_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_arn : string prop;
   load_balancer_listener_port : float prop;
   load_balancer_target_group :
     explanations__load_balancer_target_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_target_groups :
     explanations__load_balancer_target_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_target_port : float prop;
   missing_component : string prop;
   nat_gateway : explanations__nat_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface : explanations__network_interface list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   packet_field : string prop;
   port : float prop;
   port_ranges : explanations__port_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list : explanations__prefix_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_table : explanations__route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_table_route : explanations__route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group : explanations__security_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_rule : explanations__security_group_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_groups : explanations__security_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_vpc : explanations__source_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   state : string prop;
   subnet : explanations__subnet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_route_table : explanations__subnet_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway : explanations__transit_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway_attachment :
     explanations__transit_gateway_attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway_route_table :
     explanations__transit_gateway_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway_route_table_route :
     explanations__transit_gateway_route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc : explanations__vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_endpoint : explanations__vpc_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_peering_connection : explanations__vpc_peering_connection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpn_connection : explanations__vpn_connection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpn_gateway : explanations__vpn_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1620,7 +1620,7 @@ let yojson_of_explanations =
          []
        in
        let bnds =
-         if [] = v_vpn_gateway then bnds
+         if Stdlib.( = ) [] v_vpn_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__vpn_gateway)
@@ -1630,7 +1630,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vpn_connection then bnds
+         if Stdlib.( = ) [] v_vpn_connection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__vpn_connection)
@@ -1640,7 +1640,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vpc_peering_connection then bnds
+         if Stdlib.( = ) [] v_vpc_peering_connection then bnds
          else
            let arg =
              (yojson_of_list
@@ -1651,7 +1651,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vpc_endpoint then bnds
+         if Stdlib.( = ) [] v_vpc_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__vpc_endpoint)
@@ -1661,7 +1661,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__vpc) v_vpc
@@ -1670,7 +1670,8 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway_route_table_route then bnds
+         if Stdlib.( = ) [] v_transit_gateway_route_table_route then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1681,7 +1682,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway_route_table then bnds
+         if Stdlib.( = ) [] v_transit_gateway_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -1692,7 +1693,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway_attachment then bnds
+         if Stdlib.( = ) [] v_transit_gateway_attachment then bnds
          else
            let arg =
              (yojson_of_list
@@ -1703,7 +1704,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway then bnds
+         if Stdlib.( = ) [] v_transit_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__transit_gateway)
@@ -1713,7 +1714,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_route_table then bnds
+         if Stdlib.( = ) [] v_subnet_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -1724,7 +1725,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet then bnds
+         if Stdlib.( = ) [] v_subnet then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__subnet) v_subnet
@@ -1737,7 +1738,7 @@ let yojson_of_explanations =
          ("state", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_vpc then bnds
+         if Stdlib.( = ) [] v_source_vpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__source_vpc)
@@ -1747,7 +1748,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__security_groups)
@@ -1757,7 +1758,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_rule then bnds
+         if Stdlib.( = ) [] v_security_group_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1768,7 +1769,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group then bnds
+         if Stdlib.( = ) [] v_security_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__security_group)
@@ -1778,7 +1779,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_table_route then bnds
+         if Stdlib.( = ) [] v_route_table_route then bnds
          else
            let arg =
              (yojson_of_list
@@ -1789,7 +1790,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_table then bnds
+         if Stdlib.( = ) [] v_route_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__route_table)
@@ -1799,7 +1800,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1809,7 +1810,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_prefix_list then bnds
+         if Stdlib.( = ) [] v_prefix_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__prefix_list)
@@ -1819,7 +1820,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_port_ranges then bnds
+         if Stdlib.( = ) [] v_port_ranges then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__port_ranges)
@@ -1837,7 +1838,7 @@ let yojson_of_explanations =
          ("packet_field", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface then bnds
+         if Stdlib.( = ) [] v_network_interface then bnds
          else
            let arg =
              (yojson_of_list
@@ -1848,7 +1849,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nat_gateway then bnds
+         if Stdlib.( = ) [] v_nat_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__nat_gateway)
@@ -1870,7 +1871,7 @@ let yojson_of_explanations =
          ("load_balancer_target_port", arg) :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_target_groups then bnds
+         if Stdlib.( = ) [] v_load_balancer_target_groups then bnds
          else
            let arg =
              (yojson_of_list
@@ -1881,7 +1882,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_target_group then bnds
+         if Stdlib.( = ) [] v_load_balancer_target_group then bnds
          else
            let arg =
              (yojson_of_list
@@ -1905,7 +1906,7 @@ let yojson_of_explanations =
          ("load_balancer_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_internet_gateway then bnds
+         if Stdlib.( = ) [] v_internet_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__internet_gateway)
@@ -1915,7 +1916,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_route_table then bnds
+         if Stdlib.( = ) [] v_ingress_route_table then bnds
          else
            let arg =
              (yojson_of_list
@@ -1932,7 +1933,8 @@ let yojson_of_explanations =
          ("explanation_code", arg) :: bnds
        in
        let bnds =
-         if [] = v_elastic_load_balancer_listener then bnds
+         if Stdlib.( = ) [] v_elastic_load_balancer_listener then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1947,7 +1949,7 @@ let yojson_of_explanations =
          ("direction", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_vpc then bnds
+         if Stdlib.( = ) [] v_destination_vpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__destination_vpc)
@@ -1957,7 +1959,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__destination)
@@ -1967,7 +1969,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customer_gateway then bnds
+         if Stdlib.( = ) [] v_customer_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__customer_gateway)
@@ -1977,7 +1979,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__component)
@@ -1987,7 +1989,8 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_classic_load_balancer_listener then bnds
+         if Stdlib.( = ) [] v_classic_load_balancer_listener then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1998,7 +2001,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cidrs then bnds
+         if Stdlib.( = ) [] v_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2008,7 +2011,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2018,7 +2021,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attached_to then bnds
+         if Stdlib.( = ) [] v_attached_to then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__attached_to)
@@ -2028,7 +2031,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_addresses then bnds
+         if Stdlib.( = ) [] v_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2042,7 +2045,7 @@ let yojson_of_explanations =
          ("address", arg) :: bnds
        in
        let bnds =
-         if [] = v_acl_rule then bnds
+         if Stdlib.( = ) [] v_acl_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__acl_rule)
@@ -2052,7 +2055,7 @@ let yojson_of_explanations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acl then bnds
+         if Stdlib.( = ) [] v_acl then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explanations__acl) v_acl
@@ -2317,7 +2320,7 @@ type forward_path_components__security_group_rule = {
   direction : string prop;
   port_range :
     forward_path_components__security_group_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -2356,7 +2359,7 @@ let yojson_of_forward_path_components__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -2553,17 +2556,17 @@ let _ =
 
 type forward_path_components__outbound_header = {
   destination_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port_ranges :
     forward_path_components__outbound_header__destination_port_ranges
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   source_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_ranges :
     forward_path_components__outbound_header__source_port_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2582,7 +2585,7 @@ let yojson_of_forward_path_components__outbound_header =
          []
        in
        let bnds =
-         if [] = v_source_port_ranges then bnds
+         if Stdlib.( = ) [] v_source_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -2593,7 +2596,7 @@ let yojson_of_forward_path_components__outbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_addresses then bnds
+         if Stdlib.( = ) [] v_source_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2607,7 +2610,7 @@ let yojson_of_forward_path_components__outbound_header =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_port_ranges then bnds
+         if Stdlib.( = ) [] v_destination_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -2618,7 +2621,7 @@ let yojson_of_forward_path_components__outbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_addresses then bnds
+         if Stdlib.( = ) [] v_destination_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2707,17 +2710,17 @@ let _ =
 
 type forward_path_components__inbound_header = {
   destination_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port_ranges :
     forward_path_components__inbound_header__destination_port_ranges
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   source_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_ranges :
     forward_path_components__inbound_header__source_port_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2736,7 +2739,7 @@ let yojson_of_forward_path_components__inbound_header =
          []
        in
        let bnds =
-         if [] = v_source_port_ranges then bnds
+         if Stdlib.( = ) [] v_source_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -2747,7 +2750,7 @@ let yojson_of_forward_path_components__inbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_addresses then bnds
+         if Stdlib.( = ) [] v_source_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2761,7 +2764,7 @@ let yojson_of_forward_path_components__inbound_header =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_port_ranges then bnds
+         if Stdlib.( = ) [] v_destination_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -2772,7 +2775,7 @@ let yojson_of_forward_path_components__inbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_addresses then bnds
+         if Stdlib.( = ) [] v_destination_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2937,7 +2940,7 @@ type forward_path_components__additional_details = {
   additional_detail_type : string prop;
   component :
     forward_path_components__additional_details__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2953,7 +2956,7 @@ let yojson_of_forward_path_components__additional_details =
          []
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list
@@ -3011,7 +3014,7 @@ type forward_path_components__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : forward_path_components__acl_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -3046,7 +3049,7 @@ let yojson_of_forward_path_components__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -3074,38 +3077,38 @@ let _ = yojson_of_forward_path_components__acl_rule
 
 type forward_path_components = {
   acl_rule : forward_path_components__acl_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   additional_details :
     forward_path_components__additional_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   attached_to : forward_path_components__attached_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   component : forward_path_components__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_vpc : forward_path_components__destination_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inbound_header : forward_path_components__inbound_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outbound_header : forward_path_components__outbound_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_table_route :
     forward_path_components__route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_rule :
     forward_path_components__security_group_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sequence_number : float prop;
   source_vpc : forward_path_components__source_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet : forward_path_components__subnet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway : forward_path_components__transit_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway_route_table_route :
     forward_path_components__transit_gateway_route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc : forward_path_components__vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3135,7 +3138,7 @@ let yojson_of_forward_path_components =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_forward_path_components__vpc)
@@ -3145,7 +3148,8 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway_route_table_route then bnds
+         if Stdlib.( = ) [] v_transit_gateway_route_table_route then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -3156,7 +3160,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway then bnds
+         if Stdlib.( = ) [] v_transit_gateway then bnds
          else
            let arg =
              (yojson_of_list
@@ -3167,7 +3171,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet then bnds
+         if Stdlib.( = ) [] v_subnet then bnds
          else
            let arg =
              (yojson_of_list
@@ -3178,7 +3182,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_vpc then bnds
+         if Stdlib.( = ) [] v_source_vpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -3195,7 +3199,7 @@ let yojson_of_forward_path_components =
          ("sequence_number", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_group_rule then bnds
+         if Stdlib.( = ) [] v_security_group_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -3206,7 +3210,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_table_route then bnds
+         if Stdlib.( = ) [] v_route_table_route then bnds
          else
            let arg =
              (yojson_of_list
@@ -3217,7 +3221,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_outbound_header then bnds
+         if Stdlib.( = ) [] v_outbound_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -3228,7 +3232,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inbound_header then bnds
+         if Stdlib.( = ) [] v_inbound_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -3239,7 +3243,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_vpc then bnds
+         if Stdlib.( = ) [] v_destination_vpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -3250,7 +3254,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list
@@ -3261,7 +3265,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attached_to then bnds
+         if Stdlib.( = ) [] v_attached_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -3272,7 +3276,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_details then bnds
+         if Stdlib.( = ) [] v_additional_details then bnds
          else
            let arg =
              (yojson_of_list
@@ -3283,7 +3287,7 @@ let yojson_of_forward_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acl_rule then bnds
+         if Stdlib.( = ) [] v_acl_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -3550,7 +3554,7 @@ type return_path_components__security_group_rule = {
   direction : string prop;
   port_range :
     return_path_components__security_group_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -3589,7 +3593,7 @@ let yojson_of_return_path_components__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -3786,17 +3790,17 @@ let _ =
 
 type return_path_components__outbound_header = {
   destination_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port_ranges :
     return_path_components__outbound_header__destination_port_ranges
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   source_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_ranges :
     return_path_components__outbound_header__source_port_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3815,7 +3819,7 @@ let yojson_of_return_path_components__outbound_header =
          []
        in
        let bnds =
-         if [] = v_source_port_ranges then bnds
+         if Stdlib.( = ) [] v_source_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -3826,7 +3830,7 @@ let yojson_of_return_path_components__outbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_addresses then bnds
+         if Stdlib.( = ) [] v_source_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3840,7 +3844,7 @@ let yojson_of_return_path_components__outbound_header =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_port_ranges then bnds
+         if Stdlib.( = ) [] v_destination_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -3851,7 +3855,7 @@ let yojson_of_return_path_components__outbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_addresses then bnds
+         if Stdlib.( = ) [] v_destination_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3939,17 +3943,17 @@ let _ =
 
 type return_path_components__inbound_header = {
   destination_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port_ranges :
     return_path_components__inbound_header__destination_port_ranges
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   source_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_ranges :
     return_path_components__inbound_header__source_port_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3968,7 +3972,7 @@ let yojson_of_return_path_components__inbound_header =
          []
        in
        let bnds =
-         if [] = v_source_port_ranges then bnds
+         if Stdlib.( = ) [] v_source_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -3979,7 +3983,7 @@ let yojson_of_return_path_components__inbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_addresses then bnds
+         if Stdlib.( = ) [] v_source_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3993,7 +3997,7 @@ let yojson_of_return_path_components__inbound_header =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_destination_port_ranges then bnds
+         if Stdlib.( = ) [] v_destination_port_ranges then bnds
          else
            let arg =
              (yojson_of_list
@@ -4004,7 +4008,7 @@ let yojson_of_return_path_components__inbound_header =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_addresses then bnds
+         if Stdlib.( = ) [] v_destination_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -4168,7 +4172,7 @@ type return_path_components__additional_details = {
   additional_detail_type : string prop;
   component :
     return_path_components__additional_details__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4184,7 +4188,7 @@ let yojson_of_return_path_components__additional_details =
          []
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list
@@ -4242,7 +4246,7 @@ type return_path_components__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : return_path_components__acl_rule__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -4277,7 +4281,7 @@ let yojson_of_return_path_components__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -4305,37 +4309,37 @@ let _ = yojson_of_return_path_components__acl_rule
 
 type return_path_components = {
   acl_rule : return_path_components__acl_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   additional_details :
     return_path_components__additional_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   attached_to : return_path_components__attached_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   component : return_path_components__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_vpc : return_path_components__destination_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   inbound_header : return_path_components__inbound_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outbound_header : return_path_components__outbound_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   route_table_route : return_path_components__route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_rule :
     return_path_components__security_group_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sequence_number : float prop;
   source_vpc : return_path_components__source_vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet : return_path_components__subnet list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway : return_path_components__transit_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transit_gateway_route_table_route :
     return_path_components__transit_gateway_route_table_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc : return_path_components__vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4365,7 +4369,7 @@ let yojson_of_return_path_components =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg =
              (yojson_of_list yojson_of_return_path_components__vpc)
@@ -4375,7 +4379,8 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway_route_table_route then bnds
+         if Stdlib.( = ) [] v_transit_gateway_route_table_route then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -4386,7 +4391,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_transit_gateway then bnds
+         if Stdlib.( = ) [] v_transit_gateway then bnds
          else
            let arg =
              (yojson_of_list
@@ -4397,7 +4402,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet then bnds
+         if Stdlib.( = ) [] v_subnet then bnds
          else
            let arg =
              (yojson_of_list yojson_of_return_path_components__subnet)
@@ -4407,7 +4412,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_vpc then bnds
+         if Stdlib.( = ) [] v_source_vpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -4424,7 +4429,7 @@ let yojson_of_return_path_components =
          ("sequence_number", arg) :: bnds
        in
        let bnds =
-         if [] = v_security_group_rule then bnds
+         if Stdlib.( = ) [] v_security_group_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -4435,7 +4440,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_route_table_route then bnds
+         if Stdlib.( = ) [] v_route_table_route then bnds
          else
            let arg =
              (yojson_of_list
@@ -4446,7 +4451,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_outbound_header then bnds
+         if Stdlib.( = ) [] v_outbound_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -4457,7 +4462,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_inbound_header then bnds
+         if Stdlib.( = ) [] v_inbound_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -4468,7 +4473,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_vpc then bnds
+         if Stdlib.( = ) [] v_destination_vpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -4479,7 +4484,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list
@@ -4490,7 +4495,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_attached_to then bnds
+         if Stdlib.( = ) [] v_attached_to then bnds
          else
            let arg =
              (yojson_of_list
@@ -4501,7 +4506,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_details then bnds
+         if Stdlib.( = ) [] v_additional_details then bnds
          else
            let arg =
              (yojson_of_list
@@ -4512,7 +4517,7 @@ let yojson_of_return_path_components =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acl_rule then bnds
+         if Stdlib.( = ) [] v_acl_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -4533,7 +4538,8 @@ type aws_ec2_network_insights_analysis = {
   id : string prop option; [@option]
   network_insights_analysis_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4551,7 +4557,7 @@ let yojson_of_aws_ec2_network_insights_analysis =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

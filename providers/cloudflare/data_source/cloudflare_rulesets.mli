@@ -9,7 +9,7 @@ open! Tf_core
 
 type rulesets__rules__ratelimit = {
   characteristics : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** characteristics *)
   counting_expression : string prop;  (** counting_expression *)
   mitigation_timeout : float prop;  (** mitigation_timeout *)
@@ -44,10 +44,10 @@ type rulesets__rules__action_parameters__uri__path = {
 type rulesets__rules__action_parameters__uri = {
   origin : bool prop;  (** origin *)
   path : rulesets__rules__action_parameters__uri__path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** path *)
   query : rulesets__rules__action_parameters__uri__query list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** query *)
 }
 
@@ -86,11 +86,11 @@ type rulesets__rules__action_parameters__overrides = {
   action : string prop;  (** action *)
   categories :
     rulesets__rules__action_parameters__overrides__categories list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** categories *)
   enabled : bool prop;  (** enabled *)
   rules : rulesets__rules__action_parameters__overrides__rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rules *)
   sensitivity_level : string prop;  (** sensitivity_level *)
   status : string prop;  (** status *)
@@ -122,7 +122,7 @@ type rulesets__rules__action_parameters__from_value = {
   status_code : float prop;  (** status_code *)
   target_url :
     rulesets__rules__action_parameters__from_value__target_url list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_url *)
 }
 
@@ -141,7 +141,7 @@ type rulesets__rules__action_parameters__edge_ttl__status_code_ttl = {
   status_code_range :
     rulesets__rules__action_parameters__edge_ttl__status_code_ttl__status_code_range
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status_code_range *)
   value : float prop;  (** value *)
 }
@@ -152,7 +152,7 @@ type rulesets__rules__action_parameters__edge_ttl = {
   status_code_ttl :
     rulesets__rules__action_parameters__edge_ttl__status_code_ttl
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status_code_ttl *)
 }
 
@@ -164,10 +164,12 @@ type rulesets__rules__action_parameters__cache_key__custom_key__user = {
 
 type rulesets__rules__action_parameters__cache_key__custom_key__query_string = {
   exclude : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exclude *)
   include_ : string prop list;
-      [@default []] [@yojson_drop_default ( = )] [@key "include"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "include"]
       (** include *)
 }
 
@@ -177,20 +179,24 @@ type rulesets__rules__action_parameters__cache_key__custom_key__host = {
 
 type rulesets__rules__action_parameters__cache_key__custom_key__header = {
   check_presence : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** check_presence *)
   exclude_origin : bool prop;  (** exclude_origin *)
   include_ : string prop list;
-      [@default []] [@yojson_drop_default ( = )] [@key "include"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "include"]
       (** include *)
 }
 
 type rulesets__rules__action_parameters__cache_key__custom_key__cookie = {
   check_presence : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** check_presence *)
   include_ : string prop list;
-      [@default []] [@yojson_drop_default ( = )] [@key "include"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+      [@key "include"]
       (** include *)
 }
 
@@ -198,27 +204,27 @@ type rulesets__rules__action_parameters__cache_key__custom_key = {
   cookie :
     rulesets__rules__action_parameters__cache_key__custom_key__cookie
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cookie *)
   header :
     rulesets__rules__action_parameters__cache_key__custom_key__header
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** header *)
   host :
     rulesets__rules__action_parameters__cache_key__custom_key__host
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** host *)
   query_string :
     rulesets__rules__action_parameters__cache_key__custom_key__query_string
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** query_string *)
   user :
     rulesets__rules__action_parameters__cache_key__custom_key__user
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user *)
 }
 
@@ -227,7 +233,7 @@ type rulesets__rules__action_parameters__cache_key = {
   cache_deception_armor : bool prop;  (** cache_deception_armor *)
   custom_key :
     rulesets__rules__action_parameters__cache_key__custom_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_key *)
   ignore_query_strings_order : bool prop;
       (** ignore_query_strings_order *)
@@ -246,41 +252,41 @@ type rulesets__rules__action_parameters__autominify = {
 
 type rulesets__rules__action_parameters = {
   additional_cacheable_ports : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** additional_cacheable_ports *)
   automatic_https_rewrites : bool prop;
       (** automatic_https_rewrites *)
   autominify : rulesets__rules__action_parameters__autominify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** autominify *)
   bic : bool prop;  (** bic *)
   browser_ttl : rulesets__rules__action_parameters__browser_ttl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** browser_ttl *)
   cache : bool prop;  (** cache *)
   cache_key : rulesets__rules__action_parameters__cache_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cache_key *)
   content : string prop;  (** content *)
   content_type : string prop;  (** content_type *)
   cookie_fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cookie_fields *)
   disable_apps : bool prop;  (** disable_apps *)
   disable_railgun : bool prop;  (** disable_railgun *)
   disable_zaraz : bool prop;  (** disable_zaraz *)
   edge_ttl : rulesets__rules__action_parameters__edge_ttl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** edge_ttl *)
   email_obfuscation : bool prop;  (** email_obfuscation *)
   from_list : rulesets__rules__action_parameters__from_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** from_list *)
   from_value : rulesets__rules__action_parameters__from_value list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** from_value *)
   headers : rulesets__rules__action_parameters__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** headers *)
   host_header : string prop;  (** host_header *)
   hotlink_protection : bool prop;  (** hotlink_protection *)
@@ -288,57 +294,57 @@ type rulesets__rules__action_parameters = {
   increment : float prop;  (** increment *)
   matched_data :
     rulesets__rules__action_parameters__matched_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** matched_data *)
   mirage : bool prop;  (** mirage *)
   opportunistic_encryption : bool prop;
       (** opportunistic_encryption *)
   origin : rulesets__rules__action_parameters__origin list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** origin *)
   origin_cache_control : bool prop;  (** origin_cache_control *)
   origin_error_page_passthru : bool prop;
       (** origin_error_page_passthru *)
   overrides : rulesets__rules__action_parameters__overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** overrides *)
   phases : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** phases *)
   polish : string prop;  (** polish *)
   products : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** products *)
   read_timeout : float prop;  (** read_timeout *)
   request_fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** request_fields *)
   respect_strong_etags : bool prop;  (** respect_strong_etags *)
   response : rulesets__rules__action_parameters__response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** response *)
   response_fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** response_fields *)
   rocket_loader : bool prop;  (** rocket_loader *)
   rules : (string * string prop) list;  (** rules *)
   ruleset : string prop;  (** ruleset *)
   rulesets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rulesets *)
   security_level : string prop;  (** security_level *)
   serve_stale : rulesets__rules__action_parameters__serve_stale list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** serve_stale *)
   server_side_excludes : bool prop;  (** server_side_excludes *)
   sni : rulesets__rules__action_parameters__sni list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sni *)
   ssl : string prop;  (** ssl *)
   status_code : float prop;  (** status_code *)
   sxg : bool prop;  (** sxg *)
   uri : rulesets__rules__action_parameters__uri list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** uri *)
   version : string prop;  (** version *)
 }
@@ -346,22 +352,22 @@ type rulesets__rules__action_parameters = {
 type rulesets__rules = {
   action : string prop;  (** action *)
   action_parameters : rulesets__rules__action_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** action_parameters *)
   description : string prop;  (** description *)
   enabled : bool prop;  (** enabled *)
   exposed_credential_check :
     rulesets__rules__exposed_credential_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exposed_credential_check *)
   expression : string prop;  (** expression *)
   id : string prop;  (** id *)
   last_updated : string prop;  (** last_updated *)
   logging : rulesets__rules__logging list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** logging *)
   ratelimit : rulesets__rules__ratelimit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ratelimit *)
   ref : string prop;  (** ref *)
   version : string prop;  (** version *)
@@ -374,7 +380,7 @@ type rulesets = {
   name : string prop;  (** name *)
   phase : string prop;  (** phase *)
   rules : rulesets__rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rules *)
   version : string prop;  (** version *)
 }

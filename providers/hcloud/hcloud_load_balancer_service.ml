@@ -81,7 +81,7 @@ type health_check = {
   retries : float prop option; [@option]
   timeout : float prop;
   http : health_check__http list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,7 +101,7 @@ let yojson_of_health_check =
          []
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check__http) v_http
@@ -220,8 +220,8 @@ type hcloud_load_balancer_service = {
   protocol : string prop;
   proxyprotocol : bool prop option; [@option]
   health_check : health_check list;
-      [@default []] [@yojson_drop_default ( = )]
-  http : http list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  http : http list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,14 +243,14 @@ let yojson_of_hcloud_load_balancer_service =
          []
        in
        let bnds =
-         if [] = v_http then bnds
+         if Stdlib.( = ) [] v_http then bnds
          else
            let arg = (yojson_of_list yojson_of_http) v_http in
            let bnd = "http", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check) v_health_check

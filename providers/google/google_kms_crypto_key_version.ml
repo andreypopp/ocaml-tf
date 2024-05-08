@@ -88,11 +88,11 @@ let _ = yojson_of_attestation__external_protection_level_options
 
 type attestation__cert_chains = {
   cavium_certs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   google_card_certs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   google_partition_certs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_attestation__cert_chains =
          []
        in
        let bnds =
-         if [] = v_google_partition_certs then bnds
+         if Stdlib.( = ) [] v_google_partition_certs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -119,7 +119,7 @@ let yojson_of_attestation__cert_chains =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_google_card_certs then bnds
+         if Stdlib.( = ) [] v_google_card_certs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -129,7 +129,7 @@ let yojson_of_attestation__cert_chains =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cavium_certs then bnds
+         if Stdlib.( = ) [] v_cavium_certs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -147,11 +147,11 @@ let _ = yojson_of_attestation__cert_chains
 
 type attestation = {
   cert_chains : attestation__cert_chains list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   content : string prop;
   external_protection_level_options :
     attestation__external_protection_level_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   format : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -175,7 +175,8 @@ let yojson_of_attestation =
          ("format", arg) :: bnds
        in
        let bnds =
-         if [] = v_external_protection_level_options then bnds
+         if Stdlib.( = ) [] v_external_protection_level_options then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -190,7 +191,7 @@ let yojson_of_attestation =
          ("content", arg) :: bnds
        in
        let bnds =
-         if [] = v_cert_chains then bnds
+         if Stdlib.( = ) [] v_cert_chains then bnds
          else
            let arg =
              (yojson_of_list yojson_of_attestation__cert_chains)

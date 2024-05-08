@@ -31,10 +31,10 @@ let _ = yojson_of_configuration__user_identity_configuration
 
 type configuration__content_source_configuration = {
   data_source_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   direct_put_content : bool prop;
   faq_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_configuration__content_source_configuration =
          []
        in
        let bnds =
-         if [] = v_faq_ids then bnds
+         if Stdlib.( = ) [] v_faq_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -67,7 +67,7 @@ let yojson_of_configuration__content_source_configuration =
          ("direct_put_content", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_source_ids then bnds
+         if Stdlib.( = ) [] v_data_source_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -87,10 +87,10 @@ let _ = yojson_of_configuration__content_source_configuration
 type configuration = {
   content_source_configuration :
     configuration__content_source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_identity_configuration :
     configuration__user_identity_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_user_identity_configuration then bnds
+         if Stdlib.( = ) [] v_user_identity_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -117,7 +117,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_source_configuration then bnds
+         if Stdlib.( = ) [] v_content_source_configuration then bnds
          else
            let arg =
              (yojson_of_list

@@ -65,7 +65,7 @@ let _ = yojson_of_timeouts
 type azurerm_cost_anomaly_alert = {
   display_name : string prop;
   email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email_subject : string prop;
   id : string prop option; [@option]
   message : string prop option; [@option]
@@ -129,7 +129,7 @@ let yojson_of_azurerm_cost_anomaly_alert =
          ("email_subject", arg) :: bnds
        in
        let bnds =
-         if [] = v_email_addresses then bnds
+         if Stdlib.( = ) [] v_email_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

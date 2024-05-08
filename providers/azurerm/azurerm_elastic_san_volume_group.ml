@@ -175,11 +175,11 @@ type azurerm_elastic_san_volume_group = {
   name : string prop;
   protocol_type : string prop option; [@option]
   encryption : encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_rule : network_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,7 +207,7 @@ let yojson_of_azurerm_elastic_san_volume_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_rule then bnds
+         if Stdlib.( = ) [] v_network_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_rule) v_network_rule
@@ -216,7 +216,7 @@ let yojson_of_azurerm_elastic_san_volume_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -225,7 +225,7 @@ let yojson_of_azurerm_elastic_san_volume_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption then bnds
+         if Stdlib.( = ) [] v_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption) v_encryption

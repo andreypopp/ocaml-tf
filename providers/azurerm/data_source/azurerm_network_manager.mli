@@ -6,20 +6,20 @@ open! Tf_core
 
 type cross_tenant_scopes = {
   management_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management_groups *)
   subscriptions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subscriptions *)
   tenant_id : string prop;  (** tenant_id *)
 }
 
 type scope = {
   management_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management_group_ids *)
   subscription_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subscription_ids *)
 }
 

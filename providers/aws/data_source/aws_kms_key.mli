@@ -17,10 +17,10 @@ type multi_region_configuration__primary_key = {
 type multi_region_configuration = {
   multi_region_key_type : string prop;  (** multi_region_key_type *)
   primary_key : multi_region_configuration__primary_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** primary_key *)
   replica_keys : multi_region_configuration__replica_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** replica_keys *)
 }
 

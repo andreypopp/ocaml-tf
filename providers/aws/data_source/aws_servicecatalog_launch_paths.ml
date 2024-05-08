@@ -60,7 +60,7 @@ let _ = yojson_of_summaries__constraint_summaries
 
 type summaries = {
   constraint_summaries : summaries__constraint_summaries list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   path_id : string prop;
   tags : (string * string prop) list;
@@ -101,7 +101,7 @@ let yojson_of_summaries =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_constraint_summaries then bnds
+         if Stdlib.( = ) [] v_constraint_summaries then bnds
          else
            let arg =
              (yojson_of_list

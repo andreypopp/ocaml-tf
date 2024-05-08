@@ -4,7 +4,7 @@ open! Tf_core
 
 type supported_database_flags__string_restrictions = {
   allowed_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_supported_database_flags__string_restrictions =
          []
        in
        let bnds =
-         if [] = v_allowed_values then bnds
+         if Stdlib.( = ) [] v_allowed_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -70,14 +70,14 @@ type supported_database_flags = {
   flag_name : string prop;
   integer_restrictions :
     supported_database_flags__integer_restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   requires_db_restart : bool prop;
   string_restrictions :
     supported_database_flags__string_restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   supported_db_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   value_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -104,7 +104,7 @@ let yojson_of_supported_database_flags =
          ("value_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_supported_db_versions then bnds
+         if Stdlib.( = ) [] v_supported_db_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -114,7 +114,7 @@ let yojson_of_supported_database_flags =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_string_restrictions then bnds
+         if Stdlib.( = ) [] v_string_restrictions then bnds
          else
            let arg =
              (yojson_of_list
@@ -135,7 +135,7 @@ let yojson_of_supported_database_flags =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_integer_restrictions then bnds
+         if Stdlib.( = ) [] v_integer_restrictions then bnds
          else
            let arg =
              (yojson_of_list

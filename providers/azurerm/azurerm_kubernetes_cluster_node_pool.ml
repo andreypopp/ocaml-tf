@@ -448,7 +448,7 @@ type linux_os_config = {
   transparent_huge_page_defrag : string prop option; [@option]
   transparent_huge_page_enabled : string prop option; [@option]
   sysctl_config : linux_os_config__sysctl_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -467,7 +467,7 @@ let yojson_of_linux_os_config =
          []
        in
        let bnds =
-         if [] = v_sysctl_config then bnds
+         if Stdlib.( = ) [] v_sysctl_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linux_os_config__sysctl_config)
@@ -562,7 +562,7 @@ type node_network_profile = {
   application_security_group_ids : string prop list option; [@option]
   node_public_ip_tags : (string * string prop) list option; [@option]
   allowed_host_ports : node_network_profile__allowed_host_ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -580,7 +580,7 @@ let yojson_of_node_network_profile =
          []
        in
        let bnds =
-         if [] = v_allowed_host_ports then bnds
+         if Stdlib.( = ) [] v_allowed_host_ports then bnds
          else
            let arg =
              (yojson_of_list
@@ -774,16 +774,16 @@ type azurerm_kubernetes_cluster_node_pool = {
   workload_runtime : string prop option; [@option]
   zones : string prop list option; [@option]
   kubelet_config : kubelet_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   linux_os_config : linux_os_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_network_profile : node_network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   upgrade_settings : upgrade_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_profile : windows_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -843,7 +843,7 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
          []
        in
        let bnds =
-         if [] = v_windows_profile then bnds
+         if Stdlib.( = ) [] v_windows_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_windows_profile)
@@ -853,7 +853,7 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_upgrade_settings then bnds
+         if Stdlib.( = ) [] v_upgrade_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upgrade_settings)
@@ -867,7 +867,7 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_node_network_profile then bnds
+         if Stdlib.( = ) [] v_node_network_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_network_profile)
@@ -877,7 +877,7 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_os_config then bnds
+         if Stdlib.( = ) [] v_linux_os_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linux_os_config)
@@ -887,7 +887,7 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kubelet_config then bnds
+         if Stdlib.( = ) [] v_kubelet_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kubelet_config)

@@ -108,9 +108,9 @@ let _ = yojson_of_trust_stores__trust_anchors
 
 type trust_stores = {
   intermediate_cas : trust_stores__intermediate_cas list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trust_anchors : trust_stores__trust_anchors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_trust_stores =
          []
        in
        let bnds =
-         if [] = v_trust_anchors then bnds
+         if Stdlib.( = ) [] v_trust_anchors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trust_stores__trust_anchors)
@@ -136,7 +136,7 @@ let yojson_of_trust_stores =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_intermediate_cas then bnds
+         if Stdlib.( = ) [] v_intermediate_cas then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trust_stores__intermediate_cas)
@@ -161,7 +161,7 @@ type google_certificate_manager_trust_config = {
   project : string prop option; [@option]
   timeouts : timeouts option;
   trust_stores : trust_stores list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -183,7 +183,7 @@ let yojson_of_google_certificate_manager_trust_config =
          []
        in
        let bnds =
-         if [] = v_trust_stores then bnds
+         if Stdlib.( = ) [] v_trust_stores then bnds
          else
            let arg =
              (yojson_of_list yojson_of_trust_stores) v_trust_stores

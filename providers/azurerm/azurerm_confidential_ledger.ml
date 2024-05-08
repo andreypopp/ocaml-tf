@@ -149,10 +149,10 @@ type azurerm_confidential_ledger = {
   tags : (string * string prop) list option; [@option]
   azuread_based_service_principal :
     azuread_based_service_principal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   certificate_based_security_principal :
     certificate_based_security_principal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -182,7 +182,8 @@ let yojson_of_azurerm_confidential_ledger =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_certificate_based_security_principal then bnds
+         if Stdlib.( = ) [] v_certificate_based_security_principal
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -193,7 +194,8 @@ let yojson_of_azurerm_confidential_ledger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azuread_based_service_principal then bnds
+         if Stdlib.( = ) [] v_azuread_based_service_principal then
+           bnds
          else
            let arg =
              (yojson_of_list

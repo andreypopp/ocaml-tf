@@ -1249,21 +1249,21 @@ type aws_dms_endpoint = {
   tags_all : (string * string prop) list option; [@option]
   username : string prop option; [@option]
   elasticsearch_settings : elasticsearch_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kafka_settings : kafka_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_settings : kinesis_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mongodb_settings : mongodb_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgres_settings : postgres_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redis_settings : redis_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redshift_settings : redshift_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_settings : s3_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1311,7 +1311,7 @@ let yojson_of_aws_dms_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_s3_settings then bnds
+         if Stdlib.( = ) [] v_s3_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_settings) v_s3_settings
@@ -1320,7 +1320,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_redshift_settings then bnds
+         if Stdlib.( = ) [] v_redshift_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redshift_settings)
@@ -1330,7 +1330,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_redis_settings then bnds
+         if Stdlib.( = ) [] v_redis_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redis_settings)
@@ -1340,7 +1340,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_postgres_settings then bnds
+         if Stdlib.( = ) [] v_postgres_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_postgres_settings)
@@ -1350,7 +1350,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mongodb_settings then bnds
+         if Stdlib.( = ) [] v_mongodb_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mongodb_settings)
@@ -1360,7 +1360,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_settings then bnds
+         if Stdlib.( = ) [] v_kinesis_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kinesis_settings)
@@ -1370,7 +1370,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kafka_settings then bnds
+         if Stdlib.( = ) [] v_kafka_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kafka_settings)
@@ -1380,7 +1380,7 @@ let yojson_of_aws_dms_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_elasticsearch_settings then bnds
+         if Stdlib.( = ) [] v_elasticsearch_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_elasticsearch_settings)

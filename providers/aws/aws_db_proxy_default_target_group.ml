@@ -115,7 +115,7 @@ type aws_db_proxy_default_target_group = {
   db_proxy_name : string prop;
   id : string prop option; [@option]
   connection_pool_config : connection_pool_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -138,7 +138,7 @@ let yojson_of_aws_db_proxy_default_target_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_connection_pool_config then bnds
+         if Stdlib.( = ) [] v_connection_pool_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connection_pool_config)

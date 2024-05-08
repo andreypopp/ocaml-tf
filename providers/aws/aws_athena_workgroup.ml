@@ -111,11 +111,11 @@ type configuration__result_configuration = {
   output_location : string prop option; [@option]
   acl_configuration :
     configuration__result_configuration__acl_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_configuration :
     configuration__result_configuration__encryption_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_configuration__result_configuration =
          []
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -144,7 +144,7 @@ let yojson_of_configuration__result_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_acl_configuration then bnds
+         if Stdlib.( = ) [] v_acl_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -185,9 +185,9 @@ type configuration = {
   publish_cloudwatch_metrics_enabled : bool prop option; [@option]
   requester_pays_enabled : bool prop option; [@option]
   engine_version : configuration__engine_version list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   result_configuration : configuration__result_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,7 +211,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_result_configuration then bnds
+         if Stdlib.( = ) [] v_result_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -222,7 +222,7 @@ let yojson_of_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_engine_version then bnds
+         if Stdlib.( = ) [] v_engine_version then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration__engine_version)
@@ -287,7 +287,7 @@ type aws_athena_workgroup = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,7 +309,7 @@ let yojson_of_aws_athena_workgroup =
          []
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

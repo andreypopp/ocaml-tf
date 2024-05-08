@@ -48,7 +48,7 @@ let _ = yojson_of_management_cluster__node_type_configs
 type management_cluster = {
   cluster_id : string prop;
   node_type_configs : management_cluster__node_type_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_management_cluster =
          []
        in
        let bnds =
-         if [] = v_node_type_configs then bnds
+         if Stdlib.( = ) [] v_node_type_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -309,9 +309,9 @@ type google_vmwareengine_private_cloud = {
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   management_cluster : management_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -339,7 +339,7 @@ let yojson_of_google_vmwareengine_private_cloud =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -349,7 +349,7 @@ let yojson_of_google_vmwareengine_private_cloud =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management_cluster then bnds
+         if Stdlib.( = ) [] v_management_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management_cluster)

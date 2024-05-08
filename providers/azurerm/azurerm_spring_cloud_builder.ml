@@ -128,8 +128,9 @@ type azurerm_spring_cloud_builder = {
   name : string prop;
   spring_cloud_service_id : string prop;
   build_pack_group : build_pack_group list;
-      [@default []] [@yojson_drop_default ( = )]
-  stack : stack list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  stack : stack list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,14 +155,14 @@ let yojson_of_azurerm_spring_cloud_builder =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stack then bnds
+         if Stdlib.( = ) [] v_stack then bnds
          else
            let arg = (yojson_of_list yojson_of_stack) v_stack in
            let bnd = "stack", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_build_pack_group then bnds
+         if Stdlib.( = ) [] v_build_pack_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_build_pack_group)

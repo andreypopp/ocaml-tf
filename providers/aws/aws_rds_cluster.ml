@@ -357,14 +357,14 @@ type aws_rds_cluster = {
   tags_all : (string * string prop) list option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   restore_to_point_in_time : restore_to_point_in_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_import : s3_import list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scaling_configuration : scaling_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   serverlessv2_scaling_configuration :
     serverlessv2_scaling_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -446,7 +446,8 @@ let yojson_of_aws_rds_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_serverlessv2_scaling_configuration then bnds
+         if Stdlib.( = ) [] v_serverlessv2_scaling_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -457,7 +458,7 @@ let yojson_of_aws_rds_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scaling_configuration then bnds
+         if Stdlib.( = ) [] v_scaling_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scaling_configuration)
@@ -467,7 +468,7 @@ let yojson_of_aws_rds_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_import then bnds
+         if Stdlib.( = ) [] v_s3_import then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_import) v_s3_import
@@ -476,7 +477,7 @@ let yojson_of_aws_rds_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_restore_to_point_in_time then bnds
+         if Stdlib.( = ) [] v_restore_to_point_in_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restore_to_point_in_time)

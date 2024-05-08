@@ -10,7 +10,7 @@ type aws_rolesanywhere_profile = {
   name : string prop;
   require_instance_properties : bool prop option; [@option]
   role_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   session_policy : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
@@ -77,7 +77,7 @@ let yojson_of_aws_rolesanywhere_profile =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_role_arns then bnds
+         if Stdlib.( = ) [] v_role_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

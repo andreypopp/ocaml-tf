@@ -77,7 +77,7 @@ type permission_scope = {
   resource_name : string prop;
   service : string prop;
   permissions : permission_scope__permissions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,7 +94,7 @@ let yojson_of_permission_scope =
          []
        in
        let bnds =
-         if [] = v_permissions then bnds
+         if Stdlib.( = ) [] v_permissions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_permission_scope__permissions)
@@ -219,9 +219,9 @@ type azurerm_storage_account_local_user = {
   ssh_password_enabled : bool prop option; [@option]
   storage_account_id : string prop;
   permission_scope : permission_scope list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssh_authorized_key : ssh_authorized_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -249,7 +249,7 @@ let yojson_of_azurerm_storage_account_local_user =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ssh_authorized_key then bnds
+         if Stdlib.( = ) [] v_ssh_authorized_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ssh_authorized_key)
@@ -259,7 +259,7 @@ let yojson_of_azurerm_storage_account_local_user =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_permission_scope then bnds
+         if Stdlib.( = ) [] v_permission_scope then bnds
          else
            let arg =
              (yojson_of_list yojson_of_permission_scope)

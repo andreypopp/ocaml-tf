@@ -39,7 +39,7 @@ let _ = yojson_of_identity
 
 type selectors = {
   chaos_studio_target_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -60,7 +60,7 @@ let yojson_of_selectors =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_chaos_studio_target_ids then bnds
+         if Stdlib.( = ) [] v_chaos_studio_target_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -153,7 +153,7 @@ let _ = yojson_of_steps__branch__actions
 type steps__branch = {
   name : string prop;
   actions : steps__branch__actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,7 +166,7 @@ let yojson_of_steps__branch =
          []
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_steps__branch__actions)
@@ -189,7 +189,7 @@ let _ = yojson_of_steps__branch
 type steps = {
   name : string prop;
   branch : steps__branch list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,7 +202,7 @@ let yojson_of_steps =
          []
        in
        let bnds =
-         if [] = v_branch then bnds
+         if Stdlib.( = ) [] v_branch then bnds
          else
            let arg =
              (yojson_of_list yojson_of_steps__branch) v_branch
@@ -287,10 +287,11 @@ type azurerm_chaos_studio_experiment = {
   name : string prop;
   resource_group_name : string prop;
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selectors : selectors list;
-      [@default []] [@yojson_drop_default ( = )]
-  steps : steps list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  steps : steps list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -317,14 +318,14 @@ let yojson_of_azurerm_chaos_studio_experiment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_steps then bnds
+         if Stdlib.( = ) [] v_steps then bnds
          else
            let arg = (yojson_of_list yojson_of_steps) v_steps in
            let bnd = "steps", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_selectors then bnds
+         if Stdlib.( = ) [] v_selectors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_selectors) v_selectors
@@ -333,7 +334,7 @@ let yojson_of_azurerm_chaos_studio_experiment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

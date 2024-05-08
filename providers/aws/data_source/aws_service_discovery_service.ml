@@ -33,7 +33,7 @@ let _ = yojson_of_dns_config__dns_records
 
 type dns_config = {
   dns_records : dns_config__dns_records list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   namespace_id : string prop;
   routing_policy : string prop;
 }
@@ -62,7 +62,7 @@ let yojson_of_dns_config =
          ("namespace_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_dns_records then bnds
+         if Stdlib.( = ) [] v_dns_records then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_config__dns_records)

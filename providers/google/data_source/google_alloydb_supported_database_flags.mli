@@ -6,7 +6,7 @@ open! Tf_core
 
 type supported_database_flags__string_restrictions = {
   allowed_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_values *)
 }
 
@@ -21,16 +21,16 @@ type supported_database_flags = {
   flag_name : string prop;  (** flag_name *)
   integer_restrictions :
     supported_database_flags__integer_restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** integer_restrictions *)
   name : string prop;  (** name *)
   requires_db_restart : bool prop;  (** requires_db_restart *)
   string_restrictions :
     supported_database_flags__string_restrictions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** string_restrictions *)
   supported_db_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** supported_db_versions *)
   value_type : string prop;  (** value_type *)
 }

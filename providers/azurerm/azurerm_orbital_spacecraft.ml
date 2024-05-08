@@ -123,8 +123,9 @@ type azurerm_orbital_spacecraft = {
   tags : (string * string prop) list option; [@option]
   title_line : string prop;
   two_line_elements : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  links : links list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  links : links list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -153,14 +154,14 @@ let yojson_of_azurerm_orbital_spacecraft =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_links then bnds
+         if Stdlib.( = ) [] v_links then bnds
          else
            let arg = (yojson_of_list yojson_of_links) v_links in
            let bnd = "links", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_two_line_elements then bnds
+         if Stdlib.( = ) [] v_two_line_elements then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

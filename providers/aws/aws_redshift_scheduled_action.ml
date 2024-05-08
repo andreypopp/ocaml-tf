@@ -127,11 +127,11 @@ let _ = yojson_of_target_action__resume_cluster
 
 type target_action = {
   pause_cluster : target_action__pause_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resize_cluster : target_action__resize_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resume_cluster : target_action__resume_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_target_action =
          []
        in
        let bnds =
-         if [] = v_resume_cluster then bnds
+         if Stdlib.( = ) [] v_resume_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_action__resume_cluster)
@@ -158,7 +158,7 @@ let yojson_of_target_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resize_cluster then bnds
+         if Stdlib.( = ) [] v_resize_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_action__resize_cluster)
@@ -168,7 +168,7 @@ let yojson_of_target_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pause_cluster then bnds
+         if Stdlib.( = ) [] v_pause_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_action__pause_cluster)
@@ -194,7 +194,7 @@ type aws_redshift_scheduled_action = {
   schedule : string prop;
   start_time : string prop option; [@option]
   target_action : target_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,7 +217,7 @@ let yojson_of_aws_redshift_scheduled_action =
          []
        in
        let bnds =
-         if [] = v_target_action then bnds
+         if Stdlib.( = ) [] v_target_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_action) v_target_action

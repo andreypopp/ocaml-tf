@@ -138,7 +138,7 @@ type aws_vpc_endpoint = {
   vpc_endpoint_type : string prop option; [@option]
   vpc_id : string prop;
   dns_options : dns_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -172,7 +172,7 @@ let yojson_of_aws_vpc_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_dns_options then bnds
+         if Stdlib.( = ) [] v_dns_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_options) v_dns_options

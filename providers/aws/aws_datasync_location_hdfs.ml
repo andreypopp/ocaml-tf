@@ -70,7 +70,7 @@ let _ = yojson_of_qop_configuration
 
 type aws_datasync_location_hdfs = {
   agent_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   authentication_type : string prop option; [@option]
   block_size : float prop option; [@option]
   id : string prop option; [@option]
@@ -84,9 +84,9 @@ type aws_datasync_location_hdfs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   name_node : name_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   qop_configuration : qop_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_aws_datasync_location_hdfs =
          []
        in
        let bnds =
-         if [] = v_qop_configuration then bnds
+         if Stdlib.( = ) [] v_qop_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_qop_configuration)
@@ -125,7 +125,7 @@ let yojson_of_aws_datasync_location_hdfs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_name_node then bnds
+         if Stdlib.( = ) [] v_name_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_name_node) v_name_node
@@ -246,7 +246,7 @@ let yojson_of_aws_datasync_location_hdfs =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_agent_arns then bnds
+         if Stdlib.( = ) [] v_agent_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -137,8 +137,9 @@ type google_cloudbuild_bitbucket_server_config = {
   ssl_ca : string prop option; [@option]
   username : string prop;
   connected_repositories : connected_repositories list;
-      [@default []] [@yojson_drop_default ( = )]
-  secrets : secrets list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secrets : secrets list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -169,14 +170,14 @@ let yojson_of_google_cloudbuild_bitbucket_server_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secrets then bnds
+         if Stdlib.( = ) [] v_secrets then bnds
          else
            let arg = (yojson_of_list yojson_of_secrets) v_secrets in
            let bnd = "secrets", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_connected_repositories then bnds
+         if Stdlib.( = ) [] v_connected_repositories then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connected_repositories)

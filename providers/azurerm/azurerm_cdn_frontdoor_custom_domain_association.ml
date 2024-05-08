@@ -65,7 +65,7 @@ let _ = yojson_of_timeouts
 type azurerm_cdn_frontdoor_custom_domain_association = {
   cdn_frontdoor_custom_domain_id : string prop;
   cdn_frontdoor_route_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   timeouts : timeouts option;
 }
@@ -99,7 +99,7 @@ let yojson_of_azurerm_cdn_frontdoor_custom_domain_association =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_cdn_frontdoor_route_ids then bnds
+         if Stdlib.( = ) [] v_cdn_frontdoor_route_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

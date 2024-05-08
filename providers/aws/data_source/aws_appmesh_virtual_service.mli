@@ -14,16 +14,16 @@ type spec__provider__virtual_node = {
 
 type spec__provider = {
   virtual_node : spec__provider__virtual_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** virtual_node *)
   virtual_router : spec__provider__virtual_router list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** virtual_router *)
 }
 
 type spec = {
   provider : spec__provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** provider *)
 }
 

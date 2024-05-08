@@ -37,7 +37,7 @@ let _ = yojson_of_create_table_default_permission__principal
 type create_table_default_permission = {
   permissions : string prop list option; [@option]
   principal : create_table_default_permission__principal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +50,7 @@ let yojson_of_create_table_default_permission =
          []
        in
        let bnds =
-         if [] = v_principal then bnds
+         if Stdlib.( = ) [] v_principal then bnds
          else
            let arg =
              (yojson_of_list
@@ -171,11 +171,11 @@ type aws_glue_catalog_database = {
   tags_all : (string * string prop) list option; [@option]
   create_table_default_permission :
     create_table_default_permission list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   federated_database : federated_database list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_database : target_database list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_aws_glue_catalog_database =
          []
        in
        let bnds =
-         if [] = v_target_database then bnds
+         if Stdlib.( = ) [] v_target_database then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_database)
@@ -211,7 +211,7 @@ let yojson_of_aws_glue_catalog_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_federated_database then bnds
+         if Stdlib.( = ) [] v_federated_database then bnds
          else
            let arg =
              (yojson_of_list yojson_of_federated_database)
@@ -221,7 +221,8 @@ let yojson_of_aws_glue_catalog_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_create_table_default_permission then bnds
+         if Stdlib.( = ) [] v_create_table_default_permission then
+           bnds
          else
            let arg =
              (yojson_of_list

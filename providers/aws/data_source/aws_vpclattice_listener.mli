@@ -12,7 +12,7 @@ type default_action__forward__target_groups = {
 
 type default_action__forward = {
   target_groups : default_action__forward__target_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_groups *)
 }
 
@@ -22,10 +22,10 @@ type default_action__fixed_response = {
 
 type default_action = {
   fixed_response : default_action__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fixed_response *)
   forward : default_action__forward list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** forward *)
 }
 

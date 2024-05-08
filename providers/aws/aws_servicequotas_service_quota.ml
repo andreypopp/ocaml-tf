@@ -49,7 +49,7 @@ let _ = yojson_of_usage_metric__metric_dimensions
 
 type usage_metric = {
   metric_dimensions : usage_metric__metric_dimensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric_name : string prop;
   metric_namespace : string prop;
   metric_statistic_recommendation : string prop;
@@ -88,7 +88,7 @@ let yojson_of_usage_metric =
          ("metric_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_metric_dimensions then bnds
+         if Stdlib.( = ) [] v_metric_dimensions then bnds
          else
            let arg =
              (yojson_of_list

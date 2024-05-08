@@ -4,7 +4,7 @@ open! Tf_core
 
 type hcloud_managed_certificate = {
   domain_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   name : string prop;
@@ -53,7 +53,7 @@ let yojson_of_hcloud_managed_certificate =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_domain_names then bnds
+         if Stdlib.( = ) [] v_domain_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

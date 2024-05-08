@@ -72,7 +72,7 @@ type ipv6 = {
   route_filter_id : string prop option; [@option]
   secondary_peer_address_prefix : string prop;
   microsoft_peering : ipv6__microsoft_peering list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,7 +92,7 @@ let yojson_of_ipv6 =
          []
        in
        let bnds =
-         if [] = v_microsoft_peering then bnds
+         if Stdlib.( = ) [] v_microsoft_peering then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ipv6__microsoft_peering)
@@ -141,7 +141,7 @@ let _ = yojson_of_ipv6
 type microsoft_peering_config = {
   advertised_communities : string prop list option; [@option]
   advertised_public_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_asn : float prop option; [@option]
   routing_registry_name : string prop option; [@option]
 }
@@ -177,7 +177,7 @@ let yojson_of_microsoft_peering_config =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_advertised_public_prefixes then bnds
+         if Stdlib.( = ) [] v_advertised_public_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -275,9 +275,9 @@ type azurerm_express_route_circuit_peering = {
   secondary_peer_address_prefix : string prop option; [@option]
   shared_key : string prop option; [@option]
   vlan_id : float prop;
-  ipv6 : ipv6 list; [@default []] [@yojson_drop_default ( = )]
+  ipv6 : ipv6 list; [@default []] [@yojson_drop_default Stdlib.( = )]
   microsoft_peering_config : microsoft_peering_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,7 +311,7 @@ let yojson_of_azurerm_express_route_circuit_peering =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_microsoft_peering_config then bnds
+         if Stdlib.( = ) [] v_microsoft_peering_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_microsoft_peering_config)
@@ -321,7 +321,7 @@ let yojson_of_azurerm_express_route_circuit_peering =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipv6 then bnds
+         if Stdlib.( = ) [] v_ipv6 then bnds
          else
            let arg = (yojson_of_list yojson_of_ipv6) v_ipv6 in
            let bnd = "ipv6", arg in

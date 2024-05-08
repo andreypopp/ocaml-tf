@@ -84,10 +84,10 @@ type aws_sagemaker_pipeline = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   parallelism_configuration : parallelism_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pipeline_definition_s3_location :
     pipeline_definition_s3_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,8 @@ let yojson_of_aws_sagemaker_pipeline =
          []
        in
        let bnds =
-         if [] = v_pipeline_definition_s3_location then bnds
+         if Stdlib.( = ) [] v_pipeline_definition_s3_location then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -123,7 +124,7 @@ let yojson_of_aws_sagemaker_pipeline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parallelism_configuration then bnds
+         if Stdlib.( = ) [] v_parallelism_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parallelism_configuration)

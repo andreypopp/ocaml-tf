@@ -118,9 +118,9 @@ type azurerm_container_registry_token_password = {
   container_registry_token_id : string prop;
   id : string prop option; [@option]
   password1 : password1 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   password2 : password2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -144,7 +144,7 @@ let yojson_of_azurerm_container_registry_token_password =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_password2 then bnds
+         if Stdlib.( = ) [] v_password2 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_password2) v_password2
@@ -153,7 +153,7 @@ let yojson_of_azurerm_container_registry_token_password =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_password1 then bnds
+         if Stdlib.( = ) [] v_password1 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_password1) v_password1

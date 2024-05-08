@@ -119,7 +119,7 @@ let _ = yojson_of_attached_clusters
 
 type aws_finspace_kx_volume = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   az_mode : string prop;
   description : string prop option; [@option]
   environment_id : string prop;
@@ -129,7 +129,7 @@ type aws_finspace_kx_volume = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   nas1_configuration : nas1_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -159,7 +159,7 @@ let yojson_of_aws_finspace_kx_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_nas1_configuration then bnds
+         if Stdlib.( = ) [] v_nas1_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nas1_configuration)
@@ -235,7 +235,7 @@ let yojson_of_aws_finspace_kx_volume =
          ("az_mode", arg) :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

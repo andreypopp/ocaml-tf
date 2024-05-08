@@ -83,7 +83,7 @@ let _ = yojson_of_pools__load_shedding
 type pools__origins__header = {
   header : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,7 +96,7 @@ let yojson_of_pools__origins__header =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -120,7 +120,7 @@ type pools__origins = {
   address : string prop;
   enabled : bool prop;
   header : pools__origins__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   weight : float prop;
 }
@@ -149,7 +149,7 @@ let yojson_of_pools__origins =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pools__origins__header)
@@ -187,8 +187,10 @@ let _ = yojson_of_pools
 type cloudflare_load_balancer_pools = {
   account_id : string prop;
   id : string prop option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
-  pools : pools list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  pools : pools list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,14 +208,14 @@ let yojson_of_cloudflare_load_balancer_pools =
          []
        in
        let bnds =
-         if [] = v_pools then bnds
+         if Stdlib.( = ) [] v_pools then bnds
          else
            let arg = (yojson_of_list yojson_of_pools) v_pools in
            let bnd = "pools", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

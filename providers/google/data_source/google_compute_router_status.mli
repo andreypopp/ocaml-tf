@@ -20,7 +20,8 @@ type best_routes = {
   priority : float prop;  (** priority *)
   project : string prop;  (** project *)
   self_link : string prop;  (** self_link *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
 }
 
@@ -40,7 +41,8 @@ type best_routes_for_router = {
   priority : float prop;  (** priority *)
   project : string prop;  (** project *)
   self_link : string prop;  (** self_link *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
 }
 

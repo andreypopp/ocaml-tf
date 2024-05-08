@@ -98,14 +98,14 @@ type aws_ses_event_destination = {
   enabled : bool prop option; [@option]
   id : string prop option; [@option]
   matching_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   cloudwatch_destination : cloudwatch_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_destination : kinesis_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sns_destination : sns_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,7 +127,7 @@ let yojson_of_aws_ses_event_destination =
          []
        in
        let bnds =
-         if [] = v_sns_destination then bnds
+         if Stdlib.( = ) [] v_sns_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sns_destination)
@@ -137,7 +137,7 @@ let yojson_of_aws_ses_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_destination then bnds
+         if Stdlib.( = ) [] v_kinesis_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kinesis_destination)
@@ -147,7 +147,7 @@ let yojson_of_aws_ses_event_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_destination then bnds
+         if Stdlib.( = ) [] v_cloudwatch_destination then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudwatch_destination)
@@ -161,7 +161,7 @@ let yojson_of_aws_ses_event_destination =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_matching_types then bnds
+         if Stdlib.( = ) [] v_matching_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

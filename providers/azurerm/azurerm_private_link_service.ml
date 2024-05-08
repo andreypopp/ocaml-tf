@@ -126,14 +126,14 @@ type azurerm_private_link_service = {
   fqdns : string prop list option; [@option]
   id : string prop option; [@option]
   load_balancer_frontend_ip_configuration_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   visibility_subscription_ids : string prop list option; [@option]
   nat_ip_configuration : nat_ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,7 +166,7 @@ let yojson_of_azurerm_private_link_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_nat_ip_configuration then bnds
+         if Stdlib.( = ) [] v_nat_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_nat_ip_configuration)
@@ -216,8 +216,10 @@ let yojson_of_azurerm_private_link_service =
          ("location", arg) :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_frontend_ip_configuration_ids then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_load_balancer_frontend_ip_configuration_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

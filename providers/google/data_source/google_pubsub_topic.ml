@@ -4,7 +4,7 @@ open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_message_storage_policy =
          []
        in
        let bnds =
-         if [] = v_allowed_persistence_regions then bnds
+         if Stdlib.( = ) [] v_allowed_persistence_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

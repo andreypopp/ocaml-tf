@@ -17,10 +17,10 @@ type config__end_time = {
 type config = {
   day : string prop;  (** day *)
   end_time : config__end_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** end_time *)
   start_time : config__start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** start_time *)
 }
 

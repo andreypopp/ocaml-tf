@@ -301,13 +301,13 @@ type aws_launch_configuration = {
   user_data : string prop option; [@option]
   user_data_base64 : string prop option; [@option]
   ebs_block_device : ebs_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_block_device : ephemeral_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata_options : metadata_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_block_device : root_block_device list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,7 +340,7 @@ let yojson_of_aws_launch_configuration =
          []
        in
        let bnds =
-         if [] = v_root_block_device then bnds
+         if Stdlib.( = ) [] v_root_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_block_device)
@@ -350,7 +350,7 @@ let yojson_of_aws_launch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata_options then bnds
+         if Stdlib.( = ) [] v_metadata_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata_options)
@@ -360,7 +360,7 @@ let yojson_of_aws_launch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ephemeral_block_device then bnds
+         if Stdlib.( = ) [] v_ephemeral_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ephemeral_block_device)
@@ -370,7 +370,7 @@ let yojson_of_aws_launch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebs_block_device then bnds
+         if Stdlib.( = ) [] v_ebs_block_device then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_block_device)

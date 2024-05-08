@@ -35,7 +35,7 @@ let _ = yojson_of_private_registry_access__ecr_image_puller_role
 type private_registry_access = {
   ecr_image_puller_role :
     private_registry_access__ecr_image_puller_role list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_private_registry_access =
          []
        in
        let bnds =
-         if [] = v_ecr_image_puller_role then bnds
+         if Stdlib.( = ) [] v_ecr_image_puller_role then bnds
          else
            let arg =
              (yojson_of_list
@@ -68,7 +68,7 @@ let _ = yojson_of_private_registry_access
 type public_domain_names__certificate = {
   certificate_name : string prop;
   domain_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,7 +84,7 @@ let yojson_of_public_domain_names__certificate =
          []
        in
        let bnds =
-         if [] = v_domain_names then bnds
+         if Stdlib.( = ) [] v_domain_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -109,7 +109,7 @@ let _ = yojson_of_public_domain_names__certificate
 
 type public_domain_names = {
   certificate : public_domain_names__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +122,7 @@ let yojson_of_public_domain_names =
          []
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -194,9 +194,9 @@ type aws_lightsail_container_service = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   private_registry_access : private_registry_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_domain_names : public_domain_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -225,7 +225,7 @@ let yojson_of_aws_lightsail_container_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_domain_names then bnds
+         if Stdlib.( = ) [] v_public_domain_names then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_domain_names)
@@ -235,7 +235,7 @@ let yojson_of_aws_lightsail_container_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_private_registry_access then bnds
+         if Stdlib.( = ) [] v_private_registry_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_registry_access)

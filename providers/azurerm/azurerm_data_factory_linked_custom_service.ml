@@ -115,7 +115,7 @@ type azurerm_data_factory_linked_custom_service = {
   type_ : string prop; [@key "type"]
   type_properties_json : string prop;
   integration_runtime : integration_runtime list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -145,7 +145,7 @@ let yojson_of_azurerm_data_factory_linked_custom_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_integration_runtime then bnds
+         if Stdlib.( = ) [] v_integration_runtime then bnds
          else
            let arg =
              (yojson_of_list yojson_of_integration_runtime)

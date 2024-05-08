@@ -109,7 +109,7 @@ type google_monitoring_notification_channel = {
   type_ : string prop; [@key "type"]
   user_labels : (string * string prop) list option; [@option]
   sensitive_labels : sensitive_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -139,7 +139,7 @@ let yojson_of_google_monitoring_notification_channel =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sensitive_labels then bnds
+         if Stdlib.( = ) [] v_sensitive_labels then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sensitive_labels)

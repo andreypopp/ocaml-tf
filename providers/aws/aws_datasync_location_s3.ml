@@ -35,7 +35,7 @@ type aws_datasync_location_s3 = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   s3_config : s3_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_aws_datasync_location_s3 =
          []
        in
        let bnds =
-         if [] = v_s3_config then bnds
+         if Stdlib.( = ) [] v_s3_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_config) v_s3_config

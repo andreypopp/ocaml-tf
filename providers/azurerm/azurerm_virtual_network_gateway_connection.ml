@@ -179,9 +179,9 @@ let _ = yojson_of_timeouts
 
 type traffic_selector_policy = {
   local_address_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_address_cidrs : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,7 +197,7 @@ let yojson_of_traffic_selector_policy =
          []
        in
        let bnds =
-         if [] = v_remote_address_cidrs then bnds
+         if Stdlib.( = ) [] v_remote_address_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -207,7 +207,7 @@ let yojson_of_traffic_selector_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_address_cidrs then bnds
+         if Stdlib.( = ) [] v_local_address_cidrs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -247,12 +247,12 @@ type azurerm_virtual_network_gateway_connection = {
   use_policy_based_traffic_selectors : bool prop option; [@option]
   virtual_network_gateway_id : string prop;
   custom_bgp_addresses : custom_bgp_addresses list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ipsec_policy : ipsec_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   traffic_selector_policy : traffic_selector_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -295,7 +295,7 @@ let yojson_of_azurerm_virtual_network_gateway_connection =
          []
        in
        let bnds =
-         if [] = v_traffic_selector_policy then bnds
+         if Stdlib.( = ) [] v_traffic_selector_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_traffic_selector_policy)
@@ -309,7 +309,7 @@ let yojson_of_azurerm_virtual_network_gateway_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ipsec_policy then bnds
+         if Stdlib.( = ) [] v_ipsec_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ipsec_policy) v_ipsec_policy
@@ -318,7 +318,7 @@ let yojson_of_azurerm_virtual_network_gateway_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_bgp_addresses then bnds
+         if Stdlib.( = ) [] v_custom_bgp_addresses then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_bgp_addresses)

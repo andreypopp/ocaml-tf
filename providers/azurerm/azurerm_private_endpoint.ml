@@ -59,7 +59,7 @@ let _ = yojson_of_ip_configuration
 type private_dns_zone_group = {
   name : string prop;
   private_dns_zone_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_private_dns_zone_group =
          []
        in
        let bnds =
-         if [] = v_private_dns_zone_ids then bnds
+         if Stdlib.( = ) [] v_private_dns_zone_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -234,7 +234,7 @@ let _ = yojson_of_timeouts
 type custom_dns_configs = {
   fqdn : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,7 +247,7 @@ let yojson_of_custom_dns_configs =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -296,7 +296,7 @@ let _ = yojson_of_network_interface
 type private_dns_zone_configs__record_sets = {
   fqdn : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   ttl : float prop;
   type_ : string prop; [@key "type"]
@@ -330,7 +330,7 @@ let yojson_of_private_dns_zone_configs__record_sets =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -356,7 +356,7 @@ type private_dns_zone_configs = {
   name : string prop;
   private_dns_zone_id : string prop;
   record_sets : private_dns_zone_configs__record_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,7 +374,7 @@ let yojson_of_private_dns_zone_configs =
          []
        in
        let bnds =
-         if [] = v_record_sets then bnds
+         if Stdlib.( = ) [] v_record_sets then bnds
          else
            let arg =
              (yojson_of_list
@@ -414,11 +414,11 @@ type azurerm_private_endpoint = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   ip_configuration : ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_dns_zone_group : private_dns_zone_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_service_connection : private_service_connection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -449,7 +449,7 @@ let yojson_of_azurerm_private_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_private_service_connection then bnds
+         if Stdlib.( = ) [] v_private_service_connection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_service_connection)
@@ -459,7 +459,7 @@ let yojson_of_azurerm_private_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_private_dns_zone_group then bnds
+         if Stdlib.( = ) [] v_private_dns_zone_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_dns_zone_group)
@@ -469,7 +469,7 @@ let yojson_of_azurerm_private_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ip_configuration)

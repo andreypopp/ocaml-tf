@@ -66,7 +66,7 @@ type azurerm_palo_alto_local_rulestack_fqdn_list = {
   audit_comment : string prop option; [@option]
   description : string prop option; [@option]
   fully_qualified_domain_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   rulestack_id : string prop;
@@ -111,7 +111,7 @@ let yojson_of_azurerm_palo_alto_local_rulestack_fqdn_list =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_fully_qualified_domain_names then bnds
+         if Stdlib.( = ) [] v_fully_qualified_domain_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

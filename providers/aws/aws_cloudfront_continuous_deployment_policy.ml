@@ -108,7 +108,7 @@ type traffic_config__single_weight_config = {
   session_stickiness_config :
     traffic_config__single_weight_config__session_stickiness_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_traffic_config__single_weight_config =
          []
        in
        let bnds =
-         if [] = v_session_stickiness_config then bnds
+         if Stdlib.( = ) [] v_session_stickiness_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -149,9 +149,9 @@ let _ = yojson_of_traffic_config__single_weight_config
 type traffic_config = {
   type_ : string prop; [@key "type"]
   single_header_config : traffic_config__single_header_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   single_weight_config : traffic_config__single_weight_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_traffic_config =
          []
        in
        let bnds =
-         if [] = v_single_weight_config then bnds
+         if Stdlib.( = ) [] v_single_weight_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -179,7 +179,7 @@ let yojson_of_traffic_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_single_header_config then bnds
+         if Stdlib.( = ) [] v_single_header_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -204,9 +204,9 @@ type aws_cloudfront_continuous_deployment_policy = {
   enabled : bool prop;
   staging_distribution_dns_names :
     staging_distribution_dns_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   traffic_config : traffic_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,7 +224,7 @@ let yojson_of_aws_cloudfront_continuous_deployment_policy =
          []
        in
        let bnds =
-         if [] = v_traffic_config then bnds
+         if Stdlib.( = ) [] v_traffic_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_traffic_config)
@@ -234,7 +234,8 @@ let yojson_of_aws_cloudfront_continuous_deployment_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_staging_distribution_dns_names then bnds
+         if Stdlib.( = ) [] v_staging_distribution_dns_names then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_staging_distribution_dns_names)

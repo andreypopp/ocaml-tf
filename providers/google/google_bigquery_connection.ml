@@ -26,7 +26,7 @@ let _ = yojson_of_aws__access_role
 
 type aws = {
   access_role : aws__access_role list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,7 +39,7 @@ let yojson_of_aws =
          []
        in
        let bnds =
-         if [] = v_access_role then bnds
+         if Stdlib.( = ) [] v_access_role then bnds
          else
            let arg =
              (yojson_of_list yojson_of_aws__access_role)
@@ -216,7 +216,7 @@ type cloud_sql = {
   instance_id : string prop;
   type_ : string prop; [@key "type"]
   credential : cloud_sql__credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,7 +234,7 @@ let yojson_of_cloud_sql =
          []
        in
        let bnds =
-         if [] = v_credential then bnds
+         if Stdlib.( = ) [] v_credential then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_sql__credential)
@@ -322,10 +322,10 @@ let _ = yojson_of_spark__spark_history_server_config
 
 type spark = {
   metastore_service_config : spark__metastore_service_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spark_history_server_config :
     spark__spark_history_server_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -341,7 +341,7 @@ let yojson_of_spark =
          []
        in
        let bnds =
-         if [] = v_spark_history_server_config then bnds
+         if Stdlib.( = ) [] v_spark_history_server_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -352,7 +352,7 @@ let yojson_of_spark =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metastore_service_config then bnds
+         if Stdlib.( = ) [] v_metastore_service_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -422,15 +422,17 @@ type google_bigquery_connection = {
   id : string prop option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
-  aws : aws list; [@default []] [@yojson_drop_default ( = )]
-  azure : azure list; [@default []] [@yojson_drop_default ( = )]
+  aws : aws list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  azure : azure list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_resource : cloud_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_spanner : cloud_spanner list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_sql : cloud_sql list;
-      [@default []] [@yojson_drop_default ( = )]
-  spark : spark list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spark : spark list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -462,14 +464,14 @@ let yojson_of_google_bigquery_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_spark then bnds
+         if Stdlib.( = ) [] v_spark then bnds
          else
            let arg = (yojson_of_list yojson_of_spark) v_spark in
            let bnd = "spark", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_sql then bnds
+         if Stdlib.( = ) [] v_cloud_sql then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_sql) v_cloud_sql
@@ -478,7 +480,7 @@ let yojson_of_google_bigquery_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_spanner then bnds
+         if Stdlib.( = ) [] v_cloud_spanner then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_spanner) v_cloud_spanner
@@ -487,7 +489,7 @@ let yojson_of_google_bigquery_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_resource then bnds
+         if Stdlib.( = ) [] v_cloud_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_resource)
@@ -497,14 +499,14 @@ let yojson_of_google_bigquery_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure then bnds
+         if Stdlib.( = ) [] v_azure then bnds
          else
            let arg = (yojson_of_list yojson_of_azure) v_azure in
            let bnd = "azure", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aws then bnds
+         if Stdlib.( = ) [] v_aws then bnds
          else
            let arg = (yojson_of_list yojson_of_aws) v_aws in
            let bnd = "aws", arg in

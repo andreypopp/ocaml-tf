@@ -202,10 +202,11 @@ type azurerm_gallery_application_version = {
   package_file : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   manage_action : manage_action list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_region : target_region list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -238,7 +239,7 @@ let yojson_of_azurerm_gallery_application_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target_region then bnds
+         if Stdlib.( = ) [] v_target_region then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_region) v_target_region
@@ -247,14 +248,14 @@ let yojson_of_azurerm_gallery_application_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_manage_action then bnds
+         if Stdlib.( = ) [] v_manage_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_manage_action) v_manage_action

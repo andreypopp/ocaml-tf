@@ -73,8 +73,9 @@ type aws_s3control_access_grant = {
   tags : (string * string prop) list option; [@option]
   access_grants_location_configuration :
     access_grants_location_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
-  grantee : grantee list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  grantee : grantee list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,14 +97,15 @@ let yojson_of_aws_s3control_access_grant =
          []
        in
        let bnds =
-         if [] = v_grantee then bnds
+         if Stdlib.( = ) [] v_grantee then bnds
          else
            let arg = (yojson_of_list yojson_of_grantee) v_grantee in
            let bnd = "grantee", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_grants_location_configuration then bnds
+         if Stdlib.( = ) [] v_access_grants_location_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list

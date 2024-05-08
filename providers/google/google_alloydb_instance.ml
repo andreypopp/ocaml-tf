@@ -34,7 +34,7 @@ let _ = yojson_of_client_connection_config__ssl_config
 type client_connection_config = {
   require_connectors : bool prop option; [@option]
   ssl_config : client_connection_config__ssl_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +50,7 @@ let yojson_of_client_connection_config =
          []
        in
        let bnds =
-         if [] = v_ssl_config then bnds
+         if Stdlib.( = ) [] v_ssl_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -245,13 +245,13 @@ type google_alloydb_instance = {
   instance_type : string prop;
   labels : (string * string prop) list option; [@option]
   client_connection_config : client_connection_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   machine_config : machine_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_insights_config : query_insights_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   read_pool_config : read_pool_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -285,7 +285,7 @@ let yojson_of_google_alloydb_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_read_pool_config then bnds
+         if Stdlib.( = ) [] v_read_pool_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_read_pool_config)
@@ -295,7 +295,7 @@ let yojson_of_google_alloydb_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_insights_config then bnds
+         if Stdlib.( = ) [] v_query_insights_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_query_insights_config)
@@ -305,7 +305,7 @@ let yojson_of_google_alloydb_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_machine_config then bnds
+         if Stdlib.( = ) [] v_machine_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_machine_config)
@@ -315,7 +315,7 @@ let yojson_of_google_alloydb_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_connection_config then bnds
+         if Stdlib.( = ) [] v_client_connection_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_connection_config)

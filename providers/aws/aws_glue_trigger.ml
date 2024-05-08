@@ -38,7 +38,7 @@ type actions = {
   security_configuration : string prop option; [@option]
   timeout : float prop option; [@option]
   notification_property : actions__notification_property list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         if [] = v_notification_property then bnds
+         if Stdlib.( = ) [] v_notification_property then bnds
          else
            let arg =
              (yojson_of_list yojson_of_actions__notification_property)
@@ -228,7 +228,7 @@ let _ = yojson_of_predicate__conditions
 type predicate = {
   logical : string prop option; [@option]
   conditions : predicate__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,7 +241,7 @@ let yojson_of_predicate =
          []
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predicate__conditions)
@@ -322,11 +322,12 @@ type aws_glue_trigger = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   workflow_name : string prop option; [@option]
-  actions : actions list; [@default []] [@yojson_drop_default ( = )]
+  actions : actions list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_batching_condition : event_batching_condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predicate : predicate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -359,7 +360,7 @@ let yojson_of_aws_glue_trigger =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_predicate then bnds
+         if Stdlib.( = ) [] v_predicate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predicate) v_predicate
@@ -368,7 +369,7 @@ let yojson_of_aws_glue_trigger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_batching_condition then bnds
+         if Stdlib.( = ) [] v_event_batching_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_batching_condition)
@@ -378,7 +379,7 @@ let yojson_of_aws_glue_trigger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg = (yojson_of_list yojson_of_actions) v_actions in
            let bnd = "actions", arg in

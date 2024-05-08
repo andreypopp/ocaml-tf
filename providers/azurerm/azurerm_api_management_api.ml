@@ -84,7 +84,7 @@ type import = {
   content_format : string prop;
   content_value : string prop;
   wsdl_selector : import__wsdl_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,7 +101,7 @@ let yojson_of_import =
          []
        in
        let bnds =
-         if [] = v_wsdl_selector then bnds
+         if Stdlib.( = ) [] v_wsdl_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_import__wsdl_selector)
@@ -353,16 +353,19 @@ type azurerm_api_management_api = {
   version : string prop option; [@option]
   version_description : string prop option; [@option]
   version_set_id : string prop option; [@option]
-  contact : contact list; [@default []] [@yojson_drop_default ( = )]
-  import : import list; [@default []] [@yojson_drop_default ( = )]
-  license : license list; [@default []] [@yojson_drop_default ( = )]
+  contact : contact list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  import : import list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  license : license list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oauth2_authorization : oauth2_authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   openid_authentication : openid_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscription_key_parameter_names :
     subscription_key_parameter_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -408,7 +411,8 @@ let yojson_of_azurerm_api_management_api =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscription_key_parameter_names then bnds
+         if Stdlib.( = ) [] v_subscription_key_parameter_names then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -419,7 +423,7 @@ let yojson_of_azurerm_api_management_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_openid_authentication then bnds
+         if Stdlib.( = ) [] v_openid_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_openid_authentication)
@@ -429,7 +433,7 @@ let yojson_of_azurerm_api_management_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oauth2_authorization then bnds
+         if Stdlib.( = ) [] v_oauth2_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oauth2_authorization)
@@ -439,21 +443,21 @@ let yojson_of_azurerm_api_management_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_license then bnds
+         if Stdlib.( = ) [] v_license then bnds
          else
            let arg = (yojson_of_list yojson_of_license) v_license in
            let bnd = "license", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_import then bnds
+         if Stdlib.( = ) [] v_import then bnds
          else
            let arg = (yojson_of_list yojson_of_import) v_import in
            let bnd = "import", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_contact then bnds
+         if Stdlib.( = ) [] v_contact then bnds
          else
            let arg = (yojson_of_list yojson_of_contact) v_contact in
            let bnd = "contact", arg in

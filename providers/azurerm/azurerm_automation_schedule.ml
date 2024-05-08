@@ -105,7 +105,7 @@ type azurerm_automation_schedule = {
   timezone : string prop option; [@option]
   week_days : string prop list option; [@option]
   monthly_occurrence : monthly_occurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -138,7 +138,7 @@ let yojson_of_azurerm_automation_schedule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_monthly_occurrence then bnds
+         if Stdlib.( = ) [] v_monthly_occurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monthly_occurrence)

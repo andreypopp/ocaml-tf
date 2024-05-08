@@ -29,10 +29,10 @@ type instance_schedule_policy = {
   time_zone : string prop;  (** time_zone *)
   vm_start_schedule :
     instance_schedule_policy__vm_start_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vm_start_schedule *)
   vm_stop_schedule : instance_schedule_policy__vm_stop_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vm_stop_schedule *)
 }
 
@@ -41,7 +41,7 @@ type snapshot_schedule_policy__snapshot_properties = {
   guest_flush : bool prop;  (** guest_flush *)
   labels : (string * string prop) list;  (** labels *)
   storage_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** storage_locations *)
 }
 
@@ -54,7 +54,7 @@ type snapshot_schedule_policy__schedule__weekly_schedule = {
   day_of_weeks :
     snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** day_of_weeks *)
 }
 
@@ -71,15 +71,15 @@ type snapshot_schedule_policy__schedule__daily_schedule = {
 type snapshot_schedule_policy__schedule = {
   daily_schedule :
     snapshot_schedule_policy__schedule__daily_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** daily_schedule *)
   hourly_schedule :
     snapshot_schedule_policy__schedule__hourly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** hourly_schedule *)
   weekly_schedule :
     snapshot_schedule_policy__schedule__weekly_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** weekly_schedule *)
 }
 
@@ -90,14 +90,14 @@ type snapshot_schedule_policy__retention_policy = {
 
 type snapshot_schedule_policy = {
   retention_policy : snapshot_schedule_policy__retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** retention_policy *)
   schedule : snapshot_schedule_policy__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schedule *)
   snapshot_properties :
     snapshot_schedule_policy__snapshot_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** snapshot_properties *)
 }
 

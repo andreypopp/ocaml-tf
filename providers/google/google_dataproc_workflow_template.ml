@@ -48,7 +48,7 @@ type jobs__hadoop_job = {
   main_jar_file_uri : string prop option; [@option]
   properties : (string * string prop) list option; [@option]
   logging_config : jobs__hadoop_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,7 +70,7 @@ let yojson_of_jobs__hadoop_job =
          []
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -161,7 +161,7 @@ let _ = yojson_of_jobs__hadoop_job
 
 type jobs__hive_job__query_list = {
   queries : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,7 +174,7 @@ let yojson_of_jobs__hive_job__query_list =
          []
        in
        let bnds =
-         if [] = v_queries then bnds
+         if Stdlib.( = ) [] v_queries then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -197,7 +197,7 @@ type jobs__hive_job = {
   query_file_uri : string prop option; [@option]
   script_variables : (string * string prop) list option; [@option]
   query_list : jobs__hive_job__query_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,7 +217,7 @@ let yojson_of_jobs__hive_job =
          []
        in
        let bnds =
-         if [] = v_query_list then bnds
+         if Stdlib.( = ) [] v_query_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__hive_job__query_list)
@@ -330,7 +330,7 @@ let _ = yojson_of_jobs__pig_job__logging_config
 
 type jobs__pig_job__query_list = {
   queries : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -343,7 +343,7 @@ let yojson_of_jobs__pig_job__query_list =
          []
        in
        let bnds =
-         if [] = v_queries then bnds
+         if Stdlib.( = ) [] v_queries then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -366,9 +366,9 @@ type jobs__pig_job = {
   query_file_uri : string prop option; [@option]
   script_variables : (string * string prop) list option; [@option]
   logging_config : jobs__pig_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_list : jobs__pig_job__query_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -389,7 +389,7 @@ let yojson_of_jobs__pig_job =
          []
        in
        let bnds =
-         if [] = v_query_list then bnds
+         if Stdlib.( = ) [] v_query_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__pig_job__query_list)
@@ -399,7 +399,7 @@ let yojson_of_jobs__pig_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__pig_job__logging_config)
@@ -512,7 +512,7 @@ let _ = yojson_of_jobs__presto_job__logging_config
 
 type jobs__presto_job__query_list = {
   queries : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -525,7 +525,7 @@ let yojson_of_jobs__presto_job__query_list =
          []
        in
        let bnds =
-         if [] = v_queries then bnds
+         if Stdlib.( = ) [] v_queries then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -549,9 +549,9 @@ type jobs__presto_job = {
   properties : (string * string prop) list option; [@option]
   query_file_uri : string prop option; [@option]
   logging_config : jobs__presto_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_list : jobs__presto_job__query_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -572,7 +572,7 @@ let yojson_of_jobs__presto_job =
          []
        in
        let bnds =
-         if [] = v_query_list then bnds
+         if Stdlib.( = ) [] v_query_list then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__presto_job__query_list)
@@ -582,7 +582,7 @@ let yojson_of_jobs__presto_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -695,7 +695,7 @@ type jobs__pyspark_job = {
   properties : (string * string prop) list option; [@option]
   python_file_uris : string prop list option; [@option]
   logging_config : jobs__pyspark_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -717,7 +717,7 @@ let yojson_of_jobs__pyspark_job =
          []
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -892,7 +892,7 @@ type jobs__spark_job = {
   main_jar_file_uri : string prop option; [@option]
   properties : (string * string prop) list option; [@option]
   logging_config : jobs__spark_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -914,7 +914,7 @@ let yojson_of_jobs__spark_job =
          []
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1047,7 +1047,7 @@ type jobs__spark_r_job = {
   main_r_file_uri : string prop;
   properties : (string * string prop) list option; [@option]
   logging_config : jobs__spark_r_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1067,7 +1067,7 @@ let yojson_of_jobs__spark_r_job =
          []
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1175,7 +1175,7 @@ let _ = yojson_of_jobs__spark_sql_job__logging_config
 
 type jobs__spark_sql_job__query_list = {
   queries : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1188,7 +1188,7 @@ let yojson_of_jobs__spark_sql_job__query_list =
          []
        in
        let bnds =
-         if [] = v_queries then bnds
+         if Stdlib.( = ) [] v_queries then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1211,9 +1211,9 @@ type jobs__spark_sql_job = {
   query_file_uri : string prop option; [@option]
   script_variables : (string * string prop) list option; [@option]
   logging_config : jobs__spark_sql_job__logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_list : jobs__spark_sql_job__query_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1233,7 +1233,7 @@ let yojson_of_jobs__spark_sql_job =
          []
        in
        let bnds =
-         if [] = v_query_list then bnds
+         if Stdlib.( = ) [] v_query_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -1244,7 +1244,7 @@ let yojson_of_jobs__spark_sql_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_logging_config then bnds
+         if Stdlib.( = ) [] v_logging_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1316,23 +1316,23 @@ type jobs = {
   prerequisite_step_ids : string prop list option; [@option]
   step_id : string prop;
   hadoop_job : jobs__hadoop_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hive_job : jobs__hive_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pig_job : jobs__pig_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   presto_job : jobs__presto_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pyspark_job : jobs__pyspark_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scheduling : jobs__scheduling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spark_job : jobs__spark_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spark_r_job : jobs__spark_r_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spark_sql_job : jobs__spark_sql_job list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1358,7 +1358,7 @@ let yojson_of_jobs =
          []
        in
        let bnds =
-         if [] = v_spark_sql_job then bnds
+         if Stdlib.( = ) [] v_spark_sql_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__spark_sql_job)
@@ -1368,7 +1368,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spark_r_job then bnds
+         if Stdlib.( = ) [] v_spark_r_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__spark_r_job)
@@ -1378,7 +1378,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spark_job then bnds
+         if Stdlib.( = ) [] v_spark_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__spark_job) v_spark_job
@@ -1387,7 +1387,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scheduling then bnds
+         if Stdlib.( = ) [] v_scheduling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__scheduling) v_scheduling
@@ -1396,7 +1396,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pyspark_job then bnds
+         if Stdlib.( = ) [] v_pyspark_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__pyspark_job)
@@ -1406,7 +1406,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_presto_job then bnds
+         if Stdlib.( = ) [] v_presto_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__presto_job) v_presto_job
@@ -1415,7 +1415,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pig_job then bnds
+         if Stdlib.( = ) [] v_pig_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__pig_job) v_pig_job
@@ -1424,7 +1424,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hive_job then bnds
+         if Stdlib.( = ) [] v_hive_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__hive_job) v_hive_job
@@ -1433,7 +1433,7 @@ let yojson_of_jobs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hadoop_job then bnds
+         if Stdlib.( = ) [] v_hadoop_job then bnds
          else
            let arg =
              (yojson_of_list yojson_of_jobs__hadoop_job) v_hadoop_job
@@ -1480,7 +1480,7 @@ let _ = yojson_of_jobs
 
 type parameters__validation__regex = {
   regexes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1493,7 +1493,7 @@ let yojson_of_parameters__validation__regex =
          []
        in
        let bnds =
-         if [] = v_regexes then bnds
+         if Stdlib.( = ) [] v_regexes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1512,7 +1512,7 @@ let _ = yojson_of_parameters__validation__regex
 
 type parameters__validation__values = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1525,7 +1525,7 @@ let yojson_of_parameters__validation__values =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1544,9 +1544,9 @@ let _ = yojson_of_parameters__validation__values
 
 type parameters__validation = {
   regex : parameters__validation__regex list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   values : parameters__validation__values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1559,7 +1559,7 @@ let yojson_of_parameters__validation =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters__validation__values)
@@ -1569,7 +1569,7 @@ let yojson_of_parameters__validation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_regex then bnds
+         if Stdlib.( = ) [] v_regex then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters__validation__regex)
@@ -1588,10 +1588,10 @@ let _ = yojson_of_parameters__validation
 type parameters = {
   description : string prop option; [@option]
   fields : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   validation : parameters__validation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1609,7 +1609,7 @@ let yojson_of_parameters =
          []
        in
        let bnds =
-         if [] = v_validation then bnds
+         if Stdlib.( = ) [] v_validation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters__validation)
@@ -1623,7 +1623,7 @@ let yojson_of_parameters =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_fields then bnds
+         if Stdlib.( = ) [] v_fields then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1941,15 +1941,15 @@ type placement__managed_cluster__config__gce_cluster_config = {
   node_group_affinity :
     placement__managed_cluster__config__gce_cluster_config__node_group_affinity
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reservation_affinity :
     placement__managed_cluster__config__gce_cluster_config__reservation_affinity
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   shielded_instance_config :
     placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1978,7 +1978,7 @@ let yojson_of_placement__managed_cluster__config__gce_cluster_config
          []
        in
        let bnds =
-         if [] = v_shielded_instance_config then bnds
+         if Stdlib.( = ) [] v_shielded_instance_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1989,7 +1989,7 @@ let yojson_of_placement__managed_cluster__config__gce_cluster_config
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reservation_affinity then bnds
+         if Stdlib.( = ) [] v_reservation_affinity then bnds
          else
            let arg =
              (yojson_of_list
@@ -2000,7 +2000,7 @@ let yojson_of_placement__managed_cluster__config__gce_cluster_config
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_group_affinity then bnds
+         if Stdlib.( = ) [] v_node_group_affinity then bnds
          else
            let arg =
              (yojson_of_list
@@ -2355,11 +2355,11 @@ type placement__managed_cluster__config__master_config = {
   accelerators :
     placement__managed_cluster__config__master_config__accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_config :
     placement__managed_cluster__config__master_config__disk_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2381,7 +2381,7 @@ let yojson_of_placement__managed_cluster__config__master_config =
          []
        in
        let bnds =
-         if [] = v_disk_config then bnds
+         if Stdlib.( = ) [] v_disk_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2392,7 +2392,7 @@ let yojson_of_placement__managed_cluster__config__master_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerators then bnds
+         if Stdlib.( = ) [] v_accelerators then bnds
          else
            let arg =
              (yojson_of_list
@@ -2604,11 +2604,11 @@ type placement__managed_cluster__config__secondary_worker_config = {
   accelerators :
     placement__managed_cluster__config__secondary_worker_config__accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_config :
     placement__managed_cluster__config__secondary_worker_config__disk_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2633,7 +2633,7 @@ let yojson_of_placement__managed_cluster__config__secondary_worker_config
          []
        in
        let bnds =
-         if [] = v_disk_config then bnds
+         if Stdlib.( = ) [] v_disk_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -2644,7 +2644,7 @@ let yojson_of_placement__managed_cluster__config__secondary_worker_config
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerators then bnds
+         if Stdlib.( = ) [] v_accelerators then bnds
          else
            let arg =
              (yojson_of_list
@@ -2885,7 +2885,7 @@ type placement__managed_cluster__config__security_config = {
   kerberos_config :
     placement__managed_cluster__config__security_config__kerberos_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2899,7 +2899,7 @@ let yojson_of_placement__managed_cluster__config__security_config =
          []
        in
        let bnds =
-         if [] = v_kerberos_config then bnds
+         if Stdlib.( = ) [] v_kerberos_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3133,11 +3133,11 @@ type placement__managed_cluster__config__worker_config = {
   accelerators :
     placement__managed_cluster__config__worker_config__accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_config :
     placement__managed_cluster__config__worker_config__disk_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3159,7 +3159,7 @@ let yojson_of_placement__managed_cluster__config__worker_config =
          []
        in
        let bnds =
-         if [] = v_disk_config then bnds
+         if Stdlib.( = ) [] v_disk_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3170,7 +3170,7 @@ let yojson_of_placement__managed_cluster__config__worker_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerators then bnds
+         if Stdlib.( = ) [] v_accelerators then bnds
          else
            let arg =
              (yojson_of_list
@@ -3233,37 +3233,37 @@ type placement__managed_cluster__config = {
   temp_bucket : string prop option; [@option]
   autoscaling_config :
     placement__managed_cluster__config__autoscaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_config :
     placement__managed_cluster__config__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   endpoint_config :
     placement__managed_cluster__config__endpoint_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gce_cluster_config :
     placement__managed_cluster__config__gce_cluster_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initialization_actions :
     placement__managed_cluster__config__initialization_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lifecycle_config :
     placement__managed_cluster__config__lifecycle_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   master_config :
     placement__managed_cluster__config__master_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secondary_worker_config :
     placement__managed_cluster__config__secondary_worker_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_config :
     placement__managed_cluster__config__security_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   software_config :
     placement__managed_cluster__config__software_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   worker_config :
     placement__managed_cluster__config__worker_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3290,7 +3290,7 @@ let yojson_of_placement__managed_cluster__config =
          []
        in
        let bnds =
-         if [] = v_worker_config then bnds
+         if Stdlib.( = ) [] v_worker_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3301,7 +3301,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_software_config then bnds
+         if Stdlib.( = ) [] v_software_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3312,7 +3312,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_config then bnds
+         if Stdlib.( = ) [] v_security_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3323,7 +3323,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secondary_worker_config then bnds
+         if Stdlib.( = ) [] v_secondary_worker_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3334,7 +3334,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_master_config then bnds
+         if Stdlib.( = ) [] v_master_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3345,7 +3345,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lifecycle_config then bnds
+         if Stdlib.( = ) [] v_lifecycle_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3356,7 +3356,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_initialization_actions then bnds
+         if Stdlib.( = ) [] v_initialization_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -3367,7 +3367,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gce_cluster_config then bnds
+         if Stdlib.( = ) [] v_gce_cluster_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3378,7 +3378,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_endpoint_config then bnds
+         if Stdlib.( = ) [] v_endpoint_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3389,7 +3389,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3400,7 +3400,7 @@ let yojson_of_placement__managed_cluster__config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_config then bnds
+         if Stdlib.( = ) [] v_autoscaling_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3438,7 +3438,7 @@ type placement__managed_cluster = {
   cluster_name : string prop;
   labels : (string * string prop) list option; [@option]
   config : placement__managed_cluster__config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3455,7 +3455,7 @@ let yojson_of_placement__managed_cluster =
          []
        in
        let bnds =
-         if [] = v_config then bnds
+         if Stdlib.( = ) [] v_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3494,9 +3494,9 @@ let _ = yojson_of_placement__managed_cluster
 
 type placement = {
   cluster_selector : placement__cluster_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_cluster : placement__managed_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3512,7 +3512,7 @@ let yojson_of_placement =
          []
        in
        let bnds =
-         if [] = v_managed_cluster then bnds
+         if Stdlib.( = ) [] v_managed_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement__managed_cluster)
@@ -3522,7 +3522,7 @@ let yojson_of_placement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_selector then bnds
+         if Stdlib.( = ) [] v_cluster_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement__cluster_selector)
@@ -3592,11 +3592,11 @@ type google_dataproc_workflow_template = {
   name : string prop;
   project : string prop option; [@option]
   version : float prop option; [@option]
-  jobs : jobs list; [@default []] [@yojson_drop_default ( = )]
+  jobs : jobs list; [@default []] [@yojson_drop_default Stdlib.( = )]
   parameters : parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement : placement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -3626,7 +3626,7 @@ let yojson_of_google_dataproc_workflow_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_placement then bnds
+         if Stdlib.( = ) [] v_placement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement) v_placement
@@ -3635,7 +3635,7 @@ let yojson_of_google_dataproc_workflow_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters) v_parameters
@@ -3644,7 +3644,7 @@ let yojson_of_google_dataproc_workflow_template =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_jobs then bnds
+         if Stdlib.( = ) [] v_jobs then bnds
          else
            let arg = (yojson_of_list yojson_of_jobs) v_jobs in
            let bnd = "jobs", arg in

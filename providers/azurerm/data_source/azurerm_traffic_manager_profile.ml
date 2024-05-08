@@ -86,9 +86,9 @@ let _ = yojson_of_monitor_config__custom_header
 
 type monitor_config = {
   custom_header : monitor_config__custom_header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expected_status_code_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   interval_in_seconds : float prop;
   path : string prop;
   port : float prop;
@@ -147,7 +147,7 @@ let yojson_of_monitor_config =
          ("interval_in_seconds", arg) :: bnds
        in
        let bnds =
-         if [] = v_expected_status_code_ranges then bnds
+         if Stdlib.( = ) [] v_expected_status_code_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -157,7 +157,7 @@ let yojson_of_monitor_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_header then bnds
+         if Stdlib.( = ) [] v_custom_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitor_config__custom_header)

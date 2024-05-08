@@ -6,7 +6,7 @@ type context = {
   key : string prop;
   type_ : string prop; [@key "type"]
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_context =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -86,9 +86,9 @@ type results = {
   decision : string prop;
   decision_details : (string * string prop) list;
   matched_statements : results__matched_statements list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   missing_context_keys : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -114,7 +114,7 @@ let yojson_of_results =
          ("resource_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_missing_context_keys then bnds
+         if Stdlib.( = ) [] v_missing_context_keys then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -124,7 +124,7 @@ let yojson_of_results =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_matched_statements then bnds
+         if Stdlib.( = ) [] v_matched_statements then bnds
          else
            let arg =
              (yojson_of_list yojson_of_results__matched_statements)
@@ -166,7 +166,7 @@ let _ = yojson_of_results
 
 type aws_iam_principal_policy_simulation = {
   action_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   additional_policies_json : string prop list option; [@option]
   caller_arn : string prop option; [@option]
   permissions_boundary_policies_json : string prop list option;
@@ -176,7 +176,8 @@ type aws_iam_principal_policy_simulation = {
   resource_handling_option : string prop option; [@option]
   resource_owner_account_id : string prop option; [@option]
   resource_policy_json : string prop option; [@option]
-  context : context list; [@default []] [@yojson_drop_default ( = )]
+  context : context list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +202,7 @@ let yojson_of_aws_iam_principal_policy_simulation =
          []
        in
        let bnds =
-         if [] = v_context then bnds
+         if Stdlib.( = ) [] v_context then bnds
          else
            let arg = (yojson_of_list yojson_of_context) v_context in
            let bnd = "context", arg in
@@ -276,7 +277,7 @@ let yojson_of_aws_iam_principal_policy_simulation =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_action_names then bnds
+         if Stdlib.( = ) [] v_action_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

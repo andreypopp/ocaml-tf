@@ -108,7 +108,7 @@ type azurerm_storage_account_network_rules = {
   storage_account_id : string prop;
   virtual_network_subnet_ids : string prop list option; [@option]
   private_link_access : private_link_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -135,7 +135,7 @@ let yojson_of_azurerm_storage_account_network_rules =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_private_link_access then bnds
+         if Stdlib.( = ) [] v_private_link_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_private_link_access)

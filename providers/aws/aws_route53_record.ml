@@ -181,7 +181,7 @@ type geoproximity_routing_policy = {
   bias : float prop option; [@option]
   local_zone_group : string prop option; [@option]
   coordinates : geoproximity_routing_policy__coordinates list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_geoproximity_routing_policy =
          []
        in
        let bnds =
-         if [] = v_coordinates then bnds
+         if Stdlib.( = ) [] v_coordinates then bnds
          else
            let arg =
              (yojson_of_list
@@ -296,19 +296,20 @@ type aws_route53_record = {
   ttl : float prop option; [@option]
   type_ : string prop; [@key "type"]
   zone_id : string prop;
-  alias : alias list; [@default []] [@yojson_drop_default ( = )]
+  alias : alias list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cidr_routing_policy : cidr_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   failover_routing_policy : failover_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   geolocation_routing_policy : geolocation_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   geoproximity_routing_policy : geoproximity_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   latency_routing_policy : latency_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weighted_routing_policy : weighted_routing_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,7 +341,7 @@ let yojson_of_aws_route53_record =
          []
        in
        let bnds =
-         if [] = v_weighted_routing_policy then bnds
+         if Stdlib.( = ) [] v_weighted_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_weighted_routing_policy)
@@ -350,7 +351,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_latency_routing_policy then bnds
+         if Stdlib.( = ) [] v_latency_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_latency_routing_policy)
@@ -360,7 +361,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geoproximity_routing_policy then bnds
+         if Stdlib.( = ) [] v_geoproximity_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_geoproximity_routing_policy)
@@ -370,7 +371,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geolocation_routing_policy then bnds
+         if Stdlib.( = ) [] v_geolocation_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_geolocation_routing_policy)
@@ -380,7 +381,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_failover_routing_policy then bnds
+         if Stdlib.( = ) [] v_failover_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_failover_routing_policy)
@@ -390,7 +391,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cidr_routing_policy then bnds
+         if Stdlib.( = ) [] v_cidr_routing_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cidr_routing_policy)
@@ -400,7 +401,7 @@ let yojson_of_aws_route53_record =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alias then bnds
+         if Stdlib.( = ) [] v_alias then bnds
          else
            let arg = (yojson_of_list yojson_of_alias) v_alias in
            let bnd = "alias", arg in

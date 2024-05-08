@@ -134,7 +134,7 @@ type aws_elasticache_replication_group = {
   transit_encryption_enabled : bool prop option; [@option]
   user_group_ids : string prop list option; [@option]
   log_delivery_configuration : log_delivery_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,7 +193,7 @@ let yojson_of_aws_elasticache_replication_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_log_delivery_configuration then bnds
+         if Stdlib.( = ) [] v_log_delivery_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_delivery_configuration)

@@ -6,7 +6,7 @@ open! Tf_core
 
 type routing__static_vnet_route = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** address_prefixes *)
   name : string prop;  (** name *)
   next_hop_ip_address : string prop;  (** next_hop_ip_address *)
@@ -14,10 +14,10 @@ type routing__static_vnet_route = {
 
 type routing__propagated_route_table = {
   labels : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** labels *)
   route_table_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** route_table_ids *)
 }
 
@@ -27,12 +27,12 @@ type routing = {
   inbound_route_map_id : string prop;  (** inbound_route_map_id *)
   outbound_route_map_id : string prop;  (** outbound_route_map_id *)
   propagated_route_table : routing__propagated_route_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** propagated_route_table *)
   static_vnet_local_route_override_criteria : string prop;
       (** static_vnet_local_route_override_criteria *)
   static_vnet_route : routing__static_vnet_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** static_vnet_route *)
 }
 

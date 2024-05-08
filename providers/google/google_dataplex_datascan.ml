@@ -136,7 +136,7 @@ let _ =
 type data_profile_spec__post_scan_actions = {
   bigquery_export :
     data_profile_spec__post_scan_actions__bigquery_export list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,7 +149,7 @@ let yojson_of_data_profile_spec__post_scan_actions =
          []
        in
        let bnds =
-         if [] = v_bigquery_export then bnds
+         if Stdlib.( = ) [] v_bigquery_export then bnds
          else
            let arg =
              (yojson_of_list
@@ -171,11 +171,11 @@ type data_profile_spec = {
   row_filter : string prop option; [@option]
   sampling_percent : float prop option; [@option]
   exclude_fields : data_profile_spec__exclude_fields list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_fields : data_profile_spec__include_fields list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   post_scan_actions : data_profile_spec__post_scan_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,7 +194,7 @@ let yojson_of_data_profile_spec =
          []
        in
        let bnds =
-         if [] = v_post_scan_actions then bnds
+         if Stdlib.( = ) [] v_post_scan_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -205,7 +205,7 @@ let yojson_of_data_profile_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_include_fields then bnds
+         if Stdlib.( = ) [] v_include_fields then bnds
          else
            let arg =
              (yojson_of_list
@@ -216,7 +216,7 @@ let yojson_of_data_profile_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude_fields then bnds
+         if Stdlib.( = ) [] v_exclude_fields then bnds
          else
            let arg =
              (yojson_of_list
@@ -284,7 +284,7 @@ let _ =
 type data_quality_spec__post_scan_actions = {
   bigquery_export :
     data_quality_spec__post_scan_actions__bigquery_export list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -297,7 +297,7 @@ let yojson_of_data_quality_spec__post_scan_actions =
          []
        in
        let bnds =
-         if [] = v_bigquery_export then bnds
+         if Stdlib.( = ) [] v_bigquery_export then bnds
          else
            let arg =
              (yojson_of_list
@@ -446,7 +446,7 @@ let _ = yojson_of_data_quality_spec__rules__row_condition_expectation
 
 type data_quality_spec__rules__set_expectation = {
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -459,7 +459,7 @@ let yojson_of_data_quality_spec__rules__set_expectation =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -600,27 +600,27 @@ type data_quality_spec__rules = {
   threshold : float prop option; [@option]
   non_null_expectation :
     data_quality_spec__rules__non_null_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   range_expectation :
     data_quality_spec__rules__range_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regex_expectation :
     data_quality_spec__rules__regex_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   row_condition_expectation :
     data_quality_spec__rules__row_condition_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   set_expectation : data_quality_spec__rules__set_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   statistic_range_expectation :
     data_quality_spec__rules__statistic_range_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   table_condition_expectation :
     data_quality_spec__rules__table_condition_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   uniqueness_expectation :
     data_quality_spec__rules__uniqueness_expectation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -648,7 +648,7 @@ let yojson_of_data_quality_spec__rules =
          []
        in
        let bnds =
-         if [] = v_uniqueness_expectation then bnds
+         if Stdlib.( = ) [] v_uniqueness_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -659,7 +659,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_table_condition_expectation then bnds
+         if Stdlib.( = ) [] v_table_condition_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -670,7 +670,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_statistic_range_expectation then bnds
+         if Stdlib.( = ) [] v_statistic_range_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -681,7 +681,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_set_expectation then bnds
+         if Stdlib.( = ) [] v_set_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -692,7 +692,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_row_condition_expectation then bnds
+         if Stdlib.( = ) [] v_row_condition_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -703,7 +703,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_regex_expectation then bnds
+         if Stdlib.( = ) [] v_regex_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -714,7 +714,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_range_expectation then bnds
+         if Stdlib.( = ) [] v_range_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -725,7 +725,7 @@ let yojson_of_data_quality_spec__rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_non_null_expectation then bnds
+         if Stdlib.( = ) [] v_non_null_expectation then bnds
          else
            let arg =
              (yojson_of_list
@@ -790,9 +790,9 @@ type data_quality_spec = {
   row_filter : string prop option; [@option]
   sampling_percent : float prop option; [@option]
   post_scan_actions : data_quality_spec__post_scan_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rules : data_quality_spec__rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -810,7 +810,7 @@ let yojson_of_data_quality_spec =
          []
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_spec__rules)
@@ -820,7 +820,7 @@ let yojson_of_data_quality_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_post_scan_actions then bnds
+         if Stdlib.( = ) [] v_post_scan_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -892,9 +892,9 @@ let _ = yojson_of_execution_spec__trigger__schedule
 
 type execution_spec__trigger = {
   on_demand : execution_spec__trigger__on_demand list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : execution_spec__trigger__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -907,7 +907,7 @@ let yojson_of_execution_spec__trigger =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -918,7 +918,7 @@ let yojson_of_execution_spec__trigger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_demand then bnds
+         if Stdlib.( = ) [] v_on_demand then bnds
          else
            let arg =
              (yojson_of_list
@@ -938,7 +938,7 @@ let _ = yojson_of_execution_spec__trigger
 type execution_spec = {
   field : string prop option; [@option]
   trigger : execution_spec__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -951,7 +951,7 @@ let yojson_of_execution_spec =
          []
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_spec__trigger)
@@ -1065,13 +1065,13 @@ type google_dataplex_datascan = {
   labels : (string * string prop) list option; [@option]
   location : string prop;
   project : string prop option; [@option]
-  data : data list; [@default []] [@yojson_drop_default ( = )]
+  data : data list; [@default []] [@yojson_drop_default Stdlib.( = )]
   data_profile_spec : data_profile_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_quality_spec : data_quality_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   execution_spec : execution_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1102,7 +1102,7 @@ let yojson_of_google_dataplex_datascan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_execution_spec then bnds
+         if Stdlib.( = ) [] v_execution_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_spec)
@@ -1112,7 +1112,7 @@ let yojson_of_google_dataplex_datascan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_quality_spec then bnds
+         if Stdlib.( = ) [] v_data_quality_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_quality_spec)
@@ -1122,7 +1122,7 @@ let yojson_of_google_dataplex_datascan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_profile_spec then bnds
+         if Stdlib.( = ) [] v_data_profile_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_profile_spec)
@@ -1132,7 +1132,7 @@ let yojson_of_google_dataplex_datascan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data then bnds
+         if Stdlib.( = ) [] v_data then bnds
          else
            let arg = (yojson_of_list yojson_of_data) v_data in
            let bnd = "data", arg in

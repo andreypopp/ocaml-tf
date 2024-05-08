@@ -7,7 +7,7 @@ type file_shares__nfs_export_options = {
   anon_gid : float prop;
   anon_uid : float prop;
   ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   squash_mode : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -31,7 +31,7 @@ let yojson_of_file_shares__nfs_export_options =
          ("squash_mode", arg) :: bnds
        in
        let bnds =
-         if [] = v_ip_ranges then bnds
+         if Stdlib.( = ) [] v_ip_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -64,7 +64,7 @@ type file_shares = {
   capacity_gb : float prop;
   name : string prop;
   nfs_export_options : file_shares__nfs_export_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_backup : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -87,7 +87,7 @@ let yojson_of_file_shares =
          ("source_backup", arg) :: bnds
        in
        let bnds =
-         if [] = v_nfs_export_options then bnds
+         if Stdlib.( = ) [] v_nfs_export_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,9 +115,9 @@ let _ = yojson_of_file_shares
 type networks = {
   connect_mode : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network : string prop;
   reserved_ip_range : string prop;
 }
@@ -148,7 +148,7 @@ let yojson_of_networks =
          ("network", arg) :: bnds
        in
        let bnds =
-         if [] = v_modes then bnds
+         if Stdlib.( = ) [] v_modes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -158,7 +158,7 @@ let yojson_of_networks =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

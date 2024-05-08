@@ -14,7 +14,7 @@ type destinations = {
   port : string prop;  (** port *)
   url : string prop;  (** url *)
   vpc : destinations__vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vpc *)
 }
 

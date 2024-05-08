@@ -124,9 +124,9 @@ type cloudflare_access_organization = {
   warp_auth_session_duration : string prop option; [@option]
   zone_id : string prop option; [@option]
   custom_pages : custom_pages list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   login_design : login_design list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,7 +155,7 @@ let yojson_of_cloudflare_access_organization =
          []
        in
        let bnds =
-         if [] = v_login_design then bnds
+         if Stdlib.( = ) [] v_login_design then bnds
          else
            let arg =
              (yojson_of_list yojson_of_login_design) v_login_design
@@ -164,7 +164,7 @@ let yojson_of_cloudflare_access_organization =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_pages then bnds
+         if Stdlib.( = ) [] v_custom_pages then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_pages) v_custom_pages

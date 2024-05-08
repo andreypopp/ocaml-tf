@@ -70,9 +70,9 @@ let _ = yojson_of_machine_types__accelerators
 
 type machine_types = {
   accelerators : machine_types__accelerators list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deprecated : machine_types__deprecated list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   guest_cpus : float prop;
   is_shared_cpus : bool prop;
@@ -142,7 +142,7 @@ let yojson_of_machine_types =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_deprecated then bnds
+         if Stdlib.( = ) [] v_deprecated then bnds
          else
            let arg =
              (yojson_of_list yojson_of_machine_types__deprecated)
@@ -152,7 +152,7 @@ let yojson_of_machine_types =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerators then bnds
+         if Stdlib.( = ) [] v_accelerators then bnds
          else
            let arg =
              (yojson_of_list yojson_of_machine_types__accelerators)

@@ -6,7 +6,7 @@ open! Tf_core
 
 type enumeration_value = {
   synonyms : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** synonyms *)
   value : string prop;  (** value *)
 }

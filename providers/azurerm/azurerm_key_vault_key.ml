@@ -46,7 +46,7 @@ type rotation_policy = {
   expire_after : string prop option; [@option]
   notify_before_expiry : string prop option; [@option]
   automatic : rotation_policy__automatic list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_rotation_policy =
          []
        in
        let bnds =
-         if [] = v_automatic then bnds
+         if Stdlib.( = ) [] v_automatic then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rotation_policy__automatic)
@@ -160,7 +160,7 @@ type azurerm_key_vault_key = {
   expiration_date : string prop option; [@option]
   id : string prop option; [@option]
   key_opts : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_size : float prop option; [@option]
   key_type : string prop;
   key_vault_id : string prop;
@@ -168,7 +168,7 @@ type azurerm_key_vault_key = {
   not_before_date : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   rotation_policy : rotation_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -199,7 +199,7 @@ let yojson_of_azurerm_key_vault_key =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rotation_policy then bnds
+         if Stdlib.( = ) [] v_rotation_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rotation_policy)
@@ -253,7 +253,7 @@ let yojson_of_azurerm_key_vault_key =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_key_opts then bnds
+         if Stdlib.( = ) [] v_key_opts then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

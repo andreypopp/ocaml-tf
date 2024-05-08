@@ -9,23 +9,23 @@ type boolean_policy = { enforced : bool prop  (** enforced *) }
 type list_policy__deny = {
   all : bool prop;  (** all *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type list_policy__allow = {
   all : bool prop;  (** all *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type list_policy = {
   allow : list_policy__allow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow *)
   deny : list_policy__deny list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deny *)
   inherit_from_parent : bool prop;  (** inherit_from_parent *)
   suggested_value : string prop;  (** suggested_value *)

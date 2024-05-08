@@ -9,7 +9,7 @@ type file_shares__nfs_export_options = {
   anon_gid : float prop;  (** anon_gid *)
   anon_uid : float prop;  (** anon_uid *)
   ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_ranges *)
   squash_mode : string prop;  (** squash_mode *)
 }
@@ -18,7 +18,7 @@ type file_shares = {
   capacity_gb : float prop;  (** capacity_gb *)
   name : string prop;  (** name *)
   nfs_export_options : file_shares__nfs_export_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** nfs_export_options *)
   source_backup : string prop;  (** source_backup *)
 }
@@ -26,10 +26,10 @@ type file_shares = {
 type networks = {
   connect_mode : string prop;  (** connect_mode *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
   modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** modes *)
   network : string prop;  (** network *)
   reserved_ip_range : string prop;  (** reserved_ip_range *)

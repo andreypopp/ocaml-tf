@@ -5,7 +5,7 @@ open! Tf_core
 type image_versions = {
   image_version_id : string prop;
   supported_python_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21,7 +21,7 @@ let yojson_of_image_versions =
          []
        in
        let bnds =
-         if [] = v_supported_python_versions then bnds
+         if Stdlib.( = ) [] v_supported_python_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

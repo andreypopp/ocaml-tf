@@ -13,7 +13,7 @@ type backend_address__inbound_nat_rule_port_mapping = {
 type backend_address = {
   inbound_nat_rule_port_mapping :
     backend_address__inbound_nat_rule_port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** inbound_nat_rule_port_mapping *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)

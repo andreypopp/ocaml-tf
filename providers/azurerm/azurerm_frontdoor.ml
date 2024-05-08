@@ -81,7 +81,7 @@ type backend_pool = {
   load_balancing_name : string prop;
   name : string prop;
   backend : backend_pool__backend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_backend_pool =
          []
        in
        let bnds =
-         if [] = v_backend then bnds
+         if Stdlib.( = ) [] v_backend then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_pool__backend)
@@ -559,18 +559,18 @@ let _ = yojson_of_routing_rule__redirect_configuration
 
 type routing_rule = {
   accepted_protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enabled : bool prop option; [@option]
   frontend_endpoints : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   patterns_to_match : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarding_configuration :
     routing_rule__forwarding_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redirect_configuration : routing_rule__redirect_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -591,7 +591,7 @@ let yojson_of_routing_rule =
          []
        in
        let bnds =
-         if [] = v_redirect_configuration then bnds
+         if Stdlib.( = ) [] v_redirect_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -602,7 +602,7 @@ let yojson_of_routing_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forwarding_configuration then bnds
+         if Stdlib.( = ) [] v_forwarding_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -613,7 +613,7 @@ let yojson_of_routing_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_patterns_to_match then bnds
+         if Stdlib.( = ) [] v_patterns_to_match then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -627,7 +627,7 @@ let yojson_of_routing_rule =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_frontend_endpoints then bnds
+         if Stdlib.( = ) [] v_frontend_endpoints then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -645,7 +645,7 @@ let yojson_of_routing_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_accepted_protocols then bnds
+         if Stdlib.( = ) [] v_accepted_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -723,15 +723,15 @@ let _ = yojson_of_timeouts
 
 type explicit_resource_order = {
   backend_pool_health_probe_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_load_balancing_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_endpoint_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routing_rule_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -752,7 +752,7 @@ let yojson_of_explicit_resource_order =
          []
        in
        let bnds =
-         if [] = v_routing_rule_ids then bnds
+         if Stdlib.( = ) [] v_routing_rule_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -762,7 +762,7 @@ let yojson_of_explicit_resource_order =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frontend_endpoint_ids then bnds
+         if Stdlib.( = ) [] v_frontend_endpoint_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -772,7 +772,8 @@ let yojson_of_explicit_resource_order =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_load_balancing_ids then bnds
+         if Stdlib.( = ) [] v_backend_pool_load_balancing_ids then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -782,7 +783,7 @@ let yojson_of_explicit_resource_order =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_ids then bnds
+         if Stdlib.( = ) [] v_backend_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -792,7 +793,7 @@ let yojson_of_explicit_resource_order =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_health_probe_ids then bnds
+         if Stdlib.( = ) [] v_backend_pool_health_probe_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -816,17 +817,17 @@ type azurerm_frontdoor = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   backend_pool : backend_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_health_probe : backend_pool_health_probe list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_load_balancing : backend_pool_load_balancing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_settings : backend_pool_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_endpoint : frontend_endpoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routing_rule : routing_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -858,7 +859,7 @@ let yojson_of_azurerm_frontdoor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routing_rule then bnds
+         if Stdlib.( = ) [] v_routing_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_rule) v_routing_rule
@@ -867,7 +868,7 @@ let yojson_of_azurerm_frontdoor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frontend_endpoint then bnds
+         if Stdlib.( = ) [] v_frontend_endpoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_frontend_endpoint)
@@ -877,7 +878,7 @@ let yojson_of_azurerm_frontdoor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_settings then bnds
+         if Stdlib.( = ) [] v_backend_pool_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_pool_settings)
@@ -887,7 +888,7 @@ let yojson_of_azurerm_frontdoor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_load_balancing then bnds
+         if Stdlib.( = ) [] v_backend_pool_load_balancing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_pool_load_balancing)
@@ -897,7 +898,7 @@ let yojson_of_azurerm_frontdoor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool_health_probe then bnds
+         if Stdlib.( = ) [] v_backend_pool_health_probe then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_pool_health_probe)
@@ -907,7 +908,7 @@ let yojson_of_azurerm_frontdoor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backend_pool then bnds
+         if Stdlib.( = ) [] v_backend_pool then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backend_pool) v_backend_pool

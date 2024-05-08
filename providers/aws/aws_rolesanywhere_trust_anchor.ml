@@ -45,7 +45,7 @@ let _ = yojson_of_source__source_data
 type source = {
   source_type : string prop;
   source_data : source__source_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_source_data then bnds
+         if Stdlib.( = ) [] v_source_data then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__source_data)
@@ -84,7 +84,8 @@ type aws_rolesanywhere_trust_anchor = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +105,7 @@ let yojson_of_aws_rolesanywhere_trust_anchor =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in

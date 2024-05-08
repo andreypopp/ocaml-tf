@@ -223,11 +223,11 @@ type aws_elb = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_logs : access_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check : health_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   listener : listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -266,7 +266,7 @@ let yojson_of_aws_elb =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_listener then bnds
+         if Stdlib.( = ) [] v_listener then bnds
          else
            let arg =
              (yojson_of_list yojson_of_listener) v_listener
@@ -275,7 +275,7 @@ let yojson_of_aws_elb =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check then bnds
+         if Stdlib.( = ) [] v_health_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check) v_health_check
@@ -284,7 +284,7 @@ let yojson_of_aws_elb =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_logs then bnds
+         if Stdlib.( = ) [] v_access_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_logs) v_access_logs

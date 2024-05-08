@@ -148,11 +148,11 @@ let _ = yojson_of_images__data_disk
 
 type images = {
   data_disk : images__data_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location : string prop;
   name : string prop;
   os_disk : images__os_disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list;
   zone_resilient : bool prop;
 }
@@ -190,7 +190,7 @@ let yojson_of_images =
          ("tags", arg) :: bnds
        in
        let bnds =
-         if [] = v_os_disk then bnds
+         if Stdlib.( = ) [] v_os_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_images__os_disk) v_os_disk
@@ -207,7 +207,7 @@ let yojson_of_images =
          ("location", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_disk then bnds
+         if Stdlib.( = ) [] v_data_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_images__data_disk) v_data_disk

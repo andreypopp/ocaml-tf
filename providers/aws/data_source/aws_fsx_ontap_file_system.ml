@@ -34,7 +34,7 @@ let _ = yojson_of_disk_iops_configuration
 type endpoints__management = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_endpoints__management =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -70,7 +70,7 @@ let _ = yojson_of_endpoints__management
 type endpoints__intercluster = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,7 +83,7 @@ let yojson_of_endpoints__intercluster =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -105,9 +105,9 @@ let _ = yojson_of_endpoints__intercluster
 
 type endpoints = {
   intercluster : endpoints__intercluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : endpoints__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,7 +120,7 @@ let yojson_of_endpoints =
          []
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__management)
@@ -130,7 +130,7 @@ let yojson_of_endpoints =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_intercluster then bnds
+         if Stdlib.( = ) [] v_intercluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__intercluster)

@@ -98,9 +98,9 @@ type rule = {
   record : string prop option; [@option]
   severity : float prop option; [@option]
   action : rule__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   alert_resolution : rule__alert_resolution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_alert_resolution then bnds
+         if Stdlib.( = ) [] v_alert_resolution then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__alert_resolution)
@@ -134,7 +134,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action) v_action
@@ -295,9 +295,9 @@ type azurerm_monitor_alert_prometheus_rule_group = {
   resource_group_name : string prop;
   rule_group_enabled : bool prop option; [@option]
   scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -328,7 +328,7 @@ let yojson_of_azurerm_monitor_alert_prometheus_rule_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in
@@ -351,7 +351,7 @@ let yojson_of_azurerm_monitor_alert_prometheus_rule_group =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_scopes then bnds
+         if Stdlib.( = ) [] v_scopes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

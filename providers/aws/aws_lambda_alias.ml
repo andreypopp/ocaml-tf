@@ -46,7 +46,7 @@ type aws_lambda_alias = {
   id : string prop option; [@option]
   name : string prop;
   routing_config : routing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_aws_lambda_alias =
          []
        in
        let bnds =
-         if [] = v_routing_config then bnds
+         if Stdlib.( = ) [] v_routing_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_config)

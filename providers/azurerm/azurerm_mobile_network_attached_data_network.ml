@@ -50,7 +50,7 @@ type network_address_port_translation = {
   udp_port_reuse_minimum_hold_time_in_seconds : float prop option;
       [@option]
   port_range : network_address_port_translation__port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +76,7 @@ let yojson_of_network_address_port_translation =
          []
        in
        let bnds =
-         if [] = v_port_range then bnds
+         if Stdlib.( = ) [] v_port_range then bnds
          else
            let arg =
              (yojson_of_list
@@ -208,7 +208,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_mobile_network_attached_data_network = {
   dns_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   location : string prop;
   mobile_network_data_network_name : string prop;
@@ -225,7 +225,7 @@ type azurerm_mobile_network_attached_data_network = {
   user_plane_access_name : string prop option; [@option]
   network_address_port_translation :
     network_address_port_translation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -266,7 +266,8 @@ let yojson_of_azurerm_mobile_network_attached_data_network =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_address_port_translation then bnds
+         if Stdlib.( = ) [] v_network_address_port_translation then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -373,7 +374,7 @@ let yojson_of_azurerm_mobile_network_attached_data_network =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_addresses then bnds
+         if Stdlib.( = ) [] v_dns_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

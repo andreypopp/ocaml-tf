@@ -70,7 +70,7 @@ type google_bigtable_table = {
   project : string prop option; [@option]
   split_keys : string prop list option; [@option]
   column_family : column_family list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -98,7 +98,7 @@ let yojson_of_google_bigtable_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_column_family then bnds
+         if Stdlib.( = ) [] v_column_family then bnds
          else
            let arg =
              (yojson_of_list yojson_of_column_family) v_column_family

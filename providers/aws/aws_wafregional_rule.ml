@@ -43,7 +43,7 @@ type aws_wafregional_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   predicate : predicate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_aws_wafregional_rule =
          []
        in
        let bnds =
-         if [] = v_predicate then bnds
+         if Stdlib.( = ) [] v_predicate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_predicate) v_predicate

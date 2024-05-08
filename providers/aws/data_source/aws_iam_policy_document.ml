@@ -5,7 +5,7 @@ open! Tf_core
 type statement__condition = {
   test : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   variable : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -23,7 +23,7 @@ let yojson_of_statement__condition =
          ("variable", arg) :: bnds
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -45,7 +45,7 @@ let _ = yojson_of_statement__condition
 
 type statement__not_principals = {
   identifiers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -63,7 +63,7 @@ let yojson_of_statement__not_principals =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identifiers then bnds
+         if Stdlib.( = ) [] v_identifiers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -81,7 +81,7 @@ let _ = yojson_of_statement__not_principals
 
 type statement__principals = {
   identifiers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -99,7 +99,7 @@ let yojson_of_statement__principals =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identifiers then bnds
+         if Stdlib.( = ) [] v_identifiers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -123,11 +123,11 @@ type statement = {
   resources : string prop list option; [@option]
   sid : string prop option; [@option]
   condition : statement__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not_principals : statement__not_principals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principals : statement__principals list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,7 +150,7 @@ let yojson_of_statement =
          []
        in
        let bnds =
-         if [] = v_principals then bnds
+         if Stdlib.( = ) [] v_principals then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement__principals)
@@ -160,7 +160,7 @@ let yojson_of_statement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_not_principals then bnds
+         if Stdlib.( = ) [] v_not_principals then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement__not_principals)
@@ -170,7 +170,7 @@ let yojson_of_statement =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement__condition)
@@ -251,7 +251,7 @@ type aws_iam_policy_document = {
   source_policy_documents : string prop list option; [@option]
   version : string prop option; [@option]
   statement : statement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -273,7 +273,7 @@ let yojson_of_aws_iam_policy_document =
          []
        in
        let bnds =
-         if [] = v_statement then bnds
+         if Stdlib.( = ) [] v_statement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement) v_statement

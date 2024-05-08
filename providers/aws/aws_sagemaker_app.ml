@@ -83,7 +83,7 @@ type aws_sagemaker_app = {
   tags_all : (string * string prop) list option; [@option]
   user_profile_name : string prop option; [@option]
   resource_spec : resource_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_aws_sagemaker_app =
          []
        in
        let bnds =
-         if [] = v_resource_spec then bnds
+         if Stdlib.( = ) [] v_resource_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_spec) v_resource_spec

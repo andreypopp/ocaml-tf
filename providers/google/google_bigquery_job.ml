@@ -124,11 +124,11 @@ type copy = {
   write_disposition : string prop option; [@option]
   destination_encryption_configuration :
     copy__destination_encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_table : copy__destination_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_tables : copy__source_tables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_copy =
          []
        in
        let bnds =
-         if [] = v_source_tables then bnds
+         if Stdlib.( = ) [] v_source_tables then bnds
          else
            let arg =
              (yojson_of_list yojson_of_copy__source_tables)
@@ -158,7 +158,7 @@ let yojson_of_copy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_table then bnds
+         if Stdlib.( = ) [] v_destination_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_copy__destination_table)
@@ -168,7 +168,8 @@ let yojson_of_copy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_destination_encryption_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -289,14 +290,14 @@ type extract = {
   compression : string prop option; [@option]
   destination_format : string prop option; [@option]
   destination_uris : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   field_delimiter : string prop option; [@option]
   print_header : bool prop option; [@option]
   use_avro_logical_types : bool prop option; [@option]
   source_model : extract__source_model list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_table : extract__source_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -318,7 +319,7 @@ let yojson_of_extract =
          []
        in
        let bnds =
-         if [] = v_source_table then bnds
+         if Stdlib.( = ) [] v_source_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extract__source_table)
@@ -328,7 +329,7 @@ let yojson_of_extract =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_model then bnds
+         if Stdlib.( = ) [] v_source_model then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extract__source_model)
@@ -362,7 +363,7 @@ let yojson_of_extract =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_uris then bnds
+         if Stdlib.( = ) [] v_destination_uris then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -568,17 +569,17 @@ type load = {
   skip_leading_rows : float prop option; [@option]
   source_format : string prop option; [@option]
   source_uris : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   write_disposition : string prop option; [@option]
   destination_encryption_configuration :
     load__destination_encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_table : load__destination_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parquet_options : load__parquet_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time_partitioning : load__time_partitioning list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -614,7 +615,7 @@ let yojson_of_load =
          []
        in
        let bnds =
-         if [] = v_time_partitioning then bnds
+         if Stdlib.( = ) [] v_time_partitioning then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load__time_partitioning)
@@ -624,7 +625,7 @@ let yojson_of_load =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_parquet_options then bnds
+         if Stdlib.( = ) [] v_parquet_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load__parquet_options)
@@ -634,7 +635,7 @@ let yojson_of_load =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_table then bnds
+         if Stdlib.( = ) [] v_destination_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load__destination_table)
@@ -644,7 +645,8 @@ let yojson_of_load =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_destination_encryption_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -663,7 +665,7 @@ let yojson_of_load =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_source_uris then bnds
+         if Stdlib.( = ) [] v_source_uris then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1010,17 +1012,17 @@ type query = {
   use_query_cache : bool prop option; [@option]
   write_disposition : string prop option; [@option]
   default_dataset : query__default_dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_encryption_configuration :
     query__destination_encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_table : query__destination_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   script_options : query__script_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_defined_function_resources :
     query__user_defined_function_resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1053,7 +1055,8 @@ let yojson_of_query =
          []
        in
        let bnds =
-         if [] = v_user_defined_function_resources then bnds
+         if Stdlib.( = ) [] v_user_defined_function_resources then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1064,7 +1067,7 @@ let yojson_of_query =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_script_options then bnds
+         if Stdlib.( = ) [] v_script_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_query__script_options)
@@ -1074,7 +1077,7 @@ let yojson_of_query =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_table then bnds
+         if Stdlib.( = ) [] v_destination_table then bnds
          else
            let arg =
              (yojson_of_list yojson_of_query__destination_table)
@@ -1084,7 +1087,8 @@ let yojson_of_query =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_destination_encryption_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1095,7 +1099,7 @@ let yojson_of_query =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_dataset then bnds
+         if Stdlib.( = ) [] v_default_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_query__default_dataset)
@@ -1329,9 +1333,9 @@ let _ = yojson_of_status__error_result
 
 type status = {
   error_result : status__error_result list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   errors : status__errors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   state : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1353,7 +1357,7 @@ let yojson_of_status =
          ("state", arg) :: bnds
        in
        let bnds =
-         if [] = v_errors then bnds
+         if Stdlib.( = ) [] v_errors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__errors) v_errors
@@ -1362,7 +1366,7 @@ let yojson_of_status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_error_result then bnds
+         if Stdlib.( = ) [] v_error_result then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__error_result)
@@ -1385,10 +1389,12 @@ type google_bigquery_job = {
   labels : (string * string prop) list option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
-  copy : copy list; [@default []] [@yojson_drop_default ( = )]
-  extract : extract list; [@default []] [@yojson_drop_default ( = )]
-  load : load list; [@default []] [@yojson_drop_default ( = )]
-  query : query list; [@default []] [@yojson_drop_default ( = )]
+  copy : copy list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  extract : extract list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  load : load list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  query : query list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1418,28 +1424,28 @@ let yojson_of_google_bigquery_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_query then bnds
+         if Stdlib.( = ) [] v_query then bnds
          else
            let arg = (yojson_of_list yojson_of_query) v_query in
            let bnd = "query", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load then bnds
+         if Stdlib.( = ) [] v_load then bnds
          else
            let arg = (yojson_of_list yojson_of_load) v_load in
            let bnd = "load", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extract then bnds
+         if Stdlib.( = ) [] v_extract then bnds
          else
            let arg = (yojson_of_list yojson_of_extract) v_extract in
            let bnd = "extract", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_copy then bnds
+         if Stdlib.( = ) [] v_copy then bnds
          else
            let arg = (yojson_of_list yojson_of_copy) v_copy in
            let bnd = "copy", arg in

@@ -4,10 +4,10 @@ open! Tf_core
 
 type connect_settings = {
   customer_dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_username : string prop;
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -30,7 +30,7 @@ let yojson_of_connect_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -46,7 +46,7 @@ let yojson_of_connect_settings =
          ("customer_username", arg) :: bnds
        in
        let bnds =
-         if [] = v_customer_dns_ips then bnds
+         if Stdlib.( = ) [] v_customer_dns_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -110,7 +110,7 @@ let _ = yojson_of_timeouts
 
 type vpc_settings = {
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -128,7 +128,7 @@ let yojson_of_vpc_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -159,10 +159,10 @@ type aws_directory_service_directory = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   connect_settings : connect_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_settings : vpc_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -193,7 +193,7 @@ let yojson_of_aws_directory_service_directory =
          []
        in
        let bnds =
-         if [] = v_vpc_settings then bnds
+         if Stdlib.( = ) [] v_vpc_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_settings) v_vpc_settings
@@ -206,7 +206,7 @@ let yojson_of_aws_directory_service_directory =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_connect_settings then bnds
+         if Stdlib.( = ) [] v_connect_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connect_settings)

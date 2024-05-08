@@ -41,9 +41,9 @@ let _ = yojson_of_privilege__resource
 
 type privilege = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource : privilege__resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_privilege =
          []
        in
        let bnds =
-         if [] = v_resource then bnds
+         if Stdlib.( = ) [] v_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_privilege__resource)
@@ -66,7 +66,7 @@ let yojson_of_privilege =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -148,7 +148,7 @@ type azurerm_cosmosdb_mongo_role_definition = {
   inherited_role_names : string prop list option; [@option]
   role_name : string prop;
   privilege : privilege list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,7 +173,7 @@ let yojson_of_azurerm_cosmosdb_mongo_role_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_privilege then bnds
+         if Stdlib.( = ) [] v_privilege then bnds
          else
            let arg =
              (yojson_of_list yojson_of_privilege) v_privilege

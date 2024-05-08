@@ -35,7 +35,7 @@ type dns_config = {
   namespace_id : string prop;
   routing_policy : string prop option; [@option]
   dns_records : dns_config__dns_records list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,7 +52,7 @@ let yojson_of_dns_config =
          []
        in
        let bnds =
-         if [] = v_dns_records then bnds
+         if Stdlib.( = ) [] v_dns_records then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_config__dns_records)
@@ -168,11 +168,11 @@ type aws_service_discovery_service = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   dns_config : dns_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check_config : health_check_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check_custom_config : health_check_custom_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,7 +197,7 @@ let yojson_of_aws_service_discovery_service =
          []
        in
        let bnds =
-         if [] = v_health_check_custom_config then bnds
+         if Stdlib.( = ) [] v_health_check_custom_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check_custom_config)
@@ -207,7 +207,7 @@ let yojson_of_aws_service_discovery_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check_config then bnds
+         if Stdlib.( = ) [] v_health_check_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check_config)
@@ -217,7 +217,7 @@ let yojson_of_aws_service_discovery_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns_config then bnds
+         if Stdlib.( = ) [] v_dns_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dns_config) v_dns_config

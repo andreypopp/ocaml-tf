@@ -17,7 +17,7 @@ type signed_object__s3 = {
 
 type signed_object = {
   s3 : signed_object__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** s3 *)
 }
 
@@ -28,7 +28,8 @@ type source__s3 = {
 }
 
 type source = {
-  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+  s3 : source__s3 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** s3 *)
 }
 

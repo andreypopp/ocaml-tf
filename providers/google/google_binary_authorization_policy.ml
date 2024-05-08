@@ -179,11 +179,11 @@ type google_binary_authorization_policy = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   admission_whitelist_patterns : admission_whitelist_patterns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cluster_admission_rules : cluster_admission_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_admission_rule : default_admission_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -211,7 +211,7 @@ let yojson_of_google_binary_authorization_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_admission_rule then bnds
+         if Stdlib.( = ) [] v_default_admission_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_admission_rule)
@@ -221,7 +221,7 @@ let yojson_of_google_binary_authorization_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cluster_admission_rules then bnds
+         if Stdlib.( = ) [] v_cluster_admission_rules then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cluster_admission_rules)
@@ -231,7 +231,7 @@ let yojson_of_google_binary_authorization_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admission_whitelist_patterns then bnds
+         if Stdlib.( = ) [] v_admission_whitelist_patterns then bnds
          else
            let arg =
              (yojson_of_list yojson_of_admission_whitelist_patterns)

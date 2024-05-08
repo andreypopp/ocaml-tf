@@ -4,7 +4,7 @@ open! Tf_core
 
 type site_config__cors = {
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   support_credentials : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -29,7 +29,7 @@ let yojson_of_site_config__cors =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -47,13 +47,13 @@ let _ = yojson_of_site_config__cors
 
 type site_config__ip_restriction__headers = {
   x_azure_fdid : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_fd_health_probe : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_forwarded_for : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_forwarded_host : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_site_config__ip_restriction__headers =
          []
        in
        let bnds =
-         if [] = v_x_forwarded_host then bnds
+         if Stdlib.( = ) [] v_x_forwarded_host then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -81,7 +81,7 @@ let yojson_of_site_config__ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_forwarded_for then bnds
+         if Stdlib.( = ) [] v_x_forwarded_for then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -91,7 +91,7 @@ let yojson_of_site_config__ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_fd_health_probe then bnds
+         if Stdlib.( = ) [] v_x_fd_health_probe then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -101,7 +101,7 @@ let yojson_of_site_config__ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_azure_fdid then bnds
+         if Stdlib.( = ) [] v_x_azure_fdid then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -121,7 +121,7 @@ let _ = yojson_of_site_config__ip_restriction__headers
 type site_config__ip_restriction = {
   action : string prop;
   headers : site_config__ip_restriction__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -170,7 +170,7 @@ let yojson_of_site_config__ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -194,13 +194,13 @@ let _ = yojson_of_site_config__ip_restriction
 
 type site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_fd_health_probe : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_forwarded_for : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x_forwarded_host : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -218,7 +218,7 @@ let yojson_of_site_config__scm_ip_restriction__headers =
          []
        in
        let bnds =
-         if [] = v_x_forwarded_host then bnds
+         if Stdlib.( = ) [] v_x_forwarded_host then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -228,7 +228,7 @@ let yojson_of_site_config__scm_ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_forwarded_for then bnds
+         if Stdlib.( = ) [] v_x_forwarded_for then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -238,7 +238,7 @@ let yojson_of_site_config__scm_ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_fd_health_probe then bnds
+         if Stdlib.( = ) [] v_x_fd_health_probe then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -248,7 +248,7 @@ let yojson_of_site_config__scm_ip_restriction__headers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_x_azure_fdid then bnds
+         if Stdlib.( = ) [] v_x_azure_fdid then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -268,7 +268,7 @@ let _ = yojson_of_site_config__scm_ip_restriction__headers
 type site_config__scm_ip_restriction = {
   action : string prop;
   headers : site_config__scm_ip_restriction__headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -317,7 +317,7 @@ let yojson_of_site_config__scm_ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -362,7 +362,7 @@ type site_config = {
   vnet_route_all_enabled : bool prop option; [@option]
   websockets_enabled : bool prop option; [@option]
   cors : site_config__cors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,7 +399,7 @@ let yojson_of_site_config =
          []
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg =
              (yojson_of_list yojson_of_site_config__cors) v_cors
@@ -712,7 +712,7 @@ type azurerm_logic_app_standard = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   site_config : site_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -737,7 +737,7 @@ let yojson_of_azurerm_logic_app_standard =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_site_config then bnds
+         if Stdlib.( = ) [] v_site_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_site_config) v_site_config

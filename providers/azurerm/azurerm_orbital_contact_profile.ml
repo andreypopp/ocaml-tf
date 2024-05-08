@@ -59,7 +59,7 @@ type links__channels = {
   modulation_configuration : string prop option; [@option]
   name : string prop;
   end_point : links__channels__end_point list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,7 +79,7 @@ let yojson_of_links__channels =
          []
        in
        let bnds =
-         if [] = v_end_point then bnds
+         if Stdlib.( = ) [] v_end_point then bnds
          else
            let arg =
              (yojson_of_list yojson_of_links__channels__end_point)
@@ -130,7 +130,7 @@ type links = {
   name : string prop;
   polarization : string prop;
   channels : links__channels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_links =
          []
        in
        let bnds =
-         if [] = v_channels then bnds
+         if Stdlib.( = ) [] v_channels then bnds
          else
            let arg =
              (yojson_of_list yojson_of_links__channels) v_channels
@@ -246,7 +246,8 @@ type azurerm_orbital_contact_profile = {
   network_configuration_subnet_id : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  links : links list; [@default []] [@yojson_drop_default ( = )]
+  links : links list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -279,7 +280,7 @@ let yojson_of_azurerm_orbital_contact_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_links then bnds
+         if Stdlib.( = ) [] v_links then bnds
          else
            let arg = (yojson_of_list yojson_of_links) v_links in
            let bnd = "links", arg in

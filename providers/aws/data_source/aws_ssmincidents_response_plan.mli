@@ -7,7 +7,7 @@ open! Tf_core
 type action__ssm_automation__parameter = {
   name : string prop;  (** name *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -17,7 +17,7 @@ type action__ssm_automation = {
   dynamic_parameters : (string * string prop) list;
       (** dynamic_parameters *)
   parameter : action__ssm_automation__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** parameter *)
   role_arn : string prop;  (** role_arn *)
   target_account : string prop;  (** target_account *)
@@ -25,7 +25,7 @@ type action__ssm_automation = {
 
 type action = {
   ssm_automation : action__ssm_automation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ssm_automation *)
 }
 
@@ -38,7 +38,7 @@ type incident_template = {
   impact : float prop;  (** impact *)
   incident_tags : (string * string prop) list;  (** incident_tags *)
   notification_target : incident_template__notification_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** notification_target *)
   summary : string prop;  (** summary *)
   title : string prop;  (** title *)
@@ -52,7 +52,7 @@ type integration__pagerduty = {
 
 type integration = {
   pagerduty : integration__pagerduty list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pagerduty *)
 }
 

@@ -13,7 +13,7 @@ type usage_metric__metric_dimensions = {
 
 type usage_metric = {
   metric_dimensions : usage_metric__metric_dimensions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** metric_dimensions *)
   metric_name : string prop;  (** metric_name *)
   metric_namespace : string prop;  (** metric_namespace *)

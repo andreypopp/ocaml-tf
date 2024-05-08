@@ -135,9 +135,9 @@ type azurerm_resource_group_cost_management_export = {
   recurrence_type : string prop;
   resource_group_id : string prop;
   export_data_options : export_data_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   export_data_storage_location : export_data_storage_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,7 +166,7 @@ let yojson_of_azurerm_resource_group_cost_management_export =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_export_data_storage_location then bnds
+         if Stdlib.( = ) [] v_export_data_storage_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_export_data_storage_location)
@@ -176,7 +176,7 @@ let yojson_of_azurerm_resource_group_cost_management_export =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_export_data_options then bnds
+         if Stdlib.( = ) [] v_export_data_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_export_data_options)

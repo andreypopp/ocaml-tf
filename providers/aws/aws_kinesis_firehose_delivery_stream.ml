@@ -104,7 +104,7 @@ type elasticsearch_configuration__processing_configuration__processors = {
   parameters :
     elasticsearch_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_elasticsearch_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -149,7 +149,7 @@ type elasticsearch_configuration__processing_configuration = {
   processors :
     elasticsearch_configuration__processing_configuration__processors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_elasticsearch_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -259,7 +259,7 @@ type elasticsearch_configuration__s3_configuration = {
   cloudwatch_logging_options :
     elasticsearch_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,7 +282,7 @@ let yojson_of_elasticsearch_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -359,9 +359,9 @@ let _ = yojson_of_elasticsearch_configuration__s3_configuration
 type elasticsearch_configuration__vpc_config = {
   role_arn : string prop;
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_elasticsearch_configuration__vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -388,7 +388,7 @@ let yojson_of_elasticsearch_configuration__vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -422,15 +422,15 @@ type elasticsearch_configuration = {
   type_name : string prop option; [@option]
   cloudwatch_logging_options :
     elasticsearch_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     elasticsearch_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration :
     elasticsearch_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : elasticsearch_configuration__vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -458,7 +458,7 @@ let yojson_of_elasticsearch_configuration =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -469,7 +469,7 @@ let yojson_of_elasticsearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -480,7 +480,7 @@ let yojson_of_elasticsearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -491,7 +491,7 @@ let yojson_of_elasticsearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -744,11 +744,11 @@ type extended_s3_configuration__data_format_conversion_configuration__input_form
   hive_json_ser_de :
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__hive_json_ser_de
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   open_x_json_ser_de :
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__open_x_json_ser_de
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -768,7 +768,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__i
          []
        in
        let bnds =
-         if [] = v_open_x_json_ser_de then bnds
+         if Stdlib.( = ) [] v_open_x_json_ser_de then bnds
          else
            let arg =
              (yojson_of_list
@@ -779,7 +779,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__i
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hive_json_ser_de then bnds
+         if Stdlib.( = ) [] v_hive_json_ser_de then bnds
          else
            let arg =
              (yojson_of_list
@@ -802,7 +802,7 @@ type extended_s3_configuration__data_format_conversion_configuration__input_form
   deserializer :
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -819,7 +819,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__i
          []
        in
        let bnds =
-         if [] = v_deserializer then bnds
+         if Stdlib.( = ) [] v_deserializer then bnds
          else
            let arg =
              (yojson_of_list
@@ -1061,11 +1061,11 @@ type extended_s3_configuration__data_format_conversion_configuration__output_for
   orc_ser_de :
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer__orc_ser_de
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parquet_ser_de :
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer__parquet_ser_de
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1083,7 +1083,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__o
          []
        in
        let bnds =
-         if [] = v_parquet_ser_de then bnds
+         if Stdlib.( = ) [] v_parquet_ser_de then bnds
          else
            let arg =
              (yojson_of_list
@@ -1094,7 +1094,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__o
            bnd :: bnds
        in
        let bnds =
-         if [] = v_orc_ser_de then bnds
+         if Stdlib.( = ) [] v_orc_ser_de then bnds
          else
            let arg =
              (yojson_of_list
@@ -1117,7 +1117,7 @@ type extended_s3_configuration__data_format_conversion_configuration__output_for
   serializer :
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1134,7 +1134,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__o
          []
        in
        let bnds =
-         if [] = v_serializer then bnds
+         if Stdlib.( = ) [] v_serializer then bnds
          else
            let arg =
              (yojson_of_list
@@ -1232,15 +1232,15 @@ type extended_s3_configuration__data_format_conversion_configuration = {
   input_format_configuration :
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_format_configuration :
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_configuration :
     extended_s3_configuration__data_format_conversion_configuration__schema_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1262,7 +1262,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration
          []
        in
        let bnds =
-         if [] = v_schema_configuration then bnds
+         if Stdlib.( = ) [] v_schema_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1273,7 +1273,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_format_configuration then bnds
+         if Stdlib.( = ) [] v_output_format_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1284,7 +1284,7 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_format_configuration then bnds
+         if Stdlib.( = ) [] v_input_format_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1401,7 +1401,7 @@ type extended_s3_configuration__processing_configuration__processors = {
   parameters :
     extended_s3_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1418,7 +1418,7 @@ let yojson_of_extended_s3_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -1446,7 +1446,7 @@ type extended_s3_configuration__processing_configuration = {
   processors :
     extended_s3_configuration__processing_configuration__processors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1460,7 +1460,7 @@ let yojson_of_extended_s3_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -1554,7 +1554,7 @@ type extended_s3_configuration__s3_backup_configuration = {
   cloudwatch_logging_options :
     extended_s3_configuration__s3_backup_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1578,7 +1578,7 @@ let yojson_of_extended_s3_configuration__s3_backup_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -1666,21 +1666,21 @@ type extended_s3_configuration = {
   s3_backup_mode : string prop option; [@option]
   cloudwatch_logging_options :
     extended_s3_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_format_conversion_configuration :
     extended_s3_configuration__data_format_conversion_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dynamic_partitioning_configuration :
     extended_s3_configuration__dynamic_partitioning_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     extended_s3_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_backup_configuration :
     extended_s3_configuration__s3_backup_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1712,7 +1712,7 @@ let yojson_of_extended_s3_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_backup_configuration then bnds
+         if Stdlib.( = ) [] v_s3_backup_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1723,7 +1723,7 @@ let yojson_of_extended_s3_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -1734,7 +1734,8 @@ let yojson_of_extended_s3_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dynamic_partitioning_configuration then bnds
+         if Stdlib.( = ) [] v_dynamic_partitioning_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1745,7 +1746,8 @@ let yojson_of_extended_s3_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_format_conversion_configuration then bnds
+         if Stdlib.( = ) [] v_data_format_conversion_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1756,7 +1758,7 @@ let yojson_of_extended_s3_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -1955,7 +1957,7 @@ type http_endpoint_configuration__processing_configuration__processors = {
   parameters :
     http_endpoint_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1972,7 +1974,7 @@ let yojson_of_http_endpoint_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -2000,7 +2002,7 @@ type http_endpoint_configuration__processing_configuration = {
   processors :
     http_endpoint_configuration__processing_configuration__processors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2015,7 +2017,7 @@ let yojson_of_http_endpoint_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -2082,7 +2084,7 @@ type http_endpoint_configuration__request_configuration = {
   common_attributes :
     http_endpoint_configuration__request_configuration__common_attributes
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2099,7 +2101,7 @@ let yojson_of_http_endpoint_configuration__request_configuration =
          []
        in
        let bnds =
-         if [] = v_common_attributes then bnds
+         if Stdlib.( = ) [] v_common_attributes then bnds
          else
            let arg =
              (yojson_of_list
@@ -2193,7 +2195,7 @@ type http_endpoint_configuration__s3_configuration = {
   cloudwatch_logging_options :
     http_endpoint_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2216,7 +2218,7 @@ let yojson_of_http_endpoint_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -2301,16 +2303,16 @@ type http_endpoint_configuration = {
   url : string prop;
   cloudwatch_logging_options :
     http_endpoint_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     http_endpoint_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   request_configuration :
     http_endpoint_configuration__request_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration :
     http_endpoint_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2336,7 +2338,7 @@ let yojson_of_http_endpoint_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2347,7 +2349,7 @@ let yojson_of_http_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request_configuration then bnds
+         if Stdlib.( = ) [] v_request_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2358,7 +2360,7 @@ let yojson_of_http_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2369,7 +2371,7 @@ let yojson_of_http_endpoint_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -2521,7 +2523,7 @@ type msk_source_configuration = {
   topic_name : string prop;
   authentication_configuration :
     msk_source_configuration__authentication_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2538,7 +2540,7 @@ let yojson_of_msk_source_configuration =
          []
        in
        let bnds =
-         if [] = v_authentication_configuration then bnds
+         if Stdlib.( = ) [] v_authentication_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -2693,7 +2695,7 @@ type opensearch_configuration__processing_configuration__processors = {
   parameters :
     opensearch_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2710,7 +2712,7 @@ let yojson_of_opensearch_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -2738,7 +2740,7 @@ type opensearch_configuration__processing_configuration = {
   processors :
     opensearch_configuration__processing_configuration__processors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2752,7 +2754,7 @@ let yojson_of_opensearch_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -2846,7 +2848,7 @@ type opensearch_configuration__s3_configuration = {
   cloudwatch_logging_options :
     opensearch_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2869,7 +2871,7 @@ let yojson_of_opensearch_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -2946,9 +2948,9 @@ let _ = yojson_of_opensearch_configuration__s3_configuration
 type opensearch_configuration__vpc_config = {
   role_arn : string prop;
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2965,7 +2967,7 @@ let yojson_of_opensearch_configuration__vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -2975,7 +2977,7 @@ let yojson_of_opensearch_configuration__vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3009,17 +3011,17 @@ type opensearch_configuration = {
   type_name : string prop option; [@option]
   cloudwatch_logging_options :
     opensearch_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   document_id_options :
     opensearch_configuration__document_id_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     opensearch_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : opensearch_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : opensearch_configuration__vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3048,7 +3050,7 @@ let yojson_of_opensearch_configuration =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3059,7 +3061,7 @@ let yojson_of_opensearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -3070,7 +3072,7 @@ let yojson_of_opensearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -3081,7 +3083,7 @@ let yojson_of_opensearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_document_id_options then bnds
+         if Stdlib.( = ) [] v_document_id_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -3092,7 +3094,7 @@ let yojson_of_opensearch_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -3284,7 +3286,7 @@ type opensearchserverless_configuration__processing_configuration__processors = 
   parameters :
     opensearchserverless_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3301,7 +3303,7 @@ let yojson_of_opensearchserverless_configuration__processing_configuration__proc
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -3329,7 +3331,7 @@ type opensearchserverless_configuration__processing_configuration = {
   processors :
     opensearchserverless_configuration__processing_configuration__processors
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3346,7 +3348,7 @@ let yojson_of_opensearchserverless_configuration__processing_configuration
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -3441,7 +3443,7 @@ type opensearchserverless_configuration__s3_configuration = {
   cloudwatch_logging_options :
     opensearchserverless_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3465,7 +3467,7 @@ let yojson_of_opensearchserverless_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -3543,9 +3545,9 @@ let _ =
 type opensearchserverless_configuration__vpc_config = {
   role_arn : string prop;
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3563,7 +3565,7 @@ let yojson_of_opensearchserverless_configuration__vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3573,7 +3575,7 @@ let yojson_of_opensearchserverless_configuration__vpc_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -3605,15 +3607,15 @@ type opensearchserverless_configuration = {
   cloudwatch_logging_options :
     opensearchserverless_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     opensearchserverless_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration :
     opensearchserverless_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_config : opensearchserverless_configuration__vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3638,7 +3640,7 @@ let yojson_of_opensearchserverless_configuration =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -3649,7 +3651,7 @@ let yojson_of_opensearchserverless_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -3660,7 +3662,7 @@ let yojson_of_opensearchserverless_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -3671,7 +3673,7 @@ let yojson_of_opensearchserverless_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -3834,7 +3836,7 @@ type redshift_configuration__processing_configuration__processors = {
   parameters :
     redshift_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3851,7 +3853,7 @@ let yojson_of_redshift_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -3878,7 +3880,7 @@ type redshift_configuration__processing_configuration = {
   enabled : bool prop option; [@option]
   processors :
     redshift_configuration__processing_configuration__processors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3892,7 +3894,7 @@ let yojson_of_redshift_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -3986,7 +3988,7 @@ type redshift_configuration__s3_backup_configuration = {
   cloudwatch_logging_options :
     redshift_configuration__s3_backup_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4010,7 +4012,7 @@ let yojson_of_redshift_configuration__s3_backup_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -4152,7 +4154,7 @@ type redshift_configuration__s3_configuration = {
   cloudwatch_logging_options :
     redshift_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4175,7 +4177,7 @@ let yojson_of_redshift_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -4261,15 +4263,15 @@ type redshift_configuration = {
   username : string prop;
   cloudwatch_logging_options :
     redshift_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     redshift_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_backup_configuration :
     redshift_configuration__s3_backup_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : redshift_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4296,7 +4298,7 @@ let yojson_of_redshift_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -4307,7 +4309,7 @@ let yojson_of_redshift_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_backup_configuration then bnds
+         if Stdlib.( = ) [] v_s3_backup_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -4318,7 +4320,7 @@ let yojson_of_redshift_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -4329,7 +4331,7 @@ let yojson_of_redshift_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -4551,7 +4553,7 @@ type splunk_configuration__processing_configuration__processors = {
   parameters :
     splunk_configuration__processing_configuration__processors__parameters
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4567,7 +4569,7 @@ let yojson_of_splunk_configuration__processing_configuration__processors
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -4594,7 +4596,7 @@ type splunk_configuration__processing_configuration = {
   enabled : bool prop option; [@option]
   processors :
     splunk_configuration__processing_configuration__processors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4608,7 +4610,7 @@ let yojson_of_splunk_configuration__processing_configuration =
          []
        in
        let bnds =
-         if [] = v_processors then bnds
+         if Stdlib.( = ) [] v_processors then bnds
          else
            let arg =
              (yojson_of_list
@@ -4702,7 +4704,7 @@ type splunk_configuration__s3_configuration = {
   cloudwatch_logging_options :
     splunk_configuration__s3_configuration__cloudwatch_logging_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4725,7 +4727,7 @@ let yojson_of_splunk_configuration__s3_configuration =
          []
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -4810,12 +4812,12 @@ type splunk_configuration = {
   s3_backup_mode : string prop option; [@option]
   cloudwatch_logging_options :
     splunk_configuration__cloudwatch_logging_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   processing_configuration :
     splunk_configuration__processing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : splunk_configuration__s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4840,7 +4842,7 @@ let yojson_of_splunk_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_configuration then bnds
+         if Stdlib.( = ) [] v_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -4851,7 +4853,7 @@ let yojson_of_splunk_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_processing_configuration then bnds
+         if Stdlib.( = ) [] v_processing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -4862,7 +4864,7 @@ let yojson_of_splunk_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logging_options then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -4991,26 +4993,26 @@ type aws_kinesis_firehose_delivery_stream = {
   tags_all : (string * string prop) list option; [@option]
   version_id : string prop option; [@option]
   elasticsearch_configuration : elasticsearch_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extended_s3_configuration : extended_s3_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_endpoint_configuration : http_endpoint_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_source_configuration : kinesis_source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   msk_source_configuration : msk_source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   opensearch_configuration : opensearch_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   opensearchserverless_configuration :
     opensearchserverless_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   redshift_configuration : redshift_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_side_encryption : server_side_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   splunk_configuration : splunk_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -5049,7 +5051,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_splunk_configuration then bnds
+         if Stdlib.( = ) [] v_splunk_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_splunk_configuration)
@@ -5059,7 +5061,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_server_side_encryption then bnds
+         if Stdlib.( = ) [] v_server_side_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_side_encryption)
@@ -5069,7 +5071,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_redshift_configuration then bnds
+         if Stdlib.( = ) [] v_redshift_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redshift_configuration)
@@ -5079,7 +5081,8 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_opensearchserverless_configuration then bnds
+         if Stdlib.( = ) [] v_opensearchserverless_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -5090,7 +5093,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_opensearch_configuration then bnds
+         if Stdlib.( = ) [] v_opensearch_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_opensearch_configuration)
@@ -5100,7 +5103,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_msk_source_configuration then bnds
+         if Stdlib.( = ) [] v_msk_source_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_msk_source_configuration)
@@ -5110,7 +5113,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_source_configuration then bnds
+         if Stdlib.( = ) [] v_kinesis_source_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kinesis_source_configuration)
@@ -5120,7 +5123,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_endpoint_configuration then bnds
+         if Stdlib.( = ) [] v_http_endpoint_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_endpoint_configuration)
@@ -5130,7 +5133,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extended_s3_configuration then bnds
+         if Stdlib.( = ) [] v_extended_s3_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extended_s3_configuration)
@@ -5140,7 +5143,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_elasticsearch_configuration then bnds
+         if Stdlib.( = ) [] v_elasticsearch_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_elasticsearch_configuration)

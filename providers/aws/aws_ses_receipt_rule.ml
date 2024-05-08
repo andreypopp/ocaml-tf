@@ -358,19 +358,19 @@ type aws_ses_receipt_rule = {
   scan_enabled : bool prop option; [@option]
   tls_policy : string prop option; [@option]
   add_header_action : add_header_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bounce_action : bounce_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_action : lambda_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_action : s3_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sns_action : sns_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stop_action : stop_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workmail_action : workmail_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,7 +399,7 @@ let yojson_of_aws_ses_receipt_rule =
          []
        in
        let bnds =
-         if [] = v_workmail_action then bnds
+         if Stdlib.( = ) [] v_workmail_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workmail_action)
@@ -409,7 +409,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stop_action then bnds
+         if Stdlib.( = ) [] v_stop_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stop_action) v_stop_action
@@ -418,7 +418,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sns_action then bnds
+         if Stdlib.( = ) [] v_sns_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sns_action) v_sns_action
@@ -427,7 +427,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_action then bnds
+         if Stdlib.( = ) [] v_s3_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_action) v_s3_action
@@ -436,7 +436,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda_action then bnds
+         if Stdlib.( = ) [] v_lambda_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lambda_action) v_lambda_action
@@ -445,7 +445,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bounce_action then bnds
+         if Stdlib.( = ) [] v_bounce_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bounce_action) v_bounce_action
@@ -454,7 +454,7 @@ let yojson_of_aws_ses_receipt_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_add_header_action then bnds
+         if Stdlib.( = ) [] v_add_header_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_add_header_action)

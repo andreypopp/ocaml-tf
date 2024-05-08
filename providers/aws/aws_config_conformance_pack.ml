@@ -46,7 +46,7 @@ type aws_config_conformance_pack = {
   template_body : string prop option; [@option]
   template_s3_uri : string prop option; [@option]
   input_parameter : input_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_aws_config_conformance_pack =
          []
        in
        let bnds =
-         if [] = v_input_parameter then bnds
+         if Stdlib.( = ) [] v_input_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_parameter)

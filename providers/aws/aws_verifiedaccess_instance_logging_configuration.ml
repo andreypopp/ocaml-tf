@@ -130,11 +130,11 @@ type access_logs = {
   include_trust_context : bool prop option; [@option]
   log_version : string prop option; [@option]
   cloudwatch_logs : access_logs__cloudwatch_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_data_firehose : access_logs__kinesis_data_firehose list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3 : access_logs__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_access_logs =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_logs__s3) v_s3
@@ -162,7 +162,7 @@ let yojson_of_access_logs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_data_firehose then bnds
+         if Stdlib.( = ) [] v_kinesis_data_firehose then bnds
          else
            let arg =
              (yojson_of_list
@@ -173,7 +173,7 @@ let yojson_of_access_logs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logs then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_logs__cloudwatch_logs)
@@ -209,7 +209,7 @@ type aws_verifiedaccess_instance_logging_configuration = {
   id : string prop option; [@option]
   verifiedaccess_instance_id : string prop;
   access_logs : access_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,7 +227,7 @@ let yojson_of_aws_verifiedaccess_instance_logging_configuration =
          []
        in
        let bnds =
-         if [] = v_access_logs then bnds
+         if Stdlib.( = ) [] v_access_logs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_logs) v_access_logs

@@ -6,7 +6,7 @@ type aws_cloudfront_key_group = {
   comment : string prop option; [@option]
   id : string prop option; [@option]
   items : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -29,7 +29,7 @@ let yojson_of_aws_cloudfront_key_group =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

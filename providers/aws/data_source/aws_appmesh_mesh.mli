@@ -10,7 +10,7 @@ type spec__egress_filter = {
 
 type spec = {
   egress_filter : spec__egress_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** egress_filter *)
 }
 

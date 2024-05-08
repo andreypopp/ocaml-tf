@@ -87,9 +87,9 @@ type aws_ec2_traffic_mirror_filter_rule = {
   traffic_direction : string prop;
   traffic_mirror_filter_id : string prop;
   destination_port_range : destination_port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port_range : source_port_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,7 +114,7 @@ let yojson_of_aws_ec2_traffic_mirror_filter_rule =
          []
        in
        let bnds =
-         if [] = v_source_port_range then bnds
+         if Stdlib.( = ) [] v_source_port_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_port_range)
@@ -124,7 +124,7 @@ let yojson_of_aws_ec2_traffic_mirror_filter_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_port_range then bnds
+         if Stdlib.( = ) [] v_destination_port_range then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_port_range)

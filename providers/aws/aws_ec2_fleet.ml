@@ -514,39 +514,39 @@ type launch_template_config__override__instance_requirements = {
   accelerator_count :
     launch_template_config__override__instance_requirements__accelerator_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   accelerator_total_memory_mib :
     launch_template_config__override__instance_requirements__accelerator_total_memory_mib
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   baseline_ebs_bandwidth_mbps :
     launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   memory_gib_per_vcpu :
     launch_template_config__override__instance_requirements__memory_gib_per_vcpu
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   memory_mib :
     launch_template_config__override__instance_requirements__memory_mib
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_bandwidth_gbps :
     launch_template_config__override__instance_requirements__network_bandwidth_gbps
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_interface_count :
     launch_template_config__override__instance_requirements__network_interface_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   total_local_storage_gb :
     launch_template_config__override__instance_requirements__total_local_storage_gb
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vcpu_count :
     launch_template_config__override__instance_requirements__vcpu_count
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -588,7 +588,7 @@ let yojson_of_launch_template_config__override__instance_requirements
          []
        in
        let bnds =
-         if [] = v_vcpu_count then bnds
+         if Stdlib.( = ) [] v_vcpu_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -599,7 +599,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_total_local_storage_gb then bnds
+         if Stdlib.( = ) [] v_total_local_storage_gb then bnds
          else
            let arg =
              (yojson_of_list
@@ -610,7 +610,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface_count then bnds
+         if Stdlib.( = ) [] v_network_interface_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -621,7 +621,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_bandwidth_gbps then bnds
+         if Stdlib.( = ) [] v_network_bandwidth_gbps then bnds
          else
            let arg =
              (yojson_of_list
@@ -632,7 +632,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_memory_mib then bnds
+         if Stdlib.( = ) [] v_memory_mib then bnds
          else
            let arg =
              (yojson_of_list
@@ -643,7 +643,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_memory_gib_per_vcpu then bnds
+         if Stdlib.( = ) [] v_memory_gib_per_vcpu then bnds
          else
            let arg =
              (yojson_of_list
@@ -654,7 +654,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_baseline_ebs_bandwidth_mbps then bnds
+         if Stdlib.( = ) [] v_baseline_ebs_bandwidth_mbps then bnds
          else
            let arg =
              (yojson_of_list
@@ -665,7 +665,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_total_memory_mib then bnds
+         if Stdlib.( = ) [] v_accelerator_total_memory_mib then bnds
          else
            let arg =
              (yojson_of_list
@@ -676,7 +676,7 @@ let yojson_of_launch_template_config__override__instance_requirements
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accelerator_count then bnds
+         if Stdlib.( = ) [] v_accelerator_count then bnds
          else
            let arg =
              (yojson_of_list
@@ -839,7 +839,7 @@ type launch_template_config__override = {
   weighted_capacity : float prop option; [@option]
   instance_requirements :
     launch_template_config__override__instance_requirements list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -860,7 +860,7 @@ let yojson_of_launch_template_config__override =
          []
        in
        let bnds =
-         if [] = v_instance_requirements then bnds
+         if Stdlib.( = ) [] v_instance_requirements then bnds
          else
            let arg =
              (yojson_of_list
@@ -929,9 +929,9 @@ let _ = yojson_of_launch_template_config__override
 type launch_template_config = {
   launch_template_specification :
     launch_template_config__launch_template_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   override : launch_template_config__override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -948,7 +948,7 @@ let yojson_of_launch_template_config =
          []
        in
        let bnds =
-         if [] = v_override then bnds
+         if Stdlib.( = ) [] v_override then bnds
          else
            let arg =
              (yojson_of_list
@@ -959,7 +959,7 @@ let yojson_of_launch_template_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template_specification then bnds
+         if Stdlib.( = ) [] v_launch_template_specification then bnds
          else
            let arg =
              (yojson_of_list
@@ -1094,7 +1094,7 @@ let _ =
 type spot_options__maintenance_strategies = {
   capacity_rebalance :
     spot_options__maintenance_strategies__capacity_rebalance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1107,7 +1107,7 @@ let yojson_of_spot_options__maintenance_strategies =
          []
        in
        let bnds =
-         if [] = v_capacity_rebalance then bnds
+         if Stdlib.( = ) [] v_capacity_rebalance then bnds
          else
            let arg =
              (yojson_of_list
@@ -1130,7 +1130,7 @@ type spot_options = {
   instance_interruption_behavior : string prop option; [@option]
   instance_pools_to_use_count : float prop option; [@option]
   maintenance_strategies : spot_options__maintenance_strategies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1149,7 +1149,7 @@ let yojson_of_spot_options =
          []
        in
        let bnds =
-         if [] = v_maintenance_strategies then bnds
+         if Stdlib.( = ) [] v_maintenance_strategies then bnds
          else
            let arg =
              (yojson_of_list
@@ -1320,15 +1320,15 @@ type aws_ec2_fleet = {
   valid_from : string prop option; [@option]
   valid_until : string prop option; [@option]
   fleet_instance_set : fleet_instance_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   launch_template_config : launch_template_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   on_demand_options : on_demand_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spot_options : spot_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_capacity_specification : target_capacity_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1370,7 +1370,7 @@ let yojson_of_aws_ec2_fleet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target_capacity_specification then bnds
+         if Stdlib.( = ) [] v_target_capacity_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_capacity_specification)
@@ -1380,7 +1380,7 @@ let yojson_of_aws_ec2_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_spot_options then bnds
+         if Stdlib.( = ) [] v_spot_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spot_options) v_spot_options
@@ -1389,7 +1389,7 @@ let yojson_of_aws_ec2_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_on_demand_options then bnds
+         if Stdlib.( = ) [] v_on_demand_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_on_demand_options)
@@ -1399,7 +1399,7 @@ let yojson_of_aws_ec2_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_launch_template_config then bnds
+         if Stdlib.( = ) [] v_launch_template_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_launch_template_config)
@@ -1409,7 +1409,7 @@ let yojson_of_aws_ec2_fleet =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fleet_instance_set then bnds
+         if Stdlib.( = ) [] v_fleet_instance_set then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fleet_instance_set)

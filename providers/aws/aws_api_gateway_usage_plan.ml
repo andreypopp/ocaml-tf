@@ -52,7 +52,7 @@ type api_stages = {
   api_id : string prop;
   stage : string prop;
   throttle : api_stages__throttle list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_api_stages =
          []
        in
        let bnds =
-         if [] = v_throttle then bnds
+         if Stdlib.( = ) [] v_throttle then bnds
          else
            let arg =
              (yojson_of_list yojson_of_api_stages__throttle)
@@ -172,11 +172,11 @@ type aws_api_gateway_usage_plan = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   api_stages : api_stages list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   quota_settings : quota_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   throttle_settings : throttle_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_aws_api_gateway_usage_plan =
          []
        in
        let bnds =
-         if [] = v_throttle_settings then bnds
+         if Stdlib.( = ) [] v_throttle_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_throttle_settings)
@@ -209,7 +209,7 @@ let yojson_of_aws_api_gateway_usage_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_quota_settings then bnds
+         if Stdlib.( = ) [] v_quota_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_quota_settings)
@@ -219,7 +219,7 @@ let yojson_of_aws_api_gateway_usage_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_stages then bnds
+         if Stdlib.( = ) [] v_api_stages then bnds
          else
            let arg =
              (yojson_of_list yojson_of_api_stages) v_api_stages

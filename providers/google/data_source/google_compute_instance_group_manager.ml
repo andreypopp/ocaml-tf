@@ -291,7 +291,7 @@ let _ = yojson_of_status__stateful__per_instance_configs
 type status__stateful = {
   has_stateful_config : bool prop;
   per_instance_configs : status__stateful__per_instance_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -307,7 +307,7 @@ let yojson_of_status__stateful =
          []
        in
        let bnds =
-         if [] = v_per_instance_configs then bnds
+         if Stdlib.( = ) [] v_per_instance_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -355,12 +355,12 @@ let _ = yojson_of_status__all_instances_config
 
 type status = {
   all_instances_config : status__all_instances_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   is_stable : bool prop;
   stateful : status__stateful list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   version_target : status__version_target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_status =
          []
        in
        let bnds =
-         if [] = v_version_target then bnds
+         if Stdlib.( = ) [] v_version_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__version_target)
@@ -388,7 +388,7 @@ let yojson_of_status =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stateful then bnds
+         if Stdlib.( = ) [] v_stateful then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__stateful) v_stateful
@@ -401,7 +401,7 @@ let yojson_of_status =
          ("is_stable", arg) :: bnds
        in
        let bnds =
-         if [] = v_all_instances_config then bnds
+         if Stdlib.( = ) [] v_all_instances_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__all_instances_config)
@@ -534,7 +534,7 @@ type version = {
   instance_template : string prop;
   name : string prop;
   target_size : version__target_size list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -551,7 +551,7 @@ let yojson_of_version =
          []
        in
        let bnds =
-         if [] = v_target_size then bnds
+         if Stdlib.( = ) [] v_target_size then bnds
          else
            let arg =
              (yojson_of_list yojson_of_version__target_size)

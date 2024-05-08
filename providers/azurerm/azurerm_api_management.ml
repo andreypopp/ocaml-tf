@@ -36,7 +36,7 @@ type additional_location = {
   zones : string prop list option; [@option]
   virtual_network_configuration :
     additional_location__virtual_network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_additional_location =
          []
        in
        let bnds =
-         if [] = v_virtual_network_configuration then bnds
+         if Stdlib.( = ) [] v_virtual_network_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -618,15 +618,15 @@ let _ = yojson_of_hostname_configuration__scm
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : hostname_configuration__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   portal : hostname_configuration__portal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy : hostname_configuration__proxy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scm : hostname_configuration__scm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -645,7 +645,7 @@ let yojson_of_hostname_configuration =
          []
        in
        let bnds =
-         if [] = v_scm then bnds
+         if Stdlib.( = ) [] v_scm then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__scm)
@@ -655,7 +655,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy then bnds
+         if Stdlib.( = ) [] v_proxy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__proxy)
@@ -665,7 +665,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_portal then bnds
+         if Stdlib.( = ) [] v_portal then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__portal)
@@ -675,7 +675,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list
@@ -686,7 +686,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_developer_portal then bnds
+         if Stdlib.( = ) [] v_developer_portal then bnds
          else
            let arg =
              (yojson_of_list
@@ -1078,7 +1078,7 @@ let _ = yojson_of_sign_up__terms_of_service
 type sign_up = {
   enabled : bool prop;
   terms_of_service : sign_up__terms_of_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1092,7 +1092,7 @@ let yojson_of_sign_up =
          []
        in
        let bnds =
-         if [] = v_terms_of_service then bnds
+         if Stdlib.( = ) [] v_terms_of_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sign_up__terms_of_service)
@@ -1262,26 +1262,28 @@ type azurerm_api_management = {
   virtual_network_type : string prop option; [@option]
   zones : string prop list option; [@option]
   additional_location : additional_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   certificate : certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   delegation : delegation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hostname_configuration : hostname_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   protocols : protocols list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security : security list;
-      [@default []] [@yojson_drop_default ( = )]
-  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
-  sign_up : sign_up list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sign_in : sign_in list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sign_up : sign_up list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tenant_access : tenant_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_network_configuration : virtual_network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1326,7 +1328,7 @@ let yojson_of_azurerm_api_management =
          []
        in
        let bnds =
-         if [] = v_virtual_network_configuration then bnds
+         if Stdlib.( = ) [] v_virtual_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_network_configuration)
@@ -1340,7 +1342,7 @@ let yojson_of_azurerm_api_management =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tenant_access then bnds
+         if Stdlib.( = ) [] v_tenant_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tenant_access) v_tenant_access
@@ -1349,21 +1351,21 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sign_up then bnds
+         if Stdlib.( = ) [] v_sign_up then bnds
          else
            let arg = (yojson_of_list yojson_of_sign_up) v_sign_up in
            let bnd = "sign_up", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_sign_in then bnds
+         if Stdlib.( = ) [] v_sign_in then bnds
          else
            let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
            let bnd = "sign_in", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security then bnds
+         if Stdlib.( = ) [] v_security then bnds
          else
            let arg =
              (yojson_of_list yojson_of_security) v_security
@@ -1372,7 +1374,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list yojson_of_protocols) v_protocols
@@ -1381,7 +1383,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -1390,7 +1392,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hostname_configuration then bnds
+         if Stdlib.( = ) [] v_hostname_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration)
@@ -1400,7 +1402,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_delegation then bnds
+         if Stdlib.( = ) [] v_delegation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_delegation) v_delegation
@@ -1409,7 +1411,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certificate) v_certificate
@@ -1418,7 +1420,7 @@ let yojson_of_azurerm_api_management =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_location then bnds
+         if Stdlib.( = ) [] v_additional_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_location)

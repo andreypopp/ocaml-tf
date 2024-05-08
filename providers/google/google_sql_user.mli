@@ -7,7 +7,7 @@ open! Tf_core
 type sql_server_user_details = {
   disabled : bool prop;  (** disabled *)
   server_roles : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** server_roles *)
 }
 

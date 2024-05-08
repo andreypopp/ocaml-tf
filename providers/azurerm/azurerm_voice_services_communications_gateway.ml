@@ -11,7 +11,7 @@ type service_location = {
   esrp_addresses : string prop list option; [@option]
   location : string prop;
   operator_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32,7 +32,7 @@ let yojson_of_service_location =
          []
        in
        let bnds =
-         if [] = v_operator_addresses then bnds
+         if Stdlib.( = ) [] v_operator_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -161,11 +161,11 @@ type azurerm_voice_services_communications_gateway = {
   name : string prop;
   on_prem_mcp_enabled : bool prop option; [@option]
   platforms : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   service_location : service_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -202,7 +202,7 @@ let yojson_of_azurerm_voice_services_communications_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_location then bnds
+         if Stdlib.( = ) [] v_service_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_location)
@@ -234,7 +234,7 @@ let yojson_of_azurerm_voice_services_communications_gateway =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_platforms then bnds
+         if Stdlib.( = ) [] v_platforms then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

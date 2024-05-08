@@ -118,7 +118,7 @@ let _ = yojson_of_parameters__find_matches_parameters
 type parameters = {
   transform_type : string prop;
   find_matches_parameters : parameters__find_matches_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,7 +134,7 @@ let yojson_of_parameters =
          []
        in
        let bnds =
-         if [] = v_find_matches_parameters then bnds
+         if Stdlib.( = ) [] v_find_matches_parameters then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,9 +197,9 @@ type aws_glue_ml_transform = {
   timeout : float prop option; [@option]
   worker_type : string prop option; [@option]
   input_record_tables : input_record_tables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameters : parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,7 +227,7 @@ let yojson_of_aws_glue_ml_transform =
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameters) v_parameters
@@ -236,7 +236,7 @@ let yojson_of_aws_glue_ml_transform =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_record_tables then bnds
+         if Stdlib.( = ) [] v_input_record_tables then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_record_tables)

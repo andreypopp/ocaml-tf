@@ -110,7 +110,8 @@ type azurerm_security_center_assessment = {
   assessment_policy_id : string prop;
   id : string prop option; [@option]
   target_resource_id : string prop;
-  status : status list; [@default []] [@yojson_drop_default ( = )]
+  status : status list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -135,7 +136,7 @@ let yojson_of_azurerm_security_center_assessment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_status then bnds
+         if Stdlib.( = ) [] v_status then bnds
          else
            let arg = (yojson_of_list yojson_of_status) v_status in
            let bnd = "status", arg in

@@ -4,7 +4,8 @@ open! Tf_core
 
 type action = {
   type_ : string prop; [@key "type"]
-  value : string prop list; [@default []] [@yojson_drop_default ( = )]
+  value : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +18,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_value then bnds
+         if Stdlib.( = ) [] v_value then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -64,8 +65,10 @@ type cloudflare_email_routing_catch_all = {
   id : string prop option; [@option]
   name : string prop;
   zone_id : string prop;
-  action : action list; [@default []] [@yojson_drop_default ( = )]
-  matcher : matcher list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  matcher : matcher list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,14 +88,14 @@ let yojson_of_cloudflare_email_routing_catch_all =
          []
        in
        let bnds =
-         if [] = v_matcher then bnds
+         if Stdlib.( = ) [] v_matcher then bnds
          else
            let arg = (yojson_of_list yojson_of_matcher) v_matcher in
            let bnd = "matcher", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

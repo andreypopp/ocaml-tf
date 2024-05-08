@@ -4,7 +4,7 @@ open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_message_storage_policy =
          []
        in
        let bnds =
-         if [] = v_allowed_persistence_regions then bnds
+         if Stdlib.( = ) [] v_allowed_persistence_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -121,9 +121,9 @@ type google_pubsub_topic = {
   name : string prop;
   project : string prop option; [@option]
   message_storage_policy : message_storage_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_settings : schema_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -151,7 +151,7 @@ let yojson_of_google_pubsub_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema_settings then bnds
+         if Stdlib.( = ) [] v_schema_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema_settings)
@@ -161,7 +161,7 @@ let yojson_of_google_pubsub_topic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_message_storage_policy then bnds
+         if Stdlib.( = ) [] v_message_storage_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_message_storage_policy)

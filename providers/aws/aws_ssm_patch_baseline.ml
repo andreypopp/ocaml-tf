@@ -5,7 +5,7 @@ open! Tf_core
 type approval_rule__patch_filter = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_approval_rule__patch_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -45,7 +45,7 @@ type approval_rule = {
   compliance_level : string prop option; [@option]
   enable_non_security : bool prop option; [@option]
   patch_filter : approval_rule__patch_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_approval_rule =
          []
        in
        let bnds =
-         if [] = v_patch_filter then bnds
+         if Stdlib.( = ) [] v_patch_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_approval_rule__patch_filter)
@@ -115,7 +115,7 @@ let _ = yojson_of_approval_rule
 type global_filter = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_global_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -152,7 +152,7 @@ type source = {
   configuration : string prop;
   name : string prop;
   products : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_products then bnds
+         if Stdlib.( = ) [] v_products then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -206,10 +206,11 @@ type aws_ssm_patch_baseline = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   approval_rule : approval_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   global_filter : global_filter list;
-      [@default []] [@yojson_drop_default ( = )]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -239,14 +240,14 @@ let yojson_of_aws_ssm_patch_baseline =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_global_filter then bnds
+         if Stdlib.( = ) [] v_global_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_global_filter) v_global_filter
@@ -255,7 +256,7 @@ let yojson_of_aws_ssm_patch_baseline =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_approval_rule then bnds
+         if Stdlib.( = ) [] v_approval_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_approval_rule) v_approval_rule

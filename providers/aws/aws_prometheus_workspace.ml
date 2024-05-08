@@ -31,7 +31,7 @@ type aws_prometheus_workspace = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   logging_configuration : logging_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_aws_prometheus_workspace =
          []
        in
        let bnds =
-         if [] = v_logging_configuration then bnds
+         if Stdlib.( = ) [] v_logging_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_configuration)

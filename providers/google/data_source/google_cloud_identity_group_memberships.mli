@@ -10,7 +10,7 @@ type memberships__roles__expiry_detail = {
 
 type memberships__roles = {
   expiry_detail : memberships__roles__expiry_detail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expiry_detail *)
   name : string prop;  (** name *)
 }
@@ -25,10 +25,10 @@ type memberships = {
   group : string prop;  (** group *)
   name : string prop;  (** name *)
   preferred_member_key : memberships__preferred_member_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** preferred_member_key *)
   roles : memberships__roles list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** roles *)
   type_ : string prop; [@key "type"]  (** type *)
   update_time : string prop;  (** update_time *)

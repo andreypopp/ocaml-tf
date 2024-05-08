@@ -7,7 +7,7 @@ open! Tf_core
 type device_properties = {
   capacity : float prop;  (** capacity *)
   configured_role_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** configured_role_types *)
   culture : string prop;  (** culture *)
   hcs_version : string prop;  (** hcs_version *)

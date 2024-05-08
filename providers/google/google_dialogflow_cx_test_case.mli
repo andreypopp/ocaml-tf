@@ -10,7 +10,8 @@ type last_test_result__conversation_turns__virtual_agent_output__triggered_inten
 }
 
 type last_test_result__conversation_turns__virtual_agent_output__text_responses = {
-  text : string prop list; [@default []] [@yojson_drop_default ( = )]
+  text : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** text *)
 }
 
@@ -34,28 +35,28 @@ type last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
     last_test_result__conversation_turns__virtual_agent_output__current_page
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** current_page *)
   differences :
     last_test_result__conversation_turns__virtual_agent_output__differences
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** differences *)
   session_parameters : string prop;  (** session_parameters *)
   status :
     last_test_result__conversation_turns__virtual_agent_output__status
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** status *)
   text_responses :
     last_test_result__conversation_turns__virtual_agent_output__text_responses
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** text_responses *)
   triggered_intent :
     last_test_result__conversation_turns__virtual_agent_output__triggered_intent
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** triggered_intent *)
 }
 
@@ -76,18 +77,18 @@ type last_test_result__conversation_turns__user_input__input = {
   dtmf :
     last_test_result__conversation_turns__user_input__input__dtmf
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dtmf *)
   event :
     last_test_result__conversation_turns__user_input__input__event
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** event *)
   language_code : string prop;  (** language_code *)
   text :
     last_test_result__conversation_turns__user_input__input__text
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** text *)
 }
 
@@ -97,24 +98,24 @@ type last_test_result__conversation_turns__user_input = {
   injected_parameters : string prop;  (** injected_parameters *)
   input :
     last_test_result__conversation_turns__user_input__input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** input *)
   is_webhook_enabled : bool prop;  (** is_webhook_enabled *)
 }
 
 type last_test_result__conversation_turns = {
   user_input : last_test_result__conversation_turns__user_input list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_input *)
   virtual_agent_output :
     last_test_result__conversation_turns__virtual_agent_output list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** virtual_agent_output *)
 }
 
 type last_test_result = {
   conversation_turns : last_test_result__conversation_turns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** conversation_turns *)
   environment : string prop;  (** environment *)
   name : string prop;  (** name *)

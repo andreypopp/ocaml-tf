@@ -4,7 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -410,14 +410,15 @@ type azurerm_mssql_database = {
       [@option]
   zone_redundant : bool prop option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  import : import list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  import : import list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   long_term_retention_policy : long_term_retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   short_term_retention_policy : short_term_retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threat_detection_policy : threat_detection_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -477,7 +478,7 @@ let yojson_of_azurerm_mssql_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threat_detection_policy then bnds
+         if Stdlib.( = ) [] v_threat_detection_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threat_detection_policy)
@@ -487,7 +488,7 @@ let yojson_of_azurerm_mssql_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_short_term_retention_policy then bnds
+         if Stdlib.( = ) [] v_short_term_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_short_term_retention_policy)
@@ -497,7 +498,7 @@ let yojson_of_azurerm_mssql_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_long_term_retention_policy then bnds
+         if Stdlib.( = ) [] v_long_term_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_long_term_retention_policy)
@@ -507,14 +508,14 @@ let yojson_of_azurerm_mssql_database =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_import then bnds
+         if Stdlib.( = ) [] v_import then bnds
          else
            let arg = (yojson_of_list yojson_of_import) v_import in
            let bnd = "import", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

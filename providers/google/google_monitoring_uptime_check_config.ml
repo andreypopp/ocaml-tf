@@ -40,7 +40,7 @@ type content_matchers = {
   content : string prop;
   matcher : string prop option; [@option]
   json_path_matcher : content_matchers__json_path_matcher list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_content_matchers =
          []
        in
        let bnds =
-         if [] = v_json_path_matcher then bnds
+         if Stdlib.( = ) [] v_json_path_matcher then bnds
          else
            let arg =
              (yojson_of_list
@@ -189,11 +189,11 @@ type http_check = {
   validate_ssl : bool prop option; [@option]
   accepted_response_status_codes :
     http_check__accepted_response_status_codes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auth_info : http_check__auth_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ping_config : http_check__ping_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,7 +221,7 @@ let yojson_of_http_check =
          []
        in
        let bnds =
-         if [] = v_ping_config then bnds
+         if Stdlib.( = ) [] v_ping_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_check__ping_config)
@@ -231,7 +231,7 @@ let yojson_of_http_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auth_info then bnds
+         if Stdlib.( = ) [] v_auth_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_check__auth_info)
@@ -241,7 +241,8 @@ let yojson_of_http_check =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_accepted_response_status_codes then bnds
+         if Stdlib.( = ) [] v_accepted_response_status_codes then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -445,7 +446,7 @@ let _ = yojson_of_synthetic_monitor__cloud_function_v2
 
 type synthetic_monitor = {
   cloud_function_v2 : synthetic_monitor__cloud_function_v2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -458,7 +459,7 @@ let yojson_of_synthetic_monitor =
          []
        in
        let bnds =
-         if [] = v_cloud_function_v2 then bnds
+         if Stdlib.( = ) [] v_cloud_function_v2 then bnds
          else
            let arg =
              (yojson_of_list
@@ -500,7 +501,7 @@ let _ = yojson_of_tcp_check__ping_config
 type tcp_check = {
   port : float prop;
   ping_config : tcp_check__ping_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -513,7 +514,7 @@ let yojson_of_tcp_check =
          []
        in
        let bnds =
-         if [] = v_ping_config then bnds
+         if Stdlib.( = ) [] v_ping_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tcp_check__ping_config)
@@ -589,17 +590,17 @@ type google_monitoring_uptime_check_config = {
   timeout : string prop;
   user_labels : (string * string prop) list option; [@option]
   content_matchers : content_matchers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_check : http_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitored_resource : monitored_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_group : resource_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   synthetic_monitor : synthetic_monitor list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_check : tcp_check list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -633,7 +634,7 @@ let yojson_of_google_monitoring_uptime_check_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tcp_check then bnds
+         if Stdlib.( = ) [] v_tcp_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tcp_check) v_tcp_check
@@ -642,7 +643,7 @@ let yojson_of_google_monitoring_uptime_check_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_synthetic_monitor then bnds
+         if Stdlib.( = ) [] v_synthetic_monitor then bnds
          else
            let arg =
              (yojson_of_list yojson_of_synthetic_monitor)
@@ -652,7 +653,7 @@ let yojson_of_google_monitoring_uptime_check_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_resource_group then bnds
+         if Stdlib.( = ) [] v_resource_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_group)
@@ -662,7 +663,7 @@ let yojson_of_google_monitoring_uptime_check_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitored_resource then bnds
+         if Stdlib.( = ) [] v_monitored_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitored_resource)
@@ -672,7 +673,7 @@ let yojson_of_google_monitoring_uptime_check_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_check then bnds
+         if Stdlib.( = ) [] v_http_check then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_check) v_http_check
@@ -681,7 +682,7 @@ let yojson_of_google_monitoring_uptime_check_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_matchers then bnds
+         if Stdlib.( = ) [] v_content_matchers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_content_matchers)

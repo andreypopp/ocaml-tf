@@ -4,7 +4,7 @@ open! Tf_core
 
 type management_network_profile = {
   network_interface_private_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -26,7 +26,8 @@ let yojson_of_management_network_profile =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface_private_ip_addresses then bnds
+         if Stdlib.( = ) [] v_network_interface_private_ip_addresses
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -44,7 +45,7 @@ let _ = yojson_of_management_network_profile
 
 type network_profile = {
   network_interface_private_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -66,7 +67,8 @@ let yojson_of_network_profile =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_interface_private_ip_addresses then bnds
+         if Stdlib.( = ) [] v_network_interface_private_ip_addresses
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -152,9 +154,9 @@ type azurerm_dedicated_hardware_security_module = {
   tags : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
   management_network_profile : management_network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_profile : network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -184,7 +186,7 @@ let yojson_of_azurerm_dedicated_hardware_security_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_network_profile then bnds
+         if Stdlib.( = ) [] v_network_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_profile)
@@ -194,7 +196,7 @@ let yojson_of_azurerm_dedicated_hardware_security_module =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management_network_profile then bnds
+         if Stdlib.( = ) [] v_management_network_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management_network_profile)

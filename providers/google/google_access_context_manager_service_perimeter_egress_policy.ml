@@ -35,7 +35,7 @@ type egress_from = {
   identity_type : string prop option; [@option]
   source_restriction : string prop option; [@option]
   sources : egress_from__sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,7 +53,7 @@ let yojson_of_egress_from =
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_egress_from__sources)
@@ -136,7 +136,7 @@ let _ = yojson_of_egress_to__operations__method_selectors
 type egress_to__operations = {
   service_name : string prop option; [@option]
   method_selectors : egress_to__operations__method_selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,7 +152,7 @@ let yojson_of_egress_to__operations =
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -181,7 +181,7 @@ type egress_to = {
   external_resources : string prop list option; [@option]
   resources : string prop list option; [@option]
   operations : egress_to__operations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,7 +198,7 @@ let yojson_of_egress_to =
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_egress_to__operations)
@@ -284,9 +284,9 @@ type google_access_context_manager_service_perimeter_egress_policy = {
   id : string prop option; [@option]
   perimeter : string prop;
   egress_from : egress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   egress_to : egress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -314,7 +314,7 @@ let yojson_of_google_access_context_manager_service_perimeter_egress_policy
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_egress_to then bnds
+         if Stdlib.( = ) [] v_egress_to then bnds
          else
            let arg =
              (yojson_of_list yojson_of_egress_to) v_egress_to
@@ -323,7 +323,7 @@ let yojson_of_google_access_context_manager_service_perimeter_egress_policy
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_from then bnds
+         if Stdlib.( = ) [] v_egress_from then bnds
          else
            let arg =
              (yojson_of_list yojson_of_egress_from) v_egress_from

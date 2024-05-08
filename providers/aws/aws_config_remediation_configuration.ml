@@ -46,7 +46,7 @@ let _ = yojson_of_execution_controls__ssm_controls
 
 type execution_controls = {
   ssm_controls : execution_controls__ssm_controls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +59,7 @@ let yojson_of_execution_controls =
          []
        in
        let bnds =
-         if [] = v_ssm_controls then bnds
+         if Stdlib.( = ) [] v_ssm_controls then bnds
          else
            let arg =
              (yojson_of_list
@@ -145,9 +145,9 @@ type aws_config_remediation_configuration = {
   target_type : string prop;
   target_version : string prop option; [@option]
   execution_controls : execution_controls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parameter : parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,7 +172,7 @@ let yojson_of_aws_config_remediation_configuration =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parameter) v_parameter
@@ -181,7 +181,7 @@ let yojson_of_aws_config_remediation_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_execution_controls then bnds
+         if Stdlib.( = ) [] v_execution_controls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_execution_controls)

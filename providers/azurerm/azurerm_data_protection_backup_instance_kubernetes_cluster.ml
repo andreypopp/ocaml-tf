@@ -159,7 +159,7 @@ type azurerm_data_protection_backup_instance_kubernetes_cluster = {
   snapshot_resource_group_name : string prop;
   vault_id : string prop;
   backup_datasource_parameters : backup_datasource_parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -190,7 +190,7 @@ let yojson_of_azurerm_data_protection_backup_instance_kubernetes_cluster
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_backup_datasource_parameters then bnds
+         if Stdlib.( = ) [] v_backup_datasource_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backup_datasource_parameters)

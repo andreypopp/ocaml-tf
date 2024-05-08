@@ -54,7 +54,7 @@ type rules = {
   no_automate_dns_zone : bool prop;
   port_range : string prop;
   ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   project : string prop;
   psc_connection_id : string prop;
   psc_connection_status : string prop;
@@ -63,11 +63,11 @@ type rules = {
   self_link : string prop;
   service_directory_registrations :
     rules__service_directory_registrations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_label : string prop;
   service_name : string prop;
   source_ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnetwork : string prop;
   target : string prop;
   terraform_labels : (string * string prop) list;
@@ -139,7 +139,7 @@ let yojson_of_rules =
          ("subnetwork", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_ip_ranges then bnds
+         if Stdlib.( = ) [] v_source_ip_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -157,7 +157,8 @@ let yojson_of_rules =
          ("service_label", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_directory_registrations then bnds
+         if Stdlib.( = ) [] v_service_directory_registrations then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -198,7 +199,7 @@ let yojson_of_rules =
          ("project", arg) :: bnds
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

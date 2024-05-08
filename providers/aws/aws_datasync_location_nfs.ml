@@ -30,7 +30,7 @@ let _ = yojson_of_mount_options
 
 type on_prem_config = {
   agent_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,7 +43,7 @@ let yojson_of_on_prem_config =
          []
        in
        let bnds =
-         if [] = v_agent_arns then bnds
+         if Stdlib.( = ) [] v_agent_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -66,9 +66,9 @@ type aws_datasync_location_nfs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   mount_options : mount_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   on_prem_config : on_prem_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_aws_datasync_location_nfs =
          []
        in
        let bnds =
-         if [] = v_on_prem_config then bnds
+         if Stdlib.( = ) [] v_on_prem_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_on_prem_config)
@@ -99,7 +99,7 @@ let yojson_of_aws_datasync_location_nfs =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mount_options then bnds
+         if Stdlib.( = ) [] v_mount_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_mount_options) v_mount_options

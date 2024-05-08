@@ -30,9 +30,9 @@ let _ = yojson_of_log_config
 
 type rules__action = {
   source_nat_active_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_nat_drain_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_rules__action =
          []
        in
        let bnds =
-         if [] = v_source_nat_drain_ips then bnds
+         if Stdlib.( = ) [] v_source_nat_drain_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -58,7 +58,7 @@ let yojson_of_rules__action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_nat_active_ips then bnds
+         if Stdlib.( = ) [] v_source_nat_active_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -76,7 +76,7 @@ let _ = yojson_of_rules__action
 
 type rules = {
   action : rules__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   match_ : string prop; [@key "match"]
   rule_number : float prop;
@@ -109,7 +109,7 @@ let yojson_of_rules =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__action) v_action
@@ -127,9 +127,9 @@ let _ = yojson_of_rules
 type subnetwork = {
   name : string prop;
   secondary_ip_range_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_ip_ranges_to_nat : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_subnetwork =
          []
        in
        let bnds =
-         if [] = v_source_ip_ranges_to_nat then bnds
+         if Stdlib.( = ) [] v_source_ip_ranges_to_nat then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -156,7 +156,7 @@ let yojson_of_subnetwork =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secondary_ip_range_names then bnds
+         if Stdlib.( = ) [] v_secondary_ip_range_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

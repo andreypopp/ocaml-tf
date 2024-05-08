@@ -104,7 +104,7 @@ type s3_job_definition__bucket_criteria__excludes__and__tag_criterion = {
   tag_values :
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion
          []
        in
        let bnds =
-         if [] = v_tag_values then bnds
+         if Stdlib.( = ) [] v_tag_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -152,11 +152,11 @@ type s3_job_definition__bucket_criteria__excludes__and = {
   simple_criterion :
     s3_job_definition__bucket_criteria__excludes__and__simple_criterion
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_criterion :
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,7 +173,7 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes__and =
          []
        in
        let bnds =
-         if [] = v_tag_criterion then bnds
+         if Stdlib.( = ) [] v_tag_criterion then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,7 +184,7 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_simple_criterion then bnds
+         if Stdlib.( = ) [] v_simple_criterion then bnds
          else
            let arg =
              (yojson_of_list
@@ -204,7 +204,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__excludes__and
 
 type s3_job_definition__bucket_criteria__excludes = {
   and_ : s3_job_definition__bucket_criteria__excludes__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,7 +217,7 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes =
          []
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -337,7 +337,7 @@ type s3_job_definition__bucket_criteria__includes__and__tag_criterion = {
   tag_values :
     s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -354,7 +354,7 @@ let yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion
          []
        in
        let bnds =
-         if [] = v_tag_values then bnds
+         if Stdlib.( = ) [] v_tag_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -385,11 +385,11 @@ type s3_job_definition__bucket_criteria__includes__and = {
   simple_criterion :
     s3_job_definition__bucket_criteria__includes__and__simple_criterion
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_criterion :
     s3_job_definition__bucket_criteria__includes__and__tag_criterion
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -406,7 +406,7 @@ let yojson_of_s3_job_definition__bucket_criteria__includes__and =
          []
        in
        let bnds =
-         if [] = v_tag_criterion then bnds
+         if Stdlib.( = ) [] v_tag_criterion then bnds
          else
            let arg =
              (yojson_of_list
@@ -417,7 +417,7 @@ let yojson_of_s3_job_definition__bucket_criteria__includes__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_simple_criterion then bnds
+         if Stdlib.( = ) [] v_simple_criterion then bnds
          else
            let arg =
              (yojson_of_list
@@ -437,7 +437,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__includes__and
 
 type s3_job_definition__bucket_criteria__includes = {
   and_ : s3_job_definition__bucket_criteria__includes__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -450,7 +450,7 @@ let yojson_of_s3_job_definition__bucket_criteria__includes =
          []
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -470,9 +470,9 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__includes
 
 type s3_job_definition__bucket_criteria = {
   excludes : s3_job_definition__bucket_criteria__excludes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   includes : s3_job_definition__bucket_criteria__includes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -485,7 +485,7 @@ let yojson_of_s3_job_definition__bucket_criteria =
          []
        in
        let bnds =
-         if [] = v_includes then bnds
+         if Stdlib.( = ) [] v_includes then bnds
          else
            let arg =
              (yojson_of_list
@@ -496,7 +496,7 @@ let yojson_of_s3_job_definition__bucket_criteria =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_excludes then bnds
+         if Stdlib.( = ) [] v_excludes then bnds
          else
            let arg =
              (yojson_of_list
@@ -517,7 +517,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria
 type s3_job_definition__bucket_definitions = {
   account_id : string prop;
   buckets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -530,7 +530,7 @@ let yojson_of_s3_job_definition__bucket_definitions =
          []
        in
        let bnds =
-         if [] = v_buckets then bnds
+         if Stdlib.( = ) [] v_buckets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -655,7 +655,7 @@ type s3_job_definition__scoping__excludes__and__tag_scope_term = {
   tag_values :
     s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -676,7 +676,7 @@ let yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term
          []
        in
        let bnds =
-         if [] = v_tag_values then bnds
+         if Stdlib.( = ) [] v_tag_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -722,10 +722,10 @@ let _ =
 type s3_job_definition__scoping__excludes__and = {
   simple_scope_term :
     s3_job_definition__scoping__excludes__and__simple_scope_term list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_scope_term :
     s3_job_definition__scoping__excludes__and__tag_scope_term list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -741,7 +741,7 @@ let yojson_of_s3_job_definition__scoping__excludes__and =
          []
        in
        let bnds =
-         if [] = v_tag_scope_term then bnds
+         if Stdlib.( = ) [] v_tag_scope_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -752,7 +752,7 @@ let yojson_of_s3_job_definition__scoping__excludes__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_simple_scope_term then bnds
+         if Stdlib.( = ) [] v_simple_scope_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -772,7 +772,7 @@ let _ = yojson_of_s3_job_definition__scoping__excludes__and
 
 type s3_job_definition__scoping__excludes = {
   and_ : s3_job_definition__scoping__excludes__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -785,7 +785,7 @@ let yojson_of_s3_job_definition__scoping__excludes =
          []
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -907,7 +907,7 @@ type s3_job_definition__scoping__includes__and__tag_scope_term = {
   tag_values :
     s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -928,7 +928,7 @@ let yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term
          []
        in
        let bnds =
-         if [] = v_tag_values then bnds
+         if Stdlib.( = ) [] v_tag_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -974,10 +974,10 @@ let _ =
 type s3_job_definition__scoping__includes__and = {
   simple_scope_term :
     s3_job_definition__scoping__includes__and__simple_scope_term list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_scope_term :
     s3_job_definition__scoping__includes__and__tag_scope_term list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -993,7 +993,7 @@ let yojson_of_s3_job_definition__scoping__includes__and =
          []
        in
        let bnds =
-         if [] = v_tag_scope_term then bnds
+         if Stdlib.( = ) [] v_tag_scope_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -1004,7 +1004,7 @@ let yojson_of_s3_job_definition__scoping__includes__and =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_simple_scope_term then bnds
+         if Stdlib.( = ) [] v_simple_scope_term then bnds
          else
            let arg =
              (yojson_of_list
@@ -1024,7 +1024,7 @@ let _ = yojson_of_s3_job_definition__scoping__includes__and
 
 type s3_job_definition__scoping__includes = {
   and_ : s3_job_definition__scoping__includes__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1037,7 +1037,7 @@ let yojson_of_s3_job_definition__scoping__includes =
          []
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list
@@ -1057,9 +1057,9 @@ let _ = yojson_of_s3_job_definition__scoping__includes
 
 type s3_job_definition__scoping = {
   excludes : s3_job_definition__scoping__excludes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   includes : s3_job_definition__scoping__includes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1072,7 +1072,7 @@ let yojson_of_s3_job_definition__scoping =
          []
        in
        let bnds =
-         if [] = v_includes then bnds
+         if Stdlib.( = ) [] v_includes then bnds
          else
            let arg =
              (yojson_of_list
@@ -1083,7 +1083,7 @@ let yojson_of_s3_job_definition__scoping =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_excludes then bnds
+         if Stdlib.( = ) [] v_excludes then bnds
          else
            let arg =
              (yojson_of_list
@@ -1102,11 +1102,11 @@ let _ = yojson_of_s3_job_definition__scoping
 
 type s3_job_definition = {
   bucket_criteria : s3_job_definition__bucket_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bucket_definitions : s3_job_definition__bucket_definitions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scoping : s3_job_definition__scoping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1123,7 +1123,7 @@ let yojson_of_s3_job_definition =
          []
        in
        let bnds =
-         if [] = v_scoping then bnds
+         if Stdlib.( = ) [] v_scoping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_job_definition__scoping)
@@ -1133,7 +1133,7 @@ let yojson_of_s3_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bucket_definitions then bnds
+         if Stdlib.( = ) [] v_bucket_definitions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1144,7 +1144,7 @@ let yojson_of_s3_job_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bucket_criteria then bnds
+         if Stdlib.( = ) [] v_bucket_criteria then bnds
          else
            let arg =
              (yojson_of_list
@@ -1268,9 +1268,9 @@ type aws_macie2_classification_job = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   s3_job_definition : s3_job_definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule_frequency : schedule_frequency list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1297,7 +1297,7 @@ let yojson_of_aws_macie2_classification_job =
          []
        in
        let bnds =
-         if [] = v_schedule_frequency then bnds
+         if Stdlib.( = ) [] v_schedule_frequency then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule_frequency)
@@ -1307,7 +1307,7 @@ let yojson_of_aws_macie2_classification_job =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_s3_job_definition then bnds
+         if Stdlib.( = ) [] v_s3_job_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_s3_job_definition)

@@ -6,7 +6,7 @@ open! Tf_core
 
 type column_groups__geo_spatial_column_group = {
   columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** columns *)
   country_code : string prop;  (** country_code *)
   name : string prop;  (** name *)
@@ -15,7 +15,7 @@ type column_groups__geo_spatial_column_group = {
 type column_groups = {
   geo_spatial_column_group :
     column_groups__geo_spatial_column_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** geo_spatial_column_group *)
 }
 
@@ -28,7 +28,7 @@ type data_set_usage_configuration = {
 
 type field_folders = {
   columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** columns *)
   description : string prop;  (** description *)
   field_folders_id : string prop;  (** field_folders_id *)
@@ -46,14 +46,14 @@ type logical_table_map__source__join_instruction = {
   left_join_key_properties :
     logical_table_map__source__join_instruction__left_join_key_properties
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** left_join_key_properties *)
   left_operand : string prop;  (** left_operand *)
   on_clause : string prop;  (** on_clause *)
   right_join_key_properties :
     logical_table_map__source__join_instruction__right_join_key_properties
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** right_join_key_properties *)
   right_operand : string prop;  (** right_operand *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -63,7 +63,7 @@ type logical_table_map__source = {
   data_set_arn : string prop;  (** data_set_arn *)
   join_instruction :
     logical_table_map__source__join_instruction list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** join_instruction *)
   physical_table_id : string prop;  (** physical_table_id *)
 }
@@ -71,7 +71,7 @@ type logical_table_map__source = {
 type logical_table_map__data_transforms__untag_column_operation = {
   column_name : string prop;  (** column_name *)
   tag_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag_names *)
 }
 
@@ -83,7 +83,7 @@ type logical_table_map__data_transforms__tag_column_operation__tags = {
   column_description :
     logical_table_map__data_transforms__tag_column_operation__tags__column_description
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** column_description *)
   column_geographic_role : string prop;  (** column_geographic_role *)
 }
@@ -93,7 +93,7 @@ type logical_table_map__data_transforms__tag_column_operation = {
   tags :
     logical_table_map__data_transforms__tag_column_operation__tags
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
 }
 
@@ -104,7 +104,7 @@ type logical_table_map__data_transforms__rename_column_operation = {
 
 type logical_table_map__data_transforms__project_operation = {
   projected_columns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** projected_columns *)
 }
 
@@ -122,7 +122,7 @@ type logical_table_map__data_transforms__create_columns_operation = {
   columns :
     logical_table_map__data_transforms__create_columns_operation__columns
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** columns *)
 }
 
@@ -136,48 +136,48 @@ type logical_table_map__data_transforms = {
   cast_column_type_operation :
     logical_table_map__data_transforms__cast_column_type_operation
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cast_column_type_operation *)
   create_columns_operation :
     logical_table_map__data_transforms__create_columns_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** create_columns_operation *)
   filter_operation :
     logical_table_map__data_transforms__filter_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** filter_operation *)
   project_operation :
     logical_table_map__data_transforms__project_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** project_operation *)
   rename_column_operation :
     logical_table_map__data_transforms__rename_column_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rename_column_operation *)
   tag_column_operation :
     logical_table_map__data_transforms__tag_column_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag_column_operation *)
   untag_column_operation :
     logical_table_map__data_transforms__untag_column_operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** untag_column_operation *)
 }
 
 type logical_table_map = {
   alias : string prop;  (** alias *)
   data_transforms : logical_table_map__data_transforms list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** data_transforms *)
   logical_table_map_id : string prop;  (** logical_table_map_id *)
   source : logical_table_map__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source *)
 }
 
 type permissions = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** actions *)
   principal : string prop;  (** principal *)
 }
@@ -198,11 +198,11 @@ type physical_table_map__s3_source__input_columns = {
 type physical_table_map__s3_source = {
   data_source_arn : string prop;  (** data_source_arn *)
   input_columns : physical_table_map__s3_source__input_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** input_columns *)
   upload_settings :
     physical_table_map__s3_source__upload_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upload_settings *)
 }
 
@@ -216,7 +216,7 @@ type physical_table_map__relational_table = {
   data_source_arn : string prop;  (** data_source_arn *)
   input_columns :
     physical_table_map__relational_table__input_columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** input_columns *)
   name : string prop;  (** name *)
   schema : string prop;  (** schema *)
@@ -229,7 +229,7 @@ type physical_table_map__custom_sql__columns = {
 
 type physical_table_map__custom_sql = {
   columns : physical_table_map__custom_sql__columns list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** columns *)
   data_source_arn : string prop;  (** data_source_arn *)
   name : string prop;  (** name *)
@@ -238,14 +238,14 @@ type physical_table_map__custom_sql = {
 
 type physical_table_map = {
   custom_sql : physical_table_map__custom_sql list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_sql *)
   physical_table_map_id : string prop;  (** physical_table_map_id *)
   relational_table : physical_table_map__relational_table list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** relational_table *)
   s3_source : physical_table_map__s3_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** s3_source *)
 }
 
@@ -268,7 +268,7 @@ type row_level_permission_tag_configuration__tag_rules = {
 type row_level_permission_tag_configuration = {
   status : string prop;  (** status *)
   tag_rules : row_level_permission_tag_configuration__tag_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tag_rules *)
 }
 

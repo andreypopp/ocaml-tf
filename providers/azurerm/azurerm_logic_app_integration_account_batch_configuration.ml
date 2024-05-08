@@ -39,7 +39,7 @@ type release_criteria__recurrence__schedule = {
   month_days : float prop list option; [@option]
   week_days : string prop list option; [@option]
   monthly : release_criteria__recurrence__schedule__monthly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +58,7 @@ let yojson_of_release_criteria__recurrence__schedule =
          []
        in
        let bnds =
-         if [] = v_monthly then bnds
+         if Stdlib.( = ) [] v_monthly then bnds
          else
            let arg =
              (yojson_of_list
@@ -123,7 +123,7 @@ type release_criteria__recurrence = {
   start_time : string prop option; [@option]
   time_zone : string prop option; [@option]
   schedule : release_criteria__recurrence__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,7 +143,7 @@ let yojson_of_release_criteria__recurrence =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +197,7 @@ type release_criteria = {
   batch_size : float prop option; [@option]
   message_count : float prop option; [@option]
   recurrence : release_criteria__recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,7 +214,7 @@ let yojson_of_release_criteria =
          []
        in
        let bnds =
-         if [] = v_recurrence then bnds
+         if Stdlib.( = ) [] v_recurrence then bnds
          else
            let arg =
              (yojson_of_list yojson_of_release_criteria__recurrence)
@@ -314,7 +314,7 @@ type azurerm_logic_app_integration_account_batch_configuration = {
   name : string prop;
   resource_group_name : string prop;
   release_criteria : release_criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -344,7 +344,7 @@ let yojson_of_azurerm_logic_app_integration_account_batch_configuration
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_release_criteria then bnds
+         if Stdlib.( = ) [] v_release_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_release_criteria)

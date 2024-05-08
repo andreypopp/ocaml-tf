@@ -221,7 +221,7 @@ type spec__egress__to__namespace_selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__egress__to__namespace_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,7 +237,7 @@ let yojson_of_spec__egress__to__namespace_selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -325,7 +325,7 @@ type spec__egress__to__pod_selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__egress__to__pod_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -341,7 +341,7 @@ let yojson_of_spec__egress__to__pod_selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -377,11 +377,11 @@ let _ = yojson_of_spec__egress__to__pod_selector
 
 type spec__egress__to = {
   ip_block : spec__egress__to__ip_block list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   namespace_selector : spec__egress__to__namespace_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_selector : spec__egress__to__pod_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -398,7 +398,7 @@ let yojson_of_spec__egress__to =
          []
        in
        let bnds =
-         if [] = v_pod_selector then bnds
+         if Stdlib.( = ) [] v_pod_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress__to__pod_selector)
@@ -408,7 +408,7 @@ let yojson_of_spec__egress__to =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_namespace_selector then bnds
+         if Stdlib.( = ) [] v_namespace_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -419,7 +419,7 @@ let yojson_of_spec__egress__to =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_block then bnds
+         if Stdlib.( = ) [] v_ip_block then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress__to__ip_block)
@@ -437,9 +437,9 @@ let _ = yojson_of_spec__egress__to
 
 type spec__egress = {
   ports : spec__egress__ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   to_ : spec__egress__to list;
-      [@key "to"] [@default []] [@yojson_drop_default ( = )]
+      [@key "to"] [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -452,7 +452,7 @@ let yojson_of_spec__egress =
          []
        in
        let bnds =
-         if [] = v_to_ then bnds
+         if Stdlib.( = ) [] v_to_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress__to) v_to_
@@ -461,7 +461,7 @@ let yojson_of_spec__egress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress__ports) v_ports
@@ -573,7 +573,7 @@ type spec__ingress__from__namespace_selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__ingress__from__namespace_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -589,7 +589,7 @@ let yojson_of_spec__ingress__from__namespace_selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -678,7 +678,7 @@ type spec__ingress__from__pod_selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     spec__ingress__from__pod_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -694,7 +694,7 @@ let yojson_of_spec__ingress__from__pod_selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -730,11 +730,11 @@ let _ = yojson_of_spec__ingress__from__pod_selector
 
 type spec__ingress__from = {
   ip_block : spec__ingress__from__ip_block list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   namespace_selector : spec__ingress__from__namespace_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_selector : spec__ingress__from__pod_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -751,7 +751,7 @@ let yojson_of_spec__ingress__from =
          []
        in
        let bnds =
-         if [] = v_pod_selector then bnds
+         if Stdlib.( = ) [] v_pod_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -762,7 +762,7 @@ let yojson_of_spec__ingress__from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_namespace_selector then bnds
+         if Stdlib.( = ) [] v_namespace_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -773,7 +773,7 @@ let yojson_of_spec__ingress__from =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_block then bnds
+         if Stdlib.( = ) [] v_ip_block then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__ingress__from__ip_block)
@@ -828,9 +828,9 @@ let _ = yojson_of_spec__ingress__ports
 
 type spec__ingress = {
   from : spec__ingress__from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ports : spec__ingress__ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -843,7 +843,7 @@ let yojson_of_spec__ingress =
          []
        in
        let bnds =
-         if [] = v_ports then bnds
+         if Stdlib.( = ) [] v_ports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__ingress__ports) v_ports
@@ -852,7 +852,7 @@ let yojson_of_spec__ingress =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_from then bnds
+         if Stdlib.( = ) [] v_from then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__ingress__from) v_from
@@ -919,7 +919,7 @@ let _ = yojson_of_spec__pod_selector__match_expressions
 type spec__pod_selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions : spec__pod_selector__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -935,7 +935,7 @@ let yojson_of_spec__pod_selector =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -970,13 +970,13 @@ let _ = yojson_of_spec__pod_selector
 
 type spec = {
   policy_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   egress : spec__egress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress : spec__ingress list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pod_selector : spec__pod_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -994,7 +994,7 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         if [] = v_pod_selector then bnds
+         if Stdlib.( = ) [] v_pod_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__pod_selector)
@@ -1004,7 +1004,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress then bnds
+         if Stdlib.( = ) [] v_ingress then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__ingress) v_ingress
@@ -1013,7 +1013,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress then bnds
+         if Stdlib.( = ) [] v_egress then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spec__egress) v_egress
@@ -1022,7 +1022,7 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_policy_types then bnds
+         if Stdlib.( = ) [] v_policy_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1041,8 +1041,8 @@ let _ = yojson_of_spec
 type kubernetes_network_policy = {
   id : string prop option; [@option]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1055,14 +1055,14 @@ let yojson_of_kubernetes_network_policy =
          []
        in
        let bnds =
-         if [] = v_spec then bnds
+         if Stdlib.( = ) [] v_spec then bnds
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata

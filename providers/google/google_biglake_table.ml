@@ -57,7 +57,7 @@ type hive_options = {
   parameters : (string * string prop) list option; [@option]
   table_type : string prop option; [@option]
   storage_descriptor : hive_options__storage_descriptor list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_hive_options =
          []
        in
        let bnds =
-         if [] = v_storage_descriptor then bnds
+         if Stdlib.( = ) [] v_storage_descriptor then bnds
          else
            let arg =
              (yojson_of_list
@@ -167,7 +167,7 @@ type google_biglake_table = {
   name : string prop;
   type_ : string prop option; [@option] [@key "type"]
   hive_options : hive_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -192,7 +192,7 @@ let yojson_of_google_biglake_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_hive_options then bnds
+         if Stdlib.( = ) [] v_hive_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hive_options) v_hive_options

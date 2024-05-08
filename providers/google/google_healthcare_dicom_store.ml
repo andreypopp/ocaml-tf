@@ -76,7 +76,7 @@ type google_healthcare_dicom_store = {
   labels : (string * string prop) list option; [@option]
   name : string prop;
   notification_config : notification_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -101,7 +101,7 @@ let yojson_of_google_healthcare_dicom_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_notification_config then bnds
+         if Stdlib.( = ) [] v_notification_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_config)

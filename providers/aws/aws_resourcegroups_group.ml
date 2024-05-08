@@ -5,7 +5,7 @@ open! Tf_core
 type configuration__parameters = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_configuration__parameters =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -41,7 +41,7 @@ let _ = yojson_of_configuration__parameters
 type configuration = {
   type_ : string prop; [@key "type"]
   parameters : configuration__parameters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_parameters then bnds
+         if Stdlib.( = ) [] v_parameters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration__parameters)
@@ -151,9 +151,9 @@ type aws_resourcegroups_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_query : resource_query list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,7 +180,7 @@ let yojson_of_aws_resourcegroups_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resource_query then bnds
+         if Stdlib.( = ) [] v_resource_query then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resource_query)
@@ -190,7 +190,7 @@ let yojson_of_aws_resourcegroups_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

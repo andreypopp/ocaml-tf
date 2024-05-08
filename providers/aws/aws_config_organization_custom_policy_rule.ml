@@ -63,7 +63,7 @@ type aws_config_organization_custom_policy_rule = {
   tag_key_scope : string prop option; [@option]
   tag_value_scope : string prop option; [@option]
   trigger_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -97,7 +97,7 @@ let yojson_of_aws_config_organization_custom_policy_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_trigger_types then bnds
+         if Stdlib.( = ) [] v_trigger_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -11,16 +11,16 @@ type broker_instance_options__availability_zones = {
 type broker_instance_options = {
   availability_zones :
     broker_instance_options__availability_zones list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** availability_zones *)
   engine_type : string prop;  (** engine_type *)
   host_instance_type : string prop;  (** host_instance_type *)
   storage_type : string prop;  (** storage_type *)
   supported_deployment_modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** supported_deployment_modes *)
   supported_engine_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** supported_engine_versions *)
 }
 

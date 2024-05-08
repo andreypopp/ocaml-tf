@@ -25,12 +25,13 @@ type droplets = {
   region : string prop;  (** region *)
   size : string prop;  (** size *)
   status : string prop;  (** status *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   urn : string prop;  (** urn *)
   vcpus : float prop;  (** vcpus *)
   volume_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** volume_ids *)
   vpc_uuid : string prop;  (** vpc_uuid *)
 }

@@ -78,7 +78,7 @@ type auto_scaling_group_provider = {
   managed_draining : string prop option; [@option]
   managed_termination_protection : string prop option; [@option]
   managed_scaling : auto_scaling_group_provider__managed_scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,7 +97,7 @@ let yojson_of_auto_scaling_group_provider =
          []
        in
        let bnds =
-         if [] = v_managed_scaling then bnds
+         if Stdlib.( = ) [] v_managed_scaling then bnds
          else
            let arg =
              (yojson_of_list
@@ -143,7 +143,7 @@ type aws_ecs_capacity_provider = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   auto_scaling_group_provider : auto_scaling_group_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,7 +162,7 @@ let yojson_of_aws_ecs_capacity_provider =
          []
        in
        let bnds =
-         if [] = v_auto_scaling_group_provider then bnds
+         if Stdlib.( = ) [] v_auto_scaling_group_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_scaling_group_provider)

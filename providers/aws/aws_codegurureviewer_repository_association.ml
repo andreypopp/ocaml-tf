@@ -176,14 +176,14 @@ let _ = yojson_of_repository__s3_bucket
 
 type repository = {
   bitbucket : repository__bitbucket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   codecommit : repository__codecommit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github_enterprise_server :
     repository__github_enterprise_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_bucket : repository__s3_bucket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_repository =
          []
        in
        let bnds =
-         if [] = v_s3_bucket then bnds
+         if Stdlib.( = ) [] v_s3_bucket then bnds
          else
            let arg =
              (yojson_of_list yojson_of_repository__s3_bucket)
@@ -211,7 +211,7 @@ let yojson_of_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github_enterprise_server then bnds
+         if Stdlib.( = ) [] v_github_enterprise_server then bnds
          else
            let arg =
              (yojson_of_list
@@ -222,7 +222,7 @@ let yojson_of_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_codecommit then bnds
+         if Stdlib.( = ) [] v_codecommit then bnds
          else
            let arg =
              (yojson_of_list yojson_of_repository__codecommit)
@@ -232,7 +232,7 @@ let yojson_of_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bitbucket then bnds
+         if Stdlib.( = ) [] v_bitbucket then bnds
          else
            let arg =
              (yojson_of_list yojson_of_repository__bitbucket)
@@ -337,7 +337,7 @@ let _ = yojson_of_s3_repository_details__code_artifacts
 type s3_repository_details = {
   bucket_name : string prop;
   code_artifacts : s3_repository_details__code_artifacts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -353,7 +353,7 @@ let yojson_of_s3_repository_details =
          []
        in
        let bnds =
-         if [] = v_code_artifacts then bnds
+         if Stdlib.( = ) [] v_code_artifacts then bnds
          else
            let arg =
              (yojson_of_list
@@ -379,9 +379,9 @@ type aws_codegurureviewer_repository_association = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   kms_key_details : kms_key_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   repository : repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -406,7 +406,7 @@ let yojson_of_aws_codegurureviewer_repository_association =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_repository then bnds
+         if Stdlib.( = ) [] v_repository then bnds
          else
            let arg =
              (yojson_of_list yojson_of_repository) v_repository
@@ -415,7 +415,7 @@ let yojson_of_aws_codegurureviewer_repository_association =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kms_key_details then bnds
+         if Stdlib.( = ) [] v_kms_key_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kms_key_details)

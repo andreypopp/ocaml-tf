@@ -73,7 +73,7 @@ let _ = yojson_of_basic_algorithm__yarn_config
 type basic_algorithm = {
   cooldown_period : string prop option; [@option]
   yarn_config : basic_algorithm__yarn_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_basic_algorithm =
          []
        in
        let bnds =
-         if [] = v_yarn_config then bnds
+         if Stdlib.( = ) [] v_yarn_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_basic_algorithm__yarn_config)
@@ -261,12 +261,12 @@ type google_dataproc_autoscaling_policy = {
   policy_id : string prop;
   project : string prop option; [@option]
   basic_algorithm : basic_algorithm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secondary_worker_config : secondary_worker_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   worker_config : worker_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -288,7 +288,7 @@ let yojson_of_google_dataproc_autoscaling_policy =
          []
        in
        let bnds =
-         if [] = v_worker_config then bnds
+         if Stdlib.( = ) [] v_worker_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_worker_config) v_worker_config
@@ -301,7 +301,7 @@ let yojson_of_google_dataproc_autoscaling_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_secondary_worker_config then bnds
+         if Stdlib.( = ) [] v_secondary_worker_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secondary_worker_config)
@@ -311,7 +311,7 @@ let yojson_of_google_dataproc_autoscaling_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_basic_algorithm then bnds
+         if Stdlib.( = ) [] v_basic_algorithm then bnds
          else
            let arg =
              (yojson_of_list yojson_of_basic_algorithm)

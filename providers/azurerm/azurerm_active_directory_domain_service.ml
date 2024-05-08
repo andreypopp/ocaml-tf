@@ -290,13 +290,13 @@ type azurerm_active_directory_domain_service = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   initial_replica_set : initial_replica_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notifications : notifications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secure_ldap : secure_ldap list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security : security list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -329,7 +329,7 @@ let yojson_of_azurerm_active_directory_domain_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_security then bnds
+         if Stdlib.( = ) [] v_security then bnds
          else
            let arg =
              (yojson_of_list yojson_of_security) v_security
@@ -338,7 +338,7 @@ let yojson_of_azurerm_active_directory_domain_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secure_ldap then bnds
+         if Stdlib.( = ) [] v_secure_ldap then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secure_ldap) v_secure_ldap
@@ -347,7 +347,7 @@ let yojson_of_azurerm_active_directory_domain_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notifications then bnds
+         if Stdlib.( = ) [] v_notifications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notifications) v_notifications
@@ -356,7 +356,7 @@ let yojson_of_azurerm_active_directory_domain_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_initial_replica_set then bnds
+         if Stdlib.( = ) [] v_initial_replica_set then bnds
          else
            let arg =
              (yojson_of_list yojson_of_initial_replica_set)

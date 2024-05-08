@@ -170,11 +170,11 @@ type google_healthcare_hl7_v2_store = {
   name : string prop;
   reject_duplicate_message : bool prop option; [@option]
   notification_config : notification_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_configs : notification_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   parser_config : parser_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -202,7 +202,7 @@ let yojson_of_google_healthcare_hl7_v2_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_parser_config then bnds
+         if Stdlib.( = ) [] v_parser_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_parser_config) v_parser_config
@@ -211,7 +211,7 @@ let yojson_of_google_healthcare_hl7_v2_store =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_configs then bnds
+         if Stdlib.( = ) [] v_notification_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_configs)
@@ -221,7 +221,7 @@ let yojson_of_google_healthcare_hl7_v2_store =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification_config then bnds
+         if Stdlib.( = ) [] v_notification_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification_config)

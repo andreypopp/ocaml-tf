@@ -17,17 +17,17 @@ type stage__target__channel_target_info = {
 
 type stage__target = {
   channel_target_info : stage__target__channel_target_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** channel_target_info *)
   contact_target_info : stage__target__contact_target_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** contact_target_info *)
 }
 
 type stage = {
   duration_in_minutes : float prop;  (** duration_in_minutes *)
   target : stage__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target *)
 }
 

@@ -43,7 +43,7 @@ let _ = yojson_of_auto_adjust_data__historical_options
 type auto_adjust_data = {
   auto_adjust_type : string prop;
   historical_options : auto_adjust_data__historical_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   last_auto_adjust_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -67,7 +67,7 @@ let yojson_of_auto_adjust_data =
          ("last_auto_adjust_time", arg) :: bnds
        in
        let bnds =
-         if [] = v_historical_options then bnds
+         if Stdlib.( = ) [] v_historical_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +148,7 @@ let _ = yojson_of_calculated_spend__actual_spend
 
 type calculated_spend = {
   actual_spend : calculated_spend__actual_spend list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_calculated_spend =
          []
        in
        let bnds =
-         if [] = v_actual_spend then bnds
+         if Stdlib.( = ) [] v_actual_spend then bnds
          else
            let arg =
              (yojson_of_list yojson_of_calculated_spend__actual_spend)
@@ -180,7 +180,7 @@ let _ = yojson_of_calculated_spend
 type cost_filter = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -193,7 +193,7 @@ let yojson_of_cost_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -311,9 +311,9 @@ type notification = {
   comparison_operator : string prop;
   notification_type : string prop;
   subscriber_email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subscriber_sns_topic_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threshold : float prop;
   threshold_type : string prop;
 }
@@ -345,7 +345,7 @@ let yojson_of_notification =
          ("threshold", arg) :: bnds
        in
        let bnds =
-         if [] = v_subscriber_sns_topic_arns then bnds
+         if Stdlib.( = ) [] v_subscriber_sns_topic_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -355,7 +355,7 @@ let yojson_of_notification =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_subscriber_email_addresses then bnds
+         if Stdlib.( = ) [] v_subscriber_email_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

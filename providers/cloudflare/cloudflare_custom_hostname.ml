@@ -100,7 +100,7 @@ type ssl__validation_records = {
   cname_name : string prop;
   cname_target : string prop;
   emails : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_body : string prop;
   http_url : string prop;
   txt_name : string prop;
@@ -141,7 +141,7 @@ let yojson_of_ssl__validation_records =
          ("http_body", arg) :: bnds
        in
        let bnds =
-         if [] = v_emails then bnds
+         if Stdlib.( = ) [] v_emails then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -174,7 +174,7 @@ type ssl = {
   type_ : string prop option; [@option] [@key "type"]
   wildcard : bool prop option; [@option]
   settings : ssl__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,7 +196,7 @@ let yojson_of_ssl =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ssl__settings) v_settings
@@ -275,7 +275,7 @@ type cloudflare_custom_hostname = {
   id : string prop option; [@option]
   wait_for_ssl_pending_validation : bool prop option; [@option]
   zone_id : string prop;
-  ssl : ssl list; [@default []] [@yojson_drop_default ( = )]
+  ssl : ssl list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,7 +298,7 @@ let yojson_of_cloudflare_custom_hostname =
          []
        in
        let bnds =
-         if [] = v_ssl then bnds
+         if Stdlib.( = ) [] v_ssl then bnds
          else
            let arg = (yojson_of_list yojson_of_ssl) v_ssl in
            let bnd = "ssl", arg in

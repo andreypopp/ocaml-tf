@@ -84,11 +84,11 @@ type resources__dns_target_resource__target_resource = {
   nlb_resource :
     resources__dns_target_resource__target_resource__nlb_resource
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   r53_resource :
     resources__dns_target_resource__target_resource__r53_resource
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,7 +103,7 @@ let yojson_of_resources__dns_target_resource__target_resource =
          []
        in
        let bnds =
-         if [] = v_r53_resource then bnds
+         if Stdlib.( = ) [] v_r53_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -114,7 +114,7 @@ let yojson_of_resources__dns_target_resource__target_resource =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nlb_resource then bnds
+         if Stdlib.( = ) [] v_nlb_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -139,7 +139,7 @@ type resources__dns_target_resource = {
   record_type : string prop option; [@option]
   target_resource :
     resources__dns_target_resource__target_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,7 +158,7 @@ let yojson_of_resources__dns_target_resource =
          []
        in
        let bnds =
-         if [] = v_target_resource then bnds
+         if Stdlib.( = ) [] v_target_resource then bnds
          else
            let arg =
              (yojson_of_list
@@ -208,7 +208,7 @@ type resources = {
   readiness_scopes : string prop list option; [@option]
   resource_arn : string prop option; [@option]
   dns_target_resource : resources__dns_target_resource list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -225,7 +225,7 @@ let yojson_of_resources =
          []
        in
        let bnds =
-         if [] = v_dns_target_resource then bnds
+         if Stdlib.( = ) [] v_dns_target_resource then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resources__dns_target_resource)
@@ -292,7 +292,7 @@ type aws_route53recoveryreadiness_resource_set = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   resources : resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -318,7 +318,7 @@ let yojson_of_aws_route53recoveryreadiness_resource_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_resources then bnds
+         if Stdlib.( = ) [] v_resources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resources) v_resources

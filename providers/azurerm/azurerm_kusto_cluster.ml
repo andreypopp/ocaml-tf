@@ -231,13 +231,13 @@ type azurerm_kusto_cluster = {
   trusted_external_tenants : string prop list option; [@option]
   zones : string prop list option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   optimized_auto_scale : optimized_auto_scale list;
-      [@default []] [@yojson_drop_default ( = )]
-  sku : sku list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sku : sku list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_network_configuration : virtual_network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,7 +278,7 @@ let yojson_of_azurerm_kusto_cluster =
          []
        in
        let bnds =
-         if [] = v_virtual_network_configuration then bnds
+         if Stdlib.( = ) [] v_virtual_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_network_configuration)
@@ -292,14 +292,14 @@ let yojson_of_azurerm_kusto_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sku then bnds
+         if Stdlib.( = ) [] v_sku then bnds
          else
            let arg = (yojson_of_list yojson_of_sku) v_sku in
            let bnd = "sku", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_optimized_auto_scale then bnds
+         if Stdlib.( = ) [] v_optimized_auto_scale then bnds
          else
            let arg =
              (yojson_of_list yojson_of_optimized_auto_scale)
@@ -309,7 +309,7 @@ let yojson_of_azurerm_kusto_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

@@ -43,7 +43,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__cookies_config = {
   cookies :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config
          []
        in
        let bnds =
-         if [] = v_cookies then bnds
+         if Stdlib.( = ) [] v_cookies then bnds
          else
            let arg =
              (yojson_of_list
@@ -126,7 +126,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__headers_config = {
   headers :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,7 +143,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config
          []
        in
        let bnds =
-         if [] = v_headers then bnds
+         if Stdlib.( = ) [] v_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -211,7 +211,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config = {
   query_strings :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,7 +231,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_con
          []
        in
        let bnds =
-         if [] = v_query_strings then bnds
+         if Stdlib.( = ) [] v_query_strings then bnds
          else
            let arg =
              (yojson_of_list
@@ -262,15 +262,15 @@ type parameters_in_cache_key_and_forwarded_to_origin = {
   cookies_config :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   headers_config :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_strings_config :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -291,7 +291,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
          []
        in
        let bnds =
-         if [] = v_query_strings_config then bnds
+         if Stdlib.( = ) [] v_query_strings_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -302,7 +302,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_headers_config then bnds
+         if Stdlib.( = ) [] v_headers_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -313,7 +313,7 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cookies_config then bnds
+         if Stdlib.( = ) [] v_cookies_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -356,7 +356,7 @@ type aws_cloudfront_cache_policy = {
   name : string prop;
   parameters_in_cache_key_and_forwarded_to_origin :
     parameters_in_cache_key_and_forwarded_to_origin list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,9 @@ let yojson_of_aws_cloudfront_cache_policy =
          []
        in
        let bnds =
-         if [] = v_parameters_in_cache_key_and_forwarded_to_origin
+         if
+           Stdlib.( = ) []
+             v_parameters_in_cache_key_and_forwarded_to_origin
          then bnds
          else
            let arg =

@@ -27,7 +27,7 @@ let _ = yojson_of_principal_info__service_account
 
 type principal_info = {
   service_account : principal_info__service_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_principal_info =
          []
        in
        let bnds =
-         if [] = v_service_account then bnds
+         if Stdlib.( = ) [] v_service_account then bnds
          else
            let arg =
              (yojson_of_list

@@ -35,7 +35,7 @@ type cloudflare_web_analytics_rule = {
   inclusive : bool prop;
   is_paused : bool prop;
   paths : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ruleset_id : string prop;
   timeouts : timeouts option;
 }
@@ -67,7 +67,7 @@ let yojson_of_cloudflare_web_analytics_rule =
          ("ruleset_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_paths then bnds
+         if Stdlib.( = ) [] v_paths then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

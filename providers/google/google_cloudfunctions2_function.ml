@@ -146,9 +146,9 @@ let _ = yojson_of_build_config__source__storage_source
 
 type build_config__source = {
   repo_source : build_config__source__repo_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_source : build_config__source__storage_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_build_config__source =
          []
        in
        let bnds =
-         if [] = v_storage_source then bnds
+         if Stdlib.( = ) [] v_storage_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -175,7 +175,7 @@ let yojson_of_build_config__source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_repo_source then bnds
+         if Stdlib.( = ) [] v_repo_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -200,7 +200,7 @@ type build_config = {
   runtime : string prop option; [@option]
   worker_pool : string prop option; [@option]
   source : build_config__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,7 +220,7 @@ let yojson_of_build_config =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_build_config__source) v_source
@@ -333,7 +333,7 @@ type event_trigger = {
   service_account_email : string prop option; [@option]
   trigger_region : string prop option; [@option]
   event_filters : event_trigger__event_filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -353,7 +353,7 @@ let yojson_of_event_trigger =
          []
        in
        let bnds =
-         if [] = v_event_filters then bnds
+         if Stdlib.( = ) [] v_event_filters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_trigger__event_filters)
@@ -489,7 +489,7 @@ type service_config__secret_volumes = {
   project_id : string prop;
   secret : string prop;
   versions : service_config__secret_volumes__versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -507,7 +507,7 @@ let yojson_of_service_config__secret_volumes =
          []
        in
        let bnds =
-         if [] = v_versions then bnds
+         if Stdlib.( = ) [] v_versions then bnds
          else
            let arg =
              (yojson_of_list
@@ -554,9 +554,9 @@ type service_config = {
   vpc_connector_egress_settings : string prop option; [@option]
   secret_environment_variables :
     service_config__secret_environment_variables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_volumes : service_config__secret_volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -588,7 +588,7 @@ let yojson_of_service_config =
          []
        in
        let bnds =
-         if [] = v_secret_volumes then bnds
+         if Stdlib.( = ) [] v_secret_volumes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_config__secret_volumes)
@@ -598,7 +598,7 @@ let yojson_of_service_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret_environment_variables then bnds
+         if Stdlib.( = ) [] v_secret_environment_variables then bnds
          else
            let arg =
              (yojson_of_list
@@ -782,11 +782,11 @@ type google_cloudfunctions2_function = {
   name : string prop;
   project : string prop option; [@option]
   build_config : build_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_trigger : event_trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_config : service_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -816,7 +816,7 @@ let yojson_of_google_cloudfunctions2_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_config then bnds
+         if Stdlib.( = ) [] v_service_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_config)
@@ -826,7 +826,7 @@ let yojson_of_google_cloudfunctions2_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_trigger then bnds
+         if Stdlib.( = ) [] v_event_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_trigger) v_event_trigger
@@ -835,7 +835,7 @@ let yojson_of_google_cloudfunctions2_function =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_build_config then bnds
+         if Stdlib.( = ) [] v_build_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_build_config) v_build_config

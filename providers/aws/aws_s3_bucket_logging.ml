@@ -61,7 +61,7 @@ let _ = yojson_of_target_grant__grantee
 type target_grant = {
   permission : string prop;
   grantee : target_grant__grantee list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_target_grant =
          []
        in
        let bnds =
-         if [] = v_grantee then bnds
+         if Stdlib.( = ) [] v_grantee then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_grant__grantee)
@@ -138,9 +138,9 @@ let _ = yojson_of_target_object_key_format__simple_prefix
 type target_object_key_format = {
   partitioned_prefix :
     target_object_key_format__partitioned_prefix list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   simple_prefix : target_object_key_format__simple_prefix list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -156,7 +156,7 @@ let yojson_of_target_object_key_format =
          []
        in
        let bnds =
-         if [] = v_simple_prefix then bnds
+         if Stdlib.( = ) [] v_simple_prefix then bnds
          else
            let arg =
              (yojson_of_list
@@ -167,7 +167,7 @@ let yojson_of_target_object_key_format =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_partitioned_prefix then bnds
+         if Stdlib.( = ) [] v_partitioned_prefix then bnds
          else
            let arg =
              (yojson_of_list
@@ -191,9 +191,9 @@ type aws_s3_bucket_logging = {
   target_bucket : string prop;
   target_prefix : string prop;
   target_grant : target_grant list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_object_key_format : target_object_key_format list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,7 +214,7 @@ let yojson_of_aws_s3_bucket_logging =
          []
        in
        let bnds =
-         if [] = v_target_object_key_format then bnds
+         if Stdlib.( = ) [] v_target_object_key_format then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_object_key_format)
@@ -224,7 +224,7 @@ let yojson_of_aws_s3_bucket_logging =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_target_grant then bnds
+         if Stdlib.( = ) [] v_target_grant then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_grant) v_target_grant

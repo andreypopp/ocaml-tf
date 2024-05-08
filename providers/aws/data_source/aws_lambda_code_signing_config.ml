@@ -4,7 +4,7 @@ open! Tf_core
 
 type allowed_publishers = {
   signing_profile_version_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_allowed_publishers =
          []
        in
        let bnds =
-         if [] = v_signing_profile_version_arns then bnds
+         if Stdlib.( = ) [] v_signing_profile_version_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

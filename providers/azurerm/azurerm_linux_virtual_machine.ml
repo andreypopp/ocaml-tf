@@ -246,7 +246,7 @@ type os_disk = {
   storage_account_type : string prop;
   write_accelerator_enabled : bool prop option; [@option]
   diff_disk_settings : os_disk__diff_disk_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -270,7 +270,7 @@ let yojson_of_os_disk =
          []
        in
        let bnds =
-         if [] = v_diff_disk_settings then bnds
+         if Stdlib.( = ) [] v_diff_disk_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_disk__diff_disk_settings)
@@ -432,7 +432,7 @@ let _ = yojson_of_secret__certificate
 type secret = {
   key_vault_id : string prop;
   certificate : secret__certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -446,7 +446,7 @@ let yojson_of_secret =
          []
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_secret__certificate)
@@ -628,7 +628,7 @@ type azurerm_linux_virtual_machine = {
   max_bid_price : float prop option; [@option]
   name : string prop;
   network_interface_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   patch_assessment_mode : string prop option; [@option]
   patch_mode : string prop option; [@option]
   platform_fault_domain : float prop option; [@option]
@@ -647,24 +647,26 @@ type azurerm_linux_virtual_machine = {
   vtpm_enabled : bool prop option; [@option]
   zone : string prop option; [@option]
   additional_capabilities : additional_capabilities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   admin_ssh_key : admin_ssh_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   boot_diagnostics : boot_diagnostics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gallery_application : gallery_application list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  os_disk : os_disk list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  os_disk : os_disk list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   os_image_notification : os_image_notification list;
-      [@default []] [@yojson_drop_default ( = )]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
-  secret : secret list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  secret : secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_image_reference : source_image_reference list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   termination_notification : termination_notification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -738,7 +740,7 @@ let yojson_of_azurerm_linux_virtual_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_termination_notification then bnds
+         if Stdlib.( = ) [] v_termination_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_termination_notification)
@@ -748,7 +750,7 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_image_reference then bnds
+         if Stdlib.( = ) [] v_source_image_reference then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_image_reference)
@@ -758,21 +760,21 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_secret then bnds
+         if Stdlib.( = ) [] v_secret then bnds
          else
            let arg = (yojson_of_list yojson_of_secret) v_secret in
            let bnd = "secret", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_image_notification then bnds
+         if Stdlib.( = ) [] v_os_image_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_os_image_notification)
@@ -782,14 +784,14 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_os_disk then bnds
+         if Stdlib.( = ) [] v_os_disk then bnds
          else
            let arg = (yojson_of_list yojson_of_os_disk) v_os_disk in
            let bnd = "os_disk", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -798,7 +800,7 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gallery_application then bnds
+         if Stdlib.( = ) [] v_gallery_application then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gallery_application)
@@ -808,7 +810,7 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_boot_diagnostics then bnds
+         if Stdlib.( = ) [] v_boot_diagnostics then bnds
          else
            let arg =
              (yojson_of_list yojson_of_boot_diagnostics)
@@ -818,7 +820,7 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_ssh_key then bnds
+         if Stdlib.( = ) [] v_admin_ssh_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_admin_ssh_key) v_admin_ssh_key
@@ -827,7 +829,7 @@ let yojson_of_azurerm_linux_virtual_machine =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_capabilities then bnds
+         if Stdlib.( = ) [] v_additional_capabilities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_additional_capabilities)
@@ -975,7 +977,7 @@ let yojson_of_azurerm_linux_virtual_machine =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_network_interface_ids then bnds
+         if Stdlib.( = ) [] v_network_interface_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

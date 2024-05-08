@@ -75,7 +75,8 @@ let _ = yojson_of_timeouts
 type aws_vpclattice_target_group_attachment = {
   id : string prop option; [@option]
   target_group_identifier : string prop;
-  target : target list; [@default []] [@yojson_drop_default ( = )]
+  target : target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -98,7 +99,7 @@ let yojson_of_aws_vpclattice_target_group_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg = (yojson_of_list yojson_of_target) v_target in
            let bnd = "target", arg in

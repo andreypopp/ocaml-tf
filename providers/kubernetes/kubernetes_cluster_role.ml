@@ -60,7 +60,7 @@ type aggregation_rule__cluster_role_selectors = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions :
     aggregation_rule__cluster_role_selectors__match_expressions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,7 +76,7 @@ let yojson_of_aggregation_rule__cluster_role_selectors =
          []
        in
        let bnds =
-         if [] = v_match_expressions then bnds
+         if Stdlib.( = ) [] v_match_expressions then bnds
          else
            let arg =
              (yojson_of_list
@@ -113,7 +113,7 @@ let _ = yojson_of_aggregation_rule__cluster_role_selectors
 type aggregation_rule = {
   cluster_role_selectors :
     aggregation_rule__cluster_role_selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,7 +126,7 @@ let yojson_of_aggregation_rule =
          []
        in
        let bnds =
-         if [] = v_cluster_role_selectors then bnds
+         if Stdlib.( = ) [] v_cluster_role_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -224,7 +224,8 @@ type rule = {
   non_resource_urls : string prop list option; [@option]
   resource_names : string prop list option; [@option]
   resources : string prop list option; [@option]
-  verbs : string prop list; [@default []] [@yojson_drop_default ( = )]
+  verbs : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,7 +244,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_verbs then bnds
+         if Stdlib.( = ) [] v_verbs then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -302,10 +303,10 @@ let _ = yojson_of_rule
 type kubernetes_cluster_role = {
   id : string prop option; [@option]
   aggregation_rule : aggregation_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metadata : metadata list;
-      [@default []] [@yojson_drop_default ( = )]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,14 +324,14 @@ let yojson_of_kubernetes_cluster_role =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metadata then bnds
+         if Stdlib.( = ) [] v_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metadata) v_metadata
@@ -339,7 +340,7 @@ let yojson_of_kubernetes_cluster_role =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aggregation_rule then bnds
+         if Stdlib.( = ) [] v_aggregation_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_aggregation_rule)

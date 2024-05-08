@@ -83,7 +83,7 @@ type aws_kendra_query_suggestions_block_list = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   source_s3_path : source_s3_path list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -111,7 +111,7 @@ let yojson_of_aws_kendra_query_suggestions_block_list =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_s3_path then bnds
+         if Stdlib.( = ) [] v_source_s3_path then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_s3_path)

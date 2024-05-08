@@ -43,7 +43,7 @@ let _ = yojson_of_alternative_name_server_config__target_name_servers
 type alternative_name_server_config = {
   target_name_servers :
     alternative_name_server_config__target_name_servers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_alternative_name_server_config =
          []
        in
        let bnds =
-         if [] = v_target_name_servers then bnds
+         if Stdlib.( = ) [] v_target_name_servers then bnds
          else
            let arg =
              (yojson_of_list
@@ -151,9 +151,9 @@ type google_dns_policy = {
   project : string prop option; [@option]
   alternative_name_server_config :
     alternative_name_server_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   networks : networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -182,7 +182,7 @@ let yojson_of_google_dns_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_networks then bnds
+         if Stdlib.( = ) [] v_networks then bnds
          else
            let arg =
              (yojson_of_list yojson_of_networks) v_networks
@@ -191,7 +191,8 @@ let yojson_of_google_dns_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alternative_name_server_config then bnds
+         if Stdlib.( = ) [] v_alternative_name_server_config then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_alternative_name_server_config)

@@ -77,7 +77,7 @@ type aws_vpc_ipam = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   operating_regions : operating_regions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -103,7 +103,7 @@ let yojson_of_aws_vpc_ipam =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_operating_regions then bnds
+         if Stdlib.( = ) [] v_operating_regions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_operating_regions)

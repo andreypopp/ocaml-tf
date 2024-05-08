@@ -66,7 +66,8 @@ type aws_directory_service_shared_directory = {
   id : string prop option; [@option]
   method_ : string prop option; [@option] [@key "method"]
   notes : string prop option; [@option]
-  target : target list; [@default []] [@yojson_drop_default ( = )]
+  target : target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -91,7 +92,7 @@ let yojson_of_aws_directory_service_shared_directory =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg = (yojson_of_list yojson_of_target) v_target in
            let bnd = "target", arg in

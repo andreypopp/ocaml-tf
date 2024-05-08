@@ -274,11 +274,11 @@ let _ = yojson_of_radius__server_root_certificate
 
 type radius = {
   client_root_certificate : radius__client_root_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server : radius__server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_root_certificate : radius__server_root_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -295,7 +295,7 @@ let yojson_of_radius =
          []
        in
        let bnds =
-         if [] = v_server_root_certificate then bnds
+         if Stdlib.( = ) [] v_server_root_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -306,7 +306,7 @@ let yojson_of_radius =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_server then bnds
+         if Stdlib.( = ) [] v_server then bnds
          else
            let arg =
              (yojson_of_list yojson_of_radius__server) v_server
@@ -315,7 +315,7 @@ let yojson_of_radius =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_root_certificate then bnds
+         if Stdlib.( = ) [] v_client_root_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -399,18 +399,19 @@ type azurerm_vpn_server_configuration = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   vpn_authentication_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpn_protocols : string prop list option; [@option]
   azure_active_directory_authentication :
     azure_active_directory_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_revoked_certificate : client_revoked_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_root_certificate : client_root_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ipsec_policy : ipsec_policy list;
-      [@default []] [@yojson_drop_default ( = )]
-  radius : radius list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  radius : radius list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -443,14 +444,14 @@ let yojson_of_azurerm_vpn_server_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_radius then bnds
+         if Stdlib.( = ) [] v_radius then bnds
          else
            let arg = (yojson_of_list yojson_of_radius) v_radius in
            let bnd = "radius", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipsec_policy then bnds
+         if Stdlib.( = ) [] v_ipsec_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ipsec_policy) v_ipsec_policy
@@ -459,7 +460,7 @@ let yojson_of_azurerm_vpn_server_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_root_certificate then bnds
+         if Stdlib.( = ) [] v_client_root_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_root_certificate)
@@ -469,7 +470,7 @@ let yojson_of_azurerm_vpn_server_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_revoked_certificate then bnds
+         if Stdlib.( = ) [] v_client_revoked_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_revoked_certificate)
@@ -479,7 +480,8 @@ let yojson_of_azurerm_vpn_server_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_active_directory_authentication then bnds
+         if Stdlib.( = ) [] v_azure_active_directory_authentication
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -500,7 +502,7 @@ let yojson_of_azurerm_vpn_server_configuration =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_vpn_authentication_types then bnds
+         if Stdlib.( = ) [] v_vpn_authentication_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -32,7 +32,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -45,7 +45,7 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -71,7 +71,7 @@ let _ = yojson_of_criteria__dimension
 
 type criteria = {
   dimension : criteria__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metric_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -89,7 +89,7 @@ let yojson_of_criteria =
          ("metric_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__dimension)

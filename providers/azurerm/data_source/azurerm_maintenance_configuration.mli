@@ -6,35 +6,35 @@ open! Tf_core
 
 type install_patches__windows = {
   classifications_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** classifications_to_include *)
   kb_numbers_to_exclude : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kb_numbers_to_exclude *)
   kb_numbers_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kb_numbers_to_include *)
 }
 
 type install_patches__linux = {
   classifications_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** classifications_to_include *)
   package_names_mask_to_exclude : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** package_names_mask_to_exclude *)
   package_names_mask_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** package_names_mask_to_include *)
 }
 
 type install_patches = {
   linux : install_patches__linux list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux *)
   reboot : string prop;  (** reboot *)
   windows : install_patches__windows list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** windows *)
 }
 

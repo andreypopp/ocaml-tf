@@ -22,10 +22,10 @@ type build_config__source__repo_source = {
 
 type build_config__source = {
   repo_source : build_config__source__repo_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** repo_source *)
   storage_source : build_config__source__storage_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** storage_source *)
 }
 
@@ -37,7 +37,7 @@ type build_config = {
       (** environment_variables *)
   runtime : string prop;  (** runtime *)
   source : build_config__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source *)
   worker_pool : string prop;  (** worker_pool *)
 }
@@ -50,7 +50,7 @@ type event_trigger__event_filters = {
 
 type event_trigger = {
   event_filters : event_trigger__event_filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** event_filters *)
   event_type : string prop;  (** event_type *)
   pubsub_topic : string prop;  (** pubsub_topic *)
@@ -70,7 +70,7 @@ type service_config__secret_volumes = {
   project_id : string prop;  (** project_id *)
   secret : string prop;  (** secret *)
   versions : service_config__secret_volumes__versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** versions *)
 }
 
@@ -96,10 +96,10 @@ type service_config = {
   min_instance_count : float prop;  (** min_instance_count *)
   secret_environment_variables :
     service_config__secret_environment_variables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_environment_variables *)
   secret_volumes : service_config__secret_volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_volumes *)
   service : string prop;  (** service *)
   service_account_email : string prop;  (** service_account_email *)

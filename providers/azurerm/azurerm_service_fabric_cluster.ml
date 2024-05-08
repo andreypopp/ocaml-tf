@@ -131,7 +131,7 @@ let _ = yojson_of_certificate_common_names__common_names
 type certificate_common_names = {
   x509_store_name : string prop;
   common_names : certificate_common_names__common_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_certificate_common_names =
          []
        in
        let bnds =
-         if [] = v_common_names then bnds
+         if Stdlib.( = ) [] v_common_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -416,9 +416,9 @@ type node_type = {
       [@option]
   reverse_proxy_endpoint_port : float prop option; [@option]
   application_ports : node_type__application_ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_ports : node_type__ephemeral_ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -445,7 +445,7 @@ let yojson_of_node_type =
          []
        in
        let bnds =
-         if [] = v_ephemeral_ports then bnds
+         if Stdlib.( = ) [] v_ephemeral_ports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type__ephemeral_ports)
@@ -455,7 +455,7 @@ let yojson_of_node_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_ports then bnds
+         if Stdlib.( = ) [] v_application_ports then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type__application_ports)
@@ -649,7 +649,7 @@ type reverse_proxy_certificate_common_names = {
   x509_store_name : string prop;
   common_names :
     reverse_proxy_certificate_common_names__common_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -665,7 +665,7 @@ let yojson_of_reverse_proxy_certificate_common_names =
          []
        in
        let bnds =
-         if [] = v_common_names then bnds
+         if Stdlib.( = ) [] v_common_names then bnds
          else
            let arg =
              (yojson_of_list
@@ -864,9 +864,9 @@ type upgrade_policy = {
   upgrade_replica_set_check_timeout : string prop option; [@option]
   upgrade_timeout : string prop option; [@option]
   delta_health_policy : upgrade_policy__delta_health_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_policy : upgrade_policy__health_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -890,7 +890,7 @@ let yojson_of_upgrade_policy =
          []
        in
        let bnds =
-         if [] = v_health_policy then bnds
+         if Stdlib.( = ) [] v_health_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upgrade_policy__health_policy)
@@ -900,7 +900,7 @@ let yojson_of_upgrade_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_delta_health_policy then bnds
+         if Stdlib.( = ) [] v_delta_health_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -988,30 +988,30 @@ type azurerm_service_fabric_cluster = {
   vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop option; [@option]
   azure_active_directory : azure_active_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   certificate : certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   certificate_common_names : certificate_common_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_certificate_common_name :
     client_certificate_common_name list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_certificate_thumbprint : client_certificate_thumbprint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   diagnostics_config : diagnostics_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fabric_settings : fabric_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_type : node_type list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reverse_proxy_certificate : reverse_proxy_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reverse_proxy_certificate_common_names :
     reverse_proxy_certificate_common_names list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   upgrade_policy : upgrade_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1054,7 +1054,7 @@ let yojson_of_azurerm_service_fabric_cluster =
          []
        in
        let bnds =
-         if [] = v_upgrade_policy then bnds
+         if Stdlib.( = ) [] v_upgrade_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upgrade_policy)
@@ -1068,7 +1068,8 @@ let yojson_of_azurerm_service_fabric_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_reverse_proxy_certificate_common_names then bnds
+         if Stdlib.( = ) [] v_reverse_proxy_certificate_common_names
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -1079,7 +1080,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reverse_proxy_certificate then bnds
+         if Stdlib.( = ) [] v_reverse_proxy_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_reverse_proxy_certificate)
@@ -1089,7 +1090,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_type then bnds
+         if Stdlib.( = ) [] v_node_type then bnds
          else
            let arg =
              (yojson_of_list yojson_of_node_type) v_node_type
@@ -1098,7 +1099,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fabric_settings then bnds
+         if Stdlib.( = ) [] v_fabric_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_fabric_settings)
@@ -1108,7 +1109,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_diagnostics_config then bnds
+         if Stdlib.( = ) [] v_diagnostics_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_diagnostics_config)
@@ -1118,7 +1119,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_certificate_thumbprint then bnds
+         if Stdlib.( = ) [] v_client_certificate_thumbprint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_certificate_thumbprint)
@@ -1128,7 +1129,8 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_certificate_common_name then bnds
+         if Stdlib.( = ) [] v_client_certificate_common_name then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_certificate_common_name)
@@ -1138,7 +1140,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate_common_names then bnds
+         if Stdlib.( = ) [] v_certificate_common_names then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certificate_common_names)
@@ -1148,7 +1150,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_certificate then bnds
+         if Stdlib.( = ) [] v_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certificate) v_certificate
@@ -1157,7 +1159,7 @@ let yojson_of_azurerm_service_fabric_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_active_directory then bnds
+         if Stdlib.( = ) [] v_azure_active_directory then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_active_directory)

@@ -4,7 +4,7 @@ open! Tf_core
 
 type ipfx_emission = {
   destination_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,7 +17,7 @@ let yojson_of_ipfx_emission =
          []
        in
        let bnds =
-         if [] = v_destination_types then bnds
+         if Stdlib.( = ) [] v_destination_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -35,7 +35,7 @@ let _ = yojson_of_ipfx_emission
 
 type ipfx_ingestion = {
   source_resource_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_ipfx_ingestion =
          []
        in
        let bnds =
-         if [] = v_source_resource_ids then bnds
+         if Stdlib.( = ) [] v_source_resource_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -131,9 +131,9 @@ type azurerm_network_function_collector_policy = {
   tags : (string * string prop) list option; [@option]
   traffic_collector_id : string prop;
   ipfx_emission : ipfx_emission list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ipfx_ingestion : ipfx_ingestion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,7 +160,7 @@ let yojson_of_azurerm_network_function_collector_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ipfx_ingestion then bnds
+         if Stdlib.( = ) [] v_ipfx_ingestion then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ipfx_ingestion)
@@ -170,7 +170,7 @@ let yojson_of_azurerm_network_function_collector_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipfx_emission then bnds
+         if Stdlib.( = ) [] v_ipfx_emission then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ipfx_emission) v_ipfx_emission

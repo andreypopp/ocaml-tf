@@ -17,10 +17,10 @@ type machine_types__accelerators = {
 
 type machine_types = {
   accelerators : machine_types__accelerators list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** accelerators *)
   deprecated : machine_types__deprecated list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deprecated *)
   description : string prop;  (** description *)
   guest_cpus : float prop;  (** guest_cpus *)

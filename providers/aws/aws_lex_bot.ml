@@ -47,7 +47,7 @@ let _ = yojson_of_abort_statement__message
 type abort_statement = {
   response_card : string prop option; [@option]
   message : abort_statement__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_abort_statement =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_abort_statement__message)
@@ -131,7 +131,7 @@ type clarification_prompt = {
   max_attempts : float prop;
   response_card : string prop option; [@option]
   message : clarification_prompt__message list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_clarification_prompt =
          []
        in
        let bnds =
-         if [] = v_message then bnds
+         if Stdlib.( = ) [] v_message then bnds
          else
            let arg =
              (yojson_of_list yojson_of_clarification_prompt__message)
@@ -270,10 +270,11 @@ type aws_lex_bot = {
   process_behavior : string prop option; [@option]
   voice_id : string prop option; [@option]
   abort_statement : abort_statement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   clarification_prompt : clarification_prompt list;
-      [@default []] [@yojson_drop_default ( = )]
-  intent : intent list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  intent : intent list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -309,14 +310,14 @@ let yojson_of_aws_lex_bot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_intent then bnds
+         if Stdlib.( = ) [] v_intent then bnds
          else
            let arg = (yojson_of_list yojson_of_intent) v_intent in
            let bnd = "intent", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_clarification_prompt then bnds
+         if Stdlib.( = ) [] v_clarification_prompt then bnds
          else
            let arg =
              (yojson_of_list yojson_of_clarification_prompt)
@@ -326,7 +327,7 @@ let yojson_of_aws_lex_bot =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_abort_statement then bnds
+         if Stdlib.( = ) [] v_abort_statement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_abort_statement)

@@ -106,7 +106,8 @@ type azurerm_automation_connection_type = {
   is_global : bool prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  field : field list; [@default []] [@yojson_drop_default ( = )]
+  field : field list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -132,7 +133,7 @@ let yojson_of_azurerm_automation_connection_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_field then bnds
+         if Stdlib.( = ) [] v_field then bnds
          else
            let arg = (yojson_of_list yojson_of_field) v_field in
            let bnd = "field", arg in

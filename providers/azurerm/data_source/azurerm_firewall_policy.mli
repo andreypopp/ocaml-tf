@@ -9,16 +9,16 @@ type dns = {
       (** network_rule_fqdn_enabled *)
   proxy_enabled : bool prop;  (** proxy_enabled *)
   servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** servers *)
 }
 
 type threat_intelligence_allowlist = {
   fqdns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fqdns *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
 }
 

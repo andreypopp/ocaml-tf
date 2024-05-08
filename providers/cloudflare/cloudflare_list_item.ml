@@ -113,8 +113,9 @@ type cloudflare_list_item = {
   ip : string prop option; [@option]
   list_id : string prop;
   hostname : hostname list;
-      [@default []] [@yojson_drop_default ( = )]
-  redirect : redirect list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  redirect : redirect list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,7 +136,7 @@ let yojson_of_cloudflare_list_item =
          []
        in
        let bnds =
-         if [] = v_redirect then bnds
+         if Stdlib.( = ) [] v_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_redirect) v_redirect
@@ -144,7 +145,7 @@ let yojson_of_cloudflare_list_item =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hostname then bnds
+         if Stdlib.( = ) [] v_hostname then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname) v_hostname

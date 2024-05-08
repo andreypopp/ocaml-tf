@@ -120,9 +120,9 @@ type ethereum_details = {
   network : string prop option; [@option]
   node_type : string prop option; [@option]
   geth_details : ethereum_details__geth_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   validator_config : ethereum_details__validator_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_ethereum_details =
          []
        in
        let bnds =
-         if [] = v_validator_config then bnds
+         if Stdlib.( = ) [] v_validator_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -155,7 +155,7 @@ let yojson_of_ethereum_details =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geth_details then bnds
+         if Stdlib.( = ) [] v_geth_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ethereum_details__geth_details)
@@ -304,7 +304,7 @@ let _ = yojson_of_connection_info__endpoint_info
 
 type connection_info = {
   endpoint_info : connection_info__endpoint_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_attachment : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -327,7 +327,7 @@ let yojson_of_connection_info =
          ("service_attachment", arg) :: bnds
        in
        let bnds =
-         if [] = v_endpoint_info then bnds
+         if Stdlib.( = ) [] v_endpoint_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connection_info__endpoint_info)
@@ -351,7 +351,7 @@ type google_blockchain_node_engine_blockchain_nodes = {
   location : string prop;
   project : string prop option; [@option]
   ethereum_details : ethereum_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -379,7 +379,7 @@ let yojson_of_google_blockchain_node_engine_blockchain_nodes =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ethereum_details then bnds
+         if Stdlib.( = ) [] v_ethereum_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ethereum_details)

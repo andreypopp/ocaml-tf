@@ -13,7 +13,7 @@ type metadata = {
   creation_date : string prop;  (** creation_date *)
   parent_group_name : string prop;  (** parent_group_name *)
   root_to_parent_groups : metadata__root_to_parent_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** root_to_parent_groups *)
 }
 

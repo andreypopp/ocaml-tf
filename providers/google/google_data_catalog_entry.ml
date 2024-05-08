@@ -34,7 +34,7 @@ let _ = yojson_of_gcs_fileset_spec__sample_gcs_file_specs
 
 type gcs_fileset_spec = {
   file_patterns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_gcs_fileset_spec =
          []
        in
        let bnds =
-         if [] = v_file_patterns then bnds
+         if Stdlib.( = ) [] v_file_patterns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -198,9 +198,9 @@ let _ = yojson_of_bigquery_table_spec__table_spec
 type bigquery_table_spec = {
   table_source_type : string prop;
   table_spec : bigquery_table_spec__table_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   view_spec : bigquery_table_spec__view_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,7 +217,7 @@ let yojson_of_bigquery_table_spec =
          []
        in
        let bnds =
-         if [] = v_view_spec then bnds
+         if Stdlib.( = ) [] v_view_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_table_spec__view_spec)
@@ -227,7 +227,7 @@ let yojson_of_bigquery_table_spec =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_table_spec then bnds
+         if Stdlib.( = ) [] v_table_spec then bnds
          else
            let arg =
              (yojson_of_list
@@ -262,7 +262,7 @@ type google_data_catalog_entry = {
   user_specified_system : string prop option; [@option]
   user_specified_type : string prop option; [@option]
   gcs_fileset_spec : gcs_fileset_spec list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -293,7 +293,7 @@ let yojson_of_google_data_catalog_entry =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_gcs_fileset_spec then bnds
+         if Stdlib.( = ) [] v_gcs_fileset_spec then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gcs_fileset_spec)

@@ -33,16 +33,16 @@ type config__workloads_config__scheduler = {
 
 type config__workloads_config = {
   scheduler : config__workloads_config__scheduler list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scheduler *)
   triggerer : config__workloads_config__triggerer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** triggerer *)
   web_server : config__workloads_config__web_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** web_server *)
   worker : config__workloads_config__worker list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** worker *)
 }
 
@@ -54,7 +54,7 @@ type config__web_server_network_access_control__allowed_ip_range = {
 type config__web_server_network_access_control = {
   allowed_ip_range :
     config__web_server_network_access_control__allowed_ip_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allowed_ip_range *)
 }
 
@@ -83,7 +83,7 @@ type config__recovery_config__scheduled_snapshots_config = {
 type config__recovery_config = {
   scheduled_snapshots_config :
     config__recovery_config__scheduled_snapshots_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scheduled_snapshots_config *)
 }
 
@@ -122,16 +122,17 @@ type config__node_config = {
   enable_ip_masq_agent : bool prop;  (** enable_ip_masq_agent *)
   ip_allocation_policy :
     config__node_config__ip_allocation_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_allocation_policy *)
   machine_type : string prop;  (** machine_type *)
   network : string prop;  (** network *)
   oauth_scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oauth_scopes *)
   service_account : string prop;  (** service_account *)
   subnetwork : string prop;  (** subnetwork *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   zone : string prop;  (** zone *)
 }
@@ -144,7 +145,7 @@ type config__master_authorized_networks_config__cidr_blocks = {
 type config__master_authorized_networks_config = {
   cidr_blocks :
     config__master_authorized_networks_config__cidr_blocks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cidr_blocks *)
   enabled : bool prop;  (** enabled *)
 }
@@ -171,7 +172,7 @@ type config__data_retention_config__task_logs_retention_config = {
 type config__data_retention_config = {
   task_logs_retention_config :
     config__data_retention_config__task_logs_retention_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** task_logs_retention_config *)
 }
 
@@ -179,47 +180,47 @@ type config = {
   airflow_uri : string prop;  (** airflow_uri *)
   dag_gcs_prefix : string prop;  (** dag_gcs_prefix *)
   data_retention_config : config__data_retention_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** data_retention_config *)
   database_config : config__database_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** database_config *)
   encryption_config : config__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** encryption_config *)
   environment_size : string prop;  (** environment_size *)
   gke_cluster : string prop;  (** gke_cluster *)
   maintenance_window : config__maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maintenance_window *)
   master_authorized_networks_config :
     config__master_authorized_networks_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** master_authorized_networks_config *)
   node_config : config__node_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_config *)
   node_count : float prop;  (** node_count *)
   private_environment_config :
     config__private_environment_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** private_environment_config *)
   recovery_config : config__recovery_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** recovery_config *)
   resilience_mode : string prop;  (** resilience_mode *)
   software_config : config__software_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** software_config *)
   web_server_config : config__web_server_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** web_server_config *)
   web_server_network_access_control :
     config__web_server_network_access_control list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** web_server_network_access_control *)
   workloads_config : config__workloads_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** workloads_config *)
 }
 

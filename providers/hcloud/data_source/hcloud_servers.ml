@@ -8,7 +8,7 @@ type servers = {
   datacenter : string prop;
   delete_protection : bool prop;
   firewall_ids : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : float prop;
   image : string prop;
   ipv4_address : string prop;
@@ -131,7 +131,7 @@ let yojson_of_servers =
          ("id", arg) :: bnds
        in
        let bnds =
-         if [] = v_firewall_ids then bnds
+         if Stdlib.( = ) [] v_firewall_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))

@@ -138,9 +138,9 @@ type azurerm_static_web_app = {
   sku_tier : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   basic_auth : basic_auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,7 +173,7 @@ let yojson_of_azurerm_static_web_app =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -182,7 +182,7 @@ let yojson_of_azurerm_static_web_app =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_basic_auth then bnds
+         if Stdlib.( = ) [] v_basic_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_basic_auth) v_basic_auth

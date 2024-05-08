@@ -38,7 +38,7 @@ type option_ = {
   version : string prop option; [@option]
   vpc_security_group_memberships : string prop list option; [@option]
   option_settings : option__option_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_option_ =
          []
        in
        let bnds =
-         if [] = v_option_settings then bnds
+         if Stdlib.( = ) [] v_option_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_option__option_settings)
@@ -152,7 +152,9 @@ type aws_db_option_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   option_ : option_ list;
-      [@key "option"] [@default []] [@yojson_drop_default ( = )]
+      [@key "option"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -181,7 +183,7 @@ let yojson_of_aws_db_option_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_option_ then bnds
+         if Stdlib.( = ) [] v_option_ then bnds
          else
            let arg = (yojson_of_list yojson_of_option_) v_option_ in
            let bnd = "option", arg in

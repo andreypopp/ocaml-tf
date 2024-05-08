@@ -97,7 +97,7 @@ type disk_container = {
   format : string prop;
   url : string prop option; [@option]
   user_bucket : disk_container__user_bucket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,7 +115,7 @@ let yojson_of_disk_container =
          []
        in
        let bnds =
-         if [] = v_user_bucket then bnds
+         if Stdlib.( = ) [] v_user_bucket then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_container__user_bucket)
@@ -200,9 +200,9 @@ type aws_ebs_snapshot_import = {
   tags_all : (string * string prop) list option; [@option]
   temporary_restore_days : float prop option; [@option]
   client_data : client_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_container : disk_container list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -234,7 +234,7 @@ let yojson_of_aws_ebs_snapshot_import =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_disk_container then bnds
+         if Stdlib.( = ) [] v_disk_container then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_container)
@@ -244,7 +244,7 @@ let yojson_of_aws_ebs_snapshot_import =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_data then bnds
+         if Stdlib.( = ) [] v_client_data then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_data) v_client_data

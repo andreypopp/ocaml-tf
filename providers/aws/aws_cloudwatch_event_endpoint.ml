@@ -110,9 +110,9 @@ let _ = yojson_of_routing_config__failover_config__secondary
 
 type routing_config__failover_config = {
   primary : routing_config__failover_config__primary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   secondary : routing_config__failover_config__secondary list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -125,7 +125,7 @@ let yojson_of_routing_config__failover_config =
          []
        in
        let bnds =
-         if [] = v_secondary then bnds
+         if Stdlib.( = ) [] v_secondary then bnds
          else
            let arg =
              (yojson_of_list
@@ -136,7 +136,7 @@ let yojson_of_routing_config__failover_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_primary then bnds
+         if Stdlib.( = ) [] v_primary then bnds
          else
            let arg =
              (yojson_of_list
@@ -156,7 +156,7 @@ let _ = yojson_of_routing_config__failover_config
 
 type routing_config = {
   failover_config : routing_config__failover_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_routing_config =
          []
        in
        let bnds =
-         if [] = v_failover_config then bnds
+         if Stdlib.( = ) [] v_failover_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -192,11 +192,11 @@ type aws_cloudwatch_event_endpoint = {
   name : string prop;
   role_arn : string prop option; [@option]
   event_bus : event_bus list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   replication_config : replication_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routing_config : routing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,7 +217,7 @@ let yojson_of_aws_cloudwatch_event_endpoint =
          []
        in
        let bnds =
-         if [] = v_routing_config then bnds
+         if Stdlib.( = ) [] v_routing_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_config)
@@ -227,7 +227,7 @@ let yojson_of_aws_cloudwatch_event_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_replication_config then bnds
+         if Stdlib.( = ) [] v_replication_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_replication_config)
@@ -237,7 +237,7 @@ let yojson_of_aws_cloudwatch_event_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_bus then bnds
+         if Stdlib.( = ) [] v_event_bus then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_bus) v_event_bus

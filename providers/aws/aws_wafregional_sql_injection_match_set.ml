@@ -39,7 +39,7 @@ let _ = yojson_of_sql_injection_match_tuple__field_to_match
 type sql_injection_match_tuple = {
   text_transformation : string prop;
   field_to_match : sql_injection_match_tuple__field_to_match list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_sql_injection_match_tuple =
          []
        in
        let bnds =
-         if [] = v_field_to_match then bnds
+         if Stdlib.( = ) [] v_field_to_match then bnds
          else
            let arg =
              (yojson_of_list
@@ -82,7 +82,7 @@ type aws_wafregional_sql_injection_match_set = {
   id : string prop option; [@option]
   name : string prop;
   sql_injection_match_tuple : sql_injection_match_tuple list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,7 +99,7 @@ let yojson_of_aws_wafregional_sql_injection_match_set =
          []
        in
        let bnds =
-         if [] = v_sql_injection_match_tuple then bnds
+         if Stdlib.( = ) [] v_sql_injection_match_tuple then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sql_injection_match_tuple)

@@ -44,7 +44,7 @@ type data_repository_association = {
   file_cache_path : string prop;
   tags : (string * string prop) list option; [@option]
   nfs : data_repository_association__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,7 +64,7 @@ let yojson_of_data_repository_association =
          []
        in
        let bnds =
-         if [] = v_nfs then bnds
+         if Stdlib.( = ) [] v_nfs then bnds
          else
            let arg =
              (yojson_of_list
@@ -183,7 +183,7 @@ type lustre_configuration = {
   weekly_maintenance_start_time : string prop option; [@option]
   metadata_configuration :
     lustre_configuration__metadata_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,7 +202,7 @@ let yojson_of_lustre_configuration =
          []
        in
        let bnds =
-         if [] = v_metadata_configuration then bnds
+         if Stdlib.( = ) [] v_metadata_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -296,13 +296,13 @@ type aws_fsx_file_cache = {
   security_group_ids : string prop list option; [@option]
   storage_capacity : float prop;
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   data_repository_association : data_repository_association list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lustre_configuration : lustre_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -335,7 +335,7 @@ let yojson_of_aws_fsx_file_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_lustre_configuration then bnds
+         if Stdlib.( = ) [] v_lustre_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lustre_configuration)
@@ -345,7 +345,7 @@ let yojson_of_aws_fsx_file_cache =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_repository_association then bnds
+         if Stdlib.( = ) [] v_data_repository_association then bnds
          else
            let arg =
              (yojson_of_list yojson_of_data_repository_association)
@@ -387,7 +387,7 @@ let yojson_of_aws_fsx_file_cache =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

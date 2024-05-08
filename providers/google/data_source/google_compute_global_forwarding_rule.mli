@@ -11,7 +11,7 @@ type metadata_filters__filter_labels = {
 
 type metadata_filters = {
   filter_labels : metadata_filters__filter_labels list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** filter_labels *)
   filter_match_criteria : string prop;  (** filter_match_criteria *)
 }

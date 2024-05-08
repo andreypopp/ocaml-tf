@@ -4,7 +4,7 @@ open! Tf_core
 
 type access_control__action = {
   allowed_caller_ip_address_range : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,7 +20,8 @@ let yojson_of_access_control__action =
          []
        in
        let bnds =
-         if [] = v_allowed_caller_ip_address_range then bnds
+         if Stdlib.( = ) [] v_allowed_caller_ip_address_range then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -38,7 +39,7 @@ let _ = yojson_of_access_control__action
 
 type access_control__content = {
   allowed_caller_ip_address_range : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +55,8 @@ let yojson_of_access_control__content =
          []
        in
        let bnds =
-         if [] = v_allowed_caller_ip_address_range then bnds
+         if Stdlib.( = ) [] v_allowed_caller_ip_address_range then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -108,7 +110,7 @@ type access_control__trigger__open_authentication_policy = {
   name : string prop;
   claim :
     access_control__trigger__open_authentication_policy__claim list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,7 +124,7 @@ let yojson_of_access_control__trigger__open_authentication_policy =
          []
        in
        let bnds =
-         if [] = v_claim then bnds
+         if Stdlib.( = ) [] v_claim then bnds
          else
            let arg =
              (yojson_of_list
@@ -146,10 +148,10 @@ let _ = yojson_of_access_control__trigger__open_authentication_policy
 
 type access_control__trigger = {
   allowed_caller_ip_address_range : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   open_authentication_policy :
     access_control__trigger__open_authentication_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,7 +168,7 @@ let yojson_of_access_control__trigger =
          []
        in
        let bnds =
-         if [] = v_open_authentication_policy then bnds
+         if Stdlib.( = ) [] v_open_authentication_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -177,7 +179,8 @@ let yojson_of_access_control__trigger =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_caller_ip_address_range then bnds
+         if Stdlib.( = ) [] v_allowed_caller_ip_address_range then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -195,7 +198,7 @@ let _ = yojson_of_access_control__trigger
 
 type access_control__workflow_management = {
   allowed_caller_ip_address_range : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,7 +214,8 @@ let yojson_of_access_control__workflow_management =
          []
        in
        let bnds =
-         if [] = v_allowed_caller_ip_address_range then bnds
+         if Stdlib.( = ) [] v_allowed_caller_ip_address_range then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -230,13 +234,13 @@ let _ = yojson_of_access_control__workflow_management
 
 type access_control = {
   action : access_control__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   content : access_control__content list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trigger : access_control__trigger list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workflow_management : access_control__workflow_management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,7 +258,7 @@ let yojson_of_access_control =
          []
        in
        let bnds =
-         if [] = v_workflow_management then bnds
+         if Stdlib.( = ) [] v_workflow_management then bnds
          else
            let arg =
              (yojson_of_list
@@ -265,7 +269,7 @@ let yojson_of_access_control =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_trigger then bnds
+         if Stdlib.( = ) [] v_trigger then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control__trigger)
@@ -275,7 +279,7 @@ let yojson_of_access_control =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content then bnds
+         if Stdlib.( = ) [] v_content then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control__content)
@@ -285,7 +289,7 @@ let yojson_of_access_control =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control__action)
@@ -410,9 +414,9 @@ type azurerm_logic_app_workflow = {
   workflow_schema : string prop option; [@option]
   workflow_version : string prop option; [@option]
   access_control : access_control list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -448,7 +452,7 @@ let yojson_of_azurerm_logic_app_workflow =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -457,7 +461,7 @@ let yojson_of_azurerm_logic_app_workflow =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control then bnds
+         if Stdlib.( = ) [] v_access_control then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control)

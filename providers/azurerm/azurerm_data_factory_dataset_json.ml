@@ -245,11 +245,11 @@ type azurerm_data_factory_dataset_json = {
   name : string prop;
   parameters : (string * string prop) list option; [@option]
   azure_blob_storage_location : azure_blob_storage_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_server_location : http_server_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_column : schema_column list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -282,7 +282,7 @@ let yojson_of_azurerm_data_factory_dataset_json =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schema_column then bnds
+         if Stdlib.( = ) [] v_schema_column then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schema_column) v_schema_column
@@ -291,7 +291,7 @@ let yojson_of_azurerm_data_factory_dataset_json =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_server_location then bnds
+         if Stdlib.( = ) [] v_http_server_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_server_location)
@@ -301,7 +301,7 @@ let yojson_of_azurerm_data_factory_dataset_json =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_blob_storage_location then bnds
+         if Stdlib.( = ) [] v_azure_blob_storage_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_azure_blob_storage_location)

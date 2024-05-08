@@ -319,19 +319,19 @@ type exclude = {
   login_method : string prop list option; [@option]
   service_token : string prop list option; [@option]
   auth_context : exclude__auth_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure : exclude__azure list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_evaluation : exclude__external_evaluation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github : exclude__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gsuite : exclude__gsuite list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   okta : exclude__okta list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   saml : exclude__saml list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -366,7 +366,7 @@ let yojson_of_exclude =
          []
        in
        let bnds =
-         if [] = v_saml then bnds
+         if Stdlib.( = ) [] v_saml then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__saml) v_saml
@@ -375,7 +375,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_okta then bnds
+         if Stdlib.( = ) [] v_okta then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__okta) v_okta
@@ -384,7 +384,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gsuite then bnds
+         if Stdlib.( = ) [] v_gsuite then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__gsuite) v_gsuite
@@ -393,7 +393,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github then bnds
+         if Stdlib.( = ) [] v_github then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__github) v_github
@@ -402,7 +402,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_evaluation then bnds
+         if Stdlib.( = ) [] v_external_evaluation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__external_evaluation)
@@ -412,7 +412,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure then bnds
+         if Stdlib.( = ) [] v_azure then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__azure) v_azure
@@ -421,7 +421,7 @@ let yojson_of_exclude =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auth_context then bnds
+         if Stdlib.( = ) [] v_auth_context then bnds
          else
            let arg =
              (yojson_of_list yojson_of_exclude__auth_context)
@@ -884,19 +884,19 @@ type include_ = {
   login_method : string prop list option; [@option]
   service_token : string prop list option; [@option]
   auth_context : include__auth_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure : include__azure list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_evaluation : include__external_evaluation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github : include__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gsuite : include__gsuite list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   okta : include__okta list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   saml : include__saml list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -931,7 +931,7 @@ let yojson_of_include_ =
          []
        in
        let bnds =
-         if [] = v_saml then bnds
+         if Stdlib.( = ) [] v_saml then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__saml) v_saml
@@ -940,7 +940,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_okta then bnds
+         if Stdlib.( = ) [] v_okta then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__okta) v_okta
@@ -949,7 +949,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gsuite then bnds
+         if Stdlib.( = ) [] v_gsuite then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__gsuite) v_gsuite
@@ -958,7 +958,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github then bnds
+         if Stdlib.( = ) [] v_github then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__github) v_github
@@ -967,7 +967,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_evaluation then bnds
+         if Stdlib.( = ) [] v_external_evaluation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__external_evaluation)
@@ -977,7 +977,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure then bnds
+         if Stdlib.( = ) [] v_azure then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__azure) v_azure
@@ -986,7 +986,7 @@ let yojson_of_include_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auth_context then bnds
+         if Stdlib.( = ) [] v_auth_context then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include__auth_context)
@@ -1449,19 +1449,19 @@ type require = {
   login_method : string prop list option; [@option]
   service_token : string prop list option; [@option]
   auth_context : require__auth_context list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure : require__azure list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_evaluation : require__external_evaluation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github : require__github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gsuite : require__gsuite list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   okta : require__okta list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   saml : require__saml list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1496,7 +1496,7 @@ let yojson_of_require =
          []
        in
        let bnds =
-         if [] = v_saml then bnds
+         if Stdlib.( = ) [] v_saml then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__saml) v_saml
@@ -1505,7 +1505,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_okta then bnds
+         if Stdlib.( = ) [] v_okta then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__okta) v_okta
@@ -1514,7 +1514,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gsuite then bnds
+         if Stdlib.( = ) [] v_gsuite then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__gsuite) v_gsuite
@@ -1523,7 +1523,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github then bnds
+         if Stdlib.( = ) [] v_github then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__github) v_github
@@ -1532,7 +1532,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_evaluation then bnds
+         if Stdlib.( = ) [] v_external_evaluation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__external_evaluation)
@@ -1542,7 +1542,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure then bnds
+         if Stdlib.( = ) [] v_azure then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__azure) v_azure
@@ -1551,7 +1551,7 @@ let yojson_of_require =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auth_context then bnds
+         if Stdlib.( = ) [] v_auth_context then bnds
          else
            let arg =
              (yojson_of_list yojson_of_require__auth_context)
@@ -1702,10 +1702,14 @@ type cloudflare_access_group = {
   id : string prop option; [@option]
   name : string prop;
   zone_id : string prop option; [@option]
-  exclude : exclude list; [@default []] [@yojson_drop_default ( = )]
+  exclude : exclude list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_ : include_ list;
-      [@key "include"] [@default []] [@yojson_drop_default ( = )]
-  require : require list; [@default []] [@yojson_drop_default ( = )]
+      [@key "include"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
+  require : require list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1726,14 +1730,14 @@ let yojson_of_cloudflare_access_group =
          []
        in
        let bnds =
-         if [] = v_require then bnds
+         if Stdlib.( = ) [] v_require then bnds
          else
            let arg = (yojson_of_list yojson_of_require) v_require in
            let bnd = "require", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_include_ then bnds
+         if Stdlib.( = ) [] v_include_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_include_) v_include_
@@ -1742,7 +1746,7 @@ let yojson_of_cloudflare_access_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_exclude then bnds
+         if Stdlib.( = ) [] v_exclude then bnds
          else
            let arg = (yojson_of_list yojson_of_exclude) v_exclude in
            let bnd = "exclude", arg in

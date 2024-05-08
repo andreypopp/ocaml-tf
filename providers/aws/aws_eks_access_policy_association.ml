@@ -80,7 +80,7 @@ type aws_eks_access_policy_association = {
   policy_arn : string prop;
   principal_arn : string prop;
   access_scope : access_scope list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -105,7 +105,7 @@ let yojson_of_aws_eks_access_policy_association =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_access_scope then bnds
+         if Stdlib.( = ) [] v_access_scope then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_scope) v_access_scope

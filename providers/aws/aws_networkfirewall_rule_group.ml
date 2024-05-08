@@ -70,7 +70,7 @@ type rule_group__reference_sets__ip_set_references = {
   ip_set_reference :
     rule_group__reference_sets__ip_set_references__ip_set_reference
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,7 +83,7 @@ let yojson_of_rule_group__reference_sets__ip_set_references =
          []
        in
        let bnds =
-         if [] = v_ip_set_reference then bnds
+         if Stdlib.( = ) [] v_ip_set_reference then bnds
          else
            let arg =
              (yojson_of_list
@@ -108,7 +108,7 @@ let _ = yojson_of_rule_group__reference_sets__ip_set_references
 type rule_group__reference_sets = {
   ip_set_references :
     rule_group__reference_sets__ip_set_references list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_rule_group__reference_sets =
          []
        in
        let bnds =
-         if [] = v_ip_set_references then bnds
+         if Stdlib.( = ) [] v_ip_set_references then bnds
          else
            let arg =
              (yojson_of_list
@@ -140,7 +140,7 @@ let _ = yojson_of_rule_group__reference_sets
 
 type rule_group__rule_variables__ip_sets__ip_set = {
   definition : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_rule_group__rule_variables__ip_sets__ip_set =
          []
        in
        let bnds =
-         if [] = v_definition then bnds
+         if Stdlib.( = ) [] v_definition then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -173,7 +173,7 @@ let _ = yojson_of_rule_group__rule_variables__ip_sets__ip_set
 type rule_group__rule_variables__ip_sets = {
   key : string prop;
   ip_set : rule_group__rule_variables__ip_sets__ip_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_rule_group__rule_variables__ip_sets =
          []
        in
        let bnds =
-         if [] = v_ip_set then bnds
+         if Stdlib.( = ) [] v_ip_set then bnds
          else
            let arg =
              (yojson_of_list
@@ -210,7 +210,7 @@ let _ = yojson_of_rule_group__rule_variables__ip_sets
 
 type rule_group__rule_variables__port_sets__port_set = {
   definition : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,7 +224,7 @@ let yojson_of_rule_group__rule_variables__port_sets__port_set =
          []
        in
        let bnds =
-         if [] = v_definition then bnds
+         if Stdlib.( = ) [] v_definition then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -244,7 +244,7 @@ let _ = yojson_of_rule_group__rule_variables__port_sets__port_set
 type rule_group__rule_variables__port_sets = {
   key : string prop;
   port_set : rule_group__rule_variables__port_sets__port_set list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,7 +257,7 @@ let yojson_of_rule_group__rule_variables__port_sets =
          []
        in
        let bnds =
-         if [] = v_port_set then bnds
+         if Stdlib.( = ) [] v_port_set then bnds
          else
            let arg =
              (yojson_of_list
@@ -281,9 +281,9 @@ let _ = yojson_of_rule_group__rule_variables__port_sets
 
 type rule_group__rule_variables = {
   ip_sets : rule_group__rule_variables__ip_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   port_sets : rule_group__rule_variables__port_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,7 +296,7 @@ let yojson_of_rule_group__rule_variables =
          []
        in
        let bnds =
-         if [] = v_port_sets then bnds
+         if Stdlib.( = ) [] v_port_sets then bnds
          else
            let arg =
              (yojson_of_list
@@ -307,7 +307,7 @@ let yojson_of_rule_group__rule_variables =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_sets then bnds
+         if Stdlib.( = ) [] v_ip_sets then bnds
          else
            let arg =
              (yojson_of_list
@@ -327,9 +327,9 @@ let _ = yojson_of_rule_group__rule_variables
 type rule_group__rules_source__rules_source_list = {
   generated_rules_type : string prop;
   target_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   targets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -346,7 +346,7 @@ let yojson_of_rule_group__rules_source__rules_source_list =
          []
        in
        let bnds =
-         if [] = v_targets then bnds
+         if Stdlib.( = ) [] v_targets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -356,7 +356,7 @@ let yojson_of_rule_group__rules_source__rules_source_list =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_target_types then bnds
+         if Stdlib.( = ) [] v_target_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -480,10 +480,10 @@ let _ =
 type rule_group__rules_source__stateful_rule = {
   action : string prop;
   header : rule_group__rules_source__stateful_rule__header list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule_option :
     rule_group__rules_source__stateful_rule__rule_option list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -500,7 +500,7 @@ let yojson_of_rule_group__rules_source__stateful_rule =
          []
        in
        let bnds =
-         if [] = v_rule_option then bnds
+         if Stdlib.( = ) [] v_rule_option then bnds
          else
            let arg =
              (yojson_of_list
@@ -511,7 +511,7 @@ let yojson_of_rule_group__rules_source__stateful_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_header then bnds
+         if Stdlib.( = ) [] v_header then bnds
          else
            let arg =
              (yojson_of_list
@@ -567,7 +567,7 @@ type rule_group__rules_source__stateless_rules_and_custom_actions__custom_action
   dimension :
     rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action__dimension
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -584,7 +584,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__cust
          []
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list
@@ -607,7 +607,7 @@ type rule_group__rules_source__stateless_rules_and_custom_actions__custom_action
   publish_metric_action :
     rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -624,7 +624,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__cust
          []
        in
        let bnds =
-         if [] = v_publish_metric_action then bnds
+         if Stdlib.( = ) [] v_publish_metric_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -648,7 +648,7 @@ type rule_group__rules_source__stateless_rules_and_custom_actions__custom_action
   action_definition :
     rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -668,7 +668,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__cust
          []
        in
        let bnds =
-         if [] = v_action_definition then bnds
+         if Stdlib.( = ) [] v_action_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -835,7 +835,7 @@ let _ =
 
 type rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__tcp_flag = {
   flags : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   masks : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -863,7 +863,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
              bnd :: bnds
        in
        let bnds =
-         if [] = v_flags then bnds
+         if Stdlib.( = ) [] v_flags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -886,23 +886,23 @@ type rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rul
   destination :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_port :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination_port
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_port :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source_port
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tcp_flag :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__tcp_flag
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -926,7 +926,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
          []
        in
        let bnds =
-         if [] = v_tcp_flag then bnds
+         if Stdlib.( = ) [] v_tcp_flag then bnds
          else
            let arg =
              (yojson_of_list
@@ -937,7 +937,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_port then bnds
+         if Stdlib.( = ) [] v_source_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -948,7 +948,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -959,7 +959,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_port then bnds
+         if Stdlib.( = ) [] v_destination_port then bnds
          else
            let arg =
              (yojson_of_list
@@ -970,7 +970,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -1001,11 +1001,11 @@ let _ =
 
 type rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_attributes :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1023,7 +1023,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
          []
        in
        let bnds =
-         if [] = v_match_attributes then bnds
+         if Stdlib.( = ) [] v_match_attributes then bnds
          else
            let arg =
              (yojson_of_list
@@ -1034,7 +1034,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1057,7 +1057,7 @@ type rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rul
   rule_definition :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1075,7 +1075,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions__stat
          []
        in
        let bnds =
-         if [] = v_rule_definition then bnds
+         if Stdlib.( = ) [] v_rule_definition then bnds
          else
            let arg =
              (yojson_of_list
@@ -1102,11 +1102,11 @@ type rule_group__rules_source__stateless_rules_and_custom_actions = {
   custom_action :
     rule_group__rules_source__stateless_rules_and_custom_actions__custom_action
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateless_rule :
     rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1126,7 +1126,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions
          []
        in
        let bnds =
-         if [] = v_stateless_rule then bnds
+         if Stdlib.( = ) [] v_stateless_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1137,7 +1137,7 @@ let yojson_of_rule_group__rules_source__stateless_rules_and_custom_actions
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_action then bnds
+         if Stdlib.( = ) [] v_custom_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -1160,12 +1160,12 @@ type rule_group__rules_source = {
   rules_string : string prop option; [@option]
   rules_source_list :
     rule_group__rules_source__rules_source_list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateful_rule : rule_group__rules_source__stateful_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateless_rules_and_custom_actions :
     rule_group__rules_source__stateless_rules_and_custom_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1184,7 +1184,8 @@ let yojson_of_rule_group__rules_source =
          []
        in
        let bnds =
-         if [] = v_stateless_rules_and_custom_actions then bnds
+         if Stdlib.( = ) [] v_stateless_rules_and_custom_actions then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -1195,7 +1196,7 @@ let yojson_of_rule_group__rules_source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stateful_rule then bnds
+         if Stdlib.( = ) [] v_stateful_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -1206,7 +1207,7 @@ let yojson_of_rule_group__rules_source =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rules_source_list then bnds
+         if Stdlib.( = ) [] v_rules_source_list then bnds
          else
            let arg =
              (yojson_of_list
@@ -1256,13 +1257,13 @@ let _ = yojson_of_rule_group__stateful_rule_options
 
 type rule_group = {
   reference_sets : rule_group__reference_sets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule_variables : rule_group__rule_variables list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rules_source : rule_group__rules_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stateful_rule_options : rule_group__stateful_rule_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1280,7 +1281,7 @@ let yojson_of_rule_group =
          []
        in
        let bnds =
-         if [] = v_stateful_rule_options then bnds
+         if Stdlib.( = ) [] v_stateful_rule_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -1291,7 +1292,7 @@ let yojson_of_rule_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rules_source then bnds
+         if Stdlib.( = ) [] v_rules_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_group__rules_source)
@@ -1301,7 +1302,7 @@ let yojson_of_rule_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rule_variables then bnds
+         if Stdlib.( = ) [] v_rule_variables then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_group__rule_variables)
@@ -1311,7 +1312,7 @@ let yojson_of_rule_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_reference_sets then bnds
+         if Stdlib.( = ) [] v_reference_sets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_group__reference_sets)
@@ -1337,9 +1338,9 @@ type aws_networkfirewall_rule_group = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   encryption_configuration : encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rule_group : rule_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1363,7 +1364,7 @@ let yojson_of_aws_networkfirewall_rule_group =
          []
        in
        let bnds =
-         if [] = v_rule_group then bnds
+         if Stdlib.( = ) [] v_rule_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule_group) v_rule_group
@@ -1372,7 +1373,7 @@ let yojson_of_aws_networkfirewall_rule_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_configuration)

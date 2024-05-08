@@ -11,22 +11,22 @@ type configuration__user_identity_configuration = {
 
 type configuration__content_source_configuration = {
   data_source_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** data_source_ids *)
   direct_put_content : bool prop;  (** direct_put_content *)
   faq_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** faq_ids *)
 }
 
 type configuration = {
   content_source_configuration :
     configuration__content_source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** content_source_configuration *)
   user_identity_configuration :
     configuration__user_identity_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** user_identity_configuration *)
 }
 

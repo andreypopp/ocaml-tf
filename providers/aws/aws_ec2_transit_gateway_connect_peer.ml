@@ -43,7 +43,7 @@ type aws_ec2_transit_gateway_connect_peer = {
   bgp_asn : string prop option; [@option]
   id : string prop option; [@option]
   inside_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   peer_address : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
@@ -128,7 +128,7 @@ let yojson_of_aws_ec2_transit_gateway_connect_peer =
          ("peer_address", arg) :: bnds
        in
        let bnds =
-         if [] = v_inside_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_inside_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -65,9 +65,9 @@ type capacity__autoscaling = {
   mcu_count : float prop option; [@option]
   min_worker_count : float prop;
   scale_in_policy : capacity__autoscaling__scale_in_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_out_policy : capacity__autoscaling__scale_out_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,7 +86,7 @@ let yojson_of_capacity__autoscaling =
          []
        in
        let bnds =
-         if [] = v_scale_out_policy then bnds
+         if Stdlib.( = ) [] v_scale_out_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -97,7 +97,7 @@ let yojson_of_capacity__autoscaling =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scale_in_policy then bnds
+         if Stdlib.( = ) [] v_scale_in_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -170,9 +170,9 @@ let _ = yojson_of_capacity__provisioned_capacity
 
 type capacity = {
   autoscaling : capacity__autoscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   provisioned_capacity : capacity__provisioned_capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,7 +188,7 @@ let yojson_of_capacity =
          []
        in
        let bnds =
-         if [] = v_provisioned_capacity then bnds
+         if Stdlib.( = ) [] v_provisioned_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity__provisioned_capacity)
@@ -198,7 +198,7 @@ let yojson_of_capacity =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling then bnds
+         if Stdlib.( = ) [] v_autoscaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity__autoscaling)
@@ -216,9 +216,9 @@ let _ = yojson_of_capacity
 
 type kafka_cluster__apache_kafka_cluster__vpc = {
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,7 +231,7 @@ let yojson_of_kafka_cluster__apache_kafka_cluster__vpc =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -241,7 +241,7 @@ let yojson_of_kafka_cluster__apache_kafka_cluster__vpc =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -261,7 +261,7 @@ let _ = yojson_of_kafka_cluster__apache_kafka_cluster__vpc
 type kafka_cluster__apache_kafka_cluster = {
   bootstrap_servers : string prop;
   vpc : kafka_cluster__apache_kafka_cluster__vpc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -274,7 +274,7 @@ let yojson_of_kafka_cluster__apache_kafka_cluster =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg =
              (yojson_of_list
@@ -300,7 +300,7 @@ let _ = yojson_of_kafka_cluster__apache_kafka_cluster
 
 type kafka_cluster = {
   apache_kafka_cluster : kafka_cluster__apache_kafka_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -313,7 +313,7 @@ let yojson_of_kafka_cluster =
          []
        in
        let bnds =
-         if [] = v_apache_kafka_cluster then bnds
+         if Stdlib.( = ) [] v_apache_kafka_cluster then bnds
          else
            let arg =
              (yojson_of_list
@@ -503,11 +503,11 @@ let _ = yojson_of_log_delivery__worker_log_delivery__s3
 type log_delivery__worker_log_delivery = {
   cloudwatch_logs :
     log_delivery__worker_log_delivery__cloudwatch_logs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   firehose : log_delivery__worker_log_delivery__firehose list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3 : log_delivery__worker_log_delivery__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -524,7 +524,7 @@ let yojson_of_log_delivery__worker_log_delivery =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list
@@ -535,7 +535,7 @@ let yojson_of_log_delivery__worker_log_delivery =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_firehose then bnds
+         if Stdlib.( = ) [] v_firehose then bnds
          else
            let arg =
              (yojson_of_list
@@ -546,7 +546,7 @@ let yojson_of_log_delivery__worker_log_delivery =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logs then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -566,7 +566,7 @@ let _ = yojson_of_log_delivery__worker_log_delivery
 
 type log_delivery = {
   worker_log_delivery : log_delivery__worker_log_delivery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -579,7 +579,7 @@ let yojson_of_log_delivery =
          []
        in
        let bnds =
-         if [] = v_worker_log_delivery then bnds
+         if Stdlib.( = ) [] v_worker_log_delivery then bnds
          else
            let arg =
              (yojson_of_list
@@ -627,7 +627,7 @@ let _ = yojson_of_plugin__custom_plugin
 
 type plugin = {
   custom_plugin : plugin__custom_plugin list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -640,7 +640,7 @@ let yojson_of_plugin =
          []
        in
        let bnds =
-         if [] = v_custom_plugin then bnds
+         if Stdlib.( = ) [] v_custom_plugin then bnds
          else
            let arg =
              (yojson_of_list yojson_of_plugin__custom_plugin)
@@ -739,21 +739,22 @@ type aws_mskconnect_connector = {
   name : string prop;
   service_execution_role_arn : string prop;
   capacity : capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kafka_cluster : kafka_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kafka_cluster_client_authentication :
     kafka_cluster_client_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kafka_cluster_encryption_in_transit :
     kafka_cluster_encryption_in_transit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_delivery : log_delivery list;
-      [@default []] [@yojson_drop_default ( = )]
-  plugin : plugin list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  plugin : plugin list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   worker_configuration : worker_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -783,7 +784,7 @@ let yojson_of_aws_mskconnect_connector =
          []
        in
        let bnds =
-         if [] = v_worker_configuration then bnds
+         if Stdlib.( = ) [] v_worker_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_worker_configuration)
@@ -797,14 +798,14 @@ let yojson_of_aws_mskconnect_connector =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_plugin then bnds
+         if Stdlib.( = ) [] v_plugin then bnds
          else
            let arg = (yojson_of_list yojson_of_plugin) v_plugin in
            let bnd = "plugin", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_delivery then bnds
+         if Stdlib.( = ) [] v_log_delivery then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_delivery) v_log_delivery
@@ -813,7 +814,8 @@ let yojson_of_aws_mskconnect_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kafka_cluster_encryption_in_transit then bnds
+         if Stdlib.( = ) [] v_kafka_cluster_encryption_in_transit
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -824,7 +826,8 @@ let yojson_of_aws_mskconnect_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kafka_cluster_client_authentication then bnds
+         if Stdlib.( = ) [] v_kafka_cluster_client_authentication
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -835,7 +838,7 @@ let yojson_of_aws_mskconnect_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kafka_cluster then bnds
+         if Stdlib.( = ) [] v_kafka_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kafka_cluster) v_kafka_cluster
@@ -844,7 +847,7 @@ let yojson_of_aws_mskconnect_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity then bnds
+         if Stdlib.( = ) [] v_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity) v_capacity

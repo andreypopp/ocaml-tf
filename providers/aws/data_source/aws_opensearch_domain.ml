@@ -40,7 +40,7 @@ let _ =
 type off_peak_window_options__off_peak_window = {
   window_start_time :
     off_peak_window_options__off_peak_window__window_start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,7 +53,7 @@ let yojson_of_off_peak_window_options__off_peak_window =
          []
        in
        let bnds =
-         if [] = v_window_start_time then bnds
+         if Stdlib.( = ) [] v_window_start_time then bnds
          else
            let arg =
              (yojson_of_list
@@ -161,7 +161,7 @@ let _ = yojson_of_auto_tune_options__maintenance_schedule__duration
 type auto_tune_options__maintenance_schedule = {
   cron_expression_for_recurrence : string prop;
   duration : auto_tune_options__maintenance_schedule__duration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_at : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -184,7 +184,7 @@ let yojson_of_auto_tune_options__maintenance_schedule =
          ("start_at", arg) :: bnds
        in
        let bnds =
-         if [] = v_duration then bnds
+         if Stdlib.( = ) [] v_duration then bnds
          else
            let arg =
              (yojson_of_list
@@ -213,7 +213,7 @@ type auto_tune_options = {
   desired_state : string prop;
   maintenance_schedule :
     auto_tune_options__maintenance_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rollback_on_disable : string prop;
   use_off_peak_window : bool prop;
 }
@@ -245,7 +245,7 @@ let yojson_of_auto_tune_options =
          ("rollback_on_disable", arg) :: bnds
        in
        let bnds =
-         if [] = v_maintenance_schedule then bnds
+         if Stdlib.( = ) [] v_maintenance_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -318,7 +318,7 @@ let _ = yojson_of_cluster_config__cold_storage_options
 
 type cluster_config = {
   cold_storage_options : cluster_config__cold_storage_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dedicated_master_count : float prop;
   dedicated_master_enabled : bool prop;
   dedicated_master_type : string prop;
@@ -329,7 +329,7 @@ type cluster_config = {
   warm_enabled : bool prop;
   warm_type : string prop;
   zone_awareness_config : cluster_config__zone_awareness_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zone_awareness_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -363,7 +363,7 @@ let yojson_of_cluster_config =
          ("zone_awareness_enabled", arg) :: bnds
        in
        let bnds =
-         if [] = v_zone_awareness_config then bnds
+         if Stdlib.( = ) [] v_zone_awareness_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -419,7 +419,7 @@ let yojson_of_cluster_config =
          ("dedicated_master_count", arg) :: bnds
        in
        let bnds =
-         if [] = v_cold_storage_options then bnds
+         if Stdlib.( = ) [] v_cold_storage_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -684,11 +684,11 @@ let _ = yojson_of_software_update_options
 
 type vpc_options = {
   availability_zones : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -711,7 +711,7 @@ let yojson_of_vpc_options =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -721,7 +721,7 @@ let yojson_of_vpc_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_group_ids then bnds
+         if Stdlib.( = ) [] v_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -731,7 +731,7 @@ let yojson_of_vpc_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -752,7 +752,7 @@ type aws_opensearch_domain = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   off_peak_window_options : off_peak_window_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -770,7 +770,7 @@ let yojson_of_aws_opensearch_domain =
          []
        in
        let bnds =
-         if [] = v_off_peak_window_options then bnds
+         if Stdlib.( = ) [] v_off_peak_window_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_off_peak_window_options)

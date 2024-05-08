@@ -75,7 +75,7 @@ let _ = yojson_of_block_device_mapping__ebs
 type block_device_mapping = {
   device_name : string prop;
   ebs : block_device_mapping__ebs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   no_device : string prop;
   virtual_name : string prop;
 }
@@ -103,7 +103,7 @@ let yojson_of_block_device_mapping =
          ("no_device", arg) :: bnds
        in
        let bnds =
-         if [] = v_ebs then bnds
+         if Stdlib.( = ) [] v_ebs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_block_device_mapping__ebs)
@@ -155,7 +155,7 @@ let _ = yojson_of_component__parameter
 type component = {
   component_arn : string prop;
   parameter : component__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_component =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component__parameter)

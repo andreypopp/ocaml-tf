@@ -34,7 +34,7 @@ let _ =
 type deployment_config__auto_rollback_configuration = {
   alarms :
     deployment_config__auto_rollback_configuration__alarms list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_deployment_config__auto_rollback_configuration =
          []
        in
        let bnds =
-         if [] = v_alarms then bnds
+         if Stdlib.( = ) [] v_alarms then bnds
          else
            let arg =
              (yojson_of_list
@@ -142,11 +142,11 @@ type deployment_config__blue_green_update_policy__traffic_routing_configuration 
   canary_size :
     deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   linear_step_size :
     deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_deployment_config__blue_green_update_policy__traffic_routing_confi
          []
        in
        let bnds =
-         if [] = v_linear_step_size then bnds
+         if Stdlib.( = ) [] v_linear_step_size then bnds
          else
            let arg =
              (yojson_of_list
@@ -179,7 +179,7 @@ let yojson_of_deployment_config__blue_green_update_policy__traffic_routing_confi
            bnd :: bnds
        in
        let bnds =
-         if [] = v_canary_size then bnds
+         if Stdlib.( = ) [] v_canary_size then bnds
          else
            let arg =
              (yojson_of_list
@@ -214,7 +214,7 @@ type deployment_config__blue_green_update_policy = {
   traffic_routing_configuration :
     deployment_config__blue_green_update_policy__traffic_routing_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,7 +233,7 @@ let yojson_of_deployment_config__blue_green_update_policy =
          []
        in
        let bnds =
-         if [] = v_traffic_routing_configuration then bnds
+         if Stdlib.( = ) [] v_traffic_routing_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -342,11 +342,11 @@ type deployment_config__rolling_update_policy = {
   wait_interval_in_seconds : float prop;
   maximum_batch_size :
     deployment_config__rolling_update_policy__maximum_batch_size list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rollback_maximum_batch_size :
     deployment_config__rolling_update_policy__rollback_maximum_batch_size
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -365,7 +365,7 @@ let yojson_of_deployment_config__rolling_update_policy =
          []
        in
        let bnds =
-         if [] = v_rollback_maximum_batch_size then bnds
+         if Stdlib.( = ) [] v_rollback_maximum_batch_size then bnds
          else
            let arg =
              (yojson_of_list
@@ -376,7 +376,7 @@ let yojson_of_deployment_config__rolling_update_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maximum_batch_size then bnds
+         if Stdlib.( = ) [] v_maximum_batch_size then bnds
          else
            let arg =
              (yojson_of_list
@@ -411,13 +411,13 @@ let _ = yojson_of_deployment_config__rolling_update_policy
 type deployment_config = {
   auto_rollback_configuration :
     deployment_config__auto_rollback_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   blue_green_update_policy :
     deployment_config__blue_green_update_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rolling_update_policy :
     deployment_config__rolling_update_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -434,7 +434,7 @@ let yojson_of_deployment_config =
          []
        in
        let bnds =
-         if [] = v_rolling_update_policy then bnds
+         if Stdlib.( = ) [] v_rolling_update_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -445,7 +445,7 @@ let yojson_of_deployment_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_blue_green_update_policy then bnds
+         if Stdlib.( = ) [] v_blue_green_update_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -456,7 +456,7 @@ let yojson_of_deployment_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_rollback_configuration then bnds
+         if Stdlib.( = ) [] v_auto_rollback_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -480,7 +480,7 @@ type aws_sagemaker_endpoint = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   deployment_config : deployment_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -500,7 +500,7 @@ let yojson_of_aws_sagemaker_endpoint =
          []
        in
        let bnds =
-         if [] = v_deployment_config then bnds
+         if Stdlib.( = ) [] v_deployment_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment_config)

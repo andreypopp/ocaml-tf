@@ -881,7 +881,7 @@ type default_node_pool__linux_os_config = {
   transparent_huge_page_enabled : string prop option; [@option]
   sysctl_config :
     default_node_pool__linux_os_config__sysctl_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -900,7 +900,7 @@ let yojson_of_default_node_pool__linux_os_config =
          []
        in
        let bnds =
-         if [] = v_sysctl_config then bnds
+         if Stdlib.( = ) [] v_sysctl_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1003,7 +1003,7 @@ type default_node_pool__node_network_profile = {
   node_public_ip_tags : (string * string prop) list option; [@option]
   allowed_host_ports :
     default_node_pool__node_network_profile__allowed_host_ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1021,7 +1021,7 @@ let yojson_of_default_node_pool__node_network_profile =
          []
        in
        let bnds =
-         if [] = v_allowed_host_ports then bnds
+         if Stdlib.( = ) [] v_allowed_host_ports then bnds
          else
            let arg =
              (yojson_of_list
@@ -1127,14 +1127,14 @@ type default_node_pool = {
   workload_runtime : string prop option; [@option]
   zones : string prop list option; [@option]
   kubelet_config : default_node_pool__kubelet_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   linux_os_config : default_node_pool__linux_os_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_network_profile :
     default_node_pool__node_network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   upgrade_settings : default_node_pool__upgrade_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1188,7 +1188,7 @@ let yojson_of_default_node_pool =
          []
        in
        let bnds =
-         if [] = v_upgrade_settings then bnds
+         if Stdlib.( = ) [] v_upgrade_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1199,7 +1199,7 @@ let yojson_of_default_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_node_network_profile then bnds
+         if Stdlib.( = ) [] v_node_network_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -1210,7 +1210,7 @@ let yojson_of_default_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_os_config then bnds
+         if Stdlib.( = ) [] v_linux_os_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1221,7 +1221,7 @@ let yojson_of_default_node_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kubelet_config then bnds
+         if Stdlib.( = ) [] v_kubelet_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -1930,7 +1930,7 @@ let _ = yojson_of_linux_profile__ssh_key
 type linux_profile = {
   admin_username : string prop;
   ssh_key : linux_profile__ssh_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1943,7 +1943,7 @@ let yojson_of_linux_profile =
          []
        in
        let bnds =
-         if [] = v_ssh_key then bnds
+         if Stdlib.( = ) [] v_ssh_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linux_profile__ssh_key)
@@ -1967,7 +1967,8 @@ let _ = yojson_of_linux_profile
 
 type maintenance_window__allowed = {
   day : string prop;
-  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
+  hours : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1980,7 +1981,7 @@ let yojson_of_maintenance_window__allowed =
          []
        in
        let bnds =
-         if [] = v_hours then bnds
+         if Stdlib.( = ) [] v_hours then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -2033,9 +2034,9 @@ let _ = yojson_of_maintenance_window__not_allowed
 
 type maintenance_window = {
   allowed : maintenance_window__allowed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   not_allowed : maintenance_window__not_allowed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2048,7 +2049,7 @@ let yojson_of_maintenance_window =
          []
        in
        let bnds =
-         if [] = v_not_allowed then bnds
+         if Stdlib.( = ) [] v_not_allowed then bnds
          else
            let arg =
              (yojson_of_list
@@ -2059,7 +2060,7 @@ let yojson_of_maintenance_window =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed then bnds
+         if Stdlib.( = ) [] v_allowed then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window__allowed)
@@ -2116,7 +2117,7 @@ type maintenance_window_auto_upgrade = {
   utc_offset : string prop option; [@option]
   week_index : string prop option; [@option]
   not_allowed : maintenance_window_auto_upgrade__not_allowed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2140,7 +2141,7 @@ let yojson_of_maintenance_window_auto_upgrade =
          []
        in
        let bnds =
-         if [] = v_not_allowed then bnds
+         if Stdlib.( = ) [] v_not_allowed then bnds
          else
            let arg =
              (yojson_of_list
@@ -2259,7 +2260,7 @@ type maintenance_window_node_os = {
   utc_offset : string prop option; [@option]
   week_index : string prop option; [@option]
   not_allowed : maintenance_window_node_os__not_allowed list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2283,7 +2284,7 @@ let yojson_of_maintenance_window_node_os =
          []
        in
        let bnds =
-         if [] = v_not_allowed then bnds
+         if Stdlib.( = ) [] v_not_allowed then bnds
          else
            let arg =
              (yojson_of_list
@@ -2570,9 +2571,9 @@ type network_profile = {
   service_cidrs : string prop list option; [@option]
   load_balancer_profile :
     network_profile__load_balancer_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nat_gateway_profile : network_profile__nat_gateway_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2602,7 +2603,7 @@ let yojson_of_network_profile =
          []
        in
        let bnds =
-         if [] = v_nat_gateway_profile then bnds
+         if Stdlib.( = ) [] v_nat_gateway_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -2613,7 +2614,7 @@ let yojson_of_network_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_profile then bnds
+         if Stdlib.( = ) [] v_load_balancer_profile then bnds
          else
            let arg =
              (yojson_of_list
@@ -3133,7 +3134,7 @@ type windows_profile = {
   admin_username : string prop;
   license : string prop option; [@option]
   gmsa : windows_profile__gmsa list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3151,7 +3152,7 @@ let yojson_of_windows_profile =
          []
        in
        let bnds =
-         if [] = v_gmsa then bnds
+         if Stdlib.( = ) [] v_gmsa then bnds
          else
            let arg =
              (yojson_of_list yojson_of_windows_profile__gmsa) v_gmsa
@@ -3386,60 +3387,60 @@ type azurerm_kubernetes_cluster = {
   tags : (string * string prop) list option; [@option]
   workload_identity_enabled : bool prop option; [@option]
   aci_connector_linux : aci_connector_linux list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   api_server_access_profile : api_server_access_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_scaler_profile : auto_scaler_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   azure_active_directory_role_based_access_control :
     azure_active_directory_role_based_access_control list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   confidential_computing : confidential_computing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_node_pool : default_node_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_proxy_config : http_proxy_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_application_gateway : ingress_application_gateway list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_management_service : key_management_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault_secrets_provider : key_vault_secrets_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kubelet_identity : kubelet_identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   linux_profile : linux_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window_auto_upgrade :
     maintenance_window_auto_upgrade list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window_node_os : maintenance_window_node_os list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   microsoft_defender : microsoft_defender list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   monitor_metrics : monitor_metrics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_profile : network_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oms_agent : oms_agent list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_mesh_profile : service_mesh_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_principal : service_principal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_profile : storage_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   web_app_routing : web_app_routing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   windows_profile : windows_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   workload_autoscaler_profile : workload_autoscaler_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3520,7 +3521,7 @@ let yojson_of_azurerm_kubernetes_cluster =
          []
        in
        let bnds =
-         if [] = v_workload_autoscaler_profile then bnds
+         if Stdlib.( = ) [] v_workload_autoscaler_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_workload_autoscaler_profile)
@@ -3530,7 +3531,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_windows_profile then bnds
+         if Stdlib.( = ) [] v_windows_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_windows_profile)
@@ -3540,7 +3541,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_web_app_routing then bnds
+         if Stdlib.( = ) [] v_web_app_routing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_web_app_routing)
@@ -3554,7 +3555,7 @@ let yojson_of_azurerm_kubernetes_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_profile then bnds
+         if Stdlib.( = ) [] v_storage_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_profile)
@@ -3564,7 +3565,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_principal then bnds
+         if Stdlib.( = ) [] v_service_principal then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_principal)
@@ -3574,7 +3575,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_mesh_profile then bnds
+         if Stdlib.( = ) [] v_service_mesh_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_mesh_profile)
@@ -3584,7 +3585,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oms_agent then bnds
+         if Stdlib.( = ) [] v_oms_agent then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oms_agent) v_oms_agent
@@ -3593,7 +3594,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_profile then bnds
+         if Stdlib.( = ) [] v_network_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_profile)
@@ -3603,7 +3604,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitor_metrics then bnds
+         if Stdlib.( = ) [] v_monitor_metrics then bnds
          else
            let arg =
              (yojson_of_list yojson_of_monitor_metrics)
@@ -3613,7 +3614,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_microsoft_defender then bnds
+         if Stdlib.( = ) [] v_microsoft_defender then bnds
          else
            let arg =
              (yojson_of_list yojson_of_microsoft_defender)
@@ -3623,7 +3624,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window_node_os then bnds
+         if Stdlib.( = ) [] v_maintenance_window_node_os then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window_node_os)
@@ -3633,7 +3634,8 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window_auto_upgrade then bnds
+         if Stdlib.( = ) [] v_maintenance_window_auto_upgrade then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -3644,7 +3646,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)
@@ -3654,7 +3656,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_linux_profile then bnds
+         if Stdlib.( = ) [] v_linux_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linux_profile) v_linux_profile
@@ -3663,7 +3665,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kubelet_identity then bnds
+         if Stdlib.( = ) [] v_kubelet_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_kubelet_identity)
@@ -3673,7 +3675,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_vault_secrets_provider then bnds
+         if Stdlib.( = ) [] v_key_vault_secrets_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_vault_secrets_provider)
@@ -3683,7 +3685,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_key_management_service then bnds
+         if Stdlib.( = ) [] v_key_management_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_key_management_service)
@@ -3693,7 +3695,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_application_gateway then bnds
+         if Stdlib.( = ) [] v_ingress_application_gateway then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_application_gateway)
@@ -3703,7 +3705,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -3712,7 +3714,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_http_proxy_config then bnds
+         if Stdlib.( = ) [] v_http_proxy_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_http_proxy_config)
@@ -3722,7 +3724,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_node_pool then bnds
+         if Stdlib.( = ) [] v_default_node_pool then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_node_pool)
@@ -3732,7 +3734,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_confidential_computing then bnds
+         if Stdlib.( = ) [] v_confidential_computing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_confidential_computing)
@@ -3742,7 +3744,9 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_azure_active_directory_role_based_access_control
+         if
+           Stdlib.( = ) []
+             v_azure_active_directory_role_based_access_control
          then bnds
          else
            let arg =
@@ -3756,7 +3760,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_scaler_profile then bnds
+         if Stdlib.( = ) [] v_auto_scaler_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_scaler_profile)
@@ -3766,7 +3770,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_server_access_profile then bnds
+         if Stdlib.( = ) [] v_api_server_access_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_api_server_access_profile)
@@ -3776,7 +3780,7 @@ let yojson_of_azurerm_kubernetes_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aci_connector_linux then bnds
+         if Stdlib.( = ) [] v_aci_connector_linux then bnds
          else
            let arg =
              (yojson_of_list yojson_of_aci_connector_linux)

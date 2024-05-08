@@ -30,14 +30,14 @@ let _ = yojson_of_broker_instance_options__availability_zones
 type broker_instance_options = {
   availability_zones :
     broker_instance_options__availability_zones list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   engine_type : string prop;
   host_instance_type : string prop;
   storage_type : string prop;
   supported_deployment_modes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   supported_engine_versions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_broker_instance_options =
          []
        in
        let bnds =
-         if [] = v_supported_engine_versions then bnds
+         if Stdlib.( = ) [] v_supported_engine_versions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -67,7 +67,7 @@ let yojson_of_broker_instance_options =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_supported_deployment_modes then bnds
+         if Stdlib.( = ) [] v_supported_deployment_modes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -91,7 +91,7 @@ let yojson_of_broker_instance_options =
          ("engine_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_availability_zones then bnds
+         if Stdlib.( = ) [] v_availability_zones then bnds
          else
            let arg =
              (yojson_of_list

@@ -136,7 +136,7 @@ let _ = yojson_of_certs_info__cert_info
 
 type certs_info = {
   cert_info : certs_info__cert_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,7 +149,7 @@ let yojson_of_certs_info =
          []
        in
        let bnds =
-         if [] = v_cert_info then bnds
+         if Stdlib.( = ) [] v_cert_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certs_info__cert_info)
@@ -235,7 +235,7 @@ type google_apigee_keystores_aliases_key_cert_file = {
   org_id : string prop;
   password : string prop option; [@option]
   certs_info : certs_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -264,7 +264,7 @@ let yojson_of_google_apigee_keystores_aliases_key_cert_file =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_certs_info then bnds
+         if Stdlib.( = ) [] v_certs_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_certs_info) v_certs_info

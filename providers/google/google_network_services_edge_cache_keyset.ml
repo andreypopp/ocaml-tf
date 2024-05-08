@@ -121,10 +121,10 @@ type google_network_services_edge_cache_keyset = {
   name : string prop;
   project : string prop option; [@option]
   public_key : public_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   validation_shared_keys : validation_shared_keys list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,7 +146,7 @@ let yojson_of_google_network_services_edge_cache_keyset =
          []
        in
        let bnds =
-         if [] = v_validation_shared_keys then bnds
+         if Stdlib.( = ) [] v_validation_shared_keys then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_shared_keys)
@@ -160,7 +160,7 @@ let yojson_of_google_network_services_edge_cache_keyset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_public_key then bnds
+         if Stdlib.( = ) [] v_public_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_public_key) v_public_key

@@ -33,7 +33,7 @@ let _ = yojson_of_adaptive_routing
 type country_pools = {
   country : string prop;
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +46,7 @@ let yojson_of_country_pools =
          []
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -105,7 +105,7 @@ let _ = yojson_of_location_strategy
 
 type pop_pools = {
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pop : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -123,7 +123,7 @@ let yojson_of_pop_pools =
          ("pop", arg) :: bnds
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -189,7 +189,7 @@ let _ = yojson_of_random_steering
 
 type region_pools = {
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -207,7 +207,7 @@ let yojson_of_region_pools =
          ("region", arg) :: bnds
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -315,7 +315,7 @@ let _ = yojson_of_rules__overrides__adaptive_routing
 type rules__overrides__country_pools = {
   country : string prop;
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -328,7 +328,7 @@ let yojson_of_rules__overrides__country_pools =
          []
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -389,7 +389,7 @@ let _ = yojson_of_rules__overrides__location_strategy
 
 type rules__overrides__pop_pools = {
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pop : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -407,7 +407,7 @@ let yojson_of_rules__overrides__pop_pools =
          ("pop", arg) :: bnds
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -475,7 +475,7 @@ let _ = yojson_of_rules__overrides__random_steering
 
 type rules__overrides__region_pools = {
   pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -493,7 +493,7 @@ let yojson_of_rules__overrides__region_pools =
          ("region", arg) :: bnds
        in
        let bnds =
-         if [] = v_pool_ids then bnds
+         if Stdlib.( = ) [] v_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -591,20 +591,20 @@ type rules__overrides = {
   steering_policy : string prop option; [@option]
   ttl : float prop option; [@option]
   adaptive_routing : rules__overrides__adaptive_routing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   country_pools : rules__overrides__country_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location_strategy : rules__overrides__location_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pop_pools : rules__overrides__pop_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   random_steering : rules__overrides__random_steering list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region_pools : rules__overrides__region_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   session_affinity_attributes :
     rules__overrides__session_affinity_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -631,7 +631,7 @@ let yojson_of_rules__overrides =
          []
        in
        let bnds =
-         if [] = v_session_affinity_attributes then bnds
+         if Stdlib.( = ) [] v_session_affinity_attributes then bnds
          else
            let arg =
              (yojson_of_list
@@ -642,7 +642,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_region_pools then bnds
+         if Stdlib.( = ) [] v_region_pools then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__overrides__region_pools)
@@ -652,7 +652,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_random_steering then bnds
+         if Stdlib.( = ) [] v_random_steering then bnds
          else
            let arg =
              (yojson_of_list
@@ -663,7 +663,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pop_pools then bnds
+         if Stdlib.( = ) [] v_pop_pools then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__overrides__pop_pools)
@@ -673,7 +673,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_location_strategy then bnds
+         if Stdlib.( = ) [] v_location_strategy then bnds
          else
            let arg =
              (yojson_of_list
@@ -684,7 +684,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_country_pools then bnds
+         if Stdlib.( = ) [] v_country_pools then bnds
          else
            let arg =
              (yojson_of_list
@@ -695,7 +695,7 @@ let yojson_of_rules__overrides =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_adaptive_routing then bnds
+         if Stdlib.( = ) [] v_adaptive_routing then bnds
          else
            let arg =
              (yojson_of_list
@@ -769,9 +769,9 @@ type rules = {
   priority : float prop option; [@option]
   terminates : bool prop option; [@option]
   fixed_response : rules__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   overrides : rules__overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -792,7 +792,7 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         if [] = v_overrides then bnds
+         if Stdlib.( = ) [] v_overrides then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__overrides) v_overrides
@@ -801,7 +801,7 @@ let yojson_of_rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_response then bnds
+         if Stdlib.( = ) [] v_fixed_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__fixed_response)
@@ -938,7 +938,7 @@ let _ = yojson_of_session_affinity_attributes
 
 type cloudflare_load_balancer = {
   default_pool_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop option; [@option]
   enabled : bool prop option; [@option]
   fallback_pool_id : string prop;
@@ -951,20 +951,21 @@ type cloudflare_load_balancer = {
   ttl : float prop option; [@option]
   zone_id : string prop;
   adaptive_routing : adaptive_routing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   country_pools : country_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   location_strategy : location_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pop_pools : pop_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   random_steering : random_steering list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   region_pools : region_pools list;
-      [@default []] [@yojson_drop_default ( = )]
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   session_affinity_attributes : session_affinity_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -998,7 +999,7 @@ let yojson_of_cloudflare_load_balancer =
          []
        in
        let bnds =
-         if [] = v_session_affinity_attributes then bnds
+         if Stdlib.( = ) [] v_session_affinity_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_session_affinity_attributes)
@@ -1008,14 +1009,14 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_region_pools then bnds
+         if Stdlib.( = ) [] v_region_pools then bnds
          else
            let arg =
              (yojson_of_list yojson_of_region_pools) v_region_pools
@@ -1024,7 +1025,7 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_random_steering then bnds
+         if Stdlib.( = ) [] v_random_steering then bnds
          else
            let arg =
              (yojson_of_list yojson_of_random_steering)
@@ -1034,7 +1035,7 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pop_pools then bnds
+         if Stdlib.( = ) [] v_pop_pools then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pop_pools) v_pop_pools
@@ -1043,7 +1044,7 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_location_strategy then bnds
+         if Stdlib.( = ) [] v_location_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_location_strategy)
@@ -1053,7 +1054,7 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_country_pools then bnds
+         if Stdlib.( = ) [] v_country_pools then bnds
          else
            let arg =
              (yojson_of_list yojson_of_country_pools) v_country_pools
@@ -1062,7 +1063,7 @@ let yojson_of_cloudflare_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_adaptive_routing then bnds
+         if Stdlib.( = ) [] v_adaptive_routing then bnds
          else
            let arg =
              (yojson_of_list yojson_of_adaptive_routing)
@@ -1150,7 +1151,7 @@ let yojson_of_cloudflare_load_balancer =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_default_pool_ids then bnds
+         if Stdlib.( = ) [] v_default_pool_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -43,7 +43,7 @@ let _ = yojson_of_enabled_log__retention_policy
 type enabled_log = {
   category : string prop;
   retention_policy : enabled_log__retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +57,7 @@ let yojson_of_enabled_log =
          []
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_enabled_log__retention_policy)
@@ -118,7 +118,7 @@ type log = {
   category : string prop;
   enabled : bool prop option; [@option]
   retention_policy : log__retention_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,7 +135,7 @@ let yojson_of_log =
          []
        in
        let bnds =
-         if [] = v_retention_policy then bnds
+         if Stdlib.( = ) [] v_retention_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log__retention_policy)
@@ -231,8 +231,8 @@ type azurerm_monitor_aad_diagnostic_setting = {
   name : string prop;
   storage_account_id : string prop option; [@option]
   enabled_log : enabled_log list;
-      [@default []] [@yojson_drop_default ( = )]
-  log : log list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  log : log list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -261,14 +261,14 @@ let yojson_of_azurerm_monitor_aad_diagnostic_setting =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_log then bnds
+         if Stdlib.( = ) [] v_log then bnds
          else
            let arg = (yojson_of_list yojson_of_log) v_log in
            let bnd = "log", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_enabled_log then bnds
+         if Stdlib.( = ) [] v_enabled_log then bnds
          else
            let arg =
              (yojson_of_list yojson_of_enabled_log) v_enabled_log

@@ -30,14 +30,14 @@ let _ = yojson_of_timeouts
 
 type ip_configuration = {
   application_gateway_backend_address_pools_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   application_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gateway_load_balancer_frontend_ip_configuration_id : string prop;
   load_balancer_backend_address_pools_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer_inbound_nat_rules_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   primary : bool prop;
   private_ip_address : string prop;
@@ -114,7 +114,8 @@ let yojson_of_ip_configuration =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_inbound_nat_rules_ids then bnds
+         if Stdlib.( = ) [] v_load_balancer_inbound_nat_rules_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -124,7 +125,8 @@ let yojson_of_ip_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer_backend_address_pools_ids then bnds
+         if Stdlib.( = ) [] v_load_balancer_backend_address_pools_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -144,7 +146,8 @@ let yojson_of_ip_configuration =
          :: bnds
        in
        let bnds =
-         if [] = v_application_security_group_ids then bnds
+         if Stdlib.( = ) [] v_application_security_group_ids then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -154,8 +157,10 @@ let yojson_of_ip_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_application_gateway_backend_address_pools_ids then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_application_gateway_backend_address_pools_ids
+         then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -33,10 +33,11 @@ type cloudflare_zone_lockdown = {
   id : string prop option; [@option]
   paused : bool prop option; [@option]
   priority : float prop option; [@option]
-  urls : string prop list; [@default []] [@yojson_drop_default ( = )]
+  urls : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zone_id : string prop;
   configurations : configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,7 +58,7 @@ let yojson_of_cloudflare_zone_lockdown =
          []
        in
        let bnds =
-         if [] = v_configurations then bnds
+         if Stdlib.( = ) [] v_configurations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configurations)
@@ -71,7 +72,7 @@ let yojson_of_cloudflare_zone_lockdown =
          ("zone_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_urls then bnds
+         if Stdlib.( = ) [] v_urls then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

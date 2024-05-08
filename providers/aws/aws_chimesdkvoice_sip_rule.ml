@@ -49,7 +49,7 @@ type aws_chimesdkvoice_sip_rule = {
   trigger_type : string prop;
   trigger_value : string prop;
   target_applications : target_applications list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,7 +69,7 @@ let yojson_of_aws_chimesdkvoice_sip_rule =
          []
        in
        let bnds =
-         if [] = v_target_applications then bnds
+         if Stdlib.( = ) [] v_target_applications then bnds
          else
            let arg =
              (yojson_of_list yojson_of_target_applications)

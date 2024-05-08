@@ -84,9 +84,9 @@ type aws_connect_routing_profile = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   media_concurrencies : media_concurrencies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   queue_configs : queue_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,7 +109,7 @@ let yojson_of_aws_connect_routing_profile =
          []
        in
        let bnds =
-         if [] = v_queue_configs then bnds
+         if Stdlib.( = ) [] v_queue_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_queue_configs) v_queue_configs
@@ -118,7 +118,7 @@ let yojson_of_aws_connect_routing_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_media_concurrencies then bnds
+         if Stdlib.( = ) [] v_media_concurrencies then bnds
          else
            let arg =
              (yojson_of_list yojson_of_media_concurrencies)

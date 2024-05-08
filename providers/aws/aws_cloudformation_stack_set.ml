@@ -192,11 +192,11 @@ type aws_cloudformation_stack_set = {
   template_body : string prop option; [@option]
   template_url : string prop option; [@option]
   auto_deployment : auto_deployment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_execution : managed_execution list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   operation_preferences : operation_preferences list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -232,7 +232,7 @@ let yojson_of_aws_cloudformation_stack_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_operation_preferences then bnds
+         if Stdlib.( = ) [] v_operation_preferences then bnds
          else
            let arg =
              (yojson_of_list yojson_of_operation_preferences)
@@ -242,7 +242,7 @@ let yojson_of_aws_cloudformation_stack_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_managed_execution then bnds
+         if Stdlib.( = ) [] v_managed_execution then bnds
          else
            let arg =
              (yojson_of_list yojson_of_managed_execution)
@@ -252,7 +252,7 @@ let yojson_of_aws_cloudformation_stack_set =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_deployment then bnds
+         if Stdlib.( = ) [] v_auto_deployment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_deployment)

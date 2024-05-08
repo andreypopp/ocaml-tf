@@ -466,11 +466,11 @@ let _ = yojson_of_rule__actions__version
 
 type rule__actions = {
   base_blob : rule__actions__base_blob list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   snapshot : rule__actions__snapshot list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   version : rule__actions__version list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -487,7 +487,7 @@ let yojson_of_rule__actions =
          []
        in
        let bnds =
-         if [] = v_version then bnds
+         if Stdlib.( = ) [] v_version then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__actions__version)
@@ -497,7 +497,7 @@ let yojson_of_rule__actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_snapshot then bnds
+         if Stdlib.( = ) [] v_snapshot then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__actions__snapshot)
@@ -507,7 +507,7 @@ let yojson_of_rule__actions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_base_blob then bnds
+         if Stdlib.( = ) [] v_base_blob then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__actions__base_blob)
@@ -564,10 +564,10 @@ let _ = yojson_of_rule__filters__match_blob_index_tag
 
 type rule__filters = {
   blob_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prefix_match : string prop list option; [@option]
   match_blob_index_tag : rule__filters__match_blob_index_tag list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -584,7 +584,7 @@ let yojson_of_rule__filters =
          []
        in
        let bnds =
-         if [] = v_match_blob_index_tag then bnds
+         if Stdlib.( = ) [] v_match_blob_index_tag then bnds
          else
            let arg =
              (yojson_of_list
@@ -605,7 +605,7 @@ let yojson_of_rule__filters =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_blob_types then bnds
+         if Stdlib.( = ) [] v_blob_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -625,9 +625,9 @@ type rule = {
   enabled : bool prop;
   name : string prop;
   actions : rule__actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filters : rule__filters list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -645,7 +645,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_filters then bnds
+         if Stdlib.( = ) [] v_filters then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__filters) v_filters
@@ -654,7 +654,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__actions) v_actions
@@ -740,7 +740,7 @@ let _ = yojson_of_timeouts
 type azurerm_storage_management_policy = {
   id : string prop option; [@option]
   storage_account_id : string prop;
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -763,7 +763,7 @@ let yojson_of_azurerm_storage_management_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

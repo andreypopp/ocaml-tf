@@ -95,7 +95,7 @@ type azurerm_api_management_authorization_server = {
   api_management_name : string prop;
   authorization_endpoint : string prop;
   authorization_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bearer_token_sending_methods : string prop list option; [@option]
   client_authentication_method : string prop list option; [@option]
   client_id : string prop;
@@ -105,7 +105,7 @@ type azurerm_api_management_authorization_server = {
   description : string prop option; [@option]
   display_name : string prop;
   grant_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
@@ -115,7 +115,7 @@ type azurerm_api_management_authorization_server = {
   token_endpoint : string prop option; [@option]
   timeouts : timeouts option;
   token_body_parameter : token_body_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,7 +150,7 @@ let yojson_of_azurerm_api_management_authorization_server =
          []
        in
        let bnds =
-         if [] = v_token_body_parameter then bnds
+         if Stdlib.( = ) [] v_token_body_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_token_body_parameter)
@@ -214,7 +214,7 @@ let yojson_of_azurerm_api_management_authorization_server =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_grant_types then bnds
+         if Stdlib.( = ) [] v_grant_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -283,7 +283,7 @@ let yojson_of_azurerm_api_management_authorization_server =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_authorization_methods then bnds
+         if Stdlib.( = ) [] v_authorization_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

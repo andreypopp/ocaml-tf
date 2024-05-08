@@ -209,12 +209,13 @@ type aws_codepipeline_custom_action_type = {
   tags_all : (string * string prop) list option; [@option]
   version : string prop;
   configuration_property : configuration_property list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_artifact_details : input_artifact_details list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_artifact_details : output_artifact_details list;
-      [@default []] [@yojson_drop_default ( = )]
-  settings : settings list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  settings : settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -238,7 +239,7 @@ let yojson_of_aws_codepipeline_custom_action_type =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_settings) v_settings
@@ -247,7 +248,7 @@ let yojson_of_aws_codepipeline_custom_action_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_artifact_details then bnds
+         if Stdlib.( = ) [] v_output_artifact_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output_artifact_details)
@@ -257,7 +258,7 @@ let yojson_of_aws_codepipeline_custom_action_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_artifact_details then bnds
+         if Stdlib.( = ) [] v_input_artifact_details then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_artifact_details)
@@ -267,7 +268,7 @@ let yojson_of_aws_codepipeline_custom_action_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configuration_property then bnds
+         if Stdlib.( = ) [] v_configuration_property then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration_property)

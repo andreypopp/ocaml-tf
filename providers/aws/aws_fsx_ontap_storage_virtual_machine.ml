@@ -4,7 +4,7 @@ open! Tf_core
 
 type active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_name : string prop;
   file_system_administrators_group : string prop option; [@option]
   organizational_unit_distinguished_name : string prop option;
@@ -66,7 +66,7 @@ let yojson_of_active_directory_configuration__self_managed_active_directory_conf
          ("domain_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_dns_ips then bnds
+         if Stdlib.( = ) [] v_dns_ips then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -89,7 +89,7 @@ type active_directory_configuration = {
   self_managed_active_directory_configuration :
     active_directory_configuration__self_managed_active_directory_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,8 +106,10 @@ let yojson_of_active_directory_configuration =
          []
        in
        let bnds =
-         if [] = v_self_managed_active_directory_configuration then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_self_managed_active_directory_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,7 +186,7 @@ let _ = yojson_of_timeouts
 type endpoints__smb = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,7 +199,7 @@ let yojson_of_endpoints__smb =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -220,7 +222,7 @@ let _ = yojson_of_endpoints__smb
 type endpoints__nfs = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,7 +235,7 @@ let yojson_of_endpoints__nfs =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -256,7 +258,7 @@ let _ = yojson_of_endpoints__nfs
 type endpoints__management = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,7 +271,7 @@ let yojson_of_endpoints__management =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -292,7 +294,7 @@ let _ = yojson_of_endpoints__management
 type endpoints__iscsi = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -305,7 +307,7 @@ let yojson_of_endpoints__iscsi =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -327,13 +329,13 @@ let _ = yojson_of_endpoints__iscsi
 
 type endpoints = {
   iscsi : endpoints__iscsi list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : endpoints__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nfs : endpoints__nfs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   smb : endpoints__smb list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -351,7 +353,7 @@ let yojson_of_endpoints =
          []
        in
        let bnds =
-         if [] = v_smb then bnds
+         if Stdlib.( = ) [] v_smb then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__smb) v_smb
@@ -360,7 +362,7 @@ let yojson_of_endpoints =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nfs then bnds
+         if Stdlib.( = ) [] v_nfs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__nfs) v_nfs
@@ -369,7 +371,7 @@ let yojson_of_endpoints =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__management)
@@ -379,7 +381,7 @@ let yojson_of_endpoints =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_iscsi then bnds
+         if Stdlib.( = ) [] v_iscsi then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__iscsi) v_iscsi
@@ -404,7 +406,7 @@ type aws_fsx_ontap_storage_virtual_machine = {
   tags_all : (string * string prop) list option; [@option]
   active_directory_configuration :
     active_directory_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -433,7 +435,8 @@ let yojson_of_aws_fsx_ontap_storage_virtual_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_active_directory_configuration then bnds
+         if Stdlib.( = ) [] v_active_directory_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_active_directory_configuration)

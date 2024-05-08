@@ -7,7 +7,7 @@ type aws_dax_subnet_group = {
   id : string prop option; [@option]
   name : string prop;
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25,7 +25,7 @@ let yojson_of_aws_dax_subnet_group =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

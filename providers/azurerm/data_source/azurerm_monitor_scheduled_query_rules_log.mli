@@ -8,13 +8,13 @@ type criteria__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type criteria = {
   dimension : criteria__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
   metric_name : string prop;  (** metric_name *)
 }

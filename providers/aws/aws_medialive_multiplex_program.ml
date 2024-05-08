@@ -96,7 +96,7 @@ type multiplex_program_settings__video_settings = {
   constant_bitrate : float prop option; [@option]
   statmux_settings :
     multiplex_program_settings__video_settings__statmux_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,7 @@ let yojson_of_multiplex_program_settings__video_settings =
          []
        in
        let bnds =
-         if [] = v_statmux_settings then bnds
+         if Stdlib.( = ) [] v_statmux_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -143,9 +143,9 @@ type multiplex_program_settings = {
   program_number : float prop;
   service_descriptor :
     multiplex_program_settings__service_descriptor list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_settings : multiplex_program_settings__video_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -163,7 +163,7 @@ let yojson_of_multiplex_program_settings =
          []
        in
        let bnds =
-         if [] = v_video_settings then bnds
+         if Stdlib.( = ) [] v_video_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -174,7 +174,7 @@ let yojson_of_multiplex_program_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_descriptor then bnds
+         if Stdlib.( = ) [] v_service_descriptor then bnds
          else
            let arg =
              (yojson_of_list
@@ -206,7 +206,7 @@ type aws_medialive_multiplex_program = {
   multiplex_id : string prop;
   program_name : string prop;
   multiplex_program_settings : multiplex_program_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -223,7 +223,7 @@ let yojson_of_aws_medialive_multiplex_program =
          []
        in
        let bnds =
-         if [] = v_multiplex_program_settings then bnds
+         if Stdlib.( = ) [] v_multiplex_program_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_multiplex_program_settings)

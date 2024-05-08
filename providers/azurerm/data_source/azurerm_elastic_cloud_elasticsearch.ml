@@ -77,7 +77,7 @@ type azurerm_elastic_cloud_elasticsearch = {
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  logs : logs list; [@default []] [@yojson_drop_default ( = )]
+  logs : logs list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -101,7 +101,7 @@ let yojson_of_azurerm_elastic_cloud_elasticsearch =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_logs then bnds
+         if Stdlib.( = ) [] v_logs then bnds
          else
            let arg = (yojson_of_list yojson_of_logs) v_logs in
            let bnd = "logs", arg in

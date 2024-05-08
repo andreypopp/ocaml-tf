@@ -6,7 +6,7 @@ open! Tf_core
 
 type output_resources__containers = {
   image_uris : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** image_uris *)
   region : string prop;  (** region *)
 }
@@ -21,10 +21,10 @@ type output_resources__amis = {
 
 type output_resources = {
   amis : output_resources__amis list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** amis *)
   containers : output_resources__containers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** containers *)
 }
 

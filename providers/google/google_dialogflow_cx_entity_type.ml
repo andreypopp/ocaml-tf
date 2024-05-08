@@ -123,9 +123,9 @@ type google_dialogflow_cx_entity_type = {
   parent : string prop option; [@option]
   redact : bool prop option; [@option]
   entities : entities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   excluded_phrases : excluded_phrases list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,7 +155,7 @@ let yojson_of_google_dialogflow_cx_entity_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_excluded_phrases then bnds
+         if Stdlib.( = ) [] v_excluded_phrases then bnds
          else
            let arg =
              (yojson_of_list yojson_of_excluded_phrases)
@@ -165,7 +165,7 @@ let yojson_of_google_dialogflow_cx_entity_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_entities then bnds
+         if Stdlib.( = ) [] v_entities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_entities) v_entities

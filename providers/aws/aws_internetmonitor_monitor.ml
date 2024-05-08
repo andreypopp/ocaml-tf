@@ -91,7 +91,7 @@ let _ = yojson_of_internet_measurements_log_delivery__s3_config
 
 type internet_measurements_log_delivery = {
   s3_config : internet_measurements_log_delivery__s3_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_internet_measurements_log_delivery =
          []
        in
        let bnds =
-         if [] = v_s3_config then bnds
+         if Stdlib.( = ) [] v_s3_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -132,10 +132,10 @@ type aws_internetmonitor_monitor = {
   tags_all : (string * string prop) list option; [@option]
   traffic_percentage_to_monitor : float prop option; [@option]
   health_events_config : health_events_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   internet_measurements_log_delivery :
     internet_measurements_log_delivery list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,8 @@ let yojson_of_aws_internetmonitor_monitor =
          []
        in
        let bnds =
-         if [] = v_internet_measurements_log_delivery then bnds
+         if Stdlib.( = ) [] v_internet_measurements_log_delivery then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -172,7 +173,7 @@ let yojson_of_aws_internetmonitor_monitor =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_events_config then bnds
+         if Stdlib.( = ) [] v_health_events_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_events_config)

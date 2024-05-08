@@ -53,7 +53,7 @@ type google_service_networking_connection = {
   id : string prop option; [@option]
   network : string prop;
   reserved_peering_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service : string prop;
   timeouts : timeouts option;
 }
@@ -83,7 +83,7 @@ let yojson_of_google_service_networking_connection =
          ("service", arg) :: bnds
        in
        let bnds =
-         if [] = v_reserved_peering_ranges then bnds
+         if Stdlib.( = ) [] v_reserved_peering_ranges then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

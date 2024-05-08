@@ -96,12 +96,12 @@ type statement__operation__audit__findings_destination = {
   cloudwatch_logs :
     statement__operation__audit__findings_destination__cloudwatch_logs
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   firehose :
     statement__operation__audit__findings_destination__firehose list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3 : statement__operation__audit__findings_destination__s3 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_statement__operation__audit__findings_destination =
          []
        in
        let bnds =
-         if [] = v_s3 then bnds
+         if Stdlib.( = ) [] v_s3 then bnds
          else
            let arg =
              (yojson_of_list
@@ -130,7 +130,7 @@ let yojson_of_statement__operation__audit__findings_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_firehose then bnds
+         if Stdlib.( = ) [] v_firehose then bnds
          else
            let arg =
              (yojson_of_list
@@ -141,7 +141,7 @@ let yojson_of_statement__operation__audit__findings_destination =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_logs then bnds
+         if Stdlib.( = ) [] v_cloudwatch_logs then bnds
          else
            let arg =
              (yojson_of_list
@@ -162,7 +162,7 @@ let _ = yojson_of_statement__operation__audit__findings_destination
 type statement__operation__audit = {
   findings_destination :
     statement__operation__audit__findings_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,7 +175,7 @@ let yojson_of_statement__operation__audit =
          []
        in
        let bnds =
-         if [] = v_findings_destination then bnds
+         if Stdlib.( = ) [] v_findings_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -209,7 +209,7 @@ let _ = yojson_of_statement__operation__deidentify__mask_config
 
 type statement__operation__deidentify = {
   mask_config : statement__operation__deidentify__mask_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,7 +222,7 @@ let yojson_of_statement__operation__deidentify =
          []
        in
        let bnds =
-         if [] = v_mask_config then bnds
+         if Stdlib.( = ) [] v_mask_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -242,9 +242,9 @@ let _ = yojson_of_statement__operation__deidentify
 
 type statement__operation = {
   audit : statement__operation__audit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deidentify : statement__operation__deidentify list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,7 +257,7 @@ let yojson_of_statement__operation =
          []
        in
        let bnds =
-         if [] = v_deidentify then bnds
+         if Stdlib.( = ) [] v_deidentify then bnds
          else
            let arg =
              (yojson_of_list
@@ -268,7 +268,7 @@ let yojson_of_statement__operation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audit then bnds
+         if Stdlib.( = ) [] v_audit then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement__operation__audit)
@@ -286,10 +286,10 @@ let _ = yojson_of_statement__operation
 
 type statement = {
   data_identifiers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sid : string prop option; [@option]
   operation : statement__operation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -306,7 +306,7 @@ let yojson_of_statement =
          []
        in
        let bnds =
-         if [] = v_operation then bnds
+         if Stdlib.( = ) [] v_operation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement__operation)
@@ -324,7 +324,7 @@ let yojson_of_statement =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_data_identifiers then bnds
+         if Stdlib.( = ) [] v_data_identifiers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -346,7 +346,7 @@ type aws_cloudwatch_log_data_protection_policy_document = {
   name : string prop;
   version : string prop option; [@option]
   statement : statement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -366,7 +366,7 @@ let yojson_of_aws_cloudwatch_log_data_protection_policy_document =
          []
        in
        let bnds =
-         if [] = v_statement then bnds
+         if Stdlib.( = ) [] v_statement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_statement) v_statement

@@ -34,7 +34,7 @@ let _ = yojson_of_composite_slot_type_setting__subslots
 
 type composite_slot_type_setting = {
   subslots : composite_slot_type_setting__subslots list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,7 +47,7 @@ let yojson_of_composite_slot_type_setting =
          []
        in
        let bnds =
-         if [] = v_subslots then bnds
+         if Stdlib.( = ) [] v_subslots then bnds
          else
            let arg =
              (yojson_of_list
@@ -113,7 +113,7 @@ let _ =
 type external_source_setting__grammar_slot_type_setting = {
   source :
     external_source_setting__grammar_slot_type_setting__source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,7 +127,7 @@ let yojson_of_external_source_setting__grammar_slot_type_setting =
          []
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +148,7 @@ let _ = yojson_of_external_source_setting__grammar_slot_type_setting
 type external_source_setting = {
   grammar_slot_type_setting :
     external_source_setting__grammar_slot_type_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_external_source_setting =
          []
        in
        let bnds =
-         if [] = v_grammar_slot_type_setting then bnds
+         if Stdlib.( = ) [] v_grammar_slot_type_setting then bnds
          else
            let arg =
              (yojson_of_list
@@ -225,9 +225,9 @@ let _ = yojson_of_slot_type_values__synonyms
 
 type slot_type_values = {
   slot_type_value : slot_type_values__slot_type_value list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   synonyms : slot_type_values__synonyms list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,7 +241,7 @@ let yojson_of_slot_type_values =
          []
        in
        let bnds =
-         if [] = v_synonyms then bnds
+         if Stdlib.( = ) [] v_synonyms then bnds
          else
            let arg =
              (yojson_of_list yojson_of_slot_type_values__synonyms)
@@ -251,7 +251,7 @@ let yojson_of_slot_type_values =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_slot_type_value then bnds
+         if Stdlib.( = ) [] v_slot_type_value then bnds
          else
            let arg =
              (yojson_of_list
@@ -375,9 +375,9 @@ type value_selection_setting = {
   resolution_strategy : string prop;
   advanced_recognition_setting :
     value_selection_setting__advanced_recognition_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   regex_filter : value_selection_setting__regex_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -394,7 +394,7 @@ let yojson_of_value_selection_setting =
          []
        in
        let bnds =
-         if [] = v_regex_filter then bnds
+         if Stdlib.( = ) [] v_regex_filter then bnds
          else
            let arg =
              (yojson_of_list
@@ -405,7 +405,7 @@ let yojson_of_value_selection_setting =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advanced_recognition_setting then bnds
+         if Stdlib.( = ) [] v_advanced_recognition_setting then bnds
          else
            let arg =
              (yojson_of_list
@@ -436,14 +436,14 @@ type aws_lexv2models_slot_type = {
   name : string prop;
   parent_slot_type_signature : string prop option; [@option]
   composite_slot_type_setting : composite_slot_type_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_source_setting : external_source_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   slot_type_values : slot_type_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   value_selection_setting : value_selection_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -468,7 +468,7 @@ let yojson_of_aws_lexv2models_slot_type =
          []
        in
        let bnds =
-         if [] = v_value_selection_setting then bnds
+         if Stdlib.( = ) [] v_value_selection_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_value_selection_setting)
@@ -482,7 +482,7 @@ let yojson_of_aws_lexv2models_slot_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_slot_type_values then bnds
+         if Stdlib.( = ) [] v_slot_type_values then bnds
          else
            let arg =
              (yojson_of_list yojson_of_slot_type_values)
@@ -492,7 +492,7 @@ let yojson_of_aws_lexv2models_slot_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_source_setting then bnds
+         if Stdlib.( = ) [] v_external_source_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_external_source_setting)
@@ -502,7 +502,7 @@ let yojson_of_aws_lexv2models_slot_type =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_composite_slot_type_setting then bnds
+         if Stdlib.( = ) [] v_composite_slot_type_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_composite_slot_type_setting)

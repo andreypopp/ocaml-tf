@@ -33,11 +33,12 @@ type additional_location = {
   gateway_regional_url : string prop;
   location : string prop;
   private_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_ip_address_id : string prop;
   public_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  zones : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,7 +59,7 @@ let yojson_of_additional_location =
          []
        in
        let bnds =
-         if [] = v_zones then bnds
+         if Stdlib.( = ) [] v_zones then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -68,7 +69,7 @@ let yojson_of_additional_location =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_public_ip_addresses then bnds
+         if Stdlib.( = ) [] v_public_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -84,7 +85,7 @@ let yojson_of_additional_location =
          ("public_ip_address_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_private_ip_addresses then bnds
+         if Stdlib.( = ) [] v_private_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -334,15 +335,15 @@ let _ = yojson_of_hostname_configuration__developer_portal
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : hostname_configuration__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   portal : hostname_configuration__portal list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy : hostname_configuration__proxy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scm : hostname_configuration__scm list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -361,7 +362,7 @@ let yojson_of_hostname_configuration =
          []
        in
        let bnds =
-         if [] = v_scm then bnds
+         if Stdlib.( = ) [] v_scm then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__scm)
@@ -371,7 +372,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_proxy then bnds
+         if Stdlib.( = ) [] v_proxy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__proxy)
@@ -381,7 +382,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_portal then bnds
+         if Stdlib.( = ) [] v_portal then bnds
          else
            let arg =
              (yojson_of_list yojson_of_hostname_configuration__portal)
@@ -391,7 +392,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list
@@ -402,7 +403,7 @@ let yojson_of_hostname_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_developer_portal then bnds
+         if Stdlib.( = ) [] v_developer_portal then bnds
          else
            let arg =
              (yojson_of_list
@@ -421,7 +422,7 @@ let _ = yojson_of_hostname_configuration
 
 type identity = {
   identity_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -454,7 +455,7 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_identity_ids then bnds
+         if Stdlib.( = ) [] v_identity_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

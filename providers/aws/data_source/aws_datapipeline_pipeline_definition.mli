@@ -11,7 +11,7 @@ type parameter_object__attribute = {
 
 type parameter_object = {
   attribute : parameter_object__attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** attribute *)
   id : string prop;  (** id *)
 }
@@ -24,7 +24,7 @@ type pipeline_object__field = {
 
 type pipeline_object = {
   field : pipeline_object__field list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** field *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)

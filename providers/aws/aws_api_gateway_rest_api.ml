@@ -4,7 +4,7 @@ open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vpc_endpoint_ids : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -28,7 +28,7 @@ let yojson_of_endpoint_configuration =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_types then bnds
+         if Stdlib.( = ) [] v_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -60,7 +60,7 @@ type aws_api_gateway_rest_api = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   endpoint_configuration : endpoint_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_aws_api_gateway_rest_api =
          []
        in
        let bnds =
-         if [] = v_endpoint_configuration then bnds
+         if Stdlib.( = ) [] v_endpoint_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoint_configuration)

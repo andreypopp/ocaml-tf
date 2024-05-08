@@ -62,7 +62,7 @@ let _ = yojson_of_access_control_policy__grant__grantee
 type access_control_policy__grant = {
   permission : string prop;
   grantee : access_control_policy__grant__grantee list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,7 +75,7 @@ let yojson_of_access_control_policy__grant =
          []
        in
        let bnds =
-         if [] = v_grantee then bnds
+         if Stdlib.( = ) [] v_grantee then bnds
          else
            let arg =
              (yojson_of_list
@@ -133,9 +133,9 @@ let _ = yojson_of_access_control_policy__owner
 
 type access_control_policy = {
   grant : access_control_policy__grant list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   owner : access_control_policy__owner list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_access_control_policy =
          []
        in
        let bnds =
-         if [] = v_owner then bnds
+         if Stdlib.( = ) [] v_owner then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control_policy__owner)
@@ -158,7 +158,7 @@ let yojson_of_access_control_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grant then bnds
+         if Stdlib.( = ) [] v_grant then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control_policy__grant)
@@ -180,7 +180,7 @@ type aws_s3_bucket_acl = {
   expected_bucket_owner : string prop option; [@option]
   id : string prop option; [@option]
   access_control_policy : access_control_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_aws_s3_bucket_acl =
          []
        in
        let bnds =
-         if [] = v_access_control_policy then bnds
+         if Stdlib.( = ) [] v_access_control_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access_control_policy)

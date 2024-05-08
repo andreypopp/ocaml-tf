@@ -160,9 +160,9 @@ type azurerm_dev_center_catalog = {
   name : string prop;
   resource_group_name : string prop;
   catalog_adogit : catalog_adogit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   catalog_github : catalog_github list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -188,7 +188,7 @@ let yojson_of_azurerm_dev_center_catalog =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_catalog_github then bnds
+         if Stdlib.( = ) [] v_catalog_github then bnds
          else
            let arg =
              (yojson_of_list yojson_of_catalog_github)
@@ -198,7 +198,7 @@ let yojson_of_azurerm_dev_center_catalog =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_catalog_adogit then bnds
+         if Stdlib.( = ) [] v_catalog_adogit then bnds
          else
            let arg =
              (yojson_of_list yojson_of_catalog_adogit)

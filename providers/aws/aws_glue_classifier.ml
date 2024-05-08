@@ -217,13 +217,13 @@ type aws_glue_classifier = {
   id : string prop option; [@option]
   name : string prop;
   csv_classifier : csv_classifier list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   grok_classifier : grok_classifier list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   json_classifier : json_classifier list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   xml_classifier : xml_classifier list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,7 +243,7 @@ let yojson_of_aws_glue_classifier =
          []
        in
        let bnds =
-         if [] = v_xml_classifier then bnds
+         if Stdlib.( = ) [] v_xml_classifier then bnds
          else
            let arg =
              (yojson_of_list yojson_of_xml_classifier)
@@ -253,7 +253,7 @@ let yojson_of_aws_glue_classifier =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_json_classifier then bnds
+         if Stdlib.( = ) [] v_json_classifier then bnds
          else
            let arg =
              (yojson_of_list yojson_of_json_classifier)
@@ -263,7 +263,7 @@ let yojson_of_aws_glue_classifier =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_grok_classifier then bnds
+         if Stdlib.( = ) [] v_grok_classifier then bnds
          else
            let arg =
              (yojson_of_list yojson_of_grok_classifier)
@@ -273,7 +273,7 @@ let yojson_of_aws_glue_classifier =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_csv_classifier then bnds
+         if Stdlib.( = ) [] v_csv_classifier then bnds
          else
            let arg =
              (yojson_of_list yojson_of_csv_classifier)

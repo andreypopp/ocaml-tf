@@ -172,13 +172,13 @@ type additional_authentication_provider = {
   authentication_type : string prop;
   lambda_authorizer_config :
     additional_authentication_provider__lambda_authorizer_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   openid_connect_config :
     additional_authentication_provider__openid_connect_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_pool_config :
     additional_authentication_provider__user_pool_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,7 +196,7 @@ let yojson_of_additional_authentication_provider =
          []
        in
        let bnds =
-         if [] = v_user_pool_config then bnds
+         if Stdlib.( = ) [] v_user_pool_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -207,7 +207,7 @@ let yojson_of_additional_authentication_provider =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_openid_connect_config then bnds
+         if Stdlib.( = ) [] v_openid_connect_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -218,7 +218,7 @@ let yojson_of_additional_authentication_provider =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda_authorizer_config then bnds
+         if Stdlib.( = ) [] v_lambda_authorizer_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -462,15 +462,15 @@ type aws_appsync_graphql_api = {
   xray_enabled : bool prop option; [@option]
   additional_authentication_provider :
     additional_authentication_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   lambda_authorizer_config : lambda_authorizer_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_config : log_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   openid_connect_config : openid_connect_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_pool_config : user_pool_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -501,7 +501,7 @@ let yojson_of_aws_appsync_graphql_api =
          []
        in
        let bnds =
-         if [] = v_user_pool_config then bnds
+         if Stdlib.( = ) [] v_user_pool_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_pool_config)
@@ -511,7 +511,7 @@ let yojson_of_aws_appsync_graphql_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_openid_connect_config then bnds
+         if Stdlib.( = ) [] v_openid_connect_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_openid_connect_config)
@@ -521,7 +521,7 @@ let yojson_of_aws_appsync_graphql_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_config then bnds
+         if Stdlib.( = ) [] v_log_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_log_config) v_log_config
@@ -530,7 +530,7 @@ let yojson_of_aws_appsync_graphql_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_lambda_authorizer_config then bnds
+         if Stdlib.( = ) [] v_lambda_authorizer_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_lambda_authorizer_config)
@@ -540,7 +540,8 @@ let yojson_of_aws_appsync_graphql_api =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_additional_authentication_provider then bnds
+         if Stdlib.( = ) [] v_additional_authentication_provider then
+           bnds
          else
            let arg =
              (yojson_of_list

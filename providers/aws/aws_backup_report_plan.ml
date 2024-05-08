@@ -145,9 +145,9 @@ type aws_backup_report_plan = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   report_delivery_channel : report_delivery_channel list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   report_setting : report_setting list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_aws_backup_report_plan =
          []
        in
        let bnds =
-         if [] = v_report_setting then bnds
+         if Stdlib.( = ) [] v_report_setting then bnds
          else
            let arg =
              (yojson_of_list yojson_of_report_setting)
@@ -178,7 +178,7 @@ let yojson_of_aws_backup_report_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_report_delivery_channel then bnds
+         if Stdlib.( = ) [] v_report_delivery_channel then bnds
          else
            let arg =
              (yojson_of_list yojson_of_report_delivery_channel)

@@ -177,18 +177,18 @@ type volume = {
   capacity_pool_id : string prop;
   data_protection_replication :
     volume__data_protection_replication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_protection_snapshot_policy :
     volume__data_protection_snapshot_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   export_policy_rule : volume__export_policy_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop;
   mount_ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   protocols : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   proximity_placement_group_id : string prop;
   security_style : string prop;
   service_level : string prop;
@@ -292,7 +292,7 @@ let yojson_of_volume =
          ("proximity_placement_group_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_protocols then bnds
+         if Stdlib.( = ) [] v_protocols then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -306,7 +306,7 @@ let yojson_of_volume =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_mount_ip_addresses then bnds
+         if Stdlib.( = ) [] v_mount_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -320,7 +320,7 @@ let yojson_of_volume =
          ("id", arg) :: bnds
        in
        let bnds =
-         if [] = v_export_policy_rule then bnds
+         if Stdlib.( = ) [] v_export_policy_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_volume__export_policy_rule)
@@ -330,7 +330,8 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_snapshot_policy then bnds
+         if Stdlib.( = ) [] v_data_protection_snapshot_policy then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +342,7 @@ let yojson_of_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_data_protection_replication then bnds
+         if Stdlib.( = ) [] v_data_protection_replication then bnds
          else
            let arg =
              (yojson_of_list

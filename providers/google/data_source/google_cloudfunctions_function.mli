@@ -11,7 +11,7 @@ type event_trigger__failure_policy = {
 type event_trigger = {
   event_type : string prop;  (** event_type *)
   failure_policy : event_trigger__failure_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** failure_policy *)
   resource : string prop;  (** resource *)
 }
@@ -33,7 +33,7 @@ type secret_volumes = {
   project_id : string prop;  (** project_id *)
   secret : string prop;  (** secret *)
   versions : secret_volumes__versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** versions *)
 }
 

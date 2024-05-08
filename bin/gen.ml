@@ -231,7 +231,8 @@ let gen_attribute_types ~is_mli name ppf attributes =
       let ext =
         match ty with
         | List _ | Set _ ->
-            "[@default []] [@yojson_drop_default ( = )]" :: ext
+            "[@default []] [@yojson_drop_default Stdlib.( = )]"
+            :: ext
         | _ -> ext
       in
       Format.fprintf ppf "  %s: %a; %s%s@." ocaml_name pp_ty ty
@@ -298,9 +299,9 @@ let gen_block_type_name ~kind basename
     | "timeouts", Single, `record -> " option", ""
     | _, Single, _ -> "", ""
     | _, List, _ ->
-        " list", " [@default []] [@yojson_drop_default ( = )]"
+        " list", " [@default []] [@yojson_drop_default Stdlib.( = )]"
     | _, Set, _ ->
-        " list", " [@default []] [@yojson_drop_default ( = )]"
+        " list", " [@default []] [@yojson_drop_default Stdlib.( = )]"
     | _, Map, _ -> " assoc", ""
   in
   Printf.sprintf "%s%s" ty_name ty_mod, yojson_attrs

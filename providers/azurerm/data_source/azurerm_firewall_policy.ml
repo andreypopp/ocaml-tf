@@ -32,7 +32,7 @@ type dns = {
   network_rule_fqdn_enabled : bool prop;
   proxy_enabled : bool prop;
   servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,7 +49,7 @@ let yojson_of_dns =
          []
        in
        let bnds =
-         if [] = v_servers then bnds
+         if Stdlib.( = ) [] v_servers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -77,9 +77,9 @@ let _ = yojson_of_dns
 
 type threat_intelligence_allowlist = {
   fqdns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,7 +92,7 @@ let yojson_of_threat_intelligence_allowlist =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -102,7 +102,7 @@ let yojson_of_threat_intelligence_allowlist =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fqdns then bnds
+         if Stdlib.( = ) [] v_fqdns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

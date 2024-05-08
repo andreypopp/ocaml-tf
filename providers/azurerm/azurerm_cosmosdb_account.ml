@@ -186,13 +186,13 @@ let _ = yojson_of_consistency_policy
 
 type cors_rule = {
   allowed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allowed_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   exposed_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_age_in_seconds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -220,7 +220,7 @@ let yojson_of_cors_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_exposed_headers then bnds
+         if Stdlib.( = ) [] v_exposed_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -230,7 +230,7 @@ let yojson_of_cors_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_origins then bnds
+         if Stdlib.( = ) [] v_allowed_origins then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -240,7 +240,7 @@ let yojson_of_cors_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_methods then bnds
+         if Stdlib.( = ) [] v_allowed_methods then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -250,7 +250,7 @@ let yojson_of_cors_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_headers then bnds
+         if Stdlib.( = ) [] v_allowed_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -420,9 +420,9 @@ type restore = {
   source_cosmosdb_account_id : string prop;
   tables_to_restore : string prop list option; [@option]
   database : restore__database list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gremlin_database : restore__gremlin_database list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -441,7 +441,7 @@ let yojson_of_restore =
          []
        in
        let bnds =
-         if [] = v_gremlin_database then bnds
+         if Stdlib.( = ) [] v_gremlin_database then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restore__gremlin_database)
@@ -451,7 +451,7 @@ let yojson_of_restore =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_database then bnds
+         if Stdlib.( = ) [] v_database then bnds
          else
            let arg =
              (yojson_of_list yojson_of_restore__database) v_database
@@ -612,24 +612,26 @@ type azurerm_cosmosdb_account = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   analytical_storage : analytical_storage list;
-      [@default []] [@yojson_drop_default ( = )]
-  backup : backup list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  backup : backup list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   capabilities : capabilities list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   capacity : capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   consistency_policy : consistency_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cors_rule : cors_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   geo_location : geo_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
-  restore : restore list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  restore : restore list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_network_rule : virtual_network_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -684,7 +686,7 @@ let yojson_of_azurerm_cosmosdb_account =
          []
        in
        let bnds =
-         if [] = v_virtual_network_rule then bnds
+         if Stdlib.( = ) [] v_virtual_network_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_network_rule)
@@ -698,14 +700,14 @@ let yojson_of_azurerm_cosmosdb_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_restore then bnds
+         if Stdlib.( = ) [] v_restore then bnds
          else
            let arg = (yojson_of_list yojson_of_restore) v_restore in
            let bnd = "restore", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -714,7 +716,7 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_geo_location then bnds
+         if Stdlib.( = ) [] v_geo_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_geo_location) v_geo_location
@@ -723,7 +725,7 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors_rule then bnds
+         if Stdlib.( = ) [] v_cors_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cors_rule) v_cors_rule
@@ -732,7 +734,7 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_consistency_policy then bnds
+         if Stdlib.( = ) [] v_consistency_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_consistency_policy)
@@ -742,7 +744,7 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity then bnds
+         if Stdlib.( = ) [] v_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity) v_capacity
@@ -751,7 +753,7 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capabilities then bnds
+         if Stdlib.( = ) [] v_capabilities then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capabilities) v_capabilities
@@ -760,14 +762,14 @@ let yojson_of_azurerm_cosmosdb_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backup then bnds
+         if Stdlib.( = ) [] v_backup then bnds
          else
            let arg = (yojson_of_list yojson_of_backup) v_backup in
            let bnd = "backup", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_analytical_storage then bnds
+         if Stdlib.( = ) [] v_analytical_storage then bnds
          else
            let arg =
              (yojson_of_list yojson_of_analytical_storage)

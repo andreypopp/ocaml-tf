@@ -215,11 +215,11 @@ let _ = yojson_of_deny_maintenance_period__time
 
 type deny_maintenance_period = {
   end_date : deny_maintenance_period__end_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   start_date : deny_maintenance_period__start_date list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   time : deny_maintenance_period__time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,7 +236,7 @@ let yojson_of_deny_maintenance_period =
          []
        in
        let bnds =
-         if [] = v_time then bnds
+         if Stdlib.( = ) [] v_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deny_maintenance_period__time)
@@ -246,7 +246,7 @@ let yojson_of_deny_maintenance_period =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_start_date then bnds
+         if Stdlib.( = ) [] v_start_date then bnds
          else
            let arg =
              (yojson_of_list
@@ -257,7 +257,7 @@ let yojson_of_deny_maintenance_period =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_end_date then bnds
+         if Stdlib.( = ) [] v_end_date then bnds
          else
            let arg =
              (yojson_of_list
@@ -366,7 +366,7 @@ let _ = yojson_of_maintenance_window__start_time
 type maintenance_window = {
   day_of_week : string prop;
   start_time : maintenance_window__start_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -379,7 +379,7 @@ let yojson_of_maintenance_window =
          []
        in
        let bnds =
-         if [] = v_start_time then bnds
+         if Stdlib.( = ) [] v_start_time then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window__start_time)
@@ -537,20 +537,20 @@ type google_looker_instance = {
   region : string prop option; [@option]
   reserved_range : string prop option; [@option]
   admin_settings : admin_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_domain : custom_domain list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deny_maintenance_period : deny_maintenance_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_config : encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oauth_config : oauth_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   user_metadata : user_metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -581,7 +581,7 @@ let yojson_of_google_looker_instance =
          []
        in
        let bnds =
-         if [] = v_user_metadata then bnds
+         if Stdlib.( = ) [] v_user_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_user_metadata) v_user_metadata
@@ -594,7 +594,7 @@ let yojson_of_google_looker_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_oauth_config then bnds
+         if Stdlib.( = ) [] v_oauth_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oauth_config) v_oauth_config
@@ -603,7 +603,7 @@ let yojson_of_google_looker_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)
@@ -613,7 +613,7 @@ let yojson_of_google_looker_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_config)
@@ -623,7 +623,7 @@ let yojson_of_google_looker_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deny_maintenance_period then bnds
+         if Stdlib.( = ) [] v_deny_maintenance_period then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deny_maintenance_period)
@@ -633,7 +633,7 @@ let yojson_of_google_looker_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_domain then bnds
+         if Stdlib.( = ) [] v_custom_domain then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_domain) v_custom_domain
@@ -642,7 +642,7 @@ let yojson_of_google_looker_instance =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_admin_settings then bnds
+         if Stdlib.( = ) [] v_admin_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_admin_settings)

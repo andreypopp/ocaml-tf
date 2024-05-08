@@ -71,9 +71,9 @@ let _ = yojson_of_alternate_identifier__unique_attribute
 
 type alternate_identifier = {
   external_id : alternate_identifier__external_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unique_attribute : alternate_identifier__unique_attribute list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_alternate_identifier =
          []
        in
        let bnds =
-         if [] = v_unique_attribute then bnds
+         if Stdlib.( = ) [] v_unique_attribute then bnds
          else
            let arg =
              (yojson_of_list
@@ -100,7 +100,7 @@ let yojson_of_alternate_identifier =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_id then bnds
+         if Stdlib.( = ) [] v_external_id then bnds
          else
            let arg =
              (yojson_of_list
@@ -184,8 +184,9 @@ type aws_identitystore_group = {
   id : string prop option; [@option]
   identity_store_id : string prop;
   alternate_identifier : alternate_identifier list;
-      [@default []] [@yojson_drop_default ( = )]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,14 +205,14 @@ let yojson_of_aws_identitystore_group =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alternate_identifier then bnds
+         if Stdlib.( = ) [] v_alternate_identifier then bnds
          else
            let arg =
              (yojson_of_list yojson_of_alternate_identifier)

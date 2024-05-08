@@ -59,7 +59,7 @@ type step_scaling_policy_configuration = {
   min_adjustment_magnitude : float prop option; [@option]
   step_adjustment :
     step_scaling_policy_configuration__step_adjustment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,7 +78,7 @@ let yojson_of_step_scaling_policy_configuration =
          []
        in
        let bnds =
-         if [] = v_step_adjustment then bnds
+         if Stdlib.( = ) [] v_step_adjustment then bnds
          else
            let arg =
              (yojson_of_list
@@ -204,7 +204,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -225,7 +225,7 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -258,7 +258,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   metric :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,7 +275,7 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         if [] = v_metric then bnds
+         if Stdlib.( = ) [] v_metric then bnds
          else
            let arg =
              (yojson_of_list
@@ -314,7 +314,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   metric_stat :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         if [] = v_metric_stat then bnds
+         if Stdlib.( = ) [] v_metric_stat then bnds
          else
            let arg =
              (yojson_of_list
@@ -392,11 +392,11 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metrics :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -420,7 +420,7 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         if [] = v_metrics then bnds
+         if Stdlib.( = ) [] v_metrics then bnds
          else
            let arg =
              (yojson_of_list
@@ -431,7 +431,7 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dimensions then bnds
+         if Stdlib.( = ) [] v_dimensions then bnds
          else
            let arg =
              (yojson_of_list
@@ -534,11 +534,11 @@ type target_tracking_scaling_policy_configuration = {
   customized_metric_specification :
     target_tracking_scaling_policy_configuration__customized_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predefined_metric_specification :
     target_tracking_scaling_policy_configuration__predefined_metric_specification
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -560,7 +560,8 @@ let yojson_of_target_tracking_scaling_policy_configuration =
          []
        in
        let bnds =
-         if [] = v_predefined_metric_specification then bnds
+         if Stdlib.( = ) [] v_predefined_metric_specification then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -571,7 +572,8 @@ let yojson_of_target_tracking_scaling_policy_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customized_metric_specification then bnds
+         if Stdlib.( = ) [] v_customized_metric_specification then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -626,10 +628,10 @@ type aws_appautoscaling_policy = {
   service_namespace : string prop;
   step_scaling_policy_configuration :
     step_scaling_policy_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_tracking_scaling_policy_configuration :
     target_tracking_scaling_policy_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -653,8 +655,10 @@ let yojson_of_aws_appautoscaling_policy =
          []
        in
        let bnds =
-         if [] = v_target_tracking_scaling_policy_configuration then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_target_tracking_scaling_policy_configuration
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -667,7 +671,8 @@ let yojson_of_aws_appautoscaling_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_step_scaling_policy_configuration then bnds
+         if Stdlib.( = ) [] v_step_scaling_policy_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list

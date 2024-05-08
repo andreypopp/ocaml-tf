@@ -136,9 +136,9 @@ type aws_transfer_connector = {
   tags_all : (string * string prop) list option; [@option]
   url : string prop;
   as2_config : as2_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sftp_config : sftp_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,7 +160,7 @@ let yojson_of_aws_transfer_connector =
          []
        in
        let bnds =
-         if [] = v_sftp_config then bnds
+         if Stdlib.( = ) [] v_sftp_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sftp_config) v_sftp_config
@@ -169,7 +169,7 @@ let yojson_of_aws_transfer_connector =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_as2_config then bnds
+         if Stdlib.( = ) [] v_as2_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_as2_config) v_as2_config

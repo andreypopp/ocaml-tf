@@ -143,11 +143,11 @@ let _ = yojson_of_destinations__settings
 type destinations = {
   id : string prop;
   media_package_settings : destinations__media_package_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   multiplex_settings : destinations__multiplex_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   settings : destinations__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,7 +165,7 @@ let yojson_of_destinations =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations__settings)
@@ -175,7 +175,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multiplex_settings then bnds
+         if Stdlib.( = ) [] v_multiplex_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -186,7 +186,7 @@ let yojson_of_destinations =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_media_package_settings then bnds
+         if Stdlib.( = ) [] v_media_package_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -353,11 +353,11 @@ type encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_wat
   nielsen_cbet_settings :
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings__nielsen_cbet_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nielsen_naes_ii_nw_settings :
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings__nielsen_naes_ii_nw_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_encoder_settings__audio_descriptions__audio_watermark_settings__ni
          []
        in
        let bnds =
-         if [] = v_nielsen_naes_ii_nw_settings then bnds
+         if Stdlib.( = ) [] v_nielsen_naes_ii_nw_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -389,7 +389,7 @@ let yojson_of_encoder_settings__audio_descriptions__audio_watermark_settings__ni
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nielsen_cbet_settings then bnds
+         if Stdlib.( = ) [] v_nielsen_cbet_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -420,7 +420,7 @@ type encoder_settings__audio_descriptions__audio_watermark_settings = {
   nielsen_watermarks_settings :
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -438,7 +438,7 @@ let yojson_of_encoder_settings__audio_descriptions__audio_watermark_settings
          []
        in
        let bnds =
-         if [] = v_nielsen_watermarks_settings then bnds
+         if Stdlib.( = ) [] v_nielsen_watermarks_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1127,31 +1127,31 @@ type encoder_settings__audio_descriptions__codec_settings = {
   aac_settings :
     encoder_settings__audio_descriptions__codec_settings__aac_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ac3_settings :
     encoder_settings__audio_descriptions__codec_settings__ac3_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   eac3_atmos_settings :
     encoder_settings__audio_descriptions__codec_settings__eac3_atmos_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   eac3_settings :
     encoder_settings__audio_descriptions__codec_settings__eac3_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   mp2_settings :
     encoder_settings__audio_descriptions__codec_settings__mp2_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pass_through_settings :
     encoder_settings__audio_descriptions__codec_settings__pass_through_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   wav_settings :
     encoder_settings__audio_descriptions__codec_settings__wav_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1173,7 +1173,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
          []
        in
        let bnds =
-         if [] = v_wav_settings then bnds
+         if Stdlib.( = ) [] v_wav_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1184,7 +1184,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pass_through_settings then bnds
+         if Stdlib.( = ) [] v_pass_through_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1195,7 +1195,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mp2_settings then bnds
+         if Stdlib.( = ) [] v_mp2_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1206,7 +1206,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_eac3_settings then bnds
+         if Stdlib.( = ) [] v_eac3_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1217,7 +1217,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_eac3_atmos_settings then bnds
+         if Stdlib.( = ) [] v_eac3_atmos_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1228,7 +1228,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ac3_settings then bnds
+         if Stdlib.( = ) [] v_ac3_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1239,7 +1239,7 @@ let yojson_of_encoder_settings__audio_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_aac_settings then bnds
+         if Stdlib.( = ) [] v_aac_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1298,7 +1298,7 @@ type encoder_settings__audio_descriptions__remix_settings__channel_mappings = {
   input_channel_levels :
     encoder_settings__audio_descriptions__remix_settings__channel_mappings__input_channel_levels
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1318,7 +1318,7 @@ let yojson_of_encoder_settings__audio_descriptions__remix_settings__channel_mapp
          []
        in
        let bnds =
-         if [] = v_input_channel_levels then bnds
+         if Stdlib.( = ) [] v_input_channel_levels then bnds
          else
            let arg =
              (yojson_of_list
@@ -1347,7 +1347,7 @@ type encoder_settings__audio_descriptions__remix_settings = {
   channel_mappings :
     encoder_settings__audio_descriptions__remix_settings__channel_mappings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1365,7 +1365,7 @@ let yojson_of_encoder_settings__audio_descriptions__remix_settings =
          []
        in
        let bnds =
-         if [] = v_channel_mappings then bnds
+         if Stdlib.( = ) [] v_channel_mappings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1411,17 +1411,17 @@ type encoder_settings__audio_descriptions = {
   audio_normalization_settings :
     encoder_settings__audio_descriptions__audio_normalization_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audio_watermark_settings :
     encoder_settings__audio_descriptions__audio_watermark_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   codec_settings :
     encoder_settings__audio_descriptions__codec_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remix_settings :
     encoder_settings__audio_descriptions__remix_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1446,7 +1446,7 @@ let yojson_of_encoder_settings__audio_descriptions =
          []
        in
        let bnds =
-         if [] = v_remix_settings then bnds
+         if Stdlib.( = ) [] v_remix_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1457,7 +1457,7 @@ let yojson_of_encoder_settings__audio_descriptions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_codec_settings then bnds
+         if Stdlib.( = ) [] v_codec_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1468,7 +1468,7 @@ let yojson_of_encoder_settings__audio_descriptions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_watermark_settings then bnds
+         if Stdlib.( = ) [] v_audio_watermark_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1479,7 +1479,7 @@ let yojson_of_encoder_settings__audio_descriptions =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_normalization_settings then bnds
+         if Stdlib.( = ) [] v_audio_normalization_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -1602,7 +1602,7 @@ type encoder_settings__avail_blanking = {
   state : string prop option; [@option]
   avail_blanking_image :
     encoder_settings__avail_blanking__avail_blanking_image list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1618,7 +1618,7 @@ let yojson_of_encoder_settings__avail_blanking =
          []
        in
        let bnds =
-         if [] = v_avail_blanking_image then bnds
+         if Stdlib.( = ) [] v_avail_blanking_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -1736,7 +1736,7 @@ type encoder_settings__caption_descriptions__destination_settings__burn_in_desti
   font :
     encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings__font
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1771,7 +1771,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings__burn
          []
        in
        let bnds =
-         if [] = v_font then bnds
+         if Stdlib.( = ) [] v_font then bnds
          else
            let arg =
              (yojson_of_list
@@ -1984,7 +1984,7 @@ type encoder_settings__caption_descriptions__destination_settings__dvb_sub_desti
   font :
     encoder_settings__caption_descriptions__destination_settings__dvb_sub_destination_settings__font
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2019,7 +2019,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings__dvb_
          []
        in
        let bnds =
-         if [] = v_font then bnds
+         if Stdlib.( = ) [] v_font then bnds
          else
            let arg =
              (yojson_of_list
@@ -2436,55 +2436,55 @@ type encoder_settings__caption_descriptions__destination_settings = {
   arib_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__arib_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   burn_in_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_sub_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__dvb_sub_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ebu_tt_d_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__ebu_tt_d_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   embedded_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__embedded_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   embedded_plus_scte20_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__embedded_plus_scte20_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rtmp_caption_info_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__rtmp_caption_info_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scte20_plus_embedded_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__scte20_plus_embedded_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scte27_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__scte27_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   smpte_tt_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__smpte_tt_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   teletext_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__teletext_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ttml_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__ttml_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   webvtt_destination_settings :
     encoder_settings__caption_descriptions__destination_settings__webvtt_destination_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2522,7 +2522,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
          []
        in
        let bnds =
-         if [] = v_webvtt_destination_settings then bnds
+         if Stdlib.( = ) [] v_webvtt_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2533,7 +2533,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ttml_destination_settings then bnds
+         if Stdlib.( = ) [] v_ttml_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2544,7 +2544,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_teletext_destination_settings then bnds
+         if Stdlib.( = ) [] v_teletext_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2555,7 +2555,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_smpte_tt_destination_settings then bnds
+         if Stdlib.( = ) [] v_smpte_tt_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2566,7 +2566,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scte27_destination_settings then bnds
+         if Stdlib.( = ) [] v_scte27_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2577,8 +2577,10 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scte20_plus_embedded_destination_settings then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_scte20_plus_embedded_destination_settings
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -2591,7 +2593,8 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rtmp_caption_info_destination_settings then bnds
+         if Stdlib.( = ) [] v_rtmp_caption_info_destination_settings
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -2602,8 +2605,10 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_embedded_plus_scte20_destination_settings then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_embedded_plus_scte20_destination_settings
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -2616,7 +2621,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_embedded_destination_settings then bnds
+         if Stdlib.( = ) [] v_embedded_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2627,7 +2632,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ebu_tt_d_destination_settings then bnds
+         if Stdlib.( = ) [] v_ebu_tt_d_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2638,7 +2643,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_sub_destination_settings then bnds
+         if Stdlib.( = ) [] v_dvb_sub_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2649,7 +2654,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_burn_in_destination_settings then bnds
+         if Stdlib.( = ) [] v_burn_in_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2660,7 +2665,7 @@ let yojson_of_encoder_settings__caption_descriptions__destination_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_arib_destination_settings then bnds
+         if Stdlib.( = ) [] v_arib_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2687,7 +2692,7 @@ type encoder_settings__caption_descriptions = {
   name : string prop;
   destination_settings :
     encoder_settings__caption_descriptions__destination_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2707,7 +2712,7 @@ let yojson_of_encoder_settings__caption_descriptions =
          []
        in
        let bnds =
-         if [] = v_destination_settings then bnds
+         if Stdlib.( = ) [] v_destination_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -2819,7 +2824,7 @@ type encoder_settings__global_configuration__input_loss_behavior = {
   input_loss_image_slate :
     encoder_settings__global_configuration__input_loss_behavior__input_loss_image_slate
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2842,7 +2847,7 @@ let yojson_of_encoder_settings__global_configuration__input_loss_behavior
          []
        in
        let bnds =
-         if [] = v_input_loss_image_slate then bnds
+         if Stdlib.( = ) [] v_input_loss_image_slate then bnds
          else
            let arg =
              (yojson_of_list
@@ -2901,7 +2906,7 @@ type encoder_settings__global_configuration = {
   support_low_framerate_inputs : string prop option; [@option]
   input_loss_behavior :
     encoder_settings__global_configuration__input_loss_behavior list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2921,7 +2926,7 @@ let yojson_of_encoder_settings__global_configuration =
          []
        in
        let bnds =
-         if [] = v_input_loss_behavior then bnds
+         if Stdlib.( = ) [] v_input_loss_behavior then bnds
          else
            let arg =
              (yojson_of_list
@@ -3003,7 +3008,7 @@ type encoder_settings__motion_graphics_configuration__motion_graphics_settings =
   html_motion_graphics_settings :
     encoder_settings__motion_graphics_configuration__motion_graphics_settings__html_motion_graphics_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3023,7 +3028,7 @@ let yojson_of_encoder_settings__motion_graphics_configuration__motion_graphics_s
          []
        in
        let bnds =
-         if [] = v_html_motion_graphics_settings then bnds
+         if Stdlib.( = ) [] v_html_motion_graphics_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3047,7 +3052,7 @@ type encoder_settings__motion_graphics_configuration = {
   motion_graphics_settings :
     encoder_settings__motion_graphics_configuration__motion_graphics_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3064,7 +3069,7 @@ let yojson_of_encoder_settings__motion_graphics_configuration =
          []
        in
        let bnds =
-         if [] = v_motion_graphics_settings then bnds
+         if Stdlib.( = ) [] v_motion_graphics_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3169,7 +3174,7 @@ type encoder_settings__output_groups__output_group_settings__archive_group_setti
   archive_s3_settings :
     encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings__archive_s3_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3186,7 +3191,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__archive_gr
          []
        in
        let bnds =
-         if [] = v_archive_s3_settings then bnds
+         if Stdlib.( = ) [] v_archive_s3_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3242,11 +3247,11 @@ type encoder_settings__output_groups__output_group_settings__archive_group_setti
   archive_cdn_settings :
     encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination :
     encoder_settings__output_groups__output_group_settings__archive_group_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3267,7 +3272,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__archive_gr
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -3278,7 +3283,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__archive_gr
            bnd :: bnds
        in
        let bnds =
-         if [] = v_archive_cdn_settings then bnds
+         if Stdlib.( = ) [] v_archive_cdn_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3375,7 +3380,7 @@ type encoder_settings__output_groups__output_group_settings__frame_capture_group
   frame_capture_s3_settings :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings__frame_capture_s3_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3392,7 +3397,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__frame_capt
          []
        in
        let bnds =
-         if [] = v_frame_capture_s3_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_s3_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3415,11 +3420,11 @@ type encoder_settings__output_groups__output_group_settings__frame_capture_group
   destination :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frame_capture_cdn_settings :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3439,7 +3444,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__frame_capt
          []
        in
        let bnds =
-         if [] = v_frame_capture_cdn_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_cdn_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3450,7 +3455,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__frame_capt
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -3901,23 +3906,23 @@ type encoder_settings__output_groups__output_group_settings__hls_group_settings_
   hls_akamai_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_akamai_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_basic_put_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_basic_put_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_media_store_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_media_store_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_s3_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_s3_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_webdav_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_webdav_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3940,7 +3945,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
          []
        in
        let bnds =
-         if [] = v_hls_webdav_settings then bnds
+         if Stdlib.( = ) [] v_hls_webdav_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3951,7 +3956,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_s3_settings then bnds
+         if Stdlib.( = ) [] v_hls_s3_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3962,7 +3967,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_media_store_settings then bnds
+         if Stdlib.( = ) [] v_hls_media_store_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3973,7 +3978,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_basic_put_settings then bnds
+         if Stdlib.( = ) [] v_hls_basic_put_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -3984,7 +3989,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_akamai_settings then bnds
+         if Stdlib.( = ) [] v_hls_akamai_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -4060,7 +4065,7 @@ type encoder_settings__output_groups__output_group_settings__hls_group_settings_
   key_provider_server :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings__key_provider_server
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4080,7 +4085,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
          []
        in
        let bnds =
-         if [] = v_key_provider_server then bnds
+         if Stdlib.( = ) [] v_key_provider_server then bnds
          else
            let arg =
              (yojson_of_list
@@ -4109,7 +4114,7 @@ type encoder_settings__output_groups__output_group_settings__hls_group_settings_
   static_key_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4126,7 +4131,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
          []
        in
        let bnds =
-         if [] = v_static_key_settings then bnds
+         if Stdlib.( = ) [] v_static_key_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -4187,19 +4192,19 @@ type encoder_settings__output_groups__output_group_settings__hls_group_settings 
   caption_language_mappings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__caption_language_mappings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_cdn_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   key_provider_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4259,7 +4264,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
          []
        in
        let bnds =
-         if [] = v_key_provider_settings then bnds
+         if Stdlib.( = ) [] v_key_provider_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -4270,7 +4275,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_cdn_settings then bnds
+         if Stdlib.( = ) [] v_hls_cdn_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -4281,7 +4286,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -4292,7 +4297,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__hls_group_
            bnd :: bnds
        in
        let bnds =
-         if [] = v_caption_language_mappings then bnds
+         if Stdlib.( = ) [] v_caption_language_mappings then bnds
          else
            let arg =
              (yojson_of_list
@@ -4653,7 +4658,7 @@ type encoder_settings__output_groups__output_group_settings__media_package_group
   destination :
     encoder_settings__output_groups__output_group_settings__media_package_group_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4670,7 +4675,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__media_pack
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -4743,7 +4748,7 @@ type encoder_settings__output_groups__output_group_settings__ms_smooth_group_set
   destination :
     encoder_settings__output_groups__output_group_settings__ms_smooth_group_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4780,7 +4785,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings__ms_smooth_
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -5121,35 +5126,35 @@ type encoder_settings__output_groups__output_group_settings = {
   archive_group_settings :
     encoder_settings__output_groups__output_group_settings__archive_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frame_capture_group_settings :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_group_settings :
     encoder_settings__output_groups__output_group_settings__hls_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   media_package_group_settings :
     encoder_settings__output_groups__output_group_settings__media_package_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ms_smooth_group_settings :
     encoder_settings__output_groups__output_group_settings__ms_smooth_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   multiplex_group_settings :
     encoder_settings__output_groups__output_group_settings__multiplex_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rtmp_group_settings :
     encoder_settings__output_groups__output_group_settings__rtmp_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   udp_group_settings :
     encoder_settings__output_groups__output_group_settings__udp_group_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5174,7 +5179,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
          []
        in
        let bnds =
-         if [] = v_udp_group_settings then bnds
+         if Stdlib.( = ) [] v_udp_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5185,7 +5190,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rtmp_group_settings then bnds
+         if Stdlib.( = ) [] v_rtmp_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5196,7 +5201,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multiplex_group_settings then bnds
+         if Stdlib.( = ) [] v_multiplex_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5207,7 +5212,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ms_smooth_group_settings then bnds
+         if Stdlib.( = ) [] v_ms_smooth_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5218,7 +5223,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_media_package_group_settings then bnds
+         if Stdlib.( = ) [] v_media_package_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5229,7 +5234,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_group_settings then bnds
+         if Stdlib.( = ) [] v_hls_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5240,7 +5245,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frame_capture_group_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5251,7 +5256,7 @@ let yojson_of_encoder_settings__output_groups__output_group_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_archive_group_settings then bnds
+         if Stdlib.( = ) [] v_archive_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5466,15 +5471,15 @@ type encoder_settings__output_groups__outputs__output_settings__archive_output_s
   dvb_nit_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_nit_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_sdt_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_sdt_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_tdt_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_tdt_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5539,7 +5544,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
          []
        in
        let bnds =
-         if [] = v_dvb_tdt_settings then bnds
+         if Stdlib.( = ) [] v_dvb_tdt_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5550,7 +5555,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_sdt_settings then bnds
+         if Stdlib.( = ) [] v_dvb_sdt_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5561,7 +5566,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_nit_settings then bnds
+         if Stdlib.( = ) [] v_dvb_nit_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5956,11 +5961,11 @@ type encoder_settings__output_groups__outputs__output_settings__archive_output_s
   m2ts_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   raw_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__raw_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5980,7 +5985,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
          []
        in
        let bnds =
-         if [] = v_raw_settings then bnds
+         if Stdlib.( = ) [] v_raw_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -5991,7 +5996,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
            bnd :: bnds
        in
        let bnds =
-         if [] = v_m2ts_settings then bnds
+         if Stdlib.( = ) [] v_m2ts_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6016,7 +6021,7 @@ type encoder_settings__output_groups__outputs__output_settings__archive_output_s
   container_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6037,7 +6042,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__archive
          []
        in
        let bnds =
-         if [] = v_container_settings then bnds
+         if Stdlib.( = ) [] v_container_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6165,7 +6170,7 @@ type encoder_settings__output_groups__outputs__output_settings__hls_output_setti
   audio_only_image :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings__audio_only_image
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6187,7 +6192,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
          []
        in
        let bnds =
-         if [] = v_audio_only_image then bnds
+         if Stdlib.( = ) [] v_audio_only_image then bnds
          else
            let arg =
              (yojson_of_list
@@ -6507,7 +6512,7 @@ type encoder_settings__output_groups__outputs__output_settings__hls_output_setti
   m3u8_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__standard_hls_settings__m3u8_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6527,7 +6532,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
          []
        in
        let bnds =
-         if [] = v_m3u8_settings then bnds
+         if Stdlib.( = ) [] v_m3u8_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6558,19 +6563,19 @@ type encoder_settings__output_groups__outputs__output_settings__hls_output_setti
   audio_only_hls_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fmp4_hls_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__fmp4_hls_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frame_capture_hls_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__frame_capture_hls_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   standard_hls_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__standard_hls_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6592,7 +6597,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
          []
        in
        let bnds =
-         if [] = v_standard_hls_settings then bnds
+         if Stdlib.( = ) [] v_standard_hls_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6603,7 +6608,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frame_capture_hls_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_hls_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6614,7 +6619,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fmp4_hls_settings then bnds
+         if Stdlib.( = ) [] v_fmp4_hls_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6625,7 +6630,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_only_hls_settings then bnds
+         if Stdlib.( = ) [] v_audio_only_hls_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6651,7 +6656,7 @@ type encoder_settings__output_groups__outputs__output_settings__hls_output_setti
   hls_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6673,7 +6678,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__hls_out
          []
        in
        let bnds =
-         if [] = v_hls_settings then bnds
+         if Stdlib.( = ) [] v_hls_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -6818,7 +6823,7 @@ type encoder_settings__output_groups__outputs__output_settings__multiplex_output
   destination :
     encoder_settings__output_groups__outputs__output_settings__multiplex_output_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6835,7 +6840,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__multipl
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -6893,7 +6898,7 @@ type encoder_settings__output_groups__outputs__output_settings__rtmp_output_sett
   destination :
     encoder_settings__output_groups__outputs__output_settings__rtmp_output_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6915,7 +6920,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__rtmp_ou
          []
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -7154,15 +7159,15 @@ type encoder_settings__output_groups__outputs__output_settings__udp_output_setti
   dvb_nit_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_nit_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_sdt_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_sdt_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_tdt_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_tdt_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7227,7 +7232,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
          []
        in
        let bnds =
-         if [] = v_dvb_tdt_settings then bnds
+         if Stdlib.( = ) [] v_dvb_tdt_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7238,7 +7243,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_sdt_settings then bnds
+         if Stdlib.( = ) [] v_dvb_sdt_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7249,7 +7254,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_nit_settings then bnds
+         if Stdlib.( = ) [] v_dvb_nit_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7624,7 +7629,7 @@ type encoder_settings__output_groups__outputs__output_settings__udp_output_setti
   m2ts_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7641,7 +7646,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
          []
        in
        let bnds =
-         if [] = v_m2ts_settings then bnds
+         if Stdlib.( = ) [] v_m2ts_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7753,15 +7758,15 @@ type encoder_settings__output_groups__outputs__output_settings__udp_output_setti
   container_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__destination
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fec_output_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__fec_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7783,7 +7788,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
          []
        in
        let bnds =
-         if [] = v_fec_output_settings then bnds
+         if Stdlib.( = ) [] v_fec_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7794,7 +7799,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -7805,7 +7810,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings__udp_out
            bnd :: bnds
        in
        let bnds =
-         if [] = v_container_settings then bnds
+         if Stdlib.( = ) [] v_container_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7836,35 +7841,35 @@ type encoder_settings__output_groups__outputs__output_settings = {
   archive_output_settings :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frame_capture_output_settings :
     encoder_settings__output_groups__outputs__output_settings__frame_capture_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hls_output_settings :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   media_package_output_settings :
     encoder_settings__output_groups__outputs__output_settings__media_package_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ms_smooth_output_settings :
     encoder_settings__output_groups__outputs__output_settings__ms_smooth_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   multiplex_output_settings :
     encoder_settings__output_groups__outputs__output_settings__multiplex_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rtmp_output_settings :
     encoder_settings__output_groups__outputs__output_settings__rtmp_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   udp_output_settings :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7891,7 +7896,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
          []
        in
        let bnds =
-         if [] = v_udp_output_settings then bnds
+         if Stdlib.( = ) [] v_udp_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7902,7 +7907,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rtmp_output_settings then bnds
+         if Stdlib.( = ) [] v_rtmp_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7913,7 +7918,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multiplex_output_settings then bnds
+         if Stdlib.( = ) [] v_multiplex_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7924,7 +7929,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ms_smooth_output_settings then bnds
+         if Stdlib.( = ) [] v_ms_smooth_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7935,7 +7940,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_media_package_output_settings then bnds
+         if Stdlib.( = ) [] v_media_package_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7946,7 +7951,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hls_output_settings then bnds
+         if Stdlib.( = ) [] v_hls_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7957,7 +7962,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frame_capture_output_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7968,7 +7973,7 @@ let yojson_of_encoder_settings__output_groups__outputs__output_settings
            bnd :: bnds
        in
        let bnds =
-         if [] = v_archive_output_settings then bnds
+         if Stdlib.( = ) [] v_archive_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -7994,7 +7999,7 @@ type encoder_settings__output_groups__outputs = {
   video_description_name : string prop option; [@option]
   output_settings :
     encoder_settings__output_groups__outputs__output_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8013,7 +8018,7 @@ let yojson_of_encoder_settings__output_groups__outputs =
          []
        in
        let bnds =
-         if [] = v_output_settings then bnds
+         if Stdlib.( = ) [] v_output_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8071,9 +8076,9 @@ type encoder_settings__output_groups = {
   name : string prop option; [@option]
   output_group_settings :
     encoder_settings__output_groups__output_group_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   outputs : encoder_settings__output_groups__outputs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8090,7 +8095,7 @@ let yojson_of_encoder_settings__output_groups =
          []
        in
        let bnds =
-         if [] = v_outputs then bnds
+         if Stdlib.( = ) [] v_outputs then bnds
          else
            let arg =
              (yojson_of_list
@@ -8101,7 +8106,7 @@ let yojson_of_encoder_settings__output_groups =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_group_settings then bnds
+         if Stdlib.( = ) [] v_output_group_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8257,7 +8262,7 @@ type encoder_settings__video_descriptions__codec_settings__h264_settings__filter
   temporal_filter_settings :
     encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings__temporal_filter_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8274,7 +8279,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h264_setting
          []
        in
        let bnds =
-         if [] = v_temporal_filter_settings then bnds
+         if Stdlib.( = ) [] v_temporal_filter_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8336,7 +8341,7 @@ type encoder_settings__video_descriptions__codec_settings__h264_settings = {
   filter_settings :
     encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8394,7 +8399,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h264_setting
          []
        in
        let bnds =
-         if [] = v_filter_settings then bnds
+         if Stdlib.( = ) [] v_filter_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8852,23 +8857,23 @@ type encoder_settings__video_descriptions__codec_settings__h265_settings__color_
   color_space_passthrough_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__color_space_passthrough_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dolby_vision81_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__dolby_vision81_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hdr10_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__hdr10_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rec601_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__rec601_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rec709_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__rec709_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8892,7 +8897,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
          []
        in
        let bnds =
-         if [] = v_rec709_settings then bnds
+         if Stdlib.( = ) [] v_rec709_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8903,7 +8908,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rec601_settings then bnds
+         if Stdlib.( = ) [] v_rec601_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8914,7 +8919,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hdr10_settings then bnds
+         if Stdlib.( = ) [] v_hdr10_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8925,7 +8930,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dolby_vision81_settings then bnds
+         if Stdlib.( = ) [] v_dolby_vision81_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -8936,7 +8941,8 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_color_space_passthrough_settings then bnds
+         if Stdlib.( = ) [] v_color_space_passthrough_settings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -9005,7 +9011,7 @@ type encoder_settings__video_descriptions__codec_settings__h265_settings__filter
   temporal_filter_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings__temporal_filter_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9022,7 +9028,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
          []
        in
        let bnds =
-         if [] = v_temporal_filter_settings then bnds
+         if Stdlib.( = ) [] v_temporal_filter_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9128,15 +9134,15 @@ type encoder_settings__video_descriptions__codec_settings__h265_settings = {
   color_space_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timecode_burnin_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings__timecode_burnin_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9185,7 +9191,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
          []
        in
        let bnds =
-         if [] = v_timecode_burnin_settings then bnds
+         if Stdlib.( = ) [] v_timecode_burnin_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9196,7 +9202,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter_settings then bnds
+         if Stdlib.( = ) [] v_filter_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9207,7 +9213,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings__h265_setting
            bnd :: bnds
        in
        let bnds =
-         if [] = v_color_space_settings then bnds
+         if Stdlib.( = ) [] v_color_space_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9438,15 +9444,15 @@ type encoder_settings__video_descriptions__codec_settings = {
   frame_capture_settings :
     encoder_settings__video_descriptions__codec_settings__frame_capture_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   h264_settings :
     encoder_settings__video_descriptions__codec_settings__h264_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   h265_settings :
     encoder_settings__video_descriptions__codec_settings__h265_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9464,7 +9470,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings =
          []
        in
        let bnds =
-         if [] = v_h265_settings then bnds
+         if Stdlib.( = ) [] v_h265_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9475,7 +9481,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_h264_settings then bnds
+         if Stdlib.( = ) [] v_h264_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9486,7 +9492,7 @@ let yojson_of_encoder_settings__video_descriptions__codec_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frame_capture_settings then bnds
+         if Stdlib.( = ) [] v_frame_capture_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9514,7 +9520,7 @@ type encoder_settings__video_descriptions = {
   width : float prop option; [@option]
   codec_settings :
     encoder_settings__video_descriptions__codec_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9535,7 +9541,7 @@ let yojson_of_encoder_settings__video_descriptions =
          []
        in
        let bnds =
-         if [] = v_codec_settings then bnds
+         if Stdlib.( = ) [] v_codec_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9599,25 +9605,25 @@ let _ = yojson_of_encoder_settings__video_descriptions
 
 type encoder_settings = {
   audio_descriptions : encoder_settings__audio_descriptions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   avail_blanking : encoder_settings__avail_blanking list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   caption_descriptions : encoder_settings__caption_descriptions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   global_configuration : encoder_settings__global_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   motion_graphics_configuration :
     encoder_settings__motion_graphics_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   nielsen_configuration :
     encoder_settings__nielsen_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   output_groups : encoder_settings__output_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timecode_config : encoder_settings__timecode_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_descriptions : encoder_settings__video_descriptions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9641,7 +9647,7 @@ let yojson_of_encoder_settings =
          []
        in
        let bnds =
-         if [] = v_video_descriptions then bnds
+         if Stdlib.( = ) [] v_video_descriptions then bnds
          else
            let arg =
              (yojson_of_list
@@ -9652,7 +9658,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_timecode_config then bnds
+         if Stdlib.( = ) [] v_timecode_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -9663,7 +9669,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_groups then bnds
+         if Stdlib.( = ) [] v_output_groups then bnds
          else
            let arg =
              (yojson_of_list
@@ -9674,7 +9680,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_nielsen_configuration then bnds
+         if Stdlib.( = ) [] v_nielsen_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -9685,7 +9691,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_motion_graphics_configuration then bnds
+         if Stdlib.( = ) [] v_motion_graphics_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -9696,7 +9702,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_global_configuration then bnds
+         if Stdlib.( = ) [] v_global_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -9707,7 +9713,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_caption_descriptions then bnds
+         if Stdlib.( = ) [] v_caption_descriptions then bnds
          else
            let arg =
              (yojson_of_list
@@ -9718,7 +9724,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_avail_blanking then bnds
+         if Stdlib.( = ) [] v_avail_blanking then bnds
          else
            let arg =
              (yojson_of_list
@@ -9729,7 +9735,7 @@ let yojson_of_encoder_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_descriptions then bnds
+         if Stdlib.( = ) [] v_audio_descriptions then bnds
          else
            let arg =
              (yojson_of_list
@@ -9874,15 +9880,15 @@ type input_attachments__automatic_input_failover_settings__failover_condition__f
   audio_silence_settings :
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__audio_silence_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_loss_settings :
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__input_loss_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_black_settings :
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__video_black_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9903,7 +9909,7 @@ let yojson_of_input_attachments__automatic_input_failover_settings__failover_con
          []
        in
        let bnds =
-         if [] = v_video_black_settings then bnds
+         if Stdlib.( = ) [] v_video_black_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9914,7 +9920,7 @@ let yojson_of_input_attachments__automatic_input_failover_settings__failover_con
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_loss_settings then bnds
+         if Stdlib.( = ) [] v_input_loss_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9925,7 +9931,7 @@ let yojson_of_input_attachments__automatic_input_failover_settings__failover_con
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_silence_settings then bnds
+         if Stdlib.( = ) [] v_audio_silence_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9948,7 +9954,7 @@ type input_attachments__automatic_input_failover_settings__failover_condition = 
   failover_condition_settings :
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9966,7 +9972,7 @@ let yojson_of_input_attachments__automatic_input_failover_settings__failover_con
          []
        in
        let bnds =
-         if [] = v_failover_condition_settings then bnds
+         if Stdlib.( = ) [] v_failover_condition_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -9992,7 +9998,7 @@ type input_attachments__automatic_input_failover_settings = {
   failover_condition :
     input_attachments__automatic_input_failover_settings__failover_condition
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10011,7 +10017,7 @@ let yojson_of_input_attachments__automatic_input_failover_settings =
          []
        in
        let bnds =
-         if [] = v_failover_condition then bnds
+         if Stdlib.( = ) [] v_failover_condition then bnds
          else
            let arg =
              (yojson_of_list
@@ -10225,11 +10231,11 @@ type input_attachments__input_settings__audio_selector__selector_settings__audio
   dolby_e_decode :
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection__dolby_e_decode
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tracks :
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection__tracks
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10246,7 +10252,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
          []
        in
        let bnds =
-         if [] = v_tracks then bnds
+         if Stdlib.( = ) [] v_tracks then bnds
          else
            let arg =
              (yojson_of_list
@@ -10257,7 +10263,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dolby_e_decode then bnds
+         if Stdlib.( = ) [] v_dolby_e_decode then bnds
          else
            let arg =
              (yojson_of_list
@@ -10280,19 +10286,19 @@ type input_attachments__input_settings__audio_selector__selector_settings = {
   audio_hls_rendition_selection :
     input_attachments__input_settings__audio_selector__selector_settings__audio_hls_rendition_selection
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audio_language_selection :
     input_attachments__input_settings__audio_selector__selector_settings__audio_language_selection
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audio_pid_selection :
     input_attachments__input_settings__audio_selector__selector_settings__audio_pid_selection
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   audio_track_selection :
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10315,7 +10321,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
          []
        in
        let bnds =
-         if [] = v_audio_track_selection then bnds
+         if Stdlib.( = ) [] v_audio_track_selection then bnds
          else
            let arg =
              (yojson_of_list
@@ -10326,7 +10332,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_pid_selection then bnds
+         if Stdlib.( = ) [] v_audio_pid_selection then bnds
          else
            let arg =
              (yojson_of_list
@@ -10337,7 +10343,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_language_selection then bnds
+         if Stdlib.( = ) [] v_audio_language_selection then bnds
          else
            let arg =
              (yojson_of_list
@@ -10348,7 +10354,7 @@ let yojson_of_input_attachments__input_settings__audio_selector__selector_settin
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_hls_rendition_selection then bnds
+         if Stdlib.( = ) [] v_audio_hls_rendition_selection then bnds
          else
            let arg =
              (yojson_of_list
@@ -10372,7 +10378,7 @@ type input_attachments__input_settings__audio_selector = {
   selector_settings :
     input_attachments__input_settings__audio_selector__selector_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10386,7 +10392,7 @@ let yojson_of_input_attachments__input_settings__audio_selector =
          []
        in
        let bnds =
-         if [] = v_selector_settings then bnds
+         if Stdlib.( = ) [] v_selector_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10708,7 +10714,7 @@ type input_attachments__input_settings__caption_selector__selector_settings__tel
   output_rectangle :
     input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings__output_rectangle
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10728,7 +10734,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
          []
        in
        let bnds =
-         if [] = v_output_rectangle then bnds
+         if Stdlib.( = ) [] v_output_rectangle then bnds
          else
            let arg =
              (yojson_of_list
@@ -10759,31 +10765,31 @@ type input_attachments__input_settings__caption_selector__selector_settings = {
   ancillary_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__ancillary_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   arib_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__arib_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dvb_sub_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__dvb_sub_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   embedded_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__embedded_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scte20_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__scte20_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scte27_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__scte27_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   teletext_source_settings :
     input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10808,7 +10814,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
          []
        in
        let bnds =
-         if [] = v_teletext_source_settings then bnds
+         if Stdlib.( = ) [] v_teletext_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10819,7 +10825,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scte27_source_settings then bnds
+         if Stdlib.( = ) [] v_scte27_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10830,7 +10836,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scte20_source_settings then bnds
+         if Stdlib.( = ) [] v_scte20_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10841,7 +10847,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_embedded_source_settings then bnds
+         if Stdlib.( = ) [] v_embedded_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10852,7 +10858,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dvb_sub_source_settings then bnds
+         if Stdlib.( = ) [] v_dvb_sub_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10863,7 +10869,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_arib_source_settings then bnds
+         if Stdlib.( = ) [] v_arib_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10874,7 +10880,7 @@ let yojson_of_input_attachments__input_settings__caption_selector__selector_sett
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ancillary_source_settings then bnds
+         if Stdlib.( = ) [] v_ancillary_source_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -10899,7 +10905,7 @@ type input_attachments__input_settings__caption_selector = {
   selector_settings :
     input_attachments__input_settings__caption_selector__selector_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10917,7 +10923,7 @@ let yojson_of_input_attachments__input_settings__caption_selector =
          []
        in
        let bnds =
-         if [] = v_selector_settings then bnds
+         if Stdlib.( = ) [] v_selector_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -11028,7 +11034,7 @@ type input_attachments__input_settings__network_input_settings = {
   hls_input_settings :
     input_attachments__input_settings__network_input_settings__hls_input_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11047,7 +11053,7 @@ let yojson_of_input_attachments__input_settings__network_input_settings
          []
        in
        let bnds =
-         if [] = v_hls_input_settings then bnds
+         if Stdlib.( = ) [] v_hls_input_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -11126,16 +11132,16 @@ type input_attachments__input_settings = {
   source_end_behavior : string prop option; [@option]
   audio_selector :
     input_attachments__input_settings__audio_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   caption_selector :
     input_attachments__input_settings__caption_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_input_settings :
     input_attachments__input_settings__network_input_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   video_selector :
     input_attachments__input_settings__video_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11160,7 +11166,7 @@ let yojson_of_input_attachments__input_settings =
          []
        in
        let bnds =
-         if [] = v_video_selector then bnds
+         if Stdlib.( = ) [] v_video_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -11171,7 +11177,7 @@ let yojson_of_input_attachments__input_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_input_settings then bnds
+         if Stdlib.( = ) [] v_network_input_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -11182,7 +11188,7 @@ let yojson_of_input_attachments__input_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_caption_selector then bnds
+         if Stdlib.( = ) [] v_caption_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -11193,7 +11199,7 @@ let yojson_of_input_attachments__input_settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audio_selector then bnds
+         if Stdlib.( = ) [] v_audio_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -11272,9 +11278,9 @@ type input_attachments = {
   input_id : string prop;
   automatic_input_failover_settings :
     input_attachments__automatic_input_failover_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_settings : input_attachments__input_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11293,7 +11299,7 @@ let yojson_of_input_attachments =
          []
        in
        let bnds =
-         if [] = v_input_settings then bnds
+         if Stdlib.( = ) [] v_input_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -11304,7 +11310,8 @@ let yojson_of_input_attachments =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automatic_input_failover_settings then bnds
+         if Stdlib.( = ) [] v_automatic_input_failover_settings then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -11457,10 +11464,10 @@ let _ = yojson_of_timeouts
 
 type vpc = {
   public_address_allocation_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11478,7 +11485,7 @@ let yojson_of_vpc =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -11498,7 +11505,7 @@ let yojson_of_vpc =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_public_address_allocation_ids then bnds
+         if Stdlib.( = ) [] v_public_address_allocation_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -11524,19 +11531,19 @@ type aws_medialive_channel = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cdi_input_specification : cdi_input_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destinations : destinations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encoder_settings : encoder_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_attachments : input_attachments list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_specification : input_specification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance : maintenance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  vpc : vpc list; [@default []] [@yojson_drop_default ( = )]
+  vpc : vpc list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11566,7 +11573,7 @@ let yojson_of_aws_medialive_channel =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg = (yojson_of_list yojson_of_vpc) v_vpc in
            let bnd = "vpc", arg in
@@ -11577,7 +11584,7 @@ let yojson_of_aws_medialive_channel =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_maintenance then bnds
+         if Stdlib.( = ) [] v_maintenance then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance) v_maintenance
@@ -11586,7 +11593,7 @@ let yojson_of_aws_medialive_channel =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_specification then bnds
+         if Stdlib.( = ) [] v_input_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_specification)
@@ -11596,7 +11603,7 @@ let yojson_of_aws_medialive_channel =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_attachments then bnds
+         if Stdlib.( = ) [] v_input_attachments then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_attachments)
@@ -11606,7 +11613,7 @@ let yojson_of_aws_medialive_channel =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encoder_settings then bnds
+         if Stdlib.( = ) [] v_encoder_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encoder_settings)
@@ -11616,7 +11623,7 @@ let yojson_of_aws_medialive_channel =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destinations then bnds
+         if Stdlib.( = ) [] v_destinations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations) v_destinations
@@ -11625,7 +11632,7 @@ let yojson_of_aws_medialive_channel =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cdi_input_specification then bnds
+         if Stdlib.( = ) [] v_cdi_input_specification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cdi_input_specification)

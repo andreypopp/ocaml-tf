@@ -47,7 +47,7 @@ let _ = yojson_of_source__files
 type source = {
   language : string prop option; [@option]
   files : source__files list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_source =
          []
        in
        let bnds =
-         if [] = v_files then bnds
+         if Stdlib.( = ) [] v_files then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source__files) v_files
@@ -122,7 +122,7 @@ let _ = yojson_of_timeouts
 
 type metadata = {
   services : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,7 +135,7 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         if [] = v_services then bnds
+         if Stdlib.( = ) [] v_services then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -154,7 +154,8 @@ let _ = yojson_of_metadata
 type google_firebaserules_ruleset = {
   id : string prop option; [@option]
   project : string prop option; [@option]
-  source : source list; [@default []] [@yojson_drop_default ( = )]
+  source : source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -177,7 +178,7 @@ let yojson_of_google_firebaserules_ruleset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source then bnds
+         if Stdlib.( = ) [] v_source then bnds
          else
            let arg = (yojson_of_list yojson_of_source) v_source in
            let bnd = "source", arg in

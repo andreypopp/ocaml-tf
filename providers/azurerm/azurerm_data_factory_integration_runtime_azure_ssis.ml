@@ -186,7 +186,7 @@ type express_custom_setup__command_key = {
   user_name : string prop;
   key_vault_password :
     express_custom_setup__command_key__key_vault_password list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,7 +204,7 @@ let yojson_of_express_custom_setup__command_key =
          []
        in
        let bnds =
-         if [] = v_key_vault_password then bnds
+         if Stdlib.( = ) [] v_key_vault_password then bnds
          else
            let arg =
              (yojson_of_list
@@ -307,7 +307,7 @@ type express_custom_setup__component = {
   name : string prop;
   key_vault_license :
     express_custom_setup__component__key_vault_license list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,7 +324,7 @@ let yojson_of_express_custom_setup__component =
          []
        in
        let bnds =
-         if [] = v_key_vault_license then bnds
+         if Stdlib.( = ) [] v_key_vault_license then bnds
          else
            let arg =
              (yojson_of_list
@@ -358,9 +358,9 @@ type express_custom_setup = {
   environment : (string * string prop) list option; [@option]
   powershell_version : string prop option; [@option]
   command_key : express_custom_setup__command_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   component : express_custom_setup__component list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,7 +378,7 @@ let yojson_of_express_custom_setup =
          []
        in
        let bnds =
-         if [] = v_component then bnds
+         if Stdlib.( = ) [] v_component then bnds
          else
            let arg =
              (yojson_of_list
@@ -389,7 +389,7 @@ let yojson_of_express_custom_setup =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_command_key then bnds
+         if Stdlib.( = ) [] v_command_key then bnds
          else
            let arg =
              (yojson_of_list
@@ -669,19 +669,20 @@ type azurerm_data_factory_integration_runtime_azure_ssis = {
   node_size : string prop;
   number_of_nodes : float prop option; [@option]
   catalog_info : catalog_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_setup_script : custom_setup_script list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   express_custom_setup : express_custom_setup list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   express_vnet_integration : express_vnet_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   package_store : package_store list;
-      [@default []] [@yojson_drop_default ( = )]
-  proxy : proxy list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  proxy : proxy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vnet_integration : vnet_integration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -716,7 +717,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
          []
        in
        let bnds =
-         if [] = v_vnet_integration then bnds
+         if Stdlib.( = ) [] v_vnet_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vnet_integration)
@@ -730,14 +731,14 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_proxy then bnds
+         if Stdlib.( = ) [] v_proxy then bnds
          else
            let arg = (yojson_of_list yojson_of_proxy) v_proxy in
            let bnd = "proxy", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_package_store then bnds
+         if Stdlib.( = ) [] v_package_store then bnds
          else
            let arg =
              (yojson_of_list yojson_of_package_store) v_package_store
@@ -746,7 +747,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_express_vnet_integration then bnds
+         if Stdlib.( = ) [] v_express_vnet_integration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_express_vnet_integration)
@@ -756,7 +757,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_express_custom_setup then bnds
+         if Stdlib.( = ) [] v_express_custom_setup then bnds
          else
            let arg =
              (yojson_of_list yojson_of_express_custom_setup)
@@ -766,7 +767,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_setup_script then bnds
+         if Stdlib.( = ) [] v_custom_setup_script then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_setup_script)
@@ -776,7 +777,7 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_catalog_info then bnds
+         if Stdlib.( = ) [] v_catalog_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_catalog_info) v_catalog_info

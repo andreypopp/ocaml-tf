@@ -85,7 +85,7 @@ type configuration__execute_command_configuration = {
   log_configuration :
     configuration__execute_command_configuration__log_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,7 +102,7 @@ let yojson_of_configuration__execute_command_configuration =
          []
        in
        let bnds =
-         if [] = v_log_configuration then bnds
+         if Stdlib.( = ) [] v_log_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -139,7 +139,7 @@ let _ = yojson_of_configuration__execute_command_configuration
 type configuration = {
   execute_command_configuration :
     configuration__execute_command_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,7 +155,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_execute_command_configuration then bnds
+         if Stdlib.( = ) [] v_execute_command_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -226,10 +226,11 @@ type aws_ecs_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_connect_defaults : service_connect_defaults list;
-      [@default []] [@yojson_drop_default ( = )]
-  setting : setting list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  setting : setting list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,14 +251,14 @@ let yojson_of_aws_ecs_cluster =
          []
        in
        let bnds =
-         if [] = v_setting then bnds
+         if Stdlib.( = ) [] v_setting then bnds
          else
            let arg = (yojson_of_list yojson_of_setting) v_setting in
            let bnd = "setting", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_connect_defaults then bnds
+         if Stdlib.( = ) [] v_service_connect_defaults then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_connect_defaults)
@@ -267,7 +268,7 @@ let yojson_of_aws_ecs_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

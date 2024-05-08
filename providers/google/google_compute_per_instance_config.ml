@@ -87,7 +87,7 @@ type preserved_state__external_ip = {
   auto_delete : string prop option; [@option]
   interface_name : string prop;
   ip_address : preserved_state__external_ip__ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,7 +104,7 @@ let yojson_of_preserved_state__external_ip =
          []
        in
        let bnds =
-         if [] = v_ip_address then bnds
+         if Stdlib.( = ) [] v_ip_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -169,7 +169,7 @@ type preserved_state__internal_ip = {
   auto_delete : string prop option; [@option]
   interface_name : string prop;
   ip_address : preserved_state__internal_ip__ip_address list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,7 +186,7 @@ let yojson_of_preserved_state__internal_ip =
          []
        in
        let bnds =
-         if [] = v_ip_address then bnds
+         if Stdlib.( = ) [] v_ip_address then bnds
          else
            let arg =
              (yojson_of_list
@@ -221,11 +221,11 @@ let _ = yojson_of_preserved_state__internal_ip
 type preserved_state = {
   metadata : (string * string prop) list option; [@option]
   disk : preserved_state__disk list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_ip : preserved_state__external_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   internal_ip : preserved_state__internal_ip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,7 +243,7 @@ let yojson_of_preserved_state =
          []
        in
        let bnds =
-         if [] = v_internal_ip then bnds
+         if Stdlib.( = ) [] v_internal_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preserved_state__internal_ip)
@@ -253,7 +253,7 @@ let yojson_of_preserved_state =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_external_ip then bnds
+         if Stdlib.( = ) [] v_external_ip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preserved_state__external_ip)
@@ -263,7 +263,7 @@ let yojson_of_preserved_state =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk then bnds
+         if Stdlib.( = ) [] v_disk then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preserved_state__disk) v_disk
@@ -351,7 +351,7 @@ type google_compute_per_instance_config = {
   remove_instance_state_on_destroy : bool prop option; [@option]
   zone : string prop option; [@option]
   preserved_state : preserved_state list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -383,7 +383,7 @@ let yojson_of_google_compute_per_instance_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_preserved_state then bnds
+         if Stdlib.( = ) [] v_preserved_state then bnds
          else
            let arg =
              (yojson_of_list yojson_of_preserved_state)

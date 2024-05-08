@@ -43,7 +43,7 @@ type aws_grafana_workspace_saml_configuration = {
   admin_role_values : string prop list option; [@option]
   allowed_organizations : string prop list option; [@option]
   editor_role_values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   email_assertion : string prop option; [@option]
   groups_assertion : string prop option; [@option]
   id : string prop option; [@option]
@@ -172,7 +172,7 @@ let yojson_of_aws_grafana_workspace_saml_configuration =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_editor_role_values then bnds
+         if Stdlib.( = ) [] v_editor_role_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

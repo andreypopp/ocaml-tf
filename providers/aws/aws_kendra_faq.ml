@@ -75,7 +75,8 @@ type aws_kendra_faq = {
   role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  s3_path : s3_path list; [@default []] [@yojson_drop_default ( = )]
+  s3_path : s3_path list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -105,7 +106,7 @@ let yojson_of_aws_kendra_faq =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_s3_path then bnds
+         if Stdlib.( = ) [] v_s3_path then bnds
          else
            let arg = (yojson_of_list yojson_of_s3_path) v_s3_path in
            let bnd = "s3_path", arg in

@@ -14,7 +14,7 @@ type certs_info__cert_info = {
   sig_alg_name : string prop;  (** sig_alg_name *)
   subject : string prop;  (** subject *)
   subject_alternative_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alternative_names *)
   valid_from : string prop;  (** valid_from *)
   version : float prop;  (** version *)
@@ -22,7 +22,7 @@ type certs_info__cert_info = {
 
 type certs_info = {
   cert_info : certs_info__cert_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cert_info *)
 }
 

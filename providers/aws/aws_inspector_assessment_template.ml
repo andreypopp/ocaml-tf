@@ -36,12 +36,12 @@ type aws_inspector_assessment_template = {
   id : string prop option; [@option]
   name : string prop;
   rules_package_arns : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_arn : string prop;
   event_subscription : event_subscription list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_aws_inspector_assessment_template =
          []
        in
        let bnds =
-         if [] = v_event_subscription then bnds
+         if Stdlib.( = ) [] v_event_subscription then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_subscription)
@@ -109,7 +109,7 @@ let yojson_of_aws_inspector_assessment_template =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_rules_package_arns then bnds
+         if Stdlib.( = ) [] v_rules_package_arns then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

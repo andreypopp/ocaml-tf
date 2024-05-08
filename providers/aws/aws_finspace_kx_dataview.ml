@@ -4,7 +4,7 @@ open! Tf_core
 
 type segment_configurations = {
   db_paths : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -22,7 +22,7 @@ let yojson_of_segment_configurations =
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_db_paths then bnds
+         if Stdlib.( = ) [] v_db_paths then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -97,7 +97,7 @@ type aws_finspace_kx_dataview = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   segment_configurations : segment_configurations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,7 +129,7 @@ let yojson_of_aws_finspace_kx_dataview =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_segment_configurations then bnds
+         if Stdlib.( = ) [] v_segment_configurations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_segment_configurations)

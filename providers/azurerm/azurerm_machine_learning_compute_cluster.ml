@@ -187,10 +187,10 @@ type azurerm_machine_learning_compute_cluster = {
   vm_priority : string prop;
   vm_size : string prop;
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scale_settings : scale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
-  ssh : ssh list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  ssh : ssh list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -226,14 +226,14 @@ let yojson_of_azurerm_machine_learning_compute_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ssh then bnds
+         if Stdlib.( = ) [] v_ssh then bnds
          else
            let arg = (yojson_of_list yojson_of_ssh) v_ssh in
            let bnd = "ssh", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_scale_settings then bnds
+         if Stdlib.( = ) [] v_scale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_scale_settings)
@@ -243,7 +243,7 @@ let yojson_of_azurerm_machine_learning_compute_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

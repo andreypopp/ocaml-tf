@@ -122,7 +122,7 @@ type google_kms_crypto_key = {
   skip_initial_version_creation : bool prop option; [@option]
   timeouts : timeouts option;
   version_template : version_template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,7 +148,7 @@ let yojson_of_google_kms_crypto_key =
          []
        in
        let bnds =
-         if [] = v_version_template then bnds
+         if Stdlib.( = ) [] v_version_template then bnds
          else
            let arg =
              (yojson_of_list yojson_of_version_template)

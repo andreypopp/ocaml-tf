@@ -117,7 +117,7 @@ type azurerm_data_factory_custom_dataset = {
   type_ : string prop; [@key "type"]
   type_properties_json : string prop;
   linked_service : linked_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -149,7 +149,7 @@ let yojson_of_azurerm_data_factory_custom_dataset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_linked_service then bnds
+         if Stdlib.( = ) [] v_linked_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_linked_service)

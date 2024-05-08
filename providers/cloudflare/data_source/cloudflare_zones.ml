@@ -110,7 +110,8 @@ let _ = yojson_of_zones
 
 type cloudflare_zones = {
   id : string prop option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,7 +124,7 @@ let yojson_of_cloudflare_zones =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

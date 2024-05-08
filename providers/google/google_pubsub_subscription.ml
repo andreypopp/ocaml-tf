@@ -104,7 +104,7 @@ type cloud_storage_config = {
   max_bytes : float prop option; [@option]
   max_duration : string prop option; [@option]
   avro_config : cloud_storage_config__avro_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_cloud_storage_config =
          []
        in
        let bnds =
-         if [] = v_avro_config then bnds
+         if Stdlib.( = ) [] v_avro_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -303,9 +303,9 @@ type push_config = {
   attributes : (string * string prop) list option; [@option]
   push_endpoint : string prop;
   no_wrapper : push_config__no_wrapper list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oidc_token : push_config__oidc_token list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,7 +323,7 @@ let yojson_of_push_config =
          []
        in
        let bnds =
-         if [] = v_oidc_token then bnds
+         if Stdlib.( = ) [] v_oidc_token then bnds
          else
            let arg =
              (yojson_of_list yojson_of_push_config__oidc_token)
@@ -333,7 +333,7 @@ let yojson_of_push_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_no_wrapper then bnds
+         if Stdlib.( = ) [] v_no_wrapper then bnds
          else
            let arg =
              (yojson_of_list yojson_of_push_config__no_wrapper)
@@ -468,17 +468,17 @@ type google_pubsub_subscription = {
   retain_acked_messages : bool prop option; [@option]
   topic : string prop;
   bigquery_config : bigquery_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloud_storage_config : cloud_storage_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dead_letter_policy : dead_letter_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expiration_policy : expiration_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   push_config : push_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retry_policy : retry_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -515,7 +515,7 @@ let yojson_of_google_pubsub_subscription =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retry_policy then bnds
+         if Stdlib.( = ) [] v_retry_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retry_policy) v_retry_policy
@@ -524,7 +524,7 @@ let yojson_of_google_pubsub_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_push_config then bnds
+         if Stdlib.( = ) [] v_push_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_push_config) v_push_config
@@ -533,7 +533,7 @@ let yojson_of_google_pubsub_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_expiration_policy then bnds
+         if Stdlib.( = ) [] v_expiration_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_expiration_policy)
@@ -543,7 +543,7 @@ let yojson_of_google_pubsub_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dead_letter_policy then bnds
+         if Stdlib.( = ) [] v_dead_letter_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dead_letter_policy)
@@ -553,7 +553,7 @@ let yojson_of_google_pubsub_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloud_storage_config then bnds
+         if Stdlib.( = ) [] v_cloud_storage_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloud_storage_config)
@@ -563,7 +563,7 @@ let yojson_of_google_pubsub_subscription =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bigquery_config then bnds
+         if Stdlib.( = ) [] v_bigquery_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bigquery_config)

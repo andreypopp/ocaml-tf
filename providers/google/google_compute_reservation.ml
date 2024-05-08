@@ -39,7 +39,7 @@ let _ = yojson_of_share_settings__project_map
 type share_settings = {
   share_type : string prop option; [@option]
   project_map : share_settings__project_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,7 +52,7 @@ let yojson_of_share_settings =
          []
        in
        let bnds =
-         if [] = v_project_map then bnds
+         if Stdlib.( = ) [] v_project_map then bnds
          else
            let arg =
              (yojson_of_list yojson_of_share_settings__project_map)
@@ -161,10 +161,10 @@ type specific_reservation__instance_properties = {
   guest_accelerators :
     specific_reservation__instance_properties__guest_accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_ssds :
     specific_reservation__instance_properties__local_ssds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,7 +182,7 @@ let yojson_of_specific_reservation__instance_properties =
          []
        in
        let bnds =
-         if [] = v_local_ssds then bnds
+         if Stdlib.( = ) [] v_local_ssds then bnds
          else
            let arg =
              (yojson_of_list
@@ -193,7 +193,7 @@ let yojson_of_specific_reservation__instance_properties =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guest_accelerators then bnds
+         if Stdlib.( = ) [] v_guest_accelerators then bnds
          else
            let arg =
              (yojson_of_list
@@ -227,7 +227,7 @@ type specific_reservation = {
   count : float prop;
   instance_properties :
     specific_reservation__instance_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,7 +241,7 @@ let yojson_of_specific_reservation =
          []
        in
        let bnds =
-         if [] = v_instance_properties then bnds
+         if Stdlib.( = ) [] v_instance_properties then bnds
          else
            let arg =
              (yojson_of_list
@@ -316,9 +316,9 @@ type google_compute_reservation = {
   specific_reservation_required : bool prop option; [@option]
   zone : string prop;
   share_settings : share_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   specific_reservation : specific_reservation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -347,7 +347,7 @@ let yojson_of_google_compute_reservation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_specific_reservation then bnds
+         if Stdlib.( = ) [] v_specific_reservation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_specific_reservation)
@@ -357,7 +357,7 @@ let yojson_of_google_compute_reservation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_share_settings then bnds
+         if Stdlib.( = ) [] v_share_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_share_settings)

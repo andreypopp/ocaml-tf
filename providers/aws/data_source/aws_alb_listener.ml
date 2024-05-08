@@ -146,9 +146,9 @@ let _ = yojson_of_default_action__forward__stickiness
 
 type default_action__forward = {
   stickiness : default_action__forward__stickiness list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_group : default_action__forward__target_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,7 +161,7 @@ let yojson_of_default_action__forward =
          []
        in
        let bnds =
-         if [] = v_target_group then bnds
+         if Stdlib.( = ) [] v_target_group then bnds
          else
            let arg =
              (yojson_of_list
@@ -172,7 +172,7 @@ let yojson_of_default_action__forward =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_stickiness then bnds
+         if Stdlib.( = ) [] v_stickiness then bnds
          else
            let arg =
              (yojson_of_list
@@ -428,16 +428,16 @@ let _ = yojson_of_default_action__authenticate_cognito
 
 type default_action = {
   authenticate_cognito : default_action__authenticate_cognito list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   authenticate_oidc : default_action__authenticate_oidc list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   fixed_response : default_action__fixed_response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   forward : default_action__forward list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   order : float prop;
   redirect : default_action__redirect list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_group_arn : string prop;
   type_ : string prop; [@key "type"]
 }
@@ -471,7 +471,7 @@ let yojson_of_default_action =
          ("target_group_arn", arg) :: bnds
        in
        let bnds =
-         if [] = v_redirect then bnds
+         if Stdlib.( = ) [] v_redirect then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__redirect)
@@ -485,7 +485,7 @@ let yojson_of_default_action =
          ("order", arg) :: bnds
        in
        let bnds =
-         if [] = v_forward then bnds
+         if Stdlib.( = ) [] v_forward then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__forward)
@@ -495,7 +495,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_fixed_response then bnds
+         if Stdlib.( = ) [] v_fixed_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_action__fixed_response)
@@ -505,7 +505,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_oidc then bnds
+         if Stdlib.( = ) [] v_authenticate_oidc then bnds
          else
            let arg =
              (yojson_of_list
@@ -516,7 +516,7 @@ let yojson_of_default_action =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authenticate_cognito then bnds
+         if Stdlib.( = ) [] v_authenticate_cognito then bnds
          else
            let arg =
              (yojson_of_list

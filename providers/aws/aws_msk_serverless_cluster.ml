@@ -27,7 +27,7 @@ let _ = yojson_of_client_authentication__sasl__iam
 
 type client_authentication__sasl = {
   iam : client_authentication__sasl__iam list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_client_authentication__sasl =
          []
        in
        let bnds =
-         if [] = v_iam then bnds
+         if Stdlib.( = ) [] v_iam then bnds
          else
            let arg =
              (yojson_of_list
@@ -60,7 +60,7 @@ let _ = yojson_of_client_authentication__sasl
 
 type client_authentication = {
   sasl : client_authentication__sasl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,7 +73,7 @@ let yojson_of_client_authentication =
          []
        in
        let bnds =
-         if [] = v_sasl then bnds
+         if Stdlib.( = ) [] v_sasl then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_authentication__sasl)
@@ -129,7 +129,7 @@ let _ = yojson_of_timeouts
 type vpc_config = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,7 +145,7 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -177,10 +177,10 @@ type aws_msk_serverless_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   client_authentication : client_authentication list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_config : vpc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_aws_msk_serverless_cluster =
          []
        in
        let bnds =
-         if [] = v_vpc_config then bnds
+         if Stdlib.( = ) [] v_vpc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_config) v_vpc_config
@@ -214,7 +214,7 @@ let yojson_of_aws_msk_serverless_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_client_authentication then bnds
+         if Stdlib.( = ) [] v_client_authentication then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_authentication)

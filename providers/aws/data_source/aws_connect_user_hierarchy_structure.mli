@@ -36,19 +36,19 @@ type hierarchy_structure__level_five = {
 
 type hierarchy_structure = {
   level_five : hierarchy_structure__level_five list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** level_five *)
   level_four : hierarchy_structure__level_four list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** level_four *)
   level_one : hierarchy_structure__level_one list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** level_one *)
   level_three : hierarchy_structure__level_three list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** level_three *)
   level_two : hierarchy_structure__level_two list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** level_two *)
 }
 

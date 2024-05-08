@@ -140,8 +140,8 @@ type aws_db_proxy = {
   tags_all : (string * string prop) list option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   vpc_subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
-  auth : auth list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  auth : auth list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,14 +173,14 @@ let yojson_of_aws_db_proxy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_auth then bnds
+         if Stdlib.( = ) [] v_auth then bnds
          else
            let arg = (yojson_of_list yojson_of_auth) v_auth in
            let bnd = "auth", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_vpc_subnet_ids then bnds
+         if Stdlib.( = ) [] v_vpc_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -80,7 +80,7 @@ type aws_lightsail_instance_public_ports = {
   id : string prop option; [@option]
   instance_name : string prop;
   port_info : port_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,7 +97,7 @@ let yojson_of_aws_lightsail_instance_public_ports =
          []
        in
        let bnds =
-         if [] = v_port_info then bnds
+         if Stdlib.( = ) [] v_port_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_port_info) v_port_info

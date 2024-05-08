@@ -87,11 +87,11 @@ let _ =
 type custom_actions__include_skaffold_modules = {
   configs : string prop list option; [@option]
   git : custom_actions__include_skaffold_modules__git list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   google_cloud_storage :
     custom_actions__include_skaffold_modules__google_cloud_storage
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,7 +108,7 @@ let yojson_of_custom_actions__include_skaffold_modules =
          []
        in
        let bnds =
-         if [] = v_google_cloud_storage then bnds
+         if Stdlib.( = ) [] v_google_cloud_storage then bnds
          else
            let arg =
              (yojson_of_list
@@ -119,7 +119,7 @@ let yojson_of_custom_actions__include_skaffold_modules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_git then bnds
+         if Stdlib.( = ) [] v_git then bnds
          else
            let arg =
              (yojson_of_list
@@ -152,7 +152,7 @@ type custom_actions = {
   render_action : string prop option; [@option]
   include_skaffold_modules :
     custom_actions__include_skaffold_modules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,7 +169,7 @@ let yojson_of_custom_actions =
          []
        in
        let bnds =
-         if [] = v_include_skaffold_modules then bnds
+         if Stdlib.( = ) [] v_include_skaffold_modules then bnds
          else
            let arg =
              (yojson_of_list
@@ -253,7 +253,7 @@ type google_clouddeploy_custom_target_type = {
   name : string prop;
   project : string prop option; [@option]
   custom_actions : custom_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -281,7 +281,7 @@ let yojson_of_google_clouddeploy_custom_target_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom_actions then bnds
+         if Stdlib.( = ) [] v_custom_actions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_actions)

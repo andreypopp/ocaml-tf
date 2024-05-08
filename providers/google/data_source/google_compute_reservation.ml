@@ -34,7 +34,7 @@ let _ = yojson_of_share_settings__project_map
 
 type share_settings = {
   project_map : share_settings__project_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   share_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -52,7 +52,7 @@ let yojson_of_share_settings =
          ("share_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_project_map then bnds
+         if Stdlib.( = ) [] v_project_map then bnds
          else
            let arg =
              (yojson_of_list yojson_of_share_settings__project_map)
@@ -147,10 +147,10 @@ type specific_reservation__instance_properties = {
   guest_accelerators :
     specific_reservation__instance_properties__guest_accelerators
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_ssds :
     specific_reservation__instance_properties__local_ssds list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   machine_type : string prop;
   min_cpu_platform : string prop;
 }
@@ -180,7 +180,7 @@ let yojson_of_specific_reservation__instance_properties =
          ("machine_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_local_ssds then bnds
+         if Stdlib.( = ) [] v_local_ssds then bnds
          else
            let arg =
              (yojson_of_list
@@ -191,7 +191,7 @@ let yojson_of_specific_reservation__instance_properties =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_guest_accelerators then bnds
+         if Stdlib.( = ) [] v_guest_accelerators then bnds
          else
            let arg =
              (yojson_of_list
@@ -214,7 +214,7 @@ type specific_reservation = {
   in_use_count : float prop;
   instance_properties :
     specific_reservation__instance_properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,7 +231,7 @@ let yojson_of_specific_reservation =
          []
        in
        let bnds =
-         if [] = v_instance_properties then bnds
+         if Stdlib.( = ) [] v_instance_properties then bnds
          else
            let arg =
              (yojson_of_list

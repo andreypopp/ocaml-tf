@@ -134,13 +134,13 @@ type google_compute_service_attachment = {
   id : string prop option; [@option]
   name : string prop;
   nat_subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   project : string prop option; [@option]
   reconcile_connections : bool prop option; [@option]
   region : string prop option; [@option]
   target_service : string prop;
   consumer_accept_lists : consumer_accept_lists list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,7 +173,7 @@ let yojson_of_google_compute_service_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_consumer_accept_lists then bnds
+         if Stdlib.( = ) [] v_consumer_accept_lists then bnds
          else
            let arg =
              (yojson_of_list yojson_of_consumer_accept_lists)
@@ -213,7 +213,7 @@ let yojson_of_google_compute_service_attachment =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_nat_subnets then bnds
+         if Stdlib.( = ) [] v_nat_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

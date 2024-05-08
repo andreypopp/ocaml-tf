@@ -67,7 +67,7 @@ type custom_config__custom_output__properties = {
   name : string prop option; [@option]
   value_expression :
     custom_config__custom_output__properties__value_expression list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,7 +80,7 @@ let yojson_of_custom_config__custom_output__properties =
          []
        in
        let bnds =
-         if [] = v_value_expression then bnds
+         if Stdlib.( = ) [] v_value_expression then bnds
          else
            let arg =
              (yojson_of_list
@@ -108,7 +108,7 @@ let _ = yojson_of_custom_config__custom_output__properties
 
 type custom_config__custom_output = {
   properties : custom_config__custom_output__properties list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,7 +121,7 @@ let yojson_of_custom_config__custom_output =
          []
        in
        let bnds =
-         if [] = v_properties then bnds
+         if Stdlib.( = ) [] v_properties then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +197,7 @@ let _ = yojson_of_custom_config__predicate
 
 type custom_config__resource_selector = {
   resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +210,7 @@ let yojson_of_custom_config__resource_selector =
          []
        in
        let bnds =
-         if [] = v_resource_types then bnds
+         if Stdlib.( = ) [] v_resource_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -232,11 +232,11 @@ type custom_config = {
   recommendation : string prop;
   severity : string prop;
   custom_output : custom_config__custom_output list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   predicate : custom_config__predicate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_selector : custom_config__resource_selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -256,7 +256,7 @@ let yojson_of_custom_config =
          []
        in
        let bnds =
-         if [] = v_resource_selector then bnds
+         if Stdlib.( = ) [] v_resource_selector then bnds
          else
            let arg =
              (yojson_of_list
@@ -267,7 +267,7 @@ let yojson_of_custom_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_predicate then bnds
+         if Stdlib.( = ) [] v_predicate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_config__predicate)
@@ -277,7 +277,7 @@ let yojson_of_custom_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_output then bnds
+         if Stdlib.( = ) [] v_custom_output then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_config__custom_output)
@@ -363,7 +363,7 @@ type google_scc_project_custom_module = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   custom_config : custom_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -388,7 +388,7 @@ let yojson_of_google_scc_project_custom_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom_config then bnds
+         if Stdlib.( = ) [] v_custom_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_config) v_custom_config

@@ -6,10 +6,10 @@ open! Tf_core
 
 type compliance_status = {
   acknowledged_violation_count : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** acknowledged_violation_count *)
   active_violation_count : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** active_violation_count *)
 }
 
@@ -28,7 +28,7 @@ type resources = {
 
 type saa_enrollment_response = {
   setup_errors : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** setup_errors *)
   setup_status : string prop;  (** setup_status *)
 }

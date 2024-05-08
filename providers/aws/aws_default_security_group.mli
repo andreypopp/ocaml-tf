@@ -6,19 +6,19 @@ open! Tf_core
 
 type egress = {
   cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
   ipv6_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv6_cidr_blocks *)
   prefix_list_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** prefix_list_ids *)
   protocol : string prop;  (** protocol *)
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_groups *)
   self : bool prop;  (** self *)
   to_port : float prop;  (** to_port *)
@@ -26,19 +26,19 @@ type egress = {
 
 type ingress = {
   cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
   ipv6_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ipv6_cidr_blocks *)
   prefix_list_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** prefix_list_ids *)
   protocol : string prop;  (** protocol *)
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** security_groups *)
   self : bool prop;  (** self *)
   to_port : float prop;  (** to_port *)

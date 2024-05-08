@@ -68,7 +68,7 @@ type alloydb__settings__primary_instance_settings = {
   labels : (string * string prop) list option; [@option]
   machine_config :
     alloydb__settings__primary_instance_settings__machine_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,7 +86,7 @@ let yojson_of_alloydb__settings__primary_instance_settings =
          []
        in
        let bnds =
-         if [] = v_machine_config then bnds
+         if Stdlib.( = ) [] v_machine_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -144,10 +144,10 @@ type alloydb__settings = {
   labels : (string * string prop) list option; [@option]
   vpc_network : string prop;
   initial_user : alloydb__settings__initial_user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   primary_instance_settings :
     alloydb__settings__primary_instance_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,7 +165,7 @@ let yojson_of_alloydb__settings =
          []
        in
        let bnds =
-         if [] = v_primary_instance_settings then bnds
+         if Stdlib.( = ) [] v_primary_instance_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -176,7 +176,7 @@ let yojson_of_alloydb__settings =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_initial_user then bnds
+         if Stdlib.( = ) [] v_initial_user then bnds
          else
            let arg =
              (yojson_of_list
@@ -216,7 +216,7 @@ let _ = yojson_of_alloydb__settings
 type alloydb = {
   cluster_id : string prop;
   settings : alloydb__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,7 +229,7 @@ let yojson_of_alloydb =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_alloydb__settings) v_settings
@@ -312,7 +312,7 @@ type cloudsql__settings__ip_config = {
   require_ssl : bool prop option; [@option]
   authorized_networks :
     cloudsql__settings__ip_config__authorized_networks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -330,7 +330,7 @@ let yojson_of_cloudsql__settings__ip_config =
          []
        in
        let bnds =
-         if [] = v_authorized_networks then bnds
+         if Stdlib.( = ) [] v_authorized_networks then bnds
          else
            let arg =
              (yojson_of_list
@@ -389,7 +389,7 @@ type cloudsql__settings = {
   user_labels : (string * string prop) list option; [@option]
   zone : string prop option; [@option]
   ip_config : cloudsql__settings__ip_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -419,7 +419,7 @@ let yojson_of_cloudsql__settings =
          []
        in
        let bnds =
-         if [] = v_ip_config then bnds
+         if Stdlib.( = ) [] v_ip_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudsql__settings__ip_config)
@@ -569,7 +569,7 @@ let _ = yojson_of_cloudsql__settings
 
 type cloudsql = {
   settings : cloudsql__settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -582,7 +582,7 @@ let yojson_of_cloudsql =
          []
        in
        let bnds =
-         if [] = v_settings then bnds
+         if Stdlib.( = ) [] v_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudsql__settings) v_settings
@@ -651,7 +651,8 @@ type mysql = {
   password : string prop;
   port : float prop;
   username : string prop;
-  ssl : mysql__ssl list; [@default []] [@yojson_drop_default ( = )]
+  ssl : mysql__ssl list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -671,7 +672,7 @@ let yojson_of_mysql =
          []
        in
        let bnds =
-         if [] = v_ssl then bnds
+         if Stdlib.( = ) [] v_ssl then bnds
          else
            let arg = (yojson_of_list yojson_of_mysql__ssl) v_ssl in
            let bnd = "ssl", arg in
@@ -863,13 +864,14 @@ type oracle = {
   port : float prop;
   username : string prop;
   forward_ssh_connectivity : oracle__forward_ssh_connectivity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   private_connectivity : oracle__private_connectivity list;
-      [@default []] [@yojson_drop_default ( = )]
-  ssl : oracle__ssl list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  ssl : oracle__ssl list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_service_ip_connectivity :
     oracle__static_service_ip_connectivity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -893,7 +895,8 @@ let yojson_of_oracle =
          []
        in
        let bnds =
-         if [] = v_static_service_ip_connectivity then bnds
+         if Stdlib.( = ) [] v_static_service_ip_connectivity then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -904,14 +907,14 @@ let yojson_of_oracle =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ssl then bnds
+         if Stdlib.( = ) [] v_ssl then bnds
          else
            let arg = (yojson_of_list yojson_of_oracle__ssl) v_ssl in
            let bnd = "ssl", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_private_connectivity then bnds
+         if Stdlib.( = ) [] v_private_connectivity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_oracle__private_connectivity)
@@ -921,7 +924,7 @@ let yojson_of_oracle =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_forward_ssh_connectivity then bnds
+         if Stdlib.( = ) [] v_forward_ssh_connectivity then bnds
          else
            let arg =
              (yojson_of_list
@@ -1015,7 +1018,7 @@ type postgresql = {
   port : float prop;
   username : string prop;
   ssl : postgresql__ssl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1035,7 +1038,7 @@ let yojson_of_postgresql =
          []
        in
        let bnds =
-         if [] = v_ssl then bnds
+         if Stdlib.( = ) [] v_ssl then bnds
          else
            let arg =
              (yojson_of_list yojson_of_postgresql__ssl) v_ssl
@@ -1123,7 +1126,7 @@ let _ = yojson_of_timeouts
 type error = {
   code : float prop;
   details : (string * string prop) list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1141,7 +1144,7 @@ let yojson_of_error =
          ("message", arg) :: bnds
        in
        let bnds =
-         if [] = v_details then bnds
+         if Stdlib.( = ) [] v_details then bnds
          else
            let arg =
              (yojson_of_list
@@ -1172,13 +1175,16 @@ type google_database_migration_service_connection_profile = {
   labels : (string * string prop) list option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
-  alloydb : alloydb list; [@default []] [@yojson_drop_default ( = )]
+  alloydb : alloydb list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cloudsql : cloudsql list;
-      [@default []] [@yojson_drop_default ( = )]
-  mysql : mysql list; [@default []] [@yojson_drop_default ( = )]
-  oracle : oracle list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  mysql : mysql list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  oracle : oracle list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql : postgresql list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1210,7 +1216,7 @@ let yojson_of_google_database_migration_service_connection_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_postgresql then bnds
+         if Stdlib.( = ) [] v_postgresql then bnds
          else
            let arg =
              (yojson_of_list yojson_of_postgresql) v_postgresql
@@ -1219,21 +1225,21 @@ let yojson_of_google_database_migration_service_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_oracle then bnds
+         if Stdlib.( = ) [] v_oracle then bnds
          else
            let arg = (yojson_of_list yojson_of_oracle) v_oracle in
            let bnd = "oracle", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_mysql then bnds
+         if Stdlib.( = ) [] v_mysql then bnds
          else
            let arg = (yojson_of_list yojson_of_mysql) v_mysql in
            let bnd = "mysql", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudsql then bnds
+         if Stdlib.( = ) [] v_cloudsql then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cloudsql) v_cloudsql
@@ -1242,7 +1248,7 @@ let yojson_of_google_database_migration_service_connection_profile =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alloydb then bnds
+         if Stdlib.( = ) [] v_alloydb then bnds
          else
            let arg = (yojson_of_list yojson_of_alloydb) v_alloydb in
            let bnd = "alloydb", arg in

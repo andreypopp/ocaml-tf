@@ -107,7 +107,7 @@ let _ = yojson_of_share_settings__project_map
 type share_settings = {
   share_type : string prop;
   project_map : share_settings__project_map list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,7 +120,7 @@ let yojson_of_share_settings =
          []
        in
        let bnds =
-         if [] = v_project_map then bnds
+         if Stdlib.( = ) [] v_project_map then bnds
          else
            let arg =
              (yojson_of_list yojson_of_share_settings__project_map)
@@ -196,11 +196,11 @@ type google_compute_node_group = {
   project : string prop option; [@option]
   zone : string prop option; [@option]
   autoscaling_policy : autoscaling_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maintenance_window : maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   share_settings : share_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -231,7 +231,7 @@ let yojson_of_google_compute_node_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_share_settings then bnds
+         if Stdlib.( = ) [] v_share_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_share_settings)
@@ -241,7 +241,7 @@ let yojson_of_google_compute_node_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maintenance_window then bnds
+         if Stdlib.( = ) [] v_maintenance_window then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maintenance_window)
@@ -251,7 +251,7 @@ let yojson_of_google_compute_node_group =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_policy then bnds
+         if Stdlib.( = ) [] v_autoscaling_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscaling_policy)

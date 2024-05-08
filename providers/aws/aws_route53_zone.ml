@@ -43,7 +43,7 @@ type aws_route53_zone = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  vpc : vpc list; [@default []] [@yojson_drop_default ( = )]
+  vpc : vpc list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_aws_route53_zone =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg = (yojson_of_list yojson_of_vpc) v_vpc in
            let bnd = "vpc", arg in

@@ -141,7 +141,7 @@ type initial_capacity__initial_capacity_config = {
   worker_configuration :
     initial_capacity__initial_capacity_config__worker_configuration
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,7 +157,7 @@ let yojson_of_initial_capacity__initial_capacity_config =
          []
        in
        let bnds =
-         if [] = v_worker_configuration then bnds
+         if Stdlib.( = ) [] v_worker_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -183,7 +183,7 @@ type initial_capacity = {
   initial_capacity_type : string prop;
   initial_capacity_config :
     initial_capacity__initial_capacity_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,7 +199,7 @@ let yojson_of_initial_capacity =
          []
        in
        let bnds =
-         if [] = v_initial_capacity_config then bnds
+         if Stdlib.( = ) [] v_initial_capacity_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -313,17 +313,17 @@ type aws_emrserverless_application = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   auto_start_configuration : auto_start_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_stop_configuration : auto_stop_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_configuration : image_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_capacity : initial_capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maximum_capacity : maximum_capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -350,7 +350,7 @@ let yojson_of_aws_emrserverless_application =
          []
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_configuration)
@@ -360,7 +360,7 @@ let yojson_of_aws_emrserverless_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maximum_capacity then bnds
+         if Stdlib.( = ) [] v_maximum_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_maximum_capacity)
@@ -370,7 +370,7 @@ let yojson_of_aws_emrserverless_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_initial_capacity then bnds
+         if Stdlib.( = ) [] v_initial_capacity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_initial_capacity)
@@ -380,7 +380,7 @@ let yojson_of_aws_emrserverless_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_image_configuration then bnds
+         if Stdlib.( = ) [] v_image_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_image_configuration)
@@ -390,7 +390,7 @@ let yojson_of_aws_emrserverless_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_stop_configuration then bnds
+         if Stdlib.( = ) [] v_auto_stop_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_stop_configuration)
@@ -400,7 +400,7 @@ let yojson_of_aws_emrserverless_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_start_configuration then bnds
+         if Stdlib.( = ) [] v_auto_start_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_start_configuration)

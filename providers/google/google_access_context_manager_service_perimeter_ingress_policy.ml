@@ -43,7 +43,7 @@ type ingress_from = {
   identities : string prop list option; [@option]
   identity_type : string prop option; [@option]
   sources : ingress_from__sources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,7 +60,7 @@ let yojson_of_ingress_from =
          []
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_from__sources)
@@ -135,7 +135,7 @@ let _ = yojson_of_ingress_to__operations__method_selectors
 type ingress_to__operations = {
   service_name : string prop option; [@option]
   method_selectors : ingress_to__operations__method_selectors list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,7 +151,7 @@ let yojson_of_ingress_to__operations =
          []
        in
        let bnds =
-         if [] = v_method_selectors then bnds
+         if Stdlib.( = ) [] v_method_selectors then bnds
          else
            let arg =
              (yojson_of_list
@@ -179,7 +179,7 @@ let _ = yojson_of_ingress_to__operations
 type ingress_to = {
   resources : string prop list option; [@option]
   operations : ingress_to__operations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,7 +192,7 @@ let yojson_of_ingress_to =
          []
        in
        let bnds =
-         if [] = v_operations then bnds
+         if Stdlib.( = ) [] v_operations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_to__operations)
@@ -268,9 +268,9 @@ type google_access_context_manager_service_perimeter_ingress_policy = {
   id : string prop option; [@option]
   perimeter : string prop;
   ingress_from : ingress_from list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_to : ingress_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -298,7 +298,7 @@ let yojson_of_google_access_context_manager_service_perimeter_ingress_policy
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_ingress_to then bnds
+         if Stdlib.( = ) [] v_ingress_to then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_to) v_ingress_to
@@ -307,7 +307,7 @@ let yojson_of_google_access_context_manager_service_perimeter_ingress_policy
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ingress_from then bnds
+         if Stdlib.( = ) [] v_ingress_from then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ingress_from) v_ingress_from

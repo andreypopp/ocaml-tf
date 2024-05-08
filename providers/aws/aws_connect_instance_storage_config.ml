@@ -95,7 +95,7 @@ type storage_config__kinesis_video_stream_config = {
   encryption_config :
     storage_config__kinesis_video_stream_config__encryption_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,7 @@ let yojson_of_storage_config__kinesis_video_stream_config =
          []
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -177,7 +177,7 @@ type storage_config__s3_config = {
   bucket_prefix : string prop;
   encryption_config :
     storage_config__s3_config__encryption_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,7 +194,7 @@ let yojson_of_storage_config__s3_config =
          []
        in
        let bnds =
-         if [] = v_encryption_config then bnds
+         if Stdlib.( = ) [] v_encryption_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -223,14 +223,14 @@ type storage_config = {
   storage_type : string prop;
   kinesis_firehose_config :
     storage_config__kinesis_firehose_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_stream_config : storage_config__kinesis_stream_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kinesis_video_stream_config :
     storage_config__kinesis_video_stream_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_config : storage_config__s3_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +249,7 @@ let yojson_of_storage_config =
          []
        in
        let bnds =
-         if [] = v_s3_config then bnds
+         if Stdlib.( = ) [] v_s3_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_config__s3_config)
@@ -259,7 +259,7 @@ let yojson_of_storage_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_video_stream_config then bnds
+         if Stdlib.( = ) [] v_kinesis_video_stream_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -270,7 +270,7 @@ let yojson_of_storage_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_stream_config then bnds
+         if Stdlib.( = ) [] v_kinesis_stream_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -281,7 +281,7 @@ let yojson_of_storage_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kinesis_firehose_config then bnds
+         if Stdlib.( = ) [] v_kinesis_firehose_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -307,7 +307,7 @@ type aws_connect_instance_storage_config = {
   instance_id : string prop;
   resource_type : string prop;
   storage_config : storage_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,7 +325,7 @@ let yojson_of_aws_connect_instance_storage_config =
          []
        in
        let bnds =
-         if [] = v_storage_config then bnds
+         if Stdlib.( = ) [] v_storage_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_config)

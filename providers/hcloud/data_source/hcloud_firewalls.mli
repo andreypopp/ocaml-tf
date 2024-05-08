@@ -7,13 +7,13 @@ open! Tf_core
 type firewalls__rule = {
   description : string prop;  (** description *)
   destination_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** destination_ips *)
   direction : string prop;  (** direction *)
   port : string prop;  (** port *)
   protocol : string prop;  (** protocol *)
   source_ips : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source_ips *)
 }
 
@@ -24,13 +24,13 @@ type firewalls__apply_to = {
 
 type firewalls = {
   apply_to : firewalls__apply_to list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** apply_to *)
   id : float prop;  (** id *)
   labels : (string * string prop) list;  (** labels *)
   name : string prop;  (** name *)
   rule : firewalls__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rule *)
 }
 

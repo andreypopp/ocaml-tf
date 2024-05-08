@@ -34,7 +34,7 @@ let _ = yojson_of_github_config__authorizer_credential
 type github_config = {
   app_installation_id : float prop option; [@option]
   authorizer_credential : github_config__authorizer_credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,7 +50,7 @@ let yojson_of_github_config =
          []
        in
        let bnds =
-         if [] = v_authorizer_credential then bnds
+         if Stdlib.( = ) [] v_authorizer_credential then bnds
          else
            let arg =
              (yojson_of_list
@@ -111,7 +111,7 @@ type github_enterprise_config = {
   webhook_secret_secret_version : string prop option; [@option]
   service_directory_config :
     github_enterprise_config__service_directory_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,7 +134,7 @@ let yojson_of_github_enterprise_config =
          []
        in
        let bnds =
-         if [] = v_service_directory_config then bnds
+         if Stdlib.( = ) [] v_service_directory_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -289,13 +289,13 @@ type gitlab_config = {
   ssl_ca : string prop option; [@option]
   webhook_secret_secret_version : string prop;
   authorizer_credential : gitlab_config__authorizer_credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   read_authorizer_credential :
     gitlab_config__read_authorizer_credential list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_directory_config :
     gitlab_config__service_directory_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -316,7 +316,7 @@ let yojson_of_gitlab_config =
          []
        in
        let bnds =
-         if [] = v_service_directory_config then bnds
+         if Stdlib.( = ) [] v_service_directory_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -327,7 +327,7 @@ let yojson_of_gitlab_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_read_authorizer_credential then bnds
+         if Stdlib.( = ) [] v_read_authorizer_credential then bnds
          else
            let arg =
              (yojson_of_list
@@ -338,7 +338,7 @@ let yojson_of_gitlab_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorizer_credential then bnds
+         if Stdlib.( = ) [] v_authorizer_credential then bnds
          else
            let arg =
              (yojson_of_list
@@ -470,11 +470,11 @@ type google_cloudbuildv2_connection = {
   name : string prop;
   project : string prop option; [@option]
   github_config : github_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github_enterprise_config : github_enterprise_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   gitlab_config : gitlab_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -503,7 +503,7 @@ let yojson_of_google_cloudbuildv2_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_gitlab_config then bnds
+         if Stdlib.( = ) [] v_gitlab_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_gitlab_config) v_gitlab_config
@@ -512,7 +512,7 @@ let yojson_of_google_cloudbuildv2_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github_enterprise_config then bnds
+         if Stdlib.( = ) [] v_github_enterprise_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_github_enterprise_config)
@@ -522,7 +522,7 @@ let yojson_of_google_cloudbuildv2_connection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_github_config then bnds
+         if Stdlib.( = ) [] v_github_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_github_config) v_github_config

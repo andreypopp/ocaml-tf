@@ -113,9 +113,9 @@ type cloudflare_custom_ssl = {
   id : string prop option; [@option]
   zone_id : string prop;
   custom_ssl_options : custom_ssl_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_ssl_priority : custom_ssl_priority list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_cloudflare_custom_ssl =
          []
        in
        let bnds =
-         if [] = v_custom_ssl_priority then bnds
+         if Stdlib.( = ) [] v_custom_ssl_priority then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_ssl_priority)
@@ -143,7 +143,7 @@ let yojson_of_cloudflare_custom_ssl =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_ssl_options then bnds
+         if Stdlib.( = ) [] v_custom_ssl_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_ssl_options)

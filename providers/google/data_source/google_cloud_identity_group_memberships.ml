@@ -29,7 +29,7 @@ let _ = yojson_of_memberships__roles__expiry_detail
 
 type memberships__roles = {
   expiry_detail : memberships__roles__expiry_detail list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -47,7 +47,7 @@ let yojson_of_memberships__roles =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_expiry_detail then bnds
+         if Stdlib.( = ) [] v_expiry_detail then bnds
          else
            let arg =
              (yojson_of_list
@@ -99,9 +99,9 @@ type memberships = {
   group : string prop;
   name : string prop;
   preferred_member_key : memberships__preferred_member_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   roles : memberships__roles list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   type_ : string prop; [@key "type"]
   update_time : string prop;
 }
@@ -132,7 +132,7 @@ let yojson_of_memberships =
          ("type", arg) :: bnds
        in
        let bnds =
-         if [] = v_roles then bnds
+         if Stdlib.( = ) [] v_roles then bnds
          else
            let arg =
              (yojson_of_list yojson_of_memberships__roles) v_roles
@@ -141,7 +141,7 @@ let yojson_of_memberships =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_preferred_member_key then bnds
+         if Stdlib.( = ) [] v_preferred_member_key then bnds
          else
            let arg =
              (yojson_of_list

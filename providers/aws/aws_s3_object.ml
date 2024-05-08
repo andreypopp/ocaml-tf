@@ -41,7 +41,7 @@ let _ = yojson_of_override_provider__default_tags
 
 type override_provider = {
   default_tags : override_provider__default_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,7 +54,7 @@ let yojson_of_override_provider =
          []
        in
        let bnds =
-         if [] = v_default_tags then bnds
+         if Stdlib.( = ) [] v_default_tags then bnds
          else
            let arg =
              (yojson_of_list
@@ -100,7 +100,7 @@ type aws_s3_object = {
   tags_all : (string * string prop) list option; [@option]
   website_redirect : string prop option; [@option]
   override_provider : override_provider list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_aws_s3_object =
          []
        in
        let bnds =
-         if [] = v_override_provider then bnds
+         if Stdlib.( = ) [] v_override_provider then bnds
          else
            let arg =
              (yojson_of_list yojson_of_override_provider)

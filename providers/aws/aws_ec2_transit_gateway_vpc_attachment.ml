@@ -8,7 +8,7 @@ type aws_ec2_transit_gateway_vpc_attachment = {
   id : string prop option; [@option]
   ipv6_support : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   transit_gateway_default_route_table_association : bool prop option;
@@ -105,7 +105,7 @@ let yojson_of_aws_ec2_transit_gateway_vpc_attachment =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

@@ -228,10 +228,10 @@ type network_configuration = {
   ip_address_type : string prop option; [@option]
   egress_configuration :
     network_configuration__egress_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ingress_configuration :
     network_configuration__ingress_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -248,7 +248,7 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         if [] = v_ingress_configuration then bnds
+         if Stdlib.( = ) [] v_ingress_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -259,7 +259,7 @@ let yojson_of_network_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_egress_configuration then bnds
+         if Stdlib.( = ) [] v_egress_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -472,7 +472,7 @@ type source_configuration__code_repository__code_configuration = {
   code_configuration_values :
     source_configuration__code_repository__code_configuration__code_configuration_values
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,7 +491,7 @@ let yojson_of_source_configuration__code_repository__code_configuration
          []
        in
        let bnds =
-         if [] = v_code_configuration_values then bnds
+         if Stdlib.( = ) [] v_code_configuration_values then bnds
          else
            let arg =
              (yojson_of_list
@@ -555,10 +555,10 @@ type source_configuration__code_repository = {
   source_directory : string prop option; [@option]
   code_configuration :
     source_configuration__code_repository__code_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_code_version :
     source_configuration__code_repository__source_code_version list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -576,7 +576,7 @@ let yojson_of_source_configuration__code_repository =
          []
        in
        let bnds =
-         if [] = v_source_code_version then bnds
+         if Stdlib.( = ) [] v_source_code_version then bnds
          else
            let arg =
              (yojson_of_list
@@ -587,7 +587,7 @@ let yojson_of_source_configuration__code_repository =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_configuration then bnds
+         if Stdlib.( = ) [] v_code_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -709,7 +709,7 @@ type source_configuration__image_repository = {
   image_repository_type : string prop;
   image_configuration :
     source_configuration__image_repository__image_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -726,7 +726,7 @@ let yojson_of_source_configuration__image_repository =
          []
        in
        let bnds =
-         if [] = v_image_configuration then bnds
+         if Stdlib.( = ) [] v_image_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -760,11 +760,11 @@ type source_configuration = {
   auto_deployments_enabled : bool prop option; [@option]
   authentication_configuration :
     source_configuration__authentication_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   code_repository : source_configuration__code_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   image_repository : source_configuration__image_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -782,7 +782,7 @@ let yojson_of_source_configuration =
          []
        in
        let bnds =
-         if [] = v_image_repository then bnds
+         if Stdlib.( = ) [] v_image_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -793,7 +793,7 @@ let yojson_of_source_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_code_repository then bnds
+         if Stdlib.( = ) [] v_code_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -804,7 +804,7 @@ let yojson_of_source_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication_configuration then bnds
+         if Stdlib.( = ) [] v_authentication_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -836,17 +836,17 @@ type aws_apprunner_service = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   encryption_configuration : encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check_configuration : health_check_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   instance_configuration : instance_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   observability_configuration : observability_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_configuration : source_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -872,7 +872,7 @@ let yojson_of_aws_apprunner_service =
          []
        in
        let bnds =
-         if [] = v_source_configuration then bnds
+         if Stdlib.( = ) [] v_source_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_configuration)
@@ -882,7 +882,7 @@ let yojson_of_aws_apprunner_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_observability_configuration then bnds
+         if Stdlib.( = ) [] v_observability_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_observability_configuration)
@@ -892,7 +892,7 @@ let yojson_of_aws_apprunner_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_configuration)
@@ -902,7 +902,7 @@ let yojson_of_aws_apprunner_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_instance_configuration then bnds
+         if Stdlib.( = ) [] v_instance_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_instance_configuration)
@@ -912,7 +912,7 @@ let yojson_of_aws_apprunner_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_health_check_configuration then bnds
+         if Stdlib.( = ) [] v_health_check_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_health_check_configuration)
@@ -922,7 +922,7 @@ let yojson_of_aws_apprunner_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_configuration)

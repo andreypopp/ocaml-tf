@@ -126,7 +126,8 @@ type azurerm_key_vault_certificate_issuer = {
   org_id : string prop option; [@option]
   password : string prop option; [@option]
   provider_name : string prop;
-  admin : admin list; [@default []] [@yojson_drop_default ( = )]
+  admin : admin list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,7 +155,7 @@ let yojson_of_azurerm_key_vault_certificate_issuer =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_admin then bnds
+         if Stdlib.( = ) [] v_admin then bnds
          else
            let arg = (yojson_of_list yojson_of_admin) v_admin in
            let bnd = "admin", arg in

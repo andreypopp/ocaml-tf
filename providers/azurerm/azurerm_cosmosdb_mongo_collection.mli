@@ -5,7 +5,8 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type system_indexes = {
-  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
+  keys : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** keys *)
   unique : bool prop;  (** unique *)
 }

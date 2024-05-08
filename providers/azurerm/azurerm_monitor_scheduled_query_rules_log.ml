@@ -6,7 +6,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop option; [@option]
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19,7 +19,7 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -50,7 +50,7 @@ let _ = yojson_of_criteria__dimension
 type criteria = {
   metric_name : string prop;
   dimension : criteria__dimension list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         if [] = v_dimension then bnds
+         if Stdlib.( = ) [] v_dimension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria__dimension)
@@ -154,7 +154,7 @@ type azurerm_monitor_scheduled_query_rules_log = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   criteria : criteria list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -184,7 +184,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_log =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_criteria then bnds
+         if Stdlib.( = ) [] v_criteria then bnds
          else
            let arg =
              (yojson_of_list yojson_of_criteria) v_criteria

@@ -8,17 +8,17 @@ type edges = {
   asn : float prop;  (** asn *)
   edge_location : string prop;  (** edge_location *)
   inside_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** inside_cidr_blocks *)
 }
 
 type segments = {
   edge_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** edge_locations *)
   name : string prop;  (** name *)
   shared_segments : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** shared_segments *)
 }
 

@@ -135,10 +135,10 @@ type aws_sfn_state_machine = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   logging_configuration : logging_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   tracing_configuration : tracing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_aws_sfn_state_machine =
          []
        in
        let bnds =
-         if [] = v_tracing_configuration then bnds
+         if Stdlib.( = ) [] v_tracing_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tracing_configuration)
@@ -178,7 +178,7 @@ let yojson_of_aws_sfn_state_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_logging_configuration then bnds
+         if Stdlib.( = ) [] v_logging_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_logging_configuration)

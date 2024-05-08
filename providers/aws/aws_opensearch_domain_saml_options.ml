@@ -44,7 +44,7 @@ type saml_options = {
   session_timeout_minutes : float prop option; [@option]
   subject_key : string prop option; [@option]
   idp : saml_options__idp list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_saml_options =
          []
        in
        let bnds =
-         if [] = v_idp then bnds
+         if Stdlib.( = ) [] v_idp then bnds
          else
            let arg =
              (yojson_of_list yojson_of_saml_options__idp) v_idp
@@ -169,7 +169,7 @@ type aws_opensearch_domain_saml_options = {
   domain_name : string prop;
   id : string prop option; [@option]
   saml_options : saml_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -192,7 +192,7 @@ let yojson_of_aws_opensearch_domain_saml_options =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_saml_options then bnds
+         if Stdlib.( = ) [] v_saml_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_saml_options) v_saml_options

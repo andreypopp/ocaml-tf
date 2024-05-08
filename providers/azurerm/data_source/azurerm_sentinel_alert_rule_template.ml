@@ -33,7 +33,7 @@ type nrt_template = {
   query : string prop;
   severity : string prop;
   tactics : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_nrt_template =
          []
        in
        let bnds =
-         if [] = v_tactics then bnds
+         if Stdlib.( = ) [] v_tactics then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -86,7 +86,7 @@ type scheduled_template = {
   query_period : string prop;
   severity : string prop;
   tactics : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   trigger_operator : string prop;
   trigger_threshold : float prop;
 }
@@ -122,7 +122,7 @@ let yojson_of_scheduled_template =
          ("trigger_operator", arg) :: bnds
        in
        let bnds =
-         if [] = v_tactics then bnds
+         if Stdlib.( = ) [] v_tactics then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

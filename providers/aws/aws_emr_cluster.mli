@@ -10,7 +10,8 @@ type placement_group_config = {
 }
 
 type step__hadoop_jar_step = {
-  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+  args : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** args *)
   jar : string prop;  (** jar *)
   main_class : string prop;  (** main_class *)
@@ -20,7 +21,7 @@ type step__hadoop_jar_step = {
 type step = {
   action_on_failure : string prop;  (** action_on_failure *)
   hadoop_jar_step : step__hadoop_jar_step list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** hadoop_jar_step *)
   name : string prop;  (** name *)
 }

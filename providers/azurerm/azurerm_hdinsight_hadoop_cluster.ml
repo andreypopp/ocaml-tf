@@ -320,11 +320,11 @@ let _ = yojson_of_metastores__oozie
 
 type metastores = {
   ambari : metastores__ambari list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hive : metastores__hive list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oozie : metastores__oozie list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_metastores =
          []
        in
        let bnds =
-         if [] = v_oozie then bnds
+         if Stdlib.( = ) [] v_oozie then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metastores__oozie) v_oozie
@@ -346,7 +346,7 @@ let yojson_of_metastores =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_hive then bnds
+         if Stdlib.( = ) [] v_hive then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metastores__hive) v_hive
@@ -355,7 +355,7 @@ let yojson_of_metastores =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ambari then bnds
+         if Stdlib.( = ) [] v_ambari then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metastores__ambari) v_ambari
@@ -600,13 +600,13 @@ type roles__edge_node = {
   target_instance_count : float prop;
   vm_size : string prop;
   https_endpoints : roles__edge_node__https_endpoints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   install_script_action :
     roles__edge_node__install_script_action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   uninstall_script_actions :
     roles__edge_node__uninstall_script_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -625,7 +625,7 @@ let yojson_of_roles__edge_node =
          []
        in
        let bnds =
-         if [] = v_uninstall_script_actions then bnds
+         if Stdlib.( = ) [] v_uninstall_script_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -636,7 +636,7 @@ let yojson_of_roles__edge_node =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_install_script_action then bnds
+         if Stdlib.( = ) [] v_install_script_action then bnds
          else
            let arg =
              (yojson_of_list
@@ -647,7 +647,7 @@ let yojson_of_roles__edge_node =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_https_endpoints then bnds
+         if Stdlib.( = ) [] v_https_endpoints then bnds
          else
            let arg =
              (yojson_of_list
@@ -721,7 +721,7 @@ type roles__head_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   script_actions : roles__head_node__script_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -742,7 +742,7 @@ let yojson_of_roles__head_node =
          []
        in
        let bnds =
-         if [] = v_script_actions then bnds
+         if Stdlib.( = ) [] v_script_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -839,7 +839,8 @@ let _ = yojson_of_roles__worker_node__autoscale__capacity
 [@@@deriving.end]
 
 type roles__worker_node__autoscale__recurrence__schedule = {
-  days : string prop list; [@default []] [@yojson_drop_default ( = )]
+  days : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_instance_count : float prop;
   time : string prop;
 }
@@ -869,7 +870,7 @@ let yojson_of_roles__worker_node__autoscale__recurrence__schedule =
          ("target_instance_count", arg) :: bnds
        in
        let bnds =
-         if [] = v_days then bnds
+         if Stdlib.( = ) [] v_days then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -889,7 +890,7 @@ let _ = yojson_of_roles__worker_node__autoscale__recurrence__schedule
 type roles__worker_node__autoscale__recurrence = {
   timezone : string prop;
   schedule : roles__worker_node__autoscale__recurrence__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -902,7 +903,7 @@ let yojson_of_roles__worker_node__autoscale__recurrence =
          []
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list
@@ -926,9 +927,9 @@ let _ = yojson_of_roles__worker_node__autoscale__recurrence
 
 type roles__worker_node__autoscale = {
   capacity : roles__worker_node__autoscale__capacity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   recurrence : roles__worker_node__autoscale__recurrence list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -941,7 +942,7 @@ let yojson_of_roles__worker_node__autoscale =
          []
        in
        let bnds =
-         if [] = v_recurrence then bnds
+         if Stdlib.( = ) [] v_recurrence then bnds
          else
            let arg =
              (yojson_of_list
@@ -952,7 +953,7 @@ let yojson_of_roles__worker_node__autoscale =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity then bnds
+         if Stdlib.( = ) [] v_capacity then bnds
          else
            let arg =
              (yojson_of_list
@@ -1018,9 +1019,9 @@ type roles__worker_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   autoscale : roles__worker_node__autoscale list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   script_actions : roles__worker_node__script_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1043,7 +1044,7 @@ let yojson_of_roles__worker_node =
          []
        in
        let bnds =
-         if [] = v_script_actions then bnds
+         if Stdlib.( = ) [] v_script_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1054,7 +1055,7 @@ let yojson_of_roles__worker_node =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscale then bnds
+         if Stdlib.( = ) [] v_autoscale then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__worker_node__autoscale)
@@ -1165,7 +1166,7 @@ type roles__zookeeper_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   script_actions : roles__zookeeper_node__script_actions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1186,7 +1187,7 @@ let yojson_of_roles__zookeeper_node =
          []
        in
        let bnds =
-         if [] = v_script_actions then bnds
+         if Stdlib.( = ) [] v_script_actions then bnds
          else
            let arg =
              (yojson_of_list
@@ -1247,13 +1248,13 @@ let _ = yojson_of_roles__zookeeper_node
 
 type roles = {
   edge_node : roles__edge_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   head_node : roles__head_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   worker_node : roles__worker_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zookeeper_node : roles__zookeeper_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1271,7 +1272,7 @@ let yojson_of_roles =
          []
        in
        let bnds =
-         if [] = v_zookeeper_node then bnds
+         if Stdlib.( = ) [] v_zookeeper_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__zookeeper_node)
@@ -1281,7 +1282,7 @@ let yojson_of_roles =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_worker_node then bnds
+         if Stdlib.( = ) [] v_worker_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__worker_node)
@@ -1291,7 +1292,7 @@ let yojson_of_roles =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_head_node then bnds
+         if Stdlib.( = ) [] v_head_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__head_node) v_head_node
@@ -1300,7 +1301,7 @@ let yojson_of_roles =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_edge_node then bnds
+         if Stdlib.( = ) [] v_edge_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_roles__edge_node) v_edge_node
@@ -1322,7 +1323,7 @@ type security_profile = {
   domain_user_password : string prop;
   domain_username : string prop;
   ldaps_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   msi_resource_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1350,7 +1351,7 @@ let yojson_of_security_profile =
          ("msi_resource_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_ldaps_urls then bnds
+         if Stdlib.( = ) [] v_ldaps_urls then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1569,25 +1570,29 @@ type azurerm_hdinsight_hadoop_cluster = {
   tier : string prop;
   tls_min_version : string prop option; [@option]
   component_version : component_version list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compute_isolation : compute_isolation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   disk_encryption : disk_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extension : extension list;
-      [@default []] [@yojson_drop_default ( = )]
-  gateway : gateway list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gateway : gateway list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metastores : metastores list;
-      [@default []] [@yojson_drop_default ( = )]
-  monitor : monitor list; [@default []] [@yojson_drop_default ( = )]
-  network : network list; [@default []] [@yojson_drop_default ( = )]
-  roles : roles list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  monitor : monitor list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  network : network list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  roles : roles list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_profile : security_profile list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_account : storage_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_account_gen2 : storage_account_gen2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1627,7 +1632,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_account_gen2 then bnds
+         if Stdlib.( = ) [] v_storage_account_gen2 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_account_gen2)
@@ -1637,7 +1642,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_storage_account then bnds
+         if Stdlib.( = ) [] v_storage_account then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_account)
@@ -1647,7 +1652,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_profile then bnds
+         if Stdlib.( = ) [] v_security_profile then bnds
          else
            let arg =
              (yojson_of_list yojson_of_security_profile)
@@ -1657,28 +1662,28 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_roles then bnds
+         if Stdlib.( = ) [] v_roles then bnds
          else
            let arg = (yojson_of_list yojson_of_roles) v_roles in
            let bnd = "roles", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network then bnds
+         if Stdlib.( = ) [] v_network then bnds
          else
            let arg = (yojson_of_list yojson_of_network) v_network in
            let bnd = "network", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_monitor then bnds
+         if Stdlib.( = ) [] v_monitor then bnds
          else
            let arg = (yojson_of_list yojson_of_monitor) v_monitor in
            let bnd = "monitor", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metastores then bnds
+         if Stdlib.( = ) [] v_metastores then bnds
          else
            let arg =
              (yojson_of_list yojson_of_metastores) v_metastores
@@ -1687,14 +1692,14 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_gateway then bnds
+         if Stdlib.( = ) [] v_gateway then bnds
          else
            let arg = (yojson_of_list yojson_of_gateway) v_gateway in
            let bnd = "gateway", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_extension then bnds
+         if Stdlib.( = ) [] v_extension then bnds
          else
            let arg =
              (yojson_of_list yojson_of_extension) v_extension
@@ -1703,7 +1708,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_disk_encryption then bnds
+         if Stdlib.( = ) [] v_disk_encryption then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_encryption)
@@ -1713,7 +1718,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compute_isolation then bnds
+         if Stdlib.( = ) [] v_compute_isolation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_compute_isolation)
@@ -1723,7 +1728,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_component_version then bnds
+         if Stdlib.( = ) [] v_component_version then bnds
          else
            let arg =
              (yojson_of_list yojson_of_component_version)

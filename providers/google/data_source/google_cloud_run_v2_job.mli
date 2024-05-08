@@ -30,7 +30,8 @@ type latest_created_execution = {
 type template__template__vpc_access__network_interfaces = {
   network : string prop;  (** network *)
   subnetwork : string prop;  (** subnetwork *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
 }
 
@@ -39,7 +40,7 @@ type template__template__vpc_access = {
   egress : string prop;  (** egress *)
   network_interfaces :
     template__template__vpc_access__network_interfaces list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_interfaces *)
 }
 
@@ -52,25 +53,25 @@ type template__template__volumes__secret__items = {
 type template__template__volumes__secret = {
   default_mode : float prop;  (** default_mode *)
   items : template__template__volumes__secret__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** items *)
   secret : string prop;  (** secret *)
 }
 
 type template__template__volumes__cloud_sql_instance = {
   instances : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instances *)
 }
 
 type template__template__volumes = {
   cloud_sql_instance :
     template__template__volumes__cloud_sql_instance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cloud_sql_instance *)
   name : string prop;  (** name *)
   secret : template__template__volumes__secret list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret *)
 }
 
@@ -97,7 +98,7 @@ type template__template__containers__env__value_source = {
   secret_key_ref :
     template__template__containers__env__value_source__secret_key_ref
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** secret_key_ref *)
 }
 
@@ -106,36 +107,37 @@ type template__template__containers__env = {
   value : string prop;  (** value *)
   value_source :
     template__template__containers__env__value_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** value_source *)
 }
 
 type template__template__containers = {
-  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+  args : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** args *)
   command : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** command *)
   env : template__template__containers__env list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
   image : string prop;  (** image *)
   name : string prop;  (** name *)
   ports : template__template__containers__ports list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ports *)
   resources : template__template__containers__resources list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resources *)
   volume_mounts : template__template__containers__volume_mounts list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** volume_mounts *)
   working_dir : string prop;  (** working_dir *)
 }
 
 type template__template = {
   containers : template__template__containers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** containers *)
   encryption_key : string prop;  (** encryption_key *)
   execution_environment : string prop;  (** execution_environment *)
@@ -143,10 +145,10 @@ type template__template = {
   service_account : string prop;  (** service_account *)
   timeout : string prop;  (** timeout *)
   volumes : template__template__volumes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** volumes *)
   vpc_access : template__template__vpc_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** vpc_access *)
 }
 
@@ -156,7 +158,7 @@ type template = {
   parallelism : float prop;  (** parallelism *)
   task_count : float prop;  (** task_count *)
   template : template__template list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** template *)
 }
 

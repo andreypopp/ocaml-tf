@@ -7,7 +7,7 @@ type definition = {
   name : string prop;
   service : string prop option; [@option]
   service_resources : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25,7 +25,7 @@ let yojson_of_definition =
          []
        in
        let bnds =
-         if [] = v_service_resources then bnds
+         if Stdlib.( = ) [] v_service_resources then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -128,7 +128,7 @@ type azurerm_subnet_service_endpoint_storage_policy = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   definition : definition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,7 +155,7 @@ let yojson_of_azurerm_subnet_service_endpoint_storage_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_definition then bnds
+         if Stdlib.( = ) [] v_definition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_definition) v_definition

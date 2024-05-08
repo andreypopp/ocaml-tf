@@ -268,11 +268,11 @@ type azurerm_eventgrid_topic = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_mapping_default_values : input_mapping_default_values list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_mapping_fields : input_mapping_fields list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -305,7 +305,7 @@ let yojson_of_azurerm_eventgrid_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_input_mapping_fields then bnds
+         if Stdlib.( = ) [] v_input_mapping_fields then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_mapping_fields)
@@ -315,7 +315,7 @@ let yojson_of_azurerm_eventgrid_topic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_mapping_default_values then bnds
+         if Stdlib.( = ) [] v_input_mapping_default_values then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_mapping_default_values)
@@ -325,7 +325,7 @@ let yojson_of_azurerm_eventgrid_topic =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

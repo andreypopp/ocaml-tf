@@ -170,9 +170,9 @@ type azurerm_web_pubsub = {
   tags : (string * string prop) list option; [@option]
   tls_client_cert_enabled : bool prop option; [@option]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   live_trace : live_trace list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -206,7 +206,7 @@ let yojson_of_azurerm_web_pubsub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_live_trace then bnds
+         if Stdlib.( = ) [] v_live_trace then bnds
          else
            let arg =
              (yojson_of_list yojson_of_live_trace) v_live_trace
@@ -215,7 +215,7 @@ let yojson_of_azurerm_web_pubsub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity

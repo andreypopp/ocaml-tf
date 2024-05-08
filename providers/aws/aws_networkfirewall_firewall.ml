@@ -147,7 +147,7 @@ let _ = yojson_of_firewall_status__sync_states__attachment
 
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   availability_zone : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -170,7 +170,7 @@ let yojson_of_firewall_status__sync_states =
          ("availability_zone", arg) :: bnds
        in
        let bnds =
-         if [] = v_attachment then bnds
+         if Stdlib.( = ) [] v_attachment then bnds
          else
            let arg =
              (yojson_of_list
@@ -190,7 +190,7 @@ let _ = yojson_of_firewall_status__sync_states
 
 type firewall_status = {
   sync_states : firewall_status__sync_states list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -203,7 +203,7 @@ let yojson_of_firewall_status =
          []
        in
        let bnds =
-         if [] = v_sync_states then bnds
+         if Stdlib.( = ) [] v_sync_states then bnds
          else
            let arg =
              (yojson_of_list yojson_of_firewall_status__sync_states)
@@ -231,9 +231,9 @@ type aws_networkfirewall_firewall = {
   tags_all : (string * string prop) list option; [@option]
   vpc_id : string prop;
   encryption_configuration : encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_mapping : subnet_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -266,7 +266,7 @@ let yojson_of_aws_networkfirewall_firewall =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet_mapping then bnds
+         if Stdlib.( = ) [] v_subnet_mapping then bnds
          else
            let arg =
              (yojson_of_list yojson_of_subnet_mapping)
@@ -276,7 +276,7 @@ let yojson_of_aws_networkfirewall_firewall =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_configuration)

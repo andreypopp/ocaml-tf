@@ -122,7 +122,7 @@ type aws_lambda_function_url = {
   id : string prop option; [@option]
   invoke_mode : string prop option; [@option]
   qualifier : string prop option; [@option]
-  cors : cors list; [@default []] [@yojson_drop_default ( = )]
+  cors : cors list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,7 +148,7 @@ let yojson_of_aws_lambda_function_url =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg = (yojson_of_list yojson_of_cors) v_cors in
            let bnd = "cors", arg in

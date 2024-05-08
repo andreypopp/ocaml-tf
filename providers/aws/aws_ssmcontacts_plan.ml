@@ -77,9 +77,9 @@ let _ = yojson_of_stage__target__contact_target_info
 
 type stage__target = {
   channel_target_info : stage__target__channel_target_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   contact_target_info : stage__target__contact_target_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,7 +95,7 @@ let yojson_of_stage__target =
          []
        in
        let bnds =
-         if [] = v_contact_target_info then bnds
+         if Stdlib.( = ) [] v_contact_target_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -106,7 +106,7 @@ let yojson_of_stage__target =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_channel_target_info then bnds
+         if Stdlib.( = ) [] v_channel_target_info then bnds
          else
            let arg =
              (yojson_of_list
@@ -126,7 +126,7 @@ let _ = yojson_of_stage__target
 type stage = {
   duration_in_minutes : float prop;
   target : stage__target list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,7 +142,7 @@ let yojson_of_stage =
          []
        in
        let bnds =
-         if [] = v_target then bnds
+         if Stdlib.( = ) [] v_target then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stage__target) v_target
@@ -166,7 +166,8 @@ let _ = yojson_of_stage
 type aws_ssmcontacts_plan = {
   contact_id : string prop;
   id : string prop option; [@option]
-  stage : stage list; [@default []] [@yojson_drop_default ( = )]
+  stage : stage list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,7 +180,7 @@ let yojson_of_aws_ssmcontacts_plan =
          []
        in
        let bnds =
-         if [] = v_stage then bnds
+         if Stdlib.( = ) [] v_stage then bnds
          else
            let arg = (yojson_of_list yojson_of_stage) v_stage in
            let bnd = "stage", arg in

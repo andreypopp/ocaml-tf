@@ -5,7 +5,7 @@ open! Tf_core
 type cleanup_policies__most_recent_versions = {
   keep_count : float prop;
   package_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21,7 +21,7 @@ let yojson_of_cleanup_policies__most_recent_versions =
          []
        in
        let bnds =
-         if [] = v_package_name_prefixes then bnds
+         if Stdlib.( = ) [] v_package_name_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -46,12 +46,12 @@ type cleanup_policies__condition = {
   newer_than : string prop;
   older_than : string prop;
   package_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tag_state : string prop;
   version_name_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,7 +71,7 @@ let yojson_of_cleanup_policies__condition =
          []
        in
        let bnds =
-         if [] = v_version_name_prefixes then bnds
+         if Stdlib.( = ) [] v_version_name_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -85,7 +85,7 @@ let yojson_of_cleanup_policies__condition =
          ("tag_state", arg) :: bnds
        in
        let bnds =
-         if [] = v_tag_prefixes then bnds
+         if Stdlib.( = ) [] v_tag_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -95,7 +95,7 @@ let yojson_of_cleanup_policies__condition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_package_name_prefixes then bnds
+         if Stdlib.( = ) [] v_package_name_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -123,10 +123,10 @@ let _ = yojson_of_cleanup_policies__condition
 type cleanup_policies = {
   action : string prop;
   condition : cleanup_policies__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop;
   most_recent_versions : cleanup_policies__most_recent_versions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,7 +144,7 @@ let yojson_of_cleanup_policies =
          []
        in
        let bnds =
-         if [] = v_most_recent_versions then bnds
+         if Stdlib.( = ) [] v_most_recent_versions then bnds
          else
            let arg =
              (yojson_of_list
@@ -159,7 +159,7 @@ let yojson_of_cleanup_policies =
          ("id", arg) :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cleanup_policies__condition)
@@ -282,7 +282,7 @@ let _ =
 type remote_repository_config__yum_repository = {
   public_repository :
     remote_repository_config__yum_repository__public_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -295,7 +295,7 @@ let yojson_of_remote_repository_config__yum_repository =
          []
        in
        let bnds =
-         if [] = v_public_repository then bnds
+         if Stdlib.( = ) [] v_public_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -357,7 +357,7 @@ type remote_repository_config__upstream_credentials = {
   username_password_credentials :
     remote_repository_config__upstream_credentials__username_password_credentials
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,7 +374,7 @@ let yojson_of_remote_repository_config__upstream_credentials =
          []
        in
        let bnds =
-         if [] = v_username_password_credentials then bnds
+         if Stdlib.( = ) [] v_username_password_credentials then bnds
          else
            let arg =
              (yojson_of_list
@@ -545,7 +545,7 @@ let _ =
 type remote_repository_config__apt_repository = {
   public_repository :
     remote_repository_config__apt_repository__public_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -558,7 +558,7 @@ let yojson_of_remote_repository_config__apt_repository =
          []
        in
        let bnds =
-         if [] = v_public_repository then bnds
+         if Stdlib.( = ) [] v_public_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -578,23 +578,23 @@ let _ = yojson_of_remote_repository_config__apt_repository
 
 type remote_repository_config = {
   apt_repository : remote_repository_config__apt_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
   docker_repository :
     remote_repository_config__docker_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maven_repository : remote_repository_config__maven_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   npm_repository : remote_repository_config__npm_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   python_repository :
     remote_repository_config__python_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   upstream_credentials :
     remote_repository_config__upstream_credentials list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   yum_repository : remote_repository_config__yum_repository list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -616,7 +616,7 @@ let yojson_of_remote_repository_config =
          []
        in
        let bnds =
-         if [] = v_yum_repository then bnds
+         if Stdlib.( = ) [] v_yum_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -627,7 +627,7 @@ let yojson_of_remote_repository_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_upstream_credentials then bnds
+         if Stdlib.( = ) [] v_upstream_credentials then bnds
          else
            let arg =
              (yojson_of_list
@@ -638,7 +638,7 @@ let yojson_of_remote_repository_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_python_repository then bnds
+         if Stdlib.( = ) [] v_python_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -649,7 +649,7 @@ let yojson_of_remote_repository_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_npm_repository then bnds
+         if Stdlib.( = ) [] v_npm_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -660,7 +660,7 @@ let yojson_of_remote_repository_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maven_repository then bnds
+         if Stdlib.( = ) [] v_maven_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -671,7 +671,7 @@ let yojson_of_remote_repository_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_docker_repository then bnds
+         if Stdlib.( = ) [] v_docker_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -686,7 +686,7 @@ let yojson_of_remote_repository_config =
          ("description", arg) :: bnds
        in
        let bnds =
-         if [] = v_apt_repository then bnds
+         if Stdlib.( = ) [] v_apt_repository then bnds
          else
            let arg =
              (yojson_of_list
@@ -742,7 +742,7 @@ let _ = yojson_of_virtual_repository_config__upstream_policies
 type virtual_repository_config = {
   upstream_policies :
     virtual_repository_config__upstream_policies list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -755,7 +755,7 @@ let yojson_of_virtual_repository_config =
          []
        in
        let bnds =
-         if [] = v_upstream_policies then bnds
+         if Stdlib.( = ) [] v_upstream_policies then bnds
          else
            let arg =
              (yojson_of_list

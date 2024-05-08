@@ -108,7 +108,7 @@ type azurerm_data_share = {
   name : string prop;
   terms : string prop option; [@option]
   snapshot_schedule : snapshot_schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -135,7 +135,7 @@ let yojson_of_azurerm_data_share =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_snapshot_schedule then bnds
+         if Stdlib.( = ) [] v_snapshot_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_snapshot_schedule)

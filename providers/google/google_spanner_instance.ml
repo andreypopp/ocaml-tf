@@ -110,9 +110,9 @@ let _ = yojson_of_autoscaling_config__autoscaling_targets
 
 type autoscaling_config = {
   autoscaling_limits : autoscaling_config__autoscaling_limits list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   autoscaling_targets : autoscaling_config__autoscaling_targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_autoscaling_config =
          []
        in
        let bnds =
-         if [] = v_autoscaling_targets then bnds
+         if Stdlib.( = ) [] v_autoscaling_targets then bnds
          else
            let arg =
              (yojson_of_list
@@ -139,7 +139,7 @@ let yojson_of_autoscaling_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_limits then bnds
+         if Stdlib.( = ) [] v_autoscaling_limits then bnds
          else
            let arg =
              (yojson_of_list
@@ -213,7 +213,7 @@ type google_spanner_instance = {
   processing_units : float prop option; [@option]
   project : string prop option; [@option]
   autoscaling_config : autoscaling_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -243,7 +243,7 @@ let yojson_of_google_spanner_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_config then bnds
+         if Stdlib.( = ) [] v_autoscaling_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscaling_config)

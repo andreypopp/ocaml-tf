@@ -46,7 +46,7 @@ type backup = {
   frequency : string prop;
   time : string prop option; [@option]
   hourly : backup__hourly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,7 +59,7 @@ let yojson_of_backup =
          []
        in
        let bnds =
-         if [] = v_hourly then bnds
+         if Stdlib.( = ) [] v_hourly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_backup__hourly) v_hourly
@@ -183,7 +183,7 @@ let _ = yojson_of_retention_monthly
 type retention_weekly = {
   count : float prop;
   weekdays : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,7 +196,7 @@ let yojson_of_retention_weekly =
          []
        in
        let bnds =
-         if [] = v_weekdays then bnds
+         if Stdlib.( = ) [] v_weekdays then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -221,7 +221,7 @@ type retention_yearly = {
   days : float prop list option; [@option]
   include_last_days : bool prop option; [@option]
   months : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   weekdays : string prop list option; [@option]
   weeks : string prop list option; [@option]
 }
@@ -263,7 +263,7 @@ let yojson_of_retention_yearly =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_months then bnds
+         if Stdlib.( = ) [] v_months then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -367,15 +367,16 @@ type azurerm_backup_policy_file_share = {
   recovery_vault_name : string prop;
   resource_group_name : string prop;
   timezone : string prop option; [@option]
-  backup : backup list; [@default []] [@yojson_drop_default ( = )]
+  backup : backup list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_daily : retention_daily list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_monthly : retention_monthly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_weekly : retention_weekly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_yearly : retention_yearly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -405,7 +406,7 @@ let yojson_of_azurerm_backup_policy_file_share =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_retention_yearly then bnds
+         if Stdlib.( = ) [] v_retention_yearly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_yearly)
@@ -415,7 +416,7 @@ let yojson_of_azurerm_backup_policy_file_share =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retention_weekly then bnds
+         if Stdlib.( = ) [] v_retention_weekly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_weekly)
@@ -425,7 +426,7 @@ let yojson_of_azurerm_backup_policy_file_share =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retention_monthly then bnds
+         if Stdlib.( = ) [] v_retention_monthly then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_monthly)
@@ -435,7 +436,7 @@ let yojson_of_azurerm_backup_policy_file_share =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retention_daily then bnds
+         if Stdlib.( = ) [] v_retention_daily then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retention_daily)
@@ -445,7 +446,7 @@ let yojson_of_azurerm_backup_policy_file_share =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_backup then bnds
+         if Stdlib.( = ) [] v_backup then bnds
          else
            let arg = (yojson_of_list yojson_of_backup) v_backup in
            let bnd = "backup", arg in

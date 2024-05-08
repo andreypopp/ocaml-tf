@@ -30,11 +30,11 @@ let _ = yojson_of_timeouts
 
 type install_patches__windows = {
   classifications_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kb_numbers_to_exclude : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   kb_numbers_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,7 +51,7 @@ let yojson_of_install_patches__windows =
          []
        in
        let bnds =
-         if [] = v_kb_numbers_to_include then bnds
+         if Stdlib.( = ) [] v_kb_numbers_to_include then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -61,7 +61,7 @@ let yojson_of_install_patches__windows =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_kb_numbers_to_exclude then bnds
+         if Stdlib.( = ) [] v_kb_numbers_to_exclude then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -71,7 +71,7 @@ let yojson_of_install_patches__windows =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_classifications_to_include then bnds
+         if Stdlib.( = ) [] v_classifications_to_include then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -89,11 +89,11 @@ let _ = yojson_of_install_patches__windows
 
 type install_patches__linux = {
   classifications_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   package_names_mask_to_exclude : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   package_names_mask_to_include : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,7 +112,7 @@ let yojson_of_install_patches__linux =
          []
        in
        let bnds =
-         if [] = v_package_names_mask_to_include then bnds
+         if Stdlib.( = ) [] v_package_names_mask_to_include then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -122,7 +122,7 @@ let yojson_of_install_patches__linux =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_package_names_mask_to_exclude then bnds
+         if Stdlib.( = ) [] v_package_names_mask_to_exclude then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -132,7 +132,7 @@ let yojson_of_install_patches__linux =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_classifications_to_include then bnds
+         if Stdlib.( = ) [] v_classifications_to_include then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -150,10 +150,10 @@ let _ = yojson_of_install_patches__linux
 
 type install_patches = {
   linux : install_patches__linux list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   reboot : string prop;
   windows : install_patches__windows list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,7 +166,7 @@ let yojson_of_install_patches =
          []
        in
        let bnds =
-         if [] = v_windows then bnds
+         if Stdlib.( = ) [] v_windows then bnds
          else
            let arg =
              (yojson_of_list yojson_of_install_patches__windows)
@@ -180,7 +180,7 @@ let yojson_of_install_patches =
          ("reboot", arg) :: bnds
        in
        let bnds =
-         if [] = v_linux then bnds
+         if Stdlib.( = ) [] v_linux then bnds
          else
            let arg =
              (yojson_of_list yojson_of_install_patches__linux)

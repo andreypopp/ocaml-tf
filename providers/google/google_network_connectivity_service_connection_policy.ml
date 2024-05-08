@@ -5,7 +5,7 @@ open! Tf_core
 type psc_config = {
   limit : string prop option; [@option]
   subnetworks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_psc_config =
          []
        in
        let bnds =
-         if [] = v_subnetworks then bnds
+         if Stdlib.( = ) [] v_subnetworks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -135,7 +135,7 @@ let _ = yojson_of_psc_connections__error_info
 type psc_connections__error = {
   code : float prop;
   details : (string * string prop) list list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -153,7 +153,7 @@ let yojson_of_psc_connections__error =
          ("message", arg) :: bnds
        in
        let bnds =
-         if [] = v_details then bnds
+         if Stdlib.( = ) [] v_details then bnds
          else
            let arg =
              (yojson_of_list
@@ -182,9 +182,9 @@ type psc_connections = {
   consumer_forwarding_rule : string prop;
   consumer_target_project : string prop;
   error : psc_connections__error list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error_info : psc_connections__error_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error_type : string prop;
   gce_operation : string prop;
   psc_connection_id : string prop;
@@ -229,7 +229,7 @@ let yojson_of_psc_connections =
          ("error_type", arg) :: bnds
        in
        let bnds =
-         if [] = v_error_info then bnds
+         if Stdlib.( = ) [] v_error_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_psc_connections__error_info)
@@ -239,7 +239,7 @@ let yojson_of_psc_connections =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_error then bnds
+         if Stdlib.( = ) [] v_error then bnds
          else
            let arg =
              (yojson_of_list yojson_of_psc_connections__error)
@@ -283,7 +283,7 @@ type google_network_connectivity_service_connection_policy = {
   project : string prop option; [@option]
   service_class : string prop;
   psc_config : psc_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -314,7 +314,7 @@ let yojson_of_google_network_connectivity_service_connection_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_psc_config then bnds
+         if Stdlib.( = ) [] v_psc_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_psc_config) v_psc_config

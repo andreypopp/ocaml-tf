@@ -244,7 +244,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_lab_service_plan = {
   allowed_regions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_network_subnet_id : string prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -253,10 +253,11 @@ type azurerm_lab_service_plan = {
   shared_gallery_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   default_auto_shutdown : default_auto_shutdown list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_connection : default_connection list;
-      [@default []] [@yojson_drop_default ( = )]
-  support : support list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  support : support list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -287,14 +288,14 @@ let yojson_of_azurerm_lab_service_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_support then bnds
+         if Stdlib.( = ) [] v_support then bnds
          else
            let arg = (yojson_of_list yojson_of_support) v_support in
            let bnd = "support", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_connection then bnds
+         if Stdlib.( = ) [] v_default_connection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_connection)
@@ -304,7 +305,7 @@ let yojson_of_azurerm_lab_service_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_auto_shutdown then bnds
+         if Stdlib.( = ) [] v_default_auto_shutdown then bnds
          else
            let arg =
              (yojson_of_list yojson_of_default_auto_shutdown)
@@ -368,7 +369,7 @@ let yojson_of_azurerm_lab_service_plan =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_allowed_regions then bnds
+         if Stdlib.( = ) [] v_allowed_regions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

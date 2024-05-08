@@ -114,7 +114,8 @@ type azurerm_spring_cloud_container_deployment = {
   name : string prop;
   server : string prop;
   spring_cloud_app_id : string prop;
-  quota : quota list; [@default []] [@yojson_drop_default ( = )]
+  quota : quota list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,7 +149,7 @@ let yojson_of_azurerm_spring_cloud_container_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_quota then bnds
+         if Stdlib.( = ) [] v_quota then bnds
          else
            let arg = (yojson_of_list yojson_of_quota) v_quota in
            let bnd = "quota", arg in

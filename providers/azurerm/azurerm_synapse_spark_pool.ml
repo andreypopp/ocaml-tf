@@ -191,13 +191,13 @@ type azurerm_synapse_spark_pool = {
   synapse_workspace_id : string prop;
   tags : (string * string prop) list option; [@option]
   auto_pause : auto_pause list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_scale : auto_scale list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   library_requirement : library_requirement list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spark_config : spark_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -239,7 +239,7 @@ let yojson_of_azurerm_synapse_spark_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_spark_config then bnds
+         if Stdlib.( = ) [] v_spark_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_spark_config) v_spark_config
@@ -248,7 +248,7 @@ let yojson_of_azurerm_synapse_spark_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_library_requirement then bnds
+         if Stdlib.( = ) [] v_library_requirement then bnds
          else
            let arg =
              (yojson_of_list yojson_of_library_requirement)
@@ -258,7 +258,7 @@ let yojson_of_azurerm_synapse_spark_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_scale then bnds
+         if Stdlib.( = ) [] v_auto_scale then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_scale) v_auto_scale
@@ -267,7 +267,7 @@ let yojson_of_azurerm_synapse_spark_pool =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_pause then bnds
+         if Stdlib.( = ) [] v_auto_pause then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_pause) v_auto_pause

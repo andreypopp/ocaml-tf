@@ -139,15 +139,15 @@ let _ = yojson_of_cdn_policy__negative_caching_policy
 type cdn_policy__cache_key_policy = {
   include_host : bool prop;
   include_http_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_named_cookies : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   include_protocol : bool prop;
   include_query_string : bool prop;
   query_string_blacklist : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_string_whitelist : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,7 +168,7 @@ let yojson_of_cdn_policy__cache_key_policy =
          []
        in
        let bnds =
-         if [] = v_query_string_whitelist then bnds
+         if Stdlib.( = ) [] v_query_string_whitelist then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -178,7 +178,7 @@ let yojson_of_cdn_policy__cache_key_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_query_string_blacklist then bnds
+         if Stdlib.( = ) [] v_query_string_blacklist then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -200,7 +200,7 @@ let yojson_of_cdn_policy__cache_key_policy =
          ("include_protocol", arg) :: bnds
        in
        let bnds =
-         if [] = v_include_named_cookies then bnds
+         if Stdlib.( = ) [] v_include_named_cookies then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -210,7 +210,7 @@ let yojson_of_cdn_policy__cache_key_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_include_http_headers then bnds
+         if Stdlib.( = ) [] v_include_http_headers then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -259,16 +259,16 @@ let _ = yojson_of_cdn_policy__bypass_cache_on_request_headers
 type cdn_policy = {
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_key_policy : cdn_policy__cache_key_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cache_mode : string prop;
   client_ttl : float prop;
   default_ttl : float prop;
   max_ttl : float prop;
   negative_caching : bool prop;
   negative_caching_policy : cdn_policy__negative_caching_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   serve_while_stale : float prop;
   signed_url_cache_max_age_sec : float prop;
 }
@@ -308,7 +308,7 @@ let yojson_of_cdn_policy =
          ("serve_while_stale", arg) :: bnds
        in
        let bnds =
-         if [] = v_negative_caching_policy then bnds
+         if Stdlib.( = ) [] v_negative_caching_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -341,7 +341,7 @@ let yojson_of_cdn_policy =
          ("cache_mode", arg) :: bnds
        in
        let bnds =
-         if [] = v_cache_key_policy then bnds
+         if Stdlib.( = ) [] v_cache_key_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
@@ -351,7 +351,8 @@ let yojson_of_cdn_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bypass_cache_on_request_headers then bnds
+         if Stdlib.( = ) [] v_bypass_cache_on_request_headers then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -459,7 +460,7 @@ type consistent_hash__http_cookie = {
   name : string prop;
   path : string prop;
   ttl : consistent_hash__http_cookie__ttl list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -472,7 +473,7 @@ let yojson_of_consistent_hash__http_cookie =
          []
        in
        let bnds =
-         if [] = v_ttl then bnds
+         if Stdlib.( = ) [] v_ttl then bnds
          else
            let arg =
              (yojson_of_list
@@ -500,7 +501,7 @@ let _ = yojson_of_consistent_hash__http_cookie
 
 type consistent_hash = {
   http_cookie : consistent_hash__http_cookie list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   http_header_name : string prop;
   minimum_ring_size : float prop;
 }
@@ -531,7 +532,7 @@ let yojson_of_consistent_hash =
          ("http_header_name", arg) :: bnds
        in
        let bnds =
-         if [] = v_http_cookie then bnds
+         if Stdlib.( = ) [] v_http_cookie then bnds
          else
            let arg =
              (yojson_of_list yojson_of_consistent_hash__http_cookie)
@@ -647,9 +648,9 @@ let _ = yojson_of_locality_lb_policies__custom_policy
 
 type locality_lb_policies = {
   custom_policy : locality_lb_policies__custom_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy : locality_lb_policies__policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -662,7 +663,7 @@ let yojson_of_locality_lb_policies =
          []
        in
        let bnds =
-         if [] = v_policy then bnds
+         if Stdlib.( = ) [] v_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_locality_lb_policies__policy)
@@ -672,7 +673,7 @@ let yojson_of_locality_lb_policies =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_policy then bnds
+         if Stdlib.( = ) [] v_custom_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -777,14 +778,14 @@ let _ = yojson_of_outlier_detection__base_ejection_time
 
 type outlier_detection = {
   base_ejection_time : outlier_detection__base_ejection_time list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   consecutive_errors : float prop;
   consecutive_gateway_failure : float prop;
   enforcing_consecutive_errors : float prop;
   enforcing_consecutive_gateway_failure : float prop;
   enforcing_success_rate : float prop;
   interval : outlier_detection__interval list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   max_ejection_percent : float prop;
   success_rate_minimum_hosts : float prop;
   success_rate_request_volume : float prop;
@@ -840,7 +841,7 @@ let yojson_of_outlier_detection =
          ("max_ejection_percent", arg) :: bnds
        in
        let bnds =
-         if [] = v_interval then bnds
+         if Stdlib.( = ) [] v_interval then bnds
          else
            let arg =
              (yojson_of_list yojson_of_outlier_detection__interval)
@@ -883,7 +884,7 @@ let yojson_of_outlier_detection =
          ("consecutive_errors", arg) :: bnds
        in
        let bnds =
-         if [] = v_base_ejection_time then bnds
+         if Stdlib.( = ) [] v_base_ejection_time then bnds
          else
            let arg =
              (yojson_of_list
@@ -903,7 +904,7 @@ let _ = yojson_of_outlier_detection
 type security_settings = {
   client_tls_policy : string prop;
   subject_alt_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -919,7 +920,7 @@ let yojson_of_security_settings =
          []
        in
        let bnds =
-         if [] = v_subject_alt_names then bnds
+         if Stdlib.( = ) [] v_subject_alt_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

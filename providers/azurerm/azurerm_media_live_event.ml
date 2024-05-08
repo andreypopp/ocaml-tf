@@ -184,7 +184,7 @@ type input = {
   key_frame_interval_duration : string prop option; [@option]
   streaming_protocol : string prop option; [@option]
   ip_access_control_allow : input__ip_access_control_allow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,7 +202,7 @@ let yojson_of_input =
          []
        in
        let bnds =
-         if [] = v_ip_access_control_allow then bnds
+         if Stdlib.( = ) [] v_ip_access_control_allow then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input__ip_access_control_allow)
@@ -327,7 +327,7 @@ type preview = {
   preview_locator : string prop option; [@option]
   streaming_policy_name : string prop option; [@option]
   ip_access_control_allow : preview__ip_access_control_allow list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -345,7 +345,7 @@ let yojson_of_preview =
          []
        in
        let bnds =
-         if [] = v_ip_access_control_allow then bnds
+         if Stdlib.( = ) [] v_ip_access_control_allow then bnds
          else
            let arg =
              (yojson_of_list
@@ -460,11 +460,13 @@ type azurerm_media_live_event = {
   transcription_languages : string prop list option; [@option]
   use_static_hostname : bool prop option; [@option]
   cross_site_access_policy : cross_site_access_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   encoding : encoding list;
-      [@default []] [@yojson_drop_default ( = )]
-  input : input list; [@default []] [@yojson_drop_default ( = )]
-  preview : preview list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  input : input list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  preview : preview list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -500,21 +502,21 @@ let yojson_of_azurerm_media_live_event =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_preview then bnds
+         if Stdlib.( = ) [] v_preview then bnds
          else
            let arg = (yojson_of_list yojson_of_preview) v_preview in
            let bnd = "preview", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input then bnds
+         if Stdlib.( = ) [] v_input then bnds
          else
            let arg = (yojson_of_list yojson_of_input) v_input in
            let bnd = "input", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_encoding then bnds
+         if Stdlib.( = ) [] v_encoding then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encoding) v_encoding
@@ -523,7 +525,7 @@ let yojson_of_azurerm_media_live_event =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cross_site_access_policy then bnds
+         if Stdlib.( = ) [] v_cross_site_access_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cross_site_access_policy)

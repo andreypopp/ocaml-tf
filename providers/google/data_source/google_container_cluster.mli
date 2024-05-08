@@ -47,40 +47,40 @@ type addons_config__cloudrun_config = {
 
 type addons_config = {
   cloudrun_config : addons_config__cloudrun_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cloudrun_config *)
   config_connector_config :
     addons_config__config_connector_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** config_connector_config *)
   dns_cache_config : addons_config__dns_cache_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns_cache_config *)
   gce_persistent_disk_csi_driver_config :
     addons_config__gce_persistent_disk_csi_driver_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gce_persistent_disk_csi_driver_config *)
   gcp_filestore_csi_driver_config :
     addons_config__gcp_filestore_csi_driver_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gcp_filestore_csi_driver_config *)
   gcs_fuse_csi_driver_config :
     addons_config__gcs_fuse_csi_driver_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gcs_fuse_csi_driver_config *)
   gke_backup_agent_config :
     addons_config__gke_backup_agent_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gke_backup_agent_config *)
   horizontal_pod_autoscaling :
     addons_config__horizontal_pod_autoscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** horizontal_pod_autoscaling *)
   http_load_balancing : addons_config__http_load_balancing list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** http_load_balancing *)
   network_policy_config : addons_config__network_policy_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_policy_config *)
 }
 
@@ -111,7 +111,7 @@ type cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_gre
   standard_rollout_policy :
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings__standard_rollout_policy
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** standard_rollout_policy *)
 }
 
@@ -119,7 +119,7 @@ type cluster_autoscaling__auto_provisioning_defaults__upgrade_settings = {
   blue_green_settings :
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** blue_green_settings *)
   max_surge : float prop;  (** max_surge *)
   max_unavailable : float prop;  (** max_unavailable *)
@@ -144,7 +144,7 @@ type cluster_autoscaling__auto_provisioning_defaults__management = {
   upgrade_options :
     cluster_autoscaling__auto_provisioning_defaults__management__upgrade_options
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upgrade_options *)
 }
 
@@ -155,34 +155,34 @@ type cluster_autoscaling__auto_provisioning_defaults = {
   image_type : string prop;  (** image_type *)
   management :
     cluster_autoscaling__auto_provisioning_defaults__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management *)
   min_cpu_platform : string prop;  (** min_cpu_platform *)
   oauth_scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oauth_scopes *)
   service_account : string prop;  (** service_account *)
   shielded_instance_config :
     cluster_autoscaling__auto_provisioning_defaults__shielded_instance_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** shielded_instance_config *)
   upgrade_settings :
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upgrade_settings *)
 }
 
 type cluster_autoscaling = {
   auto_provisioning_defaults :
     cluster_autoscaling__auto_provisioning_defaults list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** auto_provisioning_defaults *)
   autoscaling_profile : string prop;  (** autoscaling_profile *)
   enabled : bool prop;  (** enabled *)
   resource_limits : cluster_autoscaling__resource_limits list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** resource_limits *)
 }
 
@@ -204,7 +204,7 @@ type dns_config = {
 
 type enable_k8s_beta_apis = {
   enabled_apis : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** enabled_apis *)
 }
 
@@ -228,14 +228,14 @@ type ip_allocation_policy__pod_cidr_overprovision_config = {
 
 type ip_allocation_policy__additional_pod_ranges_config = {
   pod_range_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pod_range_names *)
 }
 
 type ip_allocation_policy = {
   additional_pod_ranges_config :
     ip_allocation_policy__additional_pod_ranges_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** additional_pod_ranges_config *)
   cluster_ipv4_cidr_block : string prop;
       (** cluster_ipv4_cidr_block *)
@@ -243,7 +243,7 @@ type ip_allocation_policy = {
       (** cluster_secondary_range_name *)
   pod_cidr_overprovision_config :
     ip_allocation_policy__pod_cidr_overprovision_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pod_cidr_overprovision_config *)
   services_ipv4_cidr_block : string prop;
       (** services_ipv4_cidr_block *)
@@ -254,7 +254,7 @@ type ip_allocation_policy = {
 
 type logging_config = {
   enable_components : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** enable_components *)
 }
 
@@ -273,7 +273,7 @@ type maintenance_policy__maintenance_exclusion = {
   exclusion_name : string prop;  (** exclusion_name *)
   exclusion_options :
     maintenance_policy__maintenance_exclusion__exclusion_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** exclusion_options *)
   start_time : string prop;  (** start_time *)
 }
@@ -286,14 +286,14 @@ type maintenance_policy__daily_maintenance_window = {
 type maintenance_policy = {
   daily_maintenance_window :
     maintenance_policy__daily_maintenance_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** daily_maintenance_window *)
   maintenance_exclusion :
     maintenance_policy__maintenance_exclusion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** maintenance_exclusion *)
   recurring_window : maintenance_policy__recurring_window list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** recurring_window *)
 }
 
@@ -306,7 +306,7 @@ type master_auth = {
   client_certificate : string prop;  (** client_certificate *)
   client_certificate_config :
     master_auth__client_certificate_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** client_certificate_config *)
   client_key : string prop;  (** client_key *)
   cluster_ca_certificate : string prop;  (** cluster_ca_certificate *)
@@ -319,7 +319,7 @@ type master_authorized_networks_config__cidr_blocks = {
 
 type master_authorized_networks_config = {
   cidr_blocks : master_authorized_networks_config__cidr_blocks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cidr_blocks *)
   gcp_public_cidrs_access_enabled : bool prop;
       (** gcp_public_cidrs_access_enabled *)
@@ -342,13 +342,13 @@ type monitoring_config__advanced_datapath_observability_config = {
 type monitoring_config = {
   advanced_datapath_observability_config :
     monitoring_config__advanced_datapath_observability_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advanced_datapath_observability_config *)
   enable_components : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** enable_components *)
   managed_prometheus : monitoring_config__managed_prometheus list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** managed_prometheus *)
 }
 
@@ -371,13 +371,13 @@ type node_config__sole_tenant_config__node_affinity = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type node_config__sole_tenant_config = {
   node_affinity : node_config__sole_tenant_config__node_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_affinity *)
 }
 
@@ -392,7 +392,7 @@ type node_config__reservation_affinity = {
       (** consume_reservation_type *)
   key : string prop;  (** key *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -433,12 +433,12 @@ type node_config__guest_accelerator = {
   gpu_driver_installation_config :
     node_config__guest_accelerator__gpu_driver_installation_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_driver_installation_config *)
   gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     node_config__guest_accelerator__gpu_sharing_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_sharing_config *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -472,50 +472,50 @@ type node_config__advanced_machine_features = {
 type node_config = {
   advanced_machine_features :
     node_config__advanced_machine_features list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advanced_machine_features *)
   boot_disk_kms_key : string prop;  (** boot_disk_kms_key *)
   confidential_nodes : node_config__confidential_nodes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** confidential_nodes *)
   disk_size_gb : float prop;  (** disk_size_gb *)
   disk_type : string prop;  (** disk_type *)
   effective_taints : node_config__effective_taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** effective_taints *)
   enable_confidential_storage : bool prop;
       (** enable_confidential_storage *)
   ephemeral_storage_local_ssd_config :
     node_config__ephemeral_storage_local_ssd_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ephemeral_storage_local_ssd_config *)
   fast_socket : node_config__fast_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fast_socket *)
   gcfs_config : node_config__gcfs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gcfs_config *)
   guest_accelerator : node_config__guest_accelerator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** guest_accelerator *)
   gvnic : node_config__gvnic list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gvnic *)
   host_maintenance_policy :
     node_config__host_maintenance_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** host_maintenance_policy *)
   image_type : string prop;  (** image_type *)
   kubelet_config : node_config__kubelet_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kubelet_config *)
   labels : (string * string prop) list;  (** labels *)
   linux_node_config : node_config__linux_node_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux_node_config *)
   local_nvme_ssd_block_config :
     node_config__local_nvme_ssd_block_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_nvme_ssd_block_config *)
   local_ssd_count : float prop;  (** local_ssd_count *)
   logging_variant : string prop;  (** logging_variant *)
@@ -524,11 +524,11 @@ type node_config = {
   min_cpu_platform : string prop;  (** min_cpu_platform *)
   node_group : string prop;  (** node_group *)
   oauth_scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oauth_scopes *)
   preemptible : bool prop;  (** preemptible *)
   reservation_affinity : node_config__reservation_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** reservation_affinity *)
   resource_labels : (string * string prop) list;
       (** resource_labels *)
@@ -537,20 +537,21 @@ type node_config = {
   service_account : string prop;  (** service_account *)
   shielded_instance_config :
     node_config__shielded_instance_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** shielded_instance_config *)
   sole_tenant_config : node_config__sole_tenant_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sole_tenant_config *)
   spot : bool prop;  (** spot *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   taint : node_config__taint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** taint *)
   workload_metadata_config :
     node_config__workload_metadata_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** workload_metadata_config *)
 }
 
@@ -566,14 +567,14 @@ type node_pool__upgrade_settings__blue_green_settings = {
   standard_rollout_policy :
     node_pool__upgrade_settings__blue_green_settings__standard_rollout_policy
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** standard_rollout_policy *)
 }
 
 type node_pool__upgrade_settings = {
   blue_green_settings :
     node_pool__upgrade_settings__blue_green_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** blue_green_settings *)
   max_surge : float prop;  (** max_surge *)
   max_unavailable : float prop;  (** max_unavailable *)
@@ -600,14 +601,14 @@ type node_pool__node_config__sole_tenant_config__node_affinity = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
 type node_pool__node_config__sole_tenant_config = {
   node_affinity :
     node_pool__node_config__sole_tenant_config__node_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_affinity *)
 }
 
@@ -622,7 +623,7 @@ type node_pool__node_config__reservation_affinity = {
       (** consume_reservation_type *)
   key : string prop;  (** key *)
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
 }
 
@@ -665,13 +666,13 @@ type node_pool__node_config__guest_accelerator = {
   gpu_driver_installation_config :
     node_pool__node_config__guest_accelerator__gpu_driver_installation_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_driver_installation_config *)
   gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     node_pool__node_config__guest_accelerator__gpu_sharing_config
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gpu_sharing_config *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -705,51 +706,51 @@ type node_pool__node_config__advanced_machine_features = {
 type node_pool__node_config = {
   advanced_machine_features :
     node_pool__node_config__advanced_machine_features list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advanced_machine_features *)
   boot_disk_kms_key : string prop;  (** boot_disk_kms_key *)
   confidential_nodes :
     node_pool__node_config__confidential_nodes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** confidential_nodes *)
   disk_size_gb : float prop;  (** disk_size_gb *)
   disk_type : string prop;  (** disk_type *)
   effective_taints : node_pool__node_config__effective_taints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** effective_taints *)
   enable_confidential_storage : bool prop;
       (** enable_confidential_storage *)
   ephemeral_storage_local_ssd_config :
     node_pool__node_config__ephemeral_storage_local_ssd_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ephemeral_storage_local_ssd_config *)
   fast_socket : node_pool__node_config__fast_socket list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** fast_socket *)
   gcfs_config : node_pool__node_config__gcfs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gcfs_config *)
   guest_accelerator : node_pool__node_config__guest_accelerator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** guest_accelerator *)
   gvnic : node_pool__node_config__gvnic list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** gvnic *)
   host_maintenance_policy :
     node_pool__node_config__host_maintenance_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** host_maintenance_policy *)
   image_type : string prop;  (** image_type *)
   kubelet_config : node_pool__node_config__kubelet_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kubelet_config *)
   labels : (string * string prop) list;  (** labels *)
   linux_node_config : node_pool__node_config__linux_node_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux_node_config *)
   local_nvme_ssd_block_config :
     node_pool__node_config__local_nvme_ssd_block_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_nvme_ssd_block_config *)
   local_ssd_count : float prop;  (** local_ssd_count *)
   logging_variant : string prop;  (** logging_variant *)
@@ -758,12 +759,12 @@ type node_pool__node_config = {
   min_cpu_platform : string prop;  (** min_cpu_platform *)
   node_group : string prop;  (** node_group *)
   oauth_scopes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** oauth_scopes *)
   preemptible : bool prop;  (** preemptible *)
   reservation_affinity :
     node_pool__node_config__reservation_affinity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** reservation_affinity *)
   resource_labels : (string * string prop) list;
       (** resource_labels *)
@@ -772,21 +773,22 @@ type node_pool__node_config = {
   service_account : string prop;  (** service_account *)
   shielded_instance_config :
     node_pool__node_config__shielded_instance_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** shielded_instance_config *)
   sole_tenant_config :
     node_pool__node_config__sole_tenant_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** sole_tenant_config *)
   spot : bool prop;  (** spot *)
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
   taint : node_pool__node_config__taint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** taint *)
   workload_metadata_config :
     node_pool__node_config__workload_metadata_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** workload_metadata_config *)
 }
 
@@ -804,11 +806,11 @@ type node_pool__network_config = {
   enable_private_nodes : bool prop;  (** enable_private_nodes *)
   network_performance_config :
     node_pool__network_config__network_performance_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_performance_config *)
   pod_cidr_overprovision_config :
     node_pool__network_config__pod_cidr_overprovision_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pod_cidr_overprovision_config *)
   pod_ipv4_cidr_block : string prop;  (** pod_ipv4_cidr_block *)
   pod_range : string prop;  (** pod_range *)
@@ -829,48 +831,49 @@ type node_pool__autoscaling = {
 
 type node_pool = {
   autoscaling : node_pool__autoscaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** autoscaling *)
   initial_node_count : float prop;  (** initial_node_count *)
   instance_group_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** instance_group_urls *)
   managed_instance_group_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** managed_instance_group_urls *)
   management : node_pool__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** management *)
   max_pods_per_node : float prop;  (** max_pods_per_node *)
   name : string prop;  (** name *)
   name_prefix : string prop;  (** name_prefix *)
   network_config : node_pool__network_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_config *)
   node_config : node_pool__node_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_config *)
   node_count : float prop;  (** node_count *)
   node_locations : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_locations *)
   placement_policy : node_pool__placement_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** placement_policy *)
   upgrade_settings : node_pool__upgrade_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upgrade_settings *)
   version : string prop;  (** version *)
 }
 
 type node_pool_auto_config__network_tags = {
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
 }
 
 type node_pool_auto_config = {
   network_tags : node_pool_auto_config__network_tags list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_tags *)
 }
 
@@ -881,27 +884,27 @@ type node_pool_defaults__node_config_defaults = {
 type node_pool_defaults = {
   node_config_defaults :
     node_pool_defaults__node_config_defaults list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_config_defaults *)
 }
 
 type notification_config__pubsub__filter = {
   event_type : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** event_type *)
 }
 
 type notification_config__pubsub = {
   enabled : bool prop;  (** enabled *)
   filter : notification_config__pubsub__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** filter *)
   topic : string prop;  (** topic *)
 }
 
 type notification_config = {
   pubsub : notification_config__pubsub list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** pubsub *)
 }
 
@@ -915,7 +918,7 @@ type private_cluster_config = {
   enable_private_nodes : bool prop;  (** enable_private_nodes *)
   master_global_access_config :
     private_cluster_config__master_global_access_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** master_global_access_config *)
   master_ipv4_cidr_block : string prop;
       (** master_ipv4_cidr_block *)
@@ -935,7 +938,7 @@ type resource_usage_export_config__bigquery_destination = {
 type resource_usage_export_config = {
   bigquery_destination :
     resource_usage_export_config__bigquery_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** bigquery_destination *)
   enable_network_egress_metering : bool prop;
       (** enable_network_egress_metering *)

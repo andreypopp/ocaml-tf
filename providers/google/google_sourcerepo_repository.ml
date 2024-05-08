@@ -97,7 +97,7 @@ type google_sourcerepo_repository = {
   name : string prop;
   project : string prop option; [@option]
   pubsub_configs : pubsub_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -121,7 +121,7 @@ let yojson_of_google_sourcerepo_repository =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_pubsub_configs then bnds
+         if Stdlib.( = ) [] v_pubsub_configs then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pubsub_configs)

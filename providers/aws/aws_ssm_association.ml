@@ -53,7 +53,7 @@ let _ = yojson_of_output_location
 type targets = {
   key : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_targets =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -102,8 +102,9 @@ type aws_ssm_association = {
   sync_compliance : string prop option; [@option]
   wait_for_success_timeout_seconds : float prop option; [@option]
   output_location : output_location list;
-      [@default []] [@yojson_drop_default ( = )]
-  targets : targets list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  targets : targets list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,14 +136,14 @@ let yojson_of_aws_ssm_association =
          []
        in
        let bnds =
-         if [] = v_targets then bnds
+         if Stdlib.( = ) [] v_targets then bnds
          else
            let arg = (yojson_of_list yojson_of_targets) v_targets in
            let bnd = "targets", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_output_location then bnds
+         if Stdlib.( = ) [] v_output_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_output_location)

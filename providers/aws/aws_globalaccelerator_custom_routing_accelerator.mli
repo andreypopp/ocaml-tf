@@ -6,7 +6,7 @@ open! Tf_core
 
 type ip_sets = {
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
   ip_family : string prop;  (** ip_family *)
 }

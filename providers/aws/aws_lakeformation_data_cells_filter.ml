@@ -50,7 +50,7 @@ let _ = yojson_of_table_data__row_filter__all_rows_wildcard
 type table_data__row_filter = {
   filter_expression : string prop option; [@option]
   all_rows_wildcard : table_data__row_filter__all_rows_wildcard list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_table_data__row_filter =
          []
        in
        let bnds =
-         if [] = v_all_rows_wildcard then bnds
+         if Stdlib.( = ) [] v_all_rows_wildcard then bnds
          else
            let arg =
              (yojson_of_list
@@ -99,9 +99,9 @@ type table_data = {
   table_name : string prop;
   version_id : string prop option; [@option]
   column_wildcard : table_data__column_wildcard list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   row_filter : table_data__row_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,7 +123,7 @@ let yojson_of_table_data =
          []
        in
        let bnds =
-         if [] = v_row_filter then bnds
+         if Stdlib.( = ) [] v_row_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_table_data__row_filter)
@@ -133,7 +133,7 @@ let yojson_of_table_data =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_column_wildcard then bnds
+         if Stdlib.( = ) [] v_column_wildcard then bnds
          else
            let arg =
              (yojson_of_list yojson_of_table_data__column_wildcard)
@@ -213,7 +213,7 @@ let _ = yojson_of_timeouts
 
 type aws_lakeformation_data_cells_filter = {
   table_data : table_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -231,7 +231,7 @@ let yojson_of_aws_lakeformation_data_cells_filter =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_table_data then bnds
+         if Stdlib.( = ) [] v_table_data then bnds
          else
            let arg =
              (yojson_of_list yojson_of_table_data) v_table_data

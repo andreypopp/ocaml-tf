@@ -88,7 +88,7 @@ type aws_sfn_alias = {
   id : string prop option; [@option]
   name : string prop;
   routing_configuration : routing_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -112,7 +112,7 @@ let yojson_of_aws_sfn_alias =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_routing_configuration then bnds
+         if Stdlib.( = ) [] v_routing_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_routing_configuration)

@@ -7,16 +7,16 @@ open! Tf_core
 type cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
   allow_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_headers *)
   allow_methods : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_methods *)
   allow_origins : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** allow_origins *)
   expose_headers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** expose_headers *)
   max_age : float prop;  (** max_age *)
 }

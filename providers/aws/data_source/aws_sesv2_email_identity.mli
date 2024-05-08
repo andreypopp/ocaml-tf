@@ -19,7 +19,7 @@ type dkim_signing_attributes = {
       (** signing_attributes_origin *)
   status : string prop;  (** status *)
   tokens : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tokens *)
 }
 

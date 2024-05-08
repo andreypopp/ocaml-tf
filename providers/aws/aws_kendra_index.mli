@@ -17,11 +17,11 @@ type index_statistics__faq_statistics = {
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** faq_statistics *)
   text_document_statistics :
     index_statistics__text_document_statistics list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** text_document_statistics *)
 }
 

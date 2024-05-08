@@ -88,7 +88,7 @@ let _ = yojson_of_timeouts
 type endpoints__management = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,7 +101,7 @@ let yojson_of_endpoints__management =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -124,7 +124,7 @@ let _ = yojson_of_endpoints__management
 type endpoints__intercluster = {
   dns_name : string prop;
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -137,7 +137,7 @@ let yojson_of_endpoints__intercluster =
          []
        in
        let bnds =
-         if [] = v_ip_addresses then bnds
+         if Stdlib.( = ) [] v_ip_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -159,9 +159,9 @@ let _ = yojson_of_endpoints__intercluster
 
 type endpoints = {
   intercluster : endpoints__intercluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   management : endpoints__management list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,7 +174,7 @@ let yojson_of_endpoints =
          []
        in
        let bnds =
-         if [] = v_management then bnds
+         if Stdlib.( = ) [] v_management then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__management)
@@ -184,7 +184,7 @@ let yojson_of_endpoints =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_intercluster then bnds
+         if Stdlib.( = ) [] v_intercluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_endpoints__intercluster)
@@ -215,14 +215,14 @@ type aws_fsx_ontap_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   throughput_capacity : float prop option; [@option]
   throughput_capacity_per_ha_pair : float prop option; [@option]
   weekly_maintenance_start_time : string prop option; [@option]
   disk_iops_configuration : disk_iops_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -266,7 +266,7 @@ let yojson_of_aws_fsx_ontap_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_disk_iops_configuration then bnds
+         if Stdlib.( = ) [] v_disk_iops_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_disk_iops_configuration)
@@ -332,7 +332,7 @@ let yojson_of_aws_fsx_ontap_file_system =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

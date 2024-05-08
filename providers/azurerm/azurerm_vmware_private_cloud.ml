@@ -150,7 +150,7 @@ type azurerm_vmware_private_cloud = {
   tags : (string * string prop) list option; [@option]
   vcenter_password : string prop option; [@option]
   management_cluster : management_cluster list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -181,7 +181,7 @@ let yojson_of_azurerm_vmware_private_cloud =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_management_cluster then bnds
+         if Stdlib.( = ) [] v_management_cluster then bnds
          else
            let arg =
              (yojson_of_list yojson_of_management_cluster)

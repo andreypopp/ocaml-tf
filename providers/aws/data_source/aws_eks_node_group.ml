@@ -39,7 +39,7 @@ let _ = yojson_of_launch_template
 type remote_access = {
   ec2_ssh_key : string prop;
   source_security_group_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,7 +55,7 @@ let yojson_of_remote_access =
          []
        in
        let bnds =
-         if [] = v_source_security_group_ids then bnds
+         if Stdlib.( = ) [] v_source_security_group_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -100,7 +100,7 @@ let _ = yojson_of_resources__autoscaling_groups
 
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remote_access_security_group_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -125,7 +125,7 @@ let yojson_of_resources =
          ("remote_access_security_group_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_autoscaling_groups then bnds
+         if Stdlib.( = ) [] v_autoscaling_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_resources__autoscaling_groups)

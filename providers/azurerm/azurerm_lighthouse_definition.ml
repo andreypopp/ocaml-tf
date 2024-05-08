@@ -106,7 +106,7 @@ type eligible_authorization__just_in_time_access_policy = {
   multi_factor_auth_provider : string prop option; [@option]
   approver :
     eligible_authorization__just_in_time_access_policy__approver list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_eligible_authorization__just_in_time_access_policy =
          []
        in
        let bnds =
-         if [] = v_approver then bnds
+         if Stdlib.( = ) [] v_approver then bnds
          else
            let arg =
              (yojson_of_list
@@ -164,7 +164,7 @@ type eligible_authorization = {
   role_definition_id : string prop;
   just_in_time_access_policy :
     eligible_authorization__just_in_time_access_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,7 +182,7 @@ let yojson_of_eligible_authorization =
          []
        in
        let bnds =
-         if [] = v_just_in_time_access_policy then bnds
+         if Stdlib.( = ) [] v_just_in_time_access_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -329,10 +329,10 @@ type azurerm_lighthouse_definition = {
   name : string prop;
   scope : string prop;
   authorization : authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   eligible_authorization : eligible_authorization list;
-      [@default []] [@yojson_drop_default ( = )]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -361,14 +361,14 @@ let yojson_of_azurerm_lighthouse_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_eligible_authorization then bnds
+         if Stdlib.( = ) [] v_eligible_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_eligible_authorization)
@@ -378,7 +378,7 @@ let yojson_of_azurerm_lighthouse_definition =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorization then bnds
+         if Stdlib.( = ) [] v_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization) v_authorization

@@ -137,7 +137,7 @@ type azurerm_frontdoor_custom_https_configuration = {
   frontend_endpoint_id : string prop;
   id : string prop option; [@option]
   custom_https_configuration : custom_https_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -162,7 +162,7 @@ let yojson_of_azurerm_frontdoor_custom_https_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_custom_https_configuration then bnds
+         if Stdlib.( = ) [] v_custom_https_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_https_configuration)

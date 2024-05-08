@@ -102,7 +102,7 @@ let _ = yojson_of_hourly_schedule
 
 type monthly_schedule = {
   days_of_month : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -137,7 +137,7 @@ let yojson_of_monthly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         if [] = v_days_of_month then bnds
+         if Stdlib.( = ) [] v_days_of_month then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_float))
@@ -155,7 +155,7 @@ let _ = yojson_of_monthly_schedule
 
 type weekly_schedule = {
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -190,7 +190,7 @@ let yojson_of_weekly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         if [] = v_days_of_week then bnds
+         if Stdlib.( = ) [] v_days_of_week then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

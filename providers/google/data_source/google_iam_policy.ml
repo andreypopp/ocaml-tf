@@ -42,7 +42,7 @@ let _ = yojson_of_audit_config__audit_log_configs
 type audit_config = {
   service : string prop;
   audit_log_configs : audit_config__audit_log_configs list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,7 +56,7 @@ let yojson_of_audit_config =
          []
        in
        let bnds =
-         if [] = v_audit_log_configs then bnds
+         if Stdlib.( = ) [] v_audit_log_configs then bnds
          else
            let arg =
              (yojson_of_list
@@ -121,10 +121,10 @@ let _ = yojson_of_binding__condition
 
 type binding = {
   members : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   role : string prop;
   condition : binding__condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,7 +138,7 @@ let yojson_of_binding =
          []
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_binding__condition)
@@ -152,7 +152,7 @@ let yojson_of_binding =
          ("role", arg) :: bnds
        in
        let bnds =
-         if [] = v_members then bnds
+         if Stdlib.( = ) [] v_members then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -171,8 +171,9 @@ let _ = yojson_of_binding
 type google_iam_policy = {
   id : string prop option; [@option]
   audit_config : audit_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  binding : binding list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  binding : binding list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -189,14 +190,14 @@ let yojson_of_google_iam_policy =
          []
        in
        let bnds =
-         if [] = v_binding then bnds
+         if Stdlib.( = ) [] v_binding then bnds
          else
            let arg = (yojson_of_list yojson_of_binding) v_binding in
            let bnd = "binding", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_audit_config then bnds
+         if Stdlib.( = ) [] v_audit_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_audit_config) v_audit_config

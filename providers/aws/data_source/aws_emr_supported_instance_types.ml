@@ -17,7 +17,7 @@ let _ = yojson_of_supported_instance_types
 type aws_emr_supported_instance_types = {
   release_label : string prop;
   supported_instance_types : supported_instance_types list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33,7 +33,7 @@ let yojson_of_aws_emr_supported_instance_types =
          []
        in
        let bnds =
-         if [] = v_supported_instance_types then bnds
+         if Stdlib.( = ) [] v_supported_instance_types then bnds
          else
            let arg =
              (yojson_of_list yojson_of_supported_instance_types)

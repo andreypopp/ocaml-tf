@@ -49,7 +49,7 @@ type bgp_settings = {
   asn : float prop option; [@option]
   peer_weight : float prop option; [@option]
   peering_addresses : bgp_settings__peering_addresses list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,7 +66,7 @@ let yojson_of_bgp_settings =
          []
        in
        let bnds =
-         if [] = v_peering_addresses then bnds
+         if Stdlib.( = ) [] v_peering_addresses then bnds
          else
            let arg =
              (yojson_of_list
@@ -224,7 +224,7 @@ type policy_group = {
   name : string prop;
   priority : float prop option; [@option]
   policy_member : policy_group__policy_member list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +242,7 @@ let yojson_of_policy_group =
          []
        in
        let bnds =
-         if [] = v_policy_member then bnds
+         if Stdlib.( = ) [] v_policy_member then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_group__policy_member)
@@ -516,10 +516,10 @@ let _ = yojson_of_vpn_client_configuration__root_certificate
 
 type vpn_client_configuration__virtual_network_gateway_client_connection = {
   address_prefixes : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   policy_group_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -540,7 +540,7 @@ let yojson_of_vpn_client_configuration__virtual_network_gateway_client_connectio
          []
        in
        let bnds =
-         if [] = v_policy_group_names then bnds
+         if Stdlib.( = ) [] v_policy_group_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -554,7 +554,7 @@ let yojson_of_vpn_client_configuration__virtual_network_gateway_client_connectio
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_address_prefixes then bnds
+         if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -577,24 +577,24 @@ type vpn_client_configuration = {
   aad_issuer : string prop option; [@option]
   aad_tenant : string prop option; [@option]
   address_space : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   radius_server_address : string prop option; [@option]
   radius_server_secret : string prop option; [@option]
   vpn_auth_types : string prop list option; [@option]
   vpn_client_protocols : string prop list option; [@option]
   ipsec_policy : vpn_client_configuration__ipsec_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   radius_server : vpn_client_configuration__radius_server list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   revoked_certificate :
     vpn_client_configuration__revoked_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_certificate : vpn_client_configuration__root_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   virtual_network_gateway_client_connection :
     vpn_client_configuration__virtual_network_gateway_client_connection
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -622,8 +622,10 @@ let yojson_of_vpn_client_configuration =
          []
        in
        let bnds =
-         if [] = v_virtual_network_gateway_client_connection then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_virtual_network_gateway_client_connection
+         then bnds
          else
            let arg =
              (yojson_of_list
@@ -636,7 +638,7 @@ let yojson_of_vpn_client_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_root_certificate then bnds
+         if Stdlib.( = ) [] v_root_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -647,7 +649,7 @@ let yojson_of_vpn_client_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_revoked_certificate then bnds
+         if Stdlib.( = ) [] v_revoked_certificate then bnds
          else
            let arg =
              (yojson_of_list
@@ -658,7 +660,7 @@ let yojson_of_vpn_client_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_radius_server then bnds
+         if Stdlib.( = ) [] v_radius_server then bnds
          else
            let arg =
              (yojson_of_list
@@ -669,7 +671,7 @@ let yojson_of_vpn_client_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ipsec_policy then bnds
+         if Stdlib.( = ) [] v_ipsec_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -716,7 +718,7 @@ let yojson_of_vpn_client_configuration =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_address_space then bnds
+         if Stdlib.( = ) [] v_address_space then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -777,16 +779,16 @@ type azurerm_virtual_network_gateway = {
   virtual_wan_traffic_enabled : bool prop option; [@option]
   vpn_type : string prop option; [@option]
   bgp_settings : bgp_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_route : custom_route list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_configuration : ip_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   policy_group : policy_group list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpn_client_configuration : vpn_client_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -828,7 +830,7 @@ let yojson_of_azurerm_virtual_network_gateway =
          []
        in
        let bnds =
-         if [] = v_vpn_client_configuration then bnds
+         if Stdlib.( = ) [] v_vpn_client_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpn_client_configuration)
@@ -842,7 +844,7 @@ let yojson_of_azurerm_virtual_network_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_policy_group then bnds
+         if Stdlib.( = ) [] v_policy_group then bnds
          else
            let arg =
              (yojson_of_list yojson_of_policy_group) v_policy_group
@@ -851,7 +853,7 @@ let yojson_of_azurerm_virtual_network_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ip_configuration then bnds
+         if Stdlib.( = ) [] v_ip_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ip_configuration)
@@ -861,7 +863,7 @@ let yojson_of_azurerm_virtual_network_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_route then bnds
+         if Stdlib.( = ) [] v_custom_route then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_route) v_custom_route
@@ -870,7 +872,7 @@ let yojson_of_azurerm_virtual_network_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_bgp_settings then bnds
+         if Stdlib.( = ) [] v_bgp_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_bgp_settings) v_bgp_settings

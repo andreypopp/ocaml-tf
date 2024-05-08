@@ -73,7 +73,7 @@ type automatic_scaling = {
   min_pending_latency : string prop option; [@option]
   standard_scheduler_settings :
     automatic_scaling__standard_scheduler_settings list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,7 +93,7 @@ let yojson_of_automatic_scaling =
          []
        in
        let bnds =
-         if [] = v_standard_scheduler_settings then bnds
+         if Stdlib.( = ) [] v_standard_scheduler_settings then bnds
          else
            let arg =
              (yojson_of_list
@@ -263,9 +263,9 @@ let _ = yojson_of_deployment__zip
 
 type deployment = {
   files : deployment__files list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   zip : deployment__zip list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,7 +278,7 @@ let yojson_of_deployment =
          []
        in
        let bnds =
-         if [] = v_zip then bnds
+         if Stdlib.( = ) [] v_zip then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment__zip) v_zip
@@ -287,7 +287,7 @@ let yojson_of_deployment =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_files then bnds
+         if Stdlib.( = ) [] v_files then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment__files) v_files
@@ -451,9 +451,9 @@ type handlers = {
   security_level : string prop option; [@option]
   url_regex : string prop option; [@option]
   script : handlers__script list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_files : handlers__static_files list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,7 +474,7 @@ let yojson_of_handlers =
          []
        in
        let bnds =
-         if [] = v_static_files then bnds
+         if Stdlib.( = ) [] v_static_files then bnds
          else
            let arg =
              (yojson_of_list yojson_of_handlers__static_files)
@@ -484,7 +484,7 @@ let yojson_of_handlers =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_script then bnds
+         if Stdlib.( = ) [] v_script then bnds
          else
            let arg =
              (yojson_of_list yojson_of_handlers__script) v_script
@@ -693,22 +693,22 @@ type google_app_engine_standard_app_version = {
   threadsafe : bool prop option; [@option]
   version_id : string prop option; [@option]
   automatic_scaling : automatic_scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   basic_scaling : basic_scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deployment : deployment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   entrypoint : entrypoint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   handlers : handlers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   libraries : libraries list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_scaling : manual_scaling list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   vpc_access_connector : vpc_access_connector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -745,7 +745,7 @@ let yojson_of_google_app_engine_standard_app_version =
          []
        in
        let bnds =
-         if [] = v_vpc_access_connector then bnds
+         if Stdlib.( = ) [] v_vpc_access_connector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_vpc_access_connector)
@@ -759,7 +759,7 @@ let yojson_of_google_app_engine_standard_app_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_manual_scaling then bnds
+         if Stdlib.( = ) [] v_manual_scaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_manual_scaling)
@@ -769,7 +769,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_libraries then bnds
+         if Stdlib.( = ) [] v_libraries then bnds
          else
            let arg =
              (yojson_of_list yojson_of_libraries) v_libraries
@@ -778,7 +778,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_handlers then bnds
+         if Stdlib.( = ) [] v_handlers then bnds
          else
            let arg =
              (yojson_of_list yojson_of_handlers) v_handlers
@@ -787,7 +787,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_entrypoint then bnds
+         if Stdlib.( = ) [] v_entrypoint then bnds
          else
            let arg =
              (yojson_of_list yojson_of_entrypoint) v_entrypoint
@@ -796,7 +796,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deployment then bnds
+         if Stdlib.( = ) [] v_deployment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment) v_deployment
@@ -805,7 +805,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_basic_scaling then bnds
+         if Stdlib.( = ) [] v_basic_scaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_basic_scaling) v_basic_scaling
@@ -814,7 +814,7 @@ let yojson_of_google_app_engine_standard_app_version =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_automatic_scaling then bnds
+         if Stdlib.( = ) [] v_automatic_scaling then bnds
          else
            let arg =
              (yojson_of_list yojson_of_automatic_scaling)

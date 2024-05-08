@@ -33,7 +33,7 @@ let _ = yojson_of_configuration__unused_access
 
 type configuration = {
   unused_access : configuration__unused_access list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,7 +46,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_unused_access then bnds
+         if Stdlib.( = ) [] v_unused_access then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration__unused_access)
@@ -69,7 +69,7 @@ type aws_accessanalyzer_analyzer = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_aws_accessanalyzer_analyzer =
          []
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

@@ -31,7 +31,7 @@ type event_handler = {
   url_template : string prop;
   user_event_pattern : string prop option; [@option]
   auth : event_handler__auth list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,7 +49,7 @@ let yojson_of_event_handler =
          []
        in
        let bnds =
-         if [] = v_auth then bnds
+         if Stdlib.( = ) [] v_auth then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_handler__auth) v_auth
@@ -210,9 +210,9 @@ type azurerm_web_pubsub_hub = {
   name : string prop;
   web_pubsub_id : string prop;
   event_handler : event_handler list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   event_listener : event_listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -239,7 +239,7 @@ let yojson_of_azurerm_web_pubsub_hub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_event_listener then bnds
+         if Stdlib.( = ) [] v_event_listener then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_listener)
@@ -249,7 +249,7 @@ let yojson_of_azurerm_web_pubsub_hub =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_event_handler then bnds
+         if Stdlib.( = ) [] v_event_handler then bnds
          else
            let arg =
              (yojson_of_list yojson_of_event_handler) v_event_handler

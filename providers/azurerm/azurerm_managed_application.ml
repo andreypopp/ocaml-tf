@@ -127,7 +127,7 @@ type azurerm_managed_application = {
   parameters : (string * string prop) list option; [@option]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  plan : plan list; [@default []] [@yojson_drop_default ( = )]
+  plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -158,7 +158,7 @@ let yojson_of_azurerm_managed_application =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_plan then bnds
+         if Stdlib.( = ) [] v_plan then bnds
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in

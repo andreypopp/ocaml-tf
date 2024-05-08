@@ -175,11 +175,11 @@ type aws_opsworks_application = {
   stack_id : string prop;
   type_ : string prop; [@key "type"]
   app_source : app_source list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   environment : environment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ssl_configuration : ssl_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,7 +211,7 @@ let yojson_of_aws_opsworks_application =
          []
        in
        let bnds =
-         if [] = v_ssl_configuration then bnds
+         if Stdlib.( = ) [] v_ssl_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ssl_configuration)
@@ -221,7 +221,7 @@ let yojson_of_aws_opsworks_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_environment then bnds
+         if Stdlib.( = ) [] v_environment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_environment) v_environment
@@ -230,7 +230,7 @@ let yojson_of_aws_opsworks_application =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_app_source then bnds
+         if Stdlib.( = ) [] v_app_source then bnds
          else
            let arg =
              (yojson_of_list yojson_of_app_source) v_app_source

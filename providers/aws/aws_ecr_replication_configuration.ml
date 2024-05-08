@@ -65,10 +65,10 @@ let _ = yojson_of_replication_configuration__rule__repository_filter
 
 type replication_configuration__rule = {
   destination : replication_configuration__rule__destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   repository_filter :
     replication_configuration__rule__repository_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,7 +84,7 @@ let yojson_of_replication_configuration__rule =
          []
        in
        let bnds =
-         if [] = v_repository_filter then bnds
+         if Stdlib.( = ) [] v_repository_filter then bnds
          else
            let arg =
              (yojson_of_list
@@ -95,7 +95,7 @@ let yojson_of_replication_configuration__rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination then bnds
+         if Stdlib.( = ) [] v_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -115,7 +115,7 @@ let _ = yojson_of_replication_configuration__rule
 
 type replication_configuration = {
   rule : replication_configuration__rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,7 +128,7 @@ let yojson_of_replication_configuration =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +148,7 @@ let _ = yojson_of_replication_configuration
 type aws_ecr_replication_configuration = {
   id : string prop option; [@option]
   replication_configuration : replication_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_aws_ecr_replication_configuration =
          []
        in
        let bnds =
-         if [] = v_replication_configuration then bnds
+         if Stdlib.( = ) [] v_replication_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_replication_configuration)

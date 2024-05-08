@@ -64,10 +64,10 @@ let _ =
 
 type slice__data_network = {
   additional_allowed_session_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   allocation_and_retention_priority_level : float prop;
   allowed_services_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   data_network_id : string prop;
   default_session_type : string prop;
   max_buffered_packets : float prop;
@@ -76,7 +76,7 @@ type slice__data_network = {
   qos_indicator : float prop;
   session_aggregate_maximum_bit_rate :
     slice__data_network__session_aggregate_maximum_bit_rate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,7 +103,8 @@ let yojson_of_slice__data_network =
          []
        in
        let bnds =
-         if [] = v_session_aggregate_maximum_bit_rate then bnds
+         if Stdlib.( = ) [] v_session_aggregate_maximum_bit_rate then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -148,7 +149,7 @@ let yojson_of_slice__data_network =
          ("data_network_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_allowed_services_ids then bnds
+         if Stdlib.( = ) [] v_allowed_services_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -165,7 +166,8 @@ let yojson_of_slice__data_network =
          ("allocation_and_retention_priority_level", arg) :: bnds
        in
        let bnds =
-         if [] = v_additional_allowed_session_types then bnds
+         if Stdlib.( = ) [] v_additional_allowed_session_types then
+           bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -183,7 +185,7 @@ let _ = yojson_of_slice__data_network
 
 type slice = {
   data_network : slice__data_network list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_data_network_id : string prop;
   slice_id : string prop;
 }
@@ -212,7 +214,7 @@ let yojson_of_slice =
          ("default_data_network_id", arg) :: bnds
        in
        let bnds =
-         if [] = v_data_network then bnds
+         if Stdlib.( = ) [] v_data_network then bnds
          else
            let arg =
              (yojson_of_list yojson_of_slice__data_network)

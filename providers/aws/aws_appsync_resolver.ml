@@ -134,7 +134,7 @@ type sync_config = {
   conflict_handler : string prop option; [@option]
   lambda_conflict_handler_config :
     sync_config__lambda_conflict_handler_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,7 +152,8 @@ let yojson_of_sync_config =
          []
        in
        let bnds =
-         if [] = v_lambda_conflict_handler_config then bnds
+         if Stdlib.( = ) [] v_lambda_conflict_handler_config then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -197,12 +198,13 @@ type aws_appsync_resolver = {
   response_template : string prop option; [@option]
   type_ : string prop; [@key "type"]
   caching_config : caching_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   pipeline_config : pipeline_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  runtime : runtime list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  runtime : runtime list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sync_config : sync_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,7 +232,7 @@ let yojson_of_aws_appsync_resolver =
          []
        in
        let bnds =
-         if [] = v_sync_config then bnds
+         if Stdlib.( = ) [] v_sync_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_sync_config) v_sync_config
@@ -239,14 +241,14 @@ let yojson_of_aws_appsync_resolver =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_runtime then bnds
+         if Stdlib.( = ) [] v_runtime then bnds
          else
            let arg = (yojson_of_list yojson_of_runtime) v_runtime in
            let bnd = "runtime", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pipeline_config then bnds
+         if Stdlib.( = ) [] v_pipeline_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_pipeline_config)
@@ -256,7 +258,7 @@ let yojson_of_aws_appsync_resolver =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_caching_config then bnds
+         if Stdlib.( = ) [] v_caching_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_caching_config)

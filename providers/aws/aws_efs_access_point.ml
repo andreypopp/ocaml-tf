@@ -85,7 +85,7 @@ let _ = yojson_of_root_directory__creation_info
 type root_directory = {
   path : string prop option; [@option]
   creation_info : root_directory__creation_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,7 +98,7 @@ let yojson_of_root_directory =
          []
        in
        let bnds =
-         if [] = v_creation_info then bnds
+         if Stdlib.( = ) [] v_creation_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_directory__creation_info)
@@ -128,9 +128,9 @@ type aws_efs_access_point = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   posix_user : posix_user list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   root_directory : root_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,7 +150,7 @@ let yojson_of_aws_efs_access_point =
          []
        in
        let bnds =
-         if [] = v_root_directory then bnds
+         if Stdlib.( = ) [] v_root_directory then bnds
          else
            let arg =
              (yojson_of_list yojson_of_root_directory)
@@ -160,7 +160,7 @@ let yojson_of_aws_efs_access_point =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_posix_user then bnds
+         if Stdlib.( = ) [] v_posix_user then bnds
          else
            let arg =
              (yojson_of_list yojson_of_posix_user) v_posix_user

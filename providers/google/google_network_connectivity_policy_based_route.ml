@@ -129,7 +129,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type virtual_machine = {
-  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+  tags : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,7 +143,7 @@ let yojson_of_virtual_machine =
          []
        in
        let bnds =
-         if [] = v_tags then bnds
+         if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -216,12 +217,13 @@ type google_network_connectivity_policy_based_route = {
   next_hop_other_routes : string prop option; [@option]
   priority : float prop option; [@option]
   project : string prop option; [@option]
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   interconnect_attachment : interconnect_attachment list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   virtual_machine : virtual_machine list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,7 +251,7 @@ let yojson_of_google_network_connectivity_policy_based_route =
          []
        in
        let bnds =
-         if [] = v_virtual_machine then bnds
+         if Stdlib.( = ) [] v_virtual_machine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_virtual_machine)
@@ -263,7 +265,7 @@ let yojson_of_google_network_connectivity_policy_based_route =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_interconnect_attachment then bnds
+         if Stdlib.( = ) [] v_interconnect_attachment then bnds
          else
            let arg =
              (yojson_of_list yojson_of_interconnect_attachment)
@@ -273,7 +275,7 @@ let yojson_of_google_network_connectivity_policy_based_route =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

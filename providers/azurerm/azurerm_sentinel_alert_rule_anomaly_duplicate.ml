@@ -5,7 +5,7 @@ open! Tf_core
 type multi_select_observation = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,7 +18,7 @@ let yojson_of_multi_select_observation =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -206,7 +206,7 @@ let _ = yojson_of_timeouts
 type required_data_connector = {
   connector_id : string prop;
   data_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,7 +219,7 @@ let yojson_of_required_data_connector =
          []
        in
        let bnds =
-         if [] = v_data_types then bnds
+         if Stdlib.( = ) [] v_data_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -247,14 +247,14 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate = {
   log_analytics_workspace_id : string prop;
   mode : string prop;
   multi_select_observation : multi_select_observation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   prioritized_exclude_observation :
     prioritized_exclude_observation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   single_select_observation : single_select_observation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threshold_observation : threshold_observation list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -285,7 +285,7 @@ let yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threshold_observation then bnds
+         if Stdlib.( = ) [] v_threshold_observation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threshold_observation)
@@ -295,7 +295,7 @@ let yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_single_select_observation then bnds
+         if Stdlib.( = ) [] v_single_select_observation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_single_select_observation)
@@ -305,7 +305,8 @@ let yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_prioritized_exclude_observation then bnds
+         if Stdlib.( = ) [] v_prioritized_exclude_observation then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -316,7 +317,7 @@ let yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_multi_select_observation then bnds
+         if Stdlib.( = ) [] v_multi_select_observation then bnds
          else
            let arg =
              (yojson_of_list yojson_of_multi_select_observation)

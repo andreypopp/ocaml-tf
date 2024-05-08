@@ -129,11 +129,11 @@ type rule = {
   status : string prop option; [@option]
   abort_incomplete_multipart_upload :
     rule__abort_incomplete_multipart_upload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expiration : rule__expiration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter : rule__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__filter) v_filter
@@ -162,7 +162,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_expiration then bnds
+         if Stdlib.( = ) [] v_expiration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__expiration) v_expiration
@@ -171,7 +171,8 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_abort_incomplete_multipart_upload then bnds
+         if Stdlib.( = ) [] v_abort_incomplete_multipart_upload then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -203,7 +204,7 @@ let _ = yojson_of_rule
 type aws_s3control_bucket_lifecycle_configuration = {
   bucket : string prop;
   id : string prop option; [@option]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,7 +217,7 @@ let yojson_of_aws_s3control_bucket_lifecycle_configuration =
          []
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

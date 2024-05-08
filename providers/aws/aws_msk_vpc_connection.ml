@@ -5,10 +5,10 @@ open! Tf_core
 type aws_msk_vpc_connection = {
   authentication : string prop;
   client_subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   security_groups : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_cluster_arn : string prop;
@@ -76,7 +76,7 @@ let yojson_of_aws_msk_vpc_connection =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_security_groups then bnds
+         if Stdlib.( = ) [] v_security_groups then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -94,7 +94,7 @@ let yojson_of_aws_msk_vpc_connection =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_client_subnets then bnds
+         if Stdlib.( = ) [] v_client_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

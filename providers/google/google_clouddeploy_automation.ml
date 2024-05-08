@@ -106,9 +106,9 @@ let _ = yojson_of_rules__promote_release_rule
 
 type rules = {
   advance_rollout_rule : rules__advance_rollout_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   promote_release_rule : rules__promote_release_rule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,7 +124,7 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         if [] = v_promote_release_rule then bnds
+         if Stdlib.( = ) [] v_promote_release_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__promote_release_rule)
@@ -134,7 +134,7 @@ let yojson_of_rules =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_advance_rollout_rule then bnds
+         if Stdlib.( = ) [] v_advance_rollout_rule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rules__advance_rollout_rule)
@@ -197,7 +197,7 @@ let _ = yojson_of_selector__targets
 
 type selector = {
   targets : selector__targets list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,7 +210,7 @@ let yojson_of_selector =
          []
        in
        let bnds =
-         if [] = v_targets then bnds
+         if Stdlib.( = ) [] v_targets then bnds
          else
            let arg =
              (yojson_of_list yojson_of_selector__targets) v_targets
@@ -282,9 +282,10 @@ type google_clouddeploy_automation = {
   project : string prop option; [@option]
   service_account : string prop;
   suspended : bool prop option; [@option]
-  rules : rules list; [@default []] [@yojson_drop_default ( = )]
+  rules : rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selector : selector list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -316,7 +317,7 @@ let yojson_of_google_clouddeploy_automation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_selector then bnds
+         if Stdlib.( = ) [] v_selector then bnds
          else
            let arg =
              (yojson_of_list yojson_of_selector) v_selector
@@ -325,7 +326,7 @@ let yojson_of_google_clouddeploy_automation =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rules then bnds
+         if Stdlib.( = ) [] v_rules then bnds
          else
            let arg = (yojson_of_list yojson_of_rules) v_rules in
            let bnd = "rules", arg in

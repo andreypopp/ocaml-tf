@@ -163,9 +163,10 @@ type azurerm_network_packet_capture = {
   network_watcher_name : string prop;
   resource_group_name : string prop;
   target_resource_id : string prop;
-  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  filter : filter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   storage_location : storage_location list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -195,7 +196,7 @@ let yojson_of_azurerm_network_packet_capture =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage_location then bnds
+         if Stdlib.( = ) [] v_storage_location then bnds
          else
            let arg =
              (yojson_of_list yojson_of_storage_location)
@@ -205,7 +206,7 @@ let yojson_of_azurerm_network_packet_capture =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg = (yojson_of_list yojson_of_filter) v_filter in
            let bnd = "filter", arg in

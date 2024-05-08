@@ -157,7 +157,7 @@ let _ = yojson_of_timeouts
 type vpc = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,7 +173,7 @@ let yojson_of_vpc =
          []
        in
        let bnds =
-         if [] = v_subnet_ids then bnds
+         if Stdlib.( = ) [] v_subnet_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -208,14 +208,15 @@ type aws_medialive_input = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   destinations : destinations list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   input_devices : input_devices list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   media_connect_flows : media_connect_flows list;
-      [@default []] [@yojson_drop_default ( = )]
-  sources : sources list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sources : sources list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
-  vpc : vpc list; [@default []] [@yojson_drop_default ( = )]
+  vpc : vpc list; [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,7 +243,7 @@ let yojson_of_aws_medialive_input =
          []
        in
        let bnds =
-         if [] = v_vpc then bnds
+         if Stdlib.( = ) [] v_vpc then bnds
          else
            let arg = (yojson_of_list yojson_of_vpc) v_vpc in
            let bnd = "vpc", arg in
@@ -253,14 +254,14 @@ let yojson_of_aws_medialive_input =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sources then bnds
+         if Stdlib.( = ) [] v_sources then bnds
          else
            let arg = (yojson_of_list yojson_of_sources) v_sources in
            let bnd = "sources", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_media_connect_flows then bnds
+         if Stdlib.( = ) [] v_media_connect_flows then bnds
          else
            let arg =
              (yojson_of_list yojson_of_media_connect_flows)
@@ -270,7 +271,7 @@ let yojson_of_aws_medialive_input =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_devices then bnds
+         if Stdlib.( = ) [] v_input_devices then bnds
          else
            let arg =
              (yojson_of_list yojson_of_input_devices) v_input_devices
@@ -279,7 +280,7 @@ let yojson_of_aws_medialive_input =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destinations then bnds
+         if Stdlib.( = ) [] v_destinations then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destinations) v_destinations

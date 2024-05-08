@@ -11,18 +11,19 @@ type schedule__monthly = {
 
 type schedule = {
   days_of_month : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** days_of_month *)
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** days_of_week *)
-  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
+  hours : float prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** hours *)
   minutes : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** minutes *)
   monthly : schedule__monthly list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** monthly *)
 }
 

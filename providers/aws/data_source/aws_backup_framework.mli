@@ -6,10 +6,10 @@ open! Tf_core
 
 type control__scope = {
   compliance_resource_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** compliance_resource_ids *)
   compliance_resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** compliance_resource_types *)
   tags : (string * string prop) list;  (** tags *)
 }
@@ -21,11 +21,11 @@ type control__input_parameter = {
 
 type control = {
   input_parameter : control__input_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** input_parameter *)
   name : string prop;  (** name *)
   scope : control__scope list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** scope *)
 }
 

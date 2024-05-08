@@ -466,18 +466,19 @@ type azurerm_spring_cloud_gateway = {
       [@option]
   spring_cloud_service_id : string prop;
   api_metadata : api_metadata list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_authorization : client_authorization list;
-      [@default []] [@yojson_drop_default ( = )]
-  cors : cors list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  cors : cors list; [@default []] [@yojson_drop_default Stdlib.( = )]
   local_response_cache_per_instance :
     local_response_cache_per_instance list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   local_response_cache_per_route :
     local_response_cache_per_route list;
-      [@default []] [@yojson_drop_default ( = )]
-  quota : quota list; [@default []] [@yojson_drop_default ( = )]
-  sso : sso list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  quota : quota list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  sso : sso list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -520,21 +521,22 @@ let yojson_of_azurerm_spring_cloud_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_sso then bnds
+         if Stdlib.( = ) [] v_sso then bnds
          else
            let arg = (yojson_of_list yojson_of_sso) v_sso in
            let bnd = "sso", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_quota then bnds
+         if Stdlib.( = ) [] v_quota then bnds
          else
            let arg = (yojson_of_list yojson_of_quota) v_quota in
            let bnd = "quota", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_response_cache_per_route then bnds
+         if Stdlib.( = ) [] v_local_response_cache_per_route then
+           bnds
          else
            let arg =
              (yojson_of_list yojson_of_local_response_cache_per_route)
@@ -544,7 +546,8 @@ let yojson_of_azurerm_spring_cloud_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_local_response_cache_per_instance then bnds
+         if Stdlib.( = ) [] v_local_response_cache_per_instance then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -555,14 +558,14 @@ let yojson_of_azurerm_spring_cloud_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors then bnds
+         if Stdlib.( = ) [] v_cors then bnds
          else
            let arg = (yojson_of_list yojson_of_cors) v_cors in
            let bnd = "cors", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_authorization then bnds
+         if Stdlib.( = ) [] v_client_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_authorization)
@@ -572,7 +575,7 @@ let yojson_of_azurerm_spring_cloud_gateway =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_api_metadata then bnds
+         if Stdlib.( = ) [] v_api_metadata then bnds
          else
            let arg =
              (yojson_of_list yojson_of_api_metadata) v_api_metadata

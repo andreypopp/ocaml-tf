@@ -27,7 +27,7 @@ let _ = yojson_of_principal_info__service_account
 
 type principal_info = {
   service_account : principal_info__service_account list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40,7 +40,7 @@ let yojson_of_principal_info =
          []
        in
        let bnds =
-         if [] = v_service_account then bnds
+         if Stdlib.( = ) [] v_service_account then bnds
          else
            let arg =
              (yojson_of_list
@@ -111,7 +111,7 @@ type google_beyondcorp_app_connector = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   principal_info : principal_info list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -138,7 +138,7 @@ let yojson_of_google_beyondcorp_app_connector =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_principal_info then bnds
+         if Stdlib.( = ) [] v_principal_info then bnds
          else
            let arg =
              (yojson_of_list yojson_of_principal_info)

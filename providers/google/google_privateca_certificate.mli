@@ -6,41 +6,41 @@ open! Tf_core
 
 type certificate_description__x509_description__policy_ids = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_id_path *)
 }
 
 type certificate_description__x509_description__name_constraints = {
   critical : bool prop;  (** critical *)
   excluded_dns_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** excluded_dns_names *)
   excluded_email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** excluded_email_addresses *)
   excluded_ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** excluded_ip_ranges *)
   excluded_uris : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** excluded_uris *)
   permitted_dns_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permitted_dns_names *)
   permitted_email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permitted_email_addresses *)
   permitted_ip_ranges : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permitted_ip_ranges *)
   permitted_uris : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** permitted_uris *)
 }
 
 type certificate_description__x509_description__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_id_path *)
 }
 
@@ -69,17 +69,17 @@ type certificate_description__x509_description__key_usage = {
   base_key_usage :
     certificate_description__x509_description__key_usage__base_key_usage
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** base_key_usage *)
   extended_key_usage :
     certificate_description__x509_description__key_usage__extended_key_usage
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** extended_key_usage *)
   unknown_extended_key_usages :
     certificate_description__x509_description__key_usage__unknown_extended_key_usages
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** unknown_extended_key_usages *)
 }
 
@@ -90,7 +90,7 @@ type certificate_description__x509_description__ca_options = {
 
 type certificate_description__x509_description__additional_extensions__object_id = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_id_path *)
 }
 
@@ -99,7 +99,7 @@ type certificate_description__x509_description__additional_extensions = {
   object_id :
     certificate_description__x509_description__additional_extensions__object_id
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_id *)
   value : string prop;  (** value *)
 }
@@ -108,26 +108,26 @@ type certificate_description__x509_description = {
   additional_extensions :
     certificate_description__x509_description__additional_extensions
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** additional_extensions *)
   aia_ocsp_servers : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** aia_ocsp_servers *)
   ca_options :
     certificate_description__x509_description__ca_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ca_options *)
   key_usage :
     certificate_description__x509_description__key_usage list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** key_usage *)
   name_constraints :
     certificate_description__x509_description__name_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** name_constraints *)
   policy_ids :
     certificate_description__x509_description__policy_ids list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** policy_ids *)
 }
 
@@ -137,7 +137,7 @@ type certificate_description__subject_key_id = {
 
 type certificate_description__subject_description__subject_alt_name__custom_sans__obect_id = {
   object_id_path : float prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** object_id_path *)
 }
 
@@ -146,7 +146,7 @@ type certificate_description__subject_description__subject_alt_name__custom_sans
   obect_id :
     certificate_description__subject_description__subject_alt_name__custom_sans__obect_id
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** obect_id *)
   value : string prop;  (** value *)
 }
@@ -155,18 +155,19 @@ type certificate_description__subject_description__subject_alt_name = {
   custom_sans :
     certificate_description__subject_description__subject_alt_name__custom_sans
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** custom_sans *)
   dns_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dns_names *)
   email_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** email_addresses *)
   ip_addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** ip_addresses *)
-  uris : string prop list; [@default []] [@yojson_drop_default ( = )]
+  uris : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** uris *)
 }
 
@@ -188,12 +189,12 @@ type certificate_description__subject_description = {
   not_before_time : string prop;  (** not_before_time *)
   subject :
     certificate_description__subject_description__subject list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject *)
   subject_alt_name :
     certificate_description__subject_description__subject_alt_name
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_alt_name *)
 }
 
@@ -212,29 +213,29 @@ type certificate_description__authority_key_id = {
 
 type certificate_description = {
   aia_issuing_certificate_urls : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** aia_issuing_certificate_urls *)
   authority_key_id : certificate_description__authority_key_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** authority_key_id *)
   cert_fingerprint : certificate_description__cert_fingerprint list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cert_fingerprint *)
   crl_distribution_points : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** crl_distribution_points *)
   public_key : certificate_description__public_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** public_key *)
   subject_description :
     certificate_description__subject_description list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_description *)
   subject_key_id : certificate_description__subject_key_id list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_key_id *)
   x509_description : certificate_description__x509_description list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x509_description *)
 }
 

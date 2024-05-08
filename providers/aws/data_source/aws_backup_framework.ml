@@ -4,9 +4,9 @@ open! Tf_core
 
 type control__scope = {
   compliance_resource_ids : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   compliance_resource_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tags : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -36,7 +36,7 @@ let yojson_of_control__scope =
          ("tags", arg) :: bnds
        in
        let bnds =
-         if [] = v_compliance_resource_types then bnds
+         if Stdlib.( = ) [] v_compliance_resource_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -46,7 +46,7 @@ let yojson_of_control__scope =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_compliance_resource_ids then bnds
+         if Stdlib.( = ) [] v_compliance_resource_ids then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -93,10 +93,10 @@ let _ = yojson_of_control__input_parameter
 
 type control = {
   input_parameter : control__input_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   scope : control__scope list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -113,7 +113,7 @@ let yojson_of_control =
          []
        in
        let bnds =
-         if [] = v_scope then bnds
+         if Stdlib.( = ) [] v_scope then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control__scope) v_scope
@@ -126,7 +126,7 @@ let yojson_of_control =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_input_parameter then bnds
+         if Stdlib.( = ) [] v_input_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control__input_parameter)

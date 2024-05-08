@@ -35,7 +35,7 @@ type action = {
   mode : string prop;
   timeout : float prop option; [@option]
   response : action__response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_action =
          []
        in
        let bnds =
-         if [] = v_response then bnds
+         if Stdlib.( = ) [] v_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_action__response) v_response
@@ -216,9 +216,9 @@ let _ = yojson_of_match__response
 
 type match_ = {
   request : match__request list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   response : match__response list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,7 +231,7 @@ let yojson_of_match_ =
          []
        in
        let bnds =
-         if [] = v_response then bnds
+         if Stdlib.( = ) [] v_response then bnds
          else
            let arg =
              (yojson_of_list yojson_of_match__response) v_response
@@ -240,7 +240,7 @@ let yojson_of_match_ =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_request then bnds
+         if Stdlib.( = ) [] v_request then bnds
          else
            let arg =
              (yojson_of_list yojson_of_match__request) v_request
@@ -263,11 +263,14 @@ type cloudflare_rate_limit = {
   period : float prop;
   threshold : float prop;
   zone_id : string prop;
-  action : action list; [@default []] [@yojson_drop_default ( = )]
+  action : action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   correlate : correlate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_ : match_ list;
-      [@key "match"] [@default []] [@yojson_drop_default ( = )]
+      [@key "match"]
+      [@default []]
+      [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -291,14 +294,14 @@ let yojson_of_cloudflare_rate_limit =
          []
        in
        let bnds =
-         if [] = v_match_ then bnds
+         if Stdlib.( = ) [] v_match_ then bnds
          else
            let arg = (yojson_of_list yojson_of_match_) v_match_ in
            let bnd = "match", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_correlate then bnds
+         if Stdlib.( = ) [] v_correlate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_correlate) v_correlate
@@ -307,7 +310,7 @@ let yojson_of_cloudflare_rate_limit =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg = (yojson_of_list yojson_of_action) v_action in
            let bnd = "action", arg in

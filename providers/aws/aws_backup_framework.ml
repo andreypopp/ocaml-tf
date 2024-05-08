@@ -104,9 +104,9 @@ let _ = yojson_of_control__scope
 type control = {
   name : string prop;
   input_parameter : control__input_parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   scope : control__scope list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,7 +123,7 @@ let yojson_of_control =
          []
        in
        let bnds =
-         if [] = v_scope then bnds
+         if Stdlib.( = ) [] v_scope then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control__scope) v_scope
@@ -132,7 +132,7 @@ let yojson_of_control =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_input_parameter then bnds
+         if Stdlib.( = ) [] v_input_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control__input_parameter)
@@ -204,7 +204,8 @@ type aws_backup_framework = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  control : control list; [@default []] [@yojson_drop_default ( = )]
+  control : control list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -230,7 +231,7 @@ let yojson_of_aws_backup_framework =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_control then bnds
+         if Stdlib.( = ) [] v_control then bnds
          else
            let arg = (yojson_of_list yojson_of_control) v_control in
            let bnd = "control", arg in

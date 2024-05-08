@@ -132,16 +132,16 @@ type cors_config = {
   origin_override : bool prop;
   access_control_allow_headers :
     cors_config__access_control_allow_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   access_control_allow_methods :
     cors_config__access_control_allow_methods list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   access_control_allow_origins :
     cors_config__access_control_allow_origins list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   access_control_expose_headers :
     cors_config__access_control_expose_headers list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,7 +164,7 @@ let yojson_of_cors_config =
          []
        in
        let bnds =
-         if [] = v_access_control_expose_headers then bnds
+         if Stdlib.( = ) [] v_access_control_expose_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -175,7 +175,7 @@ let yojson_of_cors_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control_allow_origins then bnds
+         if Stdlib.( = ) [] v_access_control_allow_origins then bnds
          else
            let arg =
              (yojson_of_list
@@ -186,7 +186,7 @@ let yojson_of_cors_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control_allow_methods then bnds
+         if Stdlib.( = ) [] v_access_control_allow_methods then bnds
          else
            let arg =
              (yojson_of_list
@@ -197,7 +197,7 @@ let yojson_of_cors_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access_control_allow_headers then bnds
+         if Stdlib.( = ) [] v_access_control_allow_headers then bnds
          else
            let arg =
              (yojson_of_list
@@ -270,7 +270,7 @@ let _ = yojson_of_custom_headers_config__items
 
 type custom_headers_config = {
   items : custom_headers_config__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,7 +283,7 @@ let yojson_of_custom_headers_config =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_headers_config__items)
@@ -324,7 +324,7 @@ let _ = yojson_of_remove_headers_config__items
 
 type remove_headers_config = {
   items : remove_headers_config__items list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,7 +337,7 @@ let yojson_of_remove_headers_config =
          []
        in
        let bnds =
-         if [] = v_items then bnds
+         if Stdlib.( = ) [] v_items then bnds
          else
            let arg =
              (yojson_of_list yojson_of_remove_headers_config__items)
@@ -590,19 +590,19 @@ let _ = yojson_of_security_headers_config__xss_protection
 type security_headers_config = {
   content_security_policy :
     security_headers_config__content_security_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   content_type_options :
     security_headers_config__content_type_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frame_options : security_headers_config__frame_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   referrer_policy : security_headers_config__referrer_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   strict_transport_security :
     security_headers_config__strict_transport_security list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   xss_protection : security_headers_config__xss_protection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -622,7 +622,7 @@ let yojson_of_security_headers_config =
          []
        in
        let bnds =
-         if [] = v_xss_protection then bnds
+         if Stdlib.( = ) [] v_xss_protection then bnds
          else
            let arg =
              (yojson_of_list
@@ -633,7 +633,7 @@ let yojson_of_security_headers_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_strict_transport_security then bnds
+         if Stdlib.( = ) [] v_strict_transport_security then bnds
          else
            let arg =
              (yojson_of_list
@@ -644,7 +644,7 @@ let yojson_of_security_headers_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_referrer_policy then bnds
+         if Stdlib.( = ) [] v_referrer_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -655,7 +655,7 @@ let yojson_of_security_headers_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_frame_options then bnds
+         if Stdlib.( = ) [] v_frame_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -666,7 +666,7 @@ let yojson_of_security_headers_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_type_options then bnds
+         if Stdlib.( = ) [] v_content_type_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -677,7 +677,7 @@ let yojson_of_security_headers_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_content_security_policy then bnds
+         if Stdlib.( = ) [] v_content_security_policy then bnds
          else
            let arg =
              (yojson_of_list
@@ -730,15 +730,15 @@ type aws_cloudfront_response_headers_policy = {
   id : string prop option; [@option]
   name : string prop;
   cors_config : cors_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_headers_config : custom_headers_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   remove_headers_config : remove_headers_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_headers_config : security_headers_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   server_timing_headers_config : server_timing_headers_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -761,7 +761,7 @@ let yojson_of_aws_cloudfront_response_headers_policy =
          []
        in
        let bnds =
-         if [] = v_server_timing_headers_config then bnds
+         if Stdlib.( = ) [] v_server_timing_headers_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_server_timing_headers_config)
@@ -771,7 +771,7 @@ let yojson_of_aws_cloudfront_response_headers_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_security_headers_config then bnds
+         if Stdlib.( = ) [] v_security_headers_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_security_headers_config)
@@ -781,7 +781,7 @@ let yojson_of_aws_cloudfront_response_headers_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_remove_headers_config then bnds
+         if Stdlib.( = ) [] v_remove_headers_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_remove_headers_config)
@@ -791,7 +791,7 @@ let yojson_of_aws_cloudfront_response_headers_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_headers_config then bnds
+         if Stdlib.( = ) [] v_custom_headers_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_headers_config)
@@ -801,7 +801,7 @@ let yojson_of_aws_cloudfront_response_headers_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cors_config then bnds
+         if Stdlib.( = ) [] v_cors_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cors_config) v_cors_config

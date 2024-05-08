@@ -117,7 +117,7 @@ type network_acls = {
   default_action : string prop;
   ip_rules : string prop list option; [@option]
   virtual_network_rules : network_acls__virtual_network_rules list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,7 +134,7 @@ let yojson_of_network_acls =
          []
        in
        let bnds =
-         if [] = v_virtual_network_rules then bnds
+         if Stdlib.( = ) [] v_virtual_network_rules then bnds
          else
            let arg =
              (yojson_of_list
@@ -289,12 +289,13 @@ type azurerm_cognitive_account = {
   sku_name : string prop;
   tags : (string * string prop) list option; [@option]
   customer_managed_key : customer_managed_key list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_acls : network_acls list;
-      [@default []] [@yojson_drop_default ( = )]
-  storage : storage list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  storage : storage list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -345,14 +346,14 @@ let yojson_of_azurerm_cognitive_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage then bnds
+         if Stdlib.( = ) [] v_storage then bnds
          else
            let arg = (yojson_of_list yojson_of_storage) v_storage in
            let bnd = "storage", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_acls then bnds
+         if Stdlib.( = ) [] v_network_acls then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_acls) v_network_acls
@@ -361,7 +362,7 @@ let yojson_of_azurerm_cognitive_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -370,7 +371,7 @@ let yojson_of_azurerm_cognitive_account =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_customer_managed_key then bnds
+         if Stdlib.( = ) [] v_customer_managed_key then bnds
          else
            let arg =
              (yojson_of_list yojson_of_customer_managed_key)

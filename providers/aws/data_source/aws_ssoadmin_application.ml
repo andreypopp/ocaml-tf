@@ -18,7 +18,7 @@ let _ = yojson_of_portal_options__sign_in_options
 
 type portal_options = {
   sign_in_options : portal_options__sign_in_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31,7 +31,7 @@ let yojson_of_portal_options =
          []
        in
        let bnds =
-         if [] = v_sign_in_options then bnds
+         if Stdlib.( = ) [] v_sign_in_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -51,7 +51,7 @@ let _ = yojson_of_portal_options
 type aws_ssoadmin_application = {
   application_arn : string prop;
   portal_options : portal_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,7 +67,7 @@ let yojson_of_aws_ssoadmin_application =
          []
        in
        let bnds =
-         if [] = v_portal_options then bnds
+         if Stdlib.( = ) [] v_portal_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_portal_options)

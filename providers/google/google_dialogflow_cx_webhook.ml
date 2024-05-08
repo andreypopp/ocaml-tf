@@ -118,7 +118,7 @@ let _ = yojson_of_service_directory__generic_web_service
 type service_directory = {
   service : string prop;
   generic_web_service : service_directory__generic_web_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,7 +134,7 @@ let yojson_of_service_directory =
          []
        in
        let bnds =
-         if [] = v_generic_web_service then bnds
+         if Stdlib.( = ) [] v_generic_web_service then bnds
          else
            let arg =
              (yojson_of_list
@@ -211,9 +211,9 @@ type google_dialogflow_cx_webhook = {
   security_settings : string prop option; [@option]
   timeout : string prop option; [@option]
   generic_web_service : generic_web_service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_directory : service_directory list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -243,7 +243,7 @@ let yojson_of_google_dialogflow_cx_webhook =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_directory then bnds
+         if Stdlib.( = ) [] v_service_directory then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_directory)
@@ -253,7 +253,7 @@ let yojson_of_google_dialogflow_cx_webhook =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_generic_web_service then bnds
+         if Stdlib.( = ) [] v_generic_web_service then bnds
          else
            let arg =
              (yojson_of_list yojson_of_generic_web_service)

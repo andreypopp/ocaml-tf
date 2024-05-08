@@ -38,7 +38,7 @@ let _ = yojson_of_host_pool
 
 type schedule = {
   days_of_week : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   off_peak_load_balancing_algorithm : string prop;
   off_peak_start_time : string prop;
@@ -210,7 +210,7 @@ let yojson_of_schedule =
          ("name", arg) :: bnds
        in
        let bnds =
-         if [] = v_days_of_week then bnds
+         if Stdlib.( = ) [] v_days_of_week then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -297,9 +297,9 @@ type azurerm_virtual_desktop_scaling_plan = {
   tags : (string * string prop) list option; [@option]
   time_zone : string prop;
   host_pool : host_pool list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -330,7 +330,7 @@ let yojson_of_azurerm_virtual_desktop_scaling_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_schedule then bnds
+         if Stdlib.( = ) [] v_schedule then bnds
          else
            let arg =
              (yojson_of_list yojson_of_schedule) v_schedule
@@ -339,7 +339,7 @@ let yojson_of_azurerm_virtual_desktop_scaling_plan =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_pool then bnds
+         if Stdlib.( = ) [] v_host_pool then bnds
          else
            let arg =
              (yojson_of_list yojson_of_host_pool) v_host_pool

@@ -3,14 +3,14 @@
 open! Tf_core
 
 type column_groups__geo_spatial_column_group = {
-  columns: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  columns: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
   country_code: string prop; 
   name: string prop; 
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type column_groups = {
-  geo_spatial_column_group: column_groups__geo_spatial_column_group list; [@default []] [@yojson_drop_default ( = )]
+  geo_spatial_column_group: column_groups__geo_spatial_column_group list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -48,7 +48,7 @@ type logical_table_map__data_transforms__create_columns_operation__columns = {
 [@@@deriving.end]
 
 type logical_table_map__data_transforms__create_columns_operation = {
-  columns: logical_table_map__data_transforms__create_columns_operation__columns list; [@default []] [@yojson_drop_default ( = )]
+  columns: logical_table_map__data_transforms__create_columns_operation__columns list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -58,7 +58,7 @@ type logical_table_map__data_transforms__filter_operation = {
 [@@@deriving.end]
 
 type logical_table_map__data_transforms__project_operation = {
-  projected_columns: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  projected_columns: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -75,30 +75,30 @@ type logical_table_map__data_transforms__tag_column_operation__tags__column_desc
 
 type logical_table_map__data_transforms__tag_column_operation__tags = {
   column_geographic_role: string  prop option; [@option]
-  column_description: logical_table_map__data_transforms__tag_column_operation__tags__column_description list; [@default []] [@yojson_drop_default ( = )]
+  column_description: logical_table_map__data_transforms__tag_column_operation__tags__column_description list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logical_table_map__data_transforms__tag_column_operation = {
   column_name: string prop; 
-  tags: logical_table_map__data_transforms__tag_column_operation__tags list; [@default []] [@yojson_drop_default ( = )]
+  tags: logical_table_map__data_transforms__tag_column_operation__tags list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logical_table_map__data_transforms__untag_column_operation = {
   column_name: string prop; 
-  tag_names: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  tag_names: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logical_table_map__data_transforms = {
-  cast_column_type_operation: logical_table_map__data_transforms__cast_column_type_operation list; [@default []] [@yojson_drop_default ( = )]
-  create_columns_operation: logical_table_map__data_transforms__create_columns_operation list; [@default []] [@yojson_drop_default ( = )]
-  filter_operation: logical_table_map__data_transforms__filter_operation list; [@default []] [@yojson_drop_default ( = )]
-  project_operation: logical_table_map__data_transforms__project_operation list; [@default []] [@yojson_drop_default ( = )]
-  rename_column_operation: logical_table_map__data_transforms__rename_column_operation list; [@default []] [@yojson_drop_default ( = )]
-  tag_column_operation: logical_table_map__data_transforms__tag_column_operation list; [@default []] [@yojson_drop_default ( = )]
-  untag_column_operation: logical_table_map__data_transforms__untag_column_operation list; [@default []] [@yojson_drop_default ( = )]
+  cast_column_type_operation: logical_table_map__data_transforms__cast_column_type_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  create_columns_operation: logical_table_map__data_transforms__create_columns_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  filter_operation: logical_table_map__data_transforms__filter_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  project_operation: logical_table_map__data_transforms__project_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  rename_column_operation: logical_table_map__data_transforms__rename_column_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  tag_column_operation: logical_table_map__data_transforms__tag_column_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  untag_column_operation: logical_table_map__data_transforms__untag_column_operation list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -117,28 +117,28 @@ type logical_table_map__source__join_instruction = {
   on_clause: string prop; 
   right_operand: string prop; 
   type_: string prop; [@key "type"]
-  left_join_key_properties: logical_table_map__source__join_instruction__left_join_key_properties list; [@default []] [@yojson_drop_default ( = )]
-  right_join_key_properties: logical_table_map__source__join_instruction__right_join_key_properties list; [@default []] [@yojson_drop_default ( = )]
+  left_join_key_properties: logical_table_map__source__join_instruction__left_join_key_properties list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  right_join_key_properties: logical_table_map__source__join_instruction__right_join_key_properties list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logical_table_map__source = {
   data_set_arn: string  prop option; [@option]
   physical_table_id: string  prop option; [@option]
-  join_instruction: logical_table_map__source__join_instruction list; [@default []] [@yojson_drop_default ( = )]
+  join_instruction: logical_table_map__source__join_instruction list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type logical_table_map = {
   alias: string prop; 
   logical_table_map_id: string prop; 
-  data_transforms: logical_table_map__data_transforms list; [@default []] [@yojson_drop_default ( = )]
-  source: logical_table_map__source list; [@default []] [@yojson_drop_default ( = )]
+  data_transforms: logical_table_map__data_transforms list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  source: logical_table_map__source list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type permissions = {
-  actions: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  actions: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
   principal: string prop; 
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -153,7 +153,7 @@ type physical_table_map__custom_sql = {
   data_source_arn: string prop; 
   name: string prop; 
   sql_query: string prop; 
-  columns: physical_table_map__custom_sql__columns list; [@default []] [@yojson_drop_default ( = )]
+  columns: physical_table_map__custom_sql__columns list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -168,7 +168,7 @@ type physical_table_map__relational_table = {
   data_source_arn: string prop; 
   name: string prop; 
   schema: string  prop option; [@option]
-  input_columns: physical_table_map__relational_table__input_columns list; [@default []] [@yojson_drop_default ( = )]
+  input_columns: physical_table_map__relational_table__input_columns list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -189,16 +189,16 @@ type physical_table_map__s3_source__upload_settings = {
 
 type physical_table_map__s3_source = {
   data_source_arn: string prop; 
-  input_columns: physical_table_map__s3_source__input_columns list; [@default []] [@yojson_drop_default ( = )]
-  upload_settings: physical_table_map__s3_source__upload_settings list; [@default []] [@yojson_drop_default ( = )]
+  input_columns: physical_table_map__s3_source__input_columns list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  upload_settings: physical_table_map__s3_source__upload_settings list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type physical_table_map = {
   physical_table_map_id: string prop; 
-  custom_sql: physical_table_map__custom_sql list; [@default []] [@yojson_drop_default ( = )]
-  relational_table: physical_table_map__relational_table list; [@default []] [@yojson_drop_default ( = )]
-  s3_source: physical_table_map__s3_source list; [@default []] [@yojson_drop_default ( = )]
+  custom_sql: physical_table_map__custom_sql list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  relational_table: physical_table_map__relational_table list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  s3_source: physical_table_map__s3_source list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -210,17 +210,17 @@ type refresh_properties__refresh_configuration__incremental_refresh__lookback_wi
 [@@@deriving.end]
 
 type refresh_properties__refresh_configuration__incremental_refresh = {
-  lookback_window: refresh_properties__refresh_configuration__incremental_refresh__lookback_window list; [@default []] [@yojson_drop_default ( = )]
+  lookback_window: refresh_properties__refresh_configuration__incremental_refresh__lookback_window list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type refresh_properties__refresh_configuration = {
-  incremental_refresh: refresh_properties__refresh_configuration__incremental_refresh list; [@default []] [@yojson_drop_default ( = )]
+  incremental_refresh: refresh_properties__refresh_configuration__incremental_refresh list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type refresh_properties = {
-  refresh_configuration: refresh_properties__refresh_configuration list; [@default []] [@yojson_drop_default ( = )]
+  refresh_configuration: refresh_properties__refresh_configuration list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -243,7 +243,7 @@ type row_level_permission_tag_configuration__tag_rules = {
 
 type row_level_permission_tag_configuration = {
   status: string  prop option; [@option]
-  tag_rules: row_level_permission_tag_configuration__tag_rules list; [@default []] [@yojson_drop_default ( = )]
+  tag_rules: row_level_permission_tag_configuration__tag_rules list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -261,16 +261,16 @@ type aws_quicksight_data_set = {
   name: string prop; 
   tags: (string * string   prop) list option; [@option]
   tags_all: (string * string   prop) list option; [@option]
-  column_groups: column_groups list; [@default []] [@yojson_drop_default ( = )]
-  column_level_permission_rules: column_level_permission_rules list; [@default []] [@yojson_drop_default ( = )]
-  data_set_usage_configuration: data_set_usage_configuration list; [@default []] [@yojson_drop_default ( = )]
-  field_folders: field_folders list; [@default []] [@yojson_drop_default ( = )]
-  logical_table_map: logical_table_map list; [@default []] [@yojson_drop_default ( = )]
-  permissions: permissions list; [@default []] [@yojson_drop_default ( = )]
-  physical_table_map: physical_table_map list; [@default []] [@yojson_drop_default ( = )]
-  refresh_properties: refresh_properties list; [@default []] [@yojson_drop_default ( = )]
-  row_level_permission_data_set: row_level_permission_data_set list; [@default []] [@yojson_drop_default ( = )]
-  row_level_permission_tag_configuration: row_level_permission_tag_configuration list; [@default []] [@yojson_drop_default ( = )]
+  column_groups: column_groups list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  column_level_permission_rules: column_level_permission_rules list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  data_set_usage_configuration: data_set_usage_configuration list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  field_folders: field_folders list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  logical_table_map: logical_table_map list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  permissions: permissions list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  physical_table_map: physical_table_map list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  refresh_properties: refresh_properties list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  row_level_permission_data_set: row_level_permission_data_set list; [@default []] [@yojson_drop_default Stdlib.( = )]
+  row_level_permission_tag_configuration: row_level_permission_tag_configuration list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

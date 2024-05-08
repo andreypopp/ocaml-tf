@@ -32,7 +32,7 @@ let _ = yojson_of_auto_adjust_data__historical_options
 type auto_adjust_data = {
   auto_adjust_type : string prop;
   historical_options : auto_adjust_data__historical_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_auto_adjust_data =
          []
        in
        let bnds =
-         if [] = v_historical_options then bnds
+         if Stdlib.( = ) [] v_historical_options then bnds
          else
            let arg =
              (yojson_of_list
@@ -74,7 +74,7 @@ let _ = yojson_of_auto_adjust_data
 type cost_filter = {
   name : string prop;
   values : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,7 +87,7 @@ let yojson_of_cost_filter =
          []
        in
        let bnds =
-         if [] = v_values then bnds
+         if Stdlib.( = ) [] v_values then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -358,15 +358,15 @@ type aws_budgets_budget = {
   time_period_start : string prop option; [@option]
   time_unit : string prop;
   auto_adjust_data : auto_adjust_data list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cost_filter : cost_filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   cost_types : cost_types list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   notification : notification list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   planned_limit : planned_limit list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -395,7 +395,7 @@ let yojson_of_aws_budgets_budget =
          []
        in
        let bnds =
-         if [] = v_planned_limit then bnds
+         if Stdlib.( = ) [] v_planned_limit then bnds
          else
            let arg =
              (yojson_of_list yojson_of_planned_limit) v_planned_limit
@@ -404,7 +404,7 @@ let yojson_of_aws_budgets_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_notification then bnds
+         if Stdlib.( = ) [] v_notification then bnds
          else
            let arg =
              (yojson_of_list yojson_of_notification) v_notification
@@ -413,7 +413,7 @@ let yojson_of_aws_budgets_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_types then bnds
+         if Stdlib.( = ) [] v_cost_types then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cost_types) v_cost_types
@@ -422,7 +422,7 @@ let yojson_of_aws_budgets_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cost_filter then bnds
+         if Stdlib.( = ) [] v_cost_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cost_filter) v_cost_filter
@@ -431,7 +431,7 @@ let yojson_of_aws_budgets_budget =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_adjust_data then bnds
+         if Stdlib.( = ) [] v_auto_adjust_data then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_adjust_data)

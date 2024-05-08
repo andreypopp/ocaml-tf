@@ -209,13 +209,13 @@ type aws_ec2_client_vpn_endpoint = {
   vpc_id : string prop option; [@option]
   vpn_port : float prop option; [@option]
   authentication_options : authentication_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_connect_options : client_connect_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   client_login_banner_options : client_login_banner_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   connection_log_options : connection_log_options list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,7 +247,7 @@ let yojson_of_aws_ec2_client_vpn_endpoint =
          []
        in
        let bnds =
-         if [] = v_connection_log_options then bnds
+         if Stdlib.( = ) [] v_connection_log_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_connection_log_options)
@@ -257,7 +257,7 @@ let yojson_of_aws_ec2_client_vpn_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_login_banner_options then bnds
+         if Stdlib.( = ) [] v_client_login_banner_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_login_banner_options)
@@ -267,7 +267,7 @@ let yojson_of_aws_ec2_client_vpn_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_connect_options then bnds
+         if Stdlib.( = ) [] v_client_connect_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_client_connect_options)
@@ -277,7 +277,7 @@ let yojson_of_aws_ec2_client_vpn_endpoint =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authentication_options then bnds
+         if Stdlib.( = ) [] v_authentication_options then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authentication_options)

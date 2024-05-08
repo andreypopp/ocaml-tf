@@ -33,9 +33,9 @@ let _ = yojson_of_access__dataset__dataset
 
 type access__dataset = {
   target_types : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dataset : access__dataset__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,7 +48,7 @@ let yojson_of_access__dataset =
          []
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__dataset__dataset)
@@ -58,7 +58,7 @@ let yojson_of_access__dataset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_target_types then bnds
+         if Stdlib.( = ) [] v_target_types then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -158,10 +158,11 @@ type access = {
   special_group : string prop option; [@option]
   user_by_email : string prop option; [@option]
   dataset : access__dataset list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   routine : access__routine list;
-      [@default []] [@yojson_drop_default ( = )]
-  view : access__view list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  view : access__view list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,7 +185,7 @@ let yojson_of_access =
          []
        in
        let bnds =
-         if [] = v_view then bnds
+         if Stdlib.( = ) [] v_view then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__view) v_view
@@ -193,7 +194,7 @@ let yojson_of_access =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_routine then bnds
+         if Stdlib.( = ) [] v_routine then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__routine) v_routine
@@ -202,7 +203,7 @@ let yojson_of_access =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dataset then bnds
+         if Stdlib.( = ) [] v_dataset then bnds
          else
            let arg =
              (yojson_of_list yojson_of_access__dataset) v_dataset
@@ -351,10 +352,11 @@ type google_bigquery_dataset = {
   max_time_travel_hours : string prop option; [@option]
   project : string prop option; [@option]
   storage_billing_model : string prop option; [@option]
-  access : access list; [@default []] [@yojson_drop_default ( = )]
+  access : access list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_encryption_configuration :
     default_encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -392,7 +394,8 @@ let yojson_of_google_bigquery_dataset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_default_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_default_encryption_configuration then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -403,7 +406,7 @@ let yojson_of_google_bigquery_dataset =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_access then bnds
+         if Stdlib.( = ) [] v_access then bnds
          else
            let arg = (yojson_of_list yojson_of_access) v_access in
            let bnd = "access", arg in

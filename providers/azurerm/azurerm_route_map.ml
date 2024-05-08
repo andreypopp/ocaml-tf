@@ -61,7 +61,7 @@ let _ = yojson_of_rule__action__parameter
 type rule__action = {
   type_ : string prop; [@key "type"]
   parameter : rule__action__parameter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,7 +74,7 @@ let yojson_of_rule__action =
          []
        in
        let bnds =
-         if [] = v_parameter then bnds
+         if Stdlib.( = ) [] v_parameter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action__parameter)
@@ -162,9 +162,9 @@ type rule = {
   name : string prop;
   next_step_if_matched : string prop option; [@option]
   action : rule__action list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   match_criterion : rule__match_criterion list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,7 +182,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_match_criterion then bnds
+         if Stdlib.( = ) [] v_match_criterion then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__match_criterion)
@@ -192,7 +192,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_action then bnds
+         if Stdlib.( = ) [] v_action then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__action) v_action
@@ -283,7 +283,7 @@ type azurerm_route_map = {
   id : string prop option; [@option]
   name : string prop;
   virtual_hub_id : string prop;
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -307,7 +307,7 @@ let yojson_of_azurerm_route_map =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

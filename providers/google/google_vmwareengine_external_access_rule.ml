@@ -132,18 +132,18 @@ type google_vmwareengine_external_access_rule = {
   action : string prop;
   description : string prop option; [@option]
   destination_ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   id : string prop option; [@option]
   ip_protocol : string prop;
   name : string prop;
   parent : string prop;
   priority : float prop;
   source_ports : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   destination_ip_ranges : destination_ip_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_ip_ranges : source_ip_ranges list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -174,7 +174,7 @@ let yojson_of_google_vmwareengine_external_access_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_source_ip_ranges then bnds
+         if Stdlib.( = ) [] v_source_ip_ranges then bnds
          else
            let arg =
              (yojson_of_list yojson_of_source_ip_ranges)
@@ -184,7 +184,7 @@ let yojson_of_google_vmwareengine_external_access_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_ip_ranges then bnds
+         if Stdlib.( = ) [] v_destination_ip_ranges then bnds
          else
            let arg =
              (yojson_of_list yojson_of_destination_ip_ranges)
@@ -194,7 +194,7 @@ let yojson_of_google_vmwareengine_external_access_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_source_ports then bnds
+         if Stdlib.( = ) [] v_source_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -228,7 +228,7 @@ let yojson_of_google_vmwareengine_external_access_rule =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_destination_ports then bnds
+         if Stdlib.( = ) [] v_destination_ports then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))

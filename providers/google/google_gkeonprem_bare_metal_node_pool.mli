@@ -14,7 +14,7 @@ type status__conditions = {
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** conditions *)
   error_message : string prop;  (** error_message *)
 }

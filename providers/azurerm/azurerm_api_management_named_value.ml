@@ -109,7 +109,7 @@ type azurerm_api_management_named_value = {
   value : string prop option; [@option]
   timeouts : timeouts option;
   value_from_key_vault : value_from_key_vault list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,7 +133,7 @@ let yojson_of_azurerm_api_management_named_value =
          []
        in
        let bnds =
-         if [] = v_value_from_key_vault then bnds
+         if Stdlib.( = ) [] v_value_from_key_vault then bnds
          else
            let arg =
              (yojson_of_list yojson_of_value_from_key_vault)

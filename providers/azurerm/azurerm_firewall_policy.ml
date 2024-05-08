@@ -193,7 +193,7 @@ type insights = {
   enabled : bool prop;
   retention_in_days : float prop option; [@option]
   log_analytics_workspace : insights__log_analytics_workspace list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -212,7 +212,7 @@ let yojson_of_insights =
          []
        in
        let bnds =
-         if [] = v_log_analytics_workspace then bnds
+         if Stdlib.( = ) [] v_log_analytics_workspace then bnds
          else
            let arg =
              (yojson_of_list
@@ -394,9 +394,9 @@ type intrusion_detection = {
   private_ranges : string prop list option; [@option]
   signature_overrides :
     intrusion_detection__signature_overrides list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   traffic_bypass : intrusion_detection__traffic_bypass list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,7 +414,7 @@ let yojson_of_intrusion_detection =
          []
        in
        let bnds =
-         if [] = v_traffic_bypass then bnds
+         if Stdlib.( = ) [] v_traffic_bypass then bnds
          else
            let arg =
              (yojson_of_list
@@ -425,7 +425,7 @@ let yojson_of_intrusion_detection =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_signature_overrides then bnds
+         if Stdlib.( = ) [] v_signature_overrides then bnds
          else
            let arg =
              (yojson_of_list
@@ -606,20 +606,20 @@ type azurerm_firewall_policy = {
   sql_redirect_allowed : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   threat_intelligence_mode : string prop option; [@option]
-  dns : dns list; [@default []] [@yojson_drop_default ( = )]
+  dns : dns list; [@default []] [@yojson_drop_default Stdlib.( = )]
   explicit_proxy : explicit_proxy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   insights : insights list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   intrusion_detection : intrusion_detection list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   threat_intelligence_allowlist : threat_intelligence_allowlist list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   tls_certificate : tls_certificate list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -654,7 +654,7 @@ let yojson_of_azurerm_firewall_policy =
          []
        in
        let bnds =
-         if [] = v_tls_certificate then bnds
+         if Stdlib.( = ) [] v_tls_certificate then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tls_certificate)
@@ -668,7 +668,7 @@ let yojson_of_azurerm_firewall_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_threat_intelligence_allowlist then bnds
+         if Stdlib.( = ) [] v_threat_intelligence_allowlist then bnds
          else
            let arg =
              (yojson_of_list yojson_of_threat_intelligence_allowlist)
@@ -678,7 +678,7 @@ let yojson_of_azurerm_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_intrusion_detection then bnds
+         if Stdlib.( = ) [] v_intrusion_detection then bnds
          else
            let arg =
              (yojson_of_list yojson_of_intrusion_detection)
@@ -688,7 +688,7 @@ let yojson_of_azurerm_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_insights then bnds
+         if Stdlib.( = ) [] v_insights then bnds
          else
            let arg =
              (yojson_of_list yojson_of_insights) v_insights
@@ -697,7 +697,7 @@ let yojson_of_azurerm_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_identity then bnds
+         if Stdlib.( = ) [] v_identity then bnds
          else
            let arg =
              (yojson_of_list yojson_of_identity) v_identity
@@ -706,7 +706,7 @@ let yojson_of_azurerm_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_explicit_proxy then bnds
+         if Stdlib.( = ) [] v_explicit_proxy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_explicit_proxy)
@@ -716,7 +716,7 @@ let yojson_of_azurerm_firewall_policy =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dns then bnds
+         if Stdlib.( = ) [] v_dns then bnds
          else
            let arg = (yojson_of_list yojson_of_dns) v_dns in
            let bnd = "dns", arg in

@@ -180,9 +180,9 @@ type rule__filter = {
   object_size_less_than : string prop option; [@option]
   prefix : string prop option; [@option]
   and_ : rule__filter__and list;
-      [@key "and"] [@default []] [@yojson_drop_default ( = )]
+      [@key "and"] [@default []] [@yojson_drop_default Stdlib.( = )]
   tag : rule__filter__tag list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,7 +201,7 @@ let yojson_of_rule__filter =
          []
        in
        let bnds =
-         if [] = v_tag then bnds
+         if Stdlib.( = ) [] v_tag then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__filter__tag) v_tag
@@ -210,7 +210,7 @@ let yojson_of_rule__filter =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_and_ then bnds
+         if Stdlib.( = ) [] v_and_ then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__filter__and) v_and_
@@ -389,19 +389,19 @@ type rule = {
   status : string prop;
   abort_incomplete_multipart_upload :
     rule__abort_incomplete_multipart_upload list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   expiration : rule__expiration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   filter : rule__filter list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   noncurrent_version_expiration :
     rule__noncurrent_version_expiration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   noncurrent_version_transition :
     rule__noncurrent_version_transition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   transition : rule__transition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -427,7 +427,7 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         if [] = v_transition then bnds
+         if Stdlib.( = ) [] v_transition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__transition) v_transition
@@ -436,7 +436,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_noncurrent_version_transition then bnds
+         if Stdlib.( = ) [] v_noncurrent_version_transition then bnds
          else
            let arg =
              (yojson_of_list
@@ -447,7 +447,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_noncurrent_version_expiration then bnds
+         if Stdlib.( = ) [] v_noncurrent_version_expiration then bnds
          else
            let arg =
              (yojson_of_list
@@ -458,7 +458,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_filter then bnds
+         if Stdlib.( = ) [] v_filter then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__filter) v_filter
@@ -467,7 +467,7 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_expiration then bnds
+         if Stdlib.( = ) [] v_expiration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rule__expiration) v_expiration
@@ -476,7 +476,8 @@ let yojson_of_rule =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_abort_incomplete_multipart_upload then bnds
+         if Stdlib.( = ) [] v_abort_incomplete_multipart_upload then
+           bnds
          else
            let arg =
              (yojson_of_list
@@ -550,7 +551,7 @@ type aws_s3_bucket_lifecycle_configuration = {
   bucket : string prop;
   expected_bucket_owner : string prop option; [@option]
   id : string prop option; [@option]
-  rule : rule list; [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -574,7 +575,7 @@ let yojson_of_aws_s3_bucket_lifecycle_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_rule then bnds
+         if Stdlib.( = ) [] v_rule then bnds
          else
            let arg = (yojson_of_list yojson_of_rule) v_rule in
            let bnd = "rule", arg in

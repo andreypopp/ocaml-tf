@@ -107,7 +107,7 @@ type aws_storagegateway_smb_file_share = {
   valid_user_list : string prop list option; [@option]
   vpc_endpoint_dns_name : string prop option; [@option]
   cache_attributes : cache_attributes list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,7 +154,7 @@ let yojson_of_aws_storagegateway_smb_file_share =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_cache_attributes then bnds
+         if Stdlib.( = ) [] v_cache_attributes then bnds
          else
            let arg =
              (yojson_of_list yojson_of_cache_attributes)

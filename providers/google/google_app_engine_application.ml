@@ -151,8 +151,8 @@ type google_app_engine_application = {
   project : string prop option; [@option]
   serving_status : string prop option; [@option]
   feature_settings : feature_settings list;
-      [@default []] [@yojson_drop_default ( = )]
-  iap : iap list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  iap : iap list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,14 +180,14 @@ let yojson_of_google_app_engine_application =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_iap then bnds
+         if Stdlib.( = ) [] v_iap then bnds
          else
            let arg = (yojson_of_list yojson_of_iap) v_iap in
            let bnd = "iap", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_feature_settings then bnds
+         if Stdlib.( = ) [] v_feature_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_feature_settings)

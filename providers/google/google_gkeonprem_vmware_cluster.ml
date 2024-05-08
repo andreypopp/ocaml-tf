@@ -50,7 +50,7 @@ let _ = yojson_of_authorization__admin_users
 
 type authorization = {
   admin_users : authorization__admin_users list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,7 +63,7 @@ let yojson_of_authorization =
          []
        in
        let bnds =
-         if [] = v_admin_users then bnds
+         if Stdlib.( = ) [] v_admin_users then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization__admin_users)
@@ -164,7 +164,7 @@ type control_plane_node = {
   memory : float prop option; [@option]
   replicas : float prop option; [@option]
   auto_resize_config : control_plane_node__auto_resize_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,7 +182,7 @@ let yojson_of_control_plane_node =
          []
        in
        let bnds =
-         if [] = v_auto_resize_config then bnds
+         if Stdlib.( = ) [] v_auto_resize_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -387,7 +387,7 @@ let _ = yojson_of_load_balancer__manual_lb_config
 
 type load_balancer__metal_lb_config__address_pools = {
   addresses : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   avoid_buggy_ips : bool prop option; [@option]
   manual_assign : bool prop option; [@option]
   pool : string prop;
@@ -428,7 +428,7 @@ let yojson_of_load_balancer__metal_lb_config__address_pools =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_addresses then bnds
+         if Stdlib.( = ) [] v_addresses then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -447,7 +447,7 @@ let _ = yojson_of_load_balancer__metal_lb_config__address_pools
 
 type load_balancer__metal_lb_config = {
   address_pools : load_balancer__metal_lb_config__address_pools list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -460,7 +460,7 @@ let yojson_of_load_balancer__metal_lb_config =
          []
        in
        let bnds =
-         if [] = v_address_pools then bnds
+         if Stdlib.( = ) [] v_address_pools then bnds
          else
            let arg =
              (yojson_of_list
@@ -520,13 +520,13 @@ let _ = yojson_of_load_balancer__vip_config
 
 type load_balancer = {
   f5_config : load_balancer__f5_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   manual_lb_config : load_balancer__manual_lb_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   metal_lb_config : load_balancer__metal_lb_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   vip_config : load_balancer__vip_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -544,7 +544,7 @@ let yojson_of_load_balancer =
          []
        in
        let bnds =
-         if [] = v_vip_config then bnds
+         if Stdlib.( = ) [] v_vip_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer__vip_config)
@@ -554,7 +554,7 @@ let yojson_of_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_metal_lb_config then bnds
+         if Stdlib.( = ) [] v_metal_lb_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer__metal_lb_config)
@@ -564,7 +564,7 @@ let yojson_of_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_manual_lb_config then bnds
+         if Stdlib.( = ) [] v_manual_lb_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -575,7 +575,7 @@ let yojson_of_load_balancer =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_f5_config then bnds
+         if Stdlib.( = ) [] v_f5_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer__f5_config)
@@ -640,7 +640,7 @@ type network_config__control_plane_v2_config__control_plane_ip_block = {
   ips :
     network_config__control_plane_v2_config__control_plane_ip_block__ips
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -657,7 +657,7 @@ let yojson_of_network_config__control_plane_v2_config__control_plane_ip_block
          []
        in
        let bnds =
-         if [] = v_ips then bnds
+         if Stdlib.( = ) [] v_ips then bnds
          else
            let arg =
              (yojson_of_list
@@ -696,7 +696,7 @@ type network_config__control_plane_v2_config = {
   control_plane_ip_block :
     network_config__control_plane_v2_config__control_plane_ip_block
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -709,7 +709,7 @@ let yojson_of_network_config__control_plane_v2_config =
          []
        in
        let bnds =
-         if [] = v_control_plane_ip_block then bnds
+         if Stdlib.( = ) [] v_control_plane_ip_block then bnds
          else
            let arg =
              (yojson_of_list
@@ -846,7 +846,7 @@ type network_config__static_ip_config__ip_blocks = {
   gateway : string prop;
   netmask : string prop;
   ips : network_config__static_ip_config__ip_blocks__ips list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -859,7 +859,7 @@ let yojson_of_network_config__static_ip_config__ip_blocks =
          []
        in
        let bnds =
-         if [] = v_ips then bnds
+         if Stdlib.( = ) [] v_ips then bnds
          else
            let arg =
              (yojson_of_list
@@ -887,7 +887,7 @@ let _ = yojson_of_network_config__static_ip_config__ip_blocks
 
 type network_config__static_ip_config = {
   ip_blocks : network_config__static_ip_config__ip_blocks list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -900,7 +900,7 @@ let yojson_of_network_config__static_ip_config =
          []
        in
        let bnds =
-         if [] = v_ip_blocks then bnds
+         if Stdlib.( = ) [] v_ip_blocks then bnds
          else
            let arg =
              (yojson_of_list
@@ -920,18 +920,18 @@ let _ = yojson_of_network_config__static_ip_config
 
 type network_config = {
   pod_address_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_address_cidr_blocks : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   control_plane_v2_config :
     network_config__control_plane_v2_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dhcp_ip_config : network_config__dhcp_ip_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   host_config : network_config__host_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   static_ip_config : network_config__static_ip_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -951,7 +951,7 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         if [] = v_static_ip_config then bnds
+         if Stdlib.( = ) [] v_static_ip_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -962,7 +962,7 @@ let yojson_of_network_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_host_config then bnds
+         if Stdlib.( = ) [] v_host_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config__host_config)
@@ -972,7 +972,7 @@ let yojson_of_network_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dhcp_ip_config then bnds
+         if Stdlib.( = ) [] v_dhcp_ip_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config__dhcp_ip_config)
@@ -982,7 +982,7 @@ let yojson_of_network_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_control_plane_v2_config then bnds
+         if Stdlib.( = ) [] v_control_plane_v2_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -993,7 +993,7 @@ let yojson_of_network_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_address_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_service_address_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1003,7 +1003,7 @@ let yojson_of_network_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_pod_address_cidr_blocks then bnds
+         if Stdlib.( = ) [] v_pod_address_cidr_blocks then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -1283,7 +1283,7 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   error_message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1302,7 +1302,7 @@ let yojson_of_status =
          ("error_message", arg) :: bnds
        in
        let bnds =
-         if [] = v_conditions then bnds
+         if Stdlib.( = ) [] v_conditions then bnds
          else
            let arg =
              (yojson_of_list yojson_of_status__conditions)
@@ -1371,7 +1371,7 @@ let _ = yojson_of_validation_check__status__result
 
 type validation_check__status = {
   result : validation_check__status__result list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1384,7 +1384,7 @@ let yojson_of_validation_check__status =
          []
        in
        let bnds =
-         if [] = v_result then bnds
+         if Stdlib.( = ) [] v_result then bnds
          else
            let arg =
              (yojson_of_list
@@ -1405,7 +1405,7 @@ type validation_check = {
   options : string prop;
   scenario : string prop;
   status : validation_check__status list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1422,7 +1422,7 @@ let yojson_of_validation_check =
          []
        in
        let bnds =
-         if [] = v_status then bnds
+         if Stdlib.( = ) [] v_status then bnds
          else
            let arg =
              (yojson_of_list yojson_of_validation_check__status)
@@ -1458,24 +1458,26 @@ type google_gkeonprem_vmware_cluster = {
   project : string prop option; [@option]
   vm_tracking_enabled : bool prop option; [@option]
   anti_affinity_groups : anti_affinity_groups list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   authorization : authorization list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_repair_config : auto_repair_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   control_plane_node : control_plane_node list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   dataplane_v2 : dataplane_v2 list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer : load_balancer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
-      [@default []] [@yojson_drop_default ( = )]
-  storage : storage list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  storage : storage list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   upgrade_policy : upgrade_policy list;
-      [@default []] [@yojson_drop_default ( = )]
-  vcenter : vcenter list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  vcenter : vcenter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1510,14 +1512,14 @@ let yojson_of_google_gkeonprem_vmware_cluster =
          []
        in
        let bnds =
-         if [] = v_vcenter then bnds
+         if Stdlib.( = ) [] v_vcenter then bnds
          else
            let arg = (yojson_of_list yojson_of_vcenter) v_vcenter in
            let bnd = "vcenter", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_upgrade_policy then bnds
+         if Stdlib.( = ) [] v_upgrade_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_upgrade_policy)
@@ -1531,14 +1533,14 @@ let yojson_of_google_gkeonprem_vmware_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_storage then bnds
+         if Stdlib.( = ) [] v_storage then bnds
          else
            let arg = (yojson_of_list yojson_of_storage) v_storage in
            let bnd = "storage", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_config then bnds
+         if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_config)
@@ -1548,7 +1550,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer then bnds
+         if Stdlib.( = ) [] v_load_balancer then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer) v_load_balancer
@@ -1557,7 +1559,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_dataplane_v2 then bnds
+         if Stdlib.( = ) [] v_dataplane_v2 then bnds
          else
            let arg =
              (yojson_of_list yojson_of_dataplane_v2) v_dataplane_v2
@@ -1566,7 +1568,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_control_plane_node then bnds
+         if Stdlib.( = ) [] v_control_plane_node then bnds
          else
            let arg =
              (yojson_of_list yojson_of_control_plane_node)
@@ -1576,7 +1578,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_auto_repair_config then bnds
+         if Stdlib.( = ) [] v_auto_repair_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_auto_repair_config)
@@ -1586,7 +1588,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_authorization then bnds
+         if Stdlib.( = ) [] v_authorization then bnds
          else
            let arg =
              (yojson_of_list yojson_of_authorization) v_authorization
@@ -1595,7 +1597,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_anti_affinity_groups then bnds
+         if Stdlib.( = ) [] v_anti_affinity_groups then bnds
          else
            let arg =
              (yojson_of_list yojson_of_anti_affinity_groups)

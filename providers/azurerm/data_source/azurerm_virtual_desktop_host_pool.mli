@@ -12,7 +12,7 @@ type scheduled_agent_updates__schedule = {
 type scheduled_agent_updates = {
   enabled : bool prop;  (** enabled *)
   schedule : scheduled_agent_updates__schedule list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schedule *)
   timezone : string prop;  (** timezone *)
   use_session_host_timezone : bool prop;

@@ -95,11 +95,11 @@ let _ = yojson_of_quick_connect_config__user_config
 type quick_connect_config = {
   quick_connect_type : string prop;
   phone_config : quick_connect_config__phone_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   queue_config : quick_connect_config__queue_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   user_config : quick_connect_config__user_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,7 +117,7 @@ let yojson_of_quick_connect_config =
          []
        in
        let bnds =
-         if [] = v_user_config then bnds
+         if Stdlib.( = ) [] v_user_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -128,7 +128,7 @@ let yojson_of_quick_connect_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_queue_config then bnds
+         if Stdlib.( = ) [] v_queue_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -139,7 +139,7 @@ let yojson_of_quick_connect_config =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_phone_config then bnds
+         if Stdlib.( = ) [] v_phone_config then bnds
          else
            let arg =
              (yojson_of_list
@@ -170,7 +170,7 @@ type aws_connect_quick_connect = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   quick_connect_config : quick_connect_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -191,7 +191,7 @@ let yojson_of_aws_connect_quick_connect =
          []
        in
        let bnds =
-         if [] = v_quick_connect_config then bnds
+         if Stdlib.( = ) [] v_quick_connect_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_quick_connect_config)

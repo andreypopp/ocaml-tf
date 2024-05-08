@@ -146,8 +146,9 @@ type azurerm_traffic_manager_nested_endpoint = {
   target_resource_id : string prop;
   weight : float prop option; [@option]
   custom_header : custom_header list;
-      [@default []] [@yojson_drop_default ( = )]
-  subnet : subnet list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  subnet : subnet list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -183,14 +184,14 @@ let yojson_of_azurerm_traffic_manager_nested_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_subnet then bnds
+         if Stdlib.( = ) [] v_subnet then bnds
          else
            let arg = (yojson_of_list yojson_of_subnet) v_subnet in
            let bnd = "subnet", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_custom_header then bnds
+         if Stdlib.( = ) [] v_custom_header then bnds
          else
            let arg =
              (yojson_of_list yojson_of_custom_header) v_custom_header

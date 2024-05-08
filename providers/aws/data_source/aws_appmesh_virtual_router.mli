@@ -11,13 +11,13 @@ type spec__listener__port_mapping = {
 
 type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** port_mapping *)
 }
 
 type spec = {
   listener : spec__listener list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
       (** listener *)
 }
 

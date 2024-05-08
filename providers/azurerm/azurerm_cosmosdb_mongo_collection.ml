@@ -31,7 +31,8 @@ let _ = yojson_of_autoscale_settings
 [@@@deriving.end]
 
 type index = {
-  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
+  keys : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unique : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -53,7 +54,7 @@ let yojson_of_index =
              bnd :: bnds
        in
        let bnds =
-         if [] = v_keys then bnds
+         if Stdlib.( = ) [] v_keys then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -130,7 +131,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type system_indexes = {
-  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
+  keys : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   unique : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -148,7 +150,7 @@ let yojson_of_system_indexes =
          ("unique", arg) :: bnds
        in
        let bnds =
-         if [] = v_keys then bnds
+         if Stdlib.( = ) [] v_keys then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -175,8 +177,9 @@ type azurerm_cosmosdb_mongo_collection = {
   shard_key : string prop option; [@option]
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-      [@default []] [@yojson_drop_default ( = )]
-  index : index list; [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  index : index list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,14 +210,14 @@ let yojson_of_azurerm_cosmosdb_mongo_collection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_index then bnds
+         if Stdlib.( = ) [] v_index then bnds
          else
            let arg = (yojson_of_list yojson_of_index) v_index in
            let bnd = "index", arg in
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autoscale_settings then bnds
+         if Stdlib.( = ) [] v_autoscale_settings then bnds
          else
            let arg =
              (yojson_of_list yojson_of_autoscale_settings)

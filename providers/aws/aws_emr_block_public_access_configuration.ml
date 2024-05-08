@@ -37,7 +37,7 @@ type aws_emr_block_public_access_configuration = {
   id : string prop option; [@option]
   permitted_public_security_group_rule_range :
     permitted_public_security_group_rule_range list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,8 +56,10 @@ let yojson_of_aws_emr_block_public_access_configuration =
          []
        in
        let bnds =
-         if [] = v_permitted_public_security_group_rule_range then
-           bnds
+         if
+           Stdlib.( = ) []
+             v_permitted_public_security_group_rule_range
+         then bnds
          else
            let arg =
              (yojson_of_list

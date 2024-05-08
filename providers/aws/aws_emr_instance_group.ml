@@ -65,7 +65,7 @@ type aws_emr_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : ebs_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,7 +89,7 @@ let yojson_of_aws_emr_instance_group =
          []
        in
        let bnds =
-         if [] = v_ebs_config then bnds
+         if Stdlib.( = ) [] v_ebs_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ebs_config) v_ebs_config

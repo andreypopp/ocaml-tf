@@ -93,7 +93,7 @@ let _ = yojson_of_validation_data_config__validator
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_validation_data_config =
          []
        in
        let bnds =
-         if [] = v_validator then bnds
+         if Stdlib.( = ) [] v_validator then bnds
          else
            let arg =
              (yojson_of_list

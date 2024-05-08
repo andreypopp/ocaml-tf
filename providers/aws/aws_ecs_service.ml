@@ -4,7 +4,7 @@ open! Tf_core
 
 type alarms = {
   alarm_names : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   enable : bool prop;
   rollback : bool prop;
 }
@@ -31,7 +31,7 @@ let yojson_of_alarms =
          ("enable", arg) :: bnds
        in
        let bnds =
-         if [] = v_alarm_names then bnds
+         if Stdlib.( = ) [] v_alarm_names then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -210,7 +210,7 @@ type network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,7 +227,7 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         if [] = v_subnets then bnds
+         if Stdlib.( = ) [] v_subnets then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -368,7 +368,7 @@ type service_connect_configuration__log_configuration = {
   secret_option :
     service_connect_configuration__log_configuration__secret_option
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -386,7 +386,7 @@ let yojson_of_service_connect_configuration__log_configuration =
          []
        in
        let bnds =
-         if [] = v_secret_option then bnds
+         if Stdlib.( = ) [] v_secret_option then bnds
          else
            let arg =
              (yojson_of_list
@@ -540,7 +540,7 @@ type service_connect_configuration__service__tls = {
   issuer_cert_authority :
     service_connect_configuration__service__tls__issuer_cert_authority
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -557,7 +557,7 @@ let yojson_of_service_connect_configuration__service__tls =
          []
        in
        let bnds =
-         if [] = v_issuer_cert_authority then bnds
+         if Stdlib.( = ) [] v_issuer_cert_authority then bnds
          else
            let arg =
              (yojson_of_list
@@ -597,11 +597,11 @@ type service_connect_configuration__service = {
   port_name : string prop;
   client_alias :
     service_connect_configuration__service__client_alias list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : service_connect_configuration__service__timeout list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tls : service_connect_configuration__service__tls list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -621,7 +621,7 @@ let yojson_of_service_connect_configuration__service =
          []
        in
        let bnds =
-         if [] = v_tls then bnds
+         if Stdlib.( = ) [] v_tls then bnds
          else
            let arg =
              (yojson_of_list
@@ -632,7 +632,7 @@ let yojson_of_service_connect_configuration__service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_timeout then bnds
+         if Stdlib.( = ) [] v_timeout then bnds
          else
            let arg =
              (yojson_of_list
@@ -643,7 +643,7 @@ let yojson_of_service_connect_configuration__service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_client_alias then bnds
+         if Stdlib.( = ) [] v_client_alias then bnds
          else
            let arg =
              (yojson_of_list
@@ -686,9 +686,9 @@ type service_connect_configuration = {
   namespace : string prop option; [@option]
   log_configuration :
     service_connect_configuration__log_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service : service_connect_configuration__service list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -706,7 +706,7 @@ let yojson_of_service_connect_configuration =
          []
        in
        let bnds =
-         if [] = v_service then bnds
+         if Stdlib.( = ) [] v_service then bnds
          else
            let arg =
              (yojson_of_list
@@ -717,7 +717,7 @@ let yojson_of_service_connect_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_log_configuration then bnds
+         if Stdlib.( = ) [] v_log_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -870,25 +870,26 @@ type aws_ecs_service = {
   task_definition : string prop option; [@option]
   triggers : (string * string prop) list option; [@option]
   wait_for_steady_state : bool prop option; [@option]
-  alarms : alarms list; [@default []] [@yojson_drop_default ( = )]
+  alarms : alarms list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   capacity_provider_strategy : capacity_provider_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deployment_circuit_breaker : deployment_circuit_breaker list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   deployment_controller : deployment_controller list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   load_balancer : load_balancer list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ordered_placement_strategy : ordered_placement_strategy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_constraints : placement_constraints list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_connect_configuration : service_connect_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   service_registries : service_registries list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -941,7 +942,7 @@ let yojson_of_aws_ecs_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_service_registries then bnds
+         if Stdlib.( = ) [] v_service_registries then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_registries)
@@ -951,7 +952,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_service_connect_configuration then bnds
+         if Stdlib.( = ) [] v_service_connect_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_service_connect_configuration)
@@ -961,7 +962,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_placement_constraints then bnds
+         if Stdlib.( = ) [] v_placement_constraints then bnds
          else
            let arg =
              (yojson_of_list yojson_of_placement_constraints)
@@ -971,7 +972,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_ordered_placement_strategy then bnds
+         if Stdlib.( = ) [] v_ordered_placement_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_ordered_placement_strategy)
@@ -981,7 +982,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_network_configuration then bnds
+         if Stdlib.( = ) [] v_network_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_network_configuration)
@@ -991,7 +992,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_load_balancer then bnds
+         if Stdlib.( = ) [] v_load_balancer then bnds
          else
            let arg =
              (yojson_of_list yojson_of_load_balancer) v_load_balancer
@@ -1000,7 +1001,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deployment_controller then bnds
+         if Stdlib.( = ) [] v_deployment_controller then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment_controller)
@@ -1010,7 +1011,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_deployment_circuit_breaker then bnds
+         if Stdlib.( = ) [] v_deployment_circuit_breaker then bnds
          else
            let arg =
              (yojson_of_list yojson_of_deployment_circuit_breaker)
@@ -1020,7 +1021,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_capacity_provider_strategy then bnds
+         if Stdlib.( = ) [] v_capacity_provider_strategy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_capacity_provider_strategy)
@@ -1030,7 +1031,7 @@ let yojson_of_aws_ecs_service =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_alarms then bnds
+         if Stdlib.( = ) [] v_alarms then bnds
          else
            let arg = (yojson_of_list yojson_of_alarms) v_alarms in
            let bnd = "alarms", arg in

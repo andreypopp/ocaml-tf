@@ -83,7 +83,7 @@ let _ = yojson_of_feed_output_config__pubsub_destination
 
 type feed_output_config = {
   pubsub_destination : feed_output_config__pubsub_destination list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,7 +96,7 @@ let yojson_of_feed_output_config =
          []
        in
        let bnds =
-         if [] = v_pubsub_destination then bnds
+         if Stdlib.( = ) [] v_pubsub_destination then bnds
          else
            let arg =
              (yojson_of_list
@@ -168,9 +168,9 @@ type google_cloud_asset_folder_feed = {
   folder : string prop;
   id : string prop option; [@option]
   condition : condition list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   feed_output_config : feed_output_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -199,7 +199,7 @@ let yojson_of_google_cloud_asset_folder_feed =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_feed_output_config then bnds
+         if Stdlib.( = ) [] v_feed_output_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_feed_output_config)
@@ -209,7 +209,7 @@ let yojson_of_google_cloud_asset_folder_feed =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_condition then bnds
+         if Stdlib.( = ) [] v_condition then bnds
          else
            let arg =
              (yojson_of_list yojson_of_condition) v_condition

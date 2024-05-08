@@ -131,12 +131,12 @@ let _ = yojson_of_encryption_configuration__s3_encryption
 type encryption_configuration = {
   cloudwatch_encryption :
     encryption_configuration__cloudwatch_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   job_bookmarks_encryption :
     encryption_configuration__job_bookmarks_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_encryption : encryption_configuration__s3_encryption list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,7 +153,7 @@ let yojson_of_encryption_configuration =
          []
        in
        let bnds =
-         if [] = v_s3_encryption then bnds
+         if Stdlib.( = ) [] v_s3_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -164,7 +164,7 @@ let yojson_of_encryption_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_job_bookmarks_encryption then bnds
+         if Stdlib.( = ) [] v_job_bookmarks_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -175,7 +175,7 @@ let yojson_of_encryption_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_cloudwatch_encryption then bnds
+         if Stdlib.( = ) [] v_cloudwatch_encryption then bnds
          else
            let arg =
              (yojson_of_list
@@ -196,7 +196,7 @@ type aws_glue_security_configuration = {
   id : string prop option; [@option]
   name : string prop;
   encryption_configuration : encryption_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,7 +213,7 @@ let yojson_of_aws_glue_security_configuration =
          []
        in
        let bnds =
-         if [] = v_encryption_configuration then bnds
+         if Stdlib.( = ) [] v_encryption_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_encryption_configuration)

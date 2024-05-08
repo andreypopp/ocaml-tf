@@ -48,7 +48,7 @@ type configuration__transformation_configuration__content_transformation = {
   aws_lambda :
     configuration__transformation_configuration__content_transformation__aws_lambda
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,7 +65,7 @@ let yojson_of_configuration__transformation_configuration__content_transformatio
          []
        in
        let bnds =
-         if [] = v_aws_lambda then bnds
+         if Stdlib.( = ) [] v_aws_lambda then bnds
          else
            let arg =
              (yojson_of_list
@@ -86,11 +86,11 @@ let _ =
 
 type configuration__transformation_configuration = {
   actions : string prop list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   content_transformation :
     configuration__transformation_configuration__content_transformation
     list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,7 +106,7 @@ let yojson_of_configuration__transformation_configuration =
          []
        in
        let bnds =
-         if [] = v_content_transformation then bnds
+         if Stdlib.( = ) [] v_content_transformation then bnds
          else
            let arg =
              (yojson_of_list
@@ -117,7 +117,7 @@ let yojson_of_configuration__transformation_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_actions then bnds
+         if Stdlib.( = ) [] v_actions then bnds
          else
            let arg =
              (yojson_of_list (yojson_of_prop yojson_of_string))
@@ -140,7 +140,7 @@ type configuration = {
   supporting_access_point : string prop;
   transformation_configuration :
     configuration__transformation_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,7 +158,7 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         if [] = v_transformation_configuration then bnds
+         if Stdlib.( = ) [] v_transformation_configuration then bnds
          else
            let arg =
              (yojson_of_list
@@ -204,7 +204,7 @@ type aws_s3control_object_lambda_access_point = {
   id : string prop option; [@option]
   name : string prop;
   configuration : configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,7 +222,7 @@ let yojson_of_aws_s3control_object_lambda_access_point =
          []
        in
        let bnds =
-         if [] = v_configuration then bnds
+         if Stdlib.( = ) [] v_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_configuration) v_configuration

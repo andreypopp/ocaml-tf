@@ -237,13 +237,13 @@ type google_cloud_tasks_queue = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   app_engine_routing_override : app_engine_routing_override list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   rate_limits : rate_limits list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retry_config : retry_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stackdriver_logging_config : stackdriver_logging_config list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -271,7 +271,7 @@ let yojson_of_google_cloud_tasks_queue =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_stackdriver_logging_config then bnds
+         if Stdlib.( = ) [] v_stackdriver_logging_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_stackdriver_logging_config)
@@ -281,7 +281,7 @@ let yojson_of_google_cloud_tasks_queue =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_retry_config then bnds
+         if Stdlib.( = ) [] v_retry_config then bnds
          else
            let arg =
              (yojson_of_list yojson_of_retry_config) v_retry_config
@@ -290,7 +290,7 @@ let yojson_of_google_cloud_tasks_queue =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_rate_limits then bnds
+         if Stdlib.( = ) [] v_rate_limits then bnds
          else
            let arg =
              (yojson_of_list yojson_of_rate_limits) v_rate_limits
@@ -299,7 +299,7 @@ let yojson_of_google_cloud_tasks_queue =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_app_engine_routing_override then bnds
+         if Stdlib.( = ) [] v_app_engine_routing_override then bnds
          else
            let arg =
              (yojson_of_list yojson_of_app_engine_routing_override)

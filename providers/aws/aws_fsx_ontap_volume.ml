@@ -172,13 +172,13 @@ let _ =
 type snaplock_configuration__retention_period = {
   default_retention :
     snaplock_configuration__retention_period__default_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maximum_retention :
     snaplock_configuration__retention_period__maximum_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   minimum_retention :
     snaplock_configuration__retention_period__minimum_retention list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,7 +195,7 @@ let yojson_of_snaplock_configuration__retention_period =
          []
        in
        let bnds =
-         if [] = v_minimum_retention then bnds
+         if Stdlib.( = ) [] v_minimum_retention then bnds
          else
            let arg =
              (yojson_of_list
@@ -206,7 +206,7 @@ let yojson_of_snaplock_configuration__retention_period =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_maximum_retention then bnds
+         if Stdlib.( = ) [] v_maximum_retention then bnds
          else
            let arg =
              (yojson_of_list
@@ -217,7 +217,7 @@ let yojson_of_snaplock_configuration__retention_period =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_default_retention then bnds
+         if Stdlib.( = ) [] v_default_retention then bnds
          else
            let arg =
              (yojson_of_list
@@ -241,9 +241,9 @@ type snaplock_configuration = {
   snaplock_type : string prop;
   volume_append_mode_enabled : bool prop option; [@option]
   autocommit_period : snaplock_configuration__autocommit_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_period : snaplock_configuration__retention_period list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -263,7 +263,7 @@ let yojson_of_snaplock_configuration =
          []
        in
        let bnds =
-         if [] = v_retention_period then bnds
+         if Stdlib.( = ) [] v_retention_period then bnds
          else
            let arg =
              (yojson_of_list
@@ -274,7 +274,7 @@ let yojson_of_snaplock_configuration =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_autocommit_period then bnds
+         if Stdlib.( = ) [] v_autocommit_period then bnds
          else
            let arg =
              (yojson_of_list
@@ -419,9 +419,9 @@ type aws_fsx_ontap_volume = {
   tags_all : (string * string prop) list option; [@option]
   volume_type : string prop option; [@option]
   snaplock_configuration : snaplock_configuration list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   tiering_policy : tiering_policy list;
-      [@default []] [@yojson_drop_default ( = )]
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -459,7 +459,7 @@ let yojson_of_aws_fsx_ontap_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         if [] = v_tiering_policy then bnds
+         if Stdlib.( = ) [] v_tiering_policy then bnds
          else
            let arg =
              (yojson_of_list yojson_of_tiering_policy)
@@ -469,7 +469,7 @@ let yojson_of_aws_fsx_ontap_volume =
            bnd :: bnds
        in
        let bnds =
-         if [] = v_snaplock_configuration then bnds
+         if Stdlib.( = ) [] v_snaplock_configuration then bnds
          else
            let arg =
              (yojson_of_list yojson_of_snaplock_configuration)
