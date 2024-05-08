@@ -30,6 +30,8 @@ module type COLLECTION2 = sig
   val yojson_of : ?tf_module:tf_module -> unit -> json
 end
 
+let sort_assoc s = Seq.sort ~cmp:(Ord.map fst String.compare) s
+
 module Make_collection1 (S : sig
   val name : string
 end) : COLLECTION1 = struct
@@ -61,6 +63,7 @@ end) : COLLECTION1 = struct
              | Some m' when Equal.poly m m' -> Some (id, resource)
              | None -> Some (id, resource)
              | Some _ -> None)
+      |> sort_assoc
       |> Seq.to_list)
 end
 
@@ -101,7 +104,8 @@ end) : COLLECTION2 = struct
       |> Seq.map (fun resources ->
              let ts, resources = Seq.split resources in
              let t = Seq.head_exn ts in
-             t, `Assoc (Seq.to_list resources))
+             t, `Assoc (resources |> sort_assoc |> Seq.to_list))
+      |> sort_assoc
       |> Seq.to_list)
 end
 
