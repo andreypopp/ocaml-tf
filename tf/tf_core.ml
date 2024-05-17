@@ -100,6 +100,7 @@ end) : COLLECTION2 = struct
                  Some (t, (id, resource))
              | None -> Some (t, (id, resource))
              | Some _ -> None)
+      |> Seq.sort ~cmp:(Ord.map fst String.compare)
       |> Seq.group (Equal.map ~f:fst String.equal)
       |> Seq.map (fun resources ->
              let ts, resources = Seq.split resources in

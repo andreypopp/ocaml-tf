@@ -5,6 +5,10 @@ PKGS = $(wildcard *.opam)
 build fmt:
 	dune $@
 
+.PHONY: test
+test:
+	dune runtest
+
 .PHONY: ci-build
 ci-build:
 	dune build -p $(shell echo $(PKGS:%.opam=%) | tr ' ' ',')
