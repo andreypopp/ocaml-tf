@@ -52,3 +52,8 @@
  (name tf_aws)
  (synopsis "Generated bindings to AWS TF provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
+
+(package
+ (name tf_github)
+ (synopsis "Generated bindings to GitHub TF provider")
+ (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))

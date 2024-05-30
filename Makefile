@@ -25,7 +25,8 @@ gen0: \
 	gen_google_provider \
 	gen_cloudflare_provider \
 	gen_kubernetes_provider \
-	gen_hcloud_provider
+	gen_hcloud_provider \
+	gen_github_provider
 gen_digitialocean_provider:
 	$(GEN) "registry.terraform.io/digitalocean/digitalocean" ./providers/digitalocean
 gen_aws_provider:
@@ -40,3 +41,5 @@ gen_kubernetes_provider:
 	$(GEN) "registry.terraform.io/hashicorp/kubernetes" ./providers/kubernetes
 gen_hcloud_provider:
 	$(GEN) "registry.terraform.io/hetznercloud/hcloud" ./providers/hcloud
+gen_github_provider:
+	$(GEN) "registry.terraform.io/integrations/github" ./providers/github
