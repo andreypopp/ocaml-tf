@@ -1,0 +1,9 @@
+(library
+ (name tf_okta)
+ (public_name tf_okta)
+ (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (lint
+  (pps ppx_yojson_conv))
+ (libraries tf yojson ppx_yojson_conv_lib))
+
+(include_subdirs qualified)

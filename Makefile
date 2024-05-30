@@ -43,3 +43,5 @@ gen_hcloud_provider:
 	$(GEN) "registry.terraform.io/hetznercloud/hcloud" ./providers/hcloud
 gen_github_provider:
 	$(GEN) "registry.terraform.io/integrations/github" ./providers/github
+gen_okta_provider:
+	$(GEN) "registry.terraform.io/okta/okta" ./providers/okta

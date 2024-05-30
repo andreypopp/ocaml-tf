@@ -57,3 +57,8 @@
  (name tf_github)
  (synopsis "Generated bindings to GitHub TF provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
+
+(package
+ (name tf_okta)
+ (synopsis "Generated bindings to Okta TF provider")
+ (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
