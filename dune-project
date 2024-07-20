@@ -15,50 +15,50 @@
 
 (package
  (name tf)
- (synopsis "TF bindings to OCaml")
+ (synopsis "Define terraform/opentofu configuration with OCaml")
  (depends ocaml dune containers yojson ppx_yojson_conv_lib cmdliner))
 
 (package
  (name tf_digitalocean)
- (synopsis "Generated bindings to DigitalOcean TF provider")
+ (synopsis "Generated bindings to DigitalOcean terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_cloudflare)
- (synopsis "Generated bindings to CloudFlare TF provider")
+ (synopsis "Generated bindings to CloudFlare terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_azure)
- (synopsis "Generated bindings to Azure TF provider")
+ (synopsis "Generated bindings to Azure terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_google)
- (synopsis "Generated bindings to Google TF provider")
+ (synopsis "Generated bindings to Google terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_kubernetes)
- (synopsis "Generated bindings to Kubernetes TF provider")
+ (synopsis "Generated bindings to Kubernetes terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_hcloud)
- (synopsis "Generated bindings to Hetzner Cloud TF provider")
+ (synopsis "Generated bindings to Hetzner Cloud terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_aws)
- (synopsis "Generated bindings to AWS TF provider")
+ (synopsis "Generated bindings to AWS terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_github)
- (synopsis "Generated bindings to GitHub TF provider")
+ (synopsis "Generated bindings to GitHub terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_okta)
- (synopsis "Generated bindings to Okta TF provider")
+ (synopsis "Generated bindings to Okta terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
