@@ -29,6 +29,7 @@ val version_template :
 type google_kms_crypto_key
 
 val google_kms_crypto_key :
+  ?crypto_key_backend:string prop ->
   ?destroy_scheduled_duration:string prop ->
   ?id:string prop ->
   ?import_only:bool prop ->
@@ -49,6 +50,7 @@ val yojson_of_google_kms_crypto_key : google_kms_crypto_key -> json
 
 type t = private {
   tf_name : string;
+  crypto_key_backend : string prop;
   destroy_scheduled_duration : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -65,6 +67,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?crypto_key_backend:string prop ->
   ?destroy_scheduled_duration:string prop ->
   ?id:string prop ->
   ?import_only:bool prop ->
@@ -80,6 +83,7 @@ val register :
   t
 
 val make :
+  ?crypto_key_backend:string prop ->
   ?destroy_scheduled_duration:string prop ->
   ?id:string prop ->
   ?import_only:bool prop ->

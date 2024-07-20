@@ -2,6 +2,52 @@
 
 open! Tf_core
 
+type dedicated_ips = {
+  id : string prop option; [@option]
+  ip : string prop option; [@option]
+  status : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dedicated_ips) -> ()
+
+let yojson_of_dedicated_ips =
+  (function
+   | { id = v_id; ip = v_ip; status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dedicated_ips -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dedicated_ips
+
+[@@@deriving.end]
+
 type spec__alert = {
   disabled : bool prop option; [@option]
   rule : string prop;
@@ -178,6 +224,34 @@ let yojson_of_spec__domain =
     : spec__domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_spec__domain
+
+[@@@deriving.end]
+
+type spec__egress = {
+  type_ : string prop option; [@option] [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__egress) -> ()
+
+let yojson_of_spec__egress =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__egress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__egress
 
 [@@@deriving.end]
 
@@ -1663,6 +1737,7 @@ let _ = yojson_of_spec__job__image__deploy_on_push
 
 type spec__job__image = {
   registry : string prop option; [@option]
+  registry_credentials : string prop option; [@option]
   registry_type : string prop;
   repository : string prop;
   tag : string prop option; [@option]
@@ -1677,6 +1752,7 @@ let yojson_of_spec__job__image =
   (function
    | {
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -1711,6 +1787,14 @@ let yojson_of_spec__job__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         match v_registry_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_credentials", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_registry with
@@ -2578,6 +2662,7 @@ let _ = yojson_of_spec__service__image__deploy_on_push
 
 type spec__service__image = {
   registry : string prop option; [@option]
+  registry_credentials : string prop option; [@option]
   registry_type : string prop;
   repository : string prop;
   tag : string prop option; [@option]
@@ -2592,6 +2677,7 @@ let yojson_of_spec__service__image =
   (function
    | {
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -2626,6 +2712,14 @@ let yojson_of_spec__service__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         match v_registry_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_credentials", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_registry with
@@ -3912,6 +4006,7 @@ let _ = yojson_of_spec__worker__image__deploy_on_push
 
 type spec__worker__image = {
   registry : string prop option; [@option]
+  registry_credentials : string prop option; [@option]
   registry_type : string prop;
   repository : string prop;
   tag : string prop option; [@option]
@@ -3926,6 +4021,7 @@ let yojson_of_spec__worker__image =
   (function
    | {
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -3960,6 +4056,14 @@ let yojson_of_spec__worker__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         match v_registry_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_credentials", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_registry with
@@ -4319,6 +4423,8 @@ type spec = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   domain : spec__domain list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  egress : spec__egress list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env : spec__env list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   function_ : spec__function list;
@@ -4350,6 +4456,7 @@ let yojson_of_spec =
        alert = v_alert;
        database = v_database;
        domain = v_domain;
+       egress = v_egress;
        env = v_env;
        function_ = v_function_;
        ingress = v_ingress;
@@ -4419,6 +4526,15 @@ let yojson_of_spec =
          else
            let arg = (yojson_of_list yojson_of_spec__env) v_env in
            let bnd = "env", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_egress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__egress) v_egress
+           in
+           let bnd = "egress", arg in
            bnd :: bnds
        in
        let bnds =
@@ -4516,6 +4632,8 @@ let _ = yojson_of_timeouts
 type digitalocean_app = {
   id : string prop option; [@option]
   project_id : string prop option; [@option]
+  dedicated_ips : dedicated_ips list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   spec : spec list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
@@ -4528,6 +4646,7 @@ let yojson_of_digitalocean_app =
    | {
        id = v_id;
        project_id = v_project_id;
+       dedicated_ips = v_dedicated_ips;
        spec = v_spec;
        timeouts = v_timeouts;
      } ->
@@ -4543,6 +4662,15 @@ let yojson_of_digitalocean_app =
          else
            let arg = (yojson_of_list yojson_of_spec) v_spec in
            let bnd = "spec", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dedicated_ips then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dedicated_ips) v_dedicated_ips
+           in
+           let bnd = "dedicated_ips", arg in
            bnd :: bnds
        in
        let bnds =
@@ -4568,6 +4696,9 @@ let _ = yojson_of_digitalocean_app
 
 [@@@deriving.end]
 
+let dedicated_ips ?id ?ip ?status () : dedicated_ips =
+  { id; ip; status }
+
 let spec__alert ?disabled ~rule () : spec__alert = { disabled; rule }
 
 let spec__database ?cluster_name ?db_name ?db_user ?engine ?name
@@ -4584,6 +4715,8 @@ let spec__database ?cluster_name ?db_name ?db_user ?engine ?name
 
 let spec__domain ?type_ ?wildcard ?zone ~name () : spec__domain =
   { name; type_; wildcard; zone }
+
+let spec__egress ?type_ () : spec__egress = { type_ }
 
 let spec__env ?key ?scope ?type_ ?value () : spec__env =
   { key; scope; type_; value }
@@ -4720,9 +4853,17 @@ let spec__job__image__deploy_on_push ?enabled () :
     spec__job__image__deploy_on_push =
   { enabled }
 
-let spec__job__image ?registry ?tag ?(deploy_on_push = [])
-    ~registry_type ~repository () : spec__job__image =
-  { registry; registry_type; repository; tag; deploy_on_push }
+let spec__job__image ?registry ?registry_credentials ?tag
+    ?(deploy_on_push = []) ~registry_type ~repository () :
+    spec__job__image =
+  {
+    registry;
+    registry_credentials;
+    registry_type;
+    repository;
+    tag;
+    deploy_on_push;
+  }
 
 let spec__job__log_destination__datadog ?endpoint ~api_key () :
     spec__job__log_destination__datadog =
@@ -4817,9 +4958,17 @@ let spec__service__image__deploy_on_push ?enabled () :
     spec__service__image__deploy_on_push =
   { enabled }
 
-let spec__service__image ?registry ?tag ?(deploy_on_push = [])
-    ~registry_type ~repository () : spec__service__image =
-  { registry; registry_type; repository; tag; deploy_on_push }
+let spec__service__image ?registry ?registry_credentials ?tag
+    ?(deploy_on_push = []) ~registry_type ~repository () :
+    spec__service__image =
+  {
+    registry;
+    registry_credentials;
+    registry_type;
+    repository;
+    tag;
+    deploy_on_push;
+  }
 
 let spec__service__log_destination__datadog ?endpoint ~api_key () :
     spec__service__log_destination__datadog =
@@ -4953,9 +5102,17 @@ let spec__worker__image__deploy_on_push ?enabled () :
     spec__worker__image__deploy_on_push =
   { enabled }
 
-let spec__worker__image ?registry ?tag ?(deploy_on_push = [])
-    ~registry_type ~repository () : spec__worker__image =
-  { registry; registry_type; repository; tag; deploy_on_push }
+let spec__worker__image ?registry ?registry_credentials ?tag
+    ?(deploy_on_push = []) ~registry_type ~repository () :
+    spec__worker__image =
+  {
+    registry;
+    registry_credentials;
+    registry_type;
+    repository;
+    tag;
+    deploy_on_push;
+  }
 
 let spec__worker__log_destination__datadog ?endpoint ~api_key () :
     spec__worker__log_destination__datadog =
@@ -4997,8 +5154,9 @@ let spec__worker ?build_command ?dockerfile_path ?environment_slug
   }
 
 let spec ?domains ?features ?region ?(database = []) ?(domain = [])
-    ?(function_ = []) ?(ingress = []) ?(job = []) ?(service = [])
-    ?(static_site = []) ?(worker = []) ~name ~alert ~env () : spec =
+    ?(egress = []) ?(function_ = []) ?(ingress = []) ?(job = [])
+    ?(service = []) ?(static_site = []) ?(worker = []) ~name ~alert
+    ~env () : spec =
   {
     domains;
     features;
@@ -5007,6 +5165,7 @@ let spec ?domains ?features ?region ?(database = []) ?(domain = [])
     alert;
     database;
     domain;
+    egress;
     env;
     function_;
     ingress;
@@ -5018,9 +5177,9 @@ let spec ?domains ?features ?region ?(database = []) ?(domain = [])
 
 let timeouts ?create () : timeouts = { create }
 
-let digitalocean_app ?id ?project_id ?(spec = []) ?timeouts () :
-    digitalocean_app =
-  { id; project_id; spec; timeouts }
+let digitalocean_app ?id ?project_id ?(dedicated_ips = [])
+    ?(spec = []) ?timeouts () : digitalocean_app =
+  { id; project_id; dedicated_ips; spec; timeouts }
 
 type t = {
   tf_name : string;
@@ -5034,7 +5193,8 @@ type t = {
   urn : string prop;
 }
 
-let make ?id ?project_id ?(spec = []) ?timeouts __id =
+let make ?id ?project_id ?(dedicated_ips = []) ?(spec = []) ?timeouts
+    __id =
   let __type = "digitalocean_app" in
   let __attrs =
     ({
@@ -5056,13 +5216,15 @@ let make ?id ?project_id ?(spec = []) ?timeouts __id =
     type_ = __type;
     json =
       yojson_of_digitalocean_app
-        (digitalocean_app ?id ?project_id ~spec ?timeouts ());
+        (digitalocean_app ?id ?project_id ~dedicated_ips ~spec
+           ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project_id ?(spec = []) ?timeouts __id =
+let register ?tf_module ?id ?project_id ?(dedicated_ips = [])
+    ?(spec = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project_id ~spec ?timeouts __id
+    make ?id ?project_id ~dedicated_ips ~spec ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

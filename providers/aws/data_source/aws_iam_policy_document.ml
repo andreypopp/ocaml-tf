@@ -393,6 +393,7 @@ type t = {
   tf_name : string;
   id : string prop;
   json : string prop;
+  minified_json : string prop;
   override_json : string prop;
   override_policy_documents : string list prop;
   policy_id : string prop;
@@ -410,6 +411,7 @@ let make ?id ?override_json ?override_policy_documents ?policy_id
        tf_name = __id;
        id = Prop.computed __type __id "id";
        json = Prop.computed __type __id "json";
+       minified_json = Prop.computed __type __id "minified_json";
        override_json = Prop.computed __type __id "override_json";
        override_policy_documents =
          Prop.computed __type __id "override_policy_documents";

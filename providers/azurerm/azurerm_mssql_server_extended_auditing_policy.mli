@@ -17,9 +17,11 @@ val timeouts :
 type azurerm_mssql_server_extended_auditing_policy
 
 val azurerm_mssql_server_extended_auditing_policy :
+  ?audit_actions_and_groups:string prop list ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?log_monitoring_enabled:bool prop ->
+  ?predicate_expression:string prop ->
   ?retention_in_days:float prop ->
   ?storage_account_access_key:string prop ->
   ?storage_account_access_key_is_secondary:bool prop ->
@@ -37,9 +39,11 @@ val yojson_of_azurerm_mssql_server_extended_auditing_policy :
 
 type t = private {
   tf_name : string;
+  audit_actions_and_groups : string list prop;
   enabled : bool prop;
   id : string prop;
   log_monitoring_enabled : bool prop;
+  predicate_expression : string prop;
   retention_in_days : float prop;
   server_id : string prop;
   storage_account_access_key : string prop;
@@ -50,9 +54,11 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?audit_actions_and_groups:string prop list ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?log_monitoring_enabled:bool prop ->
+  ?predicate_expression:string prop ->
   ?retention_in_days:float prop ->
   ?storage_account_access_key:string prop ->
   ?storage_account_access_key_is_secondary:bool prop ->
@@ -64,9 +70,11 @@ val register :
   t
 
 val make :
+  ?audit_actions_and_groups:string prop list ->
   ?enabled:bool prop ->
   ?id:string prop ->
   ?log_monitoring_enabled:bool prop ->
+  ?predicate_expression:string prop ->
   ?retention_in_days:float prop ->
   ?storage_account_access_key:string prop ->
   ?storage_account_access_key_is_secondary:bool prop ->

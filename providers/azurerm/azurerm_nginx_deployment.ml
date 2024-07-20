@@ -2,6 +2,165 @@
 
 open! Tf_core
 
+type auto_scale_profile = {
+  max_capacity : float prop;
+  min_capacity : float prop;
+  name : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_scale_profile) -> ()
+
+let yojson_of_auto_scale_profile =
+  (function
+   | {
+       max_capacity = v_max_capacity;
+       min_capacity = v_min_capacity;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_capacity in
+         ("min_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_capacity in
+         ("max_capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_scale_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_scale_profile
+
+[@@@deriving.end]
+
+type configuration__config_file = {
+  content : string prop;
+  virtual_path : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__config_file) -> ()
+
+let yojson_of_configuration__config_file =
+  (function
+   | { content = v_content; virtual_path = v_virtual_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_virtual_path in
+         ("virtual_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration__config_file -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__config_file
+
+[@@@deriving.end]
+
+type configuration__protected_file = {
+  content : string prop;
+  virtual_path : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__protected_file) -> ()
+
+let yojson_of_configuration__protected_file =
+  (function
+   | { content = v_content; virtual_path = v_virtual_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_virtual_path in
+         ("virtual_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration__protected_file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__protected_file
+
+[@@@deriving.end]
+
+type configuration = {
+  package_data : string prop option; [@option]
+  root_file : string prop;
+  config_file : configuration__config_file list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  protected_file : configuration__protected_file list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | {
+       package_data = v_package_data;
+       root_file = v_root_file;
+       config_file = v_config_file;
+       protected_file = v_protected_file;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_protected_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__protected_file)
+               v_protected_file
+           in
+           let bnd = "protected_file", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_config_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__config_file)
+               v_config_file
+           in
+           let bnd = "config_file", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_root_file in
+         ("root_file", arg) :: bnds
+       in
+       let bnds =
+         match v_package_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "package_data", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
+
 type frontend_private = {
   allocation_method : string prop;
   ip_address : string prop;
@@ -238,6 +397,10 @@ type azurerm_nginx_deployment = {
   resource_group_name : string prop;
   sku : string prop;
   tags : (string * string prop) list option; [@option]
+  auto_scale_profile : auto_scale_profile list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  configuration : configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_private : frontend_private list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   frontend_public : frontend_public list;
@@ -268,6 +431,8 @@ let yojson_of_azurerm_nginx_deployment =
        resource_group_name = v_resource_group_name;
        sku = v_sku;
        tags = v_tags;
+       auto_scale_profile = v_auto_scale_profile;
+       configuration = v_configuration;
        frontend_private = v_frontend_private;
        frontend_public = v_frontend_public;
        identity = v_identity;
@@ -329,6 +494,25 @@ let yojson_of_azurerm_nginx_deployment =
                v_frontend_private
            in
            let bnd = "frontend_private", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_auto_scale_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scale_profile)
+               v_auto_scale_profile
+           in
+           let bnd = "auto_scale_profile", arg in
            bnd :: bnds
        in
        let bnds =
@@ -420,6 +604,22 @@ let _ = yojson_of_azurerm_nginx_deployment
 
 [@@@deriving.end]
 
+let auto_scale_profile ~max_capacity ~min_capacity ~name () :
+    auto_scale_profile =
+  { max_capacity; min_capacity; name }
+
+let configuration__config_file ~content ~virtual_path () :
+    configuration__config_file =
+  { content; virtual_path }
+
+let configuration__protected_file ~content ~virtual_path () :
+    configuration__protected_file =
+  { content; virtual_path }
+
+let configuration ?package_data ~root_file ~config_file
+    ~protected_file () : configuration =
+  { package_data; root_file; config_file; protected_file }
+
 let frontend_private ~allocation_method ~ip_address ~subnet_id () :
     frontend_private =
   { allocation_method; ip_address; subnet_id }
@@ -441,10 +641,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?(frontend_private = []) ?(frontend_public = [])
-    ?(identity = []) ?(logging_storage_account = [])
-    ?(network_interface = []) ?timeouts ~location ~name
-    ~resource_group_name ~sku () : azurerm_nginx_deployment =
+    ?tags ?(auto_scale_profile = []) ?(configuration = [])
+    ?(frontend_private = []) ?(frontend_public = []) ?(identity = [])
+    ?(logging_storage_account = []) ?(network_interface = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku () :
+    azurerm_nginx_deployment =
   {
     automatic_upgrade_channel;
     capacity;
@@ -457,6 +658,8 @@ let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
     resource_group_name;
     sku;
     tags;
+    auto_scale_profile;
+    configuration;
     frontend_private;
     frontend_public;
     identity;
@@ -484,10 +687,10 @@ type t = {
 
 let make ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?(frontend_private = []) ?(frontend_public = [])
-    ?(identity = []) ?(logging_storage_account = [])
-    ?(network_interface = []) ?timeouts ~location ~name
-    ~resource_group_name ~sku __id =
+    ?tags ?(auto_scale_profile = []) ?(configuration = [])
+    ?(frontend_private = []) ?(frontend_public = []) ?(identity = [])
+    ?(logging_storage_account = []) ?(network_interface = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let __type = "azurerm_nginx_deployment" in
   let __attrs =
     ({
@@ -519,25 +722,26 @@ let make ?automatic_upgrade_channel ?capacity
       yojson_of_azurerm_nginx_deployment
         (azurerm_nginx_deployment ?automatic_upgrade_channel
            ?capacity ?diagnose_support_enabled ?email ?id
-           ?managed_resource_group ?tags ~frontend_private
-           ~frontend_public ~identity ~logging_storage_account
-           ~network_interface ?timeouts ~location ~name
-           ~resource_group_name ~sku ());
+           ?managed_resource_group ?tags ~auto_scale_profile
+           ~configuration ~frontend_private ~frontend_public
+           ~identity ~logging_storage_account ~network_interface
+           ?timeouts ~location ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?(frontend_private = []) ?(frontend_public = [])
-    ?(identity = []) ?(logging_storage_account = [])
-    ?(network_interface = []) ?timeouts ~location ~name
-    ~resource_group_name ~sku __id =
+    ?tags ?(auto_scale_profile = []) ?(configuration = [])
+    ?(frontend_private = []) ?(frontend_public = []) ?(identity = [])
+    ?(logging_storage_account = []) ?(network_interface = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?automatic_upgrade_channel ?capacity
       ?diagnose_support_enabled ?email ?id ?managed_resource_group
-      ?tags ~frontend_private ~frontend_public ~identity
-      ~logging_storage_account ~network_interface ?timeouts ~location
-      ~name ~resource_group_name ~sku __id
+      ?tags ~auto_scale_profile ~configuration ~frontend_private
+      ~frontend_public ~identity ~logging_storage_account
+      ~network_interface ?timeouts ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

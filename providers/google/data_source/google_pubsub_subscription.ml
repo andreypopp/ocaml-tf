@@ -4,6 +4,7 @@ open! Tf_core
 
 type bigquery_config = {
   drop_unknown_fields : bool prop;
+  service_account_email : string prop;
   table : string prop;
   use_table_schema : bool prop;
   use_topic_schema : bool prop;
@@ -17,6 +18,7 @@ let yojson_of_bigquery_config =
   (function
    | {
        drop_unknown_fields = v_drop_unknown_fields;
+       service_account_email = v_service_account_email;
        table = v_table;
        use_table_schema = v_use_table_schema;
        use_topic_schema = v_use_topic_schema;
@@ -44,6 +46,12 @@ let yojson_of_bigquery_config =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table in
          ("table", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account_email
+         in
+         ("service_account_email", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -87,10 +95,12 @@ type cloud_storage_config = {
   avro_config : cloud_storage_config__avro_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   bucket : string prop;
+  filename_datetime_format : string prop;
   filename_prefix : string prop;
   filename_suffix : string prop;
   max_bytes : float prop;
   max_duration : string prop;
+  service_account_email : string prop;
   state : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -102,10 +112,12 @@ let yojson_of_cloud_storage_config =
    | {
        avro_config = v_avro_config;
        bucket = v_bucket;
+       filename_datetime_format = v_filename_datetime_format;
        filename_prefix = v_filename_prefix;
        filename_suffix = v_filename_suffix;
        max_bytes = v_max_bytes;
        max_duration = v_max_duration;
+       service_account_email = v_service_account_email;
        state = v_state;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -114,6 +126,12 @@ let yojson_of_cloud_storage_config =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_state in
          ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account_email
+         in
+         ("service_account_email", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_max_duration in
@@ -134,6 +152,12 @@ let yojson_of_cloud_storage_config =
            yojson_of_prop yojson_of_string v_filename_prefix
          in
          ("filename_prefix", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_filename_datetime_format
+         in
+         ("filename_datetime_format", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_bucket in

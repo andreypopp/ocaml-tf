@@ -4,6 +4,7 @@ open! Tf_core
 
 type all_updates_rule = {
   disable_default_iam_recipients : bool prop option; [@option]
+  enable_project_level_recipients : bool prop option; [@option]
   monitoring_notification_channels : string prop list option;
       [@option]
   pubsub_topic : string prop option; [@option]
@@ -18,6 +19,8 @@ let yojson_of_all_updates_rule =
    | {
        disable_default_iam_recipients =
          v_disable_default_iam_recipients;
+       enable_project_level_recipients =
+         v_enable_project_level_recipients;
        monitoring_notification_channels =
          v_monitoring_notification_channels;
        pubsub_topic = v_pubsub_topic;
@@ -50,6 +53,14 @@ let yojson_of_all_updates_rule =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "monitoring_notification_channels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_project_level_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_project_level_recipients", arg in
              bnd :: bnds
        in
        let bnds =
@@ -495,6 +506,7 @@ type google_billing_budget = {
   billing_account : string prop;
   display_name : string prop option; [@option]
   id : string prop option; [@option]
+  ownership_scope : string prop option; [@option]
   all_updates_rule : all_updates_rule list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   amount : amount list;
@@ -515,6 +527,7 @@ let yojson_of_google_billing_budget =
        billing_account = v_billing_account;
        display_name = v_display_name;
        id = v_id;
+       ownership_scope = v_ownership_scope;
        all_updates_rule = v_all_updates_rule;
        amount = v_amount;
        budget_filter = v_budget_filter;
@@ -565,6 +578,14 @@ let yojson_of_google_billing_budget =
            bnd :: bnds
        in
        let bnds =
+         match v_ownership_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ownership_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -594,10 +615,12 @@ let _ = yojson_of_google_billing_budget
 [@@@deriving.end]
 
 let all_updates_rule ?disable_default_iam_recipients
+    ?enable_project_level_recipients
     ?monitoring_notification_channels ?pubsub_topic ?schema_version
     () : all_updates_rule =
   {
     disable_default_iam_recipients;
+    enable_project_level_recipients;
     monitoring_notification_channels;
     pubsub_topic;
     schema_version;
@@ -644,13 +667,15 @@ let threshold_rules ?spend_basis ~threshold_percent () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_billing_budget ?display_name ?id ?(all_updates_rule = [])
-    ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
-    ~billing_account ~amount () : google_billing_budget =
+let google_billing_budget ?display_name ?id ?ownership_scope
+    ?(all_updates_rule = []) ?(budget_filter = [])
+    ?(threshold_rules = []) ?timeouts ~billing_account ~amount () :
+    google_billing_budget =
   {
     billing_account;
     display_name;
     id;
+    ownership_scope;
     all_updates_rule;
     amount;
     budget_filter;
@@ -664,9 +689,10 @@ type t = {
   display_name : string prop;
   id : string prop;
   name : string prop;
+  ownership_scope : string prop;
 }
 
-let make ?display_name ?id ?(all_updates_rule = [])
+let make ?display_name ?id ?ownership_scope ?(all_updates_rule = [])
     ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
     ~billing_account ~amount __id =
   let __type = "google_billing_budget" in
@@ -677,6 +703,7 @@ let make ?display_name ?id ?(all_updates_rule = [])
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       ownership_scope = Prop.computed __type __id "ownership_scope";
      }
       : t)
   in
@@ -685,18 +712,19 @@ let make ?display_name ?id ?(all_updates_rule = [])
     type_ = __type;
     json =
       yojson_of_google_billing_budget
-        (google_billing_budget ?display_name ?id ~all_updates_rule
-           ~budget_filter ~threshold_rules ?timeouts ~billing_account
-           ~amount ());
+        (google_billing_budget ?display_name ?id ?ownership_scope
+           ~all_updates_rule ~budget_filter ~threshold_rules
+           ?timeouts ~billing_account ~amount ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?(all_updates_rule = [])
-    ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
-    ~billing_account ~amount __id =
+let register ?tf_module ?display_name ?id ?ownership_scope
+    ?(all_updates_rule = []) ?(budget_filter = [])
+    ?(threshold_rules = []) ?timeouts ~billing_account ~amount __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ~all_updates_rule ~budget_filter
-      ~threshold_rules ?timeouts ~billing_account ~amount __id
+    make ?display_name ?id ?ownership_scope ~all_updates_rule
+      ~budget_filter ~threshold_rules ?timeouts ~billing_account
+      ~amount __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

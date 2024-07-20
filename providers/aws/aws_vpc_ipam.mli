@@ -26,6 +26,7 @@ val aws_vpc_ipam :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->
   unit ->
@@ -48,6 +49,7 @@ type t = private {
   scope_count : float prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
+  tier : string prop;
 }
 
 val register :
@@ -57,6 +59,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->
   string ->
@@ -68,6 +71,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->
   string ->

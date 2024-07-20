@@ -128,10 +128,10 @@ val inspect_config__limits__max_findings_per_info_type__info_type :
 type inspect_config__limits__max_findings_per_info_type
 
 val inspect_config__limits__max_findings_per_info_type :
-  max_findings:float prop ->
-  info_type:
+  ?info_type:
     inspect_config__limits__max_findings_per_info_type__info_type
     list ->
+  max_findings:float prop ->
   unit ->
   inspect_config__limits__max_findings_per_info_type
 

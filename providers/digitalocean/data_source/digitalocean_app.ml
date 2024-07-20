@@ -2,6 +2,52 @@
 
 open! Tf_core
 
+type dedicated_ips = {
+  id : string prop option; [@option]
+  ip : string prop option; [@option]
+  status : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dedicated_ips) -> ()
+
+let yojson_of_dedicated_ips =
+  (function
+   | { id = v_id; ip = v_ip; status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dedicated_ips -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dedicated_ips
+
+[@@@deriving.end]
+
 type spec__worker__log_destination__papertrail = {
   endpoint : string prop;
 }
@@ -176,6 +222,7 @@ type spec__worker__image = {
   deploy_on_push : spec__worker__image__deploy_on_push list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   registry : string prop;
+  registry_credentials : string prop;
   registry_type : string prop;
   repository : string prop;
   tag : string prop;
@@ -189,6 +236,7 @@ let yojson_of_spec__worker__image =
    | {
        deploy_on_push = v_deploy_on_push;
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -207,6 +255,12 @@ let yojson_of_spec__worker__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_registry_credentials
+         in
+         ("registry_credentials", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry in
@@ -1263,6 +1317,7 @@ type spec__service__image = {
   deploy_on_push : spec__service__image__deploy_on_push list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   registry : string prop;
+  registry_credentials : string prop;
   registry_type : string prop;
   repository : string prop;
   tag : string prop;
@@ -1276,6 +1331,7 @@ let yojson_of_spec__service__image =
    | {
        deploy_on_push = v_deploy_on_push;
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -1294,6 +1350,12 @@ let yojson_of_spec__service__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_registry_credentials
+         in
+         ("registry_credentials", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry in
@@ -2102,6 +2164,7 @@ type spec__job__image = {
   deploy_on_push : spec__job__image__deploy_on_push list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   registry : string prop;
+  registry_credentials : string prop;
   registry_type : string prop;
   repository : string prop;
   tag : string prop;
@@ -2115,6 +2178,7 @@ let yojson_of_spec__job__image =
    | {
        deploy_on_push = v_deploy_on_push;
        registry = v_registry;
+       registry_credentials = v_registry_credentials;
        registry_type = v_registry_type;
        repository = v_repository;
        tag = v_tag;
@@ -2133,6 +2197,12 @@ let yojson_of_spec__job__image =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry_type in
          ("registry_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_registry_credentials
+         in
+         ("registry_credentials", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_registry in
@@ -3576,6 +3646,28 @@ let _ = yojson_of_spec__env
 
 [@@@deriving.end]
 
+type spec__egress = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__egress) -> ()
+
+let yojson_of_spec__egress =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__egress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__egress
+
+[@@@deriving.end]
+
 type spec__domain = {
   name : string prop;
   type_ : string prop; [@key "type"]
@@ -3717,6 +3809,8 @@ type spec = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   domains : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  egress : spec__egress list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   env : spec__env list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   features : string prop list;
@@ -3749,6 +3843,7 @@ let yojson_of_spec =
        database = v_database;
        domain = v_domain;
        domains = v_domains;
+       egress = v_egress;
        env = v_env;
        features = v_features;
        function_ = v_function_;
@@ -3842,6 +3937,15 @@ let yojson_of_spec =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_egress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__egress) v_egress
+           in
+           let bnd = "egress", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_domains then bnds
          else
            let arg =
@@ -3888,6 +3992,8 @@ let _ = yojson_of_spec
 type digitalocean_app = {
   app_id : string prop;
   id : string prop option; [@option]
+  dedicated_ips : dedicated_ips list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3895,9 +4001,22 @@ let _ = fun (_ : digitalocean_app) -> ()
 
 let yojson_of_digitalocean_app =
   (function
-   | { app_id = v_app_id; id = v_id } ->
+   | {
+       app_id = v_app_id;
+       id = v_id;
+       dedicated_ips = v_dedicated_ips;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dedicated_ips then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dedicated_ips) v_dedicated_ips
+           in
+           let bnd = "dedicated_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -3918,8 +4037,12 @@ let _ = yojson_of_digitalocean_app
 
 [@@@deriving.end]
 
-let digitalocean_app ?id ~app_id () : digitalocean_app =
-  { app_id; id }
+let dedicated_ips ?id ?ip ?status () : dedicated_ips =
+  { id; ip; status }
+
+let digitalocean_app ?id ?(dedicated_ips = []) ~app_id () :
+    digitalocean_app =
+  { app_id; id; dedicated_ips }
 
 type t = {
   tf_name : string;
@@ -3935,7 +4058,7 @@ type t = {
   urn : string prop;
 }
 
-let make ?id ~app_id __id =
+let make ?id ?(dedicated_ips = []) ~app_id __id =
   let __type = "digitalocean_app" in
   let __attrs =
     ({
@@ -3958,11 +4081,14 @@ let make ?id ~app_id __id =
     Tf_core.id = __id;
     type_ = __type;
     json =
-      yojson_of_digitalocean_app (digitalocean_app ?id ~app_id ());
+      yojson_of_digitalocean_app
+        (digitalocean_app ?id ~dedicated_ips ~app_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~app_id __id =
-  let (r : _ Tf_core.resource) = make ?id ~app_id __id in
+let register ?tf_module ?id ?(dedicated_ips = []) ~app_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~dedicated_ips ~app_id __id
+  in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

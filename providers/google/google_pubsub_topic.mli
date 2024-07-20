@@ -4,6 +4,23 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type ingestion_data_source_settings__aws_kinesis
+
+val ingestion_data_source_settings__aws_kinesis :
+  aws_role_arn:string prop ->
+  consumer_arn:string prop ->
+  gcp_service_account:string prop ->
+  stream_arn:string prop ->
+  unit ->
+  ingestion_data_source_settings__aws_kinesis
+
+type ingestion_data_source_settings
+
+val ingestion_data_source_settings :
+  ?aws_kinesis:ingestion_data_source_settings__aws_kinesis list ->
+  unit ->
+  ingestion_data_source_settings
+
 type message_storage_policy
 
 val message_storage_policy :
@@ -36,6 +53,7 @@ val google_pubsub_topic :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?ingestion_data_source_settings:ingestion_data_source_settings list ->
   ?message_storage_policy:message_storage_policy list ->
   ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->
@@ -66,6 +84,7 @@ val register :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?ingestion_data_source_settings:ingestion_data_source_settings list ->
   ?message_storage_policy:message_storage_policy list ->
   ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->
@@ -79,6 +98,7 @@ val make :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?ingestion_data_source_settings:ingestion_data_source_settings list ->
   ?message_storage_policy:message_storage_policy list ->
   ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->

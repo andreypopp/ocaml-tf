@@ -4,6 +4,11 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type encryption_spec
+
+val encryption_spec :
+  ?kms_key_name:string prop -> unit -> encryption_spec
+
 type timeouts
 
 val timeouts :
@@ -19,6 +24,7 @@ val google_healthcare_dataset :
   ?id:string prop ->
   ?project:string prop ->
   ?time_zone:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -45,6 +51,7 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?time_zone:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -55,6 +62,7 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?time_zone:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

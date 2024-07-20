@@ -9,10 +9,15 @@ type aci_connector_linux = {
 }
 
 type agent_pool_profile__upgrade_settings = {
+  drain_timeout_in_minutes : float prop;
+      (** drain_timeout_in_minutes *)
   max_surge : string prop;  (** max_surge *)
+  node_soak_duration_in_minutes : float prop;
+      (** node_soak_duration_in_minutes *)
 }
 
 type agent_pool_profile = {
+  auto_scaling_enabled : bool prop;  (** auto_scaling_enabled *)
   count : float prop;  (** count *)
   enable_auto_scaling : bool prop;  (** enable_auto_scaling *)
   enable_node_public_ip : bool prop;  (** enable_node_public_ip *)
@@ -21,6 +26,7 @@ type agent_pool_profile = {
   min_count : float prop;  (** min_count *)
   name : string prop;  (** name *)
   node_labels : (string * string prop) list;  (** node_labels *)
+  node_public_ip_enabled : bool prop;  (** node_public_ip_enabled *)
   node_public_ip_prefix_id : string prop;
       (** node_public_ip_prefix_id *)
   node_taints : string prop list;
@@ -174,7 +180,20 @@ type oms_agent = {
       (** oms_agent_identity *)
 }
 
+type service_mesh_profile__certificate_authority = {
+  cert_chain_object_name : string prop;
+      (** cert_chain_object_name *)
+  cert_object_name : string prop;  (** cert_object_name *)
+  key_object_name : string prop;  (** key_object_name *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  root_cert_object_name : string prop;  (** root_cert_object_name *)
+}
+
 type service_mesh_profile = {
+  certificate_authority :
+    service_mesh_profile__certificate_authority list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** certificate_authority *)
   external_ingress_gateway_enabled : bool prop;
       (** external_ingress_gateway_enabled *)
   internal_ingress_gateway_enabled : bool prop;

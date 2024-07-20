@@ -64,7 +64,9 @@ let _ = yojson_of_autoscaling_policy__load_balancing_utilization
 [@@@deriving.end]
 
 type autoscaling_policy__metric = {
+  filter : string prop option; [@option]
   name : string prop;
+  single_instance_assignment : float prop option; [@option]
   target : float prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
 }
@@ -74,7 +76,13 @@ let _ = fun (_ : autoscaling_policy__metric) -> ()
 
 let yojson_of_autoscaling_policy__metric =
   (function
-   | { name = v_name; target = v_target; type_ = v_type_ } ->
+   | {
+       filter = v_filter;
+       name = v_name;
+       single_instance_assignment = v_single_instance_assignment;
+       target = v_target;
+       type_ = v_type_;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -95,8 +103,24 @@ let yojson_of_autoscaling_policy__metric =
              bnd :: bnds
        in
        let bnds =
+         match v_single_instance_assignment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "single_instance_assignment", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : autoscaling_policy__metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -539,9 +563,9 @@ let autoscaling_policy__load_balancing_utilization ~target () :
     autoscaling_policy__load_balancing_utilization =
   { target }
 
-let autoscaling_policy__metric ?target ?type_ ~name () :
-    autoscaling_policy__metric =
-  { name; target; type_ }
+let autoscaling_policy__metric ?filter ?single_instance_assignment
+    ?target ?type_ ~name () : autoscaling_policy__metric =
+  { filter; name; single_instance_assignment; target; type_ }
 
 let autoscaling_policy__scale_in_control__max_scaled_in_replicas
     ?fixed ?percent () :

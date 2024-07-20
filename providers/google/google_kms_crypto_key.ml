@@ -111,6 +111,7 @@ let _ = yojson_of_primary
 [@@@deriving.end]
 
 type google_kms_crypto_key = {
+  crypto_key_backend : string prop option; [@option]
   destroy_scheduled_duration : string prop option; [@option]
   id : string prop option; [@option]
   import_only : bool prop option; [@option]
@@ -131,6 +132,7 @@ let _ = fun (_ : google_kms_crypto_key) -> ()
 let yojson_of_google_kms_crypto_key =
   (function
    | {
+       crypto_key_backend = v_crypto_key_backend;
        destroy_scheduled_duration = v_destroy_scheduled_duration;
        id = v_id;
        import_only = v_import_only;
@@ -233,6 +235,14 @@ let yojson_of_google_kms_crypto_key =
              let bnd = "destroy_scheduled_duration", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_crypto_key_backend with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "crypto_key_backend", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_kms_crypto_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -247,11 +257,13 @@ let version_template ?protection_level ~algorithm () :
     version_template =
   { algorithm; protection_level }
 
-let google_kms_crypto_key ?destroy_scheduled_duration ?id
-    ?import_only ?labels ?purpose ?rotation_period
-    ?skip_initial_version_creation ?timeouts ?(version_template = [])
-    ~key_ring ~name () : google_kms_crypto_key =
+let google_kms_crypto_key ?crypto_key_backend
+    ?destroy_scheduled_duration ?id ?import_only ?labels ?purpose
+    ?rotation_period ?skip_initial_version_creation ?timeouts
+    ?(version_template = []) ~key_ring ~name () :
+    google_kms_crypto_key =
   {
+    crypto_key_backend;
     destroy_scheduled_duration;
     id;
     import_only;
@@ -267,6 +279,7 @@ let google_kms_crypto_key ?destroy_scheduled_duration ?id
 
 type t = {
   tf_name : string;
+  crypto_key_backend : string prop;
   destroy_scheduled_duration : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -281,13 +294,16 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?destroy_scheduled_duration ?id ?import_only ?labels
-    ?purpose ?rotation_period ?skip_initial_version_creation
-    ?timeouts ?(version_template = []) ~key_ring ~name __id =
+let make ?crypto_key_backend ?destroy_scheduled_duration ?id
+    ?import_only ?labels ?purpose ?rotation_period
+    ?skip_initial_version_creation ?timeouts ?(version_template = [])
+    ~key_ring ~name __id =
   let __type = "google_kms_crypto_key" in
   let __attrs =
     ({
        tf_name = __id;
+       crypto_key_backend =
+         Prop.computed __type __id "crypto_key_backend";
        destroy_scheduled_duration =
          Prop.computed __type __id "destroy_scheduled_duration";
        effective_labels =
@@ -312,20 +328,22 @@ let make ?destroy_scheduled_duration ?id ?import_only ?labels
     type_ = __type;
     json =
       yojson_of_google_kms_crypto_key
-        (google_kms_crypto_key ?destroy_scheduled_duration ?id
-           ?import_only ?labels ?purpose ?rotation_period
-           ?skip_initial_version_creation ?timeouts ~version_template
-           ~key_ring ~name ());
+        (google_kms_crypto_key ?crypto_key_backend
+           ?destroy_scheduled_duration ?id ?import_only ?labels
+           ?purpose ?rotation_period ?skip_initial_version_creation
+           ?timeouts ~version_template ~key_ring ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?destroy_scheduled_duration ?id ?import_only
-    ?labels ?purpose ?rotation_period ?skip_initial_version_creation
-    ?timeouts ?(version_template = []) ~key_ring ~name __id =
+let register ?tf_module ?crypto_key_backend
+    ?destroy_scheduled_duration ?id ?import_only ?labels ?purpose
+    ?rotation_period ?skip_initial_version_creation ?timeouts
+    ?(version_template = []) ~key_ring ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?destroy_scheduled_duration ?id ?import_only ?labels
-      ?purpose ?rotation_period ?skip_initial_version_creation
-      ?timeouts ~version_template ~key_ring ~name __id
+    make ?crypto_key_backend ?destroy_scheduled_duration ?id
+      ?import_only ?labels ?purpose ?rotation_period
+      ?skip_initial_version_creation ?timeouts ~version_template
+      ~key_ring ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

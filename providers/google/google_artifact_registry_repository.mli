@@ -63,31 +63,70 @@ val remote_repository_config__apt_repository :
   unit ->
   remote_repository_config__apt_repository
 
+type remote_repository_config__docker_repository__custom_repository
+
+val remote_repository_config__docker_repository__custom_repository :
+  ?uri:string prop ->
+  unit ->
+  remote_repository_config__docker_repository__custom_repository
+
 type remote_repository_config__docker_repository
 
 val remote_repository_config__docker_repository :
   ?public_repository:string prop ->
+  ?custom_repository:
+    remote_repository_config__docker_repository__custom_repository
+    list ->
   unit ->
   remote_repository_config__docker_repository
+
+type remote_repository_config__maven_repository__custom_repository
+
+val remote_repository_config__maven_repository__custom_repository :
+  ?uri:string prop ->
+  unit ->
+  remote_repository_config__maven_repository__custom_repository
 
 type remote_repository_config__maven_repository
 
 val remote_repository_config__maven_repository :
   ?public_repository:string prop ->
+  ?custom_repository:
+    remote_repository_config__maven_repository__custom_repository
+    list ->
   unit ->
   remote_repository_config__maven_repository
+
+type remote_repository_config__npm_repository__custom_repository
+
+val remote_repository_config__npm_repository__custom_repository :
+  ?uri:string prop ->
+  unit ->
+  remote_repository_config__npm_repository__custom_repository
 
 type remote_repository_config__npm_repository
 
 val remote_repository_config__npm_repository :
   ?public_repository:string prop ->
+  ?custom_repository:
+    remote_repository_config__npm_repository__custom_repository list ->
   unit ->
   remote_repository_config__npm_repository
+
+type remote_repository_config__python_repository__custom_repository
+
+val remote_repository_config__python_repository__custom_repository :
+  ?uri:string prop ->
+  unit ->
+  remote_repository_config__python_repository__custom_repository
 
 type remote_repository_config__python_repository
 
 val remote_repository_config__python_repository :
   ?public_repository:string prop ->
+  ?custom_repository:
+    remote_repository_config__python_repository__custom_repository
+    list ->
   unit ->
   remote_repository_config__python_repository
 
@@ -128,6 +167,7 @@ type remote_repository_config
 
 val remote_repository_config :
   ?description:string prop ->
+  ?disable_upstream_validation:bool prop ->
   ?apt_repository:remote_repository_config__apt_repository list ->
   ?docker_repository:remote_repository_config__docker_repository list ->
   ?maven_repository:remote_repository_config__maven_repository list ->

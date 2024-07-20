@@ -1,3 +1,5 @@
+(** A RoleBinding may be used to grant permission at the namespace level *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

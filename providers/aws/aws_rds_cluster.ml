@@ -311,6 +311,7 @@ type aws_rds_cluster = {
   availability_zones : string prop list option; [@option]
   backtrack_window : float prop option; [@option]
   backup_retention_period : float prop option; [@option]
+  ca_certificate_identifier : string prop option; [@option]
   cluster_identifier : string prop option; [@option]
   cluster_identifier_prefix : string prop option; [@option]
   cluster_members : string prop list option; [@option]
@@ -327,9 +328,11 @@ type aws_rds_cluster = {
   domain_iam_role_name : string prop option; [@option]
   enable_global_write_forwarding : bool prop option; [@option]
   enable_http_endpoint : bool prop option; [@option]
+  enable_local_write_forwarding : bool prop option; [@option]
   enabled_cloudwatch_logs_exports : string prop list option;
       [@option]
   engine : string prop;
+  engine_lifecycle_support : string prop option; [@option]
   engine_mode : string prop option; [@option]
   engine_version : string prop option; [@option]
   final_snapshot_identifier : string prop option; [@option]
@@ -380,6 +383,7 @@ let yojson_of_aws_rds_cluster =
        availability_zones = v_availability_zones;
        backtrack_window = v_backtrack_window;
        backup_retention_period = v_backup_retention_period;
+       ca_certificate_identifier = v_ca_certificate_identifier;
        cluster_identifier = v_cluster_identifier;
        cluster_identifier_prefix = v_cluster_identifier_prefix;
        cluster_members = v_cluster_members;
@@ -399,9 +403,12 @@ let yojson_of_aws_rds_cluster =
        enable_global_write_forwarding =
          v_enable_global_write_forwarding;
        enable_http_endpoint = v_enable_http_endpoint;
+       enable_local_write_forwarding =
+         v_enable_local_write_forwarding;
        enabled_cloudwatch_logs_exports =
          v_enabled_cloudwatch_logs_exports;
        engine = v_engine;
+       engine_lifecycle_support = v_engine_lifecycle_support;
        engine_mode = v_engine_mode;
        engine_version = v_engine_version;
        final_snapshot_identifier = v_final_snapshot_identifier;
@@ -715,6 +722,14 @@ let yojson_of_aws_rds_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_engine_lifecycle_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_lifecycle_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_engine in
          ("engine", arg) :: bnds
        in
@@ -726,6 +741,14 @@ let yojson_of_aws_rds_cluster =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "enabled_cloudwatch_logs_exports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_local_write_forwarding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_local_write_forwarding", arg in
              bnd :: bnds
        in
        let bnds =
@@ -859,6 +882,14 @@ let yojson_of_aws_rds_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_ca_certificate_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ca_certificate_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_backup_retention_period with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -955,14 +986,15 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
     ?apply_immediately ?availability_zones ?backtrack_window
-    ?backup_retention_period ?cluster_identifier
-    ?cluster_identifier_prefix ?cluster_members
+    ?backup_retention_period ?ca_certificate_identifier
+    ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
     ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
     ?db_cluster_parameter_group_name
     ?db_instance_parameter_group_name ?db_subnet_group_name
     ?db_system_id ?delete_automated_backups ?deletion_protection
     ?domain ?domain_iam_role_name ?enable_global_write_forwarding
-    ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+    ?enable_http_endpoint ?enable_local_write_forwarding
+    ?enabled_cloudwatch_logs_exports ?engine_lifecycle_support
     ?engine_mode ?engine_version ?final_snapshot_identifier
     ?global_cluster_identifier ?iam_database_authentication_enabled
     ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
@@ -982,6 +1014,7 @@ let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
     availability_zones;
     backtrack_window;
     backup_retention_period;
+    ca_certificate_identifier;
     cluster_identifier;
     cluster_identifier_prefix;
     cluster_members;
@@ -998,8 +1031,10 @@ let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
     domain_iam_role_name;
     enable_global_write_forwarding;
     enable_http_endpoint;
+    enable_local_write_forwarding;
     enabled_cloudwatch_logs_exports;
     engine;
+    engine_lifecycle_support;
     engine_mode;
     engine_version;
     final_snapshot_identifier;
@@ -1042,6 +1077,8 @@ type t = {
   availability_zones : string list prop;
   backtrack_window : float prop;
   backup_retention_period : float prop;
+  ca_certificate_identifier : string prop;
+  ca_certificate_valid_till : string prop;
   cluster_identifier : string prop;
   cluster_identifier_prefix : string prop;
   cluster_members : string list prop;
@@ -1059,9 +1096,11 @@ type t = {
   domain_iam_role_name : string prop;
   enable_global_write_forwarding : bool prop;
   enable_http_endpoint : bool prop;
+  enable_local_write_forwarding : bool prop;
   enabled_cloudwatch_logs_exports : string list prop;
   endpoint : string prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_mode : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
@@ -1096,14 +1135,15 @@ type t = {
 
 let make ?allocated_storage ?allow_major_version_upgrade
     ?apply_immediately ?availability_zones ?backtrack_window
-    ?backup_retention_period ?cluster_identifier
-    ?cluster_identifier_prefix ?cluster_members
+    ?backup_retention_period ?ca_certificate_identifier
+    ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
     ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
     ?db_cluster_parameter_group_name
     ?db_instance_parameter_group_name ?db_subnet_group_name
     ?db_system_id ?delete_automated_backups ?deletion_protection
     ?domain ?domain_iam_role_name ?enable_global_write_forwarding
-    ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+    ?enable_http_endpoint ?enable_local_write_forwarding
+    ?enabled_cloudwatch_logs_exports ?engine_lifecycle_support
     ?engine_mode ?engine_version ?final_snapshot_identifier
     ?global_cluster_identifier ?iam_database_authentication_enabled
     ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
@@ -1133,6 +1173,10 @@ let make ?allocated_storage ?allow_major_version_upgrade
          Prop.computed __type __id "backtrack_window";
        backup_retention_period =
          Prop.computed __type __id "backup_retention_period";
+       ca_certificate_identifier =
+         Prop.computed __type __id "ca_certificate_identifier";
+       ca_certificate_valid_till =
+         Prop.computed __type __id "ca_certificate_valid_till";
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";
        cluster_identifier_prefix =
@@ -1163,10 +1207,14 @@ let make ?allocated_storage ?allow_major_version_upgrade
          Prop.computed __type __id "enable_global_write_forwarding";
        enable_http_endpoint =
          Prop.computed __type __id "enable_http_endpoint";
+       enable_local_write_forwarding =
+         Prop.computed __type __id "enable_local_write_forwarding";
        enabled_cloudwatch_logs_exports =
          Prop.computed __type __id "enabled_cloudwatch_logs_exports";
        endpoint = Prop.computed __type __id "endpoint";
        engine = Prop.computed __type __id "engine";
+       engine_lifecycle_support =
+         Prop.computed __type __id "engine_lifecycle_support";
        engine_mode = Prop.computed __type __id "engine_mode";
        engine_version = Prop.computed __type __id "engine_version";
        engine_version_actual =
@@ -1223,17 +1271,18 @@ let make ?allocated_storage ?allow_major_version_upgrade
         (aws_rds_cluster ?allocated_storage
            ?allow_major_version_upgrade ?apply_immediately
            ?availability_zones ?backtrack_window
-           ?backup_retention_period ?cluster_identifier
-           ?cluster_identifier_prefix ?cluster_members
-           ?copy_tags_to_snapshot ?database_name
+           ?backup_retention_period ?ca_certificate_identifier
+           ?cluster_identifier ?cluster_identifier_prefix
+           ?cluster_members ?copy_tags_to_snapshot ?database_name
            ?db_cluster_instance_class
            ?db_cluster_parameter_group_name
            ?db_instance_parameter_group_name ?db_subnet_group_name
            ?db_system_id ?delete_automated_backups
            ?deletion_protection ?domain ?domain_iam_role_name
            ?enable_global_write_forwarding ?enable_http_endpoint
-           ?enabled_cloudwatch_logs_exports ?engine_mode
-           ?engine_version ?final_snapshot_identifier
+           ?enable_local_write_forwarding
+           ?enabled_cloudwatch_logs_exports ?engine_lifecycle_support
+           ?engine_mode ?engine_version ?final_snapshot_identifier
            ?global_cluster_identifier
            ?iam_database_authentication_enabled ?iam_roles ?id ?iops
            ?kms_key_id ?manage_master_user_password ?master_password
@@ -1252,13 +1301,15 @@ let make ?allocated_storage ?allow_major_version_upgrade
 let register ?tf_module ?allocated_storage
     ?allow_major_version_upgrade ?apply_immediately
     ?availability_zones ?backtrack_window ?backup_retention_period
-    ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
+    ?ca_certificate_identifier ?cluster_identifier
+    ?cluster_identifier_prefix ?cluster_members
     ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
     ?db_cluster_parameter_group_name
     ?db_instance_parameter_group_name ?db_subnet_group_name
     ?db_system_id ?delete_automated_backups ?deletion_protection
     ?domain ?domain_iam_role_name ?enable_global_write_forwarding
-    ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+    ?enable_http_endpoint ?enable_local_write_forwarding
+    ?enabled_cloudwatch_logs_exports ?engine_lifecycle_support
     ?engine_mode ?engine_version ?final_snapshot_identifier
     ?global_cluster_identifier ?iam_database_authentication_enabled
     ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
@@ -1274,14 +1325,15 @@ let register ?tf_module ?allocated_storage
   let (r : _ Tf_core.resource) =
     make ?allocated_storage ?allow_major_version_upgrade
       ?apply_immediately ?availability_zones ?backtrack_window
-      ?backup_retention_period ?cluster_identifier
-      ?cluster_identifier_prefix ?cluster_members
+      ?backup_retention_period ?ca_certificate_identifier
+      ?cluster_identifier ?cluster_identifier_prefix ?cluster_members
       ?copy_tags_to_snapshot ?database_name
       ?db_cluster_instance_class ?db_cluster_parameter_group_name
       ?db_instance_parameter_group_name ?db_subnet_group_name
       ?db_system_id ?delete_automated_backups ?deletion_protection
       ?domain ?domain_iam_role_name ?enable_global_write_forwarding
-      ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+      ?enable_http_endpoint ?enable_local_write_forwarding
+      ?enabled_cloudwatch_logs_exports ?engine_lifecycle_support
       ?engine_mode ?engine_version ?final_snapshot_identifier
       ?global_cluster_identifier ?iam_database_authentication_enabled
       ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password

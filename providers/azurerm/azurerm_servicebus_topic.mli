@@ -18,14 +18,17 @@ type azurerm_servicebus_topic
 
 val azurerm_servicebus_topic :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?id:string prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?status:string prop ->
   ?support_ordering:bool prop ->
@@ -43,16 +46,19 @@ val yojson_of_azurerm_servicebus_topic :
 type t = private {
   tf_name : string;
   auto_delete_on_idle : string prop;
+  batched_operations_enabled : bool prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;
   enable_batched_operations : bool prop;
   enable_express : bool prop;
   enable_partitioning : bool prop;
+  express_enabled : bool prop;
   id : string prop;
   max_message_size_in_kilobytes : float prop;
   max_size_in_megabytes : float prop;
   name : string prop;
   namespace_id : string prop;
+  partitioning_enabled : bool prop;
   requires_duplicate_detection : bool prop;
   status : string prop;
   support_ordering : bool prop;
@@ -61,14 +67,17 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?id:string prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?status:string prop ->
   ?support_ordering:bool prop ->
@@ -80,14 +89,17 @@ val register :
 
 val make :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?id:string prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?status:string prop ->
   ?support_ordering:bool prop ->

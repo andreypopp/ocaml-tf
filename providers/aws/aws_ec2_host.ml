@@ -2,6 +2,52 @@
 
 open! Tf_core
 
+type timeouts = {
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
 type aws_ec2_host = {
   asset_id : string prop option; [@option]
   auto_placement : string prop option; [@option]
@@ -13,6 +59,7 @@ type aws_ec2_host = {
   outpost_arn : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
+  timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
 
@@ -31,9 +78,14 @@ let yojson_of_aws_ec2_host =
        outpost_arn = v_outpost_arn;
        tags = v_tags;
        tags_all = v_tags_all;
+       timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -136,9 +188,12 @@ let _ = yojson_of_aws_ec2_host
 
 [@@@deriving.end]
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
 let aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-    ~availability_zone () : aws_ec2_host =
+    ?timeouts ~availability_zone () : aws_ec2_host =
   {
     asset_id;
     auto_placement;
@@ -150,6 +205,7 @@ let aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
     outpost_arn;
     tags;
     tags_all;
+    timeouts;
   }
 
 type t = {
@@ -170,7 +226,7 @@ type t = {
 
 let make ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-    ~availability_zone __id =
+    ?timeouts ~availability_zone __id =
   let __type = "aws_ec2_host" in
   let __attrs =
     ({
@@ -198,17 +254,17 @@ let make ?asset_id ?auto_placement ?host_recovery ?id
       yojson_of_aws_ec2_host
         (aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
            ?instance_family ?instance_type ?outpost_arn ?tags
-           ?tags_all ~availability_zone ());
+           ?tags_all ?timeouts ~availability_zone ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-    ~availability_zone __id =
+    ?timeouts ~availability_zone __id =
   let (r : _ Tf_core.resource) =
     make ?asset_id ?auto_placement ?host_recovery ?id
       ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-      ~availability_zone __id
+      ?timeouts ~availability_zone __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

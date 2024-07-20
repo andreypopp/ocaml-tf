@@ -27,6 +27,8 @@ val yojson_of_azurerm_storage_container :
 type t = private {
   tf_name : string;
   container_access_type : string prop;
+  default_encryption_scope : string prop;
+  encryption_scope_override_enabled : bool prop;
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;
   id : string prop;

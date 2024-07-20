@@ -54,6 +54,12 @@ type lifecycle_rule__condition = {
   noncurrent_time_before : string prop;
       (** noncurrent_time_before *)
   num_newer_versions : float prop;  (** num_newer_versions *)
+  send_days_since_custom_time_if_zero : bool prop;
+      (** send_days_since_custom_time_if_zero *)
+  send_days_since_noncurrent_time_if_zero : bool prop;
+      (** send_days_since_noncurrent_time_if_zero *)
+  send_num_newer_versions_if_zero : bool prop;
+      (** send_num_newer_versions_if_zero *)
   with_state : string prop;  (** with_state *)
 }
 
@@ -81,6 +87,12 @@ type retention_policy = {
   retention_period : float prop;  (** retention_period *)
 }
 
+type soft_delete_policy = {
+  effective_time : string prop;  (** effective_time *)
+  retention_duration_seconds : float prop;
+      (** retention_duration_seconds *)
+}
+
 type versioning = { enabled : bool prop  (** enabled *) }
 
 type website = {
@@ -92,6 +104,7 @@ type google_storage_bucket
 
 val google_storage_bucket :
   ?id:string prop ->
+  ?project:string prop ->
   name:string prop ->
   unit ->
   google_storage_bucket
@@ -117,11 +130,13 @@ type t = private {
   logging : logging list prop;
   name : string prop;
   project : string prop;
+  project_number : float prop;
   public_access_prevention : string prop;
   requester_pays : bool prop;
   retention_policy : retention_policy list prop;
   rpo : string prop;
   self_link : string prop;
+  soft_delete_policy : soft_delete_policy list prop;
   storage_class : string prop;
   terraform_labels : (string * string) list prop;
   uniform_bucket_level_access : bool prop;
@@ -133,9 +148,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?project:string prop ->
   name:string prop ->
   string ->
   t
 
 val make :
-  ?id:string prop -> name:string prop -> string -> t Tf_core.resource
+  ?id:string prop ->
+  ?project:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

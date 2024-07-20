@@ -334,6 +334,8 @@ type aws_budgets_budget_action = {
   execution_role_arn : string prop;
   id : string prop option; [@option]
   notification_type : string prop;
+  tags : (string * string prop) list option; [@option]
+  tags_all : (string * string prop) list option; [@option]
   action_threshold : action_threshold list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   definition : definition list;
@@ -356,6 +358,8 @@ let yojson_of_aws_budgets_budget_action =
        execution_role_arn = v_execution_role_arn;
        id = v_id;
        notification_type = v_notification_type;
+       tags = v_tags;
+       tags_all = v_tags_all;
        action_threshold = v_action_threshold;
        definition = v_definition;
        subscriber = v_subscriber;
@@ -395,6 +399,38 @@ let yojson_of_aws_budgets_budget_action =
            in
            let bnd = "action_threshold", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -476,10 +512,10 @@ let subscriber ~address ~subscription_type () : subscriber =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
-    ~approval_model ~budget_name ~execution_role_arn
-    ~notification_type ~action_threshold ~definition ~subscriber () :
-    aws_budgets_budget_action =
+let aws_budgets_budget_action ?account_id ?id ?tags ?tags_all
+    ?timeouts ~action_type ~approval_model ~budget_name
+    ~execution_role_arn ~notification_type ~action_threshold
+    ~definition ~subscriber () : aws_budgets_budget_action =
   {
     account_id;
     action_type;
@@ -488,6 +524,8 @@ let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
     execution_role_arn;
     id;
     notification_type;
+    tags;
+    tags_all;
     action_threshold;
     definition;
     subscriber;
@@ -506,11 +544,14 @@ type t = {
   id : string prop;
   notification_type : string prop;
   status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
 }
 
-let make ?account_id ?id ?timeouts ~action_type ~approval_model
-    ~budget_name ~execution_role_arn ~notification_type
-    ~action_threshold ~definition ~subscriber __id =
+let make ?account_id ?id ?tags ?tags_all ?timeouts ~action_type
+    ~approval_model ~budget_name ~execution_role_arn
+    ~notification_type ~action_threshold ~definition ~subscriber __id
+    =
   let __type = "aws_budgets_budget_action" in
   let __attrs =
     ({
@@ -527,6 +568,8 @@ let make ?account_id ?id ?timeouts ~action_type ~approval_model
        notification_type =
          Prop.computed __type __id "notification_type";
        status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
@@ -535,21 +578,22 @@ let make ?account_id ?id ?timeouts ~action_type ~approval_model
     type_ = __type;
     json =
       yojson_of_aws_budgets_budget_action
-        (aws_budgets_budget_action ?account_id ?id ?timeouts
-           ~action_type ~approval_model ~budget_name
+        (aws_budgets_budget_action ?account_id ?id ?tags ?tags_all
+           ?timeouts ~action_type ~approval_model ~budget_name
            ~execution_role_arn ~notification_type ~action_threshold
            ~definition ~subscriber ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?timeouts ~action_type
-    ~approval_model ~budget_name ~execution_role_arn
+let register ?tf_module ?account_id ?id ?tags ?tags_all ?timeouts
+    ~action_type ~approval_model ~budget_name ~execution_role_arn
     ~notification_type ~action_threshold ~definition ~subscriber __id
     =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?timeouts ~action_type ~approval_model
-      ~budget_name ~execution_role_arn ~notification_type
-      ~action_threshold ~definition ~subscriber __id
+    make ?account_id ?id ?tags ?tags_all ?timeouts ~action_type
+      ~approval_model ~budget_name ~execution_role_arn
+      ~notification_type ~action_threshold ~definition ~subscriber
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -45,8 +45,10 @@ val google_compute_firewall_policy_rule :
   ?disabled:bool prop ->
   ?enable_logging:bool prop ->
   ?id:string prop ->
+  ?security_profile_group:string prop ->
   ?target_resources:string prop list ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
@@ -73,8 +75,10 @@ type t = private {
   kind : string prop;
   priority : float prop;
   rule_tuple_count : float prop;
+  security_profile_group : string prop;
   target_resources : string list prop;
   target_service_accounts : string list prop;
+  tls_inspect : bool prop;
 }
 
 val register :
@@ -83,8 +87,10 @@ val register :
   ?disabled:bool prop ->
   ?enable_logging:bool prop ->
   ?id:string prop ->
+  ?security_profile_group:string prop ->
   ?target_resources:string prop list ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
@@ -99,8 +105,10 @@ val make :
   ?disabled:bool prop ->
   ?enable_logging:bool prop ->
   ?id:string prop ->
+  ?security_profile_group:string prop ->
   ?target_resources:string prop list ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->

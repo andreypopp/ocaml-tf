@@ -60,6 +60,14 @@ val default_encryption_configuration :
   unit ->
   default_encryption_configuration
 
+type external_dataset_reference
+
+val external_dataset_reference :
+  connection:string prop ->
+  external_source:string prop ->
+  unit ->
+  external_dataset_reference
+
 type timeouts
 
 val timeouts :
@@ -87,6 +95,7 @@ val google_bigquery_dataset :
   ?storage_billing_model:string prop ->
   ?default_encryption_configuration:
     default_encryption_configuration list ->
+  ?external_dataset_reference:external_dataset_reference list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->
@@ -139,6 +148,7 @@ val register :
   ?storage_billing_model:string prop ->
   ?default_encryption_configuration:
     default_encryption_configuration list ->
+  ?external_dataset_reference:external_dataset_reference list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->
@@ -161,6 +171,7 @@ val make :
   ?storage_billing_model:string prop ->
   ?default_encryption_configuration:
     default_encryption_configuration list ->
+  ?external_dataset_reference:external_dataset_reference list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->

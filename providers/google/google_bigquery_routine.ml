@@ -313,6 +313,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type google_bigquery_routine = {
+  data_governance_type : string prop option; [@option]
   dataset_id : string prop;
   definition_body : string prop;
   description : string prop option; [@option]
@@ -340,6 +341,7 @@ let _ = fun (_ : google_bigquery_routine) -> ()
 let yojson_of_google_bigquery_routine =
   (function
    | {
+       data_governance_type = v_data_governance_type;
        dataset_id = v_dataset_id;
        definition_body = v_definition_body;
        description = v_description;
@@ -476,6 +478,14 @@ let yojson_of_google_bigquery_routine =
          let arg = yojson_of_prop yojson_of_string v_dataset_id in
          ("dataset_id", arg) :: bnds
        in
+       let bnds =
+         match v_data_governance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_governance_type", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_bigquery_routine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -509,12 +519,14 @@ let spark_options ?archive_uris ?connection ?container_image
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_bigquery_routine ?description ?determinism_level ?id
-    ?imported_libraries ?language ?project ?return_table_type
-    ?return_type ?(arguments = []) ?(remote_function_options = [])
-    ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
-    ~routine_id ~routine_type () : google_bigquery_routine =
+let google_bigquery_routine ?data_governance_type ?description
+    ?determinism_level ?id ?imported_libraries ?language ?project
+    ?return_table_type ?return_type ?(arguments = [])
+    ?(remote_function_options = []) ?(spark_options = []) ?timeouts
+    ~dataset_id ~definition_body ~routine_id ~routine_type () :
+    google_bigquery_routine =
   {
+    data_governance_type;
     dataset_id;
     definition_body;
     description;
@@ -536,6 +548,7 @@ let google_bigquery_routine ?description ?determinism_level ?id
 type t = {
   tf_name : string;
   creation_time : float prop;
+  data_governance_type : string prop;
   dataset_id : string prop;
   definition_body : string prop;
   description : string prop;
@@ -551,9 +564,9 @@ type t = {
   routine_type : string prop;
 }
 
-let make ?description ?determinism_level ?id ?imported_libraries
-    ?language ?project ?return_table_type ?return_type
-    ?(arguments = []) ?(remote_function_options = [])
+let make ?data_governance_type ?description ?determinism_level ?id
+    ?imported_libraries ?language ?project ?return_table_type
+    ?return_type ?(arguments = []) ?(remote_function_options = [])
     ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
     ~routine_id ~routine_type __id =
   let __type = "google_bigquery_routine" in
@@ -561,6 +574,8 @@ let make ?description ?determinism_level ?id ?imported_libraries
     ({
        tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
+       data_governance_type =
+         Prop.computed __type __id "data_governance_type";
        dataset_id = Prop.computed __type __id "dataset_id";
        definition_body = Prop.computed __type __id "definition_body";
        description = Prop.computed __type __id "description";
@@ -586,24 +601,25 @@ let make ?description ?determinism_level ?id ?imported_libraries
     type_ = __type;
     json =
       yojson_of_google_bigquery_routine
-        (google_bigquery_routine ?description ?determinism_level ?id
-           ?imported_libraries ?language ?project ?return_table_type
-           ?return_type ~arguments ~remote_function_options
-           ~spark_options ?timeouts ~dataset_id ~definition_body
-           ~routine_id ~routine_type ());
+        (google_bigquery_routine ?data_governance_type ?description
+           ?determinism_level ?id ?imported_libraries ?language
+           ?project ?return_table_type ?return_type ~arguments
+           ~remote_function_options ~spark_options ?timeouts
+           ~dataset_id ~definition_body ~routine_id ~routine_type ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?determinism_level ?id
-    ?imported_libraries ?language ?project ?return_table_type
-    ?return_type ?(arguments = []) ?(remote_function_options = [])
-    ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
-    ~routine_id ~routine_type __id =
+let register ?tf_module ?data_governance_type ?description
+    ?determinism_level ?id ?imported_libraries ?language ?project
+    ?return_table_type ?return_type ?(arguments = [])
+    ?(remote_function_options = []) ?(spark_options = []) ?timeouts
+    ~dataset_id ~definition_body ~routine_id ~routine_type __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?determinism_level ?id ?imported_libraries
-      ?language ?project ?return_table_type ?return_type ~arguments
-      ~remote_function_options ~spark_options ?timeouts ~dataset_id
-      ~definition_body ~routine_id ~routine_type __id
+    make ?data_governance_type ?description ?determinism_level ?id
+      ?imported_libraries ?language ?project ?return_table_type
+      ?return_type ~arguments ~remote_function_options ~spark_options
+      ?timeouts ~dataset_id ~definition_body ~routine_id
+      ~routine_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

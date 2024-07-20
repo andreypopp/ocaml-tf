@@ -50,11 +50,12 @@ let _ = yojson_of_timeouts
 
 type azurerm_key_vault_managed_hardware_security_module_role_assignment = {
   id : string prop option; [@option]
+  managed_hsm_id : string prop option; [@option]
   name : string prop;
   principal_id : string prop;
   role_definition_id : string prop;
   scope : string prop;
-  vault_base_url : string prop;
+  vault_base_url : string prop option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -69,6 +70,7 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module_role_assignment
   (function
    | {
        id = v_id;
+       managed_hsm_id = v_managed_hsm_id;
        name = v_name;
        principal_id = v_principal_id;
        role_definition_id = v_role_definition_id;
@@ -84,10 +86,12 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module_role_assignment
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_vault_base_url
-         in
-         ("vault_base_url", arg) :: bnds
+         match v_vault_base_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vault_base_url", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_scope in
@@ -106,6 +110,14 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module_role_assignment
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_hsm_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_hsm_id", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -128,12 +140,13 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_key_vault_managed_hardware_security_module_role_assignment
-    ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
-    ~vault_base_url () :
+    ?id ?managed_hsm_id ?vault_base_url ?timeouts ~name ~principal_id
+    ~role_definition_id ~scope () :
     azurerm_key_vault_managed_hardware_security_module_role_assignment
     =
   {
     id;
+    managed_hsm_id;
     name;
     principal_id;
     role_definition_id;
@@ -145,6 +158,7 @@ let azurerm_key_vault_managed_hardware_security_module_role_assignment
 type t = {
   tf_name : string;
   id : string prop;
+  managed_hsm_id : string prop;
   name : string prop;
   principal_id : string prop;
   resource_id : string prop;
@@ -153,8 +167,8 @@ type t = {
   vault_base_url : string prop;
 }
 
-let make ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
-    ~vault_base_url __id =
+let make ?id ?managed_hsm_id ?vault_base_url ?timeouts ~name
+    ~principal_id ~role_definition_id ~scope __id =
   let __type =
     "azurerm_key_vault_managed_hardware_security_module_role_assignment"
   in
@@ -162,6 +176,7 @@ let make ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
     ({
        tf_name = __id;
        id = Prop.computed __type __id "id";
+       managed_hsm_id = Prop.computed __type __id "managed_hsm_id";
        name = Prop.computed __type __id "name";
        principal_id = Prop.computed __type __id "principal_id";
        resource_id = Prop.computed __type __id "resource_id";
@@ -178,16 +193,16 @@ let make ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
     json =
       yojson_of_azurerm_key_vault_managed_hardware_security_module_role_assignment
         (azurerm_key_vault_managed_hardware_security_module_role_assignment
-           ?id ?timeouts ~name ~principal_id ~role_definition_id
-           ~scope ~vault_base_url ());
+           ?id ?managed_hsm_id ?vault_base_url ?timeouts ~name
+           ~principal_id ~role_definition_id ~scope ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~principal_id
-    ~role_definition_id ~scope ~vault_base_url __id =
+let register ?tf_module ?id ?managed_hsm_id ?vault_base_url ?timeouts
+    ~name ~principal_id ~role_definition_id ~scope __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
-      ~vault_base_url __id
+    make ?id ?managed_hsm_id ?vault_base_url ?timeouts ~name
+      ~principal_id ~role_definition_id ~scope __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

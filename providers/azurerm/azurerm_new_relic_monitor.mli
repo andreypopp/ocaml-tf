@@ -4,6 +4,10 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
 type plan
 
 val plan :
@@ -43,6 +47,7 @@ val azurerm_new_relic_monitor :
   ?org_creation_source:string prop ->
   ?organization_id:string prop ->
   ?user_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -80,6 +85,7 @@ val register :
   ?org_creation_source:string prop ->
   ?organization_id:string prop ->
   ?user_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -97,6 +103,7 @@ val make :
   ?org_creation_source:string prop ->
   ?organization_id:string prop ->
   ?user_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

@@ -10,6 +10,7 @@ val aws_vpc_dhcp_options :
   ?domain_name:string prop ->
   ?domain_name_servers:string prop list ->
   ?id:string prop ->
+  ?ipv6_address_preferred_lease_time:string prop ->
   ?netbios_name_servers:string prop list ->
   ?netbios_node_type:string prop ->
   ?ntp_servers:string prop list ->
@@ -28,6 +29,7 @@ type t = private {
   domain_name : string prop;
   domain_name_servers : string list prop;
   id : string prop;
+  ipv6_address_preferred_lease_time : string prop;
   netbios_name_servers : string list prop;
   netbios_node_type : string prop;
   ntp_servers : string list prop;
@@ -41,6 +43,7 @@ val register :
   ?domain_name:string prop ->
   ?domain_name_servers:string prop list ->
   ?id:string prop ->
+  ?ipv6_address_preferred_lease_time:string prop ->
   ?netbios_name_servers:string prop list ->
   ?netbios_node_type:string prop ->
   ?ntp_servers:string prop list ->
@@ -53,6 +56,7 @@ val make :
   ?domain_name:string prop ->
   ?domain_name_servers:string prop list ->
   ?id:string prop ->
+  ?ipv6_address_preferred_lease_time:string prop ->
   ?netbios_name_servers:string prop list ->
   ?netbios_node_type:string prop ->
   ?ntp_servers:string prop list ->

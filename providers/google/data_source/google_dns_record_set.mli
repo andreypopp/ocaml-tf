@@ -1,5 +1,3 @@
-(** A DNS record set within Google Cloud DNS *)
-
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core
@@ -9,6 +7,7 @@ open! Tf_core
 type google_dns_record_set
 
 val google_dns_record_set :
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   name:string prop ->
@@ -33,6 +32,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   name:string prop ->
@@ -41,6 +41,7 @@ val register :
   t
 
 val make :
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   name:string prop ->

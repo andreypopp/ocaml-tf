@@ -51,6 +51,242 @@ let _ = yojson_of_external_data_configuration__avro_options
 
 [@@@deriving.end]
 
+type external_data_configuration__bigtable_options__column_family__column = {
+  encoding : string prop option; [@option]
+  field_name : string prop option; [@option]
+  only_read_latest : bool prop option; [@option]
+  qualifier_encoded : string prop option; [@option]
+  qualifier_string : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       external_data_configuration__bigtable_options__column_family__column) ->
+  ()
+
+let yojson_of_external_data_configuration__bigtable_options__column_family__column
+    =
+  (function
+   | {
+       encoding = v_encoding;
+       field_name = v_field_name;
+       only_read_latest = v_only_read_latest;
+       qualifier_encoded = v_qualifier_encoded;
+       qualifier_string = v_qualifier_string;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_qualifier_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "qualifier_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_qualifier_encoded with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "qualifier_encoded", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_only_read_latest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "only_read_latest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__bigtable_options__column_family__column ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_external_data_configuration__bigtable_options__column_family__column
+
+[@@@deriving.end]
+
+type external_data_configuration__bigtable_options__column_family = {
+  encoding : string prop option; [@option]
+  family_id : string prop option; [@option]
+  only_read_latest : bool prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
+  column :
+    external_data_configuration__bigtable_options__column_family__column
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       external_data_configuration__bigtable_options__column_family) ->
+  ()
+
+let yojson_of_external_data_configuration__bigtable_options__column_family
+    =
+  (function
+   | {
+       encoding = v_encoding;
+       family_id = v_family_id;
+       only_read_latest = v_only_read_latest;
+       type_ = v_type_;
+       column = v_column;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_column then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__bigtable_options__column_family__column)
+               v_column
+           in
+           let bnd = "column", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_only_read_latest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "only_read_latest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_family_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "family_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__bigtable_options__column_family ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_external_data_configuration__bigtable_options__column_family
+
+[@@@deriving.end]
+
+type external_data_configuration__bigtable_options = {
+  ignore_unspecified_column_families : bool prop option; [@option]
+  output_column_families_as_json : bool prop option; [@option]
+  read_rowkey_as_string : bool prop option; [@option]
+  column_family :
+    external_data_configuration__bigtable_options__column_family list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration__bigtable_options) -> ()
+
+let yojson_of_external_data_configuration__bigtable_options =
+  (function
+   | {
+       ignore_unspecified_column_families =
+         v_ignore_unspecified_column_families;
+       output_column_families_as_json =
+         v_output_column_families_as_json;
+       read_rowkey_as_string = v_read_rowkey_as_string;
+       column_family = v_column_family;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_column_family then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__bigtable_options__column_family)
+               v_column_family
+           in
+           let bnd = "column_family", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_read_rowkey_as_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_rowkey_as_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_column_families_as_json with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "output_column_families_as_json", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_unspecified_column_families with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_unspecified_column_families", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__bigtable_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__bigtable_options
+
+[@@@deriving.end]
+
 type external_data_configuration__csv_options = {
   allow_jagged_rows : bool prop option; [@option]
   allow_quoted_newlines : bool prop option; [@option]
@@ -298,6 +534,7 @@ type external_data_configuration = {
   connection_id : string prop option; [@option]
   file_set_spec_type : string prop option; [@option]
   ignore_unknown_values : bool prop option; [@option]
+  json_extension : string prop option; [@option]
   max_bad_records : float prop option; [@option]
   metadata_cache_mode : string prop option; [@option]
   object_metadata : string prop option; [@option]
@@ -307,6 +544,9 @@ type external_data_configuration = {
   source_uris : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   avro_options : external_data_configuration__avro_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  bigtable_options :
+    external_data_configuration__bigtable_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   csv_options : external_data_configuration__csv_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -333,6 +573,7 @@ let yojson_of_external_data_configuration =
        connection_id = v_connection_id;
        file_set_spec_type = v_file_set_spec_type;
        ignore_unknown_values = v_ignore_unknown_values;
+       json_extension = v_json_extension;
        max_bad_records = v_max_bad_records;
        metadata_cache_mode = v_metadata_cache_mode;
        object_metadata = v_object_metadata;
@@ -341,6 +582,7 @@ let yojson_of_external_data_configuration =
        source_format = v_source_format;
        source_uris = v_source_uris;
        avro_options = v_avro_options;
+       bigtable_options = v_bigtable_options;
        csv_options = v_csv_options;
        google_sheets_options = v_google_sheets_options;
        hive_partitioning_options = v_hive_partitioning_options;
@@ -403,6 +645,17 @@ let yojson_of_external_data_configuration =
                v_csv_options
            in
            let bnd = "csv_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_bigtable_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__bigtable_options)
+               v_bigtable_options
+           in
+           let bnd = "bigtable_options", arg in
            bnd :: bnds
        in
        let bnds =
@@ -472,6 +725,14 @@ let yojson_of_external_data_configuration =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "max_bad_records", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_json_extension with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "json_extension", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1264,6 +1525,37 @@ let external_data_configuration__avro_options ~use_avro_logical_types
     () : external_data_configuration__avro_options =
   { use_avro_logical_types }
 
+let external_data_configuration__bigtable_options__column_family__column
+    ?encoding ?field_name ?only_read_latest ?qualifier_encoded
+    ?qualifier_string ?type_ () :
+    external_data_configuration__bigtable_options__column_family__column
+    =
+  {
+    encoding;
+    field_name;
+    only_read_latest;
+    qualifier_encoded;
+    qualifier_string;
+    type_;
+  }
+
+let external_data_configuration__bigtable_options__column_family
+    ?encoding ?family_id ?only_read_latest ?type_ ?(column = []) () :
+    external_data_configuration__bigtable_options__column_family =
+  { encoding; family_id; only_read_latest; type_; column }
+
+let external_data_configuration__bigtable_options
+    ?ignore_unspecified_column_families
+    ?output_column_families_as_json ?read_rowkey_as_string
+    ?(column_family = []) () :
+    external_data_configuration__bigtable_options =
+  {
+    ignore_unspecified_column_families;
+    output_column_families_as_json;
+    read_rowkey_as_string;
+    column_family;
+  }
+
 let external_data_configuration__csv_options ?allow_jagged_rows
     ?allow_quoted_newlines ?encoding ?field_delimiter
     ?skip_leading_rows ~quote () :
@@ -1297,9 +1589,10 @@ let external_data_configuration__parquet_options
   { enable_list_inference; enum_as_string }
 
 let external_data_configuration ?compression ?connection_id
-    ?file_set_spec_type ?ignore_unknown_values ?max_bad_records
-    ?metadata_cache_mode ?object_metadata ?reference_file_schema_uri
-    ?schema ?source_format ?(avro_options = []) ?(csv_options = [])
+    ?file_set_spec_type ?ignore_unknown_values ?json_extension
+    ?max_bad_records ?metadata_cache_mode ?object_metadata
+    ?reference_file_schema_uri ?schema ?source_format
+    ?(avro_options = []) ?(bigtable_options = []) ?(csv_options = [])
     ?(google_sheets_options = []) ?(hive_partitioning_options = [])
     ?(json_options = []) ?(parquet_options = []) ~autodetect
     ~source_uris () : external_data_configuration =
@@ -1309,6 +1602,7 @@ let external_data_configuration ?compression ?connection_id
     connection_id;
     file_set_spec_type;
     ignore_unknown_values;
+    json_extension;
     max_bad_records;
     metadata_cache_mode;
     object_metadata;
@@ -1317,6 +1611,7 @@ let external_data_configuration ?compression ?connection_id
     source_format;
     source_uris;
     avro_options;
+    bigtable_options;
     csv_options;
     google_sheets_options;
     hive_partitioning_options;

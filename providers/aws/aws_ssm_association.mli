@@ -33,6 +33,8 @@ val aws_ssm_association :
   ?parameters:(string * string prop) list ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->
@@ -61,6 +63,8 @@ type t = private {
   parameters : (string * string) list prop;
   schedule_expression : string prop;
   sync_compliance : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   wait_for_success_timeout_seconds : float prop;
 }
 
@@ -78,6 +82,8 @@ val register :
   ?parameters:(string * string prop) list ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->
@@ -98,6 +104,8 @@ val make :
   ?parameters:(string * string prop) list ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->

@@ -89,6 +89,8 @@ type azurerm_data_factory_integration_runtime_self_hosted = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
+  self_contained_interactive_authoring_enabled : bool prop option;
+      [@option]
   rbac_authorization : rbac_authorization list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -105,6 +107,8 @@ let yojson_of_azurerm_data_factory_integration_runtime_self_hosted =
        description = v_description;
        id = v_id;
        name = v_name;
+       self_contained_interactive_authoring_enabled =
+         v_self_contained_interactive_authoring_enabled;
        rbac_authorization = v_rbac_authorization;
        timeouts = v_timeouts;
      } ->
@@ -124,6 +128,16 @@ let yojson_of_azurerm_data_factory_integration_runtime_self_hosted =
            in
            let bnd = "rbac_authorization", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_self_contained_interactive_authoring_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "self_contained_interactive_authoring_enabled", arg
+             in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -167,13 +181,15 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_data_factory_integration_runtime_self_hosted ?description
-    ?id ?timeouts ~data_factory_id ~name ~rbac_authorization () :
+    ?id ?self_contained_interactive_authoring_enabled ?timeouts
+    ~data_factory_id ~name ~rbac_authorization () :
     azurerm_data_factory_integration_runtime_self_hosted =
   {
     data_factory_id;
     description;
     id;
     name;
+    self_contained_interactive_authoring_enabled;
     rbac_authorization;
     timeouts;
   }
@@ -186,10 +202,12 @@ type t = {
   name : string prop;
   primary_authorization_key : string prop;
   secondary_authorization_key : string prop;
+  self_contained_interactive_authoring_enabled : bool prop;
 }
 
-let make ?description ?id ?timeouts ~data_factory_id ~name
-    ~rbac_authorization __id =
+let make ?description ?id
+    ?self_contained_interactive_authoring_enabled ?timeouts
+    ~data_factory_id ~name ~rbac_authorization __id =
   let __type =
     "azurerm_data_factory_integration_runtime_self_hosted"
   in
@@ -204,6 +222,9 @@ let make ?description ?id ?timeouts ~data_factory_id ~name
          Prop.computed __type __id "primary_authorization_key";
        secondary_authorization_key =
          Prop.computed __type __id "secondary_authorization_key";
+       self_contained_interactive_authoring_enabled =
+         Prop.computed __type __id
+           "self_contained_interactive_authoring_enabled";
      }
       : t)
   in
@@ -213,16 +234,19 @@ let make ?description ?id ?timeouts ~data_factory_id ~name
     json =
       yojson_of_azurerm_data_factory_integration_runtime_self_hosted
         (azurerm_data_factory_integration_runtime_self_hosted
-           ?description ?id ?timeouts ~data_factory_id ~name
-           ~rbac_authorization ());
+           ?description ?id
+           ?self_contained_interactive_authoring_enabled ?timeouts
+           ~data_factory_id ~name ~rbac_authorization ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts ~data_factory_id
-    ~name ~rbac_authorization __id =
+let register ?tf_module ?description ?id
+    ?self_contained_interactive_authoring_enabled ?timeouts
+    ~data_factory_id ~name ~rbac_authorization __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~data_factory_id ~name
-      ~rbac_authorization __id
+    make ?description ?id
+      ?self_contained_interactive_authoring_enabled ?timeouts
+      ~data_factory_id ~name ~rbac_authorization __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -4,6 +4,15 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type dedicated_ips
+
+val dedicated_ips :
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?status:string prop ->
+  unit ->
+  dedicated_ips
+
 type spec__alert
 
 val spec__alert :
@@ -31,6 +40,10 @@ val spec__domain :
   name:string prop ->
   unit ->
   spec__domain
+
+type spec__egress
+
+val spec__egress : ?type_:string prop -> unit -> spec__egress
 
 type spec__env
 
@@ -290,6 +303,7 @@ type spec__job__image
 
 val spec__job__image :
   ?registry:string prop ->
+  ?registry_credentials:string prop ->
   ?tag:string prop ->
   ?deploy_on_push:spec__job__image__deploy_on_push list ->
   registry_type:string prop ->
@@ -439,6 +453,7 @@ type spec__service__image
 
 val spec__service__image :
   ?registry:string prop ->
+  ?registry_credentials:string prop ->
   ?tag:string prop ->
   ?deploy_on_push:spec__service__image__deploy_on_push list ->
   registry_type:string prop ->
@@ -654,6 +669,7 @@ type spec__worker__image
 
 val spec__worker__image :
   ?registry:string prop ->
+  ?registry_credentials:string prop ->
   ?tag:string prop ->
   ?deploy_on_push:spec__worker__image__deploy_on_push list ->
   registry_type:string prop ->
@@ -720,6 +736,7 @@ val spec :
   ?region:string prop ->
   ?database:spec__database list ->
   ?domain:spec__domain list ->
+  ?egress:spec__egress list ->
   ?function_:spec__function list ->
   ?ingress:spec__ingress list ->
   ?job:spec__job list ->
@@ -741,6 +758,7 @@ type digitalocean_app
 val digitalocean_app :
   ?id:string prop ->
   ?project_id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
   ?spec:spec list ->
   ?timeouts:timeouts ->
   unit ->
@@ -766,6 +784,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project_id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
   ?spec:spec list ->
   ?timeouts:timeouts ->
   string ->
@@ -774,6 +793,7 @@ val register :
 val make :
   ?id:string prop ->
   ?project_id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
   ?spec:spec list ->
   ?timeouts:timeouts ->
   string ->

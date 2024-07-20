@@ -109,6 +109,9 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   local_storage_types : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_storage_types *)
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop;
+      (** max_spot_price_as_percentage_of_optimal_on_demand_price *)
   memory_gib_per_vcpu :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list;

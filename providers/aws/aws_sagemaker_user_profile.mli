@@ -11,6 +11,13 @@ val user_settings__canvas_app_settings__direct_deploy_settings :
   unit ->
   user_settings__canvas_app_settings__direct_deploy_settings
 
+type user_settings__canvas_app_settings__generative_ai_settings
+
+val user_settings__canvas_app_settings__generative_ai_settings :
+  ?amazon_bedrock_role_arn:string prop ->
+  unit ->
+  user_settings__canvas_app_settings__generative_ai_settings
+
 type user_settings__canvas_app_settings__identity_provider_oauth_settings
 
 val user_settings__canvas_app_settings__identity_provider_oauth_settings :
@@ -56,6 +63,8 @@ type user_settings__canvas_app_settings
 val user_settings__canvas_app_settings :
   ?direct_deploy_settings:
     user_settings__canvas_app_settings__direct_deploy_settings list ->
+  ?generative_ai_settings:
+    user_settings__canvas_app_settings__generative_ai_settings list ->
   ?identity_provider_oauth_settings:
     user_settings__canvas_app_settings__identity_provider_oauth_settings
     list ->
@@ -70,6 +79,15 @@ val user_settings__canvas_app_settings :
     user_settings__canvas_app_settings__workspace_settings list ->
   unit ->
   user_settings__canvas_app_settings
+
+type user_settings__code_editor_app_settings__custom_image
+
+val user_settings__code_editor_app_settings__custom_image :
+  ?image_version_number:float prop ->
+  app_image_config_name:string prop ->
+  image_name:string prop ->
+  unit ->
+  user_settings__code_editor_app_settings__custom_image
 
 type user_settings__code_editor_app_settings__default_resource_spec
 
@@ -86,6 +104,8 @@ type user_settings__code_editor_app_settings
 
 val user_settings__code_editor_app_settings :
   ?lifecycle_config_arns:string prop list ->
+  ?custom_image:
+    user_settings__code_editor_app_settings__custom_image list ->
   ?default_resource_spec:
     user_settings__code_editor_app_settings__default_resource_spec
     list ->

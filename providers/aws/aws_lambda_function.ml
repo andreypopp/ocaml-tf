@@ -873,6 +873,7 @@ type t = {
   tf_name : string;
   architectures : string list prop;
   arn : string prop;
+  code_sha256 : string prop;
   code_signing_config_arn : string prop;
   description : string prop;
   filename : string prop;
@@ -926,6 +927,7 @@ let make ?architectures ?code_signing_config_arn ?description
        tf_name = __id;
        architectures = Prop.computed __type __id "architectures";
        arn = Prop.computed __type __id "arn";
+       code_sha256 = Prop.computed __type __id "code_sha256";
        code_signing_config_arn =
          Prop.computed __type __id "code_signing_config_arn";
        description = Prop.computed __type __id "description";

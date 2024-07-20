@@ -167,6 +167,7 @@ type t = {
   incoming_traffic_policy : string prop;
   location : string prop;
   name : string prop;
+  registered_servers : string list prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }
@@ -182,6 +183,8 @@ let make ?id ?incoming_traffic_policy ?tags ?timeouts ~location ~name
          Prop.computed __type __id "incoming_traffic_policy";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
+       registered_servers =
+         Prop.computed __type __id "registered_servers";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        tags = Prop.computed __type __id "tags";

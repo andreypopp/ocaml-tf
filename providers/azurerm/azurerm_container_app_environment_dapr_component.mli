@@ -15,7 +15,13 @@ val metadata :
 
 type secret
 
-val secret : name:string prop -> value:string prop -> unit -> secret
+val secret :
+  ?identity:string prop ->
+  ?key_vault_secret_id:string prop ->
+  ?value:string prop ->
+  name:string prop ->
+  unit ->
+  secret
 
 type timeouts
 

@@ -30,6 +30,34 @@ val rule_settings__check_session :
   unit ->
   rule_settings__check_session
 
+type rule_settings__dns_resolvers__ipv4
+
+val rule_settings__dns_resolvers__ipv4 :
+  ?port:float prop ->
+  ?route_through_private_network:bool prop ->
+  ?vnet_id:string prop ->
+  ip:string prop ->
+  unit ->
+  rule_settings__dns_resolvers__ipv4
+
+type rule_settings__dns_resolvers__ipv6
+
+val rule_settings__dns_resolvers__ipv6 :
+  ?port:float prop ->
+  ?route_through_private_network:bool prop ->
+  ?vnet_id:string prop ->
+  ip:string prop ->
+  unit ->
+  rule_settings__dns_resolvers__ipv6
+
+type rule_settings__dns_resolvers
+
+val rule_settings__dns_resolvers :
+  ?ipv4:rule_settings__dns_resolvers__ipv4 list ->
+  ?ipv6:rule_settings__dns_resolvers__ipv6 list ->
+  unit ->
+  rule_settings__dns_resolvers
+
 type rule_settings__egress
 
 val rule_settings__egress :
@@ -78,9 +106,11 @@ val rule_settings :
   ?ip_categories:bool prop ->
   ?override_host:string prop ->
   ?override_ips:string prop list ->
+  ?resolve_dns_through_cloudflare:bool prop ->
   ?audit_ssh:rule_settings__audit_ssh list ->
   ?biso_admin_controls:rule_settings__biso_admin_controls list ->
   ?check_session:rule_settings__check_session list ->
+  ?dns_resolvers:rule_settings__dns_resolvers list ->
   ?egress:rule_settings__egress list ->
   ?l4override:rule_settings__l4override list ->
   ?notification_settings:rule_settings__notification_settings list ->

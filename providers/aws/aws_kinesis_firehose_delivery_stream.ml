@@ -2292,6 +2292,61 @@ let _ = yojson_of_http_endpoint_configuration__s3_configuration
 
 [@@@deriving.end]
 
+type http_endpoint_configuration__secrets_manager_configuration = {
+  enabled : bool prop option; [@option]
+  role_arn : string prop option; [@option]
+  secret_arn : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : http_endpoint_configuration__secrets_manager_configuration) ->
+  ()
+
+let yojson_of_http_endpoint_configuration__secrets_manager_configuration
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       role_arn = v_role_arn;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_endpoint_configuration__secrets_manager_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_http_endpoint_configuration__secrets_manager_configuration
+
+[@@@deriving.end]
+
 type http_endpoint_configuration = {
   access_key : string prop option; [@option]
   buffering_interval : float prop option; [@option]
@@ -2313,6 +2368,9 @@ type http_endpoint_configuration = {
   s3_configuration :
     http_endpoint_configuration__s3_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  secrets_manager_configuration :
+    http_endpoint_configuration__secrets_manager_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2333,9 +2391,22 @@ let yojson_of_http_endpoint_configuration =
        processing_configuration = v_processing_configuration;
        request_configuration = v_request_configuration;
        s3_configuration = v_s3_configuration;
+       secrets_manager_configuration =
+         v_secrets_manager_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secrets_manager_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_endpoint_configuration__secrets_manager_configuration)
+               v_secrets_manager_configuration
+           in
+           let bnd = "secrets_manager_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_s3_configuration then bnds
@@ -4251,16 +4322,70 @@ let _ = yojson_of_redshift_configuration__s3_configuration
 
 [@@@deriving.end]
 
+type redshift_configuration__secrets_manager_configuration = {
+  enabled : bool prop option; [@option]
+  role_arn : string prop option; [@option]
+  secret_arn : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : redshift_configuration__secrets_manager_configuration) ->
+  ()
+
+let yojson_of_redshift_configuration__secrets_manager_configuration =
+  (function
+   | {
+       enabled = v_enabled;
+       role_arn = v_role_arn;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : redshift_configuration__secrets_manager_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_redshift_configuration__secrets_manager_configuration
+
+[@@@deriving.end]
+
 type redshift_configuration = {
   cluster_jdbcurl : string prop;
   copy_options : string prop option; [@option]
   data_table_columns : string prop option; [@option]
   data_table_name : string prop;
-  password : string prop;
+  password : string prop option; [@option]
   retry_duration : float prop option; [@option]
   role_arn : string prop;
   s3_backup_mode : string prop option; [@option]
-  username : string prop;
+  username : string prop option; [@option]
   cloudwatch_logging_options :
     redshift_configuration__cloudwatch_logging_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -4271,6 +4396,9 @@ type redshift_configuration = {
     redshift_configuration__s3_backup_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : redshift_configuration__s3_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secrets_manager_configuration :
+    redshift_configuration__secrets_manager_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -4293,9 +4421,22 @@ let yojson_of_redshift_configuration =
        processing_configuration = v_processing_configuration;
        s3_backup_configuration = v_s3_backup_configuration;
        s3_configuration = v_s3_configuration;
+       secrets_manager_configuration =
+         v_secrets_manager_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secrets_manager_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_redshift_configuration__secrets_manager_configuration)
+               v_secrets_manager_configuration
+           in
+           let bnd = "secrets_manager_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_s3_configuration then bnds
@@ -4342,8 +4483,12 @@ let yojson_of_redshift_configuration =
            bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_username in
-         ("username", arg) :: bnds
+         match v_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "username", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_s3_backup_mode with
@@ -4366,8 +4511,12 @@ let yojson_of_redshift_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_password in
-         ("password", arg) :: bnds
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -4451,6 +4600,700 @@ let yojson_of_server_side_encryption =
     : server_side_encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_server_side_encryption
+
+[@@@deriving.end]
+
+type snowflake_configuration__cloudwatch_logging_options = {
+  enabled : bool prop option; [@option]
+  log_group_name : string prop option; [@option]
+  log_stream_name : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snowflake_configuration__cloudwatch_logging_options) -> ()
+
+let yojson_of_snowflake_configuration__cloudwatch_logging_options =
+  (function
+   | {
+       enabled = v_enabled;
+       log_group_name = v_log_group_name;
+       log_stream_name = v_log_stream_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_stream_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_stream_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__cloudwatch_logging_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snowflake_configuration__cloudwatch_logging_options
+
+[@@@deriving.end]
+
+type snowflake_configuration__processing_configuration__processors__parameters = {
+  parameter_name : string prop;
+  parameter_value : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snowflake_configuration__processing_configuration__processors__parameters) ->
+  ()
+
+let yojson_of_snowflake_configuration__processing_configuration__processors__parameters
+    =
+  (function
+   | {
+       parameter_name = v_parameter_name;
+       parameter_value = v_parameter_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_parameter_value
+         in
+         ("parameter_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_parameter_name
+         in
+         ("parameter_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__processing_configuration__processors__parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__processing_configuration__processors__parameters
+
+[@@@deriving.end]
+
+type snowflake_configuration__processing_configuration__processors = {
+  type_ : string prop; [@key "type"]
+  parameters :
+    snowflake_configuration__processing_configuration__processors__parameters
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snowflake_configuration__processing_configuration__processors) ->
+  ()
+
+let yojson_of_snowflake_configuration__processing_configuration__processors
+    =
+  (function
+   | { type_ = v_type_; parameters = v_parameters } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__processing_configuration__processors__parameters)
+               v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__processing_configuration__processors ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__processing_configuration__processors
+
+[@@@deriving.end]
+
+type snowflake_configuration__processing_configuration = {
+  enabled : bool prop option; [@option]
+  processors :
+    snowflake_configuration__processing_configuration__processors
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snowflake_configuration__processing_configuration) -> ()
+
+let yojson_of_snowflake_configuration__processing_configuration =
+  (function
+   | { enabled = v_enabled; processors = v_processors } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_processors then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__processing_configuration__processors)
+               v_processors
+           in
+           let bnd = "processors", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__processing_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snowflake_configuration__processing_configuration
+
+[@@@deriving.end]
+
+type snowflake_configuration__s3_configuration__cloudwatch_logging_options = {
+  enabled : bool prop option; [@option]
+  log_group_name : string prop option; [@option]
+  log_stream_name : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snowflake_configuration__s3_configuration__cloudwatch_logging_options) ->
+  ()
+
+let yojson_of_snowflake_configuration__s3_configuration__cloudwatch_logging_options
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       log_group_name = v_log_group_name;
+       log_stream_name = v_log_stream_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_stream_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_stream_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__s3_configuration__cloudwatch_logging_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__s3_configuration__cloudwatch_logging_options
+
+[@@@deriving.end]
+
+type snowflake_configuration__s3_configuration = {
+  bucket_arn : string prop;
+  buffering_interval : float prop option; [@option]
+  buffering_size : float prop option; [@option]
+  compression_format : string prop option; [@option]
+  error_output_prefix : string prop option; [@option]
+  kms_key_arn : string prop option; [@option]
+  prefix : string prop option; [@option]
+  role_arn : string prop;
+  cloudwatch_logging_options :
+    snowflake_configuration__s3_configuration__cloudwatch_logging_options
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snowflake_configuration__s3_configuration) -> ()
+
+let yojson_of_snowflake_configuration__s3_configuration =
+  (function
+   | {
+       bucket_arn = v_bucket_arn;
+       buffering_interval = v_buffering_interval;
+       buffering_size = v_buffering_size;
+       compression_format = v_compression_format;
+       error_output_prefix = v_error_output_prefix;
+       kms_key_arn = v_kms_key_arn;
+       prefix = v_prefix;
+       role_arn = v_role_arn;
+       cloudwatch_logging_options = v_cloudwatch_logging_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__s3_configuration__cloudwatch_logging_options)
+               v_cloudwatch_logging_options
+           in
+           let bnd = "cloudwatch_logging_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_error_output_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "error_output_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compression_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compression_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_buffering_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "buffering_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_buffering_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "buffering_interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_arn in
+         ("bucket_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__s3_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snowflake_configuration__s3_configuration
+
+[@@@deriving.end]
+
+type snowflake_configuration__secrets_manager_configuration = {
+  enabled : bool prop option; [@option]
+  role_arn : string prop option; [@option]
+  secret_arn : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snowflake_configuration__secrets_manager_configuration) ->
+  ()
+
+let yojson_of_snowflake_configuration__secrets_manager_configuration
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       role_arn = v_role_arn;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__secrets_manager_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__secrets_manager_configuration
+
+[@@@deriving.end]
+
+type snowflake_configuration__snowflake_role_configuration = {
+  enabled : bool prop option; [@option]
+  snowflake_role : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snowflake_configuration__snowflake_role_configuration) ->
+  ()
+
+let yojson_of_snowflake_configuration__snowflake_role_configuration =
+  (function
+   | { enabled = v_enabled; snowflake_role = v_snowflake_role } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_snowflake_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snowflake_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__snowflake_role_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__snowflake_role_configuration
+
+[@@@deriving.end]
+
+type snowflake_configuration__snowflake_vpc_configuration = {
+  private_link_vpce_id : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snowflake_configuration__snowflake_vpc_configuration) -> ()
+
+let yojson_of_snowflake_configuration__snowflake_vpc_configuration =
+  (function
+   | { private_link_vpce_id = v_private_link_vpce_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_private_link_vpce_id
+         in
+         ("private_link_vpce_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration__snowflake_vpc_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snowflake_configuration__snowflake_vpc_configuration
+
+[@@@deriving.end]
+
+type snowflake_configuration = {
+  account_url : string prop;
+  content_column_name : string prop option; [@option]
+  data_loading_option : string prop option; [@option]
+  database : string prop;
+  key_passphrase : string prop option; [@option]
+  metadata_column_name : string prop option; [@option]
+  private_key : string prop option; [@option]
+  retry_duration : float prop option; [@option]
+  role_arn : string prop;
+  s3_backup_mode : string prop option; [@option]
+  schema : string prop;
+  table : string prop;
+  user : string prop option; [@option]
+  cloudwatch_logging_options :
+    snowflake_configuration__cloudwatch_logging_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  processing_configuration :
+    snowflake_configuration__processing_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  s3_configuration : snowflake_configuration__s3_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secrets_manager_configuration :
+    snowflake_configuration__secrets_manager_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  snowflake_role_configuration :
+    snowflake_configuration__snowflake_role_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  snowflake_vpc_configuration :
+    snowflake_configuration__snowflake_vpc_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snowflake_configuration) -> ()
+
+let yojson_of_snowflake_configuration =
+  (function
+   | {
+       account_url = v_account_url;
+       content_column_name = v_content_column_name;
+       data_loading_option = v_data_loading_option;
+       database = v_database;
+       key_passphrase = v_key_passphrase;
+       metadata_column_name = v_metadata_column_name;
+       private_key = v_private_key;
+       retry_duration = v_retry_duration;
+       role_arn = v_role_arn;
+       s3_backup_mode = v_s3_backup_mode;
+       schema = v_schema;
+       table = v_table;
+       user = v_user;
+       cloudwatch_logging_options = v_cloudwatch_logging_options;
+       processing_configuration = v_processing_configuration;
+       s3_configuration = v_s3_configuration;
+       secrets_manager_configuration =
+         v_secrets_manager_configuration;
+       snowflake_role_configuration = v_snowflake_role_configuration;
+       snowflake_vpc_configuration = v_snowflake_vpc_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_snowflake_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__snowflake_vpc_configuration)
+               v_snowflake_vpc_configuration
+           in
+           let bnd = "snowflake_vpc_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_snowflake_role_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__snowflake_role_configuration)
+               v_snowflake_role_configuration
+           in
+           let bnd = "snowflake_role_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secrets_manager_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__secrets_manager_configuration)
+               v_secrets_manager_configuration
+           in
+           let bnd = "secrets_manager_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_s3_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__s3_configuration)
+               v_s3_configuration
+           in
+           let bnd = "s3_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_processing_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__processing_configuration)
+               v_processing_configuration
+           in
+           let bnd = "processing_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cloudwatch_logging_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snowflake_configuration__cloudwatch_logging_options)
+               v_cloudwatch_logging_options
+           in
+           let bnd = "cloudwatch_logging_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table in
+         ("table", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schema in
+         ("schema", arg) :: bnds
+       in
+       let bnds =
+         match v_s3_backup_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_backup_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_retry_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retry_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata_column_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata_column_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_passphrase with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_passphrase", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database in
+         ("database", arg) :: bnds
+       in
+       let bnds =
+         match v_data_loading_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_loading_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_column_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_column_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_url in
+         ("account_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : snowflake_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snowflake_configuration
 
 [@@@deriving.end]
 
@@ -4801,13 +5644,65 @@ let _ = yojson_of_splunk_configuration__s3_configuration
 
 [@@@deriving.end]
 
+type splunk_configuration__secrets_manager_configuration = {
+  enabled : bool prop option; [@option]
+  role_arn : string prop option; [@option]
+  secret_arn : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : splunk_configuration__secrets_manager_configuration) -> ()
+
+let yojson_of_splunk_configuration__secrets_manager_configuration =
+  (function
+   | {
+       enabled = v_enabled;
+       role_arn = v_role_arn;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : splunk_configuration__secrets_manager_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_splunk_configuration__secrets_manager_configuration
+
+[@@@deriving.end]
+
 type splunk_configuration = {
   buffering_interval : float prop option; [@option]
   buffering_size : float prop option; [@option]
   hec_acknowledgment_timeout : float prop option; [@option]
   hec_endpoint : string prop;
   hec_endpoint_type : string prop option; [@option]
-  hec_token : string prop;
+  hec_token : string prop option; [@option]
   retry_duration : float prop option; [@option]
   s3_backup_mode : string prop option; [@option]
   cloudwatch_logging_options :
@@ -4817,6 +5712,9 @@ type splunk_configuration = {
     splunk_configuration__processing_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   s3_configuration : splunk_configuration__s3_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secrets_manager_configuration :
+    splunk_configuration__secrets_manager_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -4837,9 +5735,22 @@ let yojson_of_splunk_configuration =
        cloudwatch_logging_options = v_cloudwatch_logging_options;
        processing_configuration = v_processing_configuration;
        s3_configuration = v_s3_configuration;
+       secrets_manager_configuration =
+         v_secrets_manager_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secrets_manager_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_splunk_configuration__secrets_manager_configuration)
+               v_secrets_manager_configuration
+           in
+           let bnd = "secrets_manager_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_s3_configuration then bnds
@@ -4891,8 +5802,12 @@ let yojson_of_splunk_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_hec_token in
-         ("hec_token", arg) :: bnds
+         match v_hec_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "hec_token", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_hec_endpoint_type with
@@ -5011,6 +5926,8 @@ type aws_kinesis_firehose_delivery_stream = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   server_side_encryption : server_side_encryption list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  snowflake_configuration : snowflake_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   splunk_configuration : splunk_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -5040,6 +5957,7 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
          v_opensearchserverless_configuration;
        redshift_configuration = v_redshift_configuration;
        server_side_encryption = v_server_side_encryption;
+       snowflake_configuration = v_snowflake_configuration;
        splunk_configuration = v_splunk_configuration;
        timeouts = v_timeouts;
      } ->
@@ -5058,6 +5976,16 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
                v_splunk_configuration
            in
            let bnd = "splunk_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_snowflake_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snowflake_configuration)
+               v_snowflake_configuration
+           in
+           let bnd = "snowflake_configuration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -5537,11 +6465,17 @@ let http_endpoint_configuration__s3_configuration ?buffering_interval
     cloudwatch_logging_options;
   }
 
+let http_endpoint_configuration__secrets_manager_configuration
+    ?enabled ?role_arn ?secret_arn () :
+    http_endpoint_configuration__secrets_manager_configuration =
+  { enabled; role_arn; secret_arn }
+
 let http_endpoint_configuration ?access_key ?buffering_interval
     ?buffering_size ?name ?retry_duration ?role_arn ?s3_backup_mode
     ?(cloudwatch_logging_options = [])
     ?(processing_configuration = []) ?(request_configuration = [])
-    ~url ~s3_configuration () : http_endpoint_configuration =
+    ?(secrets_manager_configuration = []) ~url ~s3_configuration () :
+    http_endpoint_configuration =
   {
     access_key;
     buffering_interval;
@@ -5555,6 +6489,7 @@ let http_endpoint_configuration ?access_key ?buffering_interval
     processing_configuration;
     request_configuration;
     s3_configuration;
+    secrets_manager_configuration;
   }
 
 let kinesis_source_configuration ~kinesis_stream_arn ~role_arn () :
@@ -5785,12 +6720,18 @@ let redshift_configuration__s3_configuration ?buffering_interval
     cloudwatch_logging_options;
   }
 
+let redshift_configuration__secrets_manager_configuration ?enabled
+    ?role_arn ?secret_arn () :
+    redshift_configuration__secrets_manager_configuration =
+  { enabled; role_arn; secret_arn }
+
 let redshift_configuration ?copy_options ?data_table_columns
-    ?retry_duration ?s3_backup_mode
+    ?password ?retry_duration ?s3_backup_mode ?username
     ?(cloudwatch_logging_options = [])
     ?(processing_configuration = []) ?(s3_backup_configuration = [])
-    ~cluster_jdbcurl ~data_table_name ~password ~role_arn ~username
-    ~s3_configuration () : redshift_configuration =
+    ?(secrets_manager_configuration = []) ~cluster_jdbcurl
+    ~data_table_name ~role_arn ~s3_configuration () :
+    redshift_configuration =
   {
     cluster_jdbcurl;
     copy_options;
@@ -5805,11 +6746,103 @@ let redshift_configuration ?copy_options ?data_table_columns
     processing_configuration;
     s3_backup_configuration;
     s3_configuration;
+    secrets_manager_configuration;
   }
 
 let server_side_encryption ?enabled ?key_arn ?key_type () :
     server_side_encryption =
   { enabled; key_arn; key_type }
+
+let snowflake_configuration__cloudwatch_logging_options ?enabled
+    ?log_group_name ?log_stream_name () :
+    snowflake_configuration__cloudwatch_logging_options =
+  { enabled; log_group_name; log_stream_name }
+
+let snowflake_configuration__processing_configuration__processors__parameters
+    ~parameter_name ~parameter_value () :
+    snowflake_configuration__processing_configuration__processors__parameters
+    =
+  { parameter_name; parameter_value }
+
+let snowflake_configuration__processing_configuration__processors
+    ~type_ ~parameters () :
+    snowflake_configuration__processing_configuration__processors =
+  { type_; parameters }
+
+let snowflake_configuration__processing_configuration ?enabled
+    ?(processors = []) () :
+    snowflake_configuration__processing_configuration =
+  { enabled; processors }
+
+let snowflake_configuration__s3_configuration__cloudwatch_logging_options
+    ?enabled ?log_group_name ?log_stream_name () :
+    snowflake_configuration__s3_configuration__cloudwatch_logging_options
+    =
+  { enabled; log_group_name; log_stream_name }
+
+let snowflake_configuration__s3_configuration ?buffering_interval
+    ?buffering_size ?compression_format ?error_output_prefix
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () :
+    snowflake_configuration__s3_configuration =
+  {
+    bucket_arn;
+    buffering_interval;
+    buffering_size;
+    compression_format;
+    error_output_prefix;
+    kms_key_arn;
+    prefix;
+    role_arn;
+    cloudwatch_logging_options;
+  }
+
+let snowflake_configuration__secrets_manager_configuration ?enabled
+    ?role_arn ?secret_arn () :
+    snowflake_configuration__secrets_manager_configuration =
+  { enabled; role_arn; secret_arn }
+
+let snowflake_configuration__snowflake_role_configuration ?enabled
+    ?snowflake_role () :
+    snowflake_configuration__snowflake_role_configuration =
+  { enabled; snowflake_role }
+
+let snowflake_configuration__snowflake_vpc_configuration
+    ~private_link_vpce_id () :
+    snowflake_configuration__snowflake_vpc_configuration =
+  { private_link_vpce_id }
+
+let snowflake_configuration ?content_column_name ?data_loading_option
+    ?key_passphrase ?metadata_column_name ?private_key
+    ?retry_duration ?s3_backup_mode ?user
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = [])
+    ?(secrets_manager_configuration = [])
+    ?(snowflake_role_configuration = [])
+    ?(snowflake_vpc_configuration = []) ~account_url ~database
+    ~role_arn ~schema ~table ~s3_configuration () :
+    snowflake_configuration =
+  {
+    account_url;
+    content_column_name;
+    data_loading_option;
+    database;
+    key_passphrase;
+    metadata_column_name;
+    private_key;
+    retry_duration;
+    role_arn;
+    s3_backup_mode;
+    schema;
+    table;
+    user;
+    cloudwatch_logging_options;
+    processing_configuration;
+    s3_configuration;
+    secrets_manager_configuration;
+    snowflake_role_configuration;
+    snowflake_vpc_configuration;
+  }
 
 let splunk_configuration__cloudwatch_logging_options ?enabled
     ?log_group_name ?log_stream_name () :
@@ -5855,10 +6888,17 @@ let splunk_configuration__s3_configuration ?buffering_interval
     cloudwatch_logging_options;
   }
 
+let splunk_configuration__secrets_manager_configuration ?enabled
+    ?role_arn ?secret_arn () :
+    splunk_configuration__secrets_manager_configuration =
+  { enabled; role_arn; secret_arn }
+
 let splunk_configuration ?buffering_interval ?buffering_size
-    ?hec_acknowledgment_timeout ?hec_endpoint_type ?retry_duration
-    ?s3_backup_mode ?(cloudwatch_logging_options = [])
-    ?(processing_configuration = []) ~hec_endpoint ~hec_token
+    ?hec_acknowledgment_timeout ?hec_endpoint_type ?hec_token
+    ?retry_duration ?s3_backup_mode
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = [])
+    ?(secrets_manager_configuration = []) ~hec_endpoint
     ~s3_configuration () : splunk_configuration =
   {
     buffering_interval;
@@ -5872,6 +6912,7 @@ let splunk_configuration ?buffering_interval ?buffering_size
     cloudwatch_logging_options;
     processing_configuration;
     s3_configuration;
+    secrets_manager_configuration;
   }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -5885,7 +6926,8 @@ let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
     ?(msk_source_configuration = []) ?(opensearch_configuration = [])
     ?(opensearchserverless_configuration = [])
     ?(redshift_configuration = []) ?(server_side_encryption = [])
-    ?(splunk_configuration = []) ?timeouts ~destination ~name () :
+    ?(snowflake_configuration = []) ?(splunk_configuration = [])
+    ?timeouts ~destination ~name () :
     aws_kinesis_firehose_delivery_stream =
   {
     arn;
@@ -5905,6 +6947,7 @@ let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
     opensearchserverless_configuration;
     redshift_configuration;
     server_side_encryption;
+    snowflake_configuration;
     splunk_configuration;
     timeouts;
   }
@@ -5929,7 +6972,8 @@ let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
     ?(msk_source_configuration = []) ?(opensearch_configuration = [])
     ?(opensearchserverless_configuration = [])
     ?(redshift_configuration = []) ?(server_side_encryption = [])
-    ?(splunk_configuration = []) ?timeouts ~destination ~name __id =
+    ?(snowflake_configuration = []) ?(splunk_configuration = [])
+    ?timeouts ~destination ~name __id =
   let __type = "aws_kinesis_firehose_delivery_stream" in
   let __attrs =
     ({
@@ -5957,7 +7001,8 @@ let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
            ~msk_source_configuration ~opensearch_configuration
            ~opensearchserverless_configuration
            ~redshift_configuration ~server_side_encryption
-           ~splunk_configuration ?timeouts ~destination ~name ());
+           ~snowflake_configuration ~splunk_configuration ?timeouts
+           ~destination ~name ());
     attrs = __attrs;
   }
 
@@ -5969,15 +7014,16 @@ let register ?tf_module ?arn ?destination_id ?id ?tags ?tags_all
     ?(msk_source_configuration = []) ?(opensearch_configuration = [])
     ?(opensearchserverless_configuration = [])
     ?(redshift_configuration = []) ?(server_side_encryption = [])
-    ?(splunk_configuration = []) ?timeouts ~destination ~name __id =
+    ?(snowflake_configuration = []) ?(splunk_configuration = [])
+    ?timeouts ~destination ~name __id =
   let (r : _ Tf_core.resource) =
     make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
       ~elasticsearch_configuration ~extended_s3_configuration
       ~http_endpoint_configuration ~kinesis_source_configuration
       ~msk_source_configuration ~opensearch_configuration
       ~opensearchserverless_configuration ~redshift_configuration
-      ~server_side_encryption ~splunk_configuration ?timeouts
-      ~destination ~name __id
+      ~server_side_encryption ~snowflake_configuration
+      ~splunk_configuration ?timeouts ~destination ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -30,6 +30,7 @@ val yojson_of_aws_lambda_layer_version :
 type t = private {
   tf_name : string;
   arn : string prop;
+  code_sha256 : string prop;
   compatible_architectures : string list prop;
   compatible_runtimes : string list prop;
   created_date : string prop;

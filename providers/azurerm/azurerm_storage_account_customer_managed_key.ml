@@ -69,6 +69,7 @@ type azurerm_storage_account_customer_managed_key = {
   key_vault_id : string prop option; [@option]
   key_vault_uri : string prop option; [@option]
   key_version : string prop option; [@option]
+  managed_hsm_key_id : string prop option; [@option]
   storage_account_id : string prop;
   user_assigned_identity_id : string prop option; [@option]
   timeouts : timeouts option;
@@ -86,6 +87,7 @@ let yojson_of_azurerm_storage_account_customer_managed_key =
        key_vault_id = v_key_vault_id;
        key_vault_uri = v_key_vault_uri;
        key_version = v_key_version;
+       managed_hsm_key_id = v_managed_hsm_key_id;
        storage_account_id = v_storage_account_id;
        user_assigned_identity_id = v_user_assigned_identity_id;
        timeouts = v_timeouts;
@@ -110,6 +112,14 @@ let yojson_of_azurerm_storage_account_customer_managed_key =
            yojson_of_prop yojson_of_string v_storage_account_id
          in
          ("storage_account_id", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_hsm_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_hsm_key_id", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_key_version with
@@ -168,8 +178,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_storage_account_customer_managed_key
     ?federated_identity_client_id ?id ?key_vault_id ?key_vault_uri
-    ?key_version ?user_assigned_identity_id ?timeouts ~key_name
-    ~storage_account_id () :
+    ?key_version ?managed_hsm_key_id ?user_assigned_identity_id
+    ?timeouts ~key_name ~storage_account_id () :
     azurerm_storage_account_customer_managed_key =
   {
     federated_identity_client_id;
@@ -178,6 +188,7 @@ let azurerm_storage_account_customer_managed_key
     key_vault_id;
     key_vault_uri;
     key_version;
+    managed_hsm_key_id;
     storage_account_id;
     user_assigned_identity_id;
     timeouts;
@@ -191,13 +202,15 @@ type t = {
   key_vault_id : string prop;
   key_vault_uri : string prop;
   key_version : string prop;
+  managed_hsm_key_id : string prop;
   storage_account_id : string prop;
   user_assigned_identity_id : string prop;
 }
 
 let make ?federated_identity_client_id ?id ?key_vault_id
-    ?key_vault_uri ?key_version ?user_assigned_identity_id ?timeouts
-    ~key_name ~storage_account_id __id =
+    ?key_vault_uri ?key_version ?managed_hsm_key_id
+    ?user_assigned_identity_id ?timeouts ~key_name
+    ~storage_account_id __id =
   let __type = "azurerm_storage_account_customer_managed_key" in
   let __attrs =
     ({
@@ -209,6 +222,8 @@ let make ?federated_identity_client_id ?id ?key_vault_id
        key_vault_id = Prop.computed __type __id "key_vault_id";
        key_vault_uri = Prop.computed __type __id "key_vault_uri";
        key_version = Prop.computed __type __id "key_version";
+       managed_hsm_key_id =
+         Prop.computed __type __id "managed_hsm_key_id";
        storage_account_id =
          Prop.computed __type __id "storage_account_id";
        user_assigned_identity_id =
@@ -223,19 +238,21 @@ let make ?federated_identity_client_id ?id ?key_vault_id
       yojson_of_azurerm_storage_account_customer_managed_key
         (azurerm_storage_account_customer_managed_key
            ?federated_identity_client_id ?id ?key_vault_id
-           ?key_vault_uri ?key_version ?user_assigned_identity_id
-           ?timeouts ~key_name ~storage_account_id ());
+           ?key_vault_uri ?key_version ?managed_hsm_key_id
+           ?user_assigned_identity_id ?timeouts ~key_name
+           ~storage_account_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?federated_identity_client_id ?id
-    ?key_vault_id ?key_vault_uri ?key_version
+    ?key_vault_id ?key_vault_uri ?key_version ?managed_hsm_key_id
     ?user_assigned_identity_id ?timeouts ~key_name
     ~storage_account_id __id =
   let (r : _ Tf_core.resource) =
     make ?federated_identity_client_id ?id ?key_vault_id
-      ?key_vault_uri ?key_version ?user_assigned_identity_id
-      ?timeouts ~key_name ~storage_account_id __id
+      ?key_vault_uri ?key_version ?managed_hsm_key_id
+      ?user_assigned_identity_id ?timeouts ~key_name
+      ~storage_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -2,6 +2,32 @@
 
 open! Tf_core
 
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
 type aws_iam_server_certificate = {
   certificate_body : string prop;
   certificate_chain : string prop option; [@option]
@@ -12,6 +38,7 @@ type aws_iam_server_certificate = {
   private_key : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
+  timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
 
@@ -29,9 +56,14 @@ let yojson_of_aws_iam_server_certificate =
        private_key = v_private_key;
        tags = v_tags;
        tags_all = v_tags_all;
+       timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -122,9 +154,11 @@ let _ = yojson_of_aws_iam_server_certificate
 
 [@@@deriving.end]
 
+let timeouts ?delete () : timeouts = { delete }
+
 let aws_iam_server_certificate ?certificate_chain ?id ?name
-    ?name_prefix ?path ?tags ?tags_all ~certificate_body ~private_key
-    () : aws_iam_server_certificate =
+    ?name_prefix ?path ?tags ?tags_all ?timeouts ~certificate_body
+    ~private_key () : aws_iam_server_certificate =
   {
     certificate_body;
     certificate_chain;
@@ -135,6 +169,7 @@ let aws_iam_server_certificate ?certificate_chain ?id ?name
     private_key;
     tags;
     tags_all;
+    timeouts;
   }
 
 type t = {
@@ -154,7 +189,7 @@ type t = {
 }
 
 let make ?certificate_chain ?id ?name ?name_prefix ?path ?tags
-    ?tags_all ~certificate_body ~private_key __id =
+    ?tags_all ?timeouts ~certificate_body ~private_key __id =
   let __type = "aws_iam_server_certificate" in
   let __attrs =
     ({
@@ -182,16 +217,17 @@ let make ?certificate_chain ?id ?name ?name_prefix ?path ?tags
     json =
       yojson_of_aws_iam_server_certificate
         (aws_iam_server_certificate ?certificate_chain ?id ?name
-           ?name_prefix ?path ?tags ?tags_all ~certificate_body
-           ~private_key ());
+           ?name_prefix ?path ?tags ?tags_all ?timeouts
+           ~certificate_body ~private_key ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_chain ?id ?name ?name_prefix
-    ?path ?tags ?tags_all ~certificate_body ~private_key __id =
+    ?path ?tags ?tags_all ?timeouts ~certificate_body ~private_key
+    __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_chain ?id ?name ?name_prefix ?path ?tags
-      ?tags_all ~certificate_body ~private_key __id
+      ?tags_all ?timeouts ~certificate_body ~private_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

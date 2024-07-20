@@ -96,6 +96,12 @@ type t = {
   size : string prop;
   storage_size_mib : string prop;
   tags : string list prop;
+  ui_database : string prop;
+  ui_host : string prop;
+  ui_password : string prop;
+  ui_port : float prop;
+  ui_uri : string prop;
+  ui_user : string prop;
   uri : string prop;
   urn : string prop;
   user : string prop;
@@ -127,6 +133,12 @@ let make ?id ?tags ~name __id =
        storage_size_mib =
          Prop.computed __type __id "storage_size_mib";
        tags = Prop.computed __type __id "tags";
+       ui_database = Prop.computed __type __id "ui_database";
+       ui_host = Prop.computed __type __id "ui_host";
+       ui_password = Prop.computed __type __id "ui_password";
+       ui_port = Prop.computed __type __id "ui_port";
+       ui_uri = Prop.computed __type __id "ui_uri";
+       ui_user = Prop.computed __type __id "ui_user";
        uri = Prop.computed __type __id "uri";
        urn = Prop.computed __type __id "urn";
        user = Prop.computed __type __id "user";

@@ -4,6 +4,7 @@ open! Tf_core
 
 type bigquery_config = {
   drop_unknown_fields : bool prop option; [@option]
+  service_account_email : string prop option; [@option]
   table : string prop;
   use_table_schema : bool prop option; [@option]
   use_topic_schema : bool prop option; [@option]
@@ -17,6 +18,7 @@ let yojson_of_bigquery_config =
   (function
    | {
        drop_unknown_fields = v_drop_unknown_fields;
+       service_account_email = v_service_account_email;
        table = v_table;
        use_table_schema = v_use_table_schema;
        use_topic_schema = v_use_topic_schema;
@@ -52,6 +54,14 @@ let yojson_of_bigquery_config =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table in
          ("table", arg) :: bnds
+       in
+       let bnds =
+         match v_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_email", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_drop_unknown_fields with
@@ -99,10 +109,12 @@ let _ = yojson_of_cloud_storage_config__avro_config
 
 type cloud_storage_config = {
   bucket : string prop;
+  filename_datetime_format : string prop option; [@option]
   filename_prefix : string prop option; [@option]
   filename_suffix : string prop option; [@option]
   max_bytes : float prop option; [@option]
   max_duration : string prop option; [@option]
+  service_account_email : string prop option; [@option]
   avro_config : cloud_storage_config__avro_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -114,10 +126,12 @@ let yojson_of_cloud_storage_config =
   (function
    | {
        bucket = v_bucket;
+       filename_datetime_format = v_filename_datetime_format;
        filename_prefix = v_filename_prefix;
        filename_suffix = v_filename_suffix;
        max_bytes = v_max_bytes;
        max_duration = v_max_duration;
+       service_account_email = v_service_account_email;
        avro_config = v_avro_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -133,6 +147,14 @@ let yojson_of_cloud_storage_config =
            in
            let bnd = "avro_config", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_email", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_max_duration with
@@ -164,6 +186,14 @@ let yojson_of_cloud_storage_config =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "filename_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filename_datetime_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filename_datetime_format", arg in
              bnd :: bnds
        in
        let bnds =
@@ -667,10 +697,12 @@ let _ = yojson_of_google_pubsub_subscription
 
 [@@@deriving.end]
 
-let bigquery_config ?drop_unknown_fields ?use_table_schema
-    ?use_topic_schema ?write_metadata ~table () : bigquery_config =
+let bigquery_config ?drop_unknown_fields ?service_account_email
+    ?use_table_schema ?use_topic_schema ?write_metadata ~table () :
+    bigquery_config =
   {
     drop_unknown_fields;
+    service_account_email;
     table;
     use_table_schema;
     use_topic_schema;
@@ -681,15 +713,17 @@ let cloud_storage_config__avro_config ?write_metadata () :
     cloud_storage_config__avro_config =
   { write_metadata }
 
-let cloud_storage_config ?filename_prefix ?filename_suffix ?max_bytes
-    ?max_duration ?(avro_config = []) ~bucket () :
-    cloud_storage_config =
+let cloud_storage_config ?filename_datetime_format ?filename_prefix
+    ?filename_suffix ?max_bytes ?max_duration ?service_account_email
+    ?(avro_config = []) ~bucket () : cloud_storage_config =
   {
     bucket;
+    filename_datetime_format;
     filename_prefix;
     filename_suffix;
     max_bytes;
     max_duration;
+    service_account_email;
     avro_config;
   }
 

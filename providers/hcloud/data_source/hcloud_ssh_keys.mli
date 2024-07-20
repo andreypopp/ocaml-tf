@@ -1,16 +1,27 @@
+(** Provides details about Hetzner Cloud SSH Keys.
+
+This resource is useful if you want to use a non-terraform managed SSH Key.
+
+## Example Usage
+
+```hcl
+data hcloud_ssh_keys all_ssh_keys {}
+
+data hcloud_ssh_keys ssh_keys_by_label_selector {
+  with_selector = foo=bar
+}
+
+resource hcloud_server main {
+  ssh_keys = data.hcloud_ssh_keys.all_ssh_keys.ssh_keys.*.name
+}
+```
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
-
-type ssh_keys = {
-  fingerprint : string prop;  (** fingerprint *)
-  id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
-  name : string prop;  (** name *)
-  public_key : string prop;  (** public_key *)
-}
 
 type hcloud_ssh_keys
 
@@ -27,7 +38,7 @@ val yojson_of_hcloud_ssh_keys : hcloud_ssh_keys -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  ssh_keys : ssh_keys list prop;
+  ssh_keys : json prop;
   with_selector : string prop;
 }
 

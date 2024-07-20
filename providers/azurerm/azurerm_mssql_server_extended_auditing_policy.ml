@@ -63,9 +63,11 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_mssql_server_extended_auditing_policy = {
+  audit_actions_and_groups : string prop list option; [@option]
   enabled : bool prop option; [@option]
   id : string prop option; [@option]
   log_monitoring_enabled : bool prop option; [@option]
+  predicate_expression : string prop option; [@option]
   retention_in_days : float prop option; [@option]
   server_id : string prop;
   storage_account_access_key : string prop option; [@option]
@@ -82,9 +84,11 @@ let _ = fun (_ : azurerm_mssql_server_extended_auditing_policy) -> ()
 let yojson_of_azurerm_mssql_server_extended_auditing_policy =
   (function
    | {
+       audit_actions_and_groups = v_audit_actions_and_groups;
        enabled = v_enabled;
        id = v_id;
        log_monitoring_enabled = v_log_monitoring_enabled;
+       predicate_expression = v_predicate_expression;
        retention_in_days = v_retention_in_days;
        server_id = v_server_id;
        storage_account_access_key = v_storage_account_access_key;
@@ -149,6 +153,14 @@ let yojson_of_azurerm_mssql_server_extended_auditing_policy =
              bnd :: bnds
        in
        let bnds =
+         match v_predicate_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "predicate_expression", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_log_monitoring_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -172,6 +184,16 @@ let yojson_of_azurerm_mssql_server_extended_auditing_policy =
              let bnd = "enabled", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_audit_actions_and_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "audit_actions_and_groups", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : azurerm_mssql_server_extended_auditing_policy ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -183,16 +205,19 @@ let _ = yojson_of_azurerm_mssql_server_extended_auditing_policy
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_mssql_server_extended_auditing_policy ?enabled ?id
-    ?log_monitoring_enabled ?retention_in_days
+let azurerm_mssql_server_extended_auditing_policy
+    ?audit_actions_and_groups ?enabled ?id ?log_monitoring_enabled
+    ?predicate_expression ?retention_in_days
     ?storage_account_access_key
     ?storage_account_access_key_is_secondary
     ?storage_account_subscription_id ?storage_endpoint ?timeouts
     ~server_id () : azurerm_mssql_server_extended_auditing_policy =
   {
+    audit_actions_and_groups;
     enabled;
     id;
     log_monitoring_enabled;
+    predicate_expression;
     retention_in_days;
     server_id;
     storage_account_access_key;
@@ -204,9 +229,11 @@ let azurerm_mssql_server_extended_auditing_policy ?enabled ?id
 
 type t = {
   tf_name : string;
+  audit_actions_and_groups : string list prop;
   enabled : bool prop;
   id : string prop;
   log_monitoring_enabled : bool prop;
+  predicate_expression : string prop;
   retention_in_days : float prop;
   server_id : string prop;
   storage_account_access_key : string prop;
@@ -215,7 +242,8 @@ type t = {
   storage_endpoint : string prop;
 }
 
-let make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
+let make ?audit_actions_and_groups ?enabled ?id
+    ?log_monitoring_enabled ?predicate_expression ?retention_in_days
     ?storage_account_access_key
     ?storage_account_access_key_is_secondary
     ?storage_account_subscription_id ?storage_endpoint ?timeouts
@@ -224,10 +252,14 @@ let make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
   let __attrs =
     ({
        tf_name = __id;
+       audit_actions_and_groups =
+         Prop.computed __type __id "audit_actions_and_groups";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        log_monitoring_enabled =
          Prop.computed __type __id "log_monitoring_enabled";
+       predicate_expression =
+         Prop.computed __type __id "predicate_expression";
        retention_in_days =
          Prop.computed __type __id "retention_in_days";
        server_id = Prop.computed __type __id "server_id";
@@ -248,23 +280,26 @@ let make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
     type_ = __type;
     json =
       yojson_of_azurerm_mssql_server_extended_auditing_policy
-        (azurerm_mssql_server_extended_auditing_policy ?enabled ?id
-           ?log_monitoring_enabled ?retention_in_days
-           ?storage_account_access_key
+        (azurerm_mssql_server_extended_auditing_policy
+           ?audit_actions_and_groups ?enabled ?id
+           ?log_monitoring_enabled ?predicate_expression
+           ?retention_in_days ?storage_account_access_key
            ?storage_account_access_key_is_secondary
            ?storage_account_subscription_id ?storage_endpoint
            ?timeouts ~server_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?log_monitoring_enabled
-    ?retention_in_days ?storage_account_access_key
+let register ?tf_module ?audit_actions_and_groups ?enabled ?id
+    ?log_monitoring_enabled ?predicate_expression ?retention_in_days
+    ?storage_account_access_key
     ?storage_account_access_key_is_secondary
     ?storage_account_subscription_id ?storage_endpoint ?timeouts
     ~server_id __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
-      ?storage_account_access_key
+    make ?audit_actions_and_groups ?enabled ?id
+      ?log_monitoring_enabled ?predicate_expression
+      ?retention_in_days ?storage_account_access_key
       ?storage_account_access_key_is_secondary
       ?storage_account_subscription_id ?storage_endpoint ?timeouts
       ~server_id __id

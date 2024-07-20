@@ -91,6 +91,7 @@ val azurerm_mssql_database :
   ?restore_long_term_retention_backup_id:string prop ->
   ?restore_point_in_time:string prop ->
   ?sample_name:string prop ->
+  ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
@@ -138,6 +139,7 @@ type t = private {
   restore_long_term_retention_backup_id : string prop;
   restore_point_in_time : string prop;
   sample_name : string prop;
+  secondary_type : string prop;
   server_id : string prop;
   sku_name : string prop;
   storage_account_type : string prop;
@@ -172,6 +174,7 @@ val register :
   ?restore_long_term_retention_backup_id:string prop ->
   ?restore_point_in_time:string prop ->
   ?sample_name:string prop ->
+  ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
@@ -213,6 +216,7 @@ val make :
   ?restore_long_term_retention_backup_id:string prop ->
   ?restore_point_in_time:string prop ->
   ?sample_name:string prop ->
+  ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->

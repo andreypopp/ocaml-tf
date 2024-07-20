@@ -174,14 +174,17 @@ type google_compute_router_peer = {
   advertised_groups : string prop list option; [@option]
   advertised_route_priority : float prop option; [@option]
   enable : bool prop option; [@option]
+  enable_ipv4 : bool prop option; [@option]
   enable_ipv6 : bool prop option; [@option]
   id : string prop option; [@option]
   interface : string prop;
   ip_address : string prop option; [@option]
+  ipv4_nexthop_address : string prop option; [@option]
   ipv6_nexthop_address : string prop option; [@option]
   name : string prop;
   peer_asn : float prop;
   peer_ip_address : string prop option; [@option]
+  peer_ipv4_nexthop_address : string prop option; [@option]
   peer_ipv6_nexthop_address : string prop option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
@@ -205,14 +208,17 @@ let yojson_of_google_compute_router_peer =
        advertised_groups = v_advertised_groups;
        advertised_route_priority = v_advertised_route_priority;
        enable = v_enable;
+       enable_ipv4 = v_enable_ipv4;
        enable_ipv6 = v_enable_ipv6;
        id = v_id;
        interface = v_interface;
        ip_address = v_ip_address;
+       ipv4_nexthop_address = v_ipv4_nexthop_address;
        ipv6_nexthop_address = v_ipv6_nexthop_address;
        name = v_name;
        peer_asn = v_peer_asn;
        peer_ip_address = v_peer_ip_address;
+       peer_ipv4_nexthop_address = v_peer_ipv4_nexthop_address;
        peer_ipv6_nexthop_address = v_peer_ipv6_nexthop_address;
        project = v_project;
        region = v_region;
@@ -294,6 +300,14 @@ let yojson_of_google_compute_router_peer =
              bnd :: bnds
        in
        let bnds =
+         match v_peer_ipv4_nexthop_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "peer_ipv4_nexthop_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_peer_ip_address with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -315,6 +329,14 @@ let yojson_of_google_compute_router_peer =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "ipv6_nexthop_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv4_nexthop_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv4_nexthop_address", arg in
              bnd :: bnds
        in
        let bnds =
@@ -343,6 +365,14 @@ let yojson_of_google_compute_router_peer =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "enable_ipv6", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_ipv4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_ipv4", arg in
              bnd :: bnds
        in
        let bnds =
@@ -406,25 +436,29 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_router_peer ?advertise_mode ?advertised_groups
-    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
-    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance
-    ?(advertised_ip_ranges = []) ?(bfd = [])
-    ?(md5_authentication_key = []) ?timeouts ~interface ~name
-    ~peer_asn ~router () : google_compute_router_peer =
+    ?advertised_route_priority ?enable ?enable_ipv4 ?enable_ipv6 ?id
+    ?ip_address ?ipv4_nexthop_address ?ipv6_nexthop_address
+    ?peer_ip_address ?peer_ipv4_nexthop_address
+    ?peer_ipv6_nexthop_address ?project ?region
+    ?router_appliance_instance ?(advertised_ip_ranges = [])
+    ?(bfd = []) ?(md5_authentication_key = []) ?timeouts ~interface
+    ~name ~peer_asn ~router () : google_compute_router_peer =
   {
     advertise_mode;
     advertised_groups;
     advertised_route_priority;
     enable;
+    enable_ipv4;
     enable_ipv6;
     id;
     interface;
     ip_address;
+    ipv4_nexthop_address;
     ipv6_nexthop_address;
     name;
     peer_asn;
     peer_ip_address;
+    peer_ipv4_nexthop_address;
     peer_ipv6_nexthop_address;
     project;
     region;
@@ -442,15 +476,18 @@ type t = {
   advertised_groups : string list prop;
   advertised_route_priority : float prop;
   enable : bool prop;
+  enable_ipv4 : bool prop;
   enable_ipv6 : bool prop;
   id : string prop;
   interface : string prop;
   ip_address : string prop;
+  ipv4_nexthop_address : string prop;
   ipv6_nexthop_address : string prop;
   management_type : string prop;
   name : string prop;
   peer_asn : float prop;
   peer_ip_address : string prop;
+  peer_ipv4_nexthop_address : string prop;
   peer_ipv6_nexthop_address : string prop;
   project : string prop;
   region : string prop;
@@ -459,12 +496,13 @@ type t = {
 }
 
 let make ?advertise_mode ?advertised_groups
-    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
-    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance
-    ?(advertised_ip_ranges = []) ?(bfd = [])
-    ?(md5_authentication_key = []) ?timeouts ~interface ~name
-    ~peer_asn ~router __id =
+    ?advertised_route_priority ?enable ?enable_ipv4 ?enable_ipv6 ?id
+    ?ip_address ?ipv4_nexthop_address ?ipv6_nexthop_address
+    ?peer_ip_address ?peer_ipv4_nexthop_address
+    ?peer_ipv6_nexthop_address ?project ?region
+    ?router_appliance_instance ?(advertised_ip_ranges = [])
+    ?(bfd = []) ?(md5_authentication_key = []) ?timeouts ~interface
+    ~name ~peer_asn ~router __id =
   let __type = "google_compute_router_peer" in
   let __attrs =
     ({
@@ -475,16 +513,21 @@ let make ?advertise_mode ?advertised_groups
        advertised_route_priority =
          Prop.computed __type __id "advertised_route_priority";
        enable = Prop.computed __type __id "enable";
+       enable_ipv4 = Prop.computed __type __id "enable_ipv4";
        enable_ipv6 = Prop.computed __type __id "enable_ipv6";
        id = Prop.computed __type __id "id";
        interface = Prop.computed __type __id "interface";
        ip_address = Prop.computed __type __id "ip_address";
+       ipv4_nexthop_address =
+         Prop.computed __type __id "ipv4_nexthop_address";
        ipv6_nexthop_address =
          Prop.computed __type __id "ipv6_nexthop_address";
        management_type = Prop.computed __type __id "management_type";
        name = Prop.computed __type __id "name";
        peer_asn = Prop.computed __type __id "peer_asn";
        peer_ip_address = Prop.computed __type __id "peer_ip_address";
+       peer_ipv4_nexthop_address =
+         Prop.computed __type __id "peer_ipv4_nexthop_address";
        peer_ipv6_nexthop_address =
          Prop.computed __type __id "peer_ipv6_nexthop_address";
        project = Prop.computed __type __id "project";
@@ -502,25 +545,29 @@ let make ?advertise_mode ?advertised_groups
       yojson_of_google_compute_router_peer
         (google_compute_router_peer ?advertise_mode
            ?advertised_groups ?advertised_route_priority ?enable
-           ?enable_ipv6 ?id ?ip_address ?ipv6_nexthop_address
-           ?peer_ip_address ?peer_ipv6_nexthop_address ?project
-           ?region ?router_appliance_instance ~advertised_ip_ranges
-           ~bfd ~md5_authentication_key ?timeouts ~interface ~name
+           ?enable_ipv4 ?enable_ipv6 ?id ?ip_address
+           ?ipv4_nexthop_address ?ipv6_nexthop_address
+           ?peer_ip_address ?peer_ipv4_nexthop_address
+           ?peer_ipv6_nexthop_address ?project ?region
+           ?router_appliance_instance ~advertised_ip_ranges ~bfd
+           ~md5_authentication_key ?timeouts ~interface ~name
            ~peer_asn ~router ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?advertise_mode ?advertised_groups
-    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
-    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance
-    ?(advertised_ip_ranges = []) ?(bfd = [])
-    ?(md5_authentication_key = []) ?timeouts ~interface ~name
-    ~peer_asn ~router __id =
+    ?advertised_route_priority ?enable ?enable_ipv4 ?enable_ipv6 ?id
+    ?ip_address ?ipv4_nexthop_address ?ipv6_nexthop_address
+    ?peer_ip_address ?peer_ipv4_nexthop_address
+    ?peer_ipv6_nexthop_address ?project ?region
+    ?router_appliance_instance ?(advertised_ip_ranges = [])
+    ?(bfd = []) ?(md5_authentication_key = []) ?timeouts ~interface
+    ~name ~peer_asn ~router __id =
   let (r : _ Tf_core.resource) =
     make ?advertise_mode ?advertised_groups
-      ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
-      ?ipv6_nexthop_address ?peer_ip_address
+      ?advertised_route_priority ?enable ?enable_ipv4 ?enable_ipv6
+      ?id ?ip_address ?ipv4_nexthop_address ?ipv6_nexthop_address
+      ?peer_ip_address ?peer_ipv4_nexthop_address
       ?peer_ipv6_nexthop_address ?project ?region
       ?router_appliance_instance ~advertised_ip_ranges ~bfd
       ~md5_authentication_key ?timeouts ~interface ~name ~peer_asn

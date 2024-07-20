@@ -481,6 +481,7 @@ let _ =
 [@@@deriving.end]
 
 type volume = {
+  configure_at_launch : bool prop option; [@option]
   host_path : string prop option; [@option]
   name : string prop;
   docker_volume_configuration :
@@ -499,6 +500,7 @@ let _ = fun (_ : volume) -> ()
 let yojson_of_volume =
   (function
    | {
+       configure_at_launch = v_configure_at_launch;
        host_path = v_host_path;
        name = v_name;
        docker_volume_configuration = v_docker_volume_configuration;
@@ -557,6 +559,14 @@ let yojson_of_volume =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "host_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_configure_at_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "configure_at_launch", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -875,11 +885,13 @@ let volume__fsx_windows_file_server_volume_configuration
     volume__fsx_windows_file_server_volume_configuration =
   { file_system_id; root_directory; authorization_config }
 
-let volume ?host_path ?(docker_volume_configuration = [])
+let volume ?configure_at_launch ?host_path
+    ?(docker_volume_configuration = [])
     ?(efs_volume_configuration = [])
     ?(fsx_windows_file_server_volume_configuration = []) ~name () :
     volume =
   {
+    configure_at_launch;
     host_path;
     name;
     docker_volume_configuration;

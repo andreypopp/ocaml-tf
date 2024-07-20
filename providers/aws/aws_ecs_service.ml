@@ -849,6 +849,150 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
+type volume_configuration__managed_ebs_volume = {
+  encrypted : bool prop option; [@option]
+  file_system_type : string prop option; [@option]
+  iops : float prop option; [@option]
+  kms_key_id : string prop option; [@option]
+  role_arn : string prop;
+  size_in_gb : float prop option; [@option]
+  snapshot_id : string prop option; [@option]
+  throughput : float prop option; [@option]
+  volume_type : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : volume_configuration__managed_ebs_volume) -> ()
+
+let yojson_of_volume_configuration__managed_ebs_volume =
+  (function
+   | {
+       encrypted = v_encrypted;
+       file_system_type = v_file_system_type;
+       iops = v_iops;
+       kms_key_id = v_kms_key_id;
+       role_arn = v_role_arn;
+       size_in_gb = v_size_in_gb;
+       snapshot_id = v_snapshot_id;
+       throughput = v_throughput;
+       volume_type = v_volume_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_size_in_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_in_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_system_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_system_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encrypted", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : volume_configuration__managed_ebs_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_volume_configuration__managed_ebs_volume
+
+[@@@deriving.end]
+
+type volume_configuration = {
+  name : string prop;
+  managed_ebs_volume : volume_configuration__managed_ebs_volume list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : volume_configuration) -> ()
+
+let yojson_of_volume_configuration =
+  (function
+   | { name = v_name; managed_ebs_volume = v_managed_ebs_volume } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_managed_ebs_volume then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume_configuration__managed_ebs_volume)
+               v_managed_ebs_volume
+           in
+           let bnd = "managed_ebs_volume", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : volume_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_volume_configuration
+
+[@@@deriving.end]
+
 type aws_ecs_service = {
   cluster : string prop option; [@option]
   deployment_maximum_percent : float prop option; [@option]
@@ -891,6 +1035,8 @@ type aws_ecs_service = {
   service_registries : service_registries list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
+  volume_configuration : volume_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -933,9 +1079,20 @@ let yojson_of_aws_ecs_service =
          v_service_connect_configuration;
        service_registries = v_service_registries;
        timeouts = v_timeouts;
+       volume_configuration = v_volume_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_volume_configuration)
+               v_volume_configuration
+           in
+           let bnd = "volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
@@ -1309,6 +1466,26 @@ let service_registries ?container_name ?container_port ?port
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
+let volume_configuration__managed_ebs_volume ?encrypted
+    ?file_system_type ?iops ?kms_key_id ?size_in_gb ?snapshot_id
+    ?throughput ?volume_type ~role_arn () :
+    volume_configuration__managed_ebs_volume =
+  {
+    encrypted;
+    file_system_type;
+    iops;
+    kms_key_id;
+    role_arn;
+    size_in_gb;
+    snapshot_id;
+    throughput;
+    volume_type;
+  }
+
+let volume_configuration ~name ~managed_ebs_volume () :
+    volume_configuration =
+  { name; managed_ebs_volume }
+
 let aws_ecs_service ?cluster ?deployment_maximum_percent
     ?deployment_minimum_healthy_percent ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command
@@ -1319,8 +1496,9 @@ let aws_ecs_service ?cluster ?deployment_maximum_percent
     ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
     ?(network_configuration = []) ?(ordered_placement_strategy = [])
     ?(service_connect_configuration = []) ?(service_registries = [])
-    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
-    ~placement_constraints () : aws_ecs_service =
+    ?timeouts ?(volume_configuration = []) ~name
+    ~capacity_provider_strategy ~load_balancer ~placement_constraints
+    () : aws_ecs_service =
   {
     cluster;
     deployment_maximum_percent;
@@ -1353,6 +1531,7 @@ let aws_ecs_service ?cluster ?deployment_maximum_percent
     service_connect_configuration;
     service_registries;
     timeouts;
+    volume_configuration;
   }
 
 type t = {
@@ -1389,8 +1568,9 @@ let make ?cluster ?deployment_maximum_percent
     ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
     ?(network_configuration = []) ?(ordered_placement_strategy = [])
     ?(service_connect_configuration = []) ?(service_registries = [])
-    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
-    ~placement_constraints __id =
+    ?timeouts ?(volume_configuration = []) ~name
+    ~capacity_provider_strategy ~load_balancer ~placement_constraints
+    __id =
   let __type = "aws_ecs_service" in
   let __attrs =
     ({
@@ -1444,7 +1624,8 @@ let make ?cluster ?deployment_maximum_percent
            ~deployment_circuit_breaker ~deployment_controller
            ~network_configuration ~ordered_placement_strategy
            ~service_connect_configuration ~service_registries
-           ?timeouts ~name ~capacity_provider_strategy ~load_balancer
+           ?timeouts ~volume_configuration ~name
+           ~capacity_provider_strategy ~load_balancer
            ~placement_constraints ());
     attrs = __attrs;
   }
@@ -1459,8 +1640,9 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
     ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
     ?(network_configuration = []) ?(ordered_placement_strategy = [])
     ?(service_connect_configuration = []) ?(service_registries = [])
-    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
-    ~placement_constraints __id =
+    ?timeouts ?(volume_configuration = []) ~name
+    ~capacity_provider_strategy ~load_balancer ~placement_constraints
+    __id =
   let (r : _ Tf_core.resource) =
     make ?cluster ?deployment_maximum_percent
       ?deployment_minimum_healthy_percent ?desired_count
@@ -1471,8 +1653,9 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
       ?wait_for_steady_state ~alarms ~deployment_circuit_breaker
       ~deployment_controller ~network_configuration
       ~ordered_placement_strategy ~service_connect_configuration
-      ~service_registries ?timeouts ~name ~capacity_provider_strategy
-      ~load_balancer ~placement_constraints __id
+      ~service_registries ?timeouts ~volume_configuration ~name
+      ~capacity_provider_strategy ~load_balancer
+      ~placement_constraints __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

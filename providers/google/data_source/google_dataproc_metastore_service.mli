@@ -71,6 +71,13 @@ type scaling_config = {
   scaling_factor : float prop;  (** scaling_factor *)
 }
 
+type scheduled_backup = {
+  backup_location : string prop;  (** backup_location *)
+  cron_schedule : string prop;  (** cron_schedule *)
+  enabled : bool prop;  (** enabled *)
+  time_zone : string prop;  (** time_zone *)
+}
+
 type telemetry_config = {
   log_format : string prop;  (** log_format *)
 }
@@ -110,6 +117,7 @@ type t = private {
   project : string prop;
   release_channel : string prop;
   scaling_config : scaling_config list prop;
+  scheduled_backup : scheduled_backup list prop;
   service_id : string prop;
   state : string prop;
   state_message : string prop;

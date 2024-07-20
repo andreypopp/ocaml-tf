@@ -738,6 +738,8 @@ type aws_mskconnect_connector = {
   kafkaconnect_version : string prop;
   name : string prop;
   service_execution_role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
+  tags_all : (string * string prop) list option; [@option]
   capacity : capacity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   kafka_cluster : kafka_cluster list;
@@ -769,6 +771,8 @@ let yojson_of_aws_mskconnect_connector =
        kafkaconnect_version = v_kafkaconnect_version;
        name = v_name;
        service_execution_role_arn = v_service_execution_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
        capacity = v_capacity;
        kafka_cluster = v_kafka_cluster;
        kafka_cluster_client_authentication =
@@ -854,6 +858,38 @@ let yojson_of_aws_mskconnect_connector =
            in
            let bnd = "capacity", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -987,10 +1023,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 let worker_configuration ~arn ~revision () : worker_configuration =
   { arn; revision }
 
-let aws_mskconnect_connector ?description ?id ?(log_delivery = [])
-    ?timeouts ?(worker_configuration = []) ~connector_configuration
-    ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
-    ~kafka_cluster ~kafka_cluster_client_authentication
+let aws_mskconnect_connector ?description ?id ?tags ?tags_all
+    ?(log_delivery = []) ?timeouts ?(worker_configuration = [])
+    ~connector_configuration ~kafkaconnect_version ~name
+    ~service_execution_role_arn ~capacity ~kafka_cluster
+    ~kafka_cluster_client_authentication
     ~kafka_cluster_encryption_in_transit ~plugin () :
     aws_mskconnect_connector =
   {
@@ -1000,6 +1037,8 @@ let aws_mskconnect_connector ?description ?id ?(log_delivery = [])
     kafkaconnect_version;
     name;
     service_execution_role_arn;
+    tags;
+    tags_all;
     capacity;
     kafka_cluster;
     kafka_cluster_client_authentication;
@@ -1019,11 +1058,13 @@ type t = {
   kafkaconnect_version : string prop;
   name : string prop;
   service_execution_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   version : string prop;
 }
 
-let make ?description ?id ?(log_delivery = []) ?timeouts
-    ?(worker_configuration = []) ~connector_configuration
+let make ?description ?id ?tags ?tags_all ?(log_delivery = [])
+    ?timeouts ?(worker_configuration = []) ~connector_configuration
     ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
     ~kafka_cluster ~kafka_cluster_client_authentication
     ~kafka_cluster_encryption_in_transit ~plugin __id =
@@ -1041,6 +1082,8 @@ let make ?description ?id ?(log_delivery = []) ?timeouts
        name = Prop.computed __type __id "name";
        service_execution_role_arn =
          Prop.computed __type __id "service_execution_role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        version = Prop.computed __type __id "version";
      }
       : t)
@@ -1050,22 +1093,23 @@ let make ?description ?id ?(log_delivery = []) ?timeouts
     type_ = __type;
     json =
       yojson_of_aws_mskconnect_connector
-        (aws_mskconnect_connector ?description ?id ~log_delivery
-           ?timeouts ~worker_configuration ~connector_configuration
-           ~kafkaconnect_version ~name ~service_execution_role_arn
-           ~capacity ~kafka_cluster
+        (aws_mskconnect_connector ?description ?id ?tags ?tags_all
+           ~log_delivery ?timeouts ~worker_configuration
+           ~connector_configuration ~kafkaconnect_version ~name
+           ~service_execution_role_arn ~capacity ~kafka_cluster
            ~kafka_cluster_client_authentication
            ~kafka_cluster_encryption_in_transit ~plugin ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?(log_delivery = [])
-    ?timeouts ?(worker_configuration = []) ~connector_configuration
-    ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
-    ~kafka_cluster ~kafka_cluster_client_authentication
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(log_delivery = []) ?timeouts ?(worker_configuration = [])
+    ~connector_configuration ~kafkaconnect_version ~name
+    ~service_execution_role_arn ~capacity ~kafka_cluster
+    ~kafka_cluster_client_authentication
     ~kafka_cluster_encryption_in_transit ~plugin __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ~log_delivery ?timeouts
+    make ?description ?id ?tags ?tags_all ~log_delivery ?timeouts
       ~worker_configuration ~connector_configuration
       ~kafkaconnect_version ~name ~service_execution_role_arn
       ~capacity ~kafka_cluster ~kafka_cluster_client_authentication

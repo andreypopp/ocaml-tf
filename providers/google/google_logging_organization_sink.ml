@@ -85,6 +85,7 @@ type google_logging_organization_sink = {
   filter : string prop option; [@option]
   id : string prop option; [@option]
   include_children : bool prop option; [@option]
+  intercept_children : bool prop option; [@option]
   name : string prop;
   org_id : string prop;
   bigquery_options : bigquery_options list;
@@ -105,6 +106,7 @@ let yojson_of_google_logging_organization_sink =
        filter = v_filter;
        id = v_id;
        include_children = v_include_children;
+       intercept_children = v_intercept_children;
        name = v_name;
        org_id = v_org_id;
        bigquery_options = v_bigquery_options;
@@ -139,6 +141,14 @@ let yojson_of_google_logging_organization_sink =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_intercept_children with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "intercept_children", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_include_children with
@@ -199,9 +209,9 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
   { description; disabled; filter; name }
 
 let google_logging_organization_sink ?description ?disabled ?filter
-    ?id ?include_children ?(bigquery_options = []) ?(exclusions = [])
-    ~destination ~name ~org_id () : google_logging_organization_sink
-    =
+    ?id ?include_children ?intercept_children
+    ?(bigquery_options = []) ?(exclusions = []) ~destination ~name
+    ~org_id () : google_logging_organization_sink =
   {
     description;
     destination;
@@ -209,6 +219,7 @@ let google_logging_organization_sink ?description ?disabled ?filter
     filter;
     id;
     include_children;
+    intercept_children;
     name;
     org_id;
     bigquery_options;
@@ -223,14 +234,15 @@ type t = {
   filter : string prop;
   id : string prop;
   include_children : bool prop;
+  intercept_children : bool prop;
   name : string prop;
   org_id : string prop;
   writer_identity : string prop;
 }
 
 let make ?description ?disabled ?filter ?id ?include_children
-    ?(bigquery_options = []) ?(exclusions = []) ~destination ~name
-    ~org_id __id =
+    ?intercept_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~name ~org_id __id =
   let __type = "google_logging_organization_sink" in
   let __attrs =
     ({
@@ -242,6 +254,8 @@ let make ?description ?disabled ?filter ?id ?include_children
        id = Prop.computed __type __id "id";
        include_children =
          Prop.computed __type __id "include_children";
+       intercept_children =
+         Prop.computed __type __id "intercept_children";
        name = Prop.computed __type __id "name";
        org_id = Prop.computed __type __id "org_id";
        writer_identity = Prop.computed __type __id "writer_identity";
@@ -254,17 +268,19 @@ let make ?description ?disabled ?filter ?id ?include_children
     json =
       yojson_of_google_logging_organization_sink
         (google_logging_organization_sink ?description ?disabled
-           ?filter ?id ?include_children ~bigquery_options
-           ~exclusions ~destination ~name ~org_id ());
+           ?filter ?id ?include_children ?intercept_children
+           ~bigquery_options ~exclusions ~destination ~name ~org_id
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filter ?id
-    ?include_children ?(bigquery_options = []) ?(exclusions = [])
-    ~destination ~name ~org_id __id =
+    ?include_children ?intercept_children ?(bigquery_options = [])
+    ?(exclusions = []) ~destination ~name ~org_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?filter ?id ?include_children
-      ~bigquery_options ~exclusions ~destination ~name ~org_id __id
+      ?intercept_children ~bigquery_options ~exclusions ~destination
+      ~name ~org_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

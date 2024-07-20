@@ -110,6 +110,7 @@ type azurerm_lb_backend_address_pool = {
   id : string prop option; [@option]
   loadbalancer_id : string prop;
   name : string prop;
+  synchronous_mode : string prop option; [@option]
   virtual_network_id : string prop option; [@option]
   timeouts : timeouts option;
   tunnel_interface : tunnel_interface list;
@@ -125,6 +126,7 @@ let yojson_of_azurerm_lb_backend_address_pool =
        id = v_id;
        loadbalancer_id = v_loadbalancer_id;
        name = v_name;
+       synchronous_mode = v_synchronous_mode;
        virtual_network_id = v_virtual_network_id;
        timeouts = v_timeouts;
        tunnel_interface = v_tunnel_interface;
@@ -152,6 +154,14 @@ let yojson_of_azurerm_lb_backend_address_pool =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "virtual_network_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_synchronous_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "synchronous_mode", arg in
              bnd :: bnds
        in
        let bnds =
@@ -187,13 +197,14 @@ let tunnel_interface ~identifier ~port ~protocol ~type_ () :
     tunnel_interface =
   { identifier; port; protocol; type_ }
 
-let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
-    ?(tunnel_interface = []) ~loadbalancer_id ~name () :
-    azurerm_lb_backend_address_pool =
+let azurerm_lb_backend_address_pool ?id ?synchronous_mode
+    ?virtual_network_id ?timeouts ?(tunnel_interface = [])
+    ~loadbalancer_id ~name () : azurerm_lb_backend_address_pool =
   {
     id;
     loadbalancer_id;
     name;
+    synchronous_mode;
     virtual_network_id;
     timeouts;
     tunnel_interface;
@@ -208,11 +219,12 @@ type t = {
   loadbalancer_id : string prop;
   name : string prop;
   outbound_rules : string list prop;
+  synchronous_mode : string prop;
   virtual_network_id : string prop;
 }
 
-let make ?id ?virtual_network_id ?timeouts ?(tunnel_interface = [])
-    ~loadbalancer_id ~name __id =
+let make ?id ?synchronous_mode ?virtual_network_id ?timeouts
+    ?(tunnel_interface = []) ~loadbalancer_id ~name __id =
   let __type = "azurerm_lb_backend_address_pool" in
   let __attrs =
     ({
@@ -227,6 +239,8 @@ let make ?id ?virtual_network_id ?timeouts ?(tunnel_interface = [])
        loadbalancer_id = Prop.computed __type __id "loadbalancer_id";
        name = Prop.computed __type __id "name";
        outbound_rules = Prop.computed __type __id "outbound_rules";
+       synchronous_mode =
+         Prop.computed __type __id "synchronous_mode";
        virtual_network_id =
          Prop.computed __type __id "virtual_network_id";
      }
@@ -237,16 +251,17 @@ let make ?id ?virtual_network_id ?timeouts ?(tunnel_interface = [])
     type_ = __type;
     json =
       yojson_of_azurerm_lb_backend_address_pool
-        (azurerm_lb_backend_address_pool ?id ?virtual_network_id
-           ?timeouts ~tunnel_interface ~loadbalancer_id ~name ());
+        (azurerm_lb_backend_address_pool ?id ?synchronous_mode
+           ?virtual_network_id ?timeouts ~tunnel_interface
+           ~loadbalancer_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?virtual_network_id ?timeouts
-    ?(tunnel_interface = []) ~loadbalancer_id ~name __id =
+let register ?tf_module ?id ?synchronous_mode ?virtual_network_id
+    ?timeouts ?(tunnel_interface = []) ~loadbalancer_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?virtual_network_id ?timeouts ~tunnel_interface
-      ~loadbalancer_id ~name __id
+    make ?id ?synchronous_mode ?virtual_network_id ?timeouts
+      ~tunnel_interface ~loadbalancer_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

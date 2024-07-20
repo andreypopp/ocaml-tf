@@ -9,6 +9,7 @@ type cloudflare_zone = {
   paused : bool prop option; [@option]
   plan : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
+  vanity_name_servers : string prop list option; [@option]
   zone : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -24,6 +25,7 @@ let yojson_of_cloudflare_zone =
        paused = v_paused;
        plan = v_plan;
        type_ = v_type_;
+       vanity_name_servers = v_vanity_name_servers;
        zone = v_zone;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -32,6 +34,16 @@ let yojson_of_cloudflare_zone =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone in
          ("zone", arg) :: bnds
+       in
+       let bnds =
+         match v_vanity_name_servers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vanity_name_servers", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -84,9 +96,18 @@ let _ = yojson_of_cloudflare_zone
 
 [@@@deriving.end]
 
-let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
-    ~zone () : cloudflare_zone =
-  { account_id; id; jump_start; paused; plan; type_; zone }
+let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_
+    ?vanity_name_servers ~account_id ~zone () : cloudflare_zone =
+  {
+    account_id;
+    id;
+    jump_start;
+    paused;
+    plan;
+    type_;
+    vanity_name_servers;
+    zone;
+  }
 
 type t = {
   tf_name : string;
@@ -104,8 +125,8 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
-    =
+let make ?id ?jump_start ?paused ?plan ?type_ ?vanity_name_servers
+    ~account_id ~zone __id =
   let __type = "cloudflare_zone" in
   let __attrs =
     ({
@@ -133,14 +154,15 @@ let make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
     json =
       yojson_of_cloudflare_zone
         (cloudflare_zone ?id ?jump_start ?paused ?plan ?type_
-           ~account_id ~zone ());
+           ?vanity_name_servers ~account_id ~zone ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?jump_start ?paused ?plan ?type_
-    ~account_id ~zone __id =
+    ?vanity_name_servers ~account_id ~zone __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
+    make ?id ?jump_start ?paused ?plan ?type_ ?vanity_name_servers
+      ~account_id ~zone __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

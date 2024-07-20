@@ -217,6 +217,7 @@ val network_config__static_ip_config :
 type network_config
 
 val network_config :
+  ?vcenter_network:string prop ->
   ?control_plane_v2_config:
     network_config__control_plane_v2_config list ->
   ?dhcp_ip_config:network_config__dhcp_ip_config list ->
@@ -263,6 +264,7 @@ type google_gkeonprem_vmware_cluster
 val google_gkeonprem_vmware_cluster :
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
+  ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -297,6 +299,7 @@ type t = private {
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
+  disable_bundled_ingress : bool prop;
   effective_annotations : (string * string) list prop;
   enable_control_plane_v2 : bool prop;
   endpoint : string prop;
@@ -321,6 +324,7 @@ val register :
   ?tf_module:tf_module ->
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
+  ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -346,6 +350,7 @@ val register :
 val make :
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
+  ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->
   ?id:string prop ->
   ?project:string prop ->

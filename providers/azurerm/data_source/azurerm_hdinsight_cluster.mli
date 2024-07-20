@@ -31,6 +31,7 @@ val yojson_of_azurerm_hdinsight_cluster :
 
 type t = private {
   tf_name : string;
+  cluster_id : string prop;
   cluster_version : string prop;
   component_versions : (string * string) list prop;
   edge_ssh_endpoint : string prop;

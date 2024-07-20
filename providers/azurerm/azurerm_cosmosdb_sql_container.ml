@@ -390,7 +390,9 @@ type azurerm_cosmosdb_sql_container = {
   default_ttl : float prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  partition_key_path : string prop;
+  partition_key_kind : string prop option; [@option]
+  partition_key_path : string prop option; [@option]
+  partition_key_paths : string prop list option; [@option]
   partition_key_version : float prop option; [@option]
   resource_group_name : string prop;
   throughput : float prop option; [@option]
@@ -417,7 +419,9 @@ let yojson_of_azurerm_cosmosdb_sql_container =
        default_ttl = v_default_ttl;
        id = v_id;
        name = v_name;
+       partition_key_kind = v_partition_key_kind;
        partition_key_path = v_partition_key_path;
+       partition_key_paths = v_partition_key_paths;
        partition_key_version = v_partition_key_version;
        resource_group_name = v_resource_group_name;
        throughput = v_throughput;
@@ -496,10 +500,30 @@ let yojson_of_azurerm_cosmosdb_sql_container =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_partition_key_path
-         in
-         ("partition_key_path", arg) :: bnds
+         match v_partition_key_paths with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "partition_key_paths", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partition_key_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "partition_key_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partition_key_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "partition_key_kind", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -590,10 +614,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let unique_key ~paths () : unique_key = { paths }
 
 let azurerm_cosmosdb_sql_container ?analytical_storage_ttl
-    ?default_ttl ?id ?partition_key_version ?throughput
+    ?default_ttl ?id ?partition_key_kind ?partition_key_path
+    ?partition_key_paths ?partition_key_version ?throughput
     ?(autoscale_settings = []) ?(conflict_resolution_policy = [])
     ?(indexing_policy = []) ?timeouts ~account_name ~database_name
-    ~name ~partition_key_path ~resource_group_name ~unique_key () :
+    ~name ~resource_group_name ~unique_key () :
     azurerm_cosmosdb_sql_container =
   {
     account_name;
@@ -602,7 +627,9 @@ let azurerm_cosmosdb_sql_container ?analytical_storage_ttl
     default_ttl;
     id;
     name;
+    partition_key_kind;
     partition_key_path;
+    partition_key_paths;
     partition_key_version;
     resource_group_name;
     throughput;
@@ -621,17 +648,20 @@ type t = {
   default_ttl : float prop;
   id : string prop;
   name : string prop;
+  partition_key_kind : string prop;
   partition_key_path : string prop;
+  partition_key_paths : string list prop;
   partition_key_version : float prop;
   resource_group_name : string prop;
   throughput : float prop;
 }
 
-let make ?analytical_storage_ttl ?default_ttl ?id
-    ?partition_key_version ?throughput ?(autoscale_settings = [])
+let make ?analytical_storage_ttl ?default_ttl ?id ?partition_key_kind
+    ?partition_key_path ?partition_key_paths ?partition_key_version
+    ?throughput ?(autoscale_settings = [])
     ?(conflict_resolution_policy = []) ?(indexing_policy = [])
-    ?timeouts ~account_name ~database_name ~name ~partition_key_path
-    ~resource_group_name ~unique_key __id =
+    ?timeouts ~account_name ~database_name ~name ~resource_group_name
+    ~unique_key __id =
   let __type = "azurerm_cosmosdb_sql_container" in
   let __attrs =
     ({
@@ -643,8 +673,12 @@ let make ?analytical_storage_ttl ?default_ttl ?id
        default_ttl = Prop.computed __type __id "default_ttl";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       partition_key_kind =
+         Prop.computed __type __id "partition_key_kind";
        partition_key_path =
          Prop.computed __type __id "partition_key_path";
+       partition_key_paths =
+         Prop.computed __type __id "partition_key_paths";
        partition_key_version =
          Prop.computed __type __id "partition_key_version";
        resource_group_name =
@@ -659,24 +693,25 @@ let make ?analytical_storage_ttl ?default_ttl ?id
     json =
       yojson_of_azurerm_cosmosdb_sql_container
         (azurerm_cosmosdb_sql_container ?analytical_storage_ttl
-           ?default_ttl ?id ?partition_key_version ?throughput
+           ?default_ttl ?id ?partition_key_kind ?partition_key_path
+           ?partition_key_paths ?partition_key_version ?throughput
            ~autoscale_settings ~conflict_resolution_policy
            ~indexing_policy ?timeouts ~account_name ~database_name
-           ~name ~partition_key_path ~resource_group_name ~unique_key
-           ());
+           ~name ~resource_group_name ~unique_key ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?analytical_storage_ttl ?default_ttl ?id
+    ?partition_key_kind ?partition_key_path ?partition_key_paths
     ?partition_key_version ?throughput ?(autoscale_settings = [])
     ?(conflict_resolution_policy = []) ?(indexing_policy = [])
-    ?timeouts ~account_name ~database_name ~name ~partition_key_path
-    ~resource_group_name ~unique_key __id =
+    ?timeouts ~account_name ~database_name ~name ~resource_group_name
+    ~unique_key __id =
   let (r : _ Tf_core.resource) =
-    make ?analytical_storage_ttl ?default_ttl ?id
-      ?partition_key_version ?throughput ~autoscale_settings
-      ~conflict_resolution_policy ~indexing_policy ?timeouts
-      ~account_name ~database_name ~name ~partition_key_path
+    make ?analytical_storage_ttl ?default_ttl ?id ?partition_key_kind
+      ?partition_key_path ?partition_key_paths ?partition_key_version
+      ?throughput ~autoscale_settings ~conflict_resolution_policy
+      ~indexing_policy ?timeouts ~account_name ~database_name ~name
       ~resource_group_name ~unique_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

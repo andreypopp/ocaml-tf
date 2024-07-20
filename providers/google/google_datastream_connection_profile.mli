@@ -84,6 +84,7 @@ val timeouts :
 type google_datastream_connection_profile
 
 val google_datastream_connection_profile :
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -109,6 +110,7 @@ val yojson_of_google_datastream_connection_profile :
 type t = private {
   tf_name : string;
   connection_profile_id : string prop;
+  create_without_validation : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -121,6 +123,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -139,6 +142,7 @@ val register :
   t
 
 val make :
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->

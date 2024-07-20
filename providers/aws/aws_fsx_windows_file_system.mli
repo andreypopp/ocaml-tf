@@ -52,6 +52,7 @@ val aws_fsx_windows_file_system :
   ?copy_tags_to_backups:bool prop ->
   ?daily_automatic_backup_start_time:string prop ->
   ?deployment_type:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->
@@ -87,6 +88,7 @@ type t = private {
   daily_automatic_backup_start_time : string prop;
   deployment_type : string prop;
   dns_name : string prop;
+  final_backup_tags : (string * string) list prop;
   id : string prop;
   kms_key_id : string prop;
   network_interface_ids : string list prop;
@@ -115,6 +117,7 @@ val register :
   ?copy_tags_to_backups:bool prop ->
   ?daily_automatic_backup_start_time:string prop ->
   ?deployment_type:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->
@@ -142,6 +145,7 @@ val make :
   ?copy_tags_to_backups:bool prop ->
   ?daily_automatic_backup_start_time:string prop ->
   ?deployment_type:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->

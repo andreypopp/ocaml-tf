@@ -97,6 +97,7 @@ val production_variants :
   ?accelerator_type:string prop ->
   ?container_startup_health_check_timeout_in_seconds:float prop ->
   ?enable_ssm_access:bool prop ->
+  ?inference_ami_version:string prop ->
   ?initial_instance_count:float prop ->
   ?initial_variant_weight:float prop ->
   ?instance_type:string prop ->
@@ -140,6 +141,7 @@ val shadow_production_variants :
   ?accelerator_type:string prop ->
   ?container_startup_health_check_timeout_in_seconds:float prop ->
   ?enable_ssm_access:bool prop ->
+  ?inference_ami_version:string prop ->
   ?initial_instance_count:float prop ->
   ?initial_variant_weight:float prop ->
   ?instance_type:string prop ->

@@ -3,7 +3,7 @@
 open! Tf_core
 
 type source__aws_log_source_resource = {
-  source_name : string prop option; [@option]
+  source_name : string prop;
   source_version : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -28,12 +28,8 @@ let yojson_of_source__aws_log_source_resource =
              bnd :: bnds
        in
        let bnds =
-         match v_source_name with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "source_name", arg in
-             bnd :: bnds
+         let arg = yojson_of_prop yojson_of_string v_source_name in
+         ("source_name", arg) :: bnds
        in
        `Assoc bnds
     : source__aws_log_source_resource ->
@@ -114,7 +110,7 @@ let _ = yojson_of_source__custom_log_source_resource__provider
 [@@@deriving.end]
 
 type source__custom_log_source_resource = {
-  source_name : string prop option; [@option]
+  source_name : string prop;
   source_version : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -139,12 +135,8 @@ let yojson_of_source__custom_log_source_resource =
              bnd :: bnds
        in
        let bnds =
-         match v_source_name with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "source_name", arg in
-             bnd :: bnds
+         let arg = yojson_of_prop yojson_of_string v_source_name in
+         ("source_name", arg) :: bnds
        in
        `Assoc bnds
     : source__custom_log_source_resource ->
@@ -376,11 +368,11 @@ let _ = yojson_of_aws_securitylake_subscriber
 
 [@@@deriving.end]
 
-let source__aws_log_source_resource ?source_name ?source_version () :
+let source__aws_log_source_resource ?source_version ~source_name () :
     source__aws_log_source_resource =
   { source_name; source_version }
 
-let source__custom_log_source_resource ?source_name ?source_version
+let source__custom_log_source_resource ?source_version ~source_name
     () : source__custom_log_source_resource =
   { source_name; source_version }
 
@@ -396,8 +388,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_securitylake_subscriber ?access_type ?subscriber_description
-    ?subscriber_name ?tags ?(source = []) ?(subscriber_identity = [])
-    ?timeouts () : aws_securitylake_subscriber =
+    ?subscriber_name ?tags ?(subscriber_identity = []) ?timeouts
+    ~source () : aws_securitylake_subscriber =
   {
     access_type;
     subscriber_description;
@@ -426,7 +418,7 @@ type t = {
 }
 
 let make ?access_type ?subscriber_description ?subscriber_name ?tags
-    ?(source = []) ?(subscriber_identity = []) ?timeouts __id =
+    ?(subscriber_identity = []) ?timeouts ~source __id =
   let __type = "aws_securitylake_subscriber" in
   let __attrs =
     ({
@@ -458,17 +450,17 @@ let make ?access_type ?subscriber_description ?subscriber_name ?tags
     json =
       yojson_of_aws_securitylake_subscriber
         (aws_securitylake_subscriber ?access_type
-           ?subscriber_description ?subscriber_name ?tags ~source
-           ~subscriber_identity ?timeouts ());
+           ?subscriber_description ?subscriber_name ?tags
+           ~subscriber_identity ?timeouts ~source ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_type ?subscriber_description
-    ?subscriber_name ?tags ?(source = []) ?(subscriber_identity = [])
-    ?timeouts __id =
+    ?subscriber_name ?tags ?(subscriber_identity = []) ?timeouts
+    ~source __id =
   let (r : _ Tf_core.resource) =
     make ?access_type ?subscriber_description ?subscriber_name ?tags
-      ~source ~subscriber_identity ?timeouts __id
+      ~subscriber_identity ?timeouts ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

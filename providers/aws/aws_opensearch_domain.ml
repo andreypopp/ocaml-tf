@@ -1025,6 +1025,7 @@ type aws_opensearch_domain = {
   domain_name : string prop;
   engine_version : string prop option; [@option]
   id : string prop option; [@option]
+  ip_address_type : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   advanced_security_options : advanced_security_options list;
@@ -1067,6 +1068,7 @@ let yojson_of_aws_opensearch_domain =
        domain_name = v_domain_name;
        engine_version = v_engine_version;
        id = v_id;
+       ip_address_type = v_ip_address_type;
        tags = v_tags;
        tags_all = v_tags_all;
        advanced_security_options = v_advanced_security_options;
@@ -1252,6 +1254,14 @@ let yojson_of_aws_opensearch_domain =
              bnd :: bnds
        in
        let bnds =
+         match v_ip_address_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1422,7 +1432,7 @@ let vpc_options ?security_group_ids ?subnet_ids () : vpc_options =
   { security_group_ids; subnet_ids }
 
 let aws_opensearch_domain ?access_policies ?advanced_options
-    ?engine_version ?id ?tags ?tags_all
+    ?engine_version ?id ?ip_address_type ?tags ?tags_all
     ?(advanced_security_options = []) ?(auto_tune_options = [])
     ?(cluster_config = []) ?(cognito_options = [])
     ?(domain_endpoint_options = []) ?(ebs_options = [])
@@ -1436,6 +1446,7 @@ let aws_opensearch_domain ?access_policies ?advanced_options
     domain_name;
     engine_version;
     id;
+    ip_address_type;
     tags;
     tags_all;
     advanced_security_options;
@@ -1465,20 +1476,21 @@ type t = {
   endpoint : string prop;
   engine_version : string prop;
   id : string prop;
+  ip_address_type : string prop;
   kibana_endpoint : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let make ?access_policies ?advanced_options ?engine_version ?id ?tags
-    ?tags_all ?(advanced_security_options = [])
-    ?(auto_tune_options = []) ?(cluster_config = [])
-    ?(cognito_options = []) ?(domain_endpoint_options = [])
-    ?(ebs_options = []) ?(encrypt_at_rest = [])
-    ?(node_to_node_encryption = []) ?(off_peak_window_options = [])
-    ?(snapshot_options = []) ?(software_update_options = [])
-    ?timeouts ?(vpc_options = []) ~domain_name
-    ~log_publishing_options __id =
+let make ?access_policies ?advanced_options ?engine_version ?id
+    ?ip_address_type ?tags ?tags_all
+    ?(advanced_security_options = []) ?(auto_tune_options = [])
+    ?(cluster_config = []) ?(cognito_options = [])
+    ?(domain_endpoint_options = []) ?(ebs_options = [])
+    ?(encrypt_at_rest = []) ?(node_to_node_encryption = [])
+    ?(off_peak_window_options = []) ?(snapshot_options = [])
+    ?(software_update_options = []) ?timeouts ?(vpc_options = [])
+    ~domain_name ~log_publishing_options __id =
   let __type = "aws_opensearch_domain" in
   let __attrs =
     ({
@@ -1494,6 +1506,7 @@ let make ?access_policies ?advanced_options ?engine_version ?id ?tags
        endpoint = Prop.computed __type __id "endpoint";
        engine_version = Prop.computed __type __id "engine_version";
        id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
        kibana_endpoint = Prop.computed __type __id "kibana_endpoint";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";
@@ -1506,7 +1519,7 @@ let make ?access_policies ?advanced_options ?engine_version ?id ?tags
     json =
       yojson_of_aws_opensearch_domain
         (aws_opensearch_domain ?access_policies ?advanced_options
-           ?engine_version ?id ?tags ?tags_all
+           ?engine_version ?id ?ip_address_type ?tags ?tags_all
            ~advanced_security_options ~auto_tune_options
            ~cluster_config ~cognito_options ~domain_endpoint_options
            ~ebs_options ~encrypt_at_rest ~node_to_node_encryption
@@ -1517,7 +1530,7 @@ let make ?access_policies ?advanced_options ?engine_version ?id ?tags
   }
 
 let register ?tf_module ?access_policies ?advanced_options
-    ?engine_version ?id ?tags ?tags_all
+    ?engine_version ?id ?ip_address_type ?tags ?tags_all
     ?(advanced_security_options = []) ?(auto_tune_options = [])
     ?(cluster_config = []) ?(cognito_options = [])
     ?(domain_endpoint_options = []) ?(ebs_options = [])
@@ -1526,13 +1539,13 @@ let register ?tf_module ?access_policies ?advanced_options
     ?(software_update_options = []) ?timeouts ?(vpc_options = [])
     ~domain_name ~log_publishing_options __id =
   let (r : _ Tf_core.resource) =
-    make ?access_policies ?advanced_options ?engine_version ?id ?tags
-      ?tags_all ~advanced_security_options ~auto_tune_options
-      ~cluster_config ~cognito_options ~domain_endpoint_options
-      ~ebs_options ~encrypt_at_rest ~node_to_node_encryption
-      ~off_peak_window_options ~snapshot_options
-      ~software_update_options ?timeouts ~vpc_options ~domain_name
-      ~log_publishing_options __id
+    make ?access_policies ?advanced_options ?engine_version ?id
+      ?ip_address_type ?tags ?tags_all ~advanced_security_options
+      ~auto_tune_options ~cluster_config ~cognito_options
+      ~domain_endpoint_options ~ebs_options ~encrypt_at_rest
+      ~node_to_node_encryption ~off_peak_window_options
+      ~snapshot_options ~software_update_options ?timeouts
+      ~vpc_options ~domain_name ~log_publishing_options __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

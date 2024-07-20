@@ -596,20 +596,32 @@ let _ = yojson_of_status__stateful
 
 [@@@deriving.end]
 
-type status__all_instances_config = { effective : bool prop }
+type status__all_instances_config = {
+  current_revision : string prop;
+  effective : bool prop;
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : status__all_instances_config) -> ()
 
 let yojson_of_status__all_instances_config =
   (function
-   | { effective = v_effective } ->
+   | {
+       current_revision = v_current_revision;
+       effective = v_effective;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_effective in
          ("effective", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_current_revision
+         in
+         ("current_revision", arg) :: bnds
        in
        `Assoc bnds
     : status__all_instances_config ->

@@ -187,6 +187,8 @@ let _ =
 [@@@deriving.end]
 
 type fleet_default_member_config__configmanagement__config_sync = {
+  enabled : bool prop option; [@option]
+  prevent_drift : bool prop option; [@option]
   source_format : string prop option; [@option]
   git :
     fleet_default_member_config__configmanagement__config_sync__git
@@ -206,7 +208,13 @@ let _ =
 let yojson_of_fleet_default_member_config__configmanagement__config_sync
     =
   (function
-   | { source_format = v_source_format; git = v_git; oci = v_oci } ->
+   | {
+       enabled = v_enabled;
+       prevent_drift = v_prevent_drift;
+       source_format = v_source_format;
+       git = v_git;
+       oci = v_oci;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -238,6 +246,22 @@ let yojson_of_fleet_default_member_config__configmanagement__config_sync
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "source_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prevent_drift with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "prevent_drift", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -1734,9 +1758,9 @@ let fleet_default_member_config__configmanagement__config_sync__oci
   }
 
 let fleet_default_member_config__configmanagement__config_sync
-    ?source_format ?(git = []) ?(oci = []) () :
-    fleet_default_member_config__configmanagement__config_sync =
-  { source_format; git; oci }
+    ?enabled ?prevent_drift ?source_format ?(git = []) ?(oci = []) ()
+    : fleet_default_member_config__configmanagement__config_sync =
+  { enabled; prevent_drift; source_format; git; oci }
 
 let fleet_default_member_config__configmanagement ?version
     ?(config_sync = []) () :

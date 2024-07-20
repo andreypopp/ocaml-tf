@@ -2,6 +2,28 @@
 
 open! Tf_core
 
+type spec__service_discovery = { ip_preference : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__service_discovery) -> ()
+
+let yojson_of_spec__service_discovery =
+  (function
+   | { ip_preference = v_ip_preference } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_preference in
+         ("ip_preference", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__service_discovery -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__service_discovery
+
+[@@@deriving.end]
+
 type spec__egress_filter = { type_ : string prop [@key "type"] }
 [@@deriving_inline yojson_of]
 
@@ -27,6 +49,8 @@ let _ = yojson_of_spec__egress_filter
 type spec = {
   egress_filter : spec__egress_filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  service_discovery : spec__service_discovery list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34,9 +58,22 @@ let _ = fun (_ : spec) -> ()
 
 let yojson_of_spec =
   (function
-   | { egress_filter = v_egress_filter } ->
+   | {
+       egress_filter = v_egress_filter;
+       service_discovery = v_service_discovery;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_service_discovery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service_discovery)
+               v_service_discovery
+           in
+           let bnd = "service_discovery", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_egress_filter then bnds

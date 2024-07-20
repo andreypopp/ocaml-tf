@@ -1051,6 +1051,7 @@ type settings = {
   disk_size : float prop option; [@option]
   disk_type : string prop option; [@option]
   edition : string prop option; [@option]
+  enable_google_ml_integration : bool prop option; [@option]
   pricing_plan : string prop option; [@option]
   tier : string prop;
   time_zone : string prop option; [@option]
@@ -1099,6 +1100,7 @@ let yojson_of_settings =
        disk_size = v_disk_size;
        disk_type = v_disk_type;
        edition = v_edition;
+       enable_google_ml_integration = v_enable_google_ml_integration;
        pricing_plan = v_pricing_plan;
        tier = v_tier;
        time_zone = v_time_zone;
@@ -1278,6 +1280,14 @@ let yojson_of_settings =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "pricing_plan", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_google_ml_integration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_google_ml_integration", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1825,12 +1835,13 @@ let settings__sql_server_audit_config ?bucket ?retention_interval
 let settings ?activation_policy ?availability_type ?collation
     ?connector_enforcement ?deletion_protection_enabled
     ?disk_autoresize ?disk_autoresize_limit ?disk_size ?disk_type
-    ?edition ?pricing_plan ?time_zone ?user_labels
-    ?(active_directory_config = []) ?(advanced_machine_features = [])
-    ?(backup_configuration = []) ?(data_cache_config = [])
-    ?(deny_maintenance_period = []) ?(insights_config = [])
-    ?(ip_configuration = []) ?(location_preference = [])
-    ?(maintenance_window = []) ?(password_validation_policy = [])
+    ?edition ?enable_google_ml_integration ?pricing_plan ?time_zone
+    ?user_labels ?(active_directory_config = [])
+    ?(advanced_machine_features = []) ?(backup_configuration = [])
+    ?(data_cache_config = []) ?(deny_maintenance_period = [])
+    ?(insights_config = []) ?(ip_configuration = [])
+    ?(location_preference = []) ?(maintenance_window = [])
+    ?(password_validation_policy = [])
     ?(sql_server_audit_config = []) ~tier ~database_flags () :
     settings =
   {
@@ -1844,6 +1855,7 @@ let settings ?activation_policy ?availability_type ?collation
     disk_size;
     disk_type;
     edition;
+    enable_google_ml_integration;
     pricing_plan;
     tier;
     time_zone;

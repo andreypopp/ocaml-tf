@@ -4,6 +4,67 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type document_processing_config__default_parsing_config__digital_parsing_config
+
+val document_processing_config__default_parsing_config__digital_parsing_config :
+  unit ->
+  document_processing_config__default_parsing_config__digital_parsing_config
+
+type document_processing_config__default_parsing_config__ocr_parsing_config
+
+val document_processing_config__default_parsing_config__ocr_parsing_config :
+  ?use_native_text:bool prop ->
+  unit ->
+  document_processing_config__default_parsing_config__ocr_parsing_config
+
+type document_processing_config__default_parsing_config
+
+val document_processing_config__default_parsing_config :
+  ?digital_parsing_config:
+    document_processing_config__default_parsing_config__digital_parsing_config
+    list ->
+  ?ocr_parsing_config:
+    document_processing_config__default_parsing_config__ocr_parsing_config
+    list ->
+  unit ->
+  document_processing_config__default_parsing_config
+
+type document_processing_config__parsing_config_overrides__digital_parsing_config
+
+val document_processing_config__parsing_config_overrides__digital_parsing_config :
+  unit ->
+  document_processing_config__parsing_config_overrides__digital_parsing_config
+
+type document_processing_config__parsing_config_overrides__ocr_parsing_config
+
+val document_processing_config__parsing_config_overrides__ocr_parsing_config :
+  ?use_native_text:bool prop ->
+  unit ->
+  document_processing_config__parsing_config_overrides__ocr_parsing_config
+
+type document_processing_config__parsing_config_overrides
+
+val document_processing_config__parsing_config_overrides :
+  ?digital_parsing_config:
+    document_processing_config__parsing_config_overrides__digital_parsing_config
+    list ->
+  ?ocr_parsing_config:
+    document_processing_config__parsing_config_overrides__ocr_parsing_config
+    list ->
+  file_type:string prop ->
+  unit ->
+  document_processing_config__parsing_config_overrides
+
+type document_processing_config
+
+val document_processing_config :
+  ?default_parsing_config:
+    document_processing_config__default_parsing_config list ->
+  parsing_config_overrides:
+    document_processing_config__parsing_config_overrides list ->
+  unit ->
+  document_processing_config
+
 type timeouts
 
 val timeouts :
@@ -20,6 +81,7 @@ val google_discovery_engine_data_store :
   ?id:string prop ->
   ?project:string prop ->
   ?solution_types:string prop list ->
+  ?document_processing_config:document_processing_config list ->
   ?timeouts:timeouts ->
   content_config:string prop ->
   data_store_id:string prop ->
@@ -56,6 +118,7 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?solution_types:string prop list ->
+  ?document_processing_config:document_processing_config list ->
   ?timeouts:timeouts ->
   content_config:string prop ->
   data_store_id:string prop ->
@@ -70,6 +133,7 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?solution_types:string prop list ->
+  ?document_processing_config:document_processing_config list ->
   ?timeouts:timeouts ->
   content_config:string prop ->
   data_store_id:string prop ->

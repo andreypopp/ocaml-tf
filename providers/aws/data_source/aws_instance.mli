@@ -116,6 +116,7 @@ type t = private {
   instance_type : string prop;
   ipv6_addresses : string list prop;
   key_name : string prop;
+  launch_time : string prop;
   maintenance_options : maintenance_options list prop;
   metadata_options : metadata_options list prop;
   monitoring : bool prop;

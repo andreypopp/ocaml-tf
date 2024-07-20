@@ -79,9 +79,11 @@ type cloudflare_worker_script
 val cloudflare_worker_script :
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
+  ?dispatch_namespace:string prop ->
   ?id:string prop ->
   ?logpush:bool prop ->
   ?module_:bool prop ->
+  ?tags:string prop list ->
   account_id:string prop ->
   content:string prop ->
   name:string prop ->
@@ -109,19 +111,23 @@ type t = private {
   compatibility_date : string prop;
   compatibility_flags : string list prop;
   content : string prop;
+  dispatch_namespace : string prop;
   id : string prop;
   logpush : bool prop;
   module_ : bool prop;
   name : string prop;
+  tags : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
+  ?dispatch_namespace:string prop ->
   ?id:string prop ->
   ?logpush:bool prop ->
   ?module_:bool prop ->
+  ?tags:string prop list ->
   account_id:string prop ->
   content:string prop ->
   name:string prop ->
@@ -141,9 +147,11 @@ val register :
 val make :
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
+  ?dispatch_namespace:string prop ->
   ?id:string prop ->
   ?logpush:bool prop ->
   ?module_:bool prop ->
+  ?tags:string prop list ->
   account_id:string prop ->
   content:string prop ->
   name:string prop ->

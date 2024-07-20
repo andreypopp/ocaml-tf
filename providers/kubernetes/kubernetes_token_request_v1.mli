@@ -1,3 +1,5 @@
+(** TokenRequest requests a token for a given service account. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

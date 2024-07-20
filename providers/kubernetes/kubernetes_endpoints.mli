@@ -1,3 +1,5 @@
+(** An Endpoints resource is an abstraction, linked to a Service, which defines the list of endpoints that actually implement the service. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -7,7 +7,7 @@ open! Tf_core
 type authentication_mode
 
 val authentication_mode :
-  passwords:string prop list ->
+  ?passwords:string prop list ->
   type_:string prop ->
   unit ->
   authentication_mode

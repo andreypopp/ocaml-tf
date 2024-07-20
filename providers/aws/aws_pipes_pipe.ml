@@ -116,6 +116,184 @@ let _ = yojson_of_enrichment_parameters
 
 [@@@deriving.end]
 
+type log_configuration__cloudwatch_logs_log_destination = {
+  log_group_arn : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : log_configuration__cloudwatch_logs_log_destination) -> ()
+
+let yojson_of_log_configuration__cloudwatch_logs_log_destination =
+  (function
+   | { log_group_arn = v_log_group_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_group_arn in
+         ("log_group_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_configuration__cloudwatch_logs_log_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_configuration__cloudwatch_logs_log_destination
+
+[@@@deriving.end]
+
+type log_configuration__firehose_log_destination = {
+  delivery_stream_arn : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_configuration__firehose_log_destination) -> ()
+
+let yojson_of_log_configuration__firehose_log_destination =
+  (function
+   | { delivery_stream_arn = v_delivery_stream_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_delivery_stream_arn
+         in
+         ("delivery_stream_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_configuration__firehose_log_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_configuration__firehose_log_destination
+
+[@@@deriving.end]
+
+type log_configuration__s3_log_destination = {
+  bucket_name : string prop;
+  bucket_owner : string prop;
+  output_format : string prop option; [@option]
+  prefix : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_configuration__s3_log_destination) -> ()
+
+let yojson_of_log_configuration__s3_log_destination =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       bucket_owner = v_bucket_owner;
+       output_format = v_output_format;
+       prefix = v_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_owner in
+         ("bucket_owner", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_configuration__s3_log_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_configuration__s3_log_destination
+
+[@@@deriving.end]
+
+type log_configuration = {
+  level : string prop;
+  cloudwatch_logs_log_destination :
+    log_configuration__cloudwatch_logs_log_destination list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  firehose_log_destination :
+    log_configuration__firehose_log_destination list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  s3_log_destination : log_configuration__s3_log_destination list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_configuration) -> ()
+
+let yojson_of_log_configuration =
+  (function
+   | {
+       level = v_level;
+       cloudwatch_logs_log_destination =
+         v_cloudwatch_logs_log_destination;
+       firehose_log_destination = v_firehose_log_destination;
+       s3_log_destination = v_s3_log_destination;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_s3_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_configuration__s3_log_destination)
+               v_s3_log_destination
+           in
+           let bnd = "s3_log_destination", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_firehose_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_configuration__firehose_log_destination)
+               v_firehose_log_destination
+           in
+           let bnd = "firehose_log_destination", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cloudwatch_logs_log_destination then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_configuration__cloudwatch_logs_log_destination)
+               v_cloudwatch_logs_log_destination
+           in
+           let bnd = "cloudwatch_logs_log_destination", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_level in
+         ("level", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_configuration
+
+[@@@deriving.end]
+
 type source_parameters__activemq_broker_parameters__credentials = {
   basic_auth : string prop;
 }
@@ -796,7 +974,7 @@ let _ = yojson_of_source_parameters__rabbitmq_broker_parameters
 [@@@deriving.end]
 
 type source_parameters__self_managed_kafka_parameters__credentials = {
-  basic_auth : string prop;
+  basic_auth : string prop option; [@option]
   client_certificate_tls_auth : string prop option; [@option]
   sasl_scram_256_auth : string prop option; [@option]
   sasl_scram_512_auth : string prop option; [@option]
@@ -845,8 +1023,12 @@ let yojson_of_source_parameters__self_managed_kafka_parameters__credentials
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_basic_auth in
-         ("basic_auth", arg) :: bnds
+         match v_basic_auth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "basic_auth", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : source_parameters__self_managed_kafka_parameters__credentials ->
@@ -3164,6 +3346,8 @@ type aws_pipes_pipe = {
   target : string prop;
   enrichment_parameters : enrichment_parameters list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  log_configuration : log_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source_parameters : source_parameters list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   target_parameters : target_parameters list;
@@ -3189,6 +3373,7 @@ let yojson_of_aws_pipes_pipe =
        tags_all = v_tags_all;
        target = v_target;
        enrichment_parameters = v_enrichment_parameters;
+       log_configuration = v_log_configuration;
        source_parameters = v_source_parameters;
        target_parameters = v_target_parameters;
        timeouts = v_timeouts;
@@ -3218,6 +3403,16 @@ let yojson_of_aws_pipes_pipe =
                v_source_parameters
            in
            let bnd = "source_parameters", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_log_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_configuration)
+               v_log_configuration
+           in
+           let bnd = "log_configuration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -3342,6 +3537,29 @@ let enrichment_parameters ?input_template ?(http_parameters = []) ()
     : enrichment_parameters =
   { input_template; http_parameters }
 
+let log_configuration__cloudwatch_logs_log_destination ~log_group_arn
+    () : log_configuration__cloudwatch_logs_log_destination =
+  { log_group_arn }
+
+let log_configuration__firehose_log_destination ~delivery_stream_arn
+    () : log_configuration__firehose_log_destination =
+  { delivery_stream_arn }
+
+let log_configuration__s3_log_destination ?output_format ?prefix
+    ~bucket_name ~bucket_owner () :
+    log_configuration__s3_log_destination =
+  { bucket_name; bucket_owner; output_format; prefix }
+
+let log_configuration ?(cloudwatch_logs_log_destination = [])
+    ?(firehose_log_destination = []) ?(s3_log_destination = [])
+    ~level () : log_configuration =
+  {
+    level;
+    cloudwatch_logs_log_destination;
+    firehose_log_destination;
+    s3_log_destination;
+  }
+
 let source_parameters__activemq_broker_parameters__credentials
     ~basic_auth () :
     source_parameters__activemq_broker_parameters__credentials =
@@ -3449,8 +3667,8 @@ let source_parameters__rabbitmq_broker_parameters ?batch_size
   }
 
 let source_parameters__self_managed_kafka_parameters__credentials
-    ?client_certificate_tls_auth ?sasl_scram_256_auth
-    ?sasl_scram_512_auth ~basic_auth () :
+    ?basic_auth ?client_certificate_tls_auth ?sasl_scram_256_auth
+    ?sasl_scram_512_auth () :
     source_parameters__self_managed_kafka_parameters__credentials =
   {
     basic_auth;
@@ -3750,8 +3968,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
     ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
-    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
-    ~role_arn ~source ~target () : aws_pipes_pipe =
+    ?(log_configuration = []) ?(source_parameters = [])
+    ?(target_parameters = []) ?timeouts ~role_arn ~source ~target ()
+    : aws_pipes_pipe =
   {
     description;
     desired_state;
@@ -3765,6 +3984,7 @@ let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
     tags_all;
     target;
     enrichment_parameters;
+    log_configuration;
     source_parameters;
     target_parameters;
     timeouts;
@@ -3788,8 +4008,9 @@ type t = {
 
 let make ?description ?desired_state ?enrichment ?id ?name
     ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
-    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
-    ~role_arn ~source ~target __id =
+    ?(log_configuration = []) ?(source_parameters = [])
+    ?(target_parameters = []) ?timeouts ~role_arn ~source ~target
+    __id =
   let __type = "aws_pipes_pipe" in
   let __attrs =
     ({
@@ -3816,20 +4037,21 @@ let make ?description ?desired_state ?enrichment ?id ?name
       yojson_of_aws_pipes_pipe
         (aws_pipes_pipe ?description ?desired_state ?enrichment ?id
            ?name ?name_prefix ?tags ?tags_all ~enrichment_parameters
-           ~source_parameters ~target_parameters ?timeouts ~role_arn
-           ~source ~target ());
+           ~log_configuration ~source_parameters ~target_parameters
+           ?timeouts ~role_arn ~source ~target ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?desired_state ?enrichment ?id
     ?name ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
-    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
-    ~role_arn ~source ~target __id =
+    ?(log_configuration = []) ?(source_parameters = [])
+    ?(target_parameters = []) ?timeouts ~role_arn ~source ~target
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?desired_state ?enrichment ?id ?name
       ?name_prefix ?tags ?tags_all ~enrichment_parameters
-      ~source_parameters ~target_parameters ?timeouts ~role_arn
-      ~source ~target __id
+      ~log_configuration ~source_parameters ~target_parameters
+      ?timeouts ~role_arn ~source ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

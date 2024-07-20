@@ -148,6 +148,7 @@ type aws_cloudwatch_event_target
 
 val aws_cloudwatch_event_target :
   ?event_bus_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?input:string prop ->
   ?input_path:string prop ->
@@ -178,6 +179,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   event_bus_name : string prop;
+  force_destroy : bool prop;
   id : string prop;
   input : string prop;
   input_path : string prop;
@@ -189,6 +191,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?event_bus_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?input:string prop ->
   ?input_path:string prop ->
@@ -212,6 +215,7 @@ val register :
 
 val make :
   ?event_bus_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?input:string prop ->
   ?input_path:string prop ->

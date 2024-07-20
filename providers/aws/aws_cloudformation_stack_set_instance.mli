@@ -14,6 +14,9 @@ type stack_instance_summaries = {
 type deployment_targets
 
 val deployment_targets :
+  ?account_filter_type:string prop ->
+  ?accounts:string prop list ->
+  ?accounts_url:string prop ->
   ?organizational_unit_ids:string prop list ->
   unit ->
   deployment_targets

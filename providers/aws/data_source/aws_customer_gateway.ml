@@ -139,6 +139,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   bgp_asn : float prop;
+  bgp_asn_extended : float prop;
   certificate_arn : string prop;
   device_name : string prop;
   id : string prop;
@@ -154,6 +155,8 @@ let make ?id ?tags ?timeouts ~filter __id =
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bgp_asn = Prop.computed __type __id "bgp_asn";
+       bgp_asn_extended =
+         Prop.computed __type __id "bgp_asn_extended";
        certificate_arn = Prop.computed __type __id "certificate_arn";
        device_name = Prop.computed __type __id "device_name";
        id = Prop.computed __type __id "id";

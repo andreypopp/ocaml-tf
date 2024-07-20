@@ -11,6 +11,7 @@ val aws_dms_replication_task :
   ?cdc_start_time:string prop ->
   ?id:string prop ->
   ?replication_task_settings:string prop ->
+  ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -38,6 +39,7 @@ type t = private {
   replication_task_arn : string prop;
   replication_task_id : string prop;
   replication_task_settings : string prop;
+  resource_identifier : string prop;
   source_endpoint_arn : string prop;
   start_replication_task : bool prop;
   status : string prop;
@@ -53,6 +55,7 @@ val register :
   ?cdc_start_time:string prop ->
   ?id:string prop ->
   ?replication_task_settings:string prop ->
+  ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -70,6 +73,7 @@ val make :
   ?cdc_start_time:string prop ->
   ?id:string prop ->
   ?replication_task_settings:string prop ->
+  ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->

@@ -468,6 +468,8 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   local_storage : string prop;
   local_storage_types : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop;
   memory_gib_per_vcpu :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list;
@@ -521,6 +523,8 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
        instance_generations = v_instance_generations;
        local_storage = v_local_storage;
        local_storage_types = v_local_storage_types;
+       max_spot_price_as_percentage_of_optimal_on_demand_price =
+         v_max_spot_price_as_percentage_of_optimal_on_demand_price;
        memory_gib_per_vcpu = v_memory_gib_per_vcpu;
        memory_mib = v_memory_mib;
        network_bandwidth_gbps = v_network_bandwidth_gbps;
@@ -622,6 +626,15 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
            in
            let bnd = "memory_gib_per_vcpu", arg in
            bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_max_spot_price_as_percentage_of_optimal_on_demand_price
+         in
+         ( "max_spot_price_as_percentage_of_optimal_on_demand_price",
+           arg )
+         :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_local_storage_types then bnds

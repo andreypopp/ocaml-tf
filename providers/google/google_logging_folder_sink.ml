@@ -86,6 +86,7 @@ type google_logging_folder_sink = {
   folder : string prop;
   id : string prop option; [@option]
   include_children : bool prop option; [@option]
+  intercept_children : bool prop option; [@option]
   name : string prop;
   bigquery_options : bigquery_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -106,6 +107,7 @@ let yojson_of_google_logging_folder_sink =
        folder = v_folder;
        id = v_id;
        include_children = v_include_children;
+       intercept_children = v_intercept_children;
        name = v_name;
        bigquery_options = v_bigquery_options;
        exclusions = v_exclusions;
@@ -135,6 +137,14 @@ let yojson_of_google_logging_folder_sink =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_intercept_children with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "intercept_children", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_include_children with
@@ -198,8 +208,9 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
   { description; disabled; filter; name }
 
 let google_logging_folder_sink ?description ?disabled ?filter ?id
-    ?include_children ?(bigquery_options = []) ?(exclusions = [])
-    ~destination ~folder ~name () : google_logging_folder_sink =
+    ?include_children ?intercept_children ?(bigquery_options = [])
+    ?(exclusions = []) ~destination ~folder ~name () :
+    google_logging_folder_sink =
   {
     description;
     destination;
@@ -208,6 +219,7 @@ let google_logging_folder_sink ?description ?disabled ?filter ?id
     folder;
     id;
     include_children;
+    intercept_children;
     name;
     bigquery_options;
     exclusions;
@@ -222,13 +234,14 @@ type t = {
   folder : string prop;
   id : string prop;
   include_children : bool prop;
+  intercept_children : bool prop;
   name : string prop;
   writer_identity : string prop;
 }
 
 let make ?description ?disabled ?filter ?id ?include_children
-    ?(bigquery_options = []) ?(exclusions = []) ~destination ~folder
-    ~name __id =
+    ?intercept_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~folder ~name __id =
   let __type = "google_logging_folder_sink" in
   let __attrs =
     ({
@@ -241,6 +254,8 @@ let make ?description ?disabled ?filter ?id ?include_children
        id = Prop.computed __type __id "id";
        include_children =
          Prop.computed __type __id "include_children";
+       intercept_children =
+         Prop.computed __type __id "intercept_children";
        name = Prop.computed __type __id "name";
        writer_identity = Prop.computed __type __id "writer_identity";
      }
@@ -252,17 +267,19 @@ let make ?description ?disabled ?filter ?id ?include_children
     json =
       yojson_of_google_logging_folder_sink
         (google_logging_folder_sink ?description ?disabled ?filter
-           ?id ?include_children ~bigquery_options ~exclusions
-           ~destination ~folder ~name ());
+           ?id ?include_children ?intercept_children
+           ~bigquery_options ~exclusions ~destination ~folder ~name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filter ?id
-    ?include_children ?(bigquery_options = []) ?(exclusions = [])
-    ~destination ~folder ~name __id =
+    ?include_children ?intercept_children ?(bigquery_options = [])
+    ?(exclusions = []) ~destination ~folder ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?filter ?id ?include_children
-      ~bigquery_options ~exclusions ~destination ~folder ~name __id
+      ?intercept_children ~bigquery_options ~exclusions ~destination
+      ~folder ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

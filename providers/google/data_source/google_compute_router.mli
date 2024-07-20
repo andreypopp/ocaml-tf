@@ -18,6 +18,7 @@ type bgp = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** advertised_ip_ranges *)
   asn : float prop;  (** asn *)
+  identifier_range : string prop;  (** identifier_range *)
   keepalive_interval : float prop;  (** keepalive_interval *)
 }
 

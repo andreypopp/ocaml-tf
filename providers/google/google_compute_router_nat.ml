@@ -224,9 +224,11 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type google_compute_router_nat = {
+  auto_network_tier : string prop option; [@option]
   drain_nat_ips : string prop list option; [@option]
   enable_dynamic_port_allocation : bool prop option; [@option]
   enable_endpoint_independent_mapping : bool prop option; [@option]
+  endpoint_types : string prop list option; [@option]
   icmp_idle_timeout_sec : float prop option; [@option]
   id : string prop option; [@option]
   max_ports_per_vm : float prop option; [@option]
@@ -257,11 +259,13 @@ let _ = fun (_ : google_compute_router_nat) -> ()
 let yojson_of_google_compute_router_nat =
   (function
    | {
+       auto_network_tier = v_auto_network_tier;
        drain_nat_ips = v_drain_nat_ips;
        enable_dynamic_port_allocation =
          v_enable_dynamic_port_allocation;
        enable_endpoint_independent_mapping =
          v_enable_endpoint_independent_mapping;
+       endpoint_types = v_endpoint_types;
        icmp_idle_timeout_sec = v_icmp_idle_timeout_sec;
        id = v_id;
        max_ports_per_vm = v_max_ports_per_vm;
@@ -431,6 +435,16 @@ let yojson_of_google_compute_router_nat =
              bnd :: bnds
        in
        let bnds =
+         match v_endpoint_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "endpoint_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_enable_endpoint_independent_mapping with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -454,6 +468,14 @@ let yojson_of_google_compute_router_nat =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "drain_nat_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_network_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_network_tier", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -480,19 +502,22 @@ let subnetwork ?secondary_ip_range_names ~name
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_compute_router_nat ?drain_nat_ips
+let google_compute_router_nat ?auto_network_tier ?drain_nat_ips
     ?enable_dynamic_port_allocation
-    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
-    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
-    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
-    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+    ?enable_endpoint_independent_mapping ?endpoint_types
+    ?icmp_idle_timeout_sec ?id ?max_ports_per_vm ?min_ports_per_vm
+    ?nat_ip_allocate_option ?nat_ips ?project ?region
+    ?tcp_established_idle_timeout_sec ?tcp_time_wait_timeout_sec
+    ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
+    ?(log_config = []) ?timeouts ~name ~router
     ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork () :
     google_compute_router_nat =
   {
+    auto_network_tier;
     drain_nat_ips;
     enable_dynamic_port_allocation;
     enable_endpoint_independent_mapping;
+    endpoint_types;
     icmp_idle_timeout_sec;
     id;
     max_ports_per_vm;
@@ -516,9 +541,11 @@ let google_compute_router_nat ?drain_nat_ips
 
 type t = {
   tf_name : string;
+  auto_network_tier : string prop;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;
+  endpoint_types : string list prop;
   icmp_idle_timeout_sec : float prop;
   id : string prop;
   max_ports_per_vm : float prop;
@@ -536,23 +563,28 @@ type t = {
   udp_idle_timeout_sec : float prop;
 }
 
-let make ?drain_nat_ips ?enable_dynamic_port_allocation
-    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
-    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
-    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
-    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+let make ?auto_network_tier ?drain_nat_ips
+    ?enable_dynamic_port_allocation
+    ?enable_endpoint_independent_mapping ?endpoint_types
+    ?icmp_idle_timeout_sec ?id ?max_ports_per_vm ?min_ports_per_vm
+    ?nat_ip_allocate_option ?nat_ips ?project ?region
+    ?tcp_established_idle_timeout_sec ?tcp_time_wait_timeout_sec
+    ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
+    ?(log_config = []) ?timeouts ~name ~router
     ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id =
   let __type = "google_compute_router_nat" in
   let __attrs =
     ({
        tf_name = __id;
+       auto_network_tier =
+         Prop.computed __type __id "auto_network_tier";
        drain_nat_ips = Prop.computed __type __id "drain_nat_ips";
        enable_dynamic_port_allocation =
          Prop.computed __type __id "enable_dynamic_port_allocation";
        enable_endpoint_independent_mapping =
          Prop.computed __type __id
            "enable_endpoint_independent_mapping";
+       endpoint_types = Prop.computed __type __id "endpoint_types";
        icmp_idle_timeout_sec =
          Prop.computed __type __id "icmp_idle_timeout_sec";
        id = Prop.computed __type __id "id";
@@ -586,9 +618,9 @@ let make ?drain_nat_ips ?enable_dynamic_port_allocation
     type_ = __type;
     json =
       yojson_of_google_compute_router_nat
-        (google_compute_router_nat ?drain_nat_ips
+        (google_compute_router_nat ?auto_network_tier ?drain_nat_ips
            ?enable_dynamic_port_allocation
-           ?enable_endpoint_independent_mapping
+           ?enable_endpoint_independent_mapping ?endpoint_types
            ?icmp_idle_timeout_sec ?id ?max_ports_per_vm
            ?min_ports_per_vm ?nat_ip_allocate_option ?nat_ips
            ?project ?region ?tcp_established_idle_timeout_sec
@@ -599,21 +631,24 @@ let make ?drain_nat_ips ?enable_dynamic_port_allocation
     attrs = __attrs;
   }
 
-let register ?tf_module ?drain_nat_ips
+let register ?tf_module ?auto_network_tier ?drain_nat_ips
     ?enable_dynamic_port_allocation
-    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
-    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
-    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
-    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+    ?enable_endpoint_independent_mapping ?endpoint_types
+    ?icmp_idle_timeout_sec ?id ?max_ports_per_vm ?min_ports_per_vm
+    ?nat_ip_allocate_option ?nat_ips ?project ?region
+    ?tcp_established_idle_timeout_sec ?tcp_time_wait_timeout_sec
+    ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
+    ?(log_config = []) ?timeouts ~name ~router
     ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id =
   let (r : _ Tf_core.resource) =
-    make ?drain_nat_ips ?enable_dynamic_port_allocation
-      ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
-      ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
-      ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
-      ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-      ?udp_idle_timeout_sec ~log_config ?timeouts ~name ~router
+    make ?auto_network_tier ?drain_nat_ips
+      ?enable_dynamic_port_allocation
+      ?enable_endpoint_independent_mapping ?endpoint_types
+      ?icmp_idle_timeout_sec ?id ?max_ports_per_vm ?min_ports_per_vm
+      ?nat_ip_allocate_option ?nat_ips ?project ?region
+      ?tcp_established_idle_timeout_sec ?tcp_time_wait_timeout_sec
+      ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
+      ~log_config ?timeouts ~name ~router
       ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

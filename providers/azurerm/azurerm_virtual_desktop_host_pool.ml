@@ -167,6 +167,7 @@ type azurerm_virtual_desktop_host_pool = {
   name : string prop;
   personal_desktop_assignment_type : string prop option; [@option]
   preferred_app_group_type : string prop option; [@option]
+  public_network_access : string prop option; [@option]
   resource_group_name : string prop;
   start_vm_on_connect : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
@@ -195,6 +196,7 @@ let yojson_of_azurerm_virtual_desktop_host_pool =
        personal_desktop_assignment_type =
          v_personal_desktop_assignment_type;
        preferred_app_group_type = v_preferred_app_group_type;
+       public_network_access = v_public_network_access;
        resource_group_name = v_resource_group_name;
        start_vm_on_connect = v_start_vm_on_connect;
        tags = v_tags;
@@ -270,6 +272,14 @@ let yojson_of_azurerm_virtual_desktop_host_pool =
            yojson_of_prop yojson_of_string v_resource_group_name
          in
          ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_public_network_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_network_access", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_preferred_app_group_type with
@@ -364,7 +374,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     ?description ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
-    ?start_vm_on_connect ?tags ?validate_environment ?vm_template
+    ?public_network_access ?start_vm_on_connect ?tags
+    ?validate_environment ?vm_template
     ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
     ~location ~name ~resource_group_name ~type_ () :
     azurerm_virtual_desktop_host_pool =
@@ -379,6 +390,7 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     name;
     personal_desktop_assignment_type;
     preferred_app_group_type;
+    public_network_access;
     resource_group_name;
     start_vm_on_connect;
     tags;
@@ -401,6 +413,7 @@ type t = {
   name : string prop;
   personal_desktop_assignment_type : string prop;
   preferred_app_group_type : string prop;
+  public_network_access : string prop;
   resource_group_name : string prop;
   start_vm_on_connect : bool prop;
   tags : (string * string) list prop;
@@ -411,8 +424,8 @@ type t = {
 
 let make ?custom_rdp_properties ?description ?friendly_name ?id
     ?maximum_sessions_allowed ?personal_desktop_assignment_type
-    ?preferred_app_group_type ?start_vm_on_connect ?tags
-    ?validate_environment ?vm_template
+    ?preferred_app_group_type ?public_network_access
+    ?start_vm_on_connect ?tags ?validate_environment ?vm_template
     ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
     ~location ~name ~resource_group_name ~type_ __id =
   let __type = "azurerm_virtual_desktop_host_pool" in
@@ -434,6 +447,8 @@ let make ?custom_rdp_properties ?description ?friendly_name ?id
          Prop.computed __type __id "personal_desktop_assignment_type";
        preferred_app_group_type =
          Prop.computed __type __id "preferred_app_group_type";
+       public_network_access =
+         Prop.computed __type __id "public_network_access";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        start_vm_on_connect =
@@ -454,26 +469,28 @@ let make ?custom_rdp_properties ?description ?friendly_name ?id
         (azurerm_virtual_desktop_host_pool ?custom_rdp_properties
            ?description ?friendly_name ?id ?maximum_sessions_allowed
            ?personal_desktop_assignment_type
-           ?preferred_app_group_type ?start_vm_on_connect ?tags
-           ?validate_environment ?vm_template
-           ~scheduled_agent_updates ?timeouts ~load_balancer_type
-           ~location ~name ~resource_group_name ~type_ ());
+           ?preferred_app_group_type ?public_network_access
+           ?start_vm_on_connect ?tags ?validate_environment
+           ?vm_template ~scheduled_agent_updates ?timeouts
+           ~load_balancer_type ~location ~name ~resource_group_name
+           ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_rdp_properties ?description
     ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
-    ?start_vm_on_connect ?tags ?validate_environment ?vm_template
+    ?public_network_access ?start_vm_on_connect ?tags
+    ?validate_environment ?vm_template
     ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
     ~location ~name ~resource_group_name ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?custom_rdp_properties ?description ?friendly_name ?id
       ?maximum_sessions_allowed ?personal_desktop_assignment_type
-      ?preferred_app_group_type ?start_vm_on_connect ?tags
-      ?validate_environment ?vm_template ~scheduled_agent_updates
-      ?timeouts ~load_balancer_type ~location ~name
-      ~resource_group_name ~type_ __id
+      ?preferred_app_group_type ?public_network_access
+      ?start_vm_on_connect ?tags ?validate_environment ?vm_template
+      ~scheduled_agent_updates ?timeouts ~load_balancer_type
+      ~location ~name ~resource_group_name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

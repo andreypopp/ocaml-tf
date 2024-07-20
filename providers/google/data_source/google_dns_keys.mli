@@ -1,5 +1,3 @@
-(** Get the DNSKEY and DS records of DNSSEC-signed managed zones *)
-
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core
@@ -48,6 +46,7 @@ type zone_signing_keys = {
 type google_dns_keys
 
 val google_dns_keys :
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   unit ->
@@ -68,12 +67,14 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   string ->
   t
 
 val make :
+  ?id:string prop ->
   ?project:string prop ->
   managed_zone:string prop ->
   string ->

@@ -7,7 +7,10 @@ open! Tf_core
 type notification_config
 
 val notification_config :
-  pubsub_topic:string prop -> unit -> notification_config
+  ?send_for_bulk_import:bool prop ->
+  pubsub_topic:string prop ->
+  unit ->
+  notification_config
 
 type timeouts
 

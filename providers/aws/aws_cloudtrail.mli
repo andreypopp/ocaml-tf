@@ -66,9 +66,9 @@ val aws_cloudtrail :
   ?tags_all:(string * string prop) list ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
-  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
+  insight_selector:insight_selector list ->
   unit ->
   aws_cloudtrail
 
@@ -114,9 +114,9 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
-  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
+  insight_selector:insight_selector list ->
   string ->
   t
 
@@ -136,8 +136,8 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
-  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
+  insight_selector:insight_selector list ->
   string ->
   t Tf_core.resource

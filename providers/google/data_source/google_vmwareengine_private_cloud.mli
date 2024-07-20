@@ -11,6 +11,11 @@ type hcx = {
   version : string prop;  (** version *)
 }
 
+type management_cluster__stretched_cluster_config = {
+  preferred_location : string prop;  (** preferred_location *)
+  secondary_location : string prop;  (** secondary_location *)
+}
+
 type management_cluster__node_type_configs = {
   custom_core_count : float prop;  (** custom_core_count *)
   node_count : float prop;  (** node_count *)
@@ -22,6 +27,10 @@ type management_cluster = {
   node_type_configs : management_cluster__node_type_configs list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_type_configs *)
+  stretched_cluster_config :
+    management_cluster__stretched_cluster_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** stretched_cluster_config *)
 }
 
 type network_config = {

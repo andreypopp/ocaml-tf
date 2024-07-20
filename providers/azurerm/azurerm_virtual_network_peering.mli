@@ -21,6 +21,10 @@ val azurerm_virtual_network_peering :
   ?allow_gateway_transit:bool prop ->
   ?allow_virtual_network_access:bool prop ->
   ?id:string prop ->
+  ?local_subnet_names:string prop list ->
+  ?only_ipv6_peering_enabled:bool prop ->
+  ?peer_complete_virtual_networks_enabled:bool prop ->
+  ?remote_subnet_names:string prop list ->
   ?triggers:(string * string prop) list ->
   ?use_remote_gateways:bool prop ->
   ?timeouts:timeouts ->
@@ -42,7 +46,11 @@ type t = private {
   allow_gateway_transit : bool prop;
   allow_virtual_network_access : bool prop;
   id : string prop;
+  local_subnet_names : string list prop;
   name : string prop;
+  only_ipv6_peering_enabled : bool prop;
+  peer_complete_virtual_networks_enabled : bool prop;
+  remote_subnet_names : string list prop;
   remote_virtual_network_id : string prop;
   resource_group_name : string prop;
   triggers : (string * string) list prop;
@@ -56,6 +64,10 @@ val register :
   ?allow_gateway_transit:bool prop ->
   ?allow_virtual_network_access:bool prop ->
   ?id:string prop ->
+  ?local_subnet_names:string prop list ->
+  ?only_ipv6_peering_enabled:bool prop ->
+  ?peer_complete_virtual_networks_enabled:bool prop ->
+  ?remote_subnet_names:string prop list ->
   ?triggers:(string * string prop) list ->
   ?use_remote_gateways:bool prop ->
   ?timeouts:timeouts ->
@@ -71,6 +83,10 @@ val make :
   ?allow_gateway_transit:bool prop ->
   ?allow_virtual_network_access:bool prop ->
   ?id:string prop ->
+  ?local_subnet_names:string prop list ->
+  ?only_ipv6_peering_enabled:bool prop ->
+  ?peer_complete_virtual_networks_enabled:bool prop ->
+  ?remote_subnet_names:string prop list ->
   ?triggers:(string * string prop) list ->
   ?use_remote_gateways:bool prop ->
   ?timeouts:timeouts ->

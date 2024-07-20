@@ -84,9 +84,11 @@ val exclude :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->
@@ -170,9 +172,11 @@ val include_ :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->
@@ -256,9 +260,11 @@ val require :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->
@@ -280,9 +286,11 @@ type cloudflare_access_policy
 
 val cloudflare_access_policy :
   ?account_id:string prop ->
+  ?application_id:string prop ->
   ?approval_required:bool prop ->
   ?id:string prop ->
   ?isolation_required:bool prop ->
+  ?precedence:float prop ->
   ?purpose_justification_prompt:string prop ->
   ?purpose_justification_required:bool prop ->
   ?session_duration:string prop ->
@@ -290,10 +298,8 @@ val cloudflare_access_policy :
   ?approval_group:approval_group list ->
   ?exclude:exclude list ->
   ?require:require list ->
-  application_id:string prop ->
   decision:string prop ->
   name:string prop ->
-  precedence:float prop ->
   include_:include_ list ->
   unit ->
   cloudflare_access_policy
@@ -322,9 +328,11 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
+  ?application_id:string prop ->
   ?approval_required:bool prop ->
   ?id:string prop ->
   ?isolation_required:bool prop ->
+  ?precedence:float prop ->
   ?purpose_justification_prompt:string prop ->
   ?purpose_justification_required:bool prop ->
   ?session_duration:string prop ->
@@ -332,19 +340,19 @@ val register :
   ?approval_group:approval_group list ->
   ?exclude:exclude list ->
   ?require:require list ->
-  application_id:string prop ->
   decision:string prop ->
   name:string prop ->
-  precedence:float prop ->
   include_:include_ list ->
   string ->
   t
 
 val make :
   ?account_id:string prop ->
+  ?application_id:string prop ->
   ?approval_required:bool prop ->
   ?id:string prop ->
   ?isolation_required:bool prop ->
+  ?precedence:float prop ->
   ?purpose_justification_prompt:string prop ->
   ?purpose_justification_required:bool prop ->
   ?session_duration:string prop ->
@@ -352,10 +360,8 @@ val make :
   ?approval_group:approval_group list ->
   ?exclude:exclude list ->
   ?require:require list ->
-  application_id:string prop ->
   decision:string prop ->
   name:string prop ->
-  precedence:float prop ->
   include_:include_ list ->
   string ->
   t Tf_core.resource

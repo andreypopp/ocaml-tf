@@ -45,6 +45,54 @@ let _ = yojson_of_custom_actions__include_skaffold_modules__git
 
 [@@@deriving.end]
 
+type custom_actions__include_skaffold_modules__google_cloud_build_repo = {
+  path : string prop option; [@option]
+  ref : string prop option; [@option]
+  repository : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       custom_actions__include_skaffold_modules__google_cloud_build_repo) ->
+  ()
+
+let yojson_of_custom_actions__include_skaffold_modules__google_cloud_build_repo
+    =
+  (function
+   | { path = v_path; ref = v_ref; repository = v_repository } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repository in
+         ("repository", arg) :: bnds
+       in
+       let bnds =
+         match v_ref with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ref", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_actions__include_skaffold_modules__google_cloud_build_repo ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_custom_actions__include_skaffold_modules__google_cloud_build_repo
+
+[@@@deriving.end]
+
 type custom_actions__include_skaffold_modules__google_cloud_storage = {
   path : string prop option; [@option]
   source : string prop;
@@ -88,6 +136,10 @@ type custom_actions__include_skaffold_modules = {
   configs : string prop list option; [@option]
   git : custom_actions__include_skaffold_modules__git list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  google_cloud_build_repo :
+    custom_actions__include_skaffold_modules__google_cloud_build_repo
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   google_cloud_storage :
     custom_actions__include_skaffold_modules__google_cloud_storage
     list;
@@ -102,6 +154,7 @@ let yojson_of_custom_actions__include_skaffold_modules =
    | {
        configs = v_configs;
        git = v_git;
+       google_cloud_build_repo = v_google_cloud_build_repo;
        google_cloud_storage = v_google_cloud_storage;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -116,6 +169,17 @@ let yojson_of_custom_actions__include_skaffold_modules =
                v_google_cloud_storage
            in
            let bnd = "google_cloud_storage", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_google_cloud_build_repo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_actions__include_skaffold_modules__google_cloud_build_repo)
+               v_google_cloud_build_repo
+           in
+           let bnd = "google_cloud_build_repo", arg in
            bnd :: bnds
        in
        let bnds =
@@ -366,15 +430,21 @@ let custom_actions__include_skaffold_modules__git ?path ?ref ~repo ()
     : custom_actions__include_skaffold_modules__git =
   { path; ref; repo }
 
+let custom_actions__include_skaffold_modules__google_cloud_build_repo
+    ?path ?ref ~repository () :
+    custom_actions__include_skaffold_modules__google_cloud_build_repo
+    =
+  { path; ref; repository }
+
 let custom_actions__include_skaffold_modules__google_cloud_storage
     ?path ~source () :
     custom_actions__include_skaffold_modules__google_cloud_storage =
   { path; source }
 
 let custom_actions__include_skaffold_modules ?configs ?(git = [])
-    ?(google_cloud_storage = []) () :
+    ?(google_cloud_build_repo = []) ?(google_cloud_storage = []) () :
     custom_actions__include_skaffold_modules =
-  { configs; git; google_cloud_storage }
+  { configs; git; google_cloud_build_repo; google_cloud_storage }
 
 let custom_actions ?render_action ?(include_skaffold_modules = [])
     ~deploy_action () : custom_actions =

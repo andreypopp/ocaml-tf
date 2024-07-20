@@ -26,11 +26,21 @@ val configuration__execute_command_configuration :
   unit ->
   configuration__execute_command_configuration
 
+type configuration__managed_storage_configuration
+
+val configuration__managed_storage_configuration :
+  ?fargate_ephemeral_storage_kms_key_id:string prop ->
+  ?kms_key_id:string prop ->
+  unit ->
+  configuration__managed_storage_configuration
+
 type configuration
 
 val configuration :
   ?execute_command_configuration:
     configuration__execute_command_configuration list ->
+  ?managed_storage_configuration:
+    configuration__managed_storage_configuration list ->
   unit ->
   configuration
 

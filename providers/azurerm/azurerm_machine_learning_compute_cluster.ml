@@ -131,6 +131,7 @@ type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
   read : string prop option; [@option]
+  update : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,9 +139,22 @@ let _ = fun (_ : timeouts) -> ()
 
 let yojson_of_timeouts =
   (function
-   | { create = v_create; delete = v_delete; read = v_read } ->
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_read with
@@ -360,8 +374,8 @@ let scale_settings ~max_node_count ~min_node_count
 let ssh ?admin_password ?key_value ~admin_username () : ssh =
   { admin_password; admin_username; key_value }
 
-let timeouts ?create ?delete ?read () : timeouts =
-  { create; delete; read }
+let timeouts ?create ?delete ?read ?update () : timeouts =
+  { create; delete; read; update }
 
 let azurerm_machine_learning_compute_cluster ?description ?id
     ?local_auth_enabled ?node_public_ip_enabled

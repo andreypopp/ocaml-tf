@@ -257,6 +257,29 @@ let _ = yojson_of_addons_config__network_policy_config
 
 [@@@deriving.end]
 
+type addons_config__stateful_ha_config = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : addons_config__stateful_ha_config) -> ()
+
+let yojson_of_addons_config__stateful_ha_config =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : addons_config__stateful_ha_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_addons_config__stateful_ha_config
+
+[@@@deriving.end]
+
 type addons_config = {
   cloudrun_config : addons_config__cloudrun_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -284,6 +307,8 @@ type addons_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   network_policy_config : addons_config__network_policy_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  stateful_ha_config : addons_config__stateful_ha_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -304,9 +329,21 @@ let yojson_of_addons_config =
        horizontal_pod_autoscaling = v_horizontal_pod_autoscaling;
        http_load_balancing = v_http_load_balancing;
        network_policy_config = v_network_policy_config;
+       stateful_ha_config = v_stateful_ha_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_stateful_ha_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_addons_config__stateful_ha_config)
+               v_stateful_ha_config
+           in
+           let bnd = "stateful_ha_config", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_network_policy_config then bnds
@@ -2053,6 +2090,7 @@ let _ = yojson_of_network_policy
 [@@@deriving.end]
 
 type node_config__advanced_machine_features = {
+  enable_nested_virtualization : bool prop option; [@option]
   threads_per_core : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -2061,7 +2099,10 @@ let _ = fun (_ : node_config__advanced_machine_features) -> ()
 
 let yojson_of_node_config__advanced_machine_features =
   (function
-   | { threads_per_core = v_threads_per_core } ->
+   | {
+       enable_nested_virtualization = v_enable_nested_virtualization;
+       threads_per_core = v_threads_per_core;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -2070,6 +2111,14 @@ let yojson_of_node_config__advanced_machine_features =
            yojson_of_prop yojson_of_float v_threads_per_core
          in
          ("threads_per_core", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_nested_virtualization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_nested_virtualization", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : node_config__advanced_machine_features ->
@@ -2099,6 +2148,182 @@ let yojson_of_node_config__confidential_nodes =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_node_config__confidential_nodes
+
+[@@@deriving.end]
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config) ->
+  ()
+
+let yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  (function
+   | { secret_uri = v_secret_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_uri in
+         ("secret_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+[@@@deriving.end]
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gcp_secret_manager_certificate_config :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config) ->
+  ()
+
+let yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  (function
+   | {
+       fqdns = v_fqdns;
+       gcp_secret_manager_certificate_config =
+         v_gcp_secret_manager_certificate_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_gcp_secret_manager_certificate_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config)
+               v_gcp_secret_manager_certificate_config
+           in
+           let bnd = "gcp_secret_manager_certificate_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+[@@@deriving.end]
+
+type node_config__containerd_config__private_registry_access_config = {
+  enabled : bool prop;
+  certificate_authority_domain_config :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_config__containerd_config__private_registry_access_config) ->
+  ()
+
+let yojson_of_node_config__containerd_config__private_registry_access_config
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       certificate_authority_domain_config =
+         v_certificate_authority_domain_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_authority_domain_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config)
+               v_certificate_authority_domain_config
+           in
+           let bnd = "certificate_authority_domain_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__containerd_config__private_registry_access_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_config__containerd_config__private_registry_access_config
+
+[@@@deriving.end]
+
+type node_config__containerd_config = {
+  private_registry_access_config :
+    node_config__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__containerd_config) -> ()
+
+let yojson_of_node_config__containerd_config =
+  (function
+   | {
+       private_registry_access_config =
+         v_private_registry_access_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_private_registry_access_config then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_config__containerd_config__private_registry_access_config)
+               v_private_registry_access_config
+           in
+           let bnd = "private_registry_access_config", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config__containerd_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__containerd_config
 
 [@@@deriving.end]
 
@@ -2403,6 +2628,40 @@ let yojson_of_node_config__reservation_affinity =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_node_config__reservation_affinity
+
+[@@@deriving.end]
+
+type node_config__secondary_boot_disks = {
+  disk_image : string prop;
+  mode : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__secondary_boot_disks) -> ()
+
+let yojson_of_node_config__secondary_boot_disks =
+  (function
+   | { disk_image = v_disk_image; mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_disk_image in
+         ("disk_image", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__secondary_boot_disks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__secondary_boot_disks
 
 [@@@deriving.end]
 
@@ -2788,6 +3047,8 @@ type node_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   confidential_nodes : node_config__confidential_nodes list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  containerd_config : node_config__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_storage_local_ssd_config :
     node_config__ephemeral_storage_local_ssd_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -2808,6 +3069,8 @@ type node_config = {
     node_config__local_nvme_ssd_block_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   reservation_affinity : node_config__reservation_affinity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secondary_boot_disks : node_config__secondary_boot_disks list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   shielded_instance_config :
     node_config__shielded_instance_config list;
@@ -2849,6 +3112,7 @@ let yojson_of_node_config =
        tags = v_tags;
        advanced_machine_features = v_advanced_machine_features;
        confidential_nodes = v_confidential_nodes;
+       containerd_config = v_containerd_config;
        ephemeral_storage_local_ssd_config =
          v_ephemeral_storage_local_ssd_config;
        fast_socket = v_fast_socket;
@@ -2859,6 +3123,7 @@ let yojson_of_node_config =
        linux_node_config = v_linux_node_config;
        local_nvme_ssd_block_config = v_local_nvme_ssd_block_config;
        reservation_affinity = v_reservation_affinity;
+       secondary_boot_disks = v_secondary_boot_disks;
        shielded_instance_config = v_shielded_instance_config;
        sole_tenant_config = v_sole_tenant_config;
        taint = v_taint;
@@ -2907,6 +3172,17 @@ let yojson_of_node_config =
                v_shielded_instance_config
            in
            let bnd = "shielded_instance_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secondary_boot_disks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_config__secondary_boot_disks)
+               v_secondary_boot_disks
+           in
+           let bnd = "secondary_boot_disks", arg in
            bnd :: bnds
        in
        let bnds =
@@ -3001,6 +3277,16 @@ let yojson_of_node_config =
                v_ephemeral_storage_local_ssd_config
            in
            let bnd = "ephemeral_storage_local_ssd_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_containerd_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_config__containerd_config)
+               v_containerd_config
+           in
+           let bnd = "containerd_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -3492,6 +3778,7 @@ let _ = yojson_of_node_pool__network_config
 [@@@deriving.end]
 
 type node_pool__node_config__advanced_machine_features = {
+  enable_nested_virtualization : bool prop option; [@option]
   threads_per_core : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -3501,7 +3788,10 @@ let _ =
 
 let yojson_of_node_pool__node_config__advanced_machine_features =
   (function
-   | { threads_per_core = v_threads_per_core } ->
+   | {
+       enable_nested_virtualization = v_enable_nested_virtualization;
+       threads_per_core = v_threads_per_core;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -3510,6 +3800,14 @@ let yojson_of_node_pool__node_config__advanced_machine_features =
            yojson_of_prop yojson_of_float v_threads_per_core
          in
          ("threads_per_core", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_nested_virtualization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_nested_virtualization", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : node_pool__node_config__advanced_machine_features ->
@@ -3541,6 +3839,182 @@ let yojson_of_node_pool__node_config__confidential_nodes =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_node_pool__node_config__confidential_nodes
+
+[@@@deriving.end]
+
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config) ->
+  ()
+
+let yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  (function
+   | { secret_uri = v_secret_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_uri in
+         ("secret_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+[@@@deriving.end]
+
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gcp_secret_manager_certificate_config :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config) ->
+  ()
+
+let yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  (function
+   | {
+       fqdns = v_fqdns;
+       gcp_secret_manager_certificate_config =
+         v_gcp_secret_manager_certificate_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_gcp_secret_manager_certificate_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config)
+               v_gcp_secret_manager_certificate_config
+           in
+           let bnd = "gcp_secret_manager_certificate_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+[@@@deriving.end]
+
+type node_pool__node_config__containerd_config__private_registry_access_config = {
+  enabled : bool prop;
+  certificate_authority_domain_config :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool__node_config__containerd_config__private_registry_access_config) ->
+  ()
+
+let yojson_of_node_pool__node_config__containerd_config__private_registry_access_config
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       certificate_authority_domain_config =
+         v_certificate_authority_domain_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_authority_domain_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config)
+               v_certificate_authority_domain_config
+           in
+           let bnd = "certificate_authority_domain_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool__node_config__containerd_config__private_registry_access_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool__node_config__containerd_config__private_registry_access_config
+
+[@@@deriving.end]
+
+type node_pool__node_config__containerd_config = {
+  private_registry_access_config :
+    node_pool__node_config__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_pool__node_config__containerd_config) -> ()
+
+let yojson_of_node_pool__node_config__containerd_config =
+  (function
+   | {
+       private_registry_access_config =
+         v_private_registry_access_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_private_registry_access_config then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool__node_config__containerd_config__private_registry_access_config)
+               v_private_registry_access_config
+           in
+           let bnd = "private_registry_access_config", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_pool__node_config__containerd_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_pool__node_config__containerd_config
 
 [@@@deriving.end]
 
@@ -3853,6 +4327,40 @@ let yojson_of_node_pool__node_config__reservation_affinity =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_node_pool__node_config__reservation_affinity
+
+[@@@deriving.end]
+
+type node_pool__node_config__secondary_boot_disks = {
+  disk_image : string prop;
+  mode : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_pool__node_config__secondary_boot_disks) -> ()
+
+let yojson_of_node_pool__node_config__secondary_boot_disks =
+  (function
+   | { disk_image = v_disk_image; mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_disk_image in
+         ("disk_image", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool__node_config__secondary_boot_disks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_pool__node_config__secondary_boot_disks
 
 [@@@deriving.end]
 
@@ -4254,6 +4762,8 @@ type node_pool__node_config = {
   confidential_nodes :
     node_pool__node_config__confidential_nodes list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  containerd_config : node_pool__node_config__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ephemeral_storage_local_ssd_config :
     node_pool__node_config__ephemeral_storage_local_ssd_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -4275,6 +4785,9 @@ type node_pool__node_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   reservation_affinity :
     node_pool__node_config__reservation_affinity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  secondary_boot_disks :
+    node_pool__node_config__secondary_boot_disks list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   shielded_instance_config :
     node_pool__node_config__shielded_instance_config list;
@@ -4317,6 +4830,7 @@ let yojson_of_node_pool__node_config =
        tags = v_tags;
        advanced_machine_features = v_advanced_machine_features;
        confidential_nodes = v_confidential_nodes;
+       containerd_config = v_containerd_config;
        ephemeral_storage_local_ssd_config =
          v_ephemeral_storage_local_ssd_config;
        fast_socket = v_fast_socket;
@@ -4327,6 +4841,7 @@ let yojson_of_node_pool__node_config =
        linux_node_config = v_linux_node_config;
        local_nvme_ssd_block_config = v_local_nvme_ssd_block_config;
        reservation_affinity = v_reservation_affinity;
+       secondary_boot_disks = v_secondary_boot_disks;
        shielded_instance_config = v_shielded_instance_config;
        sole_tenant_config = v_sole_tenant_config;
        taint = v_taint;
@@ -4376,6 +4891,17 @@ let yojson_of_node_pool__node_config =
                v_shielded_instance_config
            in
            let bnd = "shielded_instance_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_secondary_boot_disks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool__node_config__secondary_boot_disks)
+               v_secondary_boot_disks
+           in
+           let bnd = "secondary_boot_disks", arg in
            bnd :: bnds
        in
        let bnds =
@@ -4475,6 +5001,17 @@ let yojson_of_node_pool__node_config =
                v_ephemeral_storage_local_ssd_config
            in
            let bnd = "ephemeral_storage_local_ssd_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_containerd_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool__node_config__containerd_config)
+               v_containerd_config
+           in
+           let bnd = "containerd_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -4753,6 +5290,29 @@ let _ = yojson_of_node_pool__placement_policy
 
 [@@@deriving.end]
 
+type node_pool__queued_provisioning = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_pool__queued_provisioning) -> ()
+
+let yojson_of_node_pool__queued_provisioning =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool__queued_provisioning ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_pool__queued_provisioning
+
+[@@@deriving.end]
+
 type node_pool__upgrade_settings__blue_green_settings__standard_rollout_policy = {
   batch_node_count : float prop option; [@option]
   batch_percentage : float prop option; [@option]
@@ -4941,6 +5501,8 @@ type node_pool = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   placement_policy : node_pool__placement_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  queued_provisioning : node_pool__queued_provisioning list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   upgrade_settings : node_pool__upgrade_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -4963,6 +5525,7 @@ let yojson_of_node_pool =
        network_config = v_network_config;
        node_config = v_node_config;
        placement_policy = v_placement_policy;
+       queued_provisioning = v_queued_provisioning;
        upgrade_settings = v_upgrade_settings;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -4976,6 +5539,16 @@ let yojson_of_node_pool =
                v_upgrade_settings
            in
            let bnd = "upgrade_settings", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_queued_provisioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool__queued_provisioning)
+               v_queued_provisioning
+           in
+           let bnd = "queued_provisioning", arg in
            bnd :: bnds
        in
        let bnds =
@@ -5125,6 +5698,8 @@ let _ = yojson_of_node_pool_auto_config__network_tags
 [@@@deriving.end]
 
 type node_pool_auto_config = {
+  resource_manager_tags : (string * string prop) list option;
+      [@option]
   network_tags : node_pool_auto_config__network_tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -5134,7 +5709,10 @@ let _ = fun (_ : node_pool_auto_config) -> ()
 
 let yojson_of_node_pool_auto_config =
   (function
-   | { network_tags = v_network_tags } ->
+   | {
+       resource_manager_tags = v_resource_manager_tags;
+       network_tags = v_network_tags;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -5149,6 +5727,22 @@ let yojson_of_node_pool_auto_config =
            let bnd = "network_tags", arg in
            bnd :: bnds
        in
+       let bnds =
+         match v_resource_manager_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_manager_tags", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : node_pool_auto_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -5156,8 +5750,192 @@ let _ = yojson_of_node_pool_auto_config
 
 [@@@deriving.end]
 
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config) ->
+  ()
+
+let yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  (function
+   | { secret_uri = v_secret_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_uri in
+         ("secret_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+[@@@deriving.end]
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  gcp_secret_manager_certificate_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config) ->
+  ()
+
+let yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  (function
+   | {
+       fqdns = v_fqdns;
+       gcp_secret_manager_certificate_config =
+         v_gcp_secret_manager_certificate_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_gcp_secret_manager_certificate_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config)
+               v_gcp_secret_manager_certificate_config
+           in
+           let bnd = "gcp_secret_manager_certificate_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+[@@@deriving.end]
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config = {
+  enabled : bool prop;
+  certificate_authority_domain_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config) ->
+  ()
+
+let yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    =
+  (function
+   | {
+       enabled = v_enabled;
+       certificate_authority_domain_config =
+         v_certificate_authority_domain_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_authority_domain_config
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config)
+               v_certificate_authority_domain_config
+           in
+           let bnd = "certificate_authority_domain_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+
+[@@@deriving.end]
+
+type node_pool_defaults__node_config_defaults__containerd_config = {
+  private_registry_access_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_pool_defaults__node_config_defaults__containerd_config) ->
+  ()
+
+let yojson_of_node_pool_defaults__node_config_defaults__containerd_config
+    =
+  (function
+   | {
+       private_registry_access_config =
+         v_private_registry_access_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_private_registry_access_config then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config)
+               v_private_registry_access_config
+           in
+           let bnd = "private_registry_access_config", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : node_pool_defaults__node_config_defaults__containerd_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_pool_defaults__node_config_defaults__containerd_config
+
+[@@@deriving.end]
+
 type node_pool_defaults__node_config_defaults = {
   logging_variant : string prop option; [@option]
+  containerd_config :
+    node_pool_defaults__node_config_defaults__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5165,9 +5943,23 @@ let _ = fun (_ : node_pool_defaults__node_config_defaults) -> ()
 
 let yojson_of_node_pool_defaults__node_config_defaults =
   (function
-   | { logging_variant = v_logging_variant } ->
+   | {
+       logging_variant = v_logging_variant;
+       containerd_config = v_containerd_config;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_containerd_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_pool_defaults__node_config_defaults__containerd_config)
+               v_containerd_config
+           in
+           let bnd = "containerd_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_logging_variant with
@@ -5713,6 +6505,8 @@ type google_container_cluster = {
   deletion_protection : bool prop option; [@option]
   description : string prop option; [@option]
   enable_autopilot : bool prop option; [@option]
+  enable_cilium_clusterwide_network_policy : bool prop option;
+      [@option]
   enable_intranode_visibility : bool prop option; [@option]
   enable_kubernetes_alpha : bool prop option; [@option]
   enable_l4_ilb_subsetting : bool prop option; [@option]
@@ -5818,6 +6612,8 @@ let yojson_of_google_container_cluster =
        deletion_protection = v_deletion_protection;
        description = v_description;
        enable_autopilot = v_enable_autopilot;
+       enable_cilium_clusterwide_network_policy =
+         v_enable_cilium_clusterwide_network_policy;
        enable_intranode_visibility = v_enable_intranode_visibility;
        enable_kubernetes_alpha = v_enable_kubernetes_alpha;
        enable_l4_ilb_subsetting = v_enable_l4_ilb_subsetting;
@@ -6390,6 +7186,16 @@ let yojson_of_google_container_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_enable_cilium_clusterwide_network_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enable_cilium_clusterwide_network_policy", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
          match v_enable_autopilot with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -6492,6 +7298,10 @@ let addons_config__network_policy_config ~disabled () :
     addons_config__network_policy_config =
   { disabled }
 
+let addons_config__stateful_ha_config ~enabled () :
+    addons_config__stateful_ha_config =
+  { enabled }
+
 let addons_config ?(cloudrun_config = [])
     ?(config_connector_config = []) ?(dns_cache_config = [])
     ?(gce_persistent_disk_csi_driver_config = [])
@@ -6499,7 +7309,8 @@ let addons_config ?(cloudrun_config = [])
     ?(gcs_fuse_csi_driver_config = [])
     ?(gke_backup_agent_config = [])
     ?(horizontal_pod_autoscaling = []) ?(http_load_balancing = [])
-    ?(network_policy_config = []) () : addons_config =
+    ?(network_policy_config = []) ?(stateful_ha_config = []) () :
+    addons_config =
   {
     cloudrun_config;
     config_connector_config;
@@ -6511,6 +7322,7 @@ let addons_config ?(cloudrun_config = [])
     horizontal_pod_autoscaling;
     http_load_balancing;
     network_policy_config;
+    stateful_ha_config;
   }
 
 let authenticator_groups_config ~security_group () :
@@ -6702,13 +7514,36 @@ let monitoring_config ?enable_components
 let network_policy ?provider ~enabled () : network_policy =
   { enabled; provider }
 
-let node_config__advanced_machine_features ~threads_per_core () :
+let node_config__advanced_machine_features
+    ?enable_nested_virtualization ~threads_per_core () :
     node_config__advanced_machine_features =
-  { threads_per_core }
+  { enable_nested_virtualization; threads_per_core }
 
 let node_config__confidential_nodes ~enabled () :
     node_config__confidential_nodes =
   { enabled }
+
+let node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    ~secret_uri () :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  { secret_uri }
+
+let node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    ~fqdns ~gcp_secret_manager_certificate_config () :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  { fqdns; gcp_secret_manager_certificate_config }
+
+let node_config__containerd_config__private_registry_access_config
+    ?(certificate_authority_domain_config = []) ~enabled () :
+    node_config__containerd_config__private_registry_access_config =
+  { enabled; certificate_authority_domain_config }
+
+let node_config__containerd_config
+    ?(private_registry_access_config = []) () :
+    node_config__containerd_config =
+  { private_registry_access_config }
 
 let node_config__ephemeral_storage_local_ssd_config ~local_ssd_count
     () : node_config__ephemeral_storage_local_ssd_config =
@@ -6749,6 +7584,10 @@ let node_config__reservation_affinity ?key ?values
     =
   { consume_reservation_type; key; values }
 
+let node_config__secondary_boot_disks ?mode ~disk_image () :
+    node_config__secondary_boot_disks =
+  { disk_image; mode }
+
 let node_config__shielded_instance_config
     ?enable_integrity_monitoring ?enable_secure_boot () :
     node_config__shielded_instance_config =
@@ -6775,13 +7614,14 @@ let node_config ?boot_disk_kms_key ?disk_size_gb ?disk_type
     ?min_cpu_platform ?node_group ?oauth_scopes ?preemptible
     ?resource_labels ?resource_manager_tags ?service_account ?spot
     ?tags ?(advanced_machine_features = [])
-    ?(confidential_nodes = [])
+    ?(confidential_nodes = []) ?(containerd_config = [])
     ?(ephemeral_storage_local_ssd_config = []) ?(fast_socket = [])
     ?(gcfs_config = []) ?(gvnic = []) ?(host_maintenance_policy = [])
     ?(kubelet_config = []) ?(linux_node_config = [])
     ?(local_nvme_ssd_block_config = []) ?(reservation_affinity = [])
-    ?(shielded_instance_config = []) ?(sole_tenant_config = [])
-    ?(taint = []) ?(workload_metadata_config = []) () : node_config =
+    ?(secondary_boot_disks = []) ?(shielded_instance_config = [])
+    ?(sole_tenant_config = []) ?(taint = [])
+    ?(workload_metadata_config = []) () : node_config =
   {
     boot_disk_kms_key;
     disk_size_gb;
@@ -6805,6 +7645,7 @@ let node_config ?boot_disk_kms_key ?disk_size_gb ?disk_type
     tags;
     advanced_machine_features;
     confidential_nodes;
+    containerd_config;
     ephemeral_storage_local_ssd_config;
     fast_socket;
     gcfs_config;
@@ -6814,6 +7655,7 @@ let node_config ?boot_disk_kms_key ?disk_size_gb ?disk_type
     linux_node_config;
     local_nvme_ssd_block_config;
     reservation_affinity;
+    secondary_boot_disks;
     shielded_instance_config;
     sole_tenant_config;
     taint;
@@ -6860,13 +7702,36 @@ let node_pool__network_config ?create_pod_range ?enable_private_nodes
   }
 
 let node_pool__node_config__advanced_machine_features
-    ~threads_per_core () :
+    ?enable_nested_virtualization ~threads_per_core () :
     node_pool__node_config__advanced_machine_features =
-  { threads_per_core }
+  { enable_nested_virtualization; threads_per_core }
 
 let node_pool__node_config__confidential_nodes ~enabled () :
     node_pool__node_config__confidential_nodes =
   { enabled }
+
+let node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    ~secret_uri () :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  { secret_uri }
+
+let node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    ~fqdns ~gcp_secret_manager_certificate_config () :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  { fqdns; gcp_secret_manager_certificate_config }
+
+let node_pool__node_config__containerd_config__private_registry_access_config
+    ?(certificate_authority_domain_config = []) ~enabled () :
+    node_pool__node_config__containerd_config__private_registry_access_config
+    =
+  { enabled; certificate_authority_domain_config }
+
+let node_pool__node_config__containerd_config
+    ?(private_registry_access_config = []) () :
+    node_pool__node_config__containerd_config =
+  { private_registry_access_config }
 
 let node_pool__node_config__ephemeral_storage_local_ssd_config
     ~local_ssd_count () :
@@ -6914,6 +7779,10 @@ let node_pool__node_config__reservation_affinity ?key ?values
     node_pool__node_config__reservation_affinity =
   { consume_reservation_type; key; values }
 
+let node_pool__node_config__secondary_boot_disks ?mode ~disk_image ()
+    : node_pool__node_config__secondary_boot_disks =
+  { disk_image; mode }
+
 let node_pool__node_config__shielded_instance_config
     ?enable_integrity_monitoring ?enable_secure_boot () :
     node_pool__node_config__shielded_instance_config =
@@ -6943,13 +7812,14 @@ let node_pool__node_config ?boot_disk_kms_key ?disk_size_gb
     ?oauth_scopes ?preemptible ?resource_labels
     ?resource_manager_tags ?service_account ?spot ?tags
     ?(advanced_machine_features = []) ?(confidential_nodes = [])
+    ?(containerd_config = [])
     ?(ephemeral_storage_local_ssd_config = []) ?(fast_socket = [])
     ?(gcfs_config = []) ?(gvnic = []) ?(host_maintenance_policy = [])
     ?(kubelet_config = []) ?(linux_node_config = [])
     ?(local_nvme_ssd_block_config = []) ?(reservation_affinity = [])
-    ?(shielded_instance_config = []) ?(sole_tenant_config = [])
-    ?(taint = []) ?(workload_metadata_config = []) () :
-    node_pool__node_config =
+    ?(secondary_boot_disks = []) ?(shielded_instance_config = [])
+    ?(sole_tenant_config = []) ?(taint = [])
+    ?(workload_metadata_config = []) () : node_pool__node_config =
   {
     boot_disk_kms_key;
     disk_size_gb;
@@ -6973,6 +7843,7 @@ let node_pool__node_config ?boot_disk_kms_key ?disk_size_gb
     tags;
     advanced_machine_features;
     confidential_nodes;
+    containerd_config;
     ephemeral_storage_local_ssd_config;
     fast_socket;
     gcfs_config;
@@ -6982,6 +7853,7 @@ let node_pool__node_config ?boot_disk_kms_key ?disk_size_gb
     linux_node_config;
     local_nvme_ssd_block_config;
     reservation_affinity;
+    secondary_boot_disks;
     shielded_instance_config;
     sole_tenant_config;
     taint;
@@ -6991,6 +7863,10 @@ let node_pool__node_config ?boot_disk_kms_key ?disk_size_gb
 let node_pool__placement_policy ?policy_name ?tpu_topology ~type_ ()
     : node_pool__placement_policy =
   { policy_name; tpu_topology; type_ }
+
+let node_pool__queued_provisioning ~enabled () :
+    node_pool__queued_provisioning =
+  { enabled }
 
 let node_pool__upgrade_settings__blue_green_settings__standard_rollout_policy
     ?batch_node_count ?batch_percentage ?batch_soak_duration () :
@@ -7011,7 +7887,8 @@ let node_pool ?initial_node_count ?max_pods_per_node ?name
     ?name_prefix ?node_count ?node_locations ?version
     ?(autoscaling = []) ?(management = []) ?(network_config = [])
     ?(node_config = []) ?(placement_policy = [])
-    ?(upgrade_settings = []) () : node_pool =
+    ?(queued_provisioning = []) ?(upgrade_settings = []) () :
+    node_pool =
   {
     initial_node_count;
     max_pods_per_node;
@@ -7025,6 +7902,7 @@ let node_pool ?initial_node_count ?max_pods_per_node ?name
     network_config;
     node_config;
     placement_policy;
+    queued_provisioning;
     upgrade_settings;
   }
 
@@ -7032,13 +7910,37 @@ let node_pool_auto_config__network_tags ?tags () :
     node_pool_auto_config__network_tags =
   { tags }
 
-let node_pool_auto_config ?(network_tags = []) () :
-    node_pool_auto_config =
-  { network_tags }
+let node_pool_auto_config ?resource_manager_tags ?(network_tags = [])
+    () : node_pool_auto_config =
+  { resource_manager_tags; network_tags }
 
-let node_pool_defaults__node_config_defaults ?logging_variant () :
+let node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    ~secret_uri () :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    =
+  { secret_uri }
+
+let node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    ~fqdns ~gcp_secret_manager_certificate_config () :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    =
+  { fqdns; gcp_secret_manager_certificate_config }
+
+let node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    ?(certificate_authority_domain_config = []) ~enabled () :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    =
+  { enabled; certificate_authority_domain_config }
+
+let node_pool_defaults__node_config_defaults__containerd_config
+    ?(private_registry_access_config = []) () :
+    node_pool_defaults__node_config_defaults__containerd_config =
+  { private_registry_access_config }
+
+let node_pool_defaults__node_config_defaults ?logging_variant
+    ?(containerd_config = []) () :
     node_pool_defaults__node_config_defaults =
-  { logging_variant }
+  { logging_variant; containerd_config }
 
 let node_pool_defaults ?(node_config_defaults = []) () :
     node_pool_defaults =
@@ -7106,6 +8008,7 @@ let workload_identity_config ?workload_pool () :
 let google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
     ?datapath_provider ?default_max_pods_per_node
     ?deletion_protection ?description ?enable_autopilot
+    ?enable_cilium_clusterwide_network_policy
     ?enable_intranode_visibility ?enable_kubernetes_alpha
     ?enable_l4_ilb_subsetting ?enable_legacy_abac
     ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
@@ -7139,6 +8042,7 @@ let google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
     deletion_protection;
     description;
     enable_autopilot;
+    enable_cilium_clusterwide_network_policy;
     enable_intranode_visibility;
     enable_kubernetes_alpha;
     enable_l4_ilb_subsetting;
@@ -7206,6 +8110,7 @@ type t = {
   deletion_protection : bool prop;
   description : string prop;
   enable_autopilot : bool prop;
+  enable_cilium_clusterwide_network_policy : bool prop;
   enable_intranode_visibility : bool prop;
   enable_kubernetes_alpha : bool prop;
   enable_l4_ilb_subsetting : bool prop;
@@ -7239,13 +8144,14 @@ type t = {
 
 let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
     ?default_max_pods_per_node ?deletion_protection ?description
-    ?enable_autopilot ?enable_intranode_visibility
-    ?enable_kubernetes_alpha ?enable_l4_ilb_subsetting
-    ?enable_legacy_abac ?enable_shielded_nodes ?enable_tpu ?id
-    ?initial_node_count ?location ?logging_service
-    ?min_master_version ?monitoring_service ?network ?networking_mode
-    ?node_locations ?node_version ?private_ipv6_google_access
-    ?project ?remove_default_node_pool ?resource_labels ?subnetwork
+    ?enable_autopilot ?enable_cilium_clusterwide_network_policy
+    ?enable_intranode_visibility ?enable_kubernetes_alpha
+    ?enable_l4_ilb_subsetting ?enable_legacy_abac
+    ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
+    ?location ?logging_service ?min_master_version
+    ?monitoring_service ?network ?networking_mode ?node_locations
+    ?node_version ?private_ipv6_google_access ?project
+    ?remove_default_node_pool ?resource_labels ?subnetwork
     ?(addons_config = []) ?(authenticator_groups_config = [])
     ?(binary_authorization = []) ?(cluster_autoscaling = [])
     ?(confidential_nodes = []) ?(cost_management_config = [])
@@ -7280,6 +8186,9 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
        description = Prop.computed __type __id "description";
        enable_autopilot =
          Prop.computed __type __id "enable_autopilot";
+       enable_cilium_clusterwide_network_policy =
+         Prop.computed __type __id
+           "enable_cilium_clusterwide_network_policy";
        enable_intranode_visibility =
          Prop.computed __type __id "enable_intranode_visibility";
        enable_kubernetes_alpha =
@@ -7333,6 +8242,7 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
         (google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
            ?datapath_provider ?default_max_pods_per_node
            ?deletion_protection ?description ?enable_autopilot
+           ?enable_cilium_clusterwide_network_policy
            ?enable_intranode_visibility ?enable_kubernetes_alpha
            ?enable_l4_ilb_subsetting ?enable_legacy_abac
            ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
@@ -7361,6 +8271,7 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
 let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
     ?datapath_provider ?default_max_pods_per_node
     ?deletion_protection ?description ?enable_autopilot
+    ?enable_cilium_clusterwide_network_policy
     ?enable_intranode_visibility ?enable_kubernetes_alpha
     ?enable_l4_ilb_subsetting ?enable_legacy_abac
     ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
@@ -7389,16 +8300,16 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
   let (r : _ Tf_core.resource) =
     make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
       ?default_max_pods_per_node ?deletion_protection ?description
-      ?enable_autopilot ?enable_intranode_visibility
-      ?enable_kubernetes_alpha ?enable_l4_ilb_subsetting
-      ?enable_legacy_abac ?enable_shielded_nodes ?enable_tpu ?id
-      ?initial_node_count ?location ?logging_service
-      ?min_master_version ?monitoring_service ?network
-      ?networking_mode ?node_locations ?node_version
-      ?private_ipv6_google_access ?project ?remove_default_node_pool
-      ?resource_labels ?subnetwork ~addons_config
-      ~authenticator_groups_config ~binary_authorization
-      ~cluster_autoscaling ~confidential_nodes
+      ?enable_autopilot ?enable_cilium_clusterwide_network_policy
+      ?enable_intranode_visibility ?enable_kubernetes_alpha
+      ?enable_l4_ilb_subsetting ?enable_legacy_abac
+      ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
+      ?location ?logging_service ?min_master_version
+      ?monitoring_service ?network ?networking_mode ?node_locations
+      ?node_version ?private_ipv6_google_access ?project
+      ?remove_default_node_pool ?resource_labels ?subnetwork
+      ~addons_config ~authenticator_groups_config
+      ~binary_authorization ~cluster_autoscaling ~confidential_nodes
       ~cost_management_config ~database_encryption
       ~default_snat_status ~dns_config ~enable_k8s_beta_apis ~fleet
       ~gateway_api_config ~identity_service_config

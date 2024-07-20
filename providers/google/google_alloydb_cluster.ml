@@ -472,6 +472,140 @@ let _ = yojson_of_initial_user
 
 [@@@deriving.end]
 
+type maintenance_update_policy__maintenance_windows__start_time = {
+  hours : float prop;
+  minutes : float prop option; [@option]
+  nanos : float prop option; [@option]
+  seconds : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : maintenance_update_policy__maintenance_windows__start_time) ->
+  ()
+
+let yojson_of_maintenance_update_policy__maintenance_windows__start_time
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hours in
+         ("hours", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_update_policy__maintenance_windows__start_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_maintenance_update_policy__maintenance_windows__start_time
+
+[@@@deriving.end]
+
+type maintenance_update_policy__maintenance_windows = {
+  day : string prop;
+  start_time :
+    maintenance_update_policy__maintenance_windows__start_time list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : maintenance_update_policy__maintenance_windows) -> ()
+
+let yojson_of_maintenance_update_policy__maintenance_windows =
+  (function
+   | { day = v_day; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_update_policy__maintenance_windows__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day in
+         ("day", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_update_policy__maintenance_windows ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_update_policy__maintenance_windows
+
+[@@@deriving.end]
+
+type maintenance_update_policy = {
+  maintenance_windows :
+    maintenance_update_policy__maintenance_windows list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_update_policy) -> ()
+
+let yojson_of_maintenance_update_policy =
+  (function
+   | { maintenance_windows = v_maintenance_windows } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_maintenance_windows then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_update_policy__maintenance_windows)
+               v_maintenance_windows
+           in
+           let bnd = "maintenance_windows", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_update_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_update_policy
+
+[@@@deriving.end]
+
 type network_config = {
   allocated_ip_range : string prop option; [@option]
   network : string prop option; [@option]
@@ -509,6 +643,32 @@ let yojson_of_network_config =
     : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_network_config
+
+[@@@deriving.end]
+
+type psc_config = { psc_enabled : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : psc_config) -> ()
+
+let yojson_of_psc_config =
+  (function
+   | { psc_enabled = v_psc_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_psc_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "psc_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : psc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_psc_config
 
 [@@@deriving.end]
 
@@ -859,7 +1019,11 @@ type google_alloydb_cluster = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_user : initial_user list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  maintenance_update_policy : maintenance_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   network_config : network_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  psc_config : psc_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   restore_backup_source : restore_backup_source list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -893,7 +1057,9 @@ let yojson_of_google_alloydb_cluster =
        continuous_backup_config = v_continuous_backup_config;
        encryption_config = v_encryption_config;
        initial_user = v_initial_user;
+       maintenance_update_policy = v_maintenance_update_policy;
        network_config = v_network_config;
+       psc_config = v_psc_config;
        restore_backup_source = v_restore_backup_source;
        restore_continuous_backup_source =
          v_restore_continuous_backup_source;
@@ -940,6 +1106,15 @@ let yojson_of_google_alloydb_cluster =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_psc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_psc_config) v_psc_config
+           in
+           let bnd = "psc_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_network_config then bnds
          else
            let arg =
@@ -947,6 +1122,16 @@ let yojson_of_google_alloydb_cluster =
                v_network_config
            in
            let bnd = "network_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_maintenance_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_update_policy)
+               v_maintenance_update_policy
+           in
+           let bnd = "maintenance_update_policy", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1149,8 +1334,23 @@ let encryption_config ?kms_key_name () : encryption_config =
 let initial_user ?user ~password () : initial_user =
   { password; user }
 
+let maintenance_update_policy__maintenance_windows__start_time
+    ?minutes ?nanos ?seconds ~hours () :
+    maintenance_update_policy__maintenance_windows__start_time =
+  { hours; minutes; nanos; seconds }
+
+let maintenance_update_policy__maintenance_windows ~day ~start_time
+    () : maintenance_update_policy__maintenance_windows =
+  { day; start_time }
+
+let maintenance_update_policy ?(maintenance_windows = []) () :
+    maintenance_update_policy =
+  { maintenance_windows }
+
 let network_config ?allocated_ip_range ?network () : network_config =
   { allocated_ip_range; network }
+
+let psc_config ?psc_enabled () : psc_config = { psc_enabled }
 
 let restore_backup_source ~backup_name () : restore_backup_source =
   { backup_name }
@@ -1169,7 +1369,8 @@ let google_alloydb_cluster ?annotations ?cluster_type
     ?database_version ?deletion_policy ?display_name ?etag ?id
     ?labels ?network ?project ?(automated_backup_policy = [])
     ?(continuous_backup_config = []) ?(encryption_config = [])
-    ?(initial_user = []) ?(network_config = [])
+    ?(initial_user = []) ?(maintenance_update_policy = [])
+    ?(network_config = []) ?(psc_config = [])
     ?(restore_backup_source = [])
     ?(restore_continuous_backup_source = []) ?(secondary_config = [])
     ?timeouts ~cluster_id ~location () : google_alloydb_cluster =
@@ -1190,7 +1391,9 @@ let google_alloydb_cluster ?annotations ?cluster_type
     continuous_backup_config;
     encryption_config;
     initial_user;
+    maintenance_update_policy;
     network_config;
+    psc_config;
     restore_backup_source;
     restore_continuous_backup_source;
     secondary_config;
@@ -1228,7 +1431,8 @@ let make ?annotations ?cluster_type ?database_version
     ?deletion_policy ?display_name ?etag ?id ?labels ?network
     ?project ?(automated_backup_policy = [])
     ?(continuous_backup_config = []) ?(encryption_config = [])
-    ?(initial_user = []) ?(network_config = [])
+    ?(initial_user = []) ?(maintenance_update_policy = [])
+    ?(network_config = []) ?(psc_config = [])
     ?(restore_backup_source = [])
     ?(restore_continuous_backup_source = []) ?(secondary_config = [])
     ?timeouts ~cluster_id ~location __id =
@@ -1277,9 +1481,9 @@ let make ?annotations ?cluster_type ?database_version
            ?database_version ?deletion_policy ?display_name ?etag ?id
            ?labels ?network ?project ~automated_backup_policy
            ~continuous_backup_config ~encryption_config ~initial_user
-           ~network_config ~restore_backup_source
-           ~restore_continuous_backup_source ~secondary_config
-           ?timeouts ~cluster_id ~location ());
+           ~maintenance_update_policy ~network_config ~psc_config
+           ~restore_backup_source ~restore_continuous_backup_source
+           ~secondary_config ?timeouts ~cluster_id ~location ());
     attrs = __attrs;
   }
 
@@ -1287,7 +1491,8 @@ let register ?tf_module ?annotations ?cluster_type ?database_version
     ?deletion_policy ?display_name ?etag ?id ?labels ?network
     ?project ?(automated_backup_policy = [])
     ?(continuous_backup_config = []) ?(encryption_config = [])
-    ?(initial_user = []) ?(network_config = [])
+    ?(initial_user = []) ?(maintenance_update_policy = [])
+    ?(network_config = []) ?(psc_config = [])
     ?(restore_backup_source = [])
     ?(restore_continuous_backup_source = []) ?(secondary_config = [])
     ?timeouts ~cluster_id ~location __id =
@@ -1295,9 +1500,10 @@ let register ?tf_module ?annotations ?cluster_type ?database_version
     make ?annotations ?cluster_type ?database_version
       ?deletion_policy ?display_name ?etag ?id ?labels ?network
       ?project ~automated_backup_policy ~continuous_backup_config
-      ~encryption_config ~initial_user ~network_config
-      ~restore_backup_source ~restore_continuous_backup_source
-      ~secondary_config ?timeouts ~cluster_id ~location __id
+      ~encryption_config ~initial_user ~maintenance_update_policy
+      ~network_config ~psc_config ~restore_backup_source
+      ~restore_continuous_backup_source ~secondary_config ?timeouts
+      ~cluster_id ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

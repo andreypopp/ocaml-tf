@@ -293,10 +293,12 @@ type cloudflare_worker_script = {
   compatibility_date : string prop option; [@option]
   compatibility_flags : string prop list option; [@option]
   content : string prop;
+  dispatch_namespace : string prop option; [@option]
   id : string prop option; [@option]
   logpush : bool prop option; [@option]
   module_ : bool prop option; [@option] [@key "module"]
   name : string prop;
+  tags : string prop list option; [@option]
   analytics_engine_binding : analytics_engine_binding list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   d1_database_binding : d1_database_binding list;
@@ -329,10 +331,12 @@ let yojson_of_cloudflare_worker_script =
        compatibility_date = v_compatibility_date;
        compatibility_flags = v_compatibility_flags;
        content = v_content;
+       dispatch_namespace = v_dispatch_namespace;
        id = v_id;
        logpush = v_logpush;
        module_ = v_module_;
        name = v_name;
+       tags = v_tags;
        analytics_engine_binding = v_analytics_engine_binding;
        d1_database_binding = v_d1_database_binding;
        kv_namespace_binding = v_kv_namespace_binding;
@@ -446,6 +450,16 @@ let yojson_of_cloudflare_worker_script =
            bnd :: bnds
        in
        let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
@@ -471,6 +485,14 @@ let yojson_of_cloudflare_worker_script =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dispatch_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dispatch_namespace", arg in
              bnd :: bnds
        in
        let bnds =
@@ -539,8 +561,8 @@ let webassembly_binding ~module_ ~name () : webassembly_binding =
   { module_; name }
 
 let cloudflare_worker_script ?compatibility_date ?compatibility_flags
-    ?id ?logpush ?module_ ~account_id ~content ~name
-    ~analytics_engine_binding ~d1_database_binding
+    ?dispatch_namespace ?id ?logpush ?module_ ?tags ~account_id
+    ~content ~name ~analytics_engine_binding ~d1_database_binding
     ~kv_namespace_binding ~placement ~plain_text_binding
     ~queue_binding ~r2_bucket_binding ~secret_text_binding
     ~service_binding ~webassembly_binding () :
@@ -550,10 +572,12 @@ let cloudflare_worker_script ?compatibility_date ?compatibility_flags
     compatibility_date;
     compatibility_flags;
     content;
+    dispatch_namespace;
     id;
     logpush;
     module_;
     name;
+    tags;
     analytics_engine_binding;
     d1_database_binding;
     kv_namespace_binding;
@@ -572,17 +596,20 @@ type t = {
   compatibility_date : string prop;
   compatibility_flags : string list prop;
   content : string prop;
+  dispatch_namespace : string prop;
   id : string prop;
   logpush : bool prop;
   module_ : bool prop;
   name : string prop;
+  tags : string list prop;
 }
 
-let make ?compatibility_date ?compatibility_flags ?id ?logpush
-    ?module_ ~account_id ~content ~name ~analytics_engine_binding
-    ~d1_database_binding ~kv_namespace_binding ~placement
-    ~plain_text_binding ~queue_binding ~r2_bucket_binding
-    ~secret_text_binding ~service_binding ~webassembly_binding __id =
+let make ?compatibility_date ?compatibility_flags ?dispatch_namespace
+    ?id ?logpush ?module_ ?tags ~account_id ~content ~name
+    ~analytics_engine_binding ~d1_database_binding
+    ~kv_namespace_binding ~placement ~plain_text_binding
+    ~queue_binding ~r2_bucket_binding ~secret_text_binding
+    ~service_binding ~webassembly_binding __id =
   let __type = "cloudflare_worker_script" in
   let __attrs =
     ({
@@ -593,10 +620,13 @@ let make ?compatibility_date ?compatibility_flags ?id ?logpush
        compatibility_flags =
          Prop.computed __type __id "compatibility_flags";
        content = Prop.computed __type __id "content";
+       dispatch_namespace =
+         Prop.computed __type __id "dispatch_namespace";
        id = Prop.computed __type __id "id";
        logpush = Prop.computed __type __id "logpush";
        module_ = Prop.computed __type __id "module";
        name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
@@ -606,27 +636,28 @@ let make ?compatibility_date ?compatibility_flags ?id ?logpush
     json =
       yojson_of_cloudflare_worker_script
         (cloudflare_worker_script ?compatibility_date
-           ?compatibility_flags ?id ?logpush ?module_ ~account_id
-           ~content ~name ~analytics_engine_binding
-           ~d1_database_binding ~kv_namespace_binding ~placement
-           ~plain_text_binding ~queue_binding ~r2_bucket_binding
-           ~secret_text_binding ~service_binding ~webassembly_binding
-           ());
+           ?compatibility_flags ?dispatch_namespace ?id ?logpush
+           ?module_ ?tags ~account_id ~content ~name
+           ~analytics_engine_binding ~d1_database_binding
+           ~kv_namespace_binding ~placement ~plain_text_binding
+           ~queue_binding ~r2_bucket_binding ~secret_text_binding
+           ~service_binding ~webassembly_binding ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?compatibility_date ?compatibility_flags ?id
-    ?logpush ?module_ ~account_id ~content ~name
-    ~analytics_engine_binding ~d1_database_binding
+let register ?tf_module ?compatibility_date ?compatibility_flags
+    ?dispatch_namespace ?id ?logpush ?module_ ?tags ~account_id
+    ~content ~name ~analytics_engine_binding ~d1_database_binding
     ~kv_namespace_binding ~placement ~plain_text_binding
     ~queue_binding ~r2_bucket_binding ~secret_text_binding
     ~service_binding ~webassembly_binding __id =
   let (r : _ Tf_core.resource) =
-    make ?compatibility_date ?compatibility_flags ?id ?logpush
-      ?module_ ~account_id ~content ~name ~analytics_engine_binding
-      ~d1_database_binding ~kv_namespace_binding ~placement
-      ~plain_text_binding ~queue_binding ~r2_bucket_binding
-      ~secret_text_binding ~service_binding ~webassembly_binding __id
+    make ?compatibility_date ?compatibility_flags ?dispatch_namespace
+      ?id ?logpush ?module_ ?tags ~account_id ~content ~name
+      ~analytics_engine_binding ~d1_database_binding
+      ~kv_namespace_binding ~placement ~plain_text_binding
+      ~queue_binding ~r2_bucket_binding ~secret_text_binding
+      ~service_binding ~webassembly_binding __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

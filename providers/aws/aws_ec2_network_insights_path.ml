@@ -3,7 +3,7 @@
 open! Tf_core
 
 type aws_ec2_network_insights_path = {
-  destination : string prop;
+  destination : string prop option; [@option]
   destination_ip : string prop option; [@option]
   destination_port : float prop option; [@option]
   id : string prop option; [@option]
@@ -106,8 +106,12 @@ let yojson_of_aws_ec2_network_insights_path =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_destination in
-         ("destination", arg) :: bnds
+         match v_destination with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : aws_ec2_network_insights_path ->
@@ -117,9 +121,9 @@ let _ = yojson_of_aws_ec2_network_insights_path
 
 [@@@deriving.end]
 
-let aws_ec2_network_insights_path ?destination_ip ?destination_port
-    ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source ()
-    : aws_ec2_network_insights_path =
+let aws_ec2_network_insights_path ?destination ?destination_ip
+    ?destination_port ?id ?source_ip ?tags ?tags_all ~protocol
+    ~source () : aws_ec2_network_insights_path =
   {
     destination;
     destination_ip;
@@ -148,8 +152,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?destination_ip ?destination_port ?id ?source_ip ?tags
-    ?tags_all ~destination ~protocol ~source __id =
+let make ?destination ?destination_ip ?destination_port ?id
+    ?source_ip ?tags ?tags_all ~protocol ~source __id =
   let __type = "aws_ec2_network_insights_path" in
   let __attrs =
     ({
@@ -175,17 +179,18 @@ let make ?destination_ip ?destination_port ?id ?source_ip ?tags
     type_ = __type;
     json =
       yojson_of_aws_ec2_network_insights_path
-        (aws_ec2_network_insights_path ?destination_ip
-           ?destination_port ?id ?source_ip ?tags ?tags_all
-           ~destination ~protocol ~source ());
+        (aws_ec2_network_insights_path ?destination ?destination_ip
+           ?destination_port ?id ?source_ip ?tags ?tags_all ~protocol
+           ~source ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?destination_ip ?destination_port ?id
-    ?source_ip ?tags ?tags_all ~destination ~protocol ~source __id =
+let register ?tf_module ?destination ?destination_ip
+    ?destination_port ?id ?source_ip ?tags ?tags_all ~protocol
+    ~source __id =
   let (r : _ Tf_core.resource) =
-    make ?destination_ip ?destination_port ?id ?source_ip ?tags
-      ?tags_all ~destination ~protocol ~source __id
+    make ?destination ?destination_ip ?destination_port ?id
+      ?source_ip ?tags ?tags_all ~protocol ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

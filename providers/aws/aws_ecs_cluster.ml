@@ -136,9 +136,55 @@ let _ = yojson_of_configuration__execute_command_configuration
 
 [@@@deriving.end]
 
+type configuration__managed_storage_configuration = {
+  fargate_ephemeral_storage_kms_key_id : string prop option;
+      [@option]
+  kms_key_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__managed_storage_configuration) -> ()
+
+let yojson_of_configuration__managed_storage_configuration =
+  (function
+   | {
+       fargate_ephemeral_storage_kms_key_id =
+         v_fargate_ephemeral_storage_kms_key_id;
+       kms_key_id = v_kms_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fargate_ephemeral_storage_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fargate_ephemeral_storage_kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration__managed_storage_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__managed_storage_configuration
+
+[@@@deriving.end]
+
 type configuration = {
   execute_command_configuration :
     configuration__execute_command_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  managed_storage_configuration :
+    configuration__managed_storage_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -150,9 +196,22 @@ let yojson_of_configuration =
    | {
        execute_command_configuration =
          v_execute_command_configuration;
+       managed_storage_configuration =
+         v_managed_storage_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_managed_storage_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__managed_storage_configuration)
+               v_managed_storage_configuration
+           in
+           let bnd = "managed_storage_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_execute_command_configuration then bnds
@@ -344,9 +403,14 @@ let configuration__execute_command_configuration ?kms_key_id ?logging
     configuration__execute_command_configuration =
   { kms_key_id; logging; log_configuration }
 
-let configuration ?(execute_command_configuration = []) () :
-    configuration =
-  { execute_command_configuration }
+let configuration__managed_storage_configuration
+    ?fargate_ephemeral_storage_kms_key_id ?kms_key_id () :
+    configuration__managed_storage_configuration =
+  { fargate_ephemeral_storage_kms_key_id; kms_key_id }
+
+let configuration ?(execute_command_configuration = [])
+    ?(managed_storage_configuration = []) () : configuration =
+  { execute_command_configuration; managed_storage_configuration }
 
 let service_connect_defaults ~namespace () : service_connect_defaults
     =

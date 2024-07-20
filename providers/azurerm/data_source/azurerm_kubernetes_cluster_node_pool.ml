@@ -28,20 +28,42 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type upgrade_settings = { max_surge : string prop }
+type upgrade_settings = {
+  drain_timeout_in_minutes : float prop;
+  max_surge : string prop;
+  node_soak_duration_in_minutes : float prop;
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : upgrade_settings) -> ()
 
 let yojson_of_upgrade_settings =
   (function
-   | { max_surge = v_max_surge } ->
+   | {
+       drain_timeout_in_minutes = v_drain_timeout_in_minutes;
+       max_surge = v_max_surge;
+       node_soak_duration_in_minutes =
+         v_node_soak_duration_in_minutes;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_node_soak_duration_in_minutes
+         in
+         ("node_soak_duration_in_minutes", arg) :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_max_surge in
          ("max_surge", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_drain_timeout_in_minutes
+         in
+         ("drain_timeout_in_minutes", arg) :: bnds
        in
        `Assoc bnds
     : upgrade_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -124,6 +146,7 @@ let azurerm_kubernetes_cluster_node_pool ?id ?timeouts
 
 type t = {
   tf_name : string;
+  auto_scaling_enabled : bool prop;
   enable_auto_scaling : bool prop;
   enable_node_public_ip : bool prop;
   eviction_policy : string prop;
@@ -136,6 +159,7 @@ type t = {
   name : string prop;
   node_count : float prop;
   node_labels : (string * string) list prop;
+  node_public_ip_enabled : bool prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string list prop;
   orchestrator_version : string prop;
@@ -159,6 +183,8 @@ let make ?id ?timeouts ~kubernetes_cluster_name ~name
   let __attrs =
     ({
        tf_name = __id;
+       auto_scaling_enabled =
+         Prop.computed __type __id "auto_scaling_enabled";
        enable_auto_scaling =
          Prop.computed __type __id "enable_auto_scaling";
        enable_node_public_ip =
@@ -174,6 +200,8 @@ let make ?id ?timeouts ~kubernetes_cluster_name ~name
        name = Prop.computed __type __id "name";
        node_count = Prop.computed __type __id "node_count";
        node_labels = Prop.computed __type __id "node_labels";
+       node_public_ip_enabled =
+         Prop.computed __type __id "node_public_ip_enabled";
        node_public_ip_prefix_id =
          Prop.computed __type __id "node_public_ip_prefix_id";
        node_taints = Prop.computed __type __id "node_taints";

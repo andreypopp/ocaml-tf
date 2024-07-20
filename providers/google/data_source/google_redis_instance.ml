@@ -400,6 +400,7 @@ type t = {
   location_id : string prop;
   maintenance_policy : maintenance_policy list prop;
   maintenance_schedule : maintenance_schedule list prop;
+  maintenance_version : string prop;
   memory_size_gb : float prop;
   name : string prop;
   nodes : nodes list prop;
@@ -450,6 +451,8 @@ let make ?id ?project ?region ~name __id =
          Prop.computed __type __id "maintenance_policy";
        maintenance_schedule =
          Prop.computed __type __id "maintenance_schedule";
+       maintenance_version =
+         Prop.computed __type __id "maintenance_version";
        memory_size_gb = Prop.computed __type __id "memory_size_gb";
        name = Prop.computed __type __id "name";
        nodes = Prop.computed __type __id "nodes";

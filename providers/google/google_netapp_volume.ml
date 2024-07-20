@@ -2,6 +2,58 @@
 
 open! Tf_core
 
+type backup_config = {
+  backup_policies : string prop list option; [@option]
+  backup_vault : string prop option; [@option]
+  scheduled_backup_enabled : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_config) -> ()
+
+let yojson_of_backup_config =
+  (function
+   | {
+       backup_policies = v_backup_policies;
+       backup_vault = v_backup_vault;
+       scheduled_backup_enabled = v_scheduled_backup_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_scheduled_backup_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "scheduled_backup_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_vault with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "backup_vault", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backup_policies", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_config
+
+[@@@deriving.end]
+
 type export_policy__rules = {
   access_type : string prop option; [@option]
   allowed_clients : string prop option; [@option]
@@ -601,6 +653,8 @@ type google_netapp_volume = {
   snapshot_directory : bool prop option; [@option]
   storage_pool : string prop;
   unix_permissions : string prop option; [@option]
+  backup_config : backup_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   export_policy : export_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   restore_parameters : restore_parameters list;
@@ -633,6 +687,7 @@ let yojson_of_google_netapp_volume =
        snapshot_directory = v_snapshot_directory;
        storage_pool = v_storage_pool;
        unix_permissions = v_unix_permissions;
+       backup_config = v_backup_config;
        export_policy = v_export_policy;
        restore_parameters = v_restore_parameters;
        snapshot_policy = v_snapshot_policy;
@@ -672,6 +727,15 @@ let yojson_of_google_netapp_volume =
              (yojson_of_list yojson_of_export_policy) v_export_policy
            in
            let bnd = "export_policy", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_backup_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup_config) v_backup_config
+           in
+           let bnd = "backup_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -811,6 +875,10 @@ let _ = yojson_of_google_netapp_volume
 
 [@@@deriving.end]
 
+let backup_config ?backup_policies ?backup_vault
+    ?scheduled_backup_enabled () : backup_config =
+  { backup_policies; backup_vault; scheduled_backup_enabled }
+
 let export_policy__rules ?access_type ?allowed_clients
     ?has_root_access ?kerberos5_read_only ?kerberos5_read_write
     ?kerberos5i_read_only ?kerberos5i_read_write
@@ -869,7 +937,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_netapp_volume ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
-    ?unix_permissions ?(export_policy = [])
+    ?unix_permissions ?(backup_config = []) ?(export_policy = [])
     ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
     ~capacity_gib ~location ~name ~protocols ~share_name
     ~storage_pool () : google_netapp_volume =
@@ -891,6 +959,7 @@ let google_netapp_volume ?deletion_policy ?description ?id
     snapshot_directory;
     storage_pool;
     unix_permissions;
+    backup_config;
     export_policy;
     restore_parameters;
     snapshot_policy;
@@ -935,10 +1004,10 @@ type t = {
 
 let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
     ?project ?restricted_actions ?security_style ?smb_settings
-    ?snapshot_directory ?unix_permissions ?(export_policy = [])
-    ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
-    ~capacity_gib ~location ~name ~protocols ~share_name
-    ~storage_pool __id =
+    ?snapshot_directory ?unix_permissions ?(backup_config = [])
+    ?(export_policy = []) ?(restore_parameters = [])
+    ?(snapshot_policy = []) ?timeouts ~capacity_gib ~location ~name
+    ~protocols ~share_name ~storage_pool __id =
   let __type = "google_netapp_volume" in
   let __attrs =
     ({
@@ -993,25 +1062,27 @@ let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
         (google_netapp_volume ?deletion_policy ?description ?id
            ?kerberos_enabled ?labels ?project ?restricted_actions
            ?security_style ?smb_settings ?snapshot_directory
-           ?unix_permissions ~export_policy ~restore_parameters
-           ~snapshot_policy ?timeouts ~capacity_gib ~location ~name
-           ~protocols ~share_name ~storage_pool ());
+           ?unix_permissions ~backup_config ~export_policy
+           ~restore_parameters ~snapshot_policy ?timeouts
+           ~capacity_gib ~location ~name ~protocols ~share_name
+           ~storage_pool ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
-    ?unix_permissions ?(export_policy = [])
+    ?unix_permissions ?(backup_config = []) ?(export_policy = [])
     ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
     ~capacity_gib ~location ~name ~protocols ~share_name
     ~storage_pool __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
       ?project ?restricted_actions ?security_style ?smb_settings
-      ?snapshot_directory ?unix_permissions ~export_policy
-      ~restore_parameters ~snapshot_policy ?timeouts ~capacity_gib
-      ~location ~name ~protocols ~share_name ~storage_pool __id
+      ?snapshot_directory ?unix_permissions ~backup_config
+      ~export_policy ~restore_parameters ~snapshot_policy ?timeouts
+      ~capacity_gib ~location ~name ~protocols ~share_name
+      ~storage_pool __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

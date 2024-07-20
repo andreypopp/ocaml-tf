@@ -59,7 +59,9 @@ val google_compute_region_network_firewall_policy_rule :
   ?project:string prop ->
   ?region:string prop ->
   ?rule_name:string prop ->
+  ?security_profile_group:string prop ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->
@@ -90,7 +92,9 @@ type t = private {
   region : string prop;
   rule_name : string prop;
   rule_tuple_count : float prop;
+  security_profile_group : string prop;
   target_service_accounts : string list prop;
+  tls_inspect : bool prop;
 }
 
 val register :
@@ -102,7 +106,9 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?rule_name:string prop ->
+  ?security_profile_group:string prop ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->
@@ -121,7 +127,9 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?rule_name:string prop ->
+  ?security_profile_group:string prop ->
   ?target_service_accounts:string prop list ->
+  ?tls_inspect:bool prop ->
   ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->

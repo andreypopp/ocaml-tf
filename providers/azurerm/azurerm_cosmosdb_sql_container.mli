@@ -79,6 +79,9 @@ val azurerm_cosmosdb_sql_container :
   ?analytical_storage_ttl:float prop ->
   ?default_ttl:float prop ->
   ?id:string prop ->
+  ?partition_key_kind:string prop ->
+  ?partition_key_path:string prop ->
+  ?partition_key_paths:string prop list ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
   ?autoscale_settings:autoscale_settings list ->
@@ -88,7 +91,6 @@ val azurerm_cosmosdb_sql_container :
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
-  partition_key_path:string prop ->
   resource_group_name:string prop ->
   unique_key:unique_key list ->
   unit ->
@@ -107,7 +109,9 @@ type t = private {
   default_ttl : float prop;
   id : string prop;
   name : string prop;
+  partition_key_kind : string prop;
   partition_key_path : string prop;
+  partition_key_paths : string list prop;
   partition_key_version : float prop;
   resource_group_name : string prop;
   throughput : float prop;
@@ -118,6 +122,9 @@ val register :
   ?analytical_storage_ttl:float prop ->
   ?default_ttl:float prop ->
   ?id:string prop ->
+  ?partition_key_kind:string prop ->
+  ?partition_key_path:string prop ->
+  ?partition_key_paths:string prop list ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
   ?autoscale_settings:autoscale_settings list ->
@@ -127,7 +134,6 @@ val register :
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
-  partition_key_path:string prop ->
   resource_group_name:string prop ->
   unique_key:unique_key list ->
   string ->
@@ -137,6 +143,9 @@ val make :
   ?analytical_storage_ttl:float prop ->
   ?default_ttl:float prop ->
   ?id:string prop ->
+  ?partition_key_kind:string prop ->
+  ?partition_key_path:string prop ->
+  ?partition_key_paths:string prop list ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
   ?autoscale_settings:autoscale_settings list ->
@@ -146,7 +155,6 @@ val make :
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
-  partition_key_path:string prop ->
   resource_group_name:string prop ->
   unique_key:unique_key list ->
   string ->

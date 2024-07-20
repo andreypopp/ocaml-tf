@@ -32,8 +32,8 @@ val aws_elasticache_replication_group :
   ?auth_token_update_strategy:string prop ->
   ?auto_minor_version_upgrade:string prop ->
   ?automatic_failover_enabled:bool prop ->
+  ?cluster_mode:string prop ->
   ?data_tiering_enabled:bool prop ->
-  ?description:string prop ->
   ?engine:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
@@ -62,8 +62,10 @@ val aws_elasticache_replication_group :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?transit_encryption_enabled:bool prop ->
+  ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->
   ?timeouts:timeouts ->
+  description:string prop ->
   replication_group_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->
   unit ->
@@ -84,6 +86,7 @@ type t = private {
   auto_minor_version_upgrade : string prop;
   automatic_failover_enabled : bool prop;
   cluster_enabled : bool prop;
+  cluster_mode : string prop;
   configuration_endpoint_address : string prop;
   data_tiering_enabled : bool prop;
   description : string prop;
@@ -120,6 +123,7 @@ type t = private {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   transit_encryption_enabled : bool prop;
+  transit_encryption_mode : string prop;
   user_group_ids : string list prop;
 }
 
@@ -131,8 +135,8 @@ val register :
   ?auth_token_update_strategy:string prop ->
   ?auto_minor_version_upgrade:string prop ->
   ?automatic_failover_enabled:bool prop ->
+  ?cluster_mode:string prop ->
   ?data_tiering_enabled:bool prop ->
-  ?description:string prop ->
   ?engine:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
@@ -161,8 +165,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?transit_encryption_enabled:bool prop ->
+  ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->
   ?timeouts:timeouts ->
+  description:string prop ->
   replication_group_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->
   string ->
@@ -175,8 +181,8 @@ val make :
   ?auth_token_update_strategy:string prop ->
   ?auto_minor_version_upgrade:string prop ->
   ?automatic_failover_enabled:bool prop ->
+  ?cluster_mode:string prop ->
   ?data_tiering_enabled:bool prop ->
-  ?description:string prop ->
   ?engine:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
@@ -205,8 +211,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?transit_encryption_enabled:bool prop ->
+  ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->
   ?timeouts:timeouts ->
+  description:string prop ->
   replication_group_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->
   string ->

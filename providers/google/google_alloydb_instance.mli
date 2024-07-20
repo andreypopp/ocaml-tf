@@ -23,6 +23,29 @@ type machine_config
 
 val machine_config : ?cpu_count:float prop -> unit -> machine_config
 
+type network_config__authorized_external_networks
+
+val network_config__authorized_external_networks :
+  ?cidr_range:string prop ->
+  unit ->
+  network_config__authorized_external_networks
+
+type network_config
+
+val network_config :
+  ?enable_public_ip:bool prop ->
+  ?authorized_external_networks:
+    network_config__authorized_external_networks list ->
+  unit ->
+  network_config
+
+type psc_instance_config
+
+val psc_instance_config :
+  ?allowed_consumer_projects:string prop list ->
+  unit ->
+  psc_instance_config
+
 type query_insights_config
 
 val query_insights_config :
@@ -59,6 +82,8 @@ val google_alloydb_instance :
   ?labels:(string * string prop) list ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
+  ?network_config:network_config list ->
+  ?psc_instance_config:psc_instance_config list ->
   ?query_insights_config:query_insights_config list ->
   ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->
@@ -90,6 +115,7 @@ type t = private {
   ip_address : string prop;
   labels : (string * string) list prop;
   name : string prop;
+  public_ip_address : string prop;
   reconciling : bool prop;
   state : string prop;
   terraform_labels : (string * string) list prop;
@@ -108,6 +134,8 @@ val register :
   ?labels:(string * string prop) list ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
+  ?network_config:network_config list ->
+  ?psc_instance_config:psc_instance_config list ->
   ?query_insights_config:query_insights_config list ->
   ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->
@@ -127,6 +155,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
+  ?network_config:network_config list ->
+  ?psc_instance_config:psc_instance_config list ->
   ?query_insights_config:query_insights_config list ->
   ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->

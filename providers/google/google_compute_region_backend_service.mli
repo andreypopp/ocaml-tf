@@ -199,6 +199,7 @@ type t = private {
   description : string prop;
   enable_cdn : bool prop;
   fingerprint : string prop;
+  generated_id : float prop;
   health_checks : string list prop;
   id : string prop;
   load_balancing_scheme : string prop;

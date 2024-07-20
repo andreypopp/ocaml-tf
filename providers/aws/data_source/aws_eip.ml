@@ -146,6 +146,7 @@ let aws_eip ?id ?public_ip ?tags ?timeouts ~filter () : aws_eip =
 
 type t = {
   tf_name : string;
+  arn : string prop;
   association_id : string prop;
   carrier_ip : string prop;
   customer_owned_ip : string prop;
@@ -157,6 +158,7 @@ type t = {
   network_interface_owner_id : string prop;
   private_dns : string prop;
   private_ip : string prop;
+  ptr_record : string prop;
   public_dns : string prop;
   public_ip : string prop;
   public_ipv4_pool : string prop;
@@ -168,6 +170,7 @@ let make ?id ?public_ip ?tags ?timeouts ~filter __id =
   let __attrs =
     ({
        tf_name = __id;
+       arn = Prop.computed __type __id "arn";
        association_id = Prop.computed __type __id "association_id";
        carrier_ip = Prop.computed __type __id "carrier_ip";
        customer_owned_ip =
@@ -183,6 +186,7 @@ let make ?id ?public_ip ?tags ?timeouts ~filter __id =
          Prop.computed __type __id "network_interface_owner_id";
        private_dns = Prop.computed __type __id "private_dns";
        private_ip = Prop.computed __type __id "private_ip";
+       ptr_record = Prop.computed __type __id "ptr_record";
        public_dns = Prop.computed __type __id "public_dns";
        public_ip = Prop.computed __type __id "public_ip";
        public_ipv4_pool =

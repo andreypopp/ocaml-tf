@@ -26,11 +26,16 @@ val yojson_of_azurerm_nginx_certificate :
 type t = private {
   tf_name : string;
   certificate_virtual_path : string prop;
+  error_code : string prop;
+  error_message : string prop;
   id : string prop;
+  key_vault_secret_creation_date : string prop;
   key_vault_secret_id : string prop;
+  key_vault_secret_version : string prop;
   key_virtual_path : string prop;
   name : string prop;
   nginx_deployment_id : string prop;
+  sha1_thumbprint : string prop;
 }
 
 val register :

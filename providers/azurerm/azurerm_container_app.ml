@@ -396,24 +396,54 @@ let _ = yojson_of_registry
 
 [@@@deriving.end]
 
-type secret = { name : string prop; value : string prop }
+type secret = {
+  identity : string prop option; [@option]
+  key_vault_secret_id : string prop option; [@option]
+  name : string prop;
+  value : string prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : secret) -> ()
 
 let yojson_of_secret =
   (function
-   | { name = v_name; value = v_value } ->
+   | {
+       identity = v_identity;
+       key_vault_secret_id = v_key_vault_secret_id;
+       name = v_name;
+       value = v_value;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_value in
-         ("value", arg) :: bnds
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_key_vault_secret_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_secret_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2010,7 +2040,8 @@ let registry ?identity ?password_secret_name ?username ~server () :
     registry =
   { identity; password_secret_name; server; username }
 
-let secret ~name ~value () : secret = { name; value }
+let secret ?identity ?key_vault_secret_id ?value ~name () : secret =
+  { identity; key_vault_secret_id; name; value }
 
 let template__azure_queue_scale_rule__authentication ~secret_name
     ~trigger_parameter () :

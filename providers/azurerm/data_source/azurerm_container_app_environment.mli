@@ -25,6 +25,7 @@ val yojson_of_azurerm_container_app_environment :
 
 type t = private {
   tf_name : string;
+  custom_domain_verification_id : string prop;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
   id : string prop;

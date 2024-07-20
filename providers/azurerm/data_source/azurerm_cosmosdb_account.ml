@@ -214,6 +214,7 @@ let azurerm_cosmosdb_account ?id ?timeouts ~name ~resource_group_name
 
 type t = {
   tf_name : string;
+  automatic_failover_enabled : bool prop;
   capabilities : capabilities list prop;
   connection_strings : string list prop;
   consistency_policy : consistency_policy list prop;
@@ -221,6 +222,7 @@ type t = {
   enable_free_tier : bool prop;
   enable_multiple_write_locations : bool prop;
   endpoint : string prop;
+  free_tier_enabled : bool prop;
   geo_location : geo_location list prop;
   id : string prop;
   ip_range_filter : string prop;
@@ -228,6 +230,7 @@ type t = {
   key_vault_key_id : string prop;
   kind : string prop;
   location : string prop;
+  multiple_write_locations_enabled : bool prop;
   name : string prop;
   offer_type : string prop;
   primary_key : string prop;
@@ -254,6 +257,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __attrs =
     ({
        tf_name = __id;
+       automatic_failover_enabled =
+         Prop.computed __type __id "automatic_failover_enabled";
        capabilities = Prop.computed __type __id "capabilities";
        connection_strings =
          Prop.computed __type __id "connection_strings";
@@ -266,6 +271,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
        enable_multiple_write_locations =
          Prop.computed __type __id "enable_multiple_write_locations";
        endpoint = Prop.computed __type __id "endpoint";
+       free_tier_enabled =
+         Prop.computed __type __id "free_tier_enabled";
        geo_location = Prop.computed __type __id "geo_location";
        id = Prop.computed __type __id "id";
        ip_range_filter = Prop.computed __type __id "ip_range_filter";
@@ -276,6 +283,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
          Prop.computed __type __id "key_vault_key_id";
        kind = Prop.computed __type __id "kind";
        location = Prop.computed __type __id "location";
+       multiple_write_locations_enabled =
+         Prop.computed __type __id "multiple_write_locations_enabled";
        name = Prop.computed __type __id "name";
        offer_type = Prop.computed __type __id "offer_type";
        primary_key = Prop.computed __type __id "primary_key";

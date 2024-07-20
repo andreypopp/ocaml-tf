@@ -32,6 +32,7 @@ val yojson_of_aws_api_gateway_documentation_part :
 
 type t = private {
   tf_name : string;
+  documentation_part_id : string prop;
   id : string prop;
   properties : string prop;
   rest_api_id : string prop;

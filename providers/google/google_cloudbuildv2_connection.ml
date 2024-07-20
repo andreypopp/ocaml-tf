@@ -2,6 +2,311 @@
 
 open! Tf_core
 
+type bitbucket_cloud_config__authorizer_credential = {
+  user_token_secret_version : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_cloud_config__authorizer_credential) -> ()
+
+let yojson_of_bitbucket_cloud_config__authorizer_credential =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_cloud_config__authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_cloud_config__authorizer_credential
+
+[@@@deriving.end]
+
+type bitbucket_cloud_config__read_authorizer_credential = {
+  user_token_secret_version : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : bitbucket_cloud_config__read_authorizer_credential) -> ()
+
+let yojson_of_bitbucket_cloud_config__read_authorizer_credential =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_cloud_config__read_authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_cloud_config__read_authorizer_credential
+
+[@@@deriving.end]
+
+type bitbucket_cloud_config = {
+  webhook_secret_secret_version : string prop;
+  workspace : string prop;
+  authorizer_credential :
+    bitbucket_cloud_config__authorizer_credential list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  read_authorizer_credential :
+    bitbucket_cloud_config__read_authorizer_credential list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_cloud_config) -> ()
+
+let yojson_of_bitbucket_cloud_config =
+  (function
+   | {
+       webhook_secret_secret_version =
+         v_webhook_secret_secret_version;
+       workspace = v_workspace;
+       authorizer_credential = v_authorizer_credential;
+       read_authorizer_credential = v_read_authorizer_credential;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_read_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_cloud_config__read_authorizer_credential)
+               v_read_authorizer_credential
+           in
+           let bnd = "read_authorizer_credential", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_cloud_config__authorizer_credential)
+               v_authorizer_credential
+           in
+           let bnd = "authorizer_credential", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace in
+         ("workspace", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_webhook_secret_secret_version
+         in
+         ("webhook_secret_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_cloud_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_cloud_config
+
+[@@@deriving.end]
+
+type bitbucket_data_center_config__authorizer_credential = {
+  user_token_secret_version : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : bitbucket_data_center_config__authorizer_credential) -> ()
+
+let yojson_of_bitbucket_data_center_config__authorizer_credential =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_data_center_config__authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_data_center_config__authorizer_credential
+
+[@@@deriving.end]
+
+type bitbucket_data_center_config__read_authorizer_credential = {
+  user_token_secret_version : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : bitbucket_data_center_config__read_authorizer_credential) ->
+  ()
+
+let yojson_of_bitbucket_data_center_config__read_authorizer_credential
+    =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_data_center_config__read_authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_bitbucket_data_center_config__read_authorizer_credential
+
+[@@@deriving.end]
+
+type bitbucket_data_center_config__service_directory_config = {
+  service : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : bitbucket_data_center_config__service_directory_config) ->
+  ()
+
+let yojson_of_bitbucket_data_center_config__service_directory_config
+    =
+  (function
+   | { service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_data_center_config__service_directory_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_bitbucket_data_center_config__service_directory_config
+
+[@@@deriving.end]
+
+type bitbucket_data_center_config = {
+  host_uri : string prop;
+  ssl_ca : string prop option; [@option]
+  webhook_secret_secret_version : string prop;
+  authorizer_credential :
+    bitbucket_data_center_config__authorizer_credential list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  read_authorizer_credential :
+    bitbucket_data_center_config__read_authorizer_credential list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  service_directory_config :
+    bitbucket_data_center_config__service_directory_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_data_center_config) -> ()
+
+let yojson_of_bitbucket_data_center_config =
+  (function
+   | {
+       host_uri = v_host_uri;
+       ssl_ca = v_ssl_ca;
+       webhook_secret_secret_version =
+         v_webhook_secret_secret_version;
+       authorizer_credential = v_authorizer_credential;
+       read_authorizer_credential = v_read_authorizer_credential;
+       service_directory_config = v_service_directory_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_service_directory_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_data_center_config__service_directory_config)
+               v_service_directory_config
+           in
+           let bnd = "service_directory_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_read_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_data_center_config__read_authorizer_credential)
+               v_read_authorizer_credential
+           in
+           let bnd = "read_authorizer_credential", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_data_center_config__authorizer_credential)
+               v_authorizer_credential
+           in
+           let bnd = "authorizer_credential", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_webhook_secret_secret_version
+         in
+         ("webhook_secret_secret_version", arg) :: bnds
+       in
+       let bnds =
+         match v_ssl_ca with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_ca", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_uri in
+         ("host_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_data_center_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_data_center_config
+
+[@@@deriving.end]
+
 type github_config__authorizer_credential = {
   oauth_token_secret_version : string prop option; [@option]
 }
@@ -469,6 +774,10 @@ type google_cloudbuildv2_connection = {
   location : string prop;
   name : string prop;
   project : string prop option; [@option]
+  bitbucket_cloud_config : bitbucket_cloud_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  bitbucket_data_center_config : bitbucket_data_center_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   github_config : github_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   github_enterprise_config : github_enterprise_config list;
@@ -490,6 +799,8 @@ let yojson_of_google_cloudbuildv2_connection =
        location = v_location;
        name = v_name;
        project = v_project;
+       bitbucket_cloud_config = v_bitbucket_cloud_config;
+       bitbucket_data_center_config = v_bitbucket_data_center_config;
        github_config = v_github_config;
        github_enterprise_config = v_github_enterprise_config;
        gitlab_config = v_gitlab_config;
@@ -528,6 +839,26 @@ let yojson_of_google_cloudbuildv2_connection =
              (yojson_of_list yojson_of_github_config) v_github_config
            in
            let bnd = "github_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_bitbucket_data_center_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bitbucket_data_center_config)
+               v_bitbucket_data_center_config
+           in
+           let bnd = "bitbucket_data_center_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_bitbucket_cloud_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bitbucket_cloud_config)
+               v_bitbucket_cloud_config
+           in
+           let bnd = "bitbucket_cloud_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -586,6 +917,53 @@ let _ = yojson_of_google_cloudbuildv2_connection
 
 [@@@deriving.end]
 
+let bitbucket_cloud_config__authorizer_credential
+    ~user_token_secret_version () :
+    bitbucket_cloud_config__authorizer_credential =
+  { user_token_secret_version }
+
+let bitbucket_cloud_config__read_authorizer_credential
+    ~user_token_secret_version () :
+    bitbucket_cloud_config__read_authorizer_credential =
+  { user_token_secret_version }
+
+let bitbucket_cloud_config ~webhook_secret_secret_version ~workspace
+    ~authorizer_credential ~read_authorizer_credential () :
+    bitbucket_cloud_config =
+  {
+    webhook_secret_secret_version;
+    workspace;
+    authorizer_credential;
+    read_authorizer_credential;
+  }
+
+let bitbucket_data_center_config__authorizer_credential
+    ~user_token_secret_version () :
+    bitbucket_data_center_config__authorizer_credential =
+  { user_token_secret_version }
+
+let bitbucket_data_center_config__read_authorizer_credential
+    ~user_token_secret_version () :
+    bitbucket_data_center_config__read_authorizer_credential =
+  { user_token_secret_version }
+
+let bitbucket_data_center_config__service_directory_config ~service
+    () : bitbucket_data_center_config__service_directory_config =
+  { service }
+
+let bitbucket_data_center_config ?ssl_ca
+    ?(service_directory_config = []) ~host_uri
+    ~webhook_secret_secret_version ~authorizer_credential
+    ~read_authorizer_credential () : bitbucket_data_center_config =
+  {
+    host_uri;
+    ssl_ca;
+    webhook_secret_secret_version;
+    authorizer_credential;
+    read_authorizer_credential;
+    service_directory_config;
+  }
+
 let github_config__authorizer_credential ?oauth_token_secret_version
     () : github_config__authorizer_credential =
   { oauth_token_secret_version }
@@ -642,9 +1020,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloudbuildv2_connection ?annotations ?disabled ?id
-    ?project ?(github_config = []) ?(github_enterprise_config = [])
-    ?(gitlab_config = []) ?timeouts ~location ~name () :
-    google_cloudbuildv2_connection =
+    ?project ?(bitbucket_cloud_config = [])
+    ?(bitbucket_data_center_config = []) ?(github_config = [])
+    ?(github_enterprise_config = []) ?(gitlab_config = []) ?timeouts
+    ~location ~name () : google_cloudbuildv2_connection =
   {
     annotations;
     disabled;
@@ -652,6 +1031,8 @@ let google_cloudbuildv2_connection ?annotations ?disabled ?id
     location;
     name;
     project;
+    bitbucket_cloud_config;
+    bitbucket_data_center_config;
     github_config;
     github_enterprise_config;
     gitlab_config;
@@ -674,7 +1055,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?annotations ?disabled ?id ?project ?(github_config = [])
+let make ?annotations ?disabled ?id ?project
+    ?(bitbucket_cloud_config = [])
+    ?(bitbucket_data_center_config = []) ?(github_config = [])
     ?(github_enterprise_config = []) ?(gitlab_config = []) ?timeouts
     ~location ~name __id =
   let __type = "google_cloudbuildv2_connection" in
@@ -704,16 +1087,21 @@ let make ?annotations ?disabled ?id ?project ?(github_config = [])
     json =
       yojson_of_google_cloudbuildv2_connection
         (google_cloudbuildv2_connection ?annotations ?disabled ?id
-           ?project ~github_config ~github_enterprise_config
-           ~gitlab_config ?timeouts ~location ~name ());
+           ?project ~bitbucket_cloud_config
+           ~bitbucket_data_center_config ~github_config
+           ~github_enterprise_config ~gitlab_config ?timeouts
+           ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?disabled ?id ?project
-    ?(github_config = []) ?(github_enterprise_config = [])
-    ?(gitlab_config = []) ?timeouts ~location ~name __id =
+    ?(bitbucket_cloud_config = [])
+    ?(bitbucket_data_center_config = []) ?(github_config = [])
+    ?(github_enterprise_config = []) ?(gitlab_config = []) ?timeouts
+    ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?disabled ?id ?project ~github_config
+    make ?annotations ?disabled ?id ?project ~bitbucket_cloud_config
+      ~bitbucket_data_center_config ~github_config
       ~github_enterprise_config ~gitlab_config ?timeouts ~location
       ~name __id
   in

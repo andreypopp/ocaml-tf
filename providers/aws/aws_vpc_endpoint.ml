@@ -46,6 +46,52 @@ let _ = yojson_of_dns_options
 
 [@@@deriving.end]
 
+type subnet_configuration = {
+  ipv4 : string prop option; [@option]
+  ipv6 : string prop option; [@option]
+  subnet_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subnet_configuration) -> ()
+
+let yojson_of_subnet_configuration =
+  (function
+   | { ipv4 = v_ipv4; ipv6 = v_ipv6; subnet_id = v_subnet_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv4", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subnet_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subnet_configuration
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -139,6 +185,8 @@ type aws_vpc_endpoint = {
   vpc_id : string prop;
   dns_options : dns_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  subnet_configuration : subnet_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -162,6 +210,7 @@ let yojson_of_aws_vpc_endpoint =
        vpc_endpoint_type = v_vpc_endpoint_type;
        vpc_id = v_vpc_id;
        dns_options = v_dns_options;
+       subnet_configuration = v_subnet_configuration;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -170,6 +219,16 @@ let yojson_of_aws_vpc_endpoint =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_subnet_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subnet_configuration)
+               v_subnet_configuration
+           in
+           let bnd = "subnet_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_dns_options then bnds
@@ -313,14 +372,18 @@ let dns_options ?dns_record_ip_type
     private_dns_only_for_inbound_resolver_endpoint;
   }
 
+let subnet_configuration ?ipv4 ?ipv6 ?subnet_id () :
+    subnet_configuration =
+  { ipv4; ipv6; subnet_id }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
     ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
-    ?(dns_options = []) ?timeouts ~service_name ~vpc_id () :
-    aws_vpc_endpoint =
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id
+    ~subnet_configuration () : aws_vpc_endpoint =
   {
     auto_accept;
     id;
@@ -336,6 +399,7 @@ let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
     vpc_endpoint_type;
     vpc_id;
     dns_options;
+    subnet_configuration;
     timeouts;
   }
 
@@ -367,7 +431,8 @@ type t = {
 let make ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
     ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
-    ?(dns_options = []) ?timeouts ~service_name ~vpc_id __id =
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id
+    ~subnet_configuration __id =
   let __type = "aws_vpc_endpoint" in
   let __attrs =
     ({
@@ -409,19 +474,21 @@ let make ?auto_accept ?id ?ip_address_type ?policy
         (aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
            ?private_dns_enabled ?route_table_ids ?security_group_ids
            ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
-           ~dns_options ?timeouts ~service_name ~vpc_id ());
+           ~dns_options ?timeouts ~service_name ~vpc_id
+           ~subnet_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
     ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
-    ?(dns_options = []) ?timeouts ~service_name ~vpc_id __id =
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id
+    ~subnet_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?auto_accept ?id ?ip_address_type ?policy
       ?private_dns_enabled ?route_table_ids ?security_group_ids
       ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ~dns_options
-      ?timeouts ~service_name ~vpc_id __id
+      ?timeouts ~service_name ~vpc_id ~subnet_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

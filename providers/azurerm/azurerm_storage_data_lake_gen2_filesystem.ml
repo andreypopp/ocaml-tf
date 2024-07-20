@@ -115,6 +115,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_storage_data_lake_gen2_filesystem = {
+  default_encryption_scope : string prop option; [@option]
   group : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
@@ -131,6 +132,7 @@ let _ = fun (_ : azurerm_storage_data_lake_gen2_filesystem) -> ()
 let yojson_of_azurerm_storage_data_lake_gen2_filesystem =
   (function
    | {
+       default_encryption_scope = v_default_encryption_scope;
        group = v_group;
        id = v_id;
        name = v_name;
@@ -204,6 +206,14 @@ let yojson_of_azurerm_storage_data_lake_gen2_filesystem =
              let bnd = "group", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_default_encryption_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_encryption_scope", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : azurerm_storage_data_lake_gen2_filesystem ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -218,10 +228,12 @@ let ace ?id ?scope ~permissions ~type_ () : ace =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
-    ?properties ?timeouts ~name ~storage_account_id ~ace () :
+let azurerm_storage_data_lake_gen2_filesystem
+    ?default_encryption_scope ?group ?id ?owner ?properties ?timeouts
+    ~name ~storage_account_id ~ace () :
     azurerm_storage_data_lake_gen2_filesystem =
   {
+    default_encryption_scope;
     group;
     id;
     name;
@@ -234,6 +246,7 @@ let azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
 
 type t = {
   tf_name : string;
+  default_encryption_scope : string prop;
   group : string prop;
   id : string prop;
   name : string prop;
@@ -242,12 +255,14 @@ type t = {
   storage_account_id : string prop;
 }
 
-let make ?group ?id ?owner ?properties ?timeouts ~name
-    ~storage_account_id ~ace __id =
+let make ?default_encryption_scope ?group ?id ?owner ?properties
+    ?timeouts ~name ~storage_account_id ~ace __id =
   let __type = "azurerm_storage_data_lake_gen2_filesystem" in
   let __attrs =
     ({
        tf_name = __id;
+       default_encryption_scope =
+         Prop.computed __type __id "default_encryption_scope";
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
@@ -263,16 +278,17 @@ let make ?group ?id ?owner ?properties ?timeouts ~name
     type_ = __type;
     json =
       yojson_of_azurerm_storage_data_lake_gen2_filesystem
-        (azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
-           ?properties ?timeouts ~name ~storage_account_id ~ace ());
+        (azurerm_storage_data_lake_gen2_filesystem
+           ?default_encryption_scope ?group ?id ?owner ?properties
+           ?timeouts ~name ~storage_account_id ~ace ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?group ?id ?owner ?properties ?timeouts ~name
-    ~storage_account_id ~ace __id =
+let register ?tf_module ?default_encryption_scope ?group ?id ?owner
+    ?properties ?timeouts ~name ~storage_account_id ~ace __id =
   let (r : _ Tf_core.resource) =
-    make ?group ?id ?owner ?properties ?timeouts ~name
-      ~storage_account_id ~ace __id
+    make ?default_encryption_scope ?group ?id ?owner ?properties
+      ?timeouts ~name ~storage_account_id ~ace __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

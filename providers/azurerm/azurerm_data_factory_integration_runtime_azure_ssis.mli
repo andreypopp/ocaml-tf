@@ -16,6 +16,14 @@ val catalog_info :
   unit ->
   catalog_info
 
+type copy_compute_scale
+
+val copy_compute_scale :
+  ?data_integration_unit:float prop ->
+  ?time_to_live:float prop ->
+  unit ->
+  copy_compute_scale
+
 type custom_setup_script
 
 val custom_setup_script :
@@ -88,6 +96,15 @@ val package_store :
   unit ->
   package_store
 
+type pipeline_external_compute_scale
+
+val pipeline_external_compute_scale :
+  ?number_of_external_nodes:float prop ->
+  ?number_of_pipeline_nodes:float prop ->
+  ?time_to_live:float prop ->
+  unit ->
+  pipeline_external_compute_scale
+
 type proxy
 
 val proxy :
@@ -128,10 +145,13 @@ val azurerm_data_factory_integration_runtime_azure_ssis :
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
   ?catalog_info:catalog_info list ->
+  ?copy_compute_scale:copy_compute_scale list ->
   ?custom_setup_script:custom_setup_script list ->
   ?express_custom_setup:express_custom_setup list ->
   ?express_vnet_integration:express_vnet_integration list ->
   ?package_store:package_store list ->
+  ?pipeline_external_compute_scale:
+    pipeline_external_compute_scale list ->
   ?proxy:proxy list ->
   ?timeouts:timeouts ->
   ?vnet_integration:vnet_integration list ->
@@ -172,10 +192,13 @@ val register :
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
   ?catalog_info:catalog_info list ->
+  ?copy_compute_scale:copy_compute_scale list ->
   ?custom_setup_script:custom_setup_script list ->
   ?express_custom_setup:express_custom_setup list ->
   ?express_vnet_integration:express_vnet_integration list ->
   ?package_store:package_store list ->
+  ?pipeline_external_compute_scale:
+    pipeline_external_compute_scale list ->
   ?proxy:proxy list ->
   ?timeouts:timeouts ->
   ?vnet_integration:vnet_integration list ->
@@ -195,10 +218,13 @@ val make :
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
   ?catalog_info:catalog_info list ->
+  ?copy_compute_scale:copy_compute_scale list ->
   ?custom_setup_script:custom_setup_script list ->
   ?express_custom_setup:express_custom_setup list ->
   ?express_vnet_integration:express_vnet_integration list ->
   ?package_store:package_store list ->
+  ?pipeline_external_compute_scale:
+    pipeline_external_compute_scale list ->
   ?proxy:proxy list ->
   ?timeouts:timeouts ->
   ?vnet_integration:vnet_integration list ->

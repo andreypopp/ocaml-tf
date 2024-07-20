@@ -13,6 +13,15 @@ val custom_actions__include_skaffold_modules__git :
   unit ->
   custom_actions__include_skaffold_modules__git
 
+type custom_actions__include_skaffold_modules__google_cloud_build_repo
+
+val custom_actions__include_skaffold_modules__google_cloud_build_repo :
+  ?path:string prop ->
+  ?ref:string prop ->
+  repository:string prop ->
+  unit ->
+  custom_actions__include_skaffold_modules__google_cloud_build_repo
+
 type custom_actions__include_skaffold_modules__google_cloud_storage
 
 val custom_actions__include_skaffold_modules__google_cloud_storage :
@@ -26,6 +35,9 @@ type custom_actions__include_skaffold_modules
 val custom_actions__include_skaffold_modules :
   ?configs:string prop list ->
   ?git:custom_actions__include_skaffold_modules__git list ->
+  ?google_cloud_build_repo:
+    custom_actions__include_skaffold_modules__google_cloud_build_repo
+    list ->
   ?google_cloud_storage:
     custom_actions__include_skaffold_modules__google_cloud_storage
     list ->

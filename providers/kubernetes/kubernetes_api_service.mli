@@ -1,3 +1,5 @@
+(** An API Service is an abstraction which defines for locating and communicating with servers. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

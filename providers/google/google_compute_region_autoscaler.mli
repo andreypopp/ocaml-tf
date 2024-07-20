@@ -22,6 +22,8 @@ val autoscaling_policy__load_balancing_utilization :
 type autoscaling_policy__metric
 
 val autoscaling_policy__metric :
+  ?filter:string prop ->
+  ?single_instance_assignment:float prop ->
   ?target:float prop ->
   ?type_:string prop ->
   name:string prop ->

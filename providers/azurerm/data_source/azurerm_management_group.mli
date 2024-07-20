@@ -33,6 +33,7 @@ type t = private {
   name : string prop;
   parent_management_group_id : string prop;
   subscription_ids : string list prop;
+  tenant_scoped_id : string prop;
 }
 
 val register :

@@ -804,6 +804,7 @@ let _ = yojson_of_timeout
 
 type aws_batch_job_definition = {
   container_properties : string prop option; [@option]
+  deregister_on_new_revision : bool prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
   node_properties : string prop option; [@option]
@@ -829,6 +830,7 @@ let yojson_of_aws_batch_job_definition =
   (function
    | {
        container_properties = v_container_properties;
+       deregister_on_new_revision = v_deregister_on_new_revision;
        id = v_id;
        name = v_name;
        node_properties = v_node_properties;
@@ -972,6 +974,14 @@ let yojson_of_aws_batch_job_definition =
              bnd :: bnds
        in
        let bnds =
+         match v_deregister_on_new_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deregister_on_new_revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_container_properties with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1077,13 +1087,14 @@ let retry_strategy ?attempts ?(evaluate_on_exit = []) () :
 let timeout ?attempt_duration_seconds () : timeout =
   { attempt_duration_seconds }
 
-let aws_batch_job_definition ?container_properties ?id
-    ?node_properties ?parameters ?platform_capabilities
-    ?propagate_tags ?scheduling_priority ?tags ?tags_all
-    ?(eks_properties = []) ?(retry_strategy = []) ?(timeout = [])
-    ~name ~type_ () : aws_batch_job_definition =
+let aws_batch_job_definition ?container_properties
+    ?deregister_on_new_revision ?id ?node_properties ?parameters
+    ?platform_capabilities ?propagate_tags ?scheduling_priority ?tags
+    ?tags_all ?(eks_properties = []) ?(retry_strategy = [])
+    ?(timeout = []) ~name ~type_ () : aws_batch_job_definition =
   {
     container_properties;
+    deregister_on_new_revision;
     id;
     name;
     node_properties;
@@ -1104,6 +1115,7 @@ type t = {
   arn : string prop;
   arn_prefix : string prop;
   container_properties : string prop;
+  deregister_on_new_revision : bool prop;
   id : string prop;
   name : string prop;
   node_properties : string prop;
@@ -1117,10 +1129,11 @@ type t = {
   type_ : string prop;
 }
 
-let make ?container_properties ?id ?node_properties ?parameters
-    ?platform_capabilities ?propagate_tags ?scheduling_priority ?tags
-    ?tags_all ?(eks_properties = []) ?(retry_strategy = [])
-    ?(timeout = []) ~name ~type_ __id =
+let make ?container_properties ?deregister_on_new_revision ?id
+    ?node_properties ?parameters ?platform_capabilities
+    ?propagate_tags ?scheduling_priority ?tags ?tags_all
+    ?(eks_properties = []) ?(retry_strategy = []) ?(timeout = [])
+    ~name ~type_ __id =
   let __type = "aws_batch_job_definition" in
   let __attrs =
     ({
@@ -1129,6 +1142,8 @@ let make ?container_properties ?id ?node_properties ?parameters
        arn_prefix = Prop.computed __type __id "arn_prefix";
        container_properties =
          Prop.computed __type __id "container_properties";
+       deregister_on_new_revision =
+         Prop.computed __type __id "deregister_on_new_revision";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        node_properties = Prop.computed __type __id "node_properties";
@@ -1150,22 +1165,24 @@ let make ?container_properties ?id ?node_properties ?parameters
     type_ = __type;
     json =
       yojson_of_aws_batch_job_definition
-        (aws_batch_job_definition ?container_properties ?id
-           ?node_properties ?parameters ?platform_capabilities
-           ?propagate_tags ?scheduling_priority ?tags ?tags_all
-           ~eks_properties ~retry_strategy ~timeout ~name ~type_ ());
+        (aws_batch_job_definition ?container_properties
+           ?deregister_on_new_revision ?id ?node_properties
+           ?parameters ?platform_capabilities ?propagate_tags
+           ?scheduling_priority ?tags ?tags_all ~eks_properties
+           ~retry_strategy ~timeout ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?container_properties ?id ?node_properties
-    ?parameters ?platform_capabilities ?propagate_tags
-    ?scheduling_priority ?tags ?tags_all ?(eks_properties = [])
-    ?(retry_strategy = []) ?(timeout = []) ~name ~type_ __id =
+let register ?tf_module ?container_properties
+    ?deregister_on_new_revision ?id ?node_properties ?parameters
+    ?platform_capabilities ?propagate_tags ?scheduling_priority ?tags
+    ?tags_all ?(eks_properties = []) ?(retry_strategy = [])
+    ?(timeout = []) ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?container_properties ?id ?node_properties ?parameters
-      ?platform_capabilities ?propagate_tags ?scheduling_priority
-      ?tags ?tags_all ~eks_properties ~retry_strategy ~timeout ~name
-      ~type_ __id
+    make ?container_properties ?deregister_on_new_revision ?id
+      ?node_properties ?parameters ?platform_capabilities
+      ?propagate_tags ?scheduling_priority ?tags ?tags_all
+      ~eks_properties ~retry_strategy ~timeout ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

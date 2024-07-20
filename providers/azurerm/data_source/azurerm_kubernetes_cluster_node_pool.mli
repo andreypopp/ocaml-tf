@@ -4,7 +4,14 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
-type upgrade_settings = { max_surge : string prop  (** max_surge *) }
+type upgrade_settings = {
+  drain_timeout_in_minutes : float prop;
+      (** drain_timeout_in_minutes *)
+  max_surge : string prop;  (** max_surge *)
+  node_soak_duration_in_minutes : float prop;
+      (** node_soak_duration_in_minutes *)
+}
+
 type timeouts
 
 val timeouts : ?read:string prop -> unit -> timeouts
@@ -27,6 +34,7 @@ val yojson_of_azurerm_kubernetes_cluster_node_pool :
 
 type t = private {
   tf_name : string;
+  auto_scaling_enabled : bool prop;
   enable_auto_scaling : bool prop;
   enable_node_public_ip : bool prop;
   eviction_policy : string prop;
@@ -39,6 +47,7 @@ type t = private {
   name : string prop;
   node_count : float prop;
   node_labels : (string * string) list prop;
+  node_public_ip_enabled : bool prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string list prop;
   orchestrator_version : string prop;

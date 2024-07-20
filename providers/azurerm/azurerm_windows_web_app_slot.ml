@@ -2344,6 +2344,60 @@ let _ =
 
 [@@@deriving.end]
 
+type site_config__auto_heal_setting__trigger__slow_request_with_path = {
+  count : float prop;
+  interval : string prop;
+  path : string prop option; [@option]
+  time_taken : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       site_config__auto_heal_setting__trigger__slow_request_with_path) ->
+  ()
+
+let yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path
+    =
+  (function
+   | {
+       count = v_count;
+       interval = v_interval;
+       path = v_path;
+       time_taken = v_time_taken;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_taken in
+         ("time_taken", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_interval in
+         ("interval", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : site_config__auto_heal_setting__trigger__slow_request_with_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path
+
+[@@@deriving.end]
+
 type site_config__auto_heal_setting__trigger__status_code = {
   count : float prop;
   interval : string prop;
@@ -2424,6 +2478,10 @@ type site_config__auto_heal_setting__trigger = {
   slow_request :
     site_config__auto_heal_setting__trigger__slow_request list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  slow_request_with_path :
+    site_config__auto_heal_setting__trigger__slow_request_with_path
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status_code :
     site_config__auto_heal_setting__trigger__status_code list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -2438,6 +2496,7 @@ let yojson_of_site_config__auto_heal_setting__trigger =
        private_memory_kb = v_private_memory_kb;
        requests = v_requests;
        slow_request = v_slow_request;
+       slow_request_with_path = v_slow_request_with_path;
        status_code = v_status_code;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -2452,6 +2511,17 @@ let yojson_of_site_config__auto_heal_setting__trigger =
                v_status_code
            in
            let bnd = "status_code", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_slow_request_with_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path)
+               v_slow_request_with_path
+           in
+           let bnd = "slow_request_with_path", arg in
            bnd :: bnds
        in
        let bnds =
@@ -2577,6 +2647,51 @@ let yojson_of_site_config__cors =
     : site_config__cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_site_config__cors
+
+[@@@deriving.end]
+
+type site_config__handler_mapping = {
+  arguments : string prop option; [@option]
+  extension : string prop;
+  script_processor_path : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : site_config__handler_mapping) -> ()
+
+let yojson_of_site_config__handler_mapping =
+  (function
+   | {
+       arguments = v_arguments;
+       extension = v_extension;
+       script_processor_path = v_script_processor_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_script_processor_path
+         in
+         ("script_processor_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_extension in
+         ("extension", arg) :: bnds
+       in
+       let bnds =
+         match v_arguments with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "arguments", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : site_config__handler_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_site_config__handler_mapping
 
 [@@@deriving.end]
 
@@ -3068,6 +3183,8 @@ type site_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cors : site_config__cors list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  handler_mapping : site_config__handler_mapping list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_restriction : site_config__ip_restriction list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   scm_ip_restriction : site_config__scm_ip_restriction list;
@@ -3117,6 +3234,7 @@ let yojson_of_site_config =
        application_stack = v_application_stack;
        auto_heal_setting = v_auto_heal_setting;
        cors = v_cors;
+       handler_mapping = v_handler_mapping;
        ip_restriction = v_ip_restriction;
        scm_ip_restriction = v_scm_ip_restriction;
        virtual_application = v_virtual_application;
@@ -3154,6 +3272,16 @@ let yojson_of_site_config =
                v_ip_restriction
            in
            let bnd = "ip_restriction", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_handler_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__handler_mapping)
+               v_handler_mapping
+           in
+           let bnd = "handler_mapping", arg in
            bnd :: bnds
        in
        let bnds =
@@ -4191,6 +4319,11 @@ let site_config__auto_heal_setting__trigger__slow_request ?path
     site_config__auto_heal_setting__trigger__slow_request =
   { count; interval; path; time_taken }
 
+let site_config__auto_heal_setting__trigger__slow_request_with_path
+    ?path ~count ~interval ~time_taken () :
+    site_config__auto_heal_setting__trigger__slow_request_with_path =
+  { count; interval; path; time_taken }
+
 let site_config__auto_heal_setting__trigger__status_code ?path
     ?sub_status ?win32_status_code ~count ~interval
     ~status_code_range () :
@@ -4205,9 +4338,16 @@ let site_config__auto_heal_setting__trigger__status_code ?path
   }
 
 let site_config__auto_heal_setting__trigger ?private_memory_kb
-    ?(requests = []) ?(slow_request = []) ?(status_code = []) () :
+    ?(requests = []) ?(slow_request = [])
+    ?(slow_request_with_path = []) ?(status_code = []) () :
     site_config__auto_heal_setting__trigger =
-  { private_memory_kb; requests; slow_request; status_code }
+  {
+    private_memory_kb;
+    requests;
+    slow_request;
+    slow_request_with_path;
+    status_code;
+  }
 
 let site_config__auto_heal_setting ~action ~trigger () :
     site_config__auto_heal_setting =
@@ -4216,6 +4356,10 @@ let site_config__auto_heal_setting ~action ~trigger () :
 let site_config__cors ?allowed_origins ?support_credentials () :
     site_config__cors =
   { allowed_origins; support_credentials }
+
+let site_config__handler_mapping ?arguments ~extension
+    ~script_processor_path () : site_config__handler_mapping =
+  { arguments; extension; script_processor_path }
 
 let site_config__ip_restriction ?action ?description ?headers
     ?ip_address ?name ?priority ?service_tag
@@ -4268,7 +4412,7 @@ let site_config ?always_on ?api_definition_url ?api_management_api_id
     ?use_32_bit_worker ?vnet_route_all_enabled ?websockets_enabled
     ?worker_count ?(application_stack = []) ?(auto_heal_setting = [])
     ?(cors = []) ?(ip_restriction = []) ?(scm_ip_restriction = [])
-    ~virtual_application () : site_config =
+    ~handler_mapping ~virtual_application () : site_config =
   {
     always_on;
     api_definition_url;
@@ -4300,6 +4444,7 @@ let site_config ?always_on ?api_definition_url ?api_management_api_id
     application_stack;
     auto_heal_setting;
     cors;
+    handler_mapping;
     ip_restriction;
     scm_ip_restriction;
     virtual_application;

@@ -54,6 +54,7 @@ type t = private {
   supported_modes : string list prop;
   supported_timezones : string list prop;
   supports_global_databases : bool prop;
+  supports_limitless_database : bool prop;
   supports_log_exports_to_cloudwatch : bool prop;
   supports_parallel_query : bool prop;
   supports_read_replica : bool prop;

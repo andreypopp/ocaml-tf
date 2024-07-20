@@ -51,7 +51,9 @@ let _ = yojson_of_aci_connector_linux
 [@@@deriving.end]
 
 type agent_pool_profile__upgrade_settings = {
+  drain_timeout_in_minutes : float prop;
   max_surge : string prop;
+  node_soak_duration_in_minutes : float prop;
 }
 [@@deriving_inline yojson_of]
 
@@ -59,13 +61,31 @@ let _ = fun (_ : agent_pool_profile__upgrade_settings) -> ()
 
 let yojson_of_agent_pool_profile__upgrade_settings =
   (function
-   | { max_surge = v_max_surge } ->
+   | {
+       drain_timeout_in_minutes = v_drain_timeout_in_minutes;
+       max_surge = v_max_surge;
+       node_soak_duration_in_minutes =
+         v_node_soak_duration_in_minutes;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_node_soak_duration_in_minutes
+         in
+         ("node_soak_duration_in_minutes", arg) :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_max_surge in
          ("max_surge", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_drain_timeout_in_minutes
+         in
+         ("drain_timeout_in_minutes", arg) :: bnds
        in
        `Assoc bnds
     : agent_pool_profile__upgrade_settings ->
@@ -76,6 +96,7 @@ let _ = yojson_of_agent_pool_profile__upgrade_settings
 [@@@deriving.end]
 
 type agent_pool_profile = {
+  auto_scaling_enabled : bool prop;
   count : float prop;
   enable_auto_scaling : bool prop;
   enable_node_public_ip : bool prop;
@@ -84,6 +105,7 @@ type agent_pool_profile = {
   min_count : float prop;
   name : string prop;
   node_labels : (string * string prop) list;
+  node_public_ip_enabled : bool prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -106,6 +128,7 @@ let _ = fun (_ : agent_pool_profile) -> ()
 let yojson_of_agent_pool_profile =
   (function
    | {
+       auto_scaling_enabled = v_auto_scaling_enabled;
        count = v_count;
        enable_auto_scaling = v_enable_auto_scaling;
        enable_node_public_ip = v_enable_node_public_ip;
@@ -114,6 +137,7 @@ let yojson_of_agent_pool_profile =
        min_count = v_min_count;
        name = v_name;
        node_labels = v_node_labels;
+       node_public_ip_enabled = v_node_public_ip_enabled;
        node_public_ip_prefix_id = v_node_public_ip_prefix_id;
        node_taints = v_node_taints;
        orchestrator_version = v_orchestrator_version;
@@ -210,6 +234,12 @@ let yojson_of_agent_pool_profile =
        in
        let bnds =
          let arg =
+           yojson_of_prop yojson_of_bool v_node_public_ip_enabled
+         in
+         ("node_public_ip_enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg =
            yojson_of_list
              (function
                | v0, v1 ->
@@ -251,6 +281,12 @@ let yojson_of_agent_pool_profile =
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_count in
          ("count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_auto_scaling_enabled
+         in
+         ("auto_scaling_enabled", arg) :: bnds
        in
        `Assoc bnds
     : agent_pool_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1037,7 +1073,69 @@ let _ = yojson_of_oms_agent
 
 [@@@deriving.end]
 
+type service_mesh_profile__certificate_authority = {
+  cert_chain_object_name : string prop;
+  cert_object_name : string prop;
+  key_object_name : string prop;
+  key_vault_id : string prop;
+  root_cert_object_name : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_mesh_profile__certificate_authority) -> ()
+
+let yojson_of_service_mesh_profile__certificate_authority =
+  (function
+   | {
+       cert_chain_object_name = v_cert_chain_object_name;
+       cert_object_name = v_cert_object_name;
+       key_object_name = v_key_object_name;
+       key_vault_id = v_key_vault_id;
+       root_cert_object_name = v_root_cert_object_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_root_cert_object_name
+         in
+         ("root_cert_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_vault_id in
+         ("key_vault_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_object_name
+         in
+         ("key_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cert_object_name
+         in
+         ("cert_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cert_chain_object_name
+         in
+         ("cert_chain_object_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_mesh_profile__certificate_authority ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_mesh_profile__certificate_authority
+
+[@@@deriving.end]
+
 type service_mesh_profile = {
+  certificate_authority :
+    service_mesh_profile__certificate_authority list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   external_ingress_gateway_enabled : bool prop;
   internal_ingress_gateway_enabled : bool prop;
   mode : string prop;
@@ -1049,6 +1147,7 @@ let _ = fun (_ : service_mesh_profile) -> ()
 let yojson_of_service_mesh_profile =
   (function
    | {
+       certificate_authority = v_certificate_authority;
        external_ingress_gateway_enabled =
          v_external_ingress_gateway_enabled;
        internal_ingress_gateway_enabled =
@@ -1075,6 +1174,17 @@ let yojson_of_service_mesh_profile =
              v_external_ingress_gateway_enabled
          in
          ("external_ingress_gateway_enabled", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_authority then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_mesh_profile__certificate_authority)
+               v_certificate_authority
+           in
+           let bnd = "certificate_authority", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : service_mesh_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)

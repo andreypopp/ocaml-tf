@@ -41,6 +41,7 @@ val yojson_of_azurerm_cosmosdb_account :
 
 type t = private {
   tf_name : string;
+  automatic_failover_enabled : bool prop;
   capabilities : capabilities list prop;
   connection_strings : string list prop;
   consistency_policy : consistency_policy list prop;
@@ -48,6 +49,7 @@ type t = private {
   enable_free_tier : bool prop;
   enable_multiple_write_locations : bool prop;
   endpoint : string prop;
+  free_tier_enabled : bool prop;
   geo_location : geo_location list prop;
   id : string prop;
   ip_range_filter : string prop;
@@ -55,6 +57,7 @@ type t = private {
   key_vault_key_id : string prop;
   kind : string prop;
   location : string prop;
+  multiple_write_locations_enabled : bool prop;
   name : string prop;
   offer_type : string prop;
   primary_key : string prop;

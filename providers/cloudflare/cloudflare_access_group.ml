@@ -308,9 +308,11 @@ type exclude = {
   auth_method : string prop option; [@option]
   certificate : bool prop option; [@option]
   common_name : string prop option; [@option]
+  common_names : string prop list option; [@option]
   device_posture : string prop list option; [@option]
   email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
+  email_list : string prop list option; [@option]
   everyone : bool prop option; [@option]
   geo : string prop list option; [@option]
   group : string prop list option; [@option]
@@ -344,9 +346,11 @@ let yojson_of_exclude =
        auth_method = v_auth_method;
        certificate = v_certificate;
        common_name = v_common_name;
+       common_names = v_common_names;
        device_posture = v_device_posture;
        email = v_email;
        email_domain = v_email_domain;
+       email_list = v_email_list;
        everyone = v_everyone;
        geo = v_geo;
        group = v_group;
@@ -499,6 +503,16 @@ let yojson_of_exclude =
              bnd :: bnds
        in
        let bnds =
+         match v_email_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_email_domain with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -526,6 +540,16 @@ let yojson_of_exclude =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "common_names", arg in
              bnd :: bnds
        in
        let bnds =
@@ -873,9 +897,11 @@ type include_ = {
   auth_method : string prop option; [@option]
   certificate : bool prop option; [@option]
   common_name : string prop option; [@option]
+  common_names : string prop list option; [@option]
   device_posture : string prop list option; [@option]
   email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
+  email_list : string prop list option; [@option]
   everyone : bool prop option; [@option]
   geo : string prop list option; [@option]
   group : string prop list option; [@option]
@@ -909,9 +935,11 @@ let yojson_of_include_ =
        auth_method = v_auth_method;
        certificate = v_certificate;
        common_name = v_common_name;
+       common_names = v_common_names;
        device_posture = v_device_posture;
        email = v_email;
        email_domain = v_email_domain;
+       email_list = v_email_list;
        everyone = v_everyone;
        geo = v_geo;
        group = v_group;
@@ -1064,6 +1092,16 @@ let yojson_of_include_ =
              bnd :: bnds
        in
        let bnds =
+         match v_email_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_email_domain with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1091,6 +1129,16 @@ let yojson_of_include_ =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "common_names", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1438,9 +1486,11 @@ type require = {
   auth_method : string prop option; [@option]
   certificate : bool prop option; [@option]
   common_name : string prop option; [@option]
+  common_names : string prop list option; [@option]
   device_posture : string prop list option; [@option]
   email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
+  email_list : string prop list option; [@option]
   everyone : bool prop option; [@option]
   geo : string prop list option; [@option]
   group : string prop list option; [@option]
@@ -1474,9 +1524,11 @@ let yojson_of_require =
        auth_method = v_auth_method;
        certificate = v_certificate;
        common_name = v_common_name;
+       common_names = v_common_names;
        device_posture = v_device_posture;
        email = v_email;
        email_domain = v_email_domain;
+       email_list = v_email_list;
        everyone = v_everyone;
        geo = v_geo;
        group = v_group;
@@ -1629,6 +1681,16 @@ let yojson_of_require =
              bnd :: bnds
        in
        let bnds =
+         match v_email_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_email_domain with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1656,6 +1718,16 @@ let yojson_of_require =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "common_names", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1814,19 +1886,21 @@ let exclude__saml ?attribute_name ?attribute_value
   { attribute_name; attribute_value; identity_provider_id }
 
 let exclude ?any_valid_service_token ?auth_method ?certificate
-    ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token
-    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
-    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
-    exclude =
+    ?common_name ?common_names ?device_posture ?email ?email_domain
+    ?email_list ?everyone ?geo ?group ?ip ?ip_list ?login_method
+    ?service_token ?(auth_context = []) ?(azure = [])
+    ?(external_evaluation = []) ?(github = []) ?(gsuite = [])
+    ?(okta = []) ?(saml = []) () : exclude =
   {
     any_valid_service_token;
     auth_method;
     certificate;
     common_name;
+    common_names;
     device_posture;
     email;
     email_domain;
+    email_list;
     everyone;
     geo;
     group;
@@ -1870,19 +1944,21 @@ let include__saml ?attribute_name ?attribute_value
   { attribute_name; attribute_value; identity_provider_id }
 
 let include_ ?any_valid_service_token ?auth_method ?certificate
-    ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token
-    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
-    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
-    include_ =
+    ?common_name ?common_names ?device_posture ?email ?email_domain
+    ?email_list ?everyone ?geo ?group ?ip ?ip_list ?login_method
+    ?service_token ?(auth_context = []) ?(azure = [])
+    ?(external_evaluation = []) ?(github = []) ?(gsuite = [])
+    ?(okta = []) ?(saml = []) () : include_ =
   {
     any_valid_service_token;
     auth_method;
     certificate;
     common_name;
+    common_names;
     device_posture;
     email;
     email_domain;
+    email_list;
     everyone;
     geo;
     group;
@@ -1926,19 +2002,21 @@ let require__saml ?attribute_name ?attribute_value
   { attribute_name; attribute_value; identity_provider_id }
 
 let require ?any_valid_service_token ?auth_method ?certificate
-    ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token
-    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
-    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
-    require =
+    ?common_name ?common_names ?device_posture ?email ?email_domain
+    ?email_list ?everyone ?geo ?group ?ip ?ip_list ?login_method
+    ?service_token ?(auth_context = []) ?(azure = [])
+    ?(external_evaluation = []) ?(github = []) ?(gsuite = [])
+    ?(okta = []) ?(saml = []) () : require =
   {
     any_valid_service_token;
     auth_method;
     certificate;
     common_name;
+    common_names;
     device_posture;
     email;
     email_domain;
+    email_list;
     everyone;
     geo;
     group;

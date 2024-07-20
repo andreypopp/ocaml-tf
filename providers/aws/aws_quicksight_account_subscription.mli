@@ -26,6 +26,7 @@ val aws_quicksight_account_subscription :
     ?directory_id:string prop ->
     ?email_address:string prop ->
     ?first_name:string prop ->
+    ?iam_identity_center_instance_arn:string prop ->
     ?id:string prop ->
     ?last_name:string prop ->
     ?reader_group:string  prop list ->
@@ -56,6 +57,7 @@ type t = private {
   edition: string prop;
   email_address: string prop;
   first_name: string prop;
+  iam_identity_center_instance_arn: string prop;
   id: string prop;
   last_name: string prop;
   notification_email: string prop;
@@ -73,6 +75,7 @@ val register :
     ?directory_id:string prop ->
     ?email_address:string prop ->
     ?first_name:string prop ->
+    ?iam_identity_center_instance_arn:string prop ->
     ?id:string prop ->
     ?last_name:string prop ->
     ?reader_group:string  prop list ->
@@ -94,6 +97,7 @@ val make :
     ?directory_id:string prop ->
     ?email_address:string prop ->
     ?first_name:string prop ->
+    ?iam_identity_center_instance_arn:string prop ->
     ?id:string prop ->
     ?last_name:string prop ->
     ?reader_group:string  prop list ->

@@ -12,6 +12,10 @@ val jwt_configuration :
   unit ->
   jwt_configuration
 
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_apigatewayv2_authorizer
 
 val aws_apigatewayv2_authorizer :
@@ -23,6 +27,7 @@ val aws_apigatewayv2_authorizer :
   ?id:string prop ->
   ?identity_sources:string prop list ->
   ?jwt_configuration:jwt_configuration list ->
+  ?timeouts:timeouts ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->
@@ -58,6 +63,7 @@ val register :
   ?id:string prop ->
   ?identity_sources:string prop list ->
   ?jwt_configuration:jwt_configuration list ->
+  ?timeouts:timeouts ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->
@@ -73,6 +79,7 @@ val make :
   ?id:string prop ->
   ?identity_sources:string prop list ->
   ?jwt_configuration:jwt_configuration list ->
+  ?timeouts:timeouts ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->

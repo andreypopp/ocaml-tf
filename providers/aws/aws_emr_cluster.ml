@@ -1541,6 +1541,7 @@ type aws_emr_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   termination_protection : bool prop option; [@option]
+  unhealthy_node_replacement : bool prop option; [@option]
   visible_to_all_users : bool prop option; [@option]
   auto_termination_policy : auto_termination_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1590,6 +1591,7 @@ let yojson_of_aws_emr_cluster =
        tags = v_tags;
        tags_all = v_tags_all;
        termination_protection = v_termination_protection;
+       unhealthy_node_replacement = v_unhealthy_node_replacement;
        visible_to_all_users = v_visible_to_all_users;
        auto_termination_policy = v_auto_termination_policy;
        bootstrap_action = v_bootstrap_action;
@@ -1689,6 +1691,14 @@ let yojson_of_aws_emr_cluster =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "visible_to_all_users", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_unhealthy_node_replacement with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "unhealthy_node_replacement", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2073,12 +2083,13 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     ?list_steps_states ?log_encryption_kms_key_id ?log_uri
     ?placement_group_config ?scale_down_behavior
     ?security_configuration ?step ?step_concurrency_level ?tags
-    ?tags_all ?termination_protection ?visible_to_all_users
-    ?(auto_termination_policy = []) ?(bootstrap_action = [])
-    ?(core_instance_fleet = []) ?(core_instance_group = [])
-    ?(ec2_attributes = []) ?(kerberos_attributes = [])
-    ?(master_instance_fleet = []) ?(master_instance_group = []) ~name
-    ~release_label ~service_role () : aws_emr_cluster =
+    ?tags_all ?termination_protection ?unhealthy_node_replacement
+    ?visible_to_all_users ?(auto_termination_policy = [])
+    ?(bootstrap_action = []) ?(core_instance_fleet = [])
+    ?(core_instance_group = []) ?(ec2_attributes = [])
+    ?(kerberos_attributes = []) ?(master_instance_fleet = [])
+    ?(master_instance_group = []) ~name ~release_label ~service_role
+    () : aws_emr_cluster =
   {
     additional_info;
     applications;
@@ -2103,6 +2114,7 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     tags;
     tags_all;
     termination_protection;
+    unhealthy_node_replacement;
     visible_to_all_users;
     auto_termination_policy;
     bootstrap_action;
@@ -2142,6 +2154,7 @@ type t = {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   termination_protection : bool prop;
+  unhealthy_node_replacement : bool prop;
   visible_to_all_users : bool prop;
 }
 
@@ -2151,12 +2164,13 @@ let make ?additional_info ?applications ?autoscaling_role
     ?list_steps_states ?log_encryption_kms_key_id ?log_uri
     ?placement_group_config ?scale_down_behavior
     ?security_configuration ?step ?step_concurrency_level ?tags
-    ?tags_all ?termination_protection ?visible_to_all_users
-    ?(auto_termination_policy = []) ?(bootstrap_action = [])
-    ?(core_instance_fleet = []) ?(core_instance_group = [])
-    ?(ec2_attributes = []) ?(kerberos_attributes = [])
-    ?(master_instance_fleet = []) ?(master_instance_group = []) ~name
-    ~release_label ~service_role __id =
+    ?tags_all ?termination_protection ?unhealthy_node_replacement
+    ?visible_to_all_users ?(auto_termination_policy = [])
+    ?(bootstrap_action = []) ?(core_instance_fleet = [])
+    ?(core_instance_group = []) ?(ec2_attributes = [])
+    ?(kerberos_attributes = []) ?(master_instance_fleet = [])
+    ?(master_instance_group = []) ~name ~release_label ~service_role
+    __id =
   let __type = "aws_emr_cluster" in
   let __attrs =
     ({
@@ -2200,6 +2214,8 @@ let make ?additional_info ?applications ?autoscaling_role
        tags_all = Prop.computed __type __id "tags_all";
        termination_protection =
          Prop.computed __type __id "termination_protection";
+       unhealthy_node_replacement =
+         Prop.computed __type __id "unhealthy_node_replacement";
        visible_to_all_users =
          Prop.computed __type __id "visible_to_all_users";
      }
@@ -2218,11 +2234,12 @@ let make ?additional_info ?applications ?autoscaling_role
            ?placement_group_config ?scale_down_behavior
            ?security_configuration ?step ?step_concurrency_level
            ?tags ?tags_all ?termination_protection
-           ?visible_to_all_users ~auto_termination_policy
-           ~bootstrap_action ~core_instance_fleet
-           ~core_instance_group ~ec2_attributes ~kerberos_attributes
-           ~master_instance_fleet ~master_instance_group ~name
-           ~release_label ~service_role ());
+           ?unhealthy_node_replacement ?visible_to_all_users
+           ~auto_termination_policy ~bootstrap_action
+           ~core_instance_fleet ~core_instance_group ~ec2_attributes
+           ~kerberos_attributes ~master_instance_fleet
+           ~master_instance_group ~name ~release_label ~service_role
+           ());
     attrs = __attrs;
   }
 
@@ -2233,12 +2250,12 @@ let register ?tf_module ?additional_info ?applications
     ?log_encryption_kms_key_id ?log_uri ?placement_group_config
     ?scale_down_behavior ?security_configuration ?step
     ?step_concurrency_level ?tags ?tags_all ?termination_protection
-    ?visible_to_all_users ?(auto_termination_policy = [])
-    ?(bootstrap_action = []) ?(core_instance_fleet = [])
-    ?(core_instance_group = []) ?(ec2_attributes = [])
-    ?(kerberos_attributes = []) ?(master_instance_fleet = [])
-    ?(master_instance_group = []) ~name ~release_label ~service_role
-    __id =
+    ?unhealthy_node_replacement ?visible_to_all_users
+    ?(auto_termination_policy = []) ?(bootstrap_action = [])
+    ?(core_instance_fleet = []) ?(core_instance_group = [])
+    ?(ec2_attributes = []) ?(kerberos_attributes = [])
+    ?(master_instance_fleet = []) ?(master_instance_group = []) ~name
+    ~release_label ~service_role __id =
   let (r : _ Tf_core.resource) =
     make ?additional_info ?applications ?autoscaling_role
       ?configurations ?configurations_json ?custom_ami_id
@@ -2246,11 +2263,11 @@ let register ?tf_module ?additional_info ?applications
       ?list_steps_states ?log_encryption_kms_key_id ?log_uri
       ?placement_group_config ?scale_down_behavior
       ?security_configuration ?step ?step_concurrency_level ?tags
-      ?tags_all ?termination_protection ?visible_to_all_users
-      ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
-      ~core_instance_group ~ec2_attributes ~kerberos_attributes
-      ~master_instance_fleet ~master_instance_group ~name
-      ~release_label ~service_role __id
+      ?tags_all ?termination_protection ?unhealthy_node_replacement
+      ?visible_to_all_users ~auto_termination_policy
+      ~bootstrap_action ~core_instance_fleet ~core_instance_group
+      ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
+      ~master_instance_group ~name ~release_label ~service_role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

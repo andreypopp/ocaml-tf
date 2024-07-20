@@ -3,7 +3,8 @@
 open! Tf_core
 
 type cache_usage_limits__data_storage = {
-  maximum : float prop;
+  maximum : float prop option; [@option]
+  minimum : float prop option; [@option]
   unit : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -12,7 +13,7 @@ let _ = fun (_ : cache_usage_limits__data_storage) -> ()
 
 let yojson_of_cache_usage_limits__data_storage =
   (function
-   | { maximum = v_maximum; unit = v_unit } ->
+   | { maximum = v_maximum; minimum = v_minimum; unit = v_unit } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -21,8 +22,20 @@ let yojson_of_cache_usage_limits__data_storage =
          ("unit", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_float v_maximum in
-         ("maximum", arg) :: bnds
+         match v_minimum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : cache_usage_limits__data_storage ->
@@ -32,20 +45,35 @@ let _ = yojson_of_cache_usage_limits__data_storage
 
 [@@@deriving.end]
 
-type cache_usage_limits__ecpu_per_second = { maximum : float prop }
+type cache_usage_limits__ecpu_per_second = {
+  maximum : float prop option; [@option]
+  minimum : float prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : cache_usage_limits__ecpu_per_second) -> ()
 
 let yojson_of_cache_usage_limits__ecpu_per_second =
   (function
-   | { maximum = v_maximum } ->
+   | { maximum = v_maximum; minimum = v_minimum } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_float v_maximum in
-         ("maximum", arg) :: bnds
+         match v_minimum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : cache_usage_limits__ecpu_per_second ->
@@ -367,13 +395,13 @@ let _ = yojson_of_aws_elasticache_serverless_cache
 
 [@@@deriving.end]
 
-let cache_usage_limits__data_storage ~maximum ~unit () :
+let cache_usage_limits__data_storage ?maximum ?minimum ~unit () :
     cache_usage_limits__data_storage =
-  { maximum; unit }
+  { maximum; minimum; unit }
 
-let cache_usage_limits__ecpu_per_second ~maximum () :
+let cache_usage_limits__ecpu_per_second ?maximum ?minimum () :
     cache_usage_limits__ecpu_per_second =
-  { maximum }
+  { maximum; minimum }
 
 let cache_usage_limits ?(data_storage = []) ?(ecpu_per_second = [])
     () : cache_usage_limits =

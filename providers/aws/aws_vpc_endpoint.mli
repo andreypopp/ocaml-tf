@@ -17,6 +17,15 @@ val dns_options :
   unit ->
   dns_options
 
+type subnet_configuration
+
+val subnet_configuration :
+  ?ipv4:string prop ->
+  ?ipv6:string prop ->
+  ?subnet_id:string prop ->
+  unit ->
+  subnet_configuration
+
 type timeouts
 
 val timeouts :
@@ -44,6 +53,7 @@ val aws_vpc_endpoint :
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
+  subnet_configuration:subnet_configuration list ->
   unit ->
   aws_vpc_endpoint
 
@@ -93,6 +103,7 @@ val register :
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
+  subnet_configuration:subnet_configuration list ->
   string ->
   t
 
@@ -112,5 +123,6 @@ val make :
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
+  subnet_configuration:subnet_configuration list ->
   string ->
   t Tf_core.resource

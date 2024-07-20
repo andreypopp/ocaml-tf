@@ -67,6 +67,8 @@ type azurerm_data_protection_backup_instance_blob_storage = {
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
+  storage_account_container_names : string prop list option;
+      [@option]
   storage_account_id : string prop;
   vault_id : string prop;
   timeouts : timeouts option;
@@ -83,6 +85,8 @@ let yojson_of_azurerm_data_protection_backup_instance_blob_storage =
        id = v_id;
        location = v_location;
        name = v_name;
+       storage_account_container_names =
+         v_storage_account_container_names;
        storage_account_id = v_storage_account_id;
        vault_id = v_vault_id;
        timeouts = v_timeouts;
@@ -103,6 +107,16 @@ let yojson_of_azurerm_data_protection_backup_instance_blob_storage =
            yojson_of_prop yojson_of_string v_storage_account_id
          in
          ("storage_account_id", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_account_container_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "storage_account_container_names", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -139,14 +153,15 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_data_protection_backup_instance_blob_storage ?id
-    ?timeouts ~backup_policy_id ~location ~name ~storage_account_id
-    ~vault_id () :
+    ?storage_account_container_names ?timeouts ~backup_policy_id
+    ~location ~name ~storage_account_id ~vault_id () :
     azurerm_data_protection_backup_instance_blob_storage =
   {
     backup_policy_id;
     id;
     location;
     name;
+    storage_account_container_names;
     storage_account_id;
     vault_id;
     timeouts;
@@ -158,12 +173,14 @@ type t = {
   id : string prop;
   location : string prop;
   name : string prop;
+  storage_account_container_names : string list prop;
   storage_account_id : string prop;
   vault_id : string prop;
 }
 
-let make ?id ?timeouts ~backup_policy_id ~location ~name
-    ~storage_account_id ~vault_id __id =
+let make ?id ?storage_account_container_names ?timeouts
+    ~backup_policy_id ~location ~name ~storage_account_id ~vault_id
+    __id =
   let __type =
     "azurerm_data_protection_backup_instance_blob_storage"
   in
@@ -175,6 +192,8 @@ let make ?id ?timeouts ~backup_policy_id ~location ~name
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
+       storage_account_container_names =
+         Prop.computed __type __id "storage_account_container_names";
        storage_account_id =
          Prop.computed __type __id "storage_account_id";
        vault_id = Prop.computed __type __id "vault_id";
@@ -187,16 +206,19 @@ let make ?id ?timeouts ~backup_policy_id ~location ~name
     json =
       yojson_of_azurerm_data_protection_backup_instance_blob_storage
         (azurerm_data_protection_backup_instance_blob_storage ?id
-           ?timeouts ~backup_policy_id ~location ~name
-           ~storage_account_id ~vault_id ());
+           ?storage_account_container_names ?timeouts
+           ~backup_policy_id ~location ~name ~storage_account_id
+           ~vault_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~backup_policy_id ~location
-    ~name ~storage_account_id ~vault_id __id =
+let register ?tf_module ?id ?storage_account_container_names
+    ?timeouts ~backup_policy_id ~location ~name ~storage_account_id
+    ~vault_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~backup_policy_id ~location ~name
-      ~storage_account_id ~vault_id __id
+    make ?id ?storage_account_container_names ?timeouts
+      ~backup_policy_id ~location ~name ~storage_account_id ~vault_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -4,6 +4,14 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type aggregate_configuration
+
+val aggregate_configuration :
+  ?aggregates:string prop list ->
+  ?constituents_per_aggregate:float prop ->
+  unit ->
+  aggregate_configuration
+
 type snaplock_configuration__autocommit_period
 
 val snaplock_configuration__autocommit_period :
@@ -82,21 +90,25 @@ type aws_fsx_ontap_volume
 val aws_fsx_ontap_volume :
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
   ?security_style:string prop ->
+  ?size_in_bytes:string prop ->
+  ?size_in_megabytes:float prop ->
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?volume_style:string prop ->
   ?volume_type:string prop ->
+  ?aggregate_configuration:aggregate_configuration list ->
   ?snaplock_configuration:snaplock_configuration list ->
   ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
   unit ->
   aws_fsx_ontap_volume
@@ -111,12 +123,14 @@ type t = private {
   bypass_snaplock_enterprise_retention : bool prop;
   copy_tags_to_backups : bool prop;
   file_system_id : string prop;
+  final_backup_tags : (string * string) list prop;
   flexcache_endpoint_type : string prop;
   id : string prop;
   junction_path : string prop;
   name : string prop;
   ontap_volume_type : string prop;
   security_style : string prop;
+  size_in_bytes : string prop;
   size_in_megabytes : float prop;
   skip_final_backup : bool prop;
   snapshot_policy : string prop;
@@ -125,6 +139,7 @@ type t = private {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   uuid : string prop;
+  volume_style : string prop;
   volume_type : string prop;
 }
 
@@ -132,21 +147,25 @@ val register :
   ?tf_module:tf_module ->
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
   ?security_style:string prop ->
+  ?size_in_bytes:string prop ->
+  ?size_in_megabytes:float prop ->
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?volume_style:string prop ->
   ?volume_type:string prop ->
+  ?aggregate_configuration:aggregate_configuration list ->
   ?snaplock_configuration:snaplock_configuration list ->
   ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
   string ->
   t
@@ -154,21 +173,25 @@ val register :
 val make :
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
   ?security_style:string prop ->
+  ?size_in_bytes:string prop ->
+  ?size_in_megabytes:float prop ->
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?volume_style:string prop ->
   ?volume_type:string prop ->
+  ?aggregate_configuration:aggregate_configuration list ->
   ?snaplock_configuration:snaplock_configuration list ->
   ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
   string ->
   t Tf_core.resource

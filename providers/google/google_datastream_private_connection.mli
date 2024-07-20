@@ -26,6 +26,7 @@ val vpc_peering_config :
 type google_datastream_private_connection
 
 val google_datastream_private_connection :
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -44,6 +45,7 @@ val yojson_of_google_datastream_private_connection :
 
 type t = private {
   tf_name : string;
+  create_without_validation : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   error : error list prop;
@@ -59,6 +61,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -71,6 +74,7 @@ val register :
   t
 
 val make :
+  ?create_without_validation:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->

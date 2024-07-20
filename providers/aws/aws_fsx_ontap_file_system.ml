@@ -212,7 +212,7 @@ type aws_fsx_ontap_file_system = {
   preferred_subnet_id : string prop;
   route_table_ids : string prop list option; [@option]
   security_group_ids : string prop list option; [@option]
-  storage_capacity : float prop option; [@option]
+  storage_capacity : float prop;
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -350,12 +350,10 @@ let yojson_of_aws_fsx_ontap_file_system =
              bnd :: bnds
        in
        let bnds =
-         match v_storage_capacity with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_float v in
-             let bnd = "storage_capacity", arg in
-             bnd :: bnds
+         let arg =
+           yojson_of_prop yojson_of_float v_storage_capacity
+         in
+         ("storage_capacity", arg) :: bnds
        in
        let bnds =
          match v_security_group_ids with
@@ -462,11 +460,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 let aws_fsx_ontap_file_system ?automatic_backup_retention_days
     ?daily_automatic_backup_start_time ?endpoint_ip_address_range
     ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
-    ?security_group_ids ?storage_capacity ?storage_type ?tags
-    ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+    ?security_group_ids ?storage_type ?tags ?tags_all
+    ?throughput_capacity ?throughput_capacity_per_ha_pair
     ?weekly_maintenance_start_time ?(disk_iops_configuration = [])
-    ?timeouts ~deployment_type ~preferred_subnet_id ~subnet_ids () :
-    aws_fsx_ontap_file_system =
+    ?timeouts ~deployment_type ~preferred_subnet_id ~storage_capacity
+    ~subnet_ids () : aws_fsx_ontap_file_system =
   {
     automatic_backup_retention_days;
     daily_automatic_backup_start_time;
@@ -523,11 +521,11 @@ type t = {
 let make ?automatic_backup_retention_days
     ?daily_automatic_backup_start_time ?endpoint_ip_address_range
     ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
-    ?security_group_ids ?storage_capacity ?storage_type ?tags
-    ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+    ?security_group_ids ?storage_type ?tags ?tags_all
+    ?throughput_capacity ?throughput_capacity_per_ha_pair
     ?weekly_maintenance_start_time ?(disk_iops_configuration = [])
-    ?timeouts ~deployment_type ~preferred_subnet_id ~subnet_ids __id
-    =
+    ?timeouts ~deployment_type ~preferred_subnet_id ~storage_capacity
+    ~subnet_ids __id =
   let __type = "aws_fsx_ontap_file_system" in
   let __attrs =
     ({
@@ -581,31 +579,31 @@ let make ?automatic_backup_retention_days
            ?daily_automatic_backup_start_time
            ?endpoint_ip_address_range ?fsx_admin_password ?ha_pairs
            ?id ?kms_key_id ?route_table_ids ?security_group_ids
-           ?storage_capacity ?storage_type ?tags ?tags_all
-           ?throughput_capacity ?throughput_capacity_per_ha_pair
+           ?storage_type ?tags ?tags_all ?throughput_capacity
+           ?throughput_capacity_per_ha_pair
            ?weekly_maintenance_start_time ~disk_iops_configuration
            ?timeouts ~deployment_type ~preferred_subnet_id
-           ~subnet_ids ());
+           ~storage_capacity ~subnet_ids ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatic_backup_retention_days
     ?daily_automatic_backup_start_time ?endpoint_ip_address_range
     ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
-    ?security_group_ids ?storage_capacity ?storage_type ?tags
-    ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+    ?security_group_ids ?storage_type ?tags ?tags_all
+    ?throughput_capacity ?throughput_capacity_per_ha_pair
     ?weekly_maintenance_start_time ?(disk_iops_configuration = [])
-    ?timeouts ~deployment_type ~preferred_subnet_id ~subnet_ids __id
-    =
+    ?timeouts ~deployment_type ~preferred_subnet_id ~storage_capacity
+    ~subnet_ids __id =
   let (r : _ Tf_core.resource) =
     make ?automatic_backup_retention_days
       ?daily_automatic_backup_start_time ?endpoint_ip_address_range
       ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
-      ?security_group_ids ?storage_capacity ?storage_type ?tags
-      ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+      ?security_group_ids ?storage_type ?tags ?tags_all
+      ?throughput_capacity ?throughput_capacity_per_ha_pair
       ?weekly_maintenance_start_time ~disk_iops_configuration
-      ?timeouts ~deployment_type ~preferred_subnet_id ~subnet_ids
-      __id
+      ?timeouts ~deployment_type ~preferred_subnet_id
+      ~storage_capacity ~subnet_ids __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

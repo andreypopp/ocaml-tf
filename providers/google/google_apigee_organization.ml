@@ -118,8 +118,12 @@ let _ = yojson_of_timeouts
 
 type google_apigee_organization = {
   analytics_region : string prop option; [@option]
+  api_consumer_data_encryption_key_name : string prop option;
+      [@option]
+  api_consumer_data_location : string prop option; [@option]
   authorized_network : string prop option; [@option]
   billing_type : string prop option; [@option]
+  control_plane_encryption_key_name : string prop option; [@option]
   description : string prop option; [@option]
   disable_vpc_peering : bool prop option; [@option]
   display_name : string prop option; [@option]
@@ -141,8 +145,13 @@ let yojson_of_google_apigee_organization =
   (function
    | {
        analytics_region = v_analytics_region;
+       api_consumer_data_encryption_key_name =
+         v_api_consumer_data_encryption_key_name;
+       api_consumer_data_location = v_api_consumer_data_location;
        authorized_network = v_authorized_network;
        billing_type = v_billing_type;
+       control_plane_encryption_key_name =
+         v_control_plane_encryption_key_name;
        description = v_description;
        disable_vpc_peering = v_disable_vpc_peering;
        display_name = v_display_name;
@@ -232,6 +241,14 @@ let yojson_of_google_apigee_organization =
              bnd :: bnds
        in
        let bnds =
+         match v_control_plane_encryption_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "control_plane_encryption_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_billing_type with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -245,6 +262,24 @@ let yojson_of_google_apigee_organization =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "authorized_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_consumer_data_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_consumer_data_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_consumer_data_encryption_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "api_consumer_data_encryption_key_name", arg
+             in
              bnd :: bnds
        in
        let bnds =
@@ -270,15 +305,21 @@ let properties ?(property = []) () : properties = { property }
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_apigee_organization ?analytics_region ?authorized_network
-    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
-    ?retention ?runtime_database_encryption_key_name ?runtime_type
+let google_apigee_organization ?analytics_region
+    ?api_consumer_data_encryption_key_name
+    ?api_consumer_data_location ?authorized_network ?billing_type
+    ?control_plane_encryption_key_name ?description
+    ?disable_vpc_peering ?display_name ?id ?retention
+    ?runtime_database_encryption_key_name ?runtime_type
     ?(properties = []) ?timeouts ~project_id () :
     google_apigee_organization =
   {
     analytics_region;
+    api_consumer_data_encryption_key_name;
+    api_consumer_data_location;
     authorized_network;
     billing_type;
+    control_plane_encryption_key_name;
     description;
     disable_vpc_peering;
     display_name;
@@ -294,10 +335,13 @@ let google_apigee_organization ?analytics_region ?authorized_network
 type t = {
   tf_name : string;
   analytics_region : string prop;
+  api_consumer_data_encryption_key_name : string prop;
+  api_consumer_data_location : string prop;
   apigee_project_id : string prop;
   authorized_network : string prop;
   billing_type : string prop;
   ca_certificate : string prop;
+  control_plane_encryption_key_name : string prop;
   description : string prop;
   disable_vpc_peering : bool prop;
   display_name : string prop;
@@ -310,8 +354,10 @@ type t = {
   subscription_type : string prop;
 }
 
-let make ?analytics_region ?authorized_network ?billing_type
-    ?description ?disable_vpc_peering ?display_name ?id ?retention
+let make ?analytics_region ?api_consumer_data_encryption_key_name
+    ?api_consumer_data_location ?authorized_network ?billing_type
+    ?control_plane_encryption_key_name ?description
+    ?disable_vpc_peering ?display_name ?id ?retention
     ?runtime_database_encryption_key_name ?runtime_type
     ?(properties = []) ?timeouts ~project_id __id =
   let __type = "google_apigee_organization" in
@@ -320,12 +366,20 @@ let make ?analytics_region ?authorized_network ?billing_type
        tf_name = __id;
        analytics_region =
          Prop.computed __type __id "analytics_region";
+       api_consumer_data_encryption_key_name =
+         Prop.computed __type __id
+           "api_consumer_data_encryption_key_name";
+       api_consumer_data_location =
+         Prop.computed __type __id "api_consumer_data_location";
        apigee_project_id =
          Prop.computed __type __id "apigee_project_id";
        authorized_network =
          Prop.computed __type __id "authorized_network";
        billing_type = Prop.computed __type __id "billing_type";
        ca_certificate = Prop.computed __type __id "ca_certificate";
+       control_plane_encryption_key_name =
+         Prop.computed __type __id
+           "control_plane_encryption_key_name";
        description = Prop.computed __type __id "description";
        disable_vpc_peering =
          Prop.computed __type __id "disable_vpc_peering";
@@ -349,20 +403,27 @@ let make ?analytics_region ?authorized_network ?billing_type
     json =
       yojson_of_google_apigee_organization
         (google_apigee_organization ?analytics_region
-           ?authorized_network ?billing_type ?description
-           ?disable_vpc_peering ?display_name ?id ?retention
-           ?runtime_database_encryption_key_name ?runtime_type
-           ~properties ?timeouts ~project_id ());
+           ?api_consumer_data_encryption_key_name
+           ?api_consumer_data_location ?authorized_network
+           ?billing_type ?control_plane_encryption_key_name
+           ?description ?disable_vpc_peering ?display_name ?id
+           ?retention ?runtime_database_encryption_key_name
+           ?runtime_type ~properties ?timeouts ~project_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?analytics_region ?authorized_network
-    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
-    ?retention ?runtime_database_encryption_key_name ?runtime_type
+let register ?tf_module ?analytics_region
+    ?api_consumer_data_encryption_key_name
+    ?api_consumer_data_location ?authorized_network ?billing_type
+    ?control_plane_encryption_key_name ?description
+    ?disable_vpc_peering ?display_name ?id ?retention
+    ?runtime_database_encryption_key_name ?runtime_type
     ?(properties = []) ?timeouts ~project_id __id =
   let (r : _ Tf_core.resource) =
-    make ?analytics_region ?authorized_network ?billing_type
-      ?description ?disable_vpc_peering ?display_name ?id ?retention
+    make ?analytics_region ?api_consumer_data_encryption_key_name
+      ?api_consumer_data_location ?authorized_network ?billing_type
+      ?control_plane_encryption_key_name ?description
+      ?disable_vpc_peering ?display_name ?id ?retention
       ?runtime_database_encryption_key_name ?runtime_type ~properties
       ?timeouts ~project_id __id
   in

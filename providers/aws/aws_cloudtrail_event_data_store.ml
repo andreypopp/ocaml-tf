@@ -193,6 +193,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type aws_cloudtrail_event_data_store = {
+  billing_mode : string prop option; [@option]
   id : string prop option; [@option]
   kms_key_id : string prop option; [@option]
   multi_region_enabled : bool prop option; [@option]
@@ -213,6 +214,7 @@ let _ = fun (_ : aws_cloudtrail_event_data_store) -> ()
 let yojson_of_aws_cloudtrail_event_data_store =
   (function
    | {
+       billing_mode = v_billing_mode;
        id = v_id;
        kms_key_id = v_kms_key_id;
        multi_region_enabled = v_multi_region_enabled;
@@ -327,6 +329,14 @@ let yojson_of_aws_cloudtrail_event_data_store =
              let bnd = "id", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_billing_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "billing_mode", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : aws_cloudtrail_event_data_store ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -355,12 +365,13 @@ let advanced_event_selector ?name ~field_selector () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_cloudtrail_event_data_store ?id ?kms_key_id
+let aws_cloudtrail_event_data_store ?billing_mode ?id ?kms_key_id
     ?multi_region_enabled ?organization_enabled ?retention_period
     ?tags ?tags_all ?termination_protection_enabled
     ?(advanced_event_selector = []) ?timeouts ~name () :
     aws_cloudtrail_event_data_store =
   {
+    billing_mode;
     id;
     kms_key_id;
     multi_region_enabled;
@@ -377,6 +388,7 @@ let aws_cloudtrail_event_data_store ?id ?kms_key_id
 type t = {
   tf_name : string;
   arn : string prop;
+  billing_mode : string prop;
   id : string prop;
   kms_key_id : string prop;
   multi_region_enabled : bool prop;
@@ -388,14 +400,16 @@ type t = {
   termination_protection_enabled : bool prop;
 }
 
-let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
-    ?retention_period ?tags ?tags_all ?termination_protection_enabled
-    ?(advanced_event_selector = []) ?timeouts ~name __id =
+let make ?billing_mode ?id ?kms_key_id ?multi_region_enabled
+    ?organization_enabled ?retention_period ?tags ?tags_all
+    ?termination_protection_enabled ?(advanced_event_selector = [])
+    ?timeouts ~name __id =
   let __type = "aws_cloudtrail_event_data_store" in
   let __attrs =
     ({
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
+       billing_mode = Prop.computed __type __id "billing_mode";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";
        multi_region_enabled =
@@ -417,21 +431,21 @@ let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
     type_ = __type;
     json =
       yojson_of_aws_cloudtrail_event_data_store
-        (aws_cloudtrail_event_data_store ?id ?kms_key_id
-           ?multi_region_enabled ?organization_enabled
+        (aws_cloudtrail_event_data_store ?billing_mode ?id
+           ?kms_key_id ?multi_region_enabled ?organization_enabled
            ?retention_period ?tags ?tags_all
            ?termination_protection_enabled ~advanced_event_selector
            ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?kms_key_id ?multi_region_enabled
-    ?organization_enabled ?retention_period ?tags ?tags_all
-    ?termination_protection_enabled ?(advanced_event_selector = [])
-    ?timeouts ~name __id =
+let register ?tf_module ?billing_mode ?id ?kms_key_id
+    ?multi_region_enabled ?organization_enabled ?retention_period
+    ?tags ?tags_all ?termination_protection_enabled
+    ?(advanced_event_selector = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
-      ?retention_period ?tags ?tags_all
+    make ?billing_mode ?id ?kms_key_id ?multi_region_enabled
+      ?organization_enabled ?retention_period ?tags ?tags_all
       ?termination_protection_enabled ~advanced_event_selector
       ?timeouts ~name __id
   in

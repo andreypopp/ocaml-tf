@@ -6,6 +6,7 @@ type aws_vpc_dhcp_options = {
   domain_name : string prop option; [@option]
   domain_name_servers : string prop list option; [@option]
   id : string prop option; [@option]
+  ipv6_address_preferred_lease_time : string prop option; [@option]
   netbios_name_servers : string prop list option; [@option]
   netbios_node_type : string prop option; [@option]
   ntp_servers : string prop list option; [@option]
@@ -22,6 +23,8 @@ let yojson_of_aws_vpc_dhcp_options =
        domain_name = v_domain_name;
        domain_name_servers = v_domain_name_servers;
        id = v_id;
+       ipv6_address_preferred_lease_time =
+         v_ipv6_address_preferred_lease_time;
        netbios_name_servers = v_netbios_name_servers;
        netbios_node_type = v_netbios_node_type;
        ntp_servers = v_ntp_servers;
@@ -92,6 +95,14 @@ let yojson_of_aws_vpc_dhcp_options =
              bnd :: bnds
        in
        let bnds =
+         match v_ipv6_address_preferred_lease_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_address_preferred_lease_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -125,12 +136,14 @@ let _ = yojson_of_aws_vpc_dhcp_options
 [@@@deriving.end]
 
 let aws_vpc_dhcp_options ?domain_name ?domain_name_servers ?id
-    ?netbios_name_servers ?netbios_node_type ?ntp_servers ?tags
-    ?tags_all () : aws_vpc_dhcp_options =
+    ?ipv6_address_preferred_lease_time ?netbios_name_servers
+    ?netbios_node_type ?ntp_servers ?tags ?tags_all () :
+    aws_vpc_dhcp_options =
   {
     domain_name;
     domain_name_servers;
     id;
+    ipv6_address_preferred_lease_time;
     netbios_name_servers;
     netbios_node_type;
     ntp_servers;
@@ -144,6 +157,7 @@ type t = {
   domain_name : string prop;
   domain_name_servers : string list prop;
   id : string prop;
+  ipv6_address_preferred_lease_time : string prop;
   netbios_name_servers : string list prop;
   netbios_node_type : string prop;
   ntp_servers : string list prop;
@@ -152,7 +166,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?domain_name ?domain_name_servers ?id ?netbios_name_servers
+let make ?domain_name ?domain_name_servers ?id
+    ?ipv6_address_preferred_lease_time ?netbios_name_servers
     ?netbios_node_type ?ntp_servers ?tags ?tags_all __id =
   let __type = "aws_vpc_dhcp_options" in
   let __attrs =
@@ -163,6 +178,9 @@ let make ?domain_name ?domain_name_servers ?id ?netbios_name_servers
        domain_name_servers =
          Prop.computed __type __id "domain_name_servers";
        id = Prop.computed __type __id "id";
+       ipv6_address_preferred_lease_time =
+         Prop.computed __type __id
+           "ipv6_address_preferred_lease_time";
        netbios_name_servers =
          Prop.computed __type __id "netbios_name_servers";
        netbios_node_type =
@@ -180,16 +198,17 @@ let make ?domain_name ?domain_name_servers ?id ?netbios_name_servers
     json =
       yojson_of_aws_vpc_dhcp_options
         (aws_vpc_dhcp_options ?domain_name ?domain_name_servers ?id
-           ?netbios_name_servers ?netbios_node_type ?ntp_servers
-           ?tags ?tags_all ());
+           ?ipv6_address_preferred_lease_time ?netbios_name_servers
+           ?netbios_node_type ?ntp_servers ?tags ?tags_all ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?domain_name ?domain_name_servers ?id
-    ?netbios_name_servers ?netbios_node_type ?ntp_servers ?tags
-    ?tags_all __id =
+    ?ipv6_address_preferred_lease_time ?netbios_name_servers
+    ?netbios_node_type ?ntp_servers ?tags ?tags_all __id =
   let (r : _ Tf_core.resource) =
-    make ?domain_name ?domain_name_servers ?id ?netbios_name_servers
+    make ?domain_name ?domain_name_servers ?id
+      ?ipv6_address_preferred_lease_time ?netbios_name_servers
       ?netbios_node_type ?ntp_servers ?tags ?tags_all __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

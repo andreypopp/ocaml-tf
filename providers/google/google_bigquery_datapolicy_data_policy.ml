@@ -2,22 +2,38 @@
 
 open! Tf_core
 
-type data_masking_policy = { predefined_expression : string prop }
+type data_masking_policy = {
+  predefined_expression : string prop option; [@option]
+  routine : string prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : data_masking_policy) -> ()
 
 let yojson_of_data_masking_policy =
   (function
-   | { predefined_expression = v_predefined_expression } ->
+   | {
+       predefined_expression = v_predefined_expression;
+       routine = v_routine;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_predefined_expression
-         in
-         ("predefined_expression", arg) :: bnds
+         match v_routine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "routine", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_predefined_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "predefined_expression", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : data_masking_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -160,9 +176,9 @@ let _ = yojson_of_google_bigquery_datapolicy_data_policy
 
 [@@@deriving.end]
 
-let data_masking_policy ~predefined_expression () :
+let data_masking_policy ?predefined_expression ?routine () :
     data_masking_policy =
-  { predefined_expression }
+  { predefined_expression; routine }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

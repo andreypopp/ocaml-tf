@@ -72,7 +72,8 @@ val boot_disk :
 type confidential_instance_config
 
 val confidential_instance_config :
-  enable_confidential_compute:bool prop ->
+  ?confidential_instance_type:string prop ->
+  ?enable_confidential_compute:bool prop ->
   unit ->
   confidential_instance_config
 
@@ -155,6 +156,14 @@ val scheduling__local_ssd_recovery_timeout :
   unit ->
   scheduling__local_ssd_recovery_timeout
 
+type scheduling__max_run_duration
+
+val scheduling__max_run_duration :
+  ?nanos:float prop ->
+  seconds:float prop ->
+  unit ->
+  scheduling__max_run_duration
+
 type scheduling__node_affinities
 
 val scheduling__node_affinities :
@@ -163,6 +172,13 @@ val scheduling__node_affinities :
   values:string prop list ->
   unit ->
   scheduling__node_affinities
+
+type scheduling__on_instance_stop_action
+
+val scheduling__on_instance_stop_action :
+  ?discard_local_ssd:bool prop ->
+  unit ->
+  scheduling__on_instance_stop_action
 
 type scheduling
 
@@ -175,6 +191,8 @@ val scheduling :
   ?provisioning_model:string prop ->
   ?local_ssd_recovery_timeout:
     scheduling__local_ssd_recovery_timeout list ->
+  ?max_run_duration:scheduling__max_run_duration list ->
+  ?on_instance_stop_action:scheduling__on_instance_stop_action list ->
   node_affinities:scheduling__node_affinities list ->
   unit ->
   scheduling

@@ -71,6 +71,7 @@ val azurerm_postgresql_flexible_server :
   ?id:string prop ->
   ?point_in_time_restore_time_in_utc:string prop ->
   ?private_dns_zone_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->
@@ -135,6 +136,7 @@ val register :
   ?id:string prop ->
   ?point_in_time_restore_time_in_utc:string prop ->
   ?private_dns_zone_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->
@@ -166,6 +168,7 @@ val make :
   ?id:string prop ->
   ?point_in_time_restore_time_in_utc:string prop ->
   ?private_dns_zone_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->

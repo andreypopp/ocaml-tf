@@ -264,6 +264,87 @@ let _ = yojson_of_fleet
 
 [@@@deriving.end]
 
+type maintenance_policy__maintenance_exclusions__window = {
+  end_time : string prop option; [@option]
+  start_time : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : maintenance_policy__maintenance_exclusions__window) -> ()
+
+let yojson_of_maintenance_policy__maintenance_exclusions__window =
+  (function
+   | { end_time = v_end_time; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy__maintenance_exclusions__window ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_policy__maintenance_exclusions__window
+
+[@@@deriving.end]
+
+type maintenance_policy__maintenance_exclusions = {
+  id : string prop option; [@option]
+  window : maintenance_policy__maintenance_exclusions__window list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_policy__maintenance_exclusions) -> ()
+
+let yojson_of_maintenance_policy__maintenance_exclusions =
+  (function
+   | { id = v_id; window = v_window } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_window then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__maintenance_exclusions__window)
+               v_window
+           in
+           let bnd = "window", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy__maintenance_exclusions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_policy__maintenance_exclusions
+
+[@@@deriving.end]
+
 type maintenance_policy__window__recurring_window__window = {
   end_time : string prop option; [@option]
   start_time : string prop option; [@option]
@@ -380,6 +461,9 @@ let _ = yojson_of_maintenance_policy__window
 [@@@deriving.end]
 
 type maintenance_policy = {
+  maintenance_exclusions :
+    maintenance_policy__maintenance_exclusions list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   window : maintenance_policy__window list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -389,7 +473,10 @@ let _ = fun (_ : maintenance_policy) -> ()
 
 let yojson_of_maintenance_policy =
   (function
-   | { window = v_window } ->
+   | {
+       maintenance_exclusions = v_maintenance_exclusions;
+       window = v_window;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -401,6 +488,17 @@ let yojson_of_maintenance_policy =
                v_window
            in
            let bnd = "window", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_maintenance_exclusions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__maintenance_exclusions)
+               v_maintenance_exclusions
+           in
+           let bnd = "maintenance_exclusions", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -912,6 +1010,15 @@ let control_plane_encryption ?kms_key () : control_plane_encryption =
 
 let fleet ~project () : fleet = { project }
 
+let maintenance_policy__maintenance_exclusions__window ?end_time
+    ?start_time () :
+    maintenance_policy__maintenance_exclusions__window =
+  { end_time; start_time }
+
+let maintenance_policy__maintenance_exclusions ?id ?(window = []) ()
+    : maintenance_policy__maintenance_exclusions =
+  { id; window }
+
 let maintenance_policy__window__recurring_window__window ?end_time
     ?start_time () :
     maintenance_policy__window__recurring_window__window =
@@ -926,7 +1033,9 @@ let maintenance_policy__window ~recurring_window () :
     maintenance_policy__window =
   { recurring_window }
 
-let maintenance_policy ~window () : maintenance_policy = { window }
+let maintenance_policy ?(maintenance_exclusions = []) ~window () :
+    maintenance_policy =
+  { maintenance_exclusions; window }
 
 let networking ?cluster_ipv6_cidr_blocks ?services_ipv6_cidr_blocks
     ~cluster_ipv4_cidr_blocks ~services_ipv4_cidr_blocks () :

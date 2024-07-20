@@ -4,6 +4,15 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ec2_capacity_reservation
 
 val aws_ec2_capacity_reservation :
@@ -18,6 +27,7 @@ val aws_ec2_capacity_reservation :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tenancy:string prop ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   instance_count:float prop ->
   instance_platform:string prop ->
@@ -64,6 +74,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tenancy:string prop ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   instance_count:float prop ->
   instance_platform:string prop ->
@@ -83,6 +94,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tenancy:string prop ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   instance_count:float prop ->
   instance_platform:string prop ->

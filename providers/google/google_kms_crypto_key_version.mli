@@ -34,6 +34,14 @@ type attestation = {
   format : string prop;  (** format *)
 }
 
+type external_protection_level_options
+
+val external_protection_level_options :
+  ?ekm_connection_key_path:string prop ->
+  ?external_key_uri:string prop ->
+  unit ->
+  external_protection_level_options
+
 type timeouts
 
 val timeouts :
@@ -48,6 +56,8 @@ type google_kms_crypto_key_version
 val google_kms_crypto_key_version :
   ?id:string prop ->
   ?state:string prop ->
+  ?external_protection_level_options:
+    external_protection_level_options list ->
   ?timeouts:timeouts ->
   crypto_key:string prop ->
   unit ->
@@ -74,6 +84,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?state:string prop ->
+  ?external_protection_level_options:
+    external_protection_level_options list ->
   ?timeouts:timeouts ->
   crypto_key:string prop ->
   string ->
@@ -82,6 +94,8 @@ val register :
 val make :
   ?id:string prop ->
   ?state:string prop ->
+  ?external_protection_level_options:
+    external_protection_level_options list ->
   ?timeouts:timeouts ->
   crypto_key:string prop ->
   string ->

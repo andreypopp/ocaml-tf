@@ -50,6 +50,7 @@ let _ = yojson_of_timeouts
 
 type google_integration_connectors_endpoint_attachment = {
   description : string prop option; [@option]
+  endpoint_global_access : bool prop option; [@option]
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   location : string prop;
@@ -67,6 +68,7 @@ let yojson_of_google_integration_connectors_endpoint_attachment =
   (function
    | {
        description = v_description;
+       endpoint_global_access = v_endpoint_global_access;
        id = v_id;
        labels = v_labels;
        location = v_location;
@@ -129,6 +131,14 @@ let yojson_of_google_integration_connectors_endpoint_attachment =
              bnd :: bnds
        in
        let bnds =
+         match v_endpoint_global_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "endpoint_global_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_description with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -148,11 +158,12 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_integration_connectors_endpoint_attachment ?description
-    ?id ?labels ?project ?timeouts ~location ~name
-    ~service_attachment () :
+    ?endpoint_global_access ?id ?labels ?project ?timeouts ~location
+    ~name ~service_attachment () :
     google_integration_connectors_endpoint_attachment =
   {
     description;
+    endpoint_global_access;
     id;
     labels;
     location;
@@ -167,6 +178,7 @@ type t = {
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
+  endpoint_global_access : bool prop;
   endpoint_ip : string prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -178,8 +190,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~service_attachment __id =
+let make ?description ?endpoint_global_access ?id ?labels ?project
+    ?timeouts ~location ~name ~service_attachment __id =
   let __type = "google_integration_connectors_endpoint_attachment" in
   let __attrs =
     ({
@@ -188,6 +200,8 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
        description = Prop.computed __type __id "description";
        effective_labels =
          Prop.computed __type __id "effective_labels";
+       endpoint_global_access =
+         Prop.computed __type __id "endpoint_global_access";
        endpoint_ip = Prop.computed __type __id "endpoint_ip";
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
@@ -208,16 +222,17 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
     json =
       yojson_of_google_integration_connectors_endpoint_attachment
         (google_integration_connectors_endpoint_attachment
-           ?description ?id ?labels ?project ?timeouts ~location
-           ~name ~service_attachment ());
+           ?description ?endpoint_global_access ?id ?labels ?project
+           ?timeouts ~location ~name ~service_attachment ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~location ~name ~service_attachment __id =
+let register ?tf_module ?description ?endpoint_global_access ?id
+    ?labels ?project ?timeouts ~location ~name ~service_attachment
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~location ~name
-      ~service_attachment __id
+    make ?description ?endpoint_global_access ?id ?labels ?project
+      ?timeouts ~location ~name ~service_attachment __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

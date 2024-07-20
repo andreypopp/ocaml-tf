@@ -18,11 +18,13 @@ type input = {
   infected : bool prop option; [@option]
   is_active : bool prop option; [@option]
   issue_count : string prop option; [@option]
+  last_seen : string prop option; [@option]
   network_status : string prop option; [@option]
   operator : string prop option; [@option]
   os : string prop option; [@option]
   os_distro_name : string prop option; [@option]
   os_distro_revision : string prop option; [@option]
+  os_version_extra : string prop option; [@option]
   overall : string prop option; [@option]
   path : string prop option; [@option]
   require_all : bool prop option; [@option]
@@ -30,6 +32,7 @@ type input = {
   running : bool prop option; [@option]
   sensor_config : string prop option; [@option]
   sha256 : string prop option; [@option]
+  state : string prop option; [@option]
   thumbprint : string prop option; [@option]
   total_score : float prop option; [@option]
   version : string prop option; [@option]
@@ -57,11 +60,13 @@ let yojson_of_input =
        infected = v_infected;
        is_active = v_is_active;
        issue_count = v_issue_count;
+       last_seen = v_last_seen;
        network_status = v_network_status;
        operator = v_operator;
        os = v_os;
        os_distro_name = v_os_distro_name;
        os_distro_revision = v_os_distro_revision;
+       os_version_extra = v_os_version_extra;
        overall = v_overall;
        path = v_path;
        require_all = v_require_all;
@@ -69,6 +74,7 @@ let yojson_of_input =
        running = v_running;
        sensor_config = v_sensor_config;
        sha256 = v_sha256;
+       state = v_state;
        thumbprint = v_thumbprint;
        total_score = v_total_score;
        version = v_version;
@@ -107,6 +113,14 @@ let yojson_of_input =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "thumbprint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
              bnd :: bnds
        in
        let bnds =
@@ -166,6 +180,14 @@ let yojson_of_input =
              bnd :: bnds
        in
        let bnds =
+         match v_os_version_extra with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_version_extra", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_os_distro_revision with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -203,6 +225,14 @@ let yojson_of_input =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "network_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_last_seen with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "last_seen", arg in
              bnd :: bnds
        in
        let bnds =
@@ -468,10 +498,11 @@ let _ = yojson_of_cloudflare_device_posture_rule
 let input ?active_threats ?certificate_id ?check_disks ?cn
     ?compliance_status ?connection_id ?count_operator ?domain
     ?eid_last_seen ?enabled ?exists ?id ?infected ?is_active
-    ?issue_count ?network_status ?operator ?os ?os_distro_name
-    ?os_distro_revision ?overall ?path ?require_all ?risk_level
-    ?running ?sensor_config ?sha256 ?thumbprint ?total_score ?version
-    ?version_operator () : input =
+    ?issue_count ?last_seen ?network_status ?operator ?os
+    ?os_distro_name ?os_distro_revision ?os_version_extra ?overall
+    ?path ?require_all ?risk_level ?running ?sensor_config ?sha256
+    ?state ?thumbprint ?total_score ?version ?version_operator () :
+    input =
   {
     active_threats;
     certificate_id;
@@ -488,11 +519,13 @@ let input ?active_threats ?certificate_id ?check_disks ?cn
     infected;
     is_active;
     issue_count;
+    last_seen;
     network_status;
     operator;
     os;
     os_distro_name;
     os_distro_revision;
+    os_version_extra;
     overall;
     path;
     require_all;
@@ -500,6 +533,7 @@ let input ?active_threats ?certificate_id ?check_disks ?cn
     running;
     sensor_config;
     sha256;
+    state;
     thumbprint;
     total_score;
     version;

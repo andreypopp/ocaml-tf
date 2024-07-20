@@ -35,6 +35,7 @@ type t = private {
   tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
+  allow_full_table_external_data_access : bool prop;
   authorized_session_tag_value_list : string list prop;
   catalog_id : string prop;
   create_database_default_permissions :

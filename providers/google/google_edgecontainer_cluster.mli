@@ -66,6 +66,22 @@ type fleet
 
 val fleet : project:string prop -> unit -> fleet
 
+type maintenance_policy__maintenance_exclusions__window
+
+val maintenance_policy__maintenance_exclusions__window :
+  ?end_time:string prop ->
+  ?start_time:string prop ->
+  unit ->
+  maintenance_policy__maintenance_exclusions__window
+
+type maintenance_policy__maintenance_exclusions
+
+val maintenance_policy__maintenance_exclusions :
+  ?id:string prop ->
+  ?window:maintenance_policy__maintenance_exclusions__window list ->
+  unit ->
+  maintenance_policy__maintenance_exclusions
+
 type maintenance_policy__window__recurring_window__window
 
 val maintenance_policy__window__recurring_window__window :
@@ -92,6 +108,8 @@ val maintenance_policy__window :
 type maintenance_policy
 
 val maintenance_policy :
+  ?maintenance_exclusions:
+    maintenance_policy__maintenance_exclusions list ->
   window:maintenance_policy__window list ->
   unit ->
   maintenance_policy

@@ -64,6 +64,8 @@ let _ = yojson_of_timeouts
 
 type azurerm_storage_container = {
   container_access_type : string prop option; [@option]
+  default_encryption_scope : string prop option; [@option]
+  encryption_scope_override_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   metadata : (string * string prop) list option; [@option]
   name : string prop;
@@ -78,6 +80,9 @@ let yojson_of_azurerm_storage_container =
   (function
    | {
        container_access_type = v_container_access_type;
+       default_encryption_scope = v_default_encryption_scope;
+       encryption_scope_override_enabled =
+         v_encryption_scope_override_enabled;
        id = v_id;
        metadata = v_metadata;
        name = v_name;
@@ -126,6 +131,22 @@ let yojson_of_azurerm_storage_container =
              bnd :: bnds
        in
        let bnds =
+         match v_encryption_scope_override_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_scope_override_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_encryption_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_encryption_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_container_access_type with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -143,11 +164,14 @@ let _ = yojson_of_azurerm_storage_container
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_storage_container ?container_access_type ?id ?metadata
-    ?timeouts ~name ~storage_account_name () :
+let azurerm_storage_container ?container_access_type
+    ?default_encryption_scope ?encryption_scope_override_enabled ?id
+    ?metadata ?timeouts ~name ~storage_account_name () :
     azurerm_storage_container =
   {
     container_access_type;
+    default_encryption_scope;
+    encryption_scope_override_enabled;
     id;
     metadata;
     name;
@@ -158,6 +182,8 @@ let azurerm_storage_container ?container_access_type ?id ?metadata
 type t = {
   tf_name : string;
   container_access_type : string prop;
+  default_encryption_scope : string prop;
+  encryption_scope_override_enabled : bool prop;
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;
   id : string prop;
@@ -167,7 +193,8 @@ type t = {
   storage_account_name : string prop;
 }
 
-let make ?container_access_type ?id ?metadata ?timeouts ~name
+let make ?container_access_type ?default_encryption_scope
+    ?encryption_scope_override_enabled ?id ?metadata ?timeouts ~name
     ~storage_account_name __id =
   let __type = "azurerm_storage_container" in
   let __attrs =
@@ -175,6 +202,11 @@ let make ?container_access_type ?id ?metadata ?timeouts ~name
        tf_name = __id;
        container_access_type =
          Prop.computed __type __id "container_access_type";
+       default_encryption_scope =
+         Prop.computed __type __id "default_encryption_scope";
+       encryption_scope_override_enabled =
+         Prop.computed __type __id
+           "encryption_scope_override_enabled";
        has_immutability_policy =
          Prop.computed __type __id "has_immutability_policy";
        has_legal_hold = Prop.computed __type __id "has_legal_hold";
@@ -193,16 +225,20 @@ let make ?container_access_type ?id ?metadata ?timeouts ~name
     type_ = __type;
     json =
       yojson_of_azurerm_storage_container
-        (azurerm_storage_container ?container_access_type ?id
-           ?metadata ?timeouts ~name ~storage_account_name ());
+        (azurerm_storage_container ?container_access_type
+           ?default_encryption_scope
+           ?encryption_scope_override_enabled ?id ?metadata ?timeouts
+           ~name ~storage_account_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?container_access_type ?id ?metadata
-    ?timeouts ~name ~storage_account_name __id =
+let register ?tf_module ?container_access_type
+    ?default_encryption_scope ?encryption_scope_override_enabled ?id
+    ?metadata ?timeouts ~name ~storage_account_name __id =
   let (r : _ Tf_core.resource) =
-    make ?container_access_type ?id ?metadata ?timeouts ~name
-      ~storage_account_name __id
+    make ?container_access_type ?default_encryption_scope
+      ?encryption_scope_override_enabled ?id ?metadata ?timeouts
+      ~name ~storage_account_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

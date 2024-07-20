@@ -4,6 +4,12 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type auto_scale_profile = {
+  max_capacity : float prop;  (** max_capacity *)
+  min_capacity : float prop;  (** min_capacity *)
+  name : string prop;  (** name *)
+}
+
 type frontend_private = {
   allocation_method : string prop;  (** allocation_method *)
   ip_address : string prop;  (** ip_address *)
@@ -55,6 +61,7 @@ val yojson_of_azurerm_nginx_deployment :
 
 type t = private {
   tf_name : string;
+  auto_scale_profile : auto_scale_profile list prop;
   automatic_upgrade_channel : string prop;
   capacity : float prop;
   diagnose_support_enabled : bool prop;

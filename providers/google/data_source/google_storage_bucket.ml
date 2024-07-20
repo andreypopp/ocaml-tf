@@ -175,6 +175,9 @@ type lifecycle_rule__condition = {
   no_age : bool prop;
   noncurrent_time_before : string prop;
   num_newer_versions : float prop;
+  send_days_since_custom_time_if_zero : bool prop;
+  send_days_since_noncurrent_time_if_zero : bool prop;
+  send_num_newer_versions_if_zero : bool prop;
   with_state : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -195,6 +198,12 @@ let yojson_of_lifecycle_rule__condition =
        no_age = v_no_age;
        noncurrent_time_before = v_noncurrent_time_before;
        num_newer_versions = v_num_newer_versions;
+       send_days_since_custom_time_if_zero =
+         v_send_days_since_custom_time_if_zero;
+       send_days_since_noncurrent_time_if_zero =
+         v_send_days_since_noncurrent_time_if_zero;
+       send_num_newer_versions_if_zero =
+         v_send_num_newer_versions_if_zero;
        with_state = v_with_state;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -203,6 +212,27 @@ let yojson_of_lifecycle_rule__condition =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_with_state in
          ("with_state", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_send_num_newer_versions_if_zero
+         in
+         ("send_num_newer_versions_if_zero", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_send_days_since_noncurrent_time_if_zero
+         in
+         ("send_days_since_noncurrent_time_if_zero", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_send_days_since_custom_time_if_zero
+         in
+         ("send_days_since_custom_time_if_zero", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -426,6 +456,43 @@ let _ = yojson_of_retention_policy
 
 [@@@deriving.end]
 
+type soft_delete_policy = {
+  effective_time : string prop;
+  retention_duration_seconds : float prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : soft_delete_policy) -> ()
+
+let yojson_of_soft_delete_policy =
+  (function
+   | {
+       effective_time = v_effective_time;
+       retention_duration_seconds = v_retention_duration_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_retention_duration_seconds
+         in
+         ("retention_duration_seconds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_effective_time
+         in
+         ("effective_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : soft_delete_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_soft_delete_policy
+
+[@@@deriving.end]
+
 type versioning = { enabled : bool prop }
 [@@deriving_inline yojson_of]
 
@@ -487,6 +554,7 @@ let _ = yojson_of_website
 type google_storage_bucket = {
   id : string prop option; [@option]
   name : string prop;
+  project : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -494,9 +562,17 @@ let _ = fun (_ : google_storage_bucket) -> ()
 
 let yojson_of_google_storage_bucket =
   (function
-   | { id = v_id; name = v_name } ->
+   | { id = v_id; name = v_name; project = v_project } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -517,8 +593,9 @@ let _ = yojson_of_google_storage_bucket
 
 [@@@deriving.end]
 
-let google_storage_bucket ?id ~name () : google_storage_bucket =
-  { id; name }
+let google_storage_bucket ?id ?project ~name () :
+    google_storage_bucket =
+  { id; name; project }
 
 type t = {
   tf_name : string;
@@ -537,11 +614,13 @@ type t = {
   logging : logging list prop;
   name : string prop;
   project : string prop;
+  project_number : float prop;
   public_access_prevention : string prop;
   requester_pays : bool prop;
   retention_policy : retention_policy list prop;
   rpo : string prop;
   self_link : string prop;
+  soft_delete_policy : soft_delete_policy list prop;
   storage_class : string prop;
   terraform_labels : (string * string) list prop;
   uniform_bucket_level_access : bool prop;
@@ -550,7 +629,7 @@ type t = {
   website : website list prop;
 }
 
-let make ?id ~name __id =
+let make ?id ?project ~name __id =
   let __type = "google_storage_bucket" in
   let __attrs =
     ({
@@ -574,6 +653,7 @@ let make ?id ~name __id =
        logging = Prop.computed __type __id "logging";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";
+       project_number = Prop.computed __type __id "project_number";
        public_access_prevention =
          Prop.computed __type __id "public_access_prevention";
        requester_pays = Prop.computed __type __id "requester_pays";
@@ -581,6 +661,8 @@ let make ?id ~name __id =
          Prop.computed __type __id "retention_policy";
        rpo = Prop.computed __type __id "rpo";
        self_link = Prop.computed __type __id "self_link";
+       soft_delete_policy =
+         Prop.computed __type __id "soft_delete_policy";
        storage_class = Prop.computed __type __id "storage_class";
        terraform_labels =
          Prop.computed __type __id "terraform_labels";
@@ -597,11 +679,11 @@ let make ?id ~name __id =
     type_ = __type;
     json =
       yojson_of_google_storage_bucket
-        (google_storage_bucket ?id ~name ());
+        (google_storage_bucket ?id ?project ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~name __id =
-  let (r : _ Tf_core.resource) = make ?id ~name __id in
+let register ?tf_module ?id ?project ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ?project ~name __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

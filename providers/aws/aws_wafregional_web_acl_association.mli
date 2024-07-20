@@ -4,10 +4,15 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type timeouts
+
+val timeouts : ?create:string prop -> unit -> timeouts
+
 type aws_wafregional_web_acl_association
 
 val aws_wafregional_web_acl_association :
   ?id:string prop ->
+  ?timeouts:timeouts ->
   resource_arn:string prop ->
   web_acl_id:string prop ->
   unit ->
@@ -28,6 +33,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?timeouts:timeouts ->
   resource_arn:string prop ->
   web_acl_id:string prop ->
   string ->
@@ -35,6 +41,7 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?timeouts:timeouts ->
   resource_arn:string prop ->
   web_acl_id:string prop ->
   string ->

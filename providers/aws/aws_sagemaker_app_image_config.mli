@@ -4,6 +4,34 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type code_editor_app_image_config__container_config
+
+val code_editor_app_image_config__container_config :
+  ?container_arguments:string prop list ->
+  ?container_entrypoint:string prop list ->
+  ?container_environment_variables:(string * string prop) list ->
+  unit ->
+  code_editor_app_image_config__container_config
+
+type code_editor_app_image_config__file_system_config
+
+val code_editor_app_image_config__file_system_config :
+  ?default_gid:float prop ->
+  ?default_uid:float prop ->
+  ?mount_path:string prop ->
+  unit ->
+  code_editor_app_image_config__file_system_config
+
+type code_editor_app_image_config
+
+val code_editor_app_image_config :
+  ?container_config:
+    code_editor_app_image_config__container_config list ->
+  ?file_system_config:
+    code_editor_app_image_config__file_system_config list ->
+  unit ->
+  code_editor_app_image_config
+
 type jupyter_lab_image_config__container_config
 
 val jupyter_lab_image_config__container_config :
@@ -13,10 +41,21 @@ val jupyter_lab_image_config__container_config :
   unit ->
   jupyter_lab_image_config__container_config
 
+type jupyter_lab_image_config__file_system_config
+
+val jupyter_lab_image_config__file_system_config :
+  ?default_gid:float prop ->
+  ?default_uid:float prop ->
+  ?mount_path:string prop ->
+  unit ->
+  jupyter_lab_image_config__file_system_config
+
 type jupyter_lab_image_config
 
 val jupyter_lab_image_config :
   ?container_config:jupyter_lab_image_config__container_config list ->
+  ?file_system_config:
+    jupyter_lab_image_config__file_system_config list ->
   unit ->
   jupyter_lab_image_config
 
@@ -52,6 +91,7 @@ val aws_sagemaker_app_image_config :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->
@@ -77,6 +117,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->
@@ -87,6 +128,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->

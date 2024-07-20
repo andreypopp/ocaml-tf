@@ -58,6 +58,22 @@ val retention_yearly :
   unit ->
   retention_yearly
 
+type tiering_policy__archived_restore_point
+
+val tiering_policy__archived_restore_point :
+  ?duration:float prop ->
+  ?duration_type:string prop ->
+  mode:string prop ->
+  unit ->
+  tiering_policy__archived_restore_point
+
+type tiering_policy
+
+val tiering_policy :
+  archived_restore_point:tiering_policy__archived_restore_point list ->
+  unit ->
+  tiering_policy
+
 type timeouts
 
 val timeouts :
@@ -80,6 +96,7 @@ val azurerm_backup_policy_vm :
   ?retention_monthly:retention_monthly list ->
   ?retention_weekly:retention_weekly list ->
   ?retention_yearly:retention_yearly list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
@@ -115,6 +132,7 @@ val register :
   ?retention_monthly:retention_monthly list ->
   ?retention_weekly:retention_weekly list ->
   ?retention_yearly:retention_yearly list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
@@ -133,6 +151,7 @@ val make :
   ?retention_monthly:retention_monthly list ->
   ?retention_weekly:retention_weekly list ->
   ?retention_yearly:retention_yearly list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->

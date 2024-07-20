@@ -480,6 +480,7 @@ type azurerm_monitor_activity_log_alert = {
   description : string prop option; [@option]
   enabled : bool prop option; [@option]
   id : string prop option; [@option]
+  location : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   scopes : string prop list;
@@ -501,6 +502,7 @@ let yojson_of_azurerm_monitor_activity_log_alert =
        description = v_description;
        enabled = v_enabled;
        id = v_id;
+       location = v_location;
        name = v_name;
        resource_group_name = v_resource_group_name;
        scopes = v_scopes;
@@ -567,6 +569,14 @@ let yojson_of_azurerm_monitor_activity_log_alert =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -647,12 +657,14 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_monitor_activity_log_alert ?description ?enabled ?id
-    ?tags ?(action = []) ?timeouts ~name ~resource_group_name ~scopes
-    ~criteria () : azurerm_monitor_activity_log_alert =
+    ?location ?tags ?(action = []) ?timeouts ~name
+    ~resource_group_name ~scopes ~criteria () :
+    azurerm_monitor_activity_log_alert =
   {
     description;
     enabled;
     id;
+    location;
     name;
     resource_group_name;
     scopes;
@@ -667,14 +679,15 @@ type t = {
   description : string prop;
   enabled : bool prop;
   id : string prop;
+  location : string prop;
   name : string prop;
   resource_group_name : string prop;
   scopes : string list prop;
   tags : (string * string) list prop;
 }
 
-let make ?description ?enabled ?id ?tags ?(action = []) ?timeouts
-    ~name ~resource_group_name ~scopes ~criteria __id =
+let make ?description ?enabled ?id ?location ?tags ?(action = [])
+    ?timeouts ~name ~resource_group_name ~scopes ~criteria __id =
   let __type = "azurerm_monitor_activity_log_alert" in
   let __attrs =
     ({
@@ -682,6 +695,7 @@ let make ?description ?enabled ?id ?tags ?(action = []) ?timeouts
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
@@ -696,17 +710,17 @@ let make ?description ?enabled ?id ?tags ?(action = []) ?timeouts
     json =
       yojson_of_azurerm_monitor_activity_log_alert
         (azurerm_monitor_activity_log_alert ?description ?enabled ?id
-           ?tags ~action ?timeouts ~name ~resource_group_name ~scopes
-           ~criteria ());
+           ?location ?tags ~action ?timeouts ~name
+           ~resource_group_name ~scopes ~criteria ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?enabled ?id ?tags
+let register ?tf_module ?description ?enabled ?id ?location ?tags
     ?(action = []) ?timeouts ~name ~resource_group_name ~scopes
     ~criteria __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?enabled ?id ?tags ~action ?timeouts ~name
-      ~resource_group_name ~scopes ~criteria __id
+    make ?description ?enabled ?id ?location ?tags ~action ?timeouts
+      ~name ~resource_group_name ~scopes ~criteria __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

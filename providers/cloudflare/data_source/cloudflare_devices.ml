@@ -17,6 +17,7 @@ type devices = {
   os_distro_name : string prop;
   os_distro_revision : string prop;
   os_version : string prop;
+  os_version_extra : string prop;
   revoked_at : string prop;
   serial_number : string prop;
   updated : string prop;
@@ -46,6 +47,7 @@ let yojson_of_devices =
        os_distro_name = v_os_distro_name;
        os_distro_revision = v_os_distro_revision;
        os_version = v_os_version;
+       os_version_extra = v_os_version_extra;
        revoked_at = v_revoked_at;
        serial_number = v_serial_number;
        updated = v_updated;
@@ -84,6 +86,12 @@ let yojson_of_devices =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_revoked_at in
          ("revoked_at", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_os_version_extra
+         in
+         ("os_version_extra", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_os_version in

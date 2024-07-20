@@ -2,64 +2,6 @@
 
 open! Tf_core
 
-type ssh_keys = {
-  fingerprint : string prop;
-  id : float prop;
-  labels : (string * string prop) list;
-  name : string prop;
-  public_key : string prop;
-}
-[@@deriving_inline yojson_of]
-
-let _ = fun (_ : ssh_keys) -> ()
-
-let yojson_of_ssh_keys =
-  (function
-   | {
-       fingerprint = v_fingerprint;
-       id = v_id;
-       labels = v_labels;
-       name = v_name;
-       public_key = v_public_key;
-     } ->
-       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
-         []
-       in
-       let bnds =
-         let arg = yojson_of_prop yojson_of_string v_public_key in
-         ("public_key", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_prop yojson_of_string v_name in
-         ("name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
-             v_labels
-         in
-         ("labels", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_prop yojson_of_float v_id in
-         ("id", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_prop yojson_of_string v_fingerprint in
-         ("fingerprint", arg) :: bnds
-       in
-       `Assoc bnds
-    : ssh_keys -> Ppx_yojson_conv_lib.Yojson.Safe.t)
-
-let _ = yojson_of_ssh_keys
-
-[@@@deriving.end]
-
 type hcloud_ssh_keys = {
   id : string prop option; [@option]
   with_selector : string prop option; [@option]
@@ -103,7 +45,7 @@ let hcloud_ssh_keys ?id ?with_selector () : hcloud_ssh_keys =
 type t = {
   tf_name : string;
   id : string prop;
-  ssh_keys : ssh_keys list prop;
+  ssh_keys : json prop;
   with_selector : string prop;
 }
 

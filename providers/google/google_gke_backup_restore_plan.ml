@@ -200,6 +200,186 @@ let _ = yojson_of_restore_config__excluded_namespaces
 
 [@@@deriving.end]
 
+type restore_config__restore_order__group_kind_dependencies__requiring = {
+  resource_group : string prop option; [@option]
+  resource_kind : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       restore_config__restore_order__group_kind_dependencies__requiring) ->
+  ()
+
+let yojson_of_restore_config__restore_order__group_kind_dependencies__requiring
+    =
+  (function
+   | {
+       resource_group = v_resource_group;
+       resource_kind = v_resource_kind;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_kind", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_config__restore_order__group_kind_dependencies__requiring ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_restore_config__restore_order__group_kind_dependencies__requiring
+
+[@@@deriving.end]
+
+type restore_config__restore_order__group_kind_dependencies__satisfying = {
+  resource_group : string prop option; [@option]
+  resource_kind : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       restore_config__restore_order__group_kind_dependencies__satisfying) ->
+  ()
+
+let yojson_of_restore_config__restore_order__group_kind_dependencies__satisfying
+    =
+  (function
+   | {
+       resource_group = v_resource_group;
+       resource_kind = v_resource_kind;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_kind", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_config__restore_order__group_kind_dependencies__satisfying ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_restore_config__restore_order__group_kind_dependencies__satisfying
+
+[@@@deriving.end]
+
+type restore_config__restore_order__group_kind_dependencies = {
+  requiring :
+    restore_config__restore_order__group_kind_dependencies__requiring
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  satisfying :
+    restore_config__restore_order__group_kind_dependencies__satisfying
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : restore_config__restore_order__group_kind_dependencies) ->
+  ()
+
+let yojson_of_restore_config__restore_order__group_kind_dependencies
+    =
+  (function
+   | { requiring = v_requiring; satisfying = v_satisfying } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_satisfying then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__restore_order__group_kind_dependencies__satisfying)
+               v_satisfying
+           in
+           let bnd = "satisfying", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_requiring then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__restore_order__group_kind_dependencies__requiring)
+               v_requiring
+           in
+           let bnd = "requiring", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_config__restore_order__group_kind_dependencies ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_restore_config__restore_order__group_kind_dependencies
+
+[@@@deriving.end]
+
+type restore_config__restore_order = {
+  group_kind_dependencies :
+    restore_config__restore_order__group_kind_dependencies list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restore_config__restore_order) -> ()
+
+let yojson_of_restore_config__restore_order =
+  (function
+   | { group_kind_dependencies = v_group_kind_dependencies } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_group_kind_dependencies then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__restore_order__group_kind_dependencies)
+               v_group_kind_dependencies
+           in
+           let bnd = "group_kind_dependencies", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_config__restore_order ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restore_config__restore_order
+
+[@@@deriving.end]
+
 type restore_config__selected_applications__namespaced_names = {
   name : string prop;
   namespace : string prop;
@@ -527,6 +707,37 @@ let _ = yojson_of_restore_config__transformation_rules
 
 [@@@deriving.end]
 
+type restore_config__volume_data_restore_policy_bindings = {
+  policy : string prop;
+  volume_type : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : restore_config__volume_data_restore_policy_bindings) -> ()
+
+let yojson_of_restore_config__volume_data_restore_policy_bindings =
+  (function
+   | { policy = v_policy; volume_type = v_volume_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_type in
+         ("volume_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : restore_config__volume_data_restore_policy_bindings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restore_config__volume_data_restore_policy_bindings
+
+[@@@deriving.end]
+
 type restore_config = {
   all_namespaces : bool prop option; [@option]
   cluster_resource_conflict_policy : string prop option; [@option]
@@ -538,11 +749,16 @@ type restore_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   excluded_namespaces : restore_config__excluded_namespaces list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  restore_order : restore_config__restore_order list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   selected_applications : restore_config__selected_applications list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   selected_namespaces : restore_config__selected_namespaces list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   transformation_rules : restore_config__transformation_rules list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  volume_data_restore_policy_bindings :
+    restore_config__volume_data_restore_policy_bindings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -562,12 +778,27 @@ let yojson_of_restore_config =
        cluster_resource_restore_scope =
          v_cluster_resource_restore_scope;
        excluded_namespaces = v_excluded_namespaces;
+       restore_order = v_restore_order;
        selected_applications = v_selected_applications;
        selected_namespaces = v_selected_namespaces;
        transformation_rules = v_transformation_rules;
+       volume_data_restore_policy_bindings =
+         v_volume_data_restore_policy_bindings;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_volume_data_restore_policy_bindings
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__volume_data_restore_policy_bindings)
+               v_volume_data_restore_policy_bindings
+           in
+           let bnd = "volume_data_restore_policy_bindings", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_transformation_rules then bnds
@@ -600,6 +831,16 @@ let yojson_of_restore_config =
                v_selected_applications
            in
            let bnd = "selected_applications", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_restore_order then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_config__restore_order)
+               v_restore_order
+           in
+           let bnd = "restore_order", arg in
            bnd :: bnds
        in
        let bnds =
@@ -857,6 +1098,27 @@ let restore_config__excluded_namespaces ~namespaces () :
     restore_config__excluded_namespaces =
   { namespaces }
 
+let restore_config__restore_order__group_kind_dependencies__requiring
+    ?resource_group ?resource_kind () :
+    restore_config__restore_order__group_kind_dependencies__requiring
+    =
+  { resource_group; resource_kind }
+
+let restore_config__restore_order__group_kind_dependencies__satisfying
+    ?resource_group ?resource_kind () :
+    restore_config__restore_order__group_kind_dependencies__satisfying
+    =
+  { resource_group; resource_kind }
+
+let restore_config__restore_order__group_kind_dependencies ~requiring
+    ~satisfying () :
+    restore_config__restore_order__group_kind_dependencies =
+  { requiring; satisfying }
+
+let restore_config__restore_order ~group_kind_dependencies () :
+    restore_config__restore_order =
+  { group_kind_dependencies }
+
 let restore_config__selected_applications__namespaced_names ~name
     ~namespace () :
     restore_config__selected_applications__namespaced_names =
@@ -891,13 +1153,19 @@ let restore_config__transformation_rules ?description
     restore_config__transformation_rules =
   { description; field_actions; resource_filter }
 
+let restore_config__volume_data_restore_policy_bindings ~policy
+    ~volume_type () :
+    restore_config__volume_data_restore_policy_bindings =
+  { policy; volume_type }
+
 let restore_config ?all_namespaces ?cluster_resource_conflict_policy
     ?namespaced_resource_restore_mode ?no_namespaces
     ?volume_data_restore_policy
     ?(cluster_resource_restore_scope = [])
-    ?(excluded_namespaces = []) ?(selected_applications = [])
-    ?(selected_namespaces = []) ?(transformation_rules = []) () :
-    restore_config =
+    ?(excluded_namespaces = []) ?(restore_order = [])
+    ?(selected_applications = []) ?(selected_namespaces = [])
+    ?(transformation_rules = [])
+    ?(volume_data_restore_policy_bindings = []) () : restore_config =
   {
     all_namespaces;
     cluster_resource_conflict_policy;
@@ -906,9 +1174,11 @@ let restore_config ?all_namespaces ?cluster_resource_conflict_policy
     volume_data_restore_policy;
     cluster_resource_restore_scope;
     excluded_namespaces;
+    restore_order;
     selected_applications;
     selected_namespaces;
     transformation_rules;
+    volume_data_restore_policy_bindings;
   }
 
 let timeouts ?create ?delete ?update () : timeouts =

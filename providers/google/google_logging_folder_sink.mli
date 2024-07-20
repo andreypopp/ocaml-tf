@@ -27,6 +27,7 @@ val google_logging_folder_sink :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?intercept_children:bool prop ->
   ?bigquery_options:bigquery_options list ->
   ?exclusions:exclusions list ->
   destination:string prop ->
@@ -49,6 +50,7 @@ type t = private {
   folder : string prop;
   id : string prop;
   include_children : bool prop;
+  intercept_children : bool prop;
   name : string prop;
   writer_identity : string prop;
 }
@@ -60,6 +62,7 @@ val register :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?intercept_children:bool prop ->
   ?bigquery_options:bigquery_options list ->
   ?exclusions:exclusions list ->
   destination:string prop ->
@@ -74,6 +77,7 @@ val make :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?intercept_children:bool prop ->
   ?bigquery_options:bigquery_options list ->
   ?exclusions:exclusions list ->
   destination:string prop ->

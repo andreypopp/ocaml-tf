@@ -362,6 +362,16 @@ val site_config__auto_heal_setting__trigger__slow_request :
   unit ->
   site_config__auto_heal_setting__trigger__slow_request
 
+type site_config__auto_heal_setting__trigger__slow_request_with_path
+
+val site_config__auto_heal_setting__trigger__slow_request_with_path :
+  ?path:string prop ->
+  count:float prop ->
+  interval:string prop ->
+  time_taken:string prop ->
+  unit ->
+  site_config__auto_heal_setting__trigger__slow_request_with_path
+
 type site_config__auto_heal_setting__trigger__status_code
 
 val site_config__auto_heal_setting__trigger__status_code :
@@ -380,6 +390,9 @@ val site_config__auto_heal_setting__trigger :
   ?requests:site_config__auto_heal_setting__trigger__requests list ->
   ?slow_request:
     site_config__auto_heal_setting__trigger__slow_request list ->
+  ?slow_request_with_path:
+    site_config__auto_heal_setting__trigger__slow_request_with_path
+    list ->
   ?status_code:
     site_config__auto_heal_setting__trigger__status_code list ->
   unit ->

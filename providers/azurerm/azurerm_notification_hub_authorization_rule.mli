@@ -43,8 +43,10 @@ type t = private {
   namespace_name : string prop;
   notification_hub_name : string prop;
   primary_access_key : string prop;
+  primary_connection_string : string prop;
   resource_group_name : string prop;
   secondary_access_key : string prop;
+  secondary_connection_string : string prop;
   send : bool prop;
 }
 

@@ -80,6 +80,46 @@ let _ = yojson_of_catalog_info
 
 [@@@deriving.end]
 
+type copy_compute_scale = {
+  data_integration_unit : float prop option; [@option]
+  time_to_live : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : copy_compute_scale) -> ()
+
+let yojson_of_copy_compute_scale =
+  (function
+   | {
+       data_integration_unit = v_data_integration_unit;
+       time_to_live = v_time_to_live;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_to_live with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "time_to_live", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_integration_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "data_integration_unit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : copy_compute_scale -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_copy_compute_scale
+
+[@@@deriving.end]
+
 type custom_setup_script = {
   blob_container_uri : string prop;
   sas_token : string prop;
@@ -484,6 +524,57 @@ let _ = yojson_of_package_store
 
 [@@@deriving.end]
 
+type pipeline_external_compute_scale = {
+  number_of_external_nodes : float prop option; [@option]
+  number_of_pipeline_nodes : float prop option; [@option]
+  time_to_live : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pipeline_external_compute_scale) -> ()
+
+let yojson_of_pipeline_external_compute_scale =
+  (function
+   | {
+       number_of_external_nodes = v_number_of_external_nodes;
+       number_of_pipeline_nodes = v_number_of_pipeline_nodes;
+       time_to_live = v_time_to_live;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_to_live with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "time_to_live", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_pipeline_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_pipeline_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_external_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_external_nodes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : pipeline_external_compute_scale ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pipeline_external_compute_scale
+
+[@@@deriving.end]
+
 type proxy = {
   path : string prop option; [@option]
   self_hosted_integration_runtime_name : string prop;
@@ -670,6 +761,8 @@ type azurerm_data_factory_integration_runtime_azure_ssis = {
   number_of_nodes : float prop option; [@option]
   catalog_info : catalog_info list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  copy_compute_scale : copy_compute_scale list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_setup_script : custom_setup_script list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   express_custom_setup : express_custom_setup list;
@@ -677,6 +770,9 @@ type azurerm_data_factory_integration_runtime_azure_ssis = {
   express_vnet_integration : express_vnet_integration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   package_store : package_store list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  pipeline_external_compute_scale :
+    pipeline_external_compute_scale list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   proxy : proxy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -705,10 +801,13 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
        node_size = v_node_size;
        number_of_nodes = v_number_of_nodes;
        catalog_info = v_catalog_info;
+       copy_compute_scale = v_copy_compute_scale;
        custom_setup_script = v_custom_setup_script;
        express_custom_setup = v_express_custom_setup;
        express_vnet_integration = v_express_vnet_integration;
        package_store = v_package_store;
+       pipeline_external_compute_scale =
+         v_pipeline_external_compute_scale;
        proxy = v_proxy;
        timeouts = v_timeouts;
        vnet_integration = v_vnet_integration;
@@ -735,6 +834,18 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
          else
            let arg = (yojson_of_list yojson_of_proxy) v_proxy in
            let bnd = "proxy", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_pipeline_external_compute_scale then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pipeline_external_compute_scale)
+               v_pipeline_external_compute_scale
+           in
+           let bnd = "pipeline_external_compute_scale", arg in
            bnd :: bnds
        in
        let bnds =
@@ -774,6 +885,16 @@ let yojson_of_azurerm_data_factory_integration_runtime_azure_ssis =
                v_custom_setup_script
            in
            let bnd = "custom_setup_script", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_copy_compute_scale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_copy_compute_scale)
+               v_copy_compute_scale
+           in
+           let bnd = "copy_compute_scale", arg in
            bnd :: bnds
        in
        let bnds =
@@ -879,6 +1000,10 @@ let catalog_info ?administrator_login ?administrator_password
     server_endpoint;
   }
 
+let copy_compute_scale ?data_integration_unit ?time_to_live () :
+    copy_compute_scale =
+  { data_integration_unit; time_to_live }
+
 let custom_setup_script ~blob_container_uri ~sas_token () :
     custom_setup_script =
   { blob_container_uri; sas_token }
@@ -914,6 +1039,15 @@ let express_vnet_integration ~subnet_id () : express_vnet_integration
 let package_store ~linked_service_name ~name () : package_store =
   { linked_service_name; name }
 
+let pipeline_external_compute_scale ?number_of_external_nodes
+    ?number_of_pipeline_nodes ?time_to_live () :
+    pipeline_external_compute_scale =
+  {
+    number_of_external_nodes;
+    number_of_pipeline_nodes;
+    time_to_live;
+  }
+
 let proxy ?path ~self_hosted_integration_runtime_name
     ~staging_storage_linked_service_name () : proxy =
   {
@@ -932,9 +1066,10 @@ let vnet_integration ?public_ips ?subnet_id ?subnet_name ?vnet_id ()
 let azurerm_data_factory_integration_runtime_azure_ssis
     ?credential_name ?description ?edition ?id ?license_type
     ?max_parallel_executions_per_node ?number_of_nodes
-    ?(catalog_info = []) ?(custom_setup_script = [])
-    ?(express_custom_setup = []) ?(express_vnet_integration = [])
-    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(catalog_info = []) ?(copy_compute_scale = [])
+    ?(custom_setup_script = []) ?(express_custom_setup = [])
+    ?(express_vnet_integration = []) ?(package_store = [])
+    ?(pipeline_external_compute_scale = []) ?(proxy = []) ?timeouts
     ?(vnet_integration = []) ~data_factory_id ~location ~name
     ~node_size () :
     azurerm_data_factory_integration_runtime_azure_ssis =
@@ -951,10 +1086,12 @@ let azurerm_data_factory_integration_runtime_azure_ssis
     node_size;
     number_of_nodes;
     catalog_info;
+    copy_compute_scale;
     custom_setup_script;
     express_custom_setup;
     express_vnet_integration;
     package_store;
+    pipeline_external_compute_scale;
     proxy;
     timeouts;
     vnet_integration;
@@ -977,9 +1114,10 @@ type t = {
 
 let make ?credential_name ?description ?edition ?id ?license_type
     ?max_parallel_executions_per_node ?number_of_nodes
-    ?(catalog_info = []) ?(custom_setup_script = [])
-    ?(express_custom_setup = []) ?(express_vnet_integration = [])
-    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(catalog_info = []) ?(copy_compute_scale = [])
+    ?(custom_setup_script = []) ?(express_custom_setup = [])
+    ?(express_vnet_integration = []) ?(package_store = [])
+    ?(pipeline_external_compute_scale = []) ?(proxy = []) ?timeouts
     ?(vnet_integration = []) ~data_factory_id ~location ~name
     ~node_size __id =
   let __type =
@@ -1011,25 +1149,28 @@ let make ?credential_name ?description ?edition ?id ?license_type
         (azurerm_data_factory_integration_runtime_azure_ssis
            ?credential_name ?description ?edition ?id ?license_type
            ?max_parallel_executions_per_node ?number_of_nodes
-           ~catalog_info ~custom_setup_script ~express_custom_setup
-           ~express_vnet_integration ~package_store ~proxy ?timeouts
-           ~vnet_integration ~data_factory_id ~location ~name
-           ~node_size ());
+           ~catalog_info ~copy_compute_scale ~custom_setup_script
+           ~express_custom_setup ~express_vnet_integration
+           ~package_store ~pipeline_external_compute_scale ~proxy
+           ?timeouts ~vnet_integration ~data_factory_id ~location
+           ~name ~node_size ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?credential_name ?description ?edition ?id
     ?license_type ?max_parallel_executions_per_node ?number_of_nodes
-    ?(catalog_info = []) ?(custom_setup_script = [])
-    ?(express_custom_setup = []) ?(express_vnet_integration = [])
-    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(catalog_info = []) ?(copy_compute_scale = [])
+    ?(custom_setup_script = []) ?(express_custom_setup = [])
+    ?(express_vnet_integration = []) ?(package_store = [])
+    ?(pipeline_external_compute_scale = []) ?(proxy = []) ?timeouts
     ?(vnet_integration = []) ~data_factory_id ~location ~name
     ~node_size __id =
   let (r : _ Tf_core.resource) =
     make ?credential_name ?description ?edition ?id ?license_type
       ?max_parallel_executions_per_node ?number_of_nodes
-      ~catalog_info ~custom_setup_script ~express_custom_setup
-      ~express_vnet_integration ~package_store ~proxy ?timeouts
+      ~catalog_info ~copy_compute_scale ~custom_setup_script
+      ~express_custom_setup ~express_vnet_integration ~package_store
+      ~pipeline_external_compute_scale ~proxy ?timeouts
       ~vnet_integration ~data_factory_id ~location ~name ~node_size
       __id
   in

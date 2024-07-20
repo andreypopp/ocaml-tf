@@ -18,12 +18,22 @@ type filter_group
 val filter_group :
   ?filter:filter_group__filter list -> unit -> filter_group
 
+type scope_configuration
+
+val scope_configuration :
+  ?domain:string prop ->
+  name:string prop ->
+  scope:string prop ->
+  unit ->
+  scope_configuration
+
 type aws_codebuild_webhook
 
 val aws_codebuild_webhook :
   ?branch_filter:string prop ->
   ?build_type:string prop ->
   ?id:string prop ->
+  ?scope_configuration:scope_configuration list ->
   project_name:string prop ->
   filter_group:filter_group list ->
   unit ->
@@ -49,6 +59,7 @@ val register :
   ?branch_filter:string prop ->
   ?build_type:string prop ->
   ?id:string prop ->
+  ?scope_configuration:scope_configuration list ->
   project_name:string prop ->
   filter_group:filter_group list ->
   string ->
@@ -58,6 +69,7 @@ val make :
   ?branch_filter:string prop ->
   ?build_type:string prop ->
   ?id:string prop ->
+  ?scope_configuration:scope_configuration list ->
   project_name:string prop ->
   filter_group:filter_group list ->
   string ->

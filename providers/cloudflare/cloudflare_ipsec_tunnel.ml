@@ -9,7 +9,9 @@ type cloudflare_ipsec_tunnel = {
   customer_endpoint : string prop;
   description : string prop option; [@option]
   fqdn_id : string prop option; [@option]
+  health_check_direction : string prop option; [@option]
   health_check_enabled : bool prop option; [@option]
+  health_check_rate : string prop option; [@option]
   health_check_target : string prop option; [@option]
   health_check_type : string prop option; [@option]
   hex_id : string prop option; [@option]
@@ -18,6 +20,7 @@ type cloudflare_ipsec_tunnel = {
   name : string prop;
   psk : string prop option; [@option]
   remote_id : string prop option; [@option]
+  replay_protection : bool prop option; [@option]
   user_id : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -33,7 +36,9 @@ let yojson_of_cloudflare_ipsec_tunnel =
        customer_endpoint = v_customer_endpoint;
        description = v_description;
        fqdn_id = v_fqdn_id;
+       health_check_direction = v_health_check_direction;
        health_check_enabled = v_health_check_enabled;
+       health_check_rate = v_health_check_rate;
        health_check_target = v_health_check_target;
        health_check_type = v_health_check_type;
        hex_id = v_hex_id;
@@ -42,6 +47,7 @@ let yojson_of_cloudflare_ipsec_tunnel =
        name = v_name;
        psk = v_psk;
        remote_id = v_remote_id;
+       replay_protection = v_replay_protection;
        user_id = v_user_id;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -53,6 +59,14 @@ let yojson_of_cloudflare_ipsec_tunnel =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "user_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_replay_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replay_protection", arg in
              bnd :: bnds
        in
        let bnds =
@@ -114,11 +128,27 @@ let yojson_of_cloudflare_ipsec_tunnel =
              bnd :: bnds
        in
        let bnds =
+         match v_health_check_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_rate", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_health_check_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "health_check_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_direction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_direction", arg in
              bnd :: bnds
        in
        let bnds =
@@ -173,10 +203,11 @@ let _ = yojson_of_cloudflare_ipsec_tunnel
 [@@@deriving.end]
 
 let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
-    ?description ?fqdn_id ?health_check_enabled ?health_check_target
-    ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
-    ~cloudflare_endpoint ~customer_endpoint ~interface_address ~name
-    () : cloudflare_ipsec_tunnel =
+    ?description ?fqdn_id ?health_check_direction
+    ?health_check_enabled ?health_check_rate ?health_check_target
+    ?health_check_type ?hex_id ?id ?psk ?remote_id ?replay_protection
+    ?user_id ~cloudflare_endpoint ~customer_endpoint
+    ~interface_address ~name () : cloudflare_ipsec_tunnel =
   {
     account_id;
     allow_null_cipher;
@@ -184,7 +215,9 @@ let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
     customer_endpoint;
     description;
     fqdn_id;
+    health_check_direction;
     health_check_enabled;
+    health_check_rate;
     health_check_target;
     health_check_type;
     hex_id;
@@ -193,6 +226,7 @@ let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
     name;
     psk;
     remote_id;
+    replay_protection;
     user_id;
   }
 
@@ -204,7 +238,9 @@ type t = {
   customer_endpoint : string prop;
   description : string prop;
   fqdn_id : string prop;
+  health_check_direction : string prop;
   health_check_enabled : bool prop;
+  health_check_rate : string prop;
   health_check_target : string prop;
   health_check_type : string prop;
   hex_id : string prop;
@@ -213,12 +249,14 @@ type t = {
   name : string prop;
   psk : string prop;
   remote_id : string prop;
+  replay_protection : bool prop;
   user_id : string prop;
 }
 
 let make ?account_id ?allow_null_cipher ?description ?fqdn_id
-    ?health_check_enabled ?health_check_target ?health_check_type
-    ?hex_id ?id ?psk ?remote_id ?user_id ~cloudflare_endpoint
+    ?health_check_direction ?health_check_enabled ?health_check_rate
+    ?health_check_target ?health_check_type ?hex_id ?id ?psk
+    ?remote_id ?replay_protection ?user_id ~cloudflare_endpoint
     ~customer_endpoint ~interface_address ~name __id =
   let __type = "cloudflare_ipsec_tunnel" in
   let __attrs =
@@ -233,8 +271,12 @@ let make ?account_id ?allow_null_cipher ?description ?fqdn_id
          Prop.computed __type __id "customer_endpoint";
        description = Prop.computed __type __id "description";
        fqdn_id = Prop.computed __type __id "fqdn_id";
+       health_check_direction =
+         Prop.computed __type __id "health_check_direction";
        health_check_enabled =
          Prop.computed __type __id "health_check_enabled";
+       health_check_rate =
+         Prop.computed __type __id "health_check_rate";
        health_check_target =
          Prop.computed __type __id "health_check_target";
        health_check_type =
@@ -246,6 +288,8 @@ let make ?account_id ?allow_null_cipher ?description ?fqdn_id
        name = Prop.computed __type __id "name";
        psk = Prop.computed __type __id "psk";
        remote_id = Prop.computed __type __id "remote_id";
+       replay_protection =
+         Prop.computed __type __id "replay_protection";
        user_id = Prop.computed __type __id "user_id";
      }
       : t)
@@ -256,23 +300,28 @@ let make ?account_id ?allow_null_cipher ?description ?fqdn_id
     json =
       yojson_of_cloudflare_ipsec_tunnel
         (cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
-           ?description ?fqdn_id ?health_check_enabled
+           ?description ?fqdn_id ?health_check_direction
+           ?health_check_enabled ?health_check_rate
            ?health_check_target ?health_check_type ?hex_id ?id ?psk
-           ?remote_id ?user_id ~cloudflare_endpoint
-           ~customer_endpoint ~interface_address ~name ());
+           ?remote_id ?replay_protection ?user_id
+           ~cloudflare_endpoint ~customer_endpoint ~interface_address
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?allow_null_cipher ?description
-    ?fqdn_id ?health_check_enabled ?health_check_target
-    ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
+    ?fqdn_id ?health_check_direction ?health_check_enabled
+    ?health_check_rate ?health_check_target ?health_check_type
+    ?hex_id ?id ?psk ?remote_id ?replay_protection ?user_id
     ~cloudflare_endpoint ~customer_endpoint ~interface_address ~name
     __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?allow_null_cipher ?description ?fqdn_id
-      ?health_check_enabled ?health_check_target ?health_check_type
-      ?hex_id ?id ?psk ?remote_id ?user_id ~cloudflare_endpoint
-      ~customer_endpoint ~interface_address ~name __id
+      ?health_check_direction ?health_check_enabled
+      ?health_check_rate ?health_check_target ?health_check_type
+      ?hex_id ?id ?psk ?remote_id ?replay_protection ?user_id
+      ~cloudflare_endpoint ~customer_endpoint ~interface_address
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

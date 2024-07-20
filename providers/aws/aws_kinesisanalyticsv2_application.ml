@@ -2217,6 +2217,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type aws_kinesisanalyticsv2_application = {
+  application_mode : string prop option; [@option]
   description : string prop option; [@option]
   force_stop : bool prop option; [@option]
   id : string prop option; [@option]
@@ -2239,6 +2240,7 @@ let _ = fun (_ : aws_kinesisanalyticsv2_application) -> ()
 let yojson_of_aws_kinesisanalyticsv2_application =
   (function
    | {
+       application_mode = v_application_mode;
        description = v_description;
        force_stop = v_force_stop;
        id = v_id;
@@ -2357,6 +2359,14 @@ let yojson_of_aws_kinesisanalyticsv2_application =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_application_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "application_mode", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -2664,13 +2674,14 @@ let cloudwatch_logging_options ~log_stream_arn () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
-    ?start_application ?tags ?tags_all
+let aws_kinesisanalyticsv2_application ?application_mode ?description
+    ?force_stop ?id ?start_application ?tags ?tags_all
     ?(application_configuration = [])
     ?(cloudwatch_logging_options = []) ?timeouts ~name
     ~runtime_environment ~service_execution_role () :
     aws_kinesisanalyticsv2_application =
   {
+    application_mode;
     description;
     force_stop;
     id;
@@ -2687,6 +2698,7 @@ let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
 
 type t = {
   tf_name : string;
+  application_mode : string prop;
   arn : string prop;
   create_timestamp : string prop;
   description : string prop;
@@ -2703,14 +2715,17 @@ type t = {
   version_id : float prop;
 }
 
-let make ?description ?force_stop ?id ?start_application ?tags
-    ?tags_all ?(application_configuration = [])
+let make ?application_mode ?description ?force_stop ?id
+    ?start_application ?tags ?tags_all
+    ?(application_configuration = [])
     ?(cloudwatch_logging_options = []) ?timeouts ~name
     ~runtime_environment ~service_execution_role __id =
   let __type = "aws_kinesisanalyticsv2_application" in
   let __attrs =
     ({
        tf_name = __id;
+       application_mode =
+         Prop.computed __type __id "application_mode";
        arn = Prop.computed __type __id "arn";
        create_timestamp =
          Prop.computed __type __id "create_timestamp";
@@ -2738,22 +2753,22 @@ let make ?description ?force_stop ?id ?start_application ?tags
     type_ = __type;
     json =
       yojson_of_aws_kinesisanalyticsv2_application
-        (aws_kinesisanalyticsv2_application ?description ?force_stop
-           ?id ?start_application ?tags ?tags_all
-           ~application_configuration ~cloudwatch_logging_options
-           ?timeouts ~name ~runtime_environment
-           ~service_execution_role ());
+        (aws_kinesisanalyticsv2_application ?application_mode
+           ?description ?force_stop ?id ?start_application ?tags
+           ?tags_all ~application_configuration
+           ~cloudwatch_logging_options ?timeouts ~name
+           ~runtime_environment ~service_execution_role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?force_stop ?id
-    ?start_application ?tags ?tags_all
+let register ?tf_module ?application_mode ?description ?force_stop
+    ?id ?start_application ?tags ?tags_all
     ?(application_configuration = [])
     ?(cloudwatch_logging_options = []) ?timeouts ~name
     ~runtime_environment ~service_execution_role __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?force_stop ?id ?start_application ?tags
-      ?tags_all ~application_configuration
+    make ?application_mode ?description ?force_stop ?id
+      ?start_application ?tags ?tags_all ~application_configuration
       ~cloudwatch_logging_options ?timeouts ~name
       ~runtime_environment ~service_execution_role __id
   in

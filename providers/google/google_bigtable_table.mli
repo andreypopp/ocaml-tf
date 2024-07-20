@@ -4,6 +4,14 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type automated_backup_policy
+
+val automated_backup_policy :
+  ?frequency:string prop ->
+  ?retention_period:string prop ->
+  unit ->
+  automated_backup_policy
+
 type column_family
 
 val column_family : family:string prop -> unit -> column_family
@@ -24,6 +32,7 @@ val google_bigtable_table :
   ?timeouts:timeouts ->
   instance_name:string prop ->
   name:string prop ->
+  automated_backup_policy:automated_backup_policy list ->
   column_family:column_family list ->
   unit ->
   google_bigtable_table
@@ -53,6 +62,7 @@ val register :
   ?timeouts:timeouts ->
   instance_name:string prop ->
   name:string prop ->
+  automated_backup_policy:automated_backup_policy list ->
   column_family:column_family list ->
   string ->
   t
@@ -66,6 +76,7 @@ val make :
   ?timeouts:timeouts ->
   instance_name:string prop ->
   name:string prop ->
+  automated_backup_policy:automated_backup_policy list ->
   column_family:column_family list ->
   string ->
   t Tf_core.resource

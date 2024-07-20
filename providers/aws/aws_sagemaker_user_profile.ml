@@ -35,6 +35,39 @@ let _ =
 
 [@@@deriving.end]
 
+type user_settings__canvas_app_settings__generative_ai_settings = {
+  amazon_bedrock_role_arn : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : user_settings__canvas_app_settings__generative_ai_settings) ->
+  ()
+
+let yojson_of_user_settings__canvas_app_settings__generative_ai_settings
+    =
+  (function
+   | { amazon_bedrock_role_arn = v_amazon_bedrock_role_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_amazon_bedrock_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "amazon_bedrock_role_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : user_settings__canvas_app_settings__generative_ai_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_user_settings__canvas_app_settings__generative_ai_settings
+
+[@@@deriving.end]
+
 type user_settings__canvas_app_settings__identity_provider_oauth_settings = {
   data_source_name : string prop option; [@option]
   secret_arn : string prop;
@@ -262,6 +295,9 @@ type user_settings__canvas_app_settings = {
   direct_deploy_settings :
     user_settings__canvas_app_settings__direct_deploy_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  generative_ai_settings :
+    user_settings__canvas_app_settings__generative_ai_settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity_provider_oauth_settings :
     user_settings__canvas_app_settings__identity_provider_oauth_settings
     list;
@@ -288,6 +324,7 @@ let yojson_of_user_settings__canvas_app_settings =
   (function
    | {
        direct_deploy_settings = v_direct_deploy_settings;
+       generative_ai_settings = v_generative_ai_settings;
        identity_provider_oauth_settings =
          v_identity_provider_oauth_settings;
        kendra_settings = v_kendra_settings;
@@ -357,6 +394,17 @@ let yojson_of_user_settings__canvas_app_settings =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_generative_ai_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_settings__canvas_app_settings__generative_ai_settings)
+               v_generative_ai_settings
+           in
+           let bnd = "generative_ai_settings", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_direct_deploy_settings then bnds
          else
            let arg =
@@ -372,6 +420,54 @@ let yojson_of_user_settings__canvas_app_settings =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_user_settings__canvas_app_settings
+
+[@@@deriving.end]
+
+type user_settings__code_editor_app_settings__custom_image = {
+  app_image_config_name : string prop;
+  image_name : string prop;
+  image_version_number : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : user_settings__code_editor_app_settings__custom_image) ->
+  ()
+
+let yojson_of_user_settings__code_editor_app_settings__custom_image =
+  (function
+   | {
+       app_image_config_name = v_app_image_config_name;
+       image_name = v_image_name;
+       image_version_number = v_image_version_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_image_version_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "image_version_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image_name in
+         ("image_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_app_image_config_name
+         in
+         ("app_image_config_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : user_settings__code_editor_app_settings__custom_image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_user_settings__code_editor_app_settings__custom_image
 
 [@@@deriving.end]
 
@@ -454,6 +550,9 @@ let _ =
 
 type user_settings__code_editor_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
+  custom_image :
+    user_settings__code_editor_app_settings__custom_image list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   default_resource_spec :
     user_settings__code_editor_app_settings__default_resource_spec
     list;
@@ -467,6 +566,7 @@ let yojson_of_user_settings__code_editor_app_settings =
   (function
    | {
        lifecycle_config_arns = v_lifecycle_config_arns;
+       custom_image = v_custom_image;
        default_resource_spec = v_default_resource_spec;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -481,6 +581,17 @@ let yojson_of_user_settings__code_editor_app_settings =
                v_default_resource_spec
            in
            let bnd = "default_resource_spec", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_settings__code_editor_app_settings__custom_image)
+               v_custom_image
+           in
+           let bnd = "custom_image", arg in
            bnd :: bnds
        in
        let bnds =
@@ -2026,6 +2137,11 @@ let user_settings__canvas_app_settings__direct_deploy_settings
     user_settings__canvas_app_settings__direct_deploy_settings =
   { status }
 
+let user_settings__canvas_app_settings__generative_ai_settings
+    ?amazon_bedrock_role_arn () :
+    user_settings__canvas_app_settings__generative_ai_settings =
+  { amazon_bedrock_role_arn }
+
 let user_settings__canvas_app_settings__identity_provider_oauth_settings
     ?data_source_name ?status ~secret_arn () :
     user_settings__canvas_app_settings__identity_provider_oauth_settings
@@ -2053,6 +2169,7 @@ let user_settings__canvas_app_settings__workspace_settings
   { s3_artifact_path; s3_kms_key_id }
 
 let user_settings__canvas_app_settings ?(direct_deploy_settings = [])
+    ?(generative_ai_settings = [])
     ?(identity_provider_oauth_settings = []) ?(kendra_settings = [])
     ?(model_register_settings = [])
     ?(time_series_forecasting_settings = [])
@@ -2060,12 +2177,18 @@ let user_settings__canvas_app_settings ?(direct_deploy_settings = [])
     user_settings__canvas_app_settings =
   {
     direct_deploy_settings;
+    generative_ai_settings;
     identity_provider_oauth_settings;
     kendra_settings;
     model_register_settings;
     time_series_forecasting_settings;
     workspace_settings;
   }
+
+let user_settings__code_editor_app_settings__custom_image
+    ?image_version_number ~app_image_config_name ~image_name () :
+    user_settings__code_editor_app_settings__custom_image =
+  { app_image_config_name; image_name; image_version_number }
 
 let user_settings__code_editor_app_settings__default_resource_spec
     ?instance_type ?lifecycle_config_arn ?sagemaker_image_arn
@@ -2080,9 +2203,9 @@ let user_settings__code_editor_app_settings__default_resource_spec
   }
 
 let user_settings__code_editor_app_settings ?lifecycle_config_arns
-    ?(default_resource_spec = []) () :
+    ?(custom_image = []) ?(default_resource_spec = []) () :
     user_settings__code_editor_app_settings =
-  { lifecycle_config_arns; default_resource_spec }
+  { lifecycle_config_arns; custom_image; default_resource_spec }
 
 let user_settings__custom_file_system_config__efs_file_system_config
     ?file_system_path ~file_system_id () :

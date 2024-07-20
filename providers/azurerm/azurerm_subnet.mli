@@ -33,9 +33,11 @@ val timeouts :
 type azurerm_subnet
 
 val azurerm_subnet :
+  ?default_outbound_access_enabled:bool prop ->
   ?enforce_private_link_endpoint_network_policies:bool prop ->
   ?enforce_private_link_service_network_policies:bool prop ->
   ?id:string prop ->
+  ?private_endpoint_network_policies:string prop ->
   ?private_endpoint_network_policies_enabled:bool prop ->
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->
@@ -56,10 +58,12 @@ val yojson_of_azurerm_subnet : azurerm_subnet -> json
 type t = private {
   tf_name : string;
   address_prefixes : string list prop;
+  default_outbound_access_enabled : bool prop;
   enforce_private_link_endpoint_network_policies : bool prop;
   enforce_private_link_service_network_policies : bool prop;
   id : string prop;
   name : string prop;
+  private_endpoint_network_policies : string prop;
   private_endpoint_network_policies_enabled : bool prop;
   private_link_service_network_policies_enabled : bool prop;
   resource_group_name : string prop;
@@ -70,9 +74,11 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?default_outbound_access_enabled:bool prop ->
   ?enforce_private_link_endpoint_network_policies:bool prop ->
   ?enforce_private_link_service_network_policies:bool prop ->
   ?id:string prop ->
+  ?private_endpoint_network_policies:string prop ->
   ?private_endpoint_network_policies_enabled:bool prop ->
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->
@@ -87,9 +93,11 @@ val register :
   t
 
 val make :
+  ?default_outbound_access_enabled:bool prop ->
   ?enforce_private_link_endpoint_network_policies:bool prop ->
   ?enforce_private_link_service_network_policies:bool prop ->
   ?id:string prop ->
+  ?private_endpoint_network_policies:string prop ->
   ?private_endpoint_network_policies_enabled:bool prop ->
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->

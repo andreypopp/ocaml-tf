@@ -162,6 +162,7 @@ type t = {
   name : string prop;
   parent_management_group_id : string prop;
   subscription_ids : string list prop;
+  tenant_scoped_id : string prop;
 }
 
 let make ?display_name ?id ?name ?parent_management_group_id
@@ -177,6 +178,8 @@ let make ?display_name ?id ?name ?parent_management_group_id
          Prop.computed __type __id "parent_management_group_id";
        subscription_ids =
          Prop.computed __type __id "subscription_ids";
+       tenant_scoped_id =
+         Prop.computed __type __id "tenant_scoped_id";
      }
       : t)
   in

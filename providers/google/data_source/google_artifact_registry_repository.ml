@@ -392,7 +392,41 @@ let _ = yojson_of_remote_repository_config__upstream_credentials
 
 [@@@deriving.end]
 
+type remote_repository_config__python_repository__custom_repository = {
+  uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__python_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__python_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__python_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__python_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__python_repository = {
+  custom_repository :
+    remote_repository_config__python_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -401,7 +435,10 @@ let _ = fun (_ : remote_repository_config__python_repository) -> ()
 
 let yojson_of_remote_repository_config__python_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       custom_repository = v_custom_repository;
+       public_repository = v_public_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -410,6 +447,17 @@ let yojson_of_remote_repository_config__python_repository =
            yojson_of_prop yojson_of_string v_public_repository
          in
          ("public_repository", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__python_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : remote_repository_config__python_repository ->
@@ -419,7 +467,40 @@ let _ = yojson_of_remote_repository_config__python_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__npm_repository__custom_repository = {
+  uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__npm_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__npm_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__npm_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__npm_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__npm_repository = {
+  custom_repository :
+    remote_repository_config__npm_repository__custom_repository list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -428,7 +509,10 @@ let _ = fun (_ : remote_repository_config__npm_repository) -> ()
 
 let yojson_of_remote_repository_config__npm_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       custom_repository = v_custom_repository;
+       public_repository = v_public_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -437,6 +521,17 @@ let yojson_of_remote_repository_config__npm_repository =
            yojson_of_prop yojson_of_string v_public_repository
          in
          ("public_repository", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__npm_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : remote_repository_config__npm_repository ->
@@ -446,7 +541,41 @@ let _ = yojson_of_remote_repository_config__npm_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__maven_repository__custom_repository = {
+  uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__maven_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__maven_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__maven_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__maven_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__maven_repository = {
+  custom_repository :
+    remote_repository_config__maven_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -455,7 +584,10 @@ let _ = fun (_ : remote_repository_config__maven_repository) -> ()
 
 let yojson_of_remote_repository_config__maven_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       custom_repository = v_custom_repository;
+       public_repository = v_public_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -464,6 +596,17 @@ let yojson_of_remote_repository_config__maven_repository =
            yojson_of_prop yojson_of_string v_public_repository
          in
          ("public_repository", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__maven_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : remote_repository_config__maven_repository ->
@@ -473,7 +616,41 @@ let _ = yojson_of_remote_repository_config__maven_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__docker_repository__custom_repository = {
+  uri : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__docker_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__docker_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__docker_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__docker_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__docker_repository = {
+  custom_repository :
+    remote_repository_config__docker_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   public_repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -482,7 +659,10 @@ let _ = fun (_ : remote_repository_config__docker_repository) -> ()
 
 let yojson_of_remote_repository_config__docker_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       custom_repository = v_custom_repository;
+       public_repository = v_public_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -491,6 +671,17 @@ let yojson_of_remote_repository_config__docker_repository =
            yojson_of_prop yojson_of_string v_public_repository
          in
          ("public_repository", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__docker_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : remote_repository_config__docker_repository ->
@@ -580,6 +771,7 @@ type remote_repository_config = {
   apt_repository : remote_repository_config__apt_repository list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   description : string prop;
+  disable_upstream_validation : bool prop;
   docker_repository :
     remote_repository_config__docker_repository list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -605,6 +797,7 @@ let yojson_of_remote_repository_config =
    | {
        apt_repository = v_apt_repository;
        description = v_description;
+       disable_upstream_validation = v_disable_upstream_validation;
        docker_repository = v_docker_repository;
        maven_repository = v_maven_repository;
        npm_repository = v_npm_repository;
@@ -680,6 +873,13 @@ let yojson_of_remote_repository_config =
            in
            let bnd = "docker_repository", arg in
            bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_disable_upstream_validation
+         in
+         ("disable_upstream_validation", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in

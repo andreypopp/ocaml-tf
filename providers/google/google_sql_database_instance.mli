@@ -208,6 +208,7 @@ val settings :
   ?disk_size:float prop ->
   ?disk_type:string prop ->
   ?edition:string prop ->
+  ?enable_google_ml_integration:bool prop ->
   ?pricing_plan:string prop ->
   ?time_zone:string prop ->
   ?user_labels:(string * string prop) list ->

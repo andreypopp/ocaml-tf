@@ -56,7 +56,6 @@ val aws_fsx_ontap_file_system :
   ?kms_key_id:string prop ->
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
-  ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -67,6 +66,7 @@ val aws_fsx_ontap_file_system :
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
+  storage_capacity:float prop ->
   subnet_ids:string prop list ->
   unit ->
   aws_fsx_ontap_file_system
@@ -116,7 +116,6 @@ val register :
   ?kms_key_id:string prop ->
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
-  ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -127,6 +126,7 @@ val register :
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
+  storage_capacity:float prop ->
   subnet_ids:string prop list ->
   string ->
   t
@@ -141,7 +141,6 @@ val make :
   ?kms_key_id:string prop ->
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
-  ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -152,6 +151,7 @@ val make :
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
+  storage_capacity:float prop ->
   subnet_ids:string prop list ->
   string ->
   t Tf_core.resource

@@ -158,6 +158,46 @@ let _ = yojson_of_managed_network
 
 [@@@deriving.end]
 
+type serverless_compute = {
+  public_ip_enabled : bool prop option; [@option]
+  subnet_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serverless_compute) -> ()
+
+let yojson_of_serverless_compute =
+  (function
+   | {
+       public_ip_enabled = v_public_ip_enabled;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_ip_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serverless_compute -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serverless_compute
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -247,6 +287,8 @@ type azurerm_machine_learning_workspace = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_network : managed_network list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  serverless_compute : serverless_compute list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -282,6 +324,7 @@ let yojson_of_azurerm_machine_learning_workspace =
        feature_store = v_feature_store;
        identity = v_identity;
        managed_network = v_managed_network;
+       serverless_compute = v_serverless_compute;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -290,6 +333,16 @@ let yojson_of_azurerm_machine_learning_workspace =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_serverless_compute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_serverless_compute)
+               v_serverless_compute
+           in
+           let bnd = "serverless_compute", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_managed_network then bnds
@@ -499,6 +552,10 @@ let identity ?identity_ids ~type_ () : identity =
 let managed_network ?isolation_mode () : managed_network =
   { isolation_mode }
 
+let serverless_compute ?public_ip_enabled ?subnet_id () :
+    serverless_compute =
+  { public_ip_enabled; subnet_id }
+
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
@@ -508,9 +565,9 @@ let azurerm_machine_learning_workspace ?container_registry_id
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
     ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
-    ?(managed_network = []) ?timeouts ~application_insights_id
-    ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~identity () :
+    ?(managed_network = []) ?(serverless_compute = []) ?timeouts
+    ~application_insights_id ~key_vault_id ~location ~name
+    ~resource_group_name ~storage_account_id ~identity () :
     azurerm_machine_learning_workspace =
   {
     application_insights_id;
@@ -536,6 +593,7 @@ let azurerm_machine_learning_workspace ?container_registry_id
     feature_store;
     identity;
     managed_network;
+    serverless_compute;
     timeouts;
   }
 
@@ -570,9 +628,9 @@ let make ?container_registry_id ?description ?friendly_name
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
     ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
-    ?(managed_network = []) ?timeouts ~application_insights_id
-    ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~identity __id =
+    ?(managed_network = []) ?(serverless_compute = []) ?timeouts
+    ~application_insights_id ~key_vault_id ~location ~name
+    ~resource_group_name ~storage_account_id ~identity __id =
   let __type = "azurerm_machine_learning_workspace" in
   let __attrs =
     ({
@@ -624,9 +682,9 @@ let make ?container_registry_id ?description ?friendly_name
            ?public_access_behind_virtual_network_enabled
            ?public_network_access_enabled ?sku_name ?tags
            ?v1_legacy_mode_enabled ~encryption ~feature_store
-           ~managed_network ?timeouts ~application_insights_id
-           ~key_vault_id ~location ~name ~resource_group_name
-           ~storage_account_id ~identity ());
+           ~managed_network ~serverless_compute ?timeouts
+           ~application_insights_id ~key_vault_id ~location ~name
+           ~resource_group_name ~storage_account_id ~identity ());
     attrs = __attrs;
   }
 
@@ -636,9 +694,9 @@ let register ?tf_module ?container_registry_id ?description
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
     ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
-    ?(managed_network = []) ?timeouts ~application_insights_id
-    ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~identity __id =
+    ?(managed_network = []) ?(serverless_compute = []) ?timeouts
+    ~application_insights_id ~key_vault_id ~location ~name
+    ~resource_group_name ~storage_account_id ~identity __id =
   let (r : _ Tf_core.resource) =
     make ?container_registry_id ?description ?friendly_name
       ?high_business_impact ?id ?image_build_compute_name ?kind
@@ -646,9 +704,9 @@ let register ?tf_module ?container_registry_id ?description
       ?public_access_behind_virtual_network_enabled
       ?public_network_access_enabled ?sku_name ?tags
       ?v1_legacy_mode_enabled ~encryption ~feature_store
-      ~managed_network ?timeouts ~application_insights_id
-      ~key_vault_id ~location ~name ~resource_group_name
-      ~storage_account_id ~identity __id
+      ~managed_network ~serverless_compute ?timeouts
+      ~application_insights_id ~key_vault_id ~location ~name
+      ~resource_group_name ~storage_account_id ~identity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

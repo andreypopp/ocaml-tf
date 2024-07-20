@@ -26,6 +26,14 @@ val action :
   unit ->
   action
 
+type experiment_options
+
+val experiment_options :
+  ?account_targeting:string prop ->
+  ?empty_target_resolution_mode:string prop ->
+  unit ->
+  experiment_options
+
 type log_configuration__cloudwatch_logs_configuration
 
 val log_configuration__cloudwatch_logs_configuration :
@@ -100,6 +108,7 @@ val aws_fis_experiment_template :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->
@@ -129,6 +138,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->
@@ -143,6 +153,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->

@@ -128,6 +128,7 @@ type origins = {
   address : string prop;
   enabled : bool prop option; [@option]
   name : string prop;
+  virtual_network_id : string prop option; [@option]
   weight : float prop option; [@option]
   header : origins__header list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -142,6 +143,7 @@ let yojson_of_origins =
        address = v_address;
        enabled = v_enabled;
        name = v_name;
+       virtual_network_id = v_virtual_network_id;
        weight = v_weight;
        header = v_header;
      } ->
@@ -163,6 +165,14 @@ let yojson_of_origins =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_virtual_network_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_network_id", arg in
              bnd :: bnds
        in
        let bnds =
@@ -362,8 +372,9 @@ let origin_steering ?policy () : origin_steering = { policy }
 let origins__header ~header ~values () : origins__header =
   { header; values }
 
-let origins ?enabled ?weight ~address ~name ~header () : origins =
-  { address; enabled; name; weight; header }
+let origins ?enabled ?virtual_network_id ?weight ~address ~name
+    ~header () : origins =
+  { address; enabled; name; virtual_network_id; weight; header }
 
 let cloudflare_load_balancer_pool ?check_regions ?description
     ?enabled ?id ?latitude ?longitude ?minimum_origins ?monitor

@@ -4,6 +4,10 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type options
+
+val options : ?dynamic_routing:string prop -> unit -> options
+
 type aws_ec2_transit_gateway_peering_attachment
 
 val aws_ec2_transit_gateway_peering_attachment :
@@ -11,6 +15,7 @@ val aws_ec2_transit_gateway_peering_attachment :
   ?peer_account_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   peer_region:string prop ->
   peer_transit_gateway_id:string prop ->
   transit_gateway_id:string prop ->
@@ -40,6 +45,7 @@ val register :
   ?peer_account_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   peer_region:string prop ->
   peer_transit_gateway_id:string prop ->
   transit_gateway_id:string prop ->
@@ -51,6 +57,7 @@ val make :
   ?peer_account_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   peer_region:string prop ->
   peer_transit_gateway_id:string prop ->
   transit_gateway_id:string prop ->

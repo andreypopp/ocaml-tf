@@ -2,6 +2,65 @@
 
 open! Tf_core
 
+type canary_settings = {
+  percent_traffic : float prop option; [@option]
+  stage_variable_overrides : (string * string prop) list option;
+      [@option]
+  use_stage_cache : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : canary_settings) -> ()
+
+let yojson_of_canary_settings =
+  (function
+   | {
+       percent_traffic = v_percent_traffic;
+       stage_variable_overrides = v_stage_variable_overrides;
+       use_stage_cache = v_use_stage_cache;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_stage_cache with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_stage_cache", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stage_variable_overrides with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "stage_variable_overrides", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_percent_traffic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "percent_traffic", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : canary_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_canary_settings
+
+[@@@deriving.end]
+
 type aws_api_gateway_deployment = {
   description : string prop option; [@option]
   id : string prop option; [@option]
@@ -10,6 +69,8 @@ type aws_api_gateway_deployment = {
   stage_name : string prop option; [@option]
   triggers : (string * string prop) list option; [@option]
   variables : (string * string prop) list option; [@option]
+  canary_settings : canary_settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25,9 +86,20 @@ let yojson_of_aws_api_gateway_deployment =
        stage_name = v_stage_name;
        triggers = v_triggers;
        variables = v_variables;
+       canary_settings = v_canary_settings;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_canary_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_canary_settings)
+               v_canary_settings
+           in
+           let bnd = "canary_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_variables with
@@ -104,9 +176,13 @@ let _ = yojson_of_aws_api_gateway_deployment
 
 [@@@deriving.end]
 
+let canary_settings ?percent_traffic ?stage_variable_overrides
+    ?use_stage_cache () : canary_settings =
+  { percent_traffic; stage_variable_overrides; use_stage_cache }
+
 let aws_api_gateway_deployment ?description ?id ?stage_description
-    ?stage_name ?triggers ?variables ~rest_api_id () :
-    aws_api_gateway_deployment =
+    ?stage_name ?triggers ?variables ?(canary_settings = [])
+    ~rest_api_id () : aws_api_gateway_deployment =
   {
     description;
     id;
@@ -115,6 +191,7 @@ let aws_api_gateway_deployment ?description ?id ?stage_description
     stage_name;
     triggers;
     variables;
+    canary_settings;
   }
 
 type t = {
@@ -132,7 +209,7 @@ type t = {
 }
 
 let make ?description ?id ?stage_description ?stage_name ?triggers
-    ?variables ~rest_api_id __id =
+    ?variables ?(canary_settings = []) ~rest_api_id __id =
   let __type = "aws_api_gateway_deployment" in
   let __attrs =
     ({
@@ -158,15 +235,16 @@ let make ?description ?id ?stage_description ?stage_name ?triggers
       yojson_of_aws_api_gateway_deployment
         (aws_api_gateway_deployment ?description ?id
            ?stage_description ?stage_name ?triggers ?variables
-           ~rest_api_id ());
+           ~canary_settings ~rest_api_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?stage_description
-    ?stage_name ?triggers ?variables ~rest_api_id __id =
+    ?stage_name ?triggers ?variables ?(canary_settings = [])
+    ~rest_api_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?stage_description ?stage_name ?triggers
-      ?variables ~rest_api_id __id
+      ?variables ~canary_settings ~rest_api_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

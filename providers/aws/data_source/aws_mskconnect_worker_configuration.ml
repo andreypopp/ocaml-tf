@@ -5,6 +5,7 @@ open! Tf_core
 type aws_mskconnect_worker_configuration = {
   id : string prop option; [@option]
   name : string prop;
+  tags : (string * string prop) list option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -12,9 +13,25 @@ let _ = fun (_ : aws_mskconnect_worker_configuration) -> ()
 
 let yojson_of_aws_mskconnect_worker_configuration =
   (function
-   | { id = v_id; name = v_name } ->
+   | { id = v_id; name = v_name; tags = v_tags } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -36,9 +53,9 @@ let _ = yojson_of_aws_mskconnect_worker_configuration
 
 [@@@deriving.end]
 
-let aws_mskconnect_worker_configuration ?id ~name () :
+let aws_mskconnect_worker_configuration ?id ?tags ~name () :
     aws_mskconnect_worker_configuration =
-  { id; name }
+  { id; name; tags }
 
 type t = {
   tf_name : string;
@@ -48,9 +65,10 @@ type t = {
   latest_revision : float prop;
   name : string prop;
   properties_file_content : string prop;
+  tags : (string * string) list prop;
 }
 
-let make ?id ~name __id =
+let make ?id ?tags ~name __id =
   let __type = "aws_mskconnect_worker_configuration" in
   let __attrs =
     ({
@@ -62,6 +80,7 @@ let make ?id ~name __id =
        name = Prop.computed __type __id "name";
        properties_file_content =
          Prop.computed __type __id "properties_file_content";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
@@ -70,11 +89,11 @@ let make ?id ~name __id =
     type_ = __type;
     json =
       yojson_of_aws_mskconnect_worker_configuration
-        (aws_mskconnect_worker_configuration ?id ~name ());
+        (aws_mskconnect_worker_configuration ?id ?tags ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~name __id =
-  let (r : _ Tf_core.resource) = make ?id ~name __id in
+let register ?tf_module ?id ?tags ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ?tags ~name __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

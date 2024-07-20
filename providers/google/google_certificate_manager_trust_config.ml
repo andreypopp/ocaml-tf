@@ -2,6 +2,30 @@
 
 open! Tf_core
 
+type allowlisted_certificates = { pem_certificate : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : allowlisted_certificates) -> ()
+
+let yojson_of_allowlisted_certificates =
+  (function
+   | { pem_certificate = v_pem_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_pem_certificate
+         in
+         ("pem_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : allowlisted_certificates -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_allowlisted_certificates
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -159,6 +183,8 @@ type google_certificate_manager_trust_config = {
   location : string prop;
   name : string prop;
   project : string prop option; [@option]
+  allowlisted_certificates : allowlisted_certificates list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   trust_stores : trust_stores list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -176,6 +202,7 @@ let yojson_of_google_certificate_manager_trust_config =
        location = v_location;
        name = v_name;
        project = v_project;
+       allowlisted_certificates = v_allowlisted_certificates;
        timeouts = v_timeouts;
        trust_stores = v_trust_stores;
      } ->
@@ -194,6 +221,16 @@ let yojson_of_google_certificate_manager_trust_config =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_allowlisted_certificates then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_allowlisted_certificates)
+               v_allowlisted_certificates
+           in
+           let bnd = "allowlisted_certificates", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with
@@ -251,6 +288,10 @@ let _ = yojson_of_google_certificate_manager_trust_config
 
 [@@@deriving.end]
 
+let allowlisted_certificates ~pem_certificate () :
+    allowlisted_certificates =
+  { pem_certificate }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
@@ -267,7 +308,8 @@ let trust_stores ?(intermediate_cas = []) ?(trust_anchors = []) () :
   { intermediate_cas; trust_anchors }
 
 let google_certificate_manager_trust_config ?description ?id ?labels
-    ?project ?timeouts ?(trust_stores = []) ~location ~name () :
+    ?project ?(allowlisted_certificates = []) ?timeouts
+    ?(trust_stores = []) ~location ~name () :
     google_certificate_manager_trust_config =
   {
     description;
@@ -276,6 +318,7 @@ let google_certificate_manager_trust_config ?description ?id ?labels
     location;
     name;
     project;
+    allowlisted_certificates;
     timeouts;
     trust_stores;
   }
@@ -294,8 +337,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts
-    ?(trust_stores = []) ~location ~name __id =
+let make ?description ?id ?labels ?project
+    ?(allowlisted_certificates = []) ?timeouts ?(trust_stores = [])
+    ~location ~name __id =
   let __type = "google_certificate_manager_trust_config" in
   let __attrs =
     ({
@@ -321,16 +365,17 @@ let make ?description ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_certificate_manager_trust_config
         (google_certificate_manager_trust_config ?description ?id
-           ?labels ?project ?timeouts ~trust_stores ~location ~name
-           ());
+           ?labels ?project ~allowlisted_certificates ?timeouts
+           ~trust_stores ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ?(trust_stores = []) ~location ~name __id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?(allowlisted_certificates = []) ?timeouts ?(trust_stores = [])
+    ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~trust_stores
-      ~location ~name __id
+    make ?description ?id ?labels ?project ~allowlisted_certificates
+      ?timeouts ~trust_stores ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

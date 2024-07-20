@@ -6,6 +6,7 @@ open! Tf_core
 
 type bigquery_config = {
   drop_unknown_fields : bool prop;  (** drop_unknown_fields *)
+  service_account_email : string prop;  (** service_account_email *)
   table : string prop;  (** table *)
   use_table_schema : bool prop;  (** use_table_schema *)
   use_topic_schema : bool prop;  (** use_topic_schema *)
@@ -21,10 +22,13 @@ type cloud_storage_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** avro_config *)
   bucket : string prop;  (** bucket *)
+  filename_datetime_format : string prop;
+      (** filename_datetime_format *)
   filename_prefix : string prop;  (** filename_prefix *)
   filename_suffix : string prop;  (** filename_suffix *)
   max_bytes : float prop;  (** max_bytes *)
   max_duration : string prop;  (** max_duration *)
+  service_account_email : string prop;  (** service_account_email *)
   state : string prop;  (** state *)
 }
 

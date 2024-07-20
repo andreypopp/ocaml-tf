@@ -68,6 +68,7 @@ val aws_rds_cluster :
   ?availability_zones:string prop list ->
   ?backtrack_window:float prop ->
   ?backup_retention_period:float prop ->
+  ?ca_certificate_identifier:string prop ->
   ?cluster_identifier:string prop ->
   ?cluster_identifier_prefix:string prop ->
   ?cluster_members:string prop list ->
@@ -84,7 +85,9 @@ val aws_rds_cluster :
   ?domain_iam_role_name:string prop ->
   ?enable_global_write_forwarding:bool prop ->
   ?enable_http_endpoint:bool prop ->
+  ?enable_local_write_forwarding:bool prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_mode:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
@@ -134,6 +137,8 @@ type t = private {
   availability_zones : string list prop;
   backtrack_window : float prop;
   backup_retention_period : float prop;
+  ca_certificate_identifier : string prop;
+  ca_certificate_valid_till : string prop;
   cluster_identifier : string prop;
   cluster_identifier_prefix : string prop;
   cluster_members : string list prop;
@@ -151,9 +156,11 @@ type t = private {
   domain_iam_role_name : string prop;
   enable_global_write_forwarding : bool prop;
   enable_http_endpoint : bool prop;
+  enable_local_write_forwarding : bool prop;
   enabled_cloudwatch_logs_exports : string list prop;
   endpoint : string prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_mode : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
@@ -194,6 +201,7 @@ val register :
   ?availability_zones:string prop list ->
   ?backtrack_window:float prop ->
   ?backup_retention_period:float prop ->
+  ?ca_certificate_identifier:string prop ->
   ?cluster_identifier:string prop ->
   ?cluster_identifier_prefix:string prop ->
   ?cluster_members:string prop list ->
@@ -210,7 +218,9 @@ val register :
   ?domain_iam_role_name:string prop ->
   ?enable_global_write_forwarding:bool prop ->
   ?enable_http_endpoint:bool prop ->
+  ?enable_local_write_forwarding:bool prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_mode:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
@@ -254,6 +264,7 @@ val make :
   ?availability_zones:string prop list ->
   ?backtrack_window:float prop ->
   ?backup_retention_period:float prop ->
+  ?ca_certificate_identifier:string prop ->
   ?cluster_identifier:string prop ->
   ?cluster_identifier_prefix:string prop ->
   ?cluster_members:string prop list ->
@@ -270,7 +281,9 @@ val make :
   ?domain_iam_role_name:string prop ->
   ?enable_global_write_forwarding:bool prop ->
   ?enable_http_endpoint:bool prop ->
+  ?enable_local_write_forwarding:bool prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_mode:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->

@@ -1,3 +1,5 @@
+(** A ClusterRoleBinding may be used to grant permission at the cluster level and in all namespaces *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

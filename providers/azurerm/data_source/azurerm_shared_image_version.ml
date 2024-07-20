@@ -77,6 +77,7 @@ type azurerm_shared_image_version = {
   name : string prop;
   resource_group_name : string prop;
   sort_versions_by_semver : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -92,6 +93,7 @@ let yojson_of_azurerm_shared_image_version =
        name = v_name;
        resource_group_name = v_resource_group_name;
        sort_versions_by_semver = v_sort_versions_by_semver;
+       tags = v_tags;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -100,6 +102,22 @@ let yojson_of_azurerm_shared_image_version =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_sort_versions_by_semver with
@@ -145,7 +163,7 @@ let _ = yojson_of_azurerm_shared_image_version
 
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_shared_image_version ?id ?sort_versions_by_semver
+let azurerm_shared_image_version ?id ?sort_versions_by_semver ?tags
     ?timeouts ~gallery_name ~image_name ~name ~resource_group_name ()
     : azurerm_shared_image_version =
   {
@@ -155,6 +173,7 @@ let azurerm_shared_image_version ?id ?sort_versions_by_semver
     name;
     resource_group_name;
     sort_versions_by_semver;
+    tags;
     timeouts;
   }
 
@@ -175,7 +194,7 @@ type t = {
   target_region : target_region list prop;
 }
 
-let make ?id ?sort_versions_by_semver ?timeouts ~gallery_name
+let make ?id ?sort_versions_by_semver ?tags ?timeouts ~gallery_name
     ~image_name ~name ~resource_group_name __id =
   let __type = "azurerm_shared_image_version" in
   let __attrs =
@@ -209,15 +228,15 @@ let make ?id ?sort_versions_by_semver ?timeouts ~gallery_name
     json =
       yojson_of_azurerm_shared_image_version
         (azurerm_shared_image_version ?id ?sort_versions_by_semver
-           ?timeouts ~gallery_name ~image_name ~name
+           ?tags ?timeouts ~gallery_name ~image_name ~name
            ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?sort_versions_by_semver ?timeouts
+let register ?tf_module ?id ?sort_versions_by_semver ?tags ?timeouts
     ~gallery_name ~image_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?sort_versions_by_semver ?timeouts ~gallery_name
+    make ?id ?sort_versions_by_semver ?tags ?timeouts ~gallery_name
       ~image_name ~name ~resource_group_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

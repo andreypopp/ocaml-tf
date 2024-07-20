@@ -1,6 +1,6 @@
 (library
- (name tf_azure)
- (public_name tf_azure)
+ (name tf_azurerm)
+ (public_name tf_azurerm)
  (modes native)
  (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
  (lint

@@ -121,6 +121,7 @@ type t = private {
   tf_name : string;
   architectures : string list prop;
   arn : string prop;
+  code_sha256 : string prop;
   code_signing_config_arn : string prop;
   description : string prop;
   filename : string prop;

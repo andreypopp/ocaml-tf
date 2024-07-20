@@ -4,10 +4,19 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type parameters
+
+val parameters :
+  key:string prop -> value:string prop -> unit -> parameters
+
 type timeouts
 
 val timeouts :
-  ?create:string prop -> ?delete:string prop -> unit -> timeouts
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
 
 type aws_controltower_control
 
@@ -16,6 +25,7 @@ val aws_controltower_control :
   ?timeouts:timeouts ->
   control_identifier:string prop ->
   target_identifier:string prop ->
+  parameters:parameters list ->
   unit ->
   aws_controltower_control
 
@@ -26,6 +36,7 @@ val yojson_of_aws_controltower_control :
 
 type t = private {
   tf_name : string;
+  arn : string prop;
   control_identifier : string prop;
   id : string prop;
   target_identifier : string prop;
@@ -37,6 +48,7 @@ val register :
   ?timeouts:timeouts ->
   control_identifier:string prop ->
   target_identifier:string prop ->
+  parameters:parameters list ->
   string ->
   t
 
@@ -45,5 +57,6 @@ val make :
   ?timeouts:timeouts ->
   control_identifier:string prop ->
   target_identifier:string prop ->
+  parameters:parameters list ->
   string ->
   t Tf_core.resource

@@ -264,6 +264,7 @@ type aws_fms_policy = {
   id : string prop option; [@option]
   name : string prop;
   remediation_enabled : bool prop option; [@option]
+  resource_set_ids : string prop list option; [@option]
   resource_tags : (string * string prop) list option; [@option]
   resource_type : string prop option; [@option]
   resource_type_list : string prop list option; [@option]
@@ -291,6 +292,7 @@ let yojson_of_aws_fms_policy =
        id = v_id;
        name = v_name;
        remediation_enabled = v_remediation_enabled;
+       resource_set_ids = v_resource_set_ids;
        resource_tags = v_resource_tags;
        resource_type = v_resource_type;
        resource_type_list = v_resource_type_list;
@@ -398,6 +400,16 @@ let yojson_of_aws_fms_policy =
              bnd :: bnds
        in
        let bnds =
+         match v_resource_set_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_set_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_remediation_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -484,10 +496,10 @@ let security_service_policy_data ?managed_service_data
 
 let aws_fms_policy ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
-    ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
-    ?(include_map = []) ~exclude_resource_tags ~name
-    ~security_service_policy_data () : aws_fms_policy =
+    ?remediation_enabled ?resource_set_ids ?resource_tags
+    ?resource_type ?resource_type_list ?tags ?tags_all
+    ?(exclude_map = []) ?(include_map = []) ~exclude_resource_tags
+    ~name ~security_service_policy_data () : aws_fms_policy =
   {
     delete_all_policy_resources;
     delete_unused_fm_managed_resources;
@@ -496,6 +508,7 @@ let aws_fms_policy ?delete_all_policy_resources
     id;
     name;
     remediation_enabled;
+    resource_set_ids;
     resource_tags;
     resource_type;
     resource_type_list;
@@ -517,6 +530,7 @@ type t = {
   name : string prop;
   policy_update_token : string prop;
   remediation_enabled : bool prop;
+  resource_set_ids : string list prop;
   resource_tags : (string * string) list prop;
   resource_type : string prop;
   resource_type_list : string list prop;
@@ -526,10 +540,10 @@ type t = {
 
 let make ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
-    ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
-    ?(include_map = []) ~exclude_resource_tags ~name
-    ~security_service_policy_data __id =
+    ?remediation_enabled ?resource_set_ids ?resource_tags
+    ?resource_type ?resource_type_list ?tags ?tags_all
+    ?(exclude_map = []) ?(include_map = []) ~exclude_resource_tags
+    ~name ~security_service_policy_data __id =
   let __type = "aws_fms_policy" in
   let __attrs =
     ({
@@ -549,6 +563,8 @@ let make ?delete_all_policy_resources
          Prop.computed __type __id "policy_update_token";
        remediation_enabled =
          Prop.computed __type __id "remediation_enabled";
+       resource_set_ids =
+         Prop.computed __type __id "resource_set_ids";
        resource_tags = Prop.computed __type __id "resource_tags";
        resource_type = Prop.computed __type __id "resource_type";
        resource_type_list =
@@ -565,25 +581,26 @@ let make ?delete_all_policy_resources
       yojson_of_aws_fms_policy
         (aws_fms_policy ?delete_all_policy_resources
            ?delete_unused_fm_managed_resources ?description ?id
-           ?remediation_enabled ?resource_tags ?resource_type
-           ?resource_type_list ?tags ?tags_all ~exclude_map
-           ~include_map ~exclude_resource_tags ~name
+           ?remediation_enabled ?resource_set_ids ?resource_tags
+           ?resource_type ?resource_type_list ?tags ?tags_all
+           ~exclude_map ~include_map ~exclude_resource_tags ~name
            ~security_service_policy_data ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
-    ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
-    ?(include_map = []) ~exclude_resource_tags ~name
-    ~security_service_policy_data __id =
+    ?remediation_enabled ?resource_set_ids ?resource_tags
+    ?resource_type ?resource_type_list ?tags ?tags_all
+    ?(exclude_map = []) ?(include_map = []) ~exclude_resource_tags
+    ~name ~security_service_policy_data __id =
   let (r : _ Tf_core.resource) =
     make ?delete_all_policy_resources
       ?delete_unused_fm_managed_resources ?description ?id
-      ?remediation_enabled ?resource_tags ?resource_type
-      ?resource_type_list ?tags ?tags_all ~exclude_map ~include_map
-      ~exclude_resource_tags ~name ~security_service_policy_data __id
+      ?remediation_enabled ?resource_set_ids ?resource_tags
+      ?resource_type ?resource_type_list ?tags ?tags_all ~exclude_map
+      ~include_map ~exclude_resource_tags ~name
+      ~security_service_policy_data __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

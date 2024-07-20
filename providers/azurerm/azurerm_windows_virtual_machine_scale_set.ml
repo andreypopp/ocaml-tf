@@ -1096,6 +1096,7 @@ type rolling_upgrade_policy = {
   max_batch_instance_percent : float prop;
   max_unhealthy_instance_percent : float prop;
   max_unhealthy_upgraded_instance_percent : float prop;
+  maximum_surge_instances_enabled : bool prop option; [@option]
   pause_time_between_batches : string prop;
   prioritize_unhealthy_instances_enabled : bool prop option; [@option]
 }
@@ -1112,6 +1113,8 @@ let yojson_of_rolling_upgrade_policy =
          v_max_unhealthy_instance_percent;
        max_unhealthy_upgraded_instance_percent =
          v_max_unhealthy_upgraded_instance_percent;
+       maximum_surge_instances_enabled =
+         v_maximum_surge_instances_enabled;
        pause_time_between_batches = v_pause_time_between_batches;
        prioritize_unhealthy_instances_enabled =
          v_prioritize_unhealthy_instances_enabled;
@@ -1135,6 +1138,14 @@ let yojson_of_rolling_upgrade_policy =
              v_pause_time_between_batches
          in
          ("pause_time_between_batches", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_surge_instances_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "maximum_surge_instances_enabled", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2326,6 +2337,7 @@ let plan ~name ~product ~publisher () : plan =
   { name; product; publisher }
 
 let rolling_upgrade_policy ?cross_zone_upgrades_enabled
+    ?maximum_surge_instances_enabled
     ?prioritize_unhealthy_instances_enabled
     ~max_batch_instance_percent ~max_unhealthy_instance_percent
     ~max_unhealthy_upgraded_instance_percent
@@ -2335,6 +2347,7 @@ let rolling_upgrade_policy ?cross_zone_upgrades_enabled
     max_batch_instance_percent;
     max_unhealthy_instance_percent;
     max_unhealthy_upgraded_instance_percent;
+    maximum_surge_instances_enabled;
     pause_time_between_batches;
     prioritize_unhealthy_instances_enabled;
   }

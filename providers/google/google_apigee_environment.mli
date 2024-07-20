@@ -28,6 +28,7 @@ val google_apigee_environment :
   ?deployment_type:string prop ->
   ?description:string prop ->
   ?display_name:string prop ->
+  ?forward_proxy_uri:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
   ?node_config:node_config list ->
@@ -48,6 +49,7 @@ type t = private {
   deployment_type : string prop;
   description : string prop;
   display_name : string prop;
+  forward_proxy_uri : string prop;
   id : string prop;
   name : string prop;
   org_id : string prop;
@@ -60,6 +62,7 @@ val register :
   ?deployment_type:string prop ->
   ?description:string prop ->
   ?display_name:string prop ->
+  ?forward_proxy_uri:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
   ?node_config:node_config list ->
@@ -74,6 +77,7 @@ val make :
   ?deployment_type:string prop ->
   ?description:string prop ->
   ?display_name:string prop ->
+  ?forward_proxy_uri:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
   ?node_config:node_config list ->

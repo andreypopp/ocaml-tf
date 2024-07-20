@@ -1,3 +1,5 @@
+(** A Service is an abstraction which defines a logical set of pods and a policy by which to access them - sometimes called a micro-service. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

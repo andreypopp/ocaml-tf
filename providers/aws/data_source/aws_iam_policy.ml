@@ -87,6 +87,7 @@ let aws_iam_policy ?arn ?id ?name ?path_prefix ?tags () :
 type t = {
   tf_name : string;
   arn : string prop;
+  attachment_count : float prop;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -103,6 +104,8 @@ let make ?arn ?id ?name ?path_prefix ?tags __id =
     ({
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
+       attachment_count =
+         Prop.computed __type __id "attachment_count";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

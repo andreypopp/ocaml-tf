@@ -67,6 +67,7 @@ type azurerm_storage_blob = {
   cache_control : string prop option; [@option]
   content_md5 : string prop option; [@option]
   content_type : string prop option; [@option]
+  encryption_scope : string prop option; [@option]
   id : string prop option; [@option]
   metadata : (string * string prop) list option; [@option]
   name : string prop;
@@ -91,6 +92,7 @@ let yojson_of_azurerm_storage_blob =
        cache_control = v_cache_control;
        content_md5 = v_content_md5;
        content_type = v_content_type;
+       encryption_scope = v_encryption_scope;
        id = v_id;
        metadata = v_metadata;
        name = v_name;
@@ -196,6 +198,14 @@ let yojson_of_azurerm_storage_blob =
              bnd :: bnds
        in
        let bnds =
+         match v_encryption_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_content_type with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -238,14 +248,16 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_storage_blob ?access_tier ?cache_control ?content_md5
-    ?content_type ?id ?metadata ?parallelism ?size ?source
-    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
-    ~storage_container_name ~type_ () : azurerm_storage_blob =
+    ?content_type ?encryption_scope ?id ?metadata ?parallelism ?size
+    ?source ?source_content ?source_uri ?timeouts ~name
+    ~storage_account_name ~storage_container_name ~type_ () :
+    azurerm_storage_blob =
   {
     access_tier;
     cache_control;
     content_md5;
     content_type;
+    encryption_scope;
     id;
     metadata;
     name;
@@ -266,6 +278,7 @@ type t = {
   cache_control : string prop;
   content_md5 : string prop;
   content_type : string prop;
+  encryption_scope : string prop;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;
@@ -280,10 +293,10 @@ type t = {
   url : string prop;
 }
 
-let make ?access_tier ?cache_control ?content_md5 ?content_type ?id
-    ?metadata ?parallelism ?size ?source ?source_content ?source_uri
-    ?timeouts ~name ~storage_account_name ~storage_container_name
-    ~type_ __id =
+let make ?access_tier ?cache_control ?content_md5 ?content_type
+    ?encryption_scope ?id ?metadata ?parallelism ?size ?source
+    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
+    ~storage_container_name ~type_ __id =
   let __type = "azurerm_storage_blob" in
   let __attrs =
     ({
@@ -292,6 +305,8 @@ let make ?access_tier ?cache_control ?content_md5 ?content_type ?id
        cache_control = Prop.computed __type __id "cache_control";
        content_md5 = Prop.computed __type __id "content_md5";
        content_type = Prop.computed __type __id "content_type";
+       encryption_scope =
+         Prop.computed __type __id "encryption_scope";
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";
        name = Prop.computed __type __id "name";
@@ -315,21 +330,22 @@ let make ?access_tier ?cache_control ?content_md5 ?content_type ?id
     json =
       yojson_of_azurerm_storage_blob
         (azurerm_storage_blob ?access_tier ?cache_control
-           ?content_md5 ?content_type ?id ?metadata ?parallelism
-           ?size ?source ?source_content ?source_uri ?timeouts ~name
-           ~storage_account_name ~storage_container_name ~type_ ());
+           ?content_md5 ?content_type ?encryption_scope ?id ?metadata
+           ?parallelism ?size ?source ?source_content ?source_uri
+           ?timeouts ~name ~storage_account_name
+           ~storage_container_name ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_tier ?cache_control ?content_md5
-    ?content_type ?id ?metadata ?parallelism ?size ?source
-    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
-    ~storage_container_name ~type_ __id =
+    ?content_type ?encryption_scope ?id ?metadata ?parallelism ?size
+    ?source ?source_content ?source_uri ?timeouts ~name
+    ~storage_account_name ~storage_container_name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?access_tier ?cache_control ?content_md5 ?content_type ?id
-      ?metadata ?parallelism ?size ?source ?source_content
-      ?source_uri ?timeouts ~name ~storage_account_name
-      ~storage_container_name ~type_ __id
+    make ?access_tier ?cache_control ?content_md5 ?content_type
+      ?encryption_scope ?id ?metadata ?parallelism ?size ?source
+      ?source_content ?source_uri ?timeouts ~name
+      ~storage_account_name ~storage_container_name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

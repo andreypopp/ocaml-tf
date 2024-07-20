@@ -330,7 +330,8 @@ let _ = yojson_of_boot_disk
 [@@@deriving.end]
 
 type confidential_instance_config = {
-  enable_confidential_compute : bool prop;
+  confidential_instance_type : string prop option; [@option]
+  enable_confidential_compute : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -338,17 +339,28 @@ let _ = fun (_ : confidential_instance_config) -> ()
 
 let yojson_of_confidential_instance_config =
   (function
-   | { enable_confidential_compute = v_enable_confidential_compute }
-     ->
+   | {
+       confidential_instance_type = v_confidential_instance_type;
+       enable_confidential_compute = v_enable_confidential_compute;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_bool
-             v_enable_confidential_compute
-         in
-         ("enable_confidential_compute", arg) :: bnds
+         match v_enable_confidential_compute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_confidential_compute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_confidential_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "confidential_instance_type", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : confidential_instance_config ->
@@ -842,6 +854,40 @@ let _ = yojson_of_scheduling__local_ssd_recovery_timeout
 
 [@@@deriving.end]
 
+type scheduling__max_run_duration = {
+  nanos : float prop option; [@option]
+  seconds : float prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduling__max_run_duration) -> ()
+
+let yojson_of_scheduling__max_run_duration =
+  (function
+   | { nanos = v_nanos; seconds = v_seconds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_seconds in
+         ("seconds", arg) :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scheduling__max_run_duration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduling__max_run_duration
+
+[@@@deriving.end]
+
 type scheduling__node_affinities = {
   key : string prop;
   operator : string prop;
@@ -884,6 +930,35 @@ let _ = yojson_of_scheduling__node_affinities
 
 [@@@deriving.end]
 
+type scheduling__on_instance_stop_action = {
+  discard_local_ssd : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduling__on_instance_stop_action) -> ()
+
+let yojson_of_scheduling__on_instance_stop_action =
+  (function
+   | { discard_local_ssd = v_discard_local_ssd } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_discard_local_ssd with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "discard_local_ssd", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scheduling__on_instance_stop_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduling__on_instance_stop_action
+
+[@@@deriving.end]
+
 type scheduling = {
   automatic_restart : bool prop option; [@option]
   instance_termination_action : string prop option; [@option]
@@ -894,7 +969,11 @@ type scheduling = {
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  max_run_duration : scheduling__max_run_duration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   node_affinities : scheduling__node_affinities list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  on_instance_stop_action : scheduling__on_instance_stop_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -911,10 +990,23 @@ let yojson_of_scheduling =
        preemptible = v_preemptible;
        provisioning_model = v_provisioning_model;
        local_ssd_recovery_timeout = v_local_ssd_recovery_timeout;
+       max_run_duration = v_max_run_duration;
        node_affinities = v_node_affinities;
+       on_instance_stop_action = v_on_instance_stop_action;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_on_instance_stop_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduling__on_instance_stop_action)
+               v_on_instance_stop_action
+           in
+           let bnd = "on_instance_stop_action", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_node_affinities then bnds
@@ -924,6 +1016,16 @@ let yojson_of_scheduling =
                v_node_affinities
            in
            let bnd = "node_affinities", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_max_run_duration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduling__max_run_duration)
+               v_max_run_duration
+           in
+           let bnd = "max_run_duration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1629,9 +1731,9 @@ let boot_disk ?auto_delete ?device_name ?disk_encryption_key_raw
     initialize_params;
   }
 
-let confidential_instance_config ~enable_confidential_compute () :
-    confidential_instance_config =
-  { enable_confidential_compute }
+let confidential_instance_config ?confidential_instance_type
+    ?enable_confidential_compute () : confidential_instance_config =
+  { confidential_instance_type; enable_confidential_compute }
 
 let network_interface__access_config ?nat_ip ?network_tier
     ?public_ptr_domain_name () : network_interface__access_config =
@@ -1691,13 +1793,22 @@ let scheduling__local_ssd_recovery_timeout ?nanos ~seconds () :
     scheduling__local_ssd_recovery_timeout =
   { nanos; seconds }
 
+let scheduling__max_run_duration ?nanos ~seconds () :
+    scheduling__max_run_duration =
+  { nanos; seconds }
+
 let scheduling__node_affinities ~key ~operator ~values () :
     scheduling__node_affinities =
   { key; operator; values }
 
+let scheduling__on_instance_stop_action ?discard_local_ssd () :
+    scheduling__on_instance_stop_action =
+  { discard_local_ssd }
+
 let scheduling ?automatic_restart ?instance_termination_action
     ?min_node_cpus ?on_host_maintenance ?preemptible
     ?provisioning_model ?(local_ssd_recovery_timeout = [])
+    ?(max_run_duration = []) ?(on_instance_stop_action = [])
     ~node_affinities () : scheduling =
   {
     automatic_restart;
@@ -1707,7 +1818,9 @@ let scheduling ?automatic_restart ?instance_termination_action
     preemptible;
     provisioning_model;
     local_ssd_recovery_timeout;
+    max_run_duration;
     node_affinities;
+    on_instance_stop_action;
   }
 
 let scratch_disk ?device_name ?size ~interface () : scratch_disk =

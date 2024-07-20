@@ -325,6 +325,7 @@ type google_secret_manager_secret = {
   secret_id : string prop;
   ttl : string prop option; [@option]
   version_aliases : (string * string prop) list option; [@option]
+  version_destroy_ttl : string prop option; [@option]
   replication : replication list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   rotation : rotation list;
@@ -348,6 +349,7 @@ let yojson_of_google_secret_manager_secret =
        secret_id = v_secret_id;
        ttl = v_ttl;
        version_aliases = v_version_aliases;
+       version_destroy_ttl = v_version_destroy_ttl;
        replication = v_replication;
        rotation = v_rotation;
        timeouts = v_timeouts;
@@ -384,6 +386,14 @@ let yojson_of_google_secret_manager_secret =
            in
            let bnd = "replication", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_version_destroy_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_destroy_ttl", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_version_aliases with
@@ -512,9 +522,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let topics ~name () : topics = { name }
 
 let google_secret_manager_secret ?annotations ?expire_time ?id
-    ?labels ?project ?ttl ?version_aliases ?(rotation = []) ?timeouts
-    ?(topics = []) ~secret_id ~replication () :
-    google_secret_manager_secret =
+    ?labels ?project ?ttl ?version_aliases ?version_destroy_ttl
+    ?(rotation = []) ?timeouts ?(topics = []) ~secret_id ~replication
+    () : google_secret_manager_secret =
   {
     annotations;
     expire_time;
@@ -524,6 +534,7 @@ let google_secret_manager_secret ?annotations ?expire_time ?id
     secret_id;
     ttl;
     version_aliases;
+    version_destroy_ttl;
     replication;
     rotation;
     timeouts;
@@ -545,11 +556,12 @@ type t = {
   terraform_labels : (string * string) list prop;
   ttl : string prop;
   version_aliases : (string * string) list prop;
+  version_destroy_ttl : string prop;
 }
 
 let make ?annotations ?expire_time ?id ?labels ?project ?ttl
-    ?version_aliases ?(rotation = []) ?timeouts ?(topics = [])
-    ~secret_id ~replication __id =
+    ?version_aliases ?version_destroy_ttl ?(rotation = []) ?timeouts
+    ?(topics = []) ~secret_id ~replication __id =
   let __type = "google_secret_manager_secret" in
   let __attrs =
     ({
@@ -570,6 +582,8 @@ let make ?annotations ?expire_time ?id ?labels ?project ?ttl
          Prop.computed __type __id "terraform_labels";
        ttl = Prop.computed __type __id "ttl";
        version_aliases = Prop.computed __type __id "version_aliases";
+       version_destroy_ttl =
+         Prop.computed __type __id "version_destroy_ttl";
      }
       : t)
   in
@@ -579,18 +593,20 @@ let make ?annotations ?expire_time ?id ?labels ?project ?ttl
     json =
       yojson_of_google_secret_manager_secret
         (google_secret_manager_secret ?annotations ?expire_time ?id
-           ?labels ?project ?ttl ?version_aliases ~rotation ?timeouts
-           ~topics ~secret_id ~replication ());
+           ?labels ?project ?ttl ?version_aliases
+           ?version_destroy_ttl ~rotation ?timeouts ~topics
+           ~secret_id ~replication ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?expire_time ?id ?labels
-    ?project ?ttl ?version_aliases ?(rotation = []) ?timeouts
-    ?(topics = []) ~secret_id ~replication __id =
+    ?project ?ttl ?version_aliases ?version_destroy_ttl
+    ?(rotation = []) ?timeouts ?(topics = []) ~secret_id ~replication
+    __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?expire_time ?id ?labels ?project ?ttl
-      ?version_aliases ~rotation ?timeouts ~topics ~secret_id
-      ~replication __id
+      ?version_aliases ?version_destroy_ttl ~rotation ?timeouts
+      ~topics ~secret_id ~replication __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

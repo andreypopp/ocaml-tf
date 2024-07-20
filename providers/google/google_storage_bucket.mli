@@ -54,6 +54,9 @@ val lifecycle_rule__condition :
   ?no_age:bool prop ->
   ?noncurrent_time_before:string prop ->
   ?num_newer_versions:float prop ->
+  ?send_days_since_custom_time_if_zero:bool prop ->
+  ?send_days_since_noncurrent_time_if_zero:bool prop ->
+  ?send_num_newer_versions_if_zero:bool prop ->
   ?with_state:string prop ->
   unit ->
   lifecycle_rule__condition
@@ -81,6 +84,13 @@ val retention_policy :
   retention_period:float prop ->
   unit ->
   retention_policy
+
+type soft_delete_policy
+
+val soft_delete_policy :
+  ?retention_duration_seconds:float prop ->
+  unit ->
+  soft_delete_policy
 
 type timeouts
 
@@ -124,6 +134,7 @@ val google_storage_bucket :
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->
   ?retention_policy:retention_policy list ->
+  ?soft_delete_policy:soft_delete_policy list ->
   ?timeouts:timeouts ->
   ?versioning:versioning list ->
   ?website:website list ->
@@ -147,6 +158,7 @@ type t = private {
   location : string prop;
   name : string prop;
   project : string prop;
+  project_number : float prop;
   public_access_prevention : string prop;
   requester_pays : bool prop;
   rpo : string prop;
@@ -177,6 +189,7 @@ val register :
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->
   ?retention_policy:retention_policy list ->
+  ?soft_delete_policy:soft_delete_policy list ->
   ?timeouts:timeouts ->
   ?versioning:versioning list ->
   ?website:website list ->
@@ -204,6 +217,7 @@ val make :
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->
   ?retention_policy:retention_policy list ->
+  ?soft_delete_policy:soft_delete_policy list ->
   ?timeouts:timeouts ->
   ?versioning:versioning list ->
   ?website:website list ->

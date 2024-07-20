@@ -19,6 +19,7 @@ type azurerm_shared_image_version
 val azurerm_shared_image_version :
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -53,6 +54,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -64,6 +66,7 @@ val register :
 val make :
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->

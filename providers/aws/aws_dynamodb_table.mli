@@ -101,7 +101,7 @@ val timeouts :
 type ttl
 
 val ttl :
-  ?enabled:bool prop -> attribute_name:string prop -> unit -> ttl
+  ?attribute_name:string prop -> ?enabled:bool prop -> unit -> ttl
 
 type aws_dynamodb_table
 

@@ -17,8 +17,8 @@ val timeouts :
 type workload_profile
 
 val workload_profile :
-  maximum_count:float prop ->
-  minimum_count:float prop ->
+  ?maximum_count:float prop ->
+  ?minimum_count:float prop ->
   name:string prop ->
   workload_profile_type:string prop ->
   unit ->
@@ -33,6 +33,7 @@ val azurerm_container_app_environment :
   ?infrastructure_subnet_id:string prop ->
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
+  ?mutual_tls_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->
@@ -50,6 +51,7 @@ val yojson_of_azurerm_container_app_environment :
 
 type t = private {
   tf_name : string;
+  custom_domain_verification_id : string prop;
   dapr_application_insights_connection_string : string prop;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
@@ -59,6 +61,7 @@ type t = private {
   internal_load_balancer_enabled : bool prop;
   location : string prop;
   log_analytics_workspace_id : string prop;
+  mutual_tls_enabled : bool prop;
   name : string prop;
   platform_reserved_cidr : string prop;
   platform_reserved_dns_ip_address : string prop;
@@ -76,6 +79,7 @@ val register :
   ?infrastructure_subnet_id:string prop ->
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
+  ?mutual_tls_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->
@@ -93,6 +97,7 @@ val make :
   ?infrastructure_subnet_id:string prop ->
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
+  ?mutual_tls_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->

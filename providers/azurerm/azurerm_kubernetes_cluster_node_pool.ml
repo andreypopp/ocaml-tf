@@ -683,20 +683,45 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type upgrade_settings = { max_surge : string prop }
+type upgrade_settings = {
+  drain_timeout_in_minutes : float prop option; [@option]
+  max_surge : string prop;
+  node_soak_duration_in_minutes : float prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : upgrade_settings) -> ()
 
 let yojson_of_upgrade_settings =
   (function
-   | { max_surge = v_max_surge } ->
+   | {
+       drain_timeout_in_minutes = v_drain_timeout_in_minutes;
+       max_surge = v_max_surge;
+       node_soak_duration_in_minutes =
+         v_node_soak_duration_in_minutes;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
+         match v_node_soak_duration_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_soak_duration_in_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_max_surge in
          ("max_surge", arg) :: bnds
+       in
+       let bnds =
+         match v_drain_timeout_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "drain_timeout_in_minutes", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : upgrade_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1318,7 +1343,13 @@ let node_network_profile ?application_security_group_ids
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let upgrade_settings ~max_surge () : upgrade_settings = { max_surge }
+let upgrade_settings ?drain_timeout_in_minutes
+    ?node_soak_duration_in_minutes ~max_surge () : upgrade_settings =
+  {
+    drain_timeout_in_minutes;
+    max_surge;
+    node_soak_duration_in_minutes;
+  }
 
 let windows_profile ?outbound_nat_enabled () : windows_profile =
   { outbound_nat_enabled }

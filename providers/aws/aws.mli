@@ -57,6 +57,7 @@ val endpoints :
   ?appintegrationsservice:string prop ->
   ?applicationautoscaling:string prop ->
   ?applicationinsights:string prop ->
+  ?applicationsignals:string prop ->
   ?appmesh:string prop ->
   ?appregistry:string prop ->
   ?apprunner:string prop ->
@@ -68,11 +69,13 @@ val endpoints :
   ?autoscalingplans:string prop ->
   ?backup:string prop ->
   ?batch:string prop ->
+  ?bcmdataexports:string prop ->
   ?beanstalk:string prop ->
   ?bedrock:string prop ->
   ?bedrockagent:string prop ->
   ?budgets:string prop ->
   ?ce:string prop ->
+  ?chatbot:string prop ->
   ?chime:string prop ->
   ?chimesdkmediapipelines:string prop ->
   ?chimesdkvoice:string prop ->
@@ -121,9 +124,11 @@ val endpoints :
   ?customerprofiles:string prop ->
   ?databasemigration:string prop ->
   ?databasemigrationservice:string prop ->
+  ?databrew:string prop ->
   ?dataexchange:string prop ->
   ?datapipeline:string prop ->
   ?datasync:string prop ->
+  ?datazone:string prop ->
   ?dax:string prop ->
   ?deploy:string prop ->
   ?detective:string prop ->
@@ -135,6 +140,7 @@ val endpoints :
   ?dms:string prop ->
   ?docdb:string prop ->
   ?docdbelastic:string prop ->
+  ?drs:string prop ->
   ?ds:string prop ->
   ?dynamodb:string prop ->
   ?ec2:string prop ->
@@ -168,6 +174,7 @@ val endpoints :
   ?glacier:string prop ->
   ?globalaccelerator:string prop ->
   ?glue:string prop ->
+  ?gluedatabrew:string prop ->
   ?grafana:string prop ->
   ?greengrass:string prop ->
   ?groundstation:string prop ->
@@ -223,8 +230,10 @@ val endpoints :
   ?msk:string prop ->
   ?mwaa:string prop ->
   ?neptune:string prop ->
+  ?neptunegraph:string prop ->
   ?networkfirewall:string prop ->
   ?networkmanager:string prop ->
+  ?networkmonitor:string prop ->
   ?oam:string prop ->
   ?opensearch:string prop ->
   ?opensearchingestion:string prop ->
@@ -234,6 +243,7 @@ val endpoints :
   ?organizations:string prop ->
   ?osis:string prop ->
   ?outposts:string prop ->
+  ?paymentcryptography:string prop ->
   ?pcaconnectorad:string prop ->
   ?pinpoint:string prop ->
   ?pipes:string prop ->
@@ -260,6 +270,7 @@ val endpoints :
   ?rolesanywhere:string prop ->
   ?route53:string prop ->
   ?route53domains:string prop ->
+  ?route53profiles:string prop ->
   ?route53recoverycontrolconfig:string prop ->
   ?route53recoveryreadiness:string prop ->
   ?route53resolver:string prop ->
@@ -301,6 +312,7 @@ val endpoints :
   ?sts:string prop ->
   ?swf:string prop ->
   ?synthetics:string prop ->
+  ?timestreaminfluxdb:string prop ->
   ?timestreamwrite:string prop ->
   ?transcribe:string prop ->
   ?transcribeservice:string prop ->
@@ -313,6 +325,7 @@ val endpoints :
   ?wellarchitected:string prop ->
   ?worklink:string prop ->
   ?workspaces:string prop ->
+  ?workspacesweb:string prop ->
   ?xray:string prop ->
   unit ->
   endpoints

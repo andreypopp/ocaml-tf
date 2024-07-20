@@ -781,6 +781,8 @@ let _ = yojson_of_http_listener
 type identity = {
   identity_ids : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  principal_id : string prop;
+  tenant_id : string prop;
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -789,13 +791,26 @@ let _ = fun (_ : identity) -> ()
 
 let yojson_of_identity =
   (function
-   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+   | {
+       identity_ids = v_identity_ids;
+       principal_id = v_principal_id;
+       tenant_id = v_tenant_id;
+       type_ = v_type_;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
          ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal_id in
+         ("principal_id", arg) :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_identity_ids then bnds

@@ -1909,8 +1909,8 @@ let inspect_config__limits__max_findings_per_info_type__info_type
     inspect_config__limits__max_findings_per_info_type__info_type =
   { name; version; sensitivity_score }
 
-let inspect_config__limits__max_findings_per_info_type ~max_findings
-    ~info_type () :
+let inspect_config__limits__max_findings_per_info_type
+    ?(info_type = []) ~max_findings () :
     inspect_config__limits__max_findings_per_info_type =
   { max_findings; info_type }
 

@@ -22,9 +22,9 @@ val google_compute_region_ssl_policy :
   ?min_tls_version:string prop ->
   ?profile:string prop ->
   ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  region:string prop ->
   unit ->
   google_compute_region_ssl_policy
 
@@ -57,9 +57,9 @@ val register :
   ?min_tls_version:string prop ->
   ?profile:string prop ->
   ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  region:string prop ->
   string ->
   t
 
@@ -70,8 +70,8 @@ val make :
   ?min_tls_version:string prop ->
   ?profile:string prop ->
   ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  region:string prop ->
   string ->
   t Tf_core.resource

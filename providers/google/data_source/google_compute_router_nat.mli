@@ -55,9 +55,11 @@ val yojson_of_google_compute_router_nat :
 
 type t = private {
   tf_name : string;
+  auto_network_tier : string prop;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;
+  endpoint_types : string list prop;
   icmp_idle_timeout_sec : float prop;
   id : string prop;
   log_config : log_config list prop;

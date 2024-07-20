@@ -17,6 +17,7 @@ type google_integration_connectors_endpoint_attachment
 
 val google_integration_connectors_endpoint_attachment :
   ?description:string prop ->
+  ?endpoint_global_access:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -37,6 +38,7 @@ type t = private {
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
+  endpoint_global_access : bool prop;
   endpoint_ip : string prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -51,6 +53,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
+  ?endpoint_global_access:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
@@ -63,6 +66,7 @@ val register :
 
 val make :
   ?description:string prop ->
+  ?endpoint_global_access:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->

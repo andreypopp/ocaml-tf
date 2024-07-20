@@ -74,6 +74,7 @@ val azurerm_monitor_activity_log_alert :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?location:string prop ->
   ?tags:(string * string prop) list ->
   ?action:action list ->
   ?timeouts:timeouts ->
@@ -94,6 +95,7 @@ type t = private {
   description : string prop;
   enabled : bool prop;
   id : string prop;
+  location : string prop;
   name : string prop;
   resource_group_name : string prop;
   scopes : string list prop;
@@ -105,6 +107,7 @@ val register :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?location:string prop ->
   ?tags:(string * string prop) list ->
   ?action:action list ->
   ?timeouts:timeouts ->
@@ -119,6 +122,7 @@ val make :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?location:string prop ->
   ?tags:(string * string prop) list ->
   ?action:action list ->
   ?timeouts:timeouts ->

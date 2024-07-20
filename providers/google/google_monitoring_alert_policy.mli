@@ -169,12 +169,21 @@ val conditions :
   unit ->
   conditions
 
+type documentation__links
+
+val documentation__links :
+  ?display_name:string prop ->
+  ?url:string prop ->
+  unit ->
+  documentation__links
+
 type documentation
 
 val documentation :
   ?content:string prop ->
   ?mime_type:string prop ->
   ?subject:string prop ->
+  ?links:documentation__links list ->
   unit ->
   documentation
 

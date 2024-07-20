@@ -96,7 +96,11 @@ val timeouts :
 type upgrade_settings
 
 val upgrade_settings :
-  max_surge:string prop -> unit -> upgrade_settings
+  ?drain_timeout_in_minutes:float prop ->
+  ?node_soak_duration_in_minutes:float prop ->
+  max_surge:string prop ->
+  unit ->
+  upgrade_settings
 
 type windows_profile
 

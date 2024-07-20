@@ -34,6 +34,7 @@ type origins
 
 val origins :
   ?enabled:bool prop ->
+  ?virtual_network_id:string prop ->
   ?weight:float prop ->
   address:string prop ->
   name:string prop ->

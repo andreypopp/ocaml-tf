@@ -2,6 +2,52 @@
 
 open! Tf_core
 
+type timeouts = {
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
 type aws_ec2_capacity_reservation = {
   availability_zone : string prop;
   ebs_optimized : bool prop option; [@option]
@@ -18,6 +64,7 @@ type aws_ec2_capacity_reservation = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   tenancy : string prop option; [@option]
+  timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
 
@@ -41,9 +88,14 @@ let yojson_of_aws_ec2_capacity_reservation =
        tags = v_tags;
        tags_all = v_tags_all;
        tenancy = v_tenancy;
+       timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
        in
        let bnds =
          match v_tenancy with
@@ -177,10 +229,13 @@ let _ = yojson_of_aws_ec2_capacity_reservation
 
 [@@@deriving.end]
 
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
+
 let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
     ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
     ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
-    ~availability_zone ~instance_count ~instance_platform
+    ?timeouts ~availability_zone ~instance_count ~instance_platform
     ~instance_type () : aws_ec2_capacity_reservation =
   {
     availability_zone;
@@ -198,6 +253,7 @@ let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
     tags;
     tags_all;
     tenancy;
+    timeouts;
   }
 
 type t = {
@@ -223,8 +279,8 @@ type t = {
 
 let make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
     ?id ?instance_match_criteria ?outpost_arn ?placement_group_arn
-    ?tags ?tags_all ?tenancy ~availability_zone ~instance_count
-    ~instance_platform ~instance_type __id =
+    ?tags ?tags_all ?tenancy ?timeouts ~availability_zone
+    ~instance_count ~instance_platform ~instance_type __id =
   let __type = "aws_ec2_capacity_reservation" in
   let __attrs =
     ({
@@ -262,20 +318,21 @@ let make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
         (aws_ec2_capacity_reservation ?ebs_optimized ?end_date
            ?end_date_type ?ephemeral_storage ?id
            ?instance_match_criteria ?outpost_arn ?placement_group_arn
-           ?tags ?tags_all ?tenancy ~availability_zone
+           ?tags ?tags_all ?tenancy ?timeouts ~availability_zone
            ~instance_count ~instance_platform ~instance_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?ebs_optimized ?end_date ?end_date_type
     ?ephemeral_storage ?id ?instance_match_criteria ?outpost_arn
-    ?placement_group_arn ?tags ?tags_all ?tenancy ~availability_zone
-    ~instance_count ~instance_platform ~instance_type __id =
+    ?placement_group_arn ?tags ?tags_all ?tenancy ?timeouts
+    ~availability_zone ~instance_count ~instance_platform
+    ~instance_type __id =
   let (r : _ Tf_core.resource) =
     make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
       ?id ?instance_match_criteria ?outpost_arn ?placement_group_arn
-      ?tags ?tags_all ?tenancy ~availability_zone ~instance_count
-      ~instance_platform ~instance_type __id
+      ?tags ?tags_all ?tenancy ?timeouts ~availability_zone
+      ~instance_count ~instance_platform ~instance_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

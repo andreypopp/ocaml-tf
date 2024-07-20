@@ -21,6 +21,42 @@ val enrichment_parameters :
   unit ->
   enrichment_parameters
 
+type log_configuration__cloudwatch_logs_log_destination
+
+val log_configuration__cloudwatch_logs_log_destination :
+  log_group_arn:string prop ->
+  unit ->
+  log_configuration__cloudwatch_logs_log_destination
+
+type log_configuration__firehose_log_destination
+
+val log_configuration__firehose_log_destination :
+  delivery_stream_arn:string prop ->
+  unit ->
+  log_configuration__firehose_log_destination
+
+type log_configuration__s3_log_destination
+
+val log_configuration__s3_log_destination :
+  ?output_format:string prop ->
+  ?prefix:string prop ->
+  bucket_name:string prop ->
+  bucket_owner:string prop ->
+  unit ->
+  log_configuration__s3_log_destination
+
+type log_configuration
+
+val log_configuration :
+  ?cloudwatch_logs_log_destination:
+    log_configuration__cloudwatch_logs_log_destination list ->
+  ?firehose_log_destination:
+    log_configuration__firehose_log_destination list ->
+  ?s3_log_destination:log_configuration__s3_log_destination list ->
+  level:string prop ->
+  unit ->
+  log_configuration
+
 type source_parameters__activemq_broker_parameters__credentials
 
 val source_parameters__activemq_broker_parameters__credentials :
@@ -144,10 +180,10 @@ val source_parameters__rabbitmq_broker_parameters :
 type source_parameters__self_managed_kafka_parameters__credentials
 
 val source_parameters__self_managed_kafka_parameters__credentials :
+  ?basic_auth:string prop ->
   ?client_certificate_tls_auth:string prop ->
   ?sasl_scram_256_auth:string prop ->
   ?sasl_scram_512_auth:string prop ->
-  basic_auth:string prop ->
   unit ->
   source_parameters__self_managed_kafka_parameters__credentials
 
@@ -553,6 +589,7 @@ val aws_pipes_pipe :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?enrichment_parameters:enrichment_parameters list ->
+  ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->
   ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->
@@ -593,6 +630,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?enrichment_parameters:enrichment_parameters list ->
+  ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->
   ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->
@@ -612,6 +650,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?enrichment_parameters:enrichment_parameters list ->
+  ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->
   ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->

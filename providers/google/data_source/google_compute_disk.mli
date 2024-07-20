@@ -82,6 +82,7 @@ type t = private {
   source_snapshot_encryption_key :
     source_snapshot_encryption_key list prop;
   source_snapshot_id : string prop;
+  storage_pool : string prop;
   terraform_labels : (string * string) list prop;
   type_ : string prop;
   users : string list prop;

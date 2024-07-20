@@ -75,6 +75,101 @@ let _ = yojson_of_bigtable
 
 [@@@deriving.end]
 
+type dedicated_serving_endpoint__private_service_connect_config = {
+  enable_private_service_connect : bool prop;
+  project_allowlist : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : dedicated_serving_endpoint__private_service_connect_config) ->
+  ()
+
+let yojson_of_dedicated_serving_endpoint__private_service_connect_config
+    =
+  (function
+   | {
+       enable_private_service_connect =
+         v_enable_private_service_connect;
+       project_allowlist = v_project_allowlist;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_allowlist with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "project_allowlist", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_enable_private_service_connect
+         in
+         ("enable_private_service_connect", arg) :: bnds
+       in
+       `Assoc bnds
+    : dedicated_serving_endpoint__private_service_connect_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_dedicated_serving_endpoint__private_service_connect_config
+
+[@@@deriving.end]
+
+type dedicated_serving_endpoint = {
+  private_service_connect_config :
+    dedicated_serving_endpoint__private_service_connect_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dedicated_serving_endpoint) -> ()
+
+let yojson_of_dedicated_serving_endpoint =
+  (function
+   | {
+       private_service_connect_config =
+         v_private_service_connect_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_private_service_connect_config then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_dedicated_serving_endpoint__private_service_connect_config)
+               v_private_service_connect_config
+           in
+           let bnd = "private_service_connect_config", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : dedicated_serving_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dedicated_serving_endpoint
+
+[@@@deriving.end]
+
+type optimized = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : optimized) -> ()
+
+let yojson_of_optimized =
+  (yojson_of_unit : optimized -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_optimized
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -130,6 +225,10 @@ type google_vertex_ai_feature_online_store = {
   region : string prop option; [@option]
   bigtable : bigtable list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  dedicated_serving_endpoint : dedicated_serving_endpoint list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  optimized : optimized list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -146,6 +245,8 @@ let yojson_of_google_vertex_ai_feature_online_store =
        project = v_project;
        region = v_region;
        bigtable = v_bigtable;
+       dedicated_serving_endpoint = v_dedicated_serving_endpoint;
+       optimized = v_optimized;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -154,6 +255,25 @@ let yojson_of_google_vertex_ai_feature_online_store =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_optimized then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_optimized) v_optimized
+           in
+           let bnd = "optimized", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dedicated_serving_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dedicated_serving_endpoint)
+               v_dedicated_serving_endpoint
+           in
+           let bnd = "dedicated_serving_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_bigtable then bnds
@@ -230,12 +350,24 @@ let bigtable__auto_scaling ?cpu_utilization_target ~max_node_count
 
 let bigtable ~auto_scaling () : bigtable = { auto_scaling }
 
+let dedicated_serving_endpoint__private_service_connect_config
+    ?project_allowlist ~enable_private_service_connect () :
+    dedicated_serving_endpoint__private_service_connect_config =
+  { enable_private_service_connect; project_allowlist }
+
+let dedicated_serving_endpoint ?(private_service_connect_config = [])
+    () : dedicated_serving_endpoint =
+  { private_service_connect_config }
+
+let optimized () = ()
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
-    ?project ?region ?(bigtable = []) ?timeouts ~name () :
-    google_vertex_ai_feature_online_store =
+    ?project ?region ?(bigtable = [])
+    ?(dedicated_serving_endpoint = []) ?(optimized = []) ?timeouts
+    ~name () : google_vertex_ai_feature_online_store =
   {
     force_destroy;
     id;
@@ -244,6 +376,8 @@ let google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
     project;
     region;
     bigtable;
+    dedicated_serving_endpoint;
+    optimized;
     timeouts;
   }
 
@@ -264,7 +398,8 @@ type t = {
 }
 
 let make ?force_destroy ?id ?labels ?project ?region ?(bigtable = [])
-    ?timeouts ~name __id =
+    ?(dedicated_serving_endpoint = []) ?(optimized = []) ?timeouts
+    ~name __id =
   let __type = "google_vertex_ai_feature_online_store" in
   let __attrs =
     ({
@@ -292,15 +427,17 @@ let make ?force_destroy ?id ?labels ?project ?region ?(bigtable = [])
     json =
       yojson_of_google_vertex_ai_feature_online_store
         (google_vertex_ai_feature_online_store ?force_destroy ?id
-           ?labels ?project ?region ~bigtable ?timeouts ~name ());
+           ?labels ?project ?region ~bigtable
+           ~dedicated_serving_endpoint ~optimized ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?force_destroy ?id ?labels ?project ?region
-    ?(bigtable = []) ?timeouts ~name __id =
+    ?(bigtable = []) ?(dedicated_serving_endpoint = [])
+    ?(optimized = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?force_destroy ?id ?labels ?project ?region ~bigtable
-      ?timeouts ~name __id
+      ~dedicated_serving_endpoint ~optimized ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

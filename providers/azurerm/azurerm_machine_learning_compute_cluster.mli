@@ -36,6 +36,7 @@ val timeouts :
   ?create:string prop ->
   ?delete:string prop ->
   ?read:string prop ->
+  ?update:string prop ->
   unit ->
   timeouts
 

@@ -223,6 +223,7 @@ type t = {
   location : string prop;
   name : string prop;
   peer_virtual_network_gateway_id : string prop;
+  private_link_fast_path_enabled : bool prop;
   resource_group_name : string prop;
   resource_guid : string prop;
   routing_weight : float prop;
@@ -264,6 +265,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
        name = Prop.computed __type __id "name";
        peer_virtual_network_gateway_id =
          Prop.computed __type __id "peer_virtual_network_gateway_id";
+       private_link_fast_path_enabled =
+         Prop.computed __type __id "private_link_fast_path_enabled";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        resource_guid = Prop.computed __type __id "resource_guid";

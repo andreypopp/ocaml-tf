@@ -1021,6 +1021,7 @@ type t = {
   security_policy : string prop;
   security_settings : security_settings list prop;
   self_link : string prop;
+  service_lb_policy : string prop;
   session_affinity : string prop;
   timeout_sec : float prop;
 }
@@ -1073,6 +1074,8 @@ let make ?id ?project ~name __id =
        security_settings =
          Prop.computed __type __id "security_settings";
        self_link = Prop.computed __type __id "self_link";
+       service_lb_policy =
+         Prop.computed __type __id "service_lb_policy";
        session_affinity =
          Prop.computed __type __id "session_affinity";
        timeout_sec = Prop.computed __type __id "timeout_sec";

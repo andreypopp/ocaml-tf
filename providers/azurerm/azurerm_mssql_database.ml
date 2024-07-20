@@ -398,6 +398,7 @@ type azurerm_mssql_database = {
       [@option]
   restore_point_in_time : string prop option; [@option]
   sample_name : string prop option; [@option]
+  secondary_type : string prop option; [@option]
   server_id : string prop;
   sku_name : string prop option; [@option]
   storage_account_type : string prop option; [@option]
@@ -452,6 +453,7 @@ let yojson_of_azurerm_mssql_database =
          v_restore_long_term_retention_backup_id;
        restore_point_in_time = v_restore_point_in_time;
        sample_name = v_sample_name;
+       secondary_type = v_secondary_type;
        server_id = v_server_id;
        sku_name = v_sku_name;
        storage_account_type = v_storage_account_type;
@@ -597,6 +599,14 @@ let yojson_of_azurerm_mssql_database =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_server_id in
          ("server_id", arg) :: bnds
+       in
+       let bnds =
+         match v_secondary_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secondary_type", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_sample_name with
@@ -835,8 +845,8 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     ?recover_database_id ?recovery_point_id
     ?restore_dropped_database_id
     ?restore_long_term_retention_backup_id ?restore_point_in_time
-    ?sample_name ?sku_name ?storage_account_type ?tags
-    ?transparent_data_encryption_enabled
+    ?sample_name ?secondary_type ?sku_name ?storage_account_type
+    ?tags ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
     ?(identity = []) ?(import = [])
@@ -867,6 +877,7 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     restore_long_term_retention_backup_id;
     restore_point_in_time;
     sample_name;
+    secondary_type;
     server_id;
     sku_name;
     storage_account_type;
@@ -907,6 +918,7 @@ type t = {
   restore_long_term_retention_backup_id : string prop;
   restore_point_in_time : string prop;
   sample_name : string prop;
+  secondary_type : string prop;
   server_id : string prop;
   sku_name : string prop;
   storage_account_type : string prop;
@@ -925,8 +937,8 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
     ?read_replica_count ?read_scale ?recover_database_id
     ?recovery_point_id ?restore_dropped_database_id
     ?restore_long_term_retention_backup_id ?restore_point_in_time
-    ?sample_name ?sku_name ?storage_account_type ?tags
-    ?transparent_data_encryption_enabled
+    ?sample_name ?secondary_type ?sku_name ?storage_account_type
+    ?tags ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
     ?(identity = []) ?(import = [])
@@ -970,6 +982,7 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
        restore_point_in_time =
          Prop.computed __type __id "restore_point_in_time";
        sample_name = Prop.computed __type __id "sample_name";
+       secondary_type = Prop.computed __type __id "secondary_type";
        server_id = Prop.computed __type __id "server_id";
        sku_name = Prop.computed __type __id "sku_name";
        storage_account_type =
@@ -1001,8 +1014,8 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
            ?read_replica_count ?read_scale ?recover_database_id
            ?recovery_point_id ?restore_dropped_database_id
            ?restore_long_term_retention_backup_id
-           ?restore_point_in_time ?sample_name ?sku_name
-           ?storage_account_type ?tags
+           ?restore_point_in_time ?sample_name ?secondary_type
+           ?sku_name ?storage_account_type ?tags
            ?transparent_data_encryption_enabled
            ?transparent_data_encryption_key_automatic_rotation_enabled
            ?transparent_data_encryption_key_vault_key_id
@@ -1020,8 +1033,8 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
     ?recover_database_id ?recovery_point_id
     ?restore_dropped_database_id
     ?restore_long_term_retention_backup_id ?restore_point_in_time
-    ?sample_name ?sku_name ?storage_account_type ?tags
-    ?transparent_data_encryption_enabled
+    ?sample_name ?secondary_type ?sku_name ?storage_account_type
+    ?tags ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
     ?(identity = []) ?(import = [])
@@ -1036,8 +1049,8 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
       ?read_replica_count ?read_scale ?recover_database_id
       ?recovery_point_id ?restore_dropped_database_id
       ?restore_long_term_retention_backup_id ?restore_point_in_time
-      ?sample_name ?sku_name ?storage_account_type ?tags
-      ?transparent_data_encryption_enabled
+      ?sample_name ?secondary_type ?sku_name ?storage_account_type
+      ?tags ?transparent_data_encryption_enabled
       ?transparent_data_encryption_key_automatic_rotation_enabled
       ?transparent_data_encryption_key_vault_key_id ?zone_redundant
       ~identity ~import ~long_term_retention_policy

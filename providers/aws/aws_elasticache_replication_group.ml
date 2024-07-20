@@ -101,8 +101,9 @@ type aws_elasticache_replication_group = {
   auth_token_update_strategy : string prop option; [@option]
   auto_minor_version_upgrade : string prop option; [@option]
   automatic_failover_enabled : bool prop option; [@option]
+  cluster_mode : string prop option; [@option]
   data_tiering_enabled : bool prop option; [@option]
-  description : string prop option; [@option]
+  description : string prop;
   engine : string prop option; [@option]
   engine_version : string prop option; [@option]
   final_snapshot_identifier : string prop option; [@option]
@@ -132,6 +133,7 @@ type aws_elasticache_replication_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   transit_encryption_enabled : bool prop option; [@option]
+  transit_encryption_mode : string prop option; [@option]
   user_group_ids : string prop list option; [@option]
   log_delivery_configuration : log_delivery_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -150,6 +152,7 @@ let yojson_of_aws_elasticache_replication_group =
        auth_token_update_strategy = v_auth_token_update_strategy;
        auto_minor_version_upgrade = v_auto_minor_version_upgrade;
        automatic_failover_enabled = v_automatic_failover_enabled;
+       cluster_mode = v_cluster_mode;
        data_tiering_enabled = v_data_tiering_enabled;
        description = v_description;
        engine = v_engine;
@@ -181,6 +184,7 @@ let yojson_of_aws_elasticache_replication_group =
        tags = v_tags;
        tags_all = v_tags_all;
        transit_encryption_enabled = v_transit_encryption_enabled;
+       transit_encryption_mode = v_transit_encryption_mode;
        user_group_ids = v_user_group_ids;
        log_delivery_configuration = v_log_delivery_configuration;
        timeouts = v_timeouts;
@@ -210,6 +214,14 @@ let yojson_of_aws_elasticache_replication_group =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "user_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transit_encryption_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transit_encryption_mode", arg in
              bnd :: bnds
        in
        let bnds =
@@ -467,12 +479,8 @@ let yojson_of_aws_elasticache_replication_group =
              bnd :: bnds
        in
        let bnds =
-         match v_description with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "description", arg in
-             bnd :: bnds
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
        in
        let bnds =
          match v_data_tiering_enabled with
@@ -480,6 +488,14 @@ let yojson_of_aws_elasticache_replication_group =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "data_tiering_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_mode", arg in
              bnd :: bnds
        in
        let bnds =
@@ -548,7 +564,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 let aws_elasticache_replication_group ?apply_immediately
     ?at_rest_encryption_enabled ?auth_token
     ?auth_token_update_strategy ?auto_minor_version_upgrade
-    ?automatic_failover_enabled ?data_tiering_enabled ?description
+    ?automatic_failover_enabled ?cluster_mode ?data_tiering_enabled
     ?engine ?engine_version ?final_snapshot_identifier
     ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
     ?maintenance_window ?multi_az_enabled ?network_type ?node_type
@@ -557,8 +573,9 @@ let aws_elasticache_replication_group ?apply_immediately
     ?replicas_per_node_group ?security_group_ids
     ?security_group_names ?snapshot_arns ?snapshot_name
     ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
-    ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-    ?timeouts ~replication_group_id ~log_delivery_configuration () :
+    ?tags ?tags_all ?transit_encryption_enabled
+    ?transit_encryption_mode ?user_group_ids ?timeouts ~description
+    ~replication_group_id ~log_delivery_configuration () :
     aws_elasticache_replication_group =
   {
     apply_immediately;
@@ -567,6 +584,7 @@ let aws_elasticache_replication_group ?apply_immediately
     auth_token_update_strategy;
     auto_minor_version_upgrade;
     automatic_failover_enabled;
+    cluster_mode;
     data_tiering_enabled;
     description;
     engine;
@@ -598,6 +616,7 @@ let aws_elasticache_replication_group ?apply_immediately
     tags;
     tags_all;
     transit_encryption_enabled;
+    transit_encryption_mode;
     user_group_ids;
     log_delivery_configuration;
     timeouts;
@@ -613,6 +632,7 @@ type t = {
   auto_minor_version_upgrade : string prop;
   automatic_failover_enabled : bool prop;
   cluster_enabled : bool prop;
+  cluster_mode : string prop;
   configuration_endpoint_address : string prop;
   data_tiering_enabled : bool prop;
   description : string prop;
@@ -649,12 +669,13 @@ type t = {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   transit_encryption_enabled : bool prop;
+  transit_encryption_mode : string prop;
   user_group_ids : string list prop;
 }
 
 let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
     ?auth_token_update_strategy ?auto_minor_version_upgrade
-    ?automatic_failover_enabled ?data_tiering_enabled ?description
+    ?automatic_failover_enabled ?cluster_mode ?data_tiering_enabled
     ?engine ?engine_version ?final_snapshot_identifier
     ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
     ?maintenance_window ?multi_az_enabled ?network_type ?node_type
@@ -663,9 +684,9 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
     ?replicas_per_node_group ?security_group_ids
     ?security_group_names ?snapshot_arns ?snapshot_name
     ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
-    ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-    ?timeouts ~replication_group_id ~log_delivery_configuration __id
-    =
+    ?tags ?tags_all ?transit_encryption_enabled
+    ?transit_encryption_mode ?user_group_ids ?timeouts ~description
+    ~replication_group_id ~log_delivery_configuration __id =
   let __type = "aws_elasticache_replication_group" in
   let __attrs =
     ({
@@ -683,6 +704,7 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
        automatic_failover_enabled =
          Prop.computed __type __id "automatic_failover_enabled";
        cluster_enabled = Prop.computed __type __id "cluster_enabled";
+       cluster_mode = Prop.computed __type __id "cluster_mode";
        configuration_endpoint_address =
          Prop.computed __type __id "configuration_endpoint_address";
        data_tiering_enabled =
@@ -739,6 +761,8 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
        tags_all = Prop.computed __type __id "tags_all";
        transit_encryption_enabled =
          Prop.computed __type __id "transit_encryption_enabled";
+       transit_encryption_mode =
+         Prop.computed __type __id "transit_encryption_mode";
        user_group_ids = Prop.computed __type __id "user_group_ids";
      }
       : t)
@@ -751,8 +775,8 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
         (aws_elasticache_replication_group ?apply_immediately
            ?at_rest_encryption_enabled ?auth_token
            ?auth_token_update_strategy ?auto_minor_version_upgrade
-           ?automatic_failover_enabled ?data_tiering_enabled
-           ?description ?engine ?engine_version
+           ?automatic_failover_enabled ?cluster_mode
+           ?data_tiering_enabled ?engine ?engine_version
            ?final_snapshot_identifier ?global_replication_group_id
            ?id ?ip_discovery ?kms_key_id ?maintenance_window
            ?multi_az_enabled ?network_type ?node_type
@@ -762,7 +786,8 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
            ?security_group_ids ?security_group_names ?snapshot_arns
            ?snapshot_name ?snapshot_retention_limit ?snapshot_window
            ?subnet_group_name ?tags ?tags_all
-           ?transit_encryption_enabled ?user_group_ids ?timeouts
+           ?transit_encryption_enabled ?transit_encryption_mode
+           ?user_group_ids ?timeouts ~description
            ~replication_group_id ~log_delivery_configuration ());
     attrs = __attrs;
   }
@@ -770,7 +795,7 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
 let register ?tf_module ?apply_immediately
     ?at_rest_encryption_enabled ?auth_token
     ?auth_token_update_strategy ?auto_minor_version_upgrade
-    ?automatic_failover_enabled ?data_tiering_enabled ?description
+    ?automatic_failover_enabled ?cluster_mode ?data_tiering_enabled
     ?engine ?engine_version ?final_snapshot_identifier
     ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
     ?maintenance_window ?multi_az_enabled ?network_type ?node_type
@@ -779,13 +804,13 @@ let register ?tf_module ?apply_immediately
     ?replicas_per_node_group ?security_group_ids
     ?security_group_names ?snapshot_arns ?snapshot_name
     ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
-    ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-    ?timeouts ~replication_group_id ~log_delivery_configuration __id
-    =
+    ?tags ?tags_all ?transit_encryption_enabled
+    ?transit_encryption_mode ?user_group_ids ?timeouts ~description
+    ~replication_group_id ~log_delivery_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
       ?auth_token_update_strategy ?auto_minor_version_upgrade
-      ?automatic_failover_enabled ?data_tiering_enabled ?description
+      ?automatic_failover_enabled ?cluster_mode ?data_tiering_enabled
       ?engine ?engine_version ?final_snapshot_identifier
       ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
       ?maintenance_window ?multi_az_enabled ?network_type ?node_type
@@ -794,9 +819,9 @@ let register ?tf_module ?apply_immediately
       ?replicas_per_node_group ?security_group_ids
       ?security_group_names ?snapshot_arns ?snapshot_name
       ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
-      ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-      ?timeouts ~replication_group_id ~log_delivery_configuration
-      __id
+      ?tags ?tags_all ?transit_encryption_enabled
+      ?transit_encryption_mode ?user_group_ids ?timeouts ~description
+      ~replication_group_id ~log_delivery_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

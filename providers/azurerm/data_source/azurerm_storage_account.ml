@@ -278,6 +278,7 @@ type t = {
   allow_nested_items_to_be_public : bool prop;
   azure_files_authentication : azure_files_authentication list prop;
   custom_domain : custom_domain list prop;
+  dns_endpoint_type : string prop;
   enable_https_traffic_only : bool prop;
   id : string prop;
   identity : identity list prop;
@@ -381,6 +382,8 @@ let make ?id ?min_tls_version ?timeouts ~name ~resource_group_name
        azure_files_authentication =
          Prop.computed __type __id "azure_files_authentication";
        custom_domain = Prop.computed __type __id "custom_domain";
+       dns_endpoint_type =
+         Prop.computed __type __id "dns_endpoint_type";
        enable_https_traffic_only =
          Prop.computed __type __id "enable_https_traffic_only";
        id = Prop.computed __type __id "id";

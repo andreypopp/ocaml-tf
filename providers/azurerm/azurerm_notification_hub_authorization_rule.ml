@@ -187,8 +187,10 @@ type t = {
   namespace_name : string prop;
   notification_hub_name : string prop;
   primary_access_key : string prop;
+  primary_connection_string : string prop;
   resource_group_name : string prop;
   secondary_access_key : string prop;
+  secondary_connection_string : string prop;
   send : bool prop;
 }
 
@@ -207,10 +209,14 @@ let make ?id ?listen ?manage ?send ?timeouts ~name ~namespace_name
          Prop.computed __type __id "notification_hub_name";
        primary_access_key =
          Prop.computed __type __id "primary_access_key";
+       primary_connection_string =
+         Prop.computed __type __id "primary_connection_string";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        secondary_access_key =
          Prop.computed __type __id "secondary_access_key";
+       secondary_connection_string =
+         Prop.computed __type __id "secondary_connection_string";
        send = Prop.computed __type __id "send";
      }
       : t)

@@ -83,7 +83,6 @@ type t = {
   content : string prop;
   hostname : string prop;
   id : string prop;
-  locked : bool prop;
   priority : float prop;
   proxiable : bool prop;
   proxied : bool prop;
@@ -102,7 +101,6 @@ let make ?content ?id ?priority ?type_ ~hostname ~zone_id __id =
        content = Prop.computed __type __id "content";
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";
-       locked = Prop.computed __type __id "locked";
        priority = Prop.computed __type __id "priority";
        proxiable = Prop.computed __type __id "proxiable";
        proxied = Prop.computed __type __id "proxied";

@@ -24,6 +24,7 @@ val google :
   ?apigee_custom_endpoint:string prop ->
   ?apikeys_custom_endpoint:string prop ->
   ?app_engine_custom_endpoint:string prop ->
+  ?apphub_custom_endpoint:string prop ->
   ?artifact_registry_custom_endpoint:string prop ->
   ?assured_workloads_custom_endpoint:string prop ->
   ?beyondcorp_custom_endpoint:string prop ->
@@ -47,6 +48,7 @@ val google :
   ?cloud_functions_custom_endpoint:string prop ->
   ?cloud_identity_custom_endpoint:string prop ->
   ?cloud_ids_custom_endpoint:string prop ->
+  ?cloud_quotas_custom_endpoint:string prop ->
   ?cloud_resource_manager_custom_endpoint:string prop ->
   ?cloud_run_custom_endpoint:string prop ->
   ?cloud_run_v2_custom_endpoint:string prop ->
@@ -108,6 +110,7 @@ val google :
   ?impersonate_service_account:string prop ->
   ?impersonate_service_account_delegates:string prop list ->
   ?integration_connectors_custom_endpoint:string prop ->
+  ?integrations_custom_endpoint:string prop ->
   ?kms_custom_endpoint:string prop ->
   ?logging_custom_endpoint:string prop ->
   ?looker_custom_endpoint:string prop ->
@@ -125,6 +128,7 @@ val google :
   ?os_config_custom_endpoint:string prop ->
   ?os_login_custom_endpoint:string prop ->
   ?privateca_custom_endpoint:string prop ->
+  ?privileged_access_manager_custom_endpoint:string prop ->
   ?project:string prop ->
   ?public_ca_custom_endpoint:string prop ->
   ?pubsub_custom_endpoint:string prop ->
@@ -140,10 +144,13 @@ val google :
   ?secret_manager_custom_endpoint:string prop ->
   ?secure_source_manager_custom_endpoint:string prop ->
   ?security_center_custom_endpoint:string prop ->
+  ?security_center_management_custom_endpoint:string prop ->
+  ?security_center_v2_custom_endpoint:string prop ->
   ?securityposture_custom_endpoint:string prop ->
   ?service_management_custom_endpoint:string prop ->
   ?service_networking_custom_endpoint:string prop ->
   ?service_usage_custom_endpoint:string prop ->
+  ?site_verification_custom_endpoint:string prop ->
   ?source_repo_custom_endpoint:string prop ->
   ?spanner_custom_endpoint:string prop ->
   ?sql_custom_endpoint:string prop ->
@@ -181,6 +188,7 @@ val register :
   ?apigee_custom_endpoint:string prop ->
   ?apikeys_custom_endpoint:string prop ->
   ?app_engine_custom_endpoint:string prop ->
+  ?apphub_custom_endpoint:string prop ->
   ?artifact_registry_custom_endpoint:string prop ->
   ?assured_workloads_custom_endpoint:string prop ->
   ?beyondcorp_custom_endpoint:string prop ->
@@ -204,6 +212,7 @@ val register :
   ?cloud_functions_custom_endpoint:string prop ->
   ?cloud_identity_custom_endpoint:string prop ->
   ?cloud_ids_custom_endpoint:string prop ->
+  ?cloud_quotas_custom_endpoint:string prop ->
   ?cloud_resource_manager_custom_endpoint:string prop ->
   ?cloud_run_custom_endpoint:string prop ->
   ?cloud_run_v2_custom_endpoint:string prop ->
@@ -265,6 +274,7 @@ val register :
   ?impersonate_service_account:string prop ->
   ?impersonate_service_account_delegates:string prop list ->
   ?integration_connectors_custom_endpoint:string prop ->
+  ?integrations_custom_endpoint:string prop ->
   ?kms_custom_endpoint:string prop ->
   ?logging_custom_endpoint:string prop ->
   ?looker_custom_endpoint:string prop ->
@@ -282,6 +292,7 @@ val register :
   ?os_config_custom_endpoint:string prop ->
   ?os_login_custom_endpoint:string prop ->
   ?privateca_custom_endpoint:string prop ->
+  ?privileged_access_manager_custom_endpoint:string prop ->
   ?project:string prop ->
   ?public_ca_custom_endpoint:string prop ->
   ?pubsub_custom_endpoint:string prop ->
@@ -297,10 +308,13 @@ val register :
   ?secret_manager_custom_endpoint:string prop ->
   ?secure_source_manager_custom_endpoint:string prop ->
   ?security_center_custom_endpoint:string prop ->
+  ?security_center_management_custom_endpoint:string prop ->
+  ?security_center_v2_custom_endpoint:string prop ->
   ?securityposture_custom_endpoint:string prop ->
   ?service_management_custom_endpoint:string prop ->
   ?service_networking_custom_endpoint:string prop ->
   ?service_usage_custom_endpoint:string prop ->
+  ?site_verification_custom_endpoint:string prop ->
   ?source_repo_custom_endpoint:string prop ->
   ?spanner_custom_endpoint:string prop ->
   ?sql_custom_endpoint:string prop ->
@@ -334,6 +348,7 @@ val make :
   ?apigee_custom_endpoint:string prop ->
   ?apikeys_custom_endpoint:string prop ->
   ?app_engine_custom_endpoint:string prop ->
+  ?apphub_custom_endpoint:string prop ->
   ?artifact_registry_custom_endpoint:string prop ->
   ?assured_workloads_custom_endpoint:string prop ->
   ?beyondcorp_custom_endpoint:string prop ->
@@ -357,6 +372,7 @@ val make :
   ?cloud_functions_custom_endpoint:string prop ->
   ?cloud_identity_custom_endpoint:string prop ->
   ?cloud_ids_custom_endpoint:string prop ->
+  ?cloud_quotas_custom_endpoint:string prop ->
   ?cloud_resource_manager_custom_endpoint:string prop ->
   ?cloud_run_custom_endpoint:string prop ->
   ?cloud_run_v2_custom_endpoint:string prop ->
@@ -418,6 +434,7 @@ val make :
   ?impersonate_service_account:string prop ->
   ?impersonate_service_account_delegates:string prop list ->
   ?integration_connectors_custom_endpoint:string prop ->
+  ?integrations_custom_endpoint:string prop ->
   ?kms_custom_endpoint:string prop ->
   ?logging_custom_endpoint:string prop ->
   ?looker_custom_endpoint:string prop ->
@@ -435,6 +452,7 @@ val make :
   ?os_config_custom_endpoint:string prop ->
   ?os_login_custom_endpoint:string prop ->
   ?privateca_custom_endpoint:string prop ->
+  ?privileged_access_manager_custom_endpoint:string prop ->
   ?project:string prop ->
   ?public_ca_custom_endpoint:string prop ->
   ?pubsub_custom_endpoint:string prop ->
@@ -450,10 +468,13 @@ val make :
   ?secret_manager_custom_endpoint:string prop ->
   ?secure_source_manager_custom_endpoint:string prop ->
   ?security_center_custom_endpoint:string prop ->
+  ?security_center_management_custom_endpoint:string prop ->
+  ?security_center_v2_custom_endpoint:string prop ->
   ?securityposture_custom_endpoint:string prop ->
   ?service_management_custom_endpoint:string prop ->
   ?service_networking_custom_endpoint:string prop ->
   ?service_usage_custom_endpoint:string prop ->
+  ?site_verification_custom_endpoint:string prop ->
   ?source_repo_custom_endpoint:string prop ->
   ?spanner_custom_endpoint:string prop ->
   ?sql_custom_endpoint:string prop ->

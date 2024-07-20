@@ -28,12 +28,37 @@ let _ = yojson_of_anthos_cluster
 
 [@@@deriving.end]
 
+type custom_target = { custom_target_type : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_target) -> ()
+
+let yojson_of_custom_target =
+  (function
+   | { custom_target_type = v_custom_target_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_target_type
+         in
+         ("custom_target_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_target
+
+[@@@deriving.end]
+
 type execution_configs = {
   artifact_storage : string prop option; [@option]
   execution_timeout : string prop option; [@option]
   service_account : string prop option; [@option]
   usages : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  verbose : bool prop option; [@option]
   worker_pool : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -47,6 +72,7 @@ let yojson_of_execution_configs =
        execution_timeout = v_execution_timeout;
        service_account = v_service_account;
        usages = v_usages;
+       verbose = v_verbose;
        worker_pool = v_worker_pool;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -58,6 +84,14 @@ let yojson_of_execution_configs =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "worker_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_verbose with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "verbose", arg in
              bnd :: bnds
        in
        let bnds =
@@ -248,6 +282,8 @@ type google_clouddeploy_target = {
   require_approval : bool prop option; [@option]
   anthos_cluster : anthos_cluster list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  custom_target : custom_target list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   execution_configs : execution_configs list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   gke : gke list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -273,6 +309,7 @@ let yojson_of_google_clouddeploy_target =
        project = v_project;
        require_approval = v_require_approval;
        anthos_cluster = v_anthos_cluster;
+       custom_target = v_custom_target;
        execution_configs = v_execution_configs;
        gke = v_gke;
        multi_target = v_multi_target;
@@ -317,6 +354,15 @@ let yojson_of_google_clouddeploy_target =
                v_execution_configs
            in
            let bnd = "execution_configs", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_target) v_custom_target
+           in
+           let bnd = "custom_target", arg in
            bnd :: bnds
        in
        let bnds =
@@ -426,13 +472,18 @@ let _ = yojson_of_google_clouddeploy_target
 
 let anthos_cluster ?membership () : anthos_cluster = { membership }
 
+let custom_target ~custom_target_type () : custom_target =
+  { custom_target_type }
+
 let execution_configs ?artifact_storage ?execution_timeout
-    ?service_account ?worker_pool ~usages () : execution_configs =
+    ?service_account ?verbose ?worker_pool ~usages () :
+    execution_configs =
   {
     artifact_storage;
     execution_timeout;
     service_account;
     usages;
+    verbose;
     worker_pool;
   }
 
@@ -445,8 +496,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_clouddeploy_target ?annotations ?deploy_parameters
     ?description ?id ?labels ?project ?require_approval
-    ?(anthos_cluster = []) ?(execution_configs = []) ?(gke = [])
-    ?(multi_target = []) ?(run = []) ?timeouts ~location ~name () :
+    ?(anthos_cluster = []) ?(custom_target = [])
+    ?(execution_configs = []) ?(gke = []) ?(multi_target = [])
+    ?(run = []) ?timeouts ~location ~name () :
     google_clouddeploy_target =
   {
     annotations;
@@ -459,6 +511,7 @@ let google_clouddeploy_target ?annotations ?deploy_parameters
     project;
     require_approval;
     anthos_cluster;
+    custom_target;
     execution_configs;
     gke;
     multi_target;
@@ -489,8 +542,8 @@ type t = {
 
 let make ?annotations ?deploy_parameters ?description ?id ?labels
     ?project ?require_approval ?(anthos_cluster = [])
-    ?(execution_configs = []) ?(gke = []) ?(multi_target = [])
-    ?(run = []) ?timeouts ~location ~name __id =
+    ?(custom_target = []) ?(execution_configs = []) ?(gke = [])
+    ?(multi_target = []) ?(run = []) ?timeouts ~location ~name __id =
   let __type = "google_clouddeploy_target" in
   let __attrs =
     ({
@@ -527,19 +580,20 @@ let make ?annotations ?deploy_parameters ?description ?id ?labels
       yojson_of_google_clouddeploy_target
         (google_clouddeploy_target ?annotations ?deploy_parameters
            ?description ?id ?labels ?project ?require_approval
-           ~anthos_cluster ~execution_configs ~gke ~multi_target ~run
-           ?timeouts ~location ~name ());
+           ~anthos_cluster ~custom_target ~execution_configs ~gke
+           ~multi_target ~run ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?deploy_parameters ?description
     ?id ?labels ?project ?require_approval ?(anthos_cluster = [])
-    ?(execution_configs = []) ?(gke = []) ?(multi_target = [])
-    ?(run = []) ?timeouts ~location ~name __id =
+    ?(custom_target = []) ?(execution_configs = []) ?(gke = [])
+    ?(multi_target = []) ?(run = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?deploy_parameters ?description ?id ?labels
-      ?project ?require_approval ~anthos_cluster ~execution_configs
-      ~gke ~multi_target ~run ?timeouts ~location ~name __id
+      ?project ?require_approval ~anthos_cluster ~custom_target
+      ~execution_configs ~gke ~multi_target ~run ?timeouts ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

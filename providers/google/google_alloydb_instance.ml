@@ -101,6 +101,110 @@ let _ = yojson_of_machine_config
 
 [@@@deriving.end]
 
+type network_config__authorized_external_networks = {
+  cidr_range : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config__authorized_external_networks) -> ()
+
+let yojson_of_network_config__authorized_external_networks =
+  (function
+   | { cidr_range = v_cidr_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cidr_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cidr_range", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_config__authorized_external_networks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config__authorized_external_networks
+
+[@@@deriving.end]
+
+type network_config = {
+  enable_public_ip : bool prop option; [@option]
+  authorized_external_networks :
+    network_config__authorized_external_networks list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config) -> ()
+
+let yojson_of_network_config =
+  (function
+   | {
+       enable_public_ip = v_enable_public_ip;
+       authorized_external_networks = v_authorized_external_networks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_authorized_external_networks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_config__authorized_external_networks)
+               v_authorized_external_networks
+           in
+           let bnd = "authorized_external_networks", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_enable_public_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_public_ip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config
+
+[@@@deriving.end]
+
+type psc_instance_config = {
+  allowed_consumer_projects : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : psc_instance_config) -> ()
+
+let yojson_of_psc_instance_config =
+  (function
+   | { allowed_consumer_projects = v_allowed_consumer_projects } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_allowed_consumer_projects with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_consumer_projects", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : psc_instance_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_psc_instance_config
+
+[@@@deriving.end]
+
 type query_insights_config = {
   query_plans_per_minute : float prop option; [@option]
   query_string_length : float prop option; [@option]
@@ -248,6 +352,10 @@ type google_alloydb_instance = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   machine_config : machine_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  network_config : network_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  psc_instance_config : psc_instance_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   query_insights_config : query_insights_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   read_pool_config : read_pool_config list;
@@ -273,6 +381,8 @@ let yojson_of_google_alloydb_instance =
        labels = v_labels;
        client_connection_config = v_client_connection_config;
        machine_config = v_machine_config;
+       network_config = v_network_config;
+       psc_instance_config = v_psc_instance_config;
        query_insights_config = v_query_insights_config;
        read_pool_config = v_read_pool_config;
        timeouts = v_timeouts;
@@ -302,6 +412,26 @@ let yojson_of_google_alloydb_instance =
                v_query_insights_config
            in
            let bnd = "query_insights_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_psc_instance_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_psc_instance_config)
+               v_psc_instance_config
+           in
+           let bnd = "psc_instance_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -433,6 +563,18 @@ let client_connection_config ?require_connectors ?(ssl_config = [])
 
 let machine_config ?cpu_count () : machine_config = { cpu_count }
 
+let network_config__authorized_external_networks ?cidr_range () :
+    network_config__authorized_external_networks =
+  { cidr_range }
+
+let network_config ?enable_public_ip
+    ?(authorized_external_networks = []) () : network_config =
+  { enable_public_ip; authorized_external_networks }
+
+let psc_instance_config ?allowed_consumer_projects () :
+    psc_instance_config =
+  { allowed_consumer_projects }
+
 let query_insights_config ?query_plans_per_minute
     ?query_string_length ?record_application_tags
     ?record_client_address () : query_insights_config =
@@ -452,6 +594,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_alloydb_instance ?annotations ?availability_type
     ?database_flags ?display_name ?gce_zone ?id ?labels
     ?(client_connection_config = []) ?(machine_config = [])
+    ?(network_config = []) ?(psc_instance_config = [])
     ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
     ~cluster ~instance_id ~instance_type () : google_alloydb_instance
     =
@@ -468,6 +611,8 @@ let google_alloydb_instance ?annotations ?availability_type
     labels;
     client_connection_config;
     machine_config;
+    network_config;
+    psc_instance_config;
     query_insights_config;
     read_pool_config;
     timeouts;
@@ -490,6 +635,7 @@ type t = {
   ip_address : string prop;
   labels : (string * string) list prop;
   name : string prop;
+  public_ip_address : string prop;
   reconciling : bool prop;
   state : string prop;
   terraform_labels : (string * string) list prop;
@@ -500,6 +646,7 @@ type t = {
 let make ?annotations ?availability_type ?database_flags
     ?display_name ?gce_zone ?id ?labels
     ?(client_connection_config = []) ?(machine_config = [])
+    ?(network_config = []) ?(psc_instance_config = [])
     ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
     ~cluster ~instance_id ~instance_type __id =
   let __type = "google_alloydb_instance" in
@@ -524,6 +671,8 @@ let make ?annotations ?availability_type ?database_flags
        ip_address = Prop.computed __type __id "ip_address";
        labels = Prop.computed __type __id "labels";
        name = Prop.computed __type __id "name";
+       public_ip_address =
+         Prop.computed __type __id "public_ip_address";
        reconciling = Prop.computed __type __id "reconciling";
        state = Prop.computed __type __id "state";
        terraform_labels =
@@ -540,22 +689,25 @@ let make ?annotations ?availability_type ?database_flags
       yojson_of_google_alloydb_instance
         (google_alloydb_instance ?annotations ?availability_type
            ?database_flags ?display_name ?gce_zone ?id ?labels
-           ~client_connection_config ~machine_config
-           ~query_insights_config ~read_pool_config ?timeouts
-           ~cluster ~instance_id ~instance_type ());
+           ~client_connection_config ~machine_config ~network_config
+           ~psc_instance_config ~query_insights_config
+           ~read_pool_config ?timeouts ~cluster ~instance_id
+           ~instance_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?availability_type
     ?database_flags ?display_name ?gce_zone ?id ?labels
     ?(client_connection_config = []) ?(machine_config = [])
+    ?(network_config = []) ?(psc_instance_config = [])
     ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
     ~cluster ~instance_id ~instance_type __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?availability_type ?database_flags
       ?display_name ?gce_zone ?id ?labels ~client_connection_config
-      ~machine_config ~query_insights_config ~read_pool_config
-      ?timeouts ~cluster ~instance_id ~instance_type __id
+      ~machine_config ~network_config ~psc_instance_config
+      ~query_insights_config ~read_pool_config ?timeouts ~cluster
+      ~instance_id ~instance_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

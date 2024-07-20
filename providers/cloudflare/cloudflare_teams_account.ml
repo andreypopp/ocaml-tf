@@ -233,6 +233,39 @@ let _ = yojson_of_body_scanning
 
 [@@@deriving.end]
 
+type custom_certificate = {
+  enabled : bool prop;
+  id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_certificate) -> ()
+
+let yojson_of_custom_certificate =
+  (function
+   | { enabled = v_enabled; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_certificate
+
+[@@@deriving.end]
+
 type extended_email_matching = { enabled : bool prop }
 [@@deriving_inline yojson_of]
 
@@ -495,6 +528,7 @@ type proxy = {
   root_ca : bool prop;
   tcp : bool prop;
   udp : bool prop;
+  virtual_ip : bool prop;
 }
 [@@deriving_inline yojson_of]
 
@@ -502,9 +536,18 @@ let _ = fun (_ : proxy) -> ()
 
 let yojson_of_proxy =
   (function
-   | { root_ca = v_root_ca; tcp = v_tcp; udp = v_udp } ->
+   | {
+       root_ca = v_root_ca;
+       tcp = v_tcp;
+       udp = v_udp;
+       virtual_ip = v_virtual_ip;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_virtual_ip in
+         ("virtual_ip", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_udp in
@@ -562,6 +605,8 @@ type cloudflare_teams_account = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   body_scanning : body_scanning list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  custom_certificate : custom_certificate list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   extended_email_matching : extended_email_matching list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   fips : fips list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -593,6 +638,7 @@ let yojson_of_cloudflare_teams_account =
        antivirus = v_antivirus;
        block_page = v_block_page;
        body_scanning = v_body_scanning;
+       custom_certificate = v_custom_certificate;
        extended_email_matching = v_extended_email_matching;
        fips = v_fips;
        logging = v_logging;
@@ -651,6 +697,16 @@ let yojson_of_cloudflare_teams_account =
                v_extended_email_matching
            in
            let bnd = "extended_email_matching", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_certificate)
+               v_custom_certificate
+           in
+           let bnd = "custom_certificate", arg in
            bnd :: bnds
        in
        let bnds =
@@ -771,6 +827,9 @@ let block_page ?background_color ?enabled ?footer_text ?header_text
 let body_scanning ~inspection_mode () : body_scanning =
   { inspection_mode }
 
+let custom_certificate ?id ~enabled () : custom_certificate =
+  { enabled; id }
+
 let extended_email_matching ~enabled () : extended_email_matching =
   { enabled }
 
@@ -796,7 +855,10 @@ let logging ~redact_pii ~settings_by_rule_type () : logging =
   { redact_pii; settings_by_rule_type }
 
 let payload_log ~public_key () : payload_log = { public_key }
-let proxy ~root_ca ~tcp ~udp () : proxy = { root_ca; tcp; udp }
+
+let proxy ~root_ca ~tcp ~udp ~virtual_ip () : proxy =
+  { root_ca; tcp; udp; virtual_ip }
+
 let ssh_session_log ~public_key () : ssh_session_log = { public_key }
 
 let cloudflare_teams_account ?activity_log_enabled ?id
@@ -804,9 +866,10 @@ let cloudflare_teams_account ?activity_log_enabled ?id
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ?(antivirus = [])
     ?(block_page = []) ?(body_scanning = [])
-    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
-    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
-    ~account_id () : cloudflare_teams_account =
+    ?(custom_certificate = []) ?(extended_email_matching = [])
+    ?(fips = []) ?(logging = []) ?(payload_log = []) ?(proxy = [])
+    ?(ssh_session_log = []) ~account_id () : cloudflare_teams_account
+    =
   {
     account_id;
     activity_log_enabled;
@@ -818,6 +881,7 @@ let cloudflare_teams_account ?activity_log_enabled ?id
     antivirus;
     block_page;
     body_scanning;
+    custom_certificate;
     extended_email_matching;
     fips;
     logging;
@@ -842,9 +906,9 @@ let make ?activity_log_enabled ?id
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ?(antivirus = [])
     ?(block_page = []) ?(body_scanning = [])
-    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
-    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
-    ~account_id __id =
+    ?(custom_certificate = []) ?(extended_email_matching = [])
+    ?(fips = []) ?(logging = []) ?(payload_log = []) ?(proxy = [])
+    ?(ssh_session_log = []) ~account_id __id =
   let __type = "cloudflare_teams_account" in
   let __attrs =
     ({
@@ -874,8 +938,9 @@ let make ?activity_log_enabled ?id
            ?non_identity_browser_isolation_enabled
            ?protocol_detection_enabled ?tls_decrypt_enabled
            ?url_browser_isolation_enabled ~antivirus ~block_page
-           ~body_scanning ~extended_email_matching ~fips ~logging
-           ~payload_log ~proxy ~ssh_session_log ~account_id ());
+           ~body_scanning ~custom_certificate
+           ~extended_email_matching ~fips ~logging ~payload_log
+           ~proxy ~ssh_session_log ~account_id ());
     attrs = __attrs;
   }
 
@@ -884,16 +949,17 @@ let register ?tf_module ?activity_log_enabled ?id
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ?(antivirus = [])
     ?(block_page = []) ?(body_scanning = [])
-    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
-    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
-    ~account_id __id =
+    ?(custom_certificate = []) ?(extended_email_matching = [])
+    ?(fips = []) ?(logging = []) ?(payload_log = []) ?(proxy = [])
+    ?(ssh_session_log = []) ~account_id __id =
   let (r : _ Tf_core.resource) =
     make ?activity_log_enabled ?id
       ?non_identity_browser_isolation_enabled
       ?protocol_detection_enabled ?tls_decrypt_enabled
       ?url_browser_isolation_enabled ~antivirus ~block_page
-      ~body_scanning ~extended_email_matching ~fips ~logging
-      ~payload_log ~proxy ~ssh_session_log ~account_id __id
+      ~body_scanning ~custom_certificate ~extended_email_matching
+      ~fips ~logging ~payload_log ~proxy ~ssh_session_log ~account_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

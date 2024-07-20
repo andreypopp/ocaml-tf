@@ -140,7 +140,7 @@ val http_listener :
 type identity
 
 val identity :
-  identity_ids:string prop list ->
+  ?identity_ids:string prop list ->
   type_:string prop ->
   unit ->
   identity

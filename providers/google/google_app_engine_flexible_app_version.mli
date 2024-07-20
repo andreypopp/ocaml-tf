@@ -123,6 +123,14 @@ type entrypoint
 
 val entrypoint : shell:string prop -> unit -> entrypoint
 
+type flexible_runtime_settings
+
+val flexible_runtime_settings :
+  ?operating_system:string prop ->
+  ?runtime_version:string prop ->
+  unit ->
+  flexible_runtime_settings
+
 type handlers__script
 
 val handlers__script :
@@ -252,6 +260,7 @@ val google_app_engine_flexible_app_version :
   ?deployment:deployment list ->
   ?endpoints_api_service:endpoints_api_service list ->
   ?entrypoint:entrypoint list ->
+  ?flexible_runtime_settings:flexible_runtime_settings list ->
   ?handlers:handlers list ->
   ?manual_scaling:manual_scaling list ->
   ?network:network list ->
@@ -316,6 +325,7 @@ val register :
   ?deployment:deployment list ->
   ?endpoints_api_service:endpoints_api_service list ->
   ?entrypoint:entrypoint list ->
+  ?flexible_runtime_settings:flexible_runtime_settings list ->
   ?handlers:handlers list ->
   ?manual_scaling:manual_scaling list ->
   ?network:network list ->
@@ -351,6 +361,7 @@ val make :
   ?deployment:deployment list ->
   ?endpoints_api_service:endpoints_api_service list ->
   ?entrypoint:entrypoint list ->
+  ?flexible_runtime_settings:flexible_runtime_settings list ->
   ?handlers:handlers list ->
   ?manual_scaling:manual_scaling list ->
   ?network:network list ->

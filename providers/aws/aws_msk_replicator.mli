@@ -37,6 +37,13 @@ val replication_info_list__consumer_group_replication :
   unit ->
   replication_info_list__consumer_group_replication
 
+type replication_info_list__topic_replication__starting_position
+
+val replication_info_list__topic_replication__starting_position :
+  ?type_:string prop ->
+  unit ->
+  replication_info_list__topic_replication__starting_position
+
 type replication_info_list__topic_replication
 
 val replication_info_list__topic_replication :
@@ -44,6 +51,8 @@ val replication_info_list__topic_replication :
   ?copy_topic_configurations:bool prop ->
   ?detect_and_copy_new_topics:bool prop ->
   ?topics_to_exclude:string prop list ->
+  ?starting_position:
+    replication_info_list__topic_replication__starting_position list ->
   topics_to_replicate:string prop list ->
   unit ->
   replication_info_list__topic_replication

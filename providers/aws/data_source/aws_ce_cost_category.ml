@@ -106,6 +106,442 @@ let _ = yojson_of_rule__rule__or__tags
 
 [@@@deriving.end]
 
+type rule__rule__or__or__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__or__tags) -> ()
+
+let yojson_of_rule__rule__or__or__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__or__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__or__tags
+
+[@@@deriving.end]
+
+type rule__rule__or__or__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__or__dimension) -> ()
+
+let yojson_of_rule__rule__or__or__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__or__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__or__dimension
+
+[@@@deriving.end]
+
+type rule__rule__or__or__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__or__cost_category) -> ()
+
+let yojson_of_rule__rule__or__or__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__or__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__or__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__or__or = {
+  cost_category : rule__rule__or__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__or__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__or__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__or) -> ()
+
+let yojson_of_rule__rule__or__or =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__or__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__or__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__or__or__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__or -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__or
+
+[@@@deriving.end]
+
+type rule__rule__or__not__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__not__tags) -> ()
+
+let yojson_of_rule__rule__or__not__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__not__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__not__tags
+
+[@@@deriving.end]
+
+type rule__rule__or__not__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__not__dimension) -> ()
+
+let yojson_of_rule__rule__or__not__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__not__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__not__dimension
+
+[@@@deriving.end]
+
+type rule__rule__or__not__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__not__cost_category) -> ()
+
+let yojson_of_rule__rule__or__not__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__not__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__not__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__or__not = {
+  cost_category : rule__rule__or__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__or__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__or__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__not) -> ()
+
+let yojson_of_rule__rule__or__not =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__not__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__or__not__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__not
+
+[@@@deriving.end]
+
 type rule__rule__or__dimension = {
   key : string prop;
   match_options : string prop list;
@@ -211,19 +647,177 @@ let _ = yojson_of_rule__rule__or__cost_category
 
 [@@@deriving.end]
 
-type rule__rule__or = {
-  cost_category : rule__rule__or__cost_category list;
+type rule__rule__or__and__tags = {
+  key : string prop;
+  match_options : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  dimension : rule__rule__or__dimension list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : rule__rule__or__tags list;
+  values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
-let _ = fun (_ : rule__rule__or) -> ()
+let _ = fun (_ : rule__rule__or__and__tags) -> ()
 
-let yojson_of_rule__rule__or =
+let yojson_of_rule__rule__or__and__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__and__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__and__tags
+
+[@@@deriving.end]
+
+type rule__rule__or__and__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__and__dimension) -> ()
+
+let yojson_of_rule__rule__or__and__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__and__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__and__dimension
+
+[@@@deriving.end]
+
+type rule__rule__or__and__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__and__cost_category) -> ()
+
+let yojson_of_rule__rule__or__and__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__and__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__and__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__or__and = {
+  cost_category : rule__rule__or__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__or__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__or__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or__and) -> ()
+
+let yojson_of_rule__rule__or__and =
   (function
    | {
        cost_category = v_cost_category;
@@ -237,9 +831,96 @@ let yojson_of_rule__rule__or =
          if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
+             (yojson_of_list yojson_of_rule__rule__or__and__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__and__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__or__and__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__or__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__or__and
+
+[@@@deriving.end]
+
+type rule__rule__or = {
+  and_ : rule__rule__or__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+  cost_category : rule__rule__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  not : rule__rule__or__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  or_ : rule__rule__or__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+  tags : rule__rule__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__or) -> ()
+
+let yojson_of_rule__rule__or =
+  (function
+   | {
+       and_ = v_and_;
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       not = v_not;
+       or_ = v_or_;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
              (yojson_of_list yojson_of_rule__rule__or__tags) v_tags
            in
            let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_or_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__or) v_or_
+           in
+           let bnd = "or", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_not then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__not) v_not
+           in
+           let bnd = "not", arg in
            bnd :: bnds
        in
        let bnds =
@@ -260,6 +941,15 @@ let yojson_of_rule__rule__or =
                v_cost_category
            in
            let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__or__and) v_and_
+           in
+           let bnd = "and", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -318,6 +1008,443 @@ let yojson_of_rule__rule__not__tags =
     : rule__rule__not__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_rule__rule__not__tags
+
+[@@@deriving.end]
+
+type rule__rule__not__or__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__or__tags) -> ()
+
+let yojson_of_rule__rule__not__or__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__or__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__or__tags
+
+[@@@deriving.end]
+
+type rule__rule__not__or__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__or__dimension) -> ()
+
+let yojson_of_rule__rule__not__or__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__or__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__or__dimension
+
+[@@@deriving.end]
+
+type rule__rule__not__or__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__or__cost_category) -> ()
+
+let yojson_of_rule__rule__not__or__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__or__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__or__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__not__or = {
+  cost_category : rule__rule__not__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__not__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__not__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__or) -> ()
+
+let yojson_of_rule__rule__not__or =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__or__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__or__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__not__or__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__or -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__or
+
+[@@@deriving.end]
+
+type rule__rule__not__not__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__not__tags) -> ()
+
+let yojson_of_rule__rule__not__not__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__not__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__not__tags
+
+[@@@deriving.end]
+
+type rule__rule__not__not__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__not__dimension) -> ()
+
+let yojson_of_rule__rule__not__not__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__not__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__not__dimension
+
+[@@@deriving.end]
+
+type rule__rule__not__not__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__not__cost_category) -> ()
+
+let yojson_of_rule__rule__not__not__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__not__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__not__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__not__not = {
+  cost_category : rule__rule__not__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__not__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__not__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__not) -> ()
+
+let yojson_of_rule__rule__not__not =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__not__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__not__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__not__not__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__not
 
 [@@@deriving.end]
 
@@ -426,19 +1553,177 @@ let _ = yojson_of_rule__rule__not__cost_category
 
 [@@@deriving.end]
 
-type rule__rule__not = {
-  cost_category : rule__rule__not__cost_category list;
+type rule__rule__not__and__tags = {
+  key : string prop;
+  match_options : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  dimension : rule__rule__not__dimension list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : rule__rule__not__tags list;
+  values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
-let _ = fun (_ : rule__rule__not) -> ()
+let _ = fun (_ : rule__rule__not__and__tags) -> ()
 
-let yojson_of_rule__rule__not =
+let yojson_of_rule__rule__not__and__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__and__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__and__tags
+
+[@@@deriving.end]
+
+type rule__rule__not__and__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__and__dimension) -> ()
+
+let yojson_of_rule__rule__not__and__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__and__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__and__dimension
+
+[@@@deriving.end]
+
+type rule__rule__not__and__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__and__cost_category) -> ()
+
+let yojson_of_rule__rule__not__and__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__and__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__and__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__not__and = {
+  cost_category : rule__rule__not__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__not__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__not__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not__and) -> ()
+
+let yojson_of_rule__rule__not__and =
   (function
    | {
        cost_category = v_cost_category;
@@ -452,9 +1737,97 @@ let yojson_of_rule__rule__not =
          if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
+             (yojson_of_list yojson_of_rule__rule__not__and__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__not__and__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__not__and__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__not__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__not__and
+
+[@@@deriving.end]
+
+type rule__rule__not = {
+  and_ : rule__rule__not__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+  cost_category : rule__rule__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  not : rule__rule__not__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  or_ : rule__rule__not__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+  tags : rule__rule__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__not) -> ()
+
+let yojson_of_rule__rule__not =
+  (function
+   | {
+       and_ = v_and_;
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       not = v_not;
+       or_ = v_or_;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
              (yojson_of_list yojson_of_rule__rule__not__tags) v_tags
            in
            let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_or_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__or) v_or_
+           in
+           let bnd = "or", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_not then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__not) v_not
+           in
+           let bnd = "not", arg in
            bnd :: bnds
        in
        let bnds =
@@ -475,6 +1848,15 @@ let yojson_of_rule__rule__not =
                v_cost_category
            in
            let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__not__and) v_and_
+           in
+           let bnd = "and", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -640,6 +2022,443 @@ let _ = yojson_of_rule__rule__and__tags
 
 [@@@deriving.end]
 
+type rule__rule__and__or__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__or__tags) -> ()
+
+let yojson_of_rule__rule__and__or__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__or__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__or__tags
+
+[@@@deriving.end]
+
+type rule__rule__and__or__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__or__dimension) -> ()
+
+let yojson_of_rule__rule__and__or__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__or__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__or__dimension
+
+[@@@deriving.end]
+
+type rule__rule__and__or__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__or__cost_category) -> ()
+
+let yojson_of_rule__rule__and__or__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__or__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__or__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__and__or = {
+  cost_category : rule__rule__and__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__and__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__and__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__or) -> ()
+
+let yojson_of_rule__rule__and__or =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__or__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__or__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__and__or__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__or -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__or
+
+[@@@deriving.end]
+
+type rule__rule__and__not__tags = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__not__tags) -> ()
+
+let yojson_of_rule__rule__and__not__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__not__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__not__tags
+
+[@@@deriving.end]
+
+type rule__rule__and__not__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__not__dimension) -> ()
+
+let yojson_of_rule__rule__and__not__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__not__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__not__dimension
+
+[@@@deriving.end]
+
+type rule__rule__and__not__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__not__cost_category) -> ()
+
+let yojson_of_rule__rule__and__not__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__not__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__not__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__and__not = {
+  cost_category : rule__rule__and__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__and__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__and__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__not) -> ()
+
+let yojson_of_rule__rule__and__not =
+  (function
+   | {
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__not__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__and__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__and__not__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__not
+
+[@@@deriving.end]
+
 type rule__rule__and__dimension = {
   key : string prop;
   match_options : string prop list;
@@ -745,19 +2564,177 @@ let _ = yojson_of_rule__rule__and__cost_category
 
 [@@@deriving.end]
 
-type rule__rule__and = {
-  cost_category : rule__rule__and__cost_category list;
+type rule__rule__and__and__tags = {
+  key : string prop;
+  match_options : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  dimension : rule__rule__and__dimension list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : rule__rule__and__tags list;
+  values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
-let _ = fun (_ : rule__rule__and) -> ()
+let _ = fun (_ : rule__rule__and__and__tags) -> ()
 
-let yojson_of_rule__rule__and =
+let yojson_of_rule__rule__and__and__tags =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__and__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__and__tags
+
+[@@@deriving.end]
+
+type rule__rule__and__and__dimension = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__and__dimension) -> ()
+
+let yojson_of_rule__rule__and__and__dimension =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__and__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__and__dimension
+
+[@@@deriving.end]
+
+type rule__rule__and__and__cost_category = {
+  key : string prop;
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__and__cost_category) -> ()
+
+let yojson_of_rule__rule__and__and__cost_category =
+  (function
+   | {
+       key = v_key;
+       match_options = v_match_options;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_match_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_options
+           in
+           let bnd = "match_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__and__cost_category ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__and__cost_category
+
+[@@@deriving.end]
+
+type rule__rule__and__and = {
+  cost_category : rule__rule__and__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__and__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  tags : rule__rule__and__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and__and) -> ()
+
+let yojson_of_rule__rule__and__and =
   (function
    | {
        cost_category = v_cost_category;
@@ -771,9 +2748,97 @@ let yojson_of_rule__rule__and =
          if Stdlib.( = ) [] v_tags then bnds
          else
            let arg =
+             (yojson_of_list yojson_of_rule__rule__and__and__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__and__and__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rule__and__and__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__rule__and__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__rule__and__and
+
+[@@@deriving.end]
+
+type rule__rule__and = {
+  and_ : rule__rule__and__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+  cost_category : rule__rule__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dimension : rule__rule__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  not : rule__rule__and__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  or_ : rule__rule__and__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+  tags : rule__rule__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__rule__and) -> ()
+
+let yojson_of_rule__rule__and =
+  (function
+   | {
+       and_ = v_and_;
+       cost_category = v_cost_category;
+       dimension = v_dimension;
+       not = v_not;
+       or_ = v_or_;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tags then bnds
+         else
+           let arg =
              (yojson_of_list yojson_of_rule__rule__and__tags) v_tags
            in
            let bnd = "tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_or_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__or) v_or_
+           in
+           let bnd = "or", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_not then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__not) v_not
+           in
+           let bnd = "not", arg in
            bnd :: bnds
        in
        let bnds =
@@ -794,6 +2859,15 @@ let yojson_of_rule__rule__and =
                v_cost_category
            in
            let bnd = "cost_category", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rule__and__and) v_and_
+           in
+           let bnd = "and", arg in
            bnd :: bnds
        in
        `Assoc bnds

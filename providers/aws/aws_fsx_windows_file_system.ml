@@ -221,6 +221,7 @@ type aws_fsx_windows_file_system = {
   copy_tags_to_backups : bool prop option; [@option]
   daily_automatic_backup_start_time : string prop option; [@option]
   deployment_type : string prop option; [@option]
+  final_backup_tags : (string * string prop) list option; [@option]
   id : string prop option; [@option]
   kms_key_id : string prop option; [@option]
   preferred_subnet_id : string prop option; [@option]
@@ -258,6 +259,7 @@ let yojson_of_aws_fsx_windows_file_system =
        daily_automatic_backup_start_time =
          v_daily_automatic_backup_start_time;
        deployment_type = v_deployment_type;
+       final_backup_tags = v_final_backup_tags;
        id = v_id;
        kms_key_id = v_kms_key_id;
        preferred_subnet_id = v_preferred_subnet_id;
@@ -429,6 +431,22 @@ let yojson_of_aws_fsx_windows_file_system =
              bnd :: bnds
        in
        let bnds =
+         match v_final_backup_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "final_backup_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_deployment_type with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -524,10 +542,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_fsx_windows_file_system ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
-    ?daily_automatic_backup_start_time ?deployment_type ?id
-    ?kms_key_id ?preferred_subnet_id ?security_group_ids
-    ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?deployment_type
+    ?final_backup_tags ?id ?kms_key_id ?preferred_subnet_id
+    ?security_group_ids ?skip_final_backup ?storage_capacity
+    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
     ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
     ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
     ~throughput_capacity () : aws_fsx_windows_file_system =
@@ -539,6 +557,7 @@ let aws_fsx_windows_file_system ?active_directory_id ?aliases
     copy_tags_to_backups;
     daily_automatic_backup_start_time;
     deployment_type;
+    final_backup_tags;
     id;
     kms_key_id;
     preferred_subnet_id;
@@ -568,6 +587,7 @@ type t = {
   daily_automatic_backup_start_time : string prop;
   deployment_type : string prop;
   dns_name : string prop;
+  final_backup_tags : (string * string) list prop;
   id : string prop;
   kms_key_id : string prop;
   network_interface_ids : string list prop;
@@ -589,10 +609,10 @@ type t = {
 
 let make ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
-    ?daily_automatic_backup_start_time ?deployment_type ?id
-    ?kms_key_id ?preferred_subnet_id ?security_group_ids
-    ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?deployment_type
+    ?final_backup_tags ?id ?kms_key_id ?preferred_subnet_id
+    ?security_group_ids ?skip_final_backup ?storage_capacity
+    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
     ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
     ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
     ~throughput_capacity __id =
@@ -614,6 +634,8 @@ let make ?active_directory_id ?aliases
            "daily_automatic_backup_start_time";
        deployment_type = Prop.computed __type __id "deployment_type";
        dns_name = Prop.computed __type __id "dns_name";
+       final_backup_tags =
+         Prop.computed __type __id "final_backup_tags";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";
        network_interface_ids =
@@ -651,21 +673,22 @@ let make ?active_directory_id ?aliases
         (aws_fsx_windows_file_system ?active_directory_id ?aliases
            ?automatic_backup_retention_days ?backup_id
            ?copy_tags_to_backups ?daily_automatic_backup_start_time
-           ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
-           ?security_group_ids ?skip_final_backup ?storage_capacity
-           ?storage_type ?tags ?tags_all
-           ?weekly_maintenance_start_time ~audit_log_configuration
-           ~disk_iops_configuration ~self_managed_active_directory
-           ?timeouts ~subnet_ids ~throughput_capacity ());
+           ?deployment_type ?final_backup_tags ?id ?kms_key_id
+           ?preferred_subnet_id ?security_group_ids
+           ?skip_final_backup ?storage_capacity ?storage_type ?tags
+           ?tags_all ?weekly_maintenance_start_time
+           ~audit_log_configuration ~disk_iops_configuration
+           ~self_managed_active_directory ?timeouts ~subnet_ids
+           ~throughput_capacity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
-    ?daily_automatic_backup_start_time ?deployment_type ?id
-    ?kms_key_id ?preferred_subnet_id ?security_group_ids
-    ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?deployment_type
+    ?final_backup_tags ?id ?kms_key_id ?preferred_subnet_id
+    ?security_group_ids ?skip_final_backup ?storage_capacity
+    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
     ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
     ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
     ~throughput_capacity __id =
@@ -673,12 +696,12 @@ let register ?tf_module ?active_directory_id ?aliases
     make ?active_directory_id ?aliases
       ?automatic_backup_retention_days ?backup_id
       ?copy_tags_to_backups ?daily_automatic_backup_start_time
-      ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
-      ?security_group_ids ?skip_final_backup ?storage_capacity
-      ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-      ~audit_log_configuration ~disk_iops_configuration
-      ~self_managed_active_directory ?timeouts ~subnet_ids
-      ~throughput_capacity __id
+      ?deployment_type ?final_backup_tags ?id ?kms_key_id
+      ?preferred_subnet_id ?security_group_ids ?skip_final_backup
+      ?storage_capacity ?storage_type ?tags ?tags_all
+      ?weekly_maintenance_start_time ~audit_log_configuration
+      ~disk_iops_configuration ~self_managed_active_directory
+      ?timeouts ~subnet_ids ~throughput_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

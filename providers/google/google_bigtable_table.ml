@@ -2,6 +2,46 @@
 
 open! Tf_core
 
+type automated_backup_policy = {
+  frequency : string prop option; [@option]
+  retention_period : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automated_backup_policy) -> ()
+
+let yojson_of_automated_backup_policy =
+  (function
+   | {
+       frequency = v_frequency;
+       retention_period = v_retention_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_retention_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "retention_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_frequency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "frequency", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automated_backup_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automated_backup_policy
+
+[@@@deriving.end]
+
 type column_family = { family : string prop }
 [@@deriving_inline yojson_of]
 
@@ -69,6 +109,8 @@ type google_bigtable_table = {
   name : string prop;
   project : string prop option; [@option]
   split_keys : string prop list option; [@option]
+  automated_backup_policy : automated_backup_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   column_family : column_family list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -87,6 +129,7 @@ let yojson_of_google_bigtable_table =
        name = v_name;
        project = v_project;
        split_keys = v_split_keys;
+       automated_backup_policy = v_automated_backup_policy;
        column_family = v_column_family;
        timeouts = v_timeouts;
      } ->
@@ -104,6 +147,16 @@ let yojson_of_google_bigtable_table =
              (yojson_of_list yojson_of_column_family) v_column_family
            in
            let bnd = "column_family", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_automated_backup_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_automated_backup_policy)
+               v_automated_backup_policy
+           in
+           let bnd = "automated_backup_policy", arg in
            bnd :: bnds
        in
        let bnds =
@@ -163,12 +216,17 @@ let _ = yojson_of_google_bigtable_table
 
 [@@@deriving.end]
 
+let automated_backup_policy ?frequency ?retention_period () :
+    automated_backup_policy =
+  { frequency; retention_period }
+
 let column_family ~family () : column_family = { family }
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let google_bigtable_table ?change_stream_retention
     ?deletion_protection ?id ?project ?split_keys ?timeouts
-    ~instance_name ~name ~column_family () : google_bigtable_table =
+    ~instance_name ~name ~automated_backup_policy ~column_family () :
+    google_bigtable_table =
   {
     change_stream_retention;
     deletion_protection;
@@ -177,6 +235,7 @@ let google_bigtable_table ?change_stream_retention
     name;
     project;
     split_keys;
+    automated_backup_policy;
     column_family;
     timeouts;
   }
@@ -193,7 +252,8 @@ type t = {
 }
 
 let make ?change_stream_retention ?deletion_protection ?id ?project
-    ?split_keys ?timeouts ~instance_name ~name ~column_family __id =
+    ?split_keys ?timeouts ~instance_name ~name
+    ~automated_backup_policy ~column_family __id =
   let __type = "google_bigtable_table" in
   let __attrs =
     ({
@@ -217,16 +277,18 @@ let make ?change_stream_retention ?deletion_protection ?id ?project
       yojson_of_google_bigtable_table
         (google_bigtable_table ?change_stream_retention
            ?deletion_protection ?id ?project ?split_keys ?timeouts
-           ~instance_name ~name ~column_family ());
+           ~instance_name ~name ~automated_backup_policy
+           ~column_family ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?change_stream_retention ?deletion_protection
     ?id ?project ?split_keys ?timeouts ~instance_name ~name
-    ~column_family __id =
+    ~automated_backup_policy ~column_family __id =
   let (r : _ Tf_core.resource) =
     make ?change_stream_retention ?deletion_protection ?id ?project
-      ?split_keys ?timeouts ~instance_name ~name ~column_family __id
+      ?split_keys ?timeouts ~instance_name ~name
+      ~automated_backup_policy ~column_family __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

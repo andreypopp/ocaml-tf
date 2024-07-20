@@ -24,6 +24,53 @@ let _ = yojson_of_notification_config
 
 [@@@deriving.end]
 
+type notification_configs = {
+  pubsub_topic : string prop;
+  send_full_resource : bool prop option; [@option]
+  send_previous_resource_on_delete : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notification_configs) -> ()
+
+let yojson_of_notification_configs =
+  (function
+   | {
+       pubsub_topic = v_pubsub_topic;
+       send_full_resource = v_send_full_resource;
+       send_previous_resource_on_delete =
+         v_send_previous_resource_on_delete;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_send_previous_resource_on_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_previous_resource_on_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_send_full_resource with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_full_resource", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pubsub_topic in
+         ("pubsub_topic", arg) :: bnds
+       in
+       `Assoc bnds
+    : notification_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notification_configs
+
+[@@@deriving.end]
+
 type stream_configs__bigquery_destination__schema_config__last_updated_partition_config = {
   expiration_ms : string prop option; [@option]
   type_ : string prop; [@key "type"]
@@ -266,6 +313,8 @@ type google_healthcare_fhir_store = {
   version : string prop;
   notification_config : notification_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  notification_configs : notification_configs list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   stream_configs : stream_configs list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -292,6 +341,7 @@ let yojson_of_google_healthcare_fhir_store =
        name = v_name;
        version = v_version;
        notification_config = v_notification_config;
+       notification_configs = v_notification_configs;
        stream_configs = v_stream_configs;
        timeouts = v_timeouts;
      } ->
@@ -310,6 +360,16 @@ let yojson_of_google_healthcare_fhir_store =
                v_stream_configs
            in
            let bnd = "stream_configs", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_notification_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_configs)
+               v_notification_configs
+           in
+           let bnd = "notification_configs", arg in
            bnd :: bnds
        in
        let bnds =
@@ -417,6 +477,15 @@ let _ = yojson_of_google_healthcare_fhir_store
 let notification_config ~pubsub_topic () : notification_config =
   { pubsub_topic }
 
+let notification_configs ?send_full_resource
+    ?send_previous_resource_on_delete ~pubsub_topic () :
+    notification_configs =
+  {
+    pubsub_topic;
+    send_full_resource;
+    send_previous_resource_on_delete;
+  }
+
 let stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     ?expiration_ms ~type_ () :
     stream_configs__bigquery_destination__schema_config__last_updated_partition_config
@@ -447,8 +516,8 @@ let google_healthcare_fhir_store ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
     ?enable_update_create ?id ?labels ?(notification_config = [])
-    ?(stream_configs = []) ?timeouts ~dataset ~name ~version () :
-    google_healthcare_fhir_store =
+    ?(notification_configs = []) ?(stream_configs = []) ?timeouts
+    ~dataset ~name ~version () : google_healthcare_fhir_store =
   {
     complex_data_type_reference_parsing;
     dataset;
@@ -462,6 +531,7 @@ let google_healthcare_fhir_store ?complex_data_type_reference_parsing
     name;
     version;
     notification_config;
+    notification_configs;
     stream_configs;
     timeouts;
   }
@@ -488,7 +558,8 @@ let make ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
     ?enable_update_create ?id ?labels ?(notification_config = [])
-    ?(stream_configs = []) ?timeouts ~dataset ~name ~version __id =
+    ?(notification_configs = []) ?(stream_configs = []) ?timeouts
+    ~dataset ~name ~version __id =
   let __type = "google_healthcare_fhir_store" in
   let __attrs =
     ({
@@ -530,7 +601,8 @@ let make ?complex_data_type_reference_parsing
            ?disable_referential_integrity
            ?disable_resource_versioning ?enable_history_import
            ?enable_update_create ?id ?labels ~notification_config
-           ~stream_configs ?timeouts ~dataset ~name ~version ());
+           ~notification_configs ~stream_configs ?timeouts ~dataset
+           ~name ~version ());
     attrs = __attrs;
   }
 
@@ -538,13 +610,15 @@ let register ?tf_module ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
     ?enable_update_create ?id ?labels ?(notification_config = [])
-    ?(stream_configs = []) ?timeouts ~dataset ~name ~version __id =
+    ?(notification_configs = []) ?(stream_configs = []) ?timeouts
+    ~dataset ~name ~version __id =
   let (r : _ Tf_core.resource) =
     make ?complex_data_type_reference_parsing
       ?default_search_handling_strict ?disable_referential_integrity
       ?disable_resource_versioning ?enable_history_import
       ?enable_update_create ?id ?labels ~notification_config
-      ~stream_configs ?timeouts ~dataset ~name ~version __id
+      ~notification_configs ~stream_configs ?timeouts ~dataset ~name
+      ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

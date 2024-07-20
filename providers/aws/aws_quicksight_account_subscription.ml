@@ -21,6 +21,7 @@ type aws_quicksight_account_subscription = {
   edition: string prop; 
   email_address: string  prop option; [@option]
   first_name: string  prop option; [@option]
+  iam_identity_center_instance_arn: string  prop option; [@option]
   id: string  prop option; [@option]
   last_name: string  prop option; [@option]
   notification_email: string prop; 
@@ -37,7 +38,7 @@ let timeouts ?create ?delete ?read () =
     read;
   } : timeouts);;
 
-let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email () =
+let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?iam_identity_center_instance_arn ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email () =
   ({
     account_name;
     active_directory_name;
@@ -50,6 +51,7 @@ let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?aut
     edition;
     email_address;
     first_name;
+    iam_identity_center_instance_arn;
     id;
     last_name;
     notification_email;
@@ -72,6 +74,7 @@ type t = {
   edition: string prop;
   email_address: string prop;
   first_name: string prop;
+  iam_identity_center_instance_arn: string prop;
   id: string prop;
   last_name: string prop;
   notification_email: string prop;
@@ -79,7 +82,7 @@ type t = {
   realm: string prop;
 }
 
-let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
+let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?iam_identity_center_instance_arn ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
   let __type = "aws_quicksight_account_subscription" in
   let __attrs = ({
     tf_name = __id;
@@ -95,6 +98,7 @@ let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?cont
     edition = Prop.computed __type __id "edition";
     email_address = Prop.computed __type __id "email_address";
     first_name = Prop.computed __type __id "first_name";
+    iam_identity_center_instance_arn = Prop.computed __type __id "iam_identity_center_instance_arn";
     id = Prop.computed __type __id "id";
     last_name = Prop.computed __type __id "last_name";
     notification_email = Prop.computed __type __id "notification_email";
@@ -104,12 +108,12 @@ let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?cont
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_account_subscription (aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email ());
+    json=yojson_of_aws_quicksight_account_subscription (aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?iam_identity_center_instance_arn ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
-  let (r : _ Tf_core.resource) = make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id in
+let register ?tf_module ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?iam_identity_center_instance_arn ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
+  let (r : _ Tf_core.resource) = make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?iam_identity_center_instance_arn ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

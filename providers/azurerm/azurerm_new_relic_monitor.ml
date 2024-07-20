@@ -2,6 +2,28 @@
 
 open! Tf_core
 
+type identity = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
+
 type plan = {
   billing_cycle : string prop option; [@option]
   effective_date : string prop;
@@ -161,6 +183,8 @@ type azurerm_new_relic_monitor = {
   organization_id : string prop option; [@option]
   resource_group_name : string prop;
   user_id : string prop option; [@option]
+  identity : identity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   plan : plan list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   user : user list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -182,6 +206,7 @@ let yojson_of_azurerm_new_relic_monitor =
        organization_id = v_organization_id;
        resource_group_name = v_resource_group_name;
        user_id = v_user_id;
+       identity = v_identity;
        plan = v_plan;
        timeouts = v_timeouts;
        user = v_user;
@@ -205,6 +230,15 @@ let yojson_of_azurerm_new_relic_monitor =
          else
            let arg = (yojson_of_list yojson_of_plan) v_plan in
            let bnd = "plan", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
            bnd :: bnds
        in
        let bnds =
@@ -284,6 +318,8 @@ let _ = yojson_of_azurerm_new_relic_monitor
 
 [@@@deriving.end]
 
+let identity ~type_ () : identity = { type_ }
+
 let plan ?billing_cycle ?plan_id ?usage_type ~effective_date () :
     plan =
   { billing_cycle; effective_date; plan_id; usage_type }
@@ -296,8 +332,8 @@ let user ~email ~first_name ~last_name ~phone_number () : user =
 
 let azurerm_new_relic_monitor ?account_creation_source ?account_id
     ?id ?ingestion_key ?org_creation_source ?organization_id ?user_id
-    ?timeouts ~location ~name ~resource_group_name ~plan ~user () :
-    azurerm_new_relic_monitor =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~plan ~user () : azurerm_new_relic_monitor =
   {
     account_creation_source;
     account_id;
@@ -309,6 +345,7 @@ let azurerm_new_relic_monitor ?account_creation_source ?account_id
     organization_id;
     resource_group_name;
     user_id;
+    identity;
     plan;
     timeouts;
     user;
@@ -329,8 +366,8 @@ type t = {
 }
 
 let make ?account_creation_source ?account_id ?id ?ingestion_key
-    ?org_creation_source ?organization_id ?user_id ?timeouts
-    ~location ~name ~resource_group_name ~plan ~user __id =
+    ?org_creation_source ?organization_id ?user_id ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name ~plan ~user __id =
   let __type = "azurerm_new_relic_monitor" in
   let __attrs =
     ({
@@ -358,18 +395,19 @@ let make ?account_creation_source ?account_id ?id ?ingestion_key
       yojson_of_azurerm_new_relic_monitor
         (azurerm_new_relic_monitor ?account_creation_source
            ?account_id ?id ?ingestion_key ?org_creation_source
-           ?organization_id ?user_id ?timeouts ~location ~name
-           ~resource_group_name ~plan ~user ());
+           ?organization_id ?user_id ~identity ?timeouts ~location
+           ~name ~resource_group_name ~plan ~user ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_creation_source ?account_id ?id
     ?ingestion_key ?org_creation_source ?organization_id ?user_id
-    ?timeouts ~location ~name ~resource_group_name ~plan ~user __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~plan ~user __id =
   let (r : _ Tf_core.resource) =
     make ?account_creation_source ?account_id ?id ?ingestion_key
-      ?org_creation_source ?organization_id ?user_id ?timeouts
-      ~location ~name ~resource_group_name ~plan ~user __id
+      ?org_creation_source ?organization_id ?user_id ~identity
+      ?timeouts ~location ~name ~resource_group_name ~plan ~user __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

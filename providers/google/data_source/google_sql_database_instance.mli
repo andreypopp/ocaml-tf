@@ -193,6 +193,8 @@ type settings = {
   disk_size : float prop;  (** disk_size *)
   disk_type : string prop;  (** disk_type *)
   edition : string prop;  (** edition *)
+  enable_google_ml_integration : bool prop;
+      (** enable_google_ml_integration *)
   insights_config : settings__insights_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** insights_config *)

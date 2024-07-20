@@ -70,6 +70,43 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
+type zone_distribution_config = {
+  mode : string prop option; [@option]
+  zone : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : zone_distribution_config) -> ()
+
+let yojson_of_zone_distribution_config =
+  (function
+   | { mode = v_mode; zone = v_zone } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : zone_distribution_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_zone_distribution_config
+
+[@@@deriving.end]
+
 type discovery_endpoints__psc_config = { network : string prop }
 [@@deriving_inline yojson_of]
 
@@ -264,7 +301,9 @@ type google_redis_cluster = {
   authorization_mode : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop option; [@option]
+  node_type : string prop option; [@option]
   project : string prop option; [@option]
+  redis_configs : (string * string prop) list option; [@option]
   region : string prop option; [@option]
   replica_count : float prop option; [@option]
   shard_count : float prop;
@@ -272,6 +311,8 @@ type google_redis_cluster = {
   psc_configs : psc_configs list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
+  zone_distribution_config : zone_distribution_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,16 +324,29 @@ let yojson_of_google_redis_cluster =
        authorization_mode = v_authorization_mode;
        id = v_id;
        name = v_name;
+       node_type = v_node_type;
        project = v_project;
+       redis_configs = v_redis_configs;
        region = v_region;
        replica_count = v_replica_count;
        shard_count = v_shard_count;
        transit_encryption_mode = v_transit_encryption_mode;
        psc_configs = v_psc_configs;
        timeouts = v_timeouts;
+       zone_distribution_config = v_zone_distribution_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_zone_distribution_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_zone_distribution_config)
+               v_zone_distribution_config
+           in
+           let bnd = "zone_distribution_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
@@ -336,11 +390,35 @@ let yojson_of_google_redis_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_redis_configs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "redis_configs", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_project with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_type", arg in
              bnd :: bnds
        in
        let bnds =
@@ -379,20 +457,29 @@ let psc_configs ~network () : psc_configs = { network }
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_redis_cluster ?authorization_mode ?id ?name ?project
-    ?region ?replica_count ?transit_encryption_mode ?timeouts
-    ~shard_count ~psc_configs () : google_redis_cluster =
+let zone_distribution_config ?mode ?zone () :
+    zone_distribution_config =
+  { mode; zone }
+
+let google_redis_cluster ?authorization_mode ?id ?name ?node_type
+    ?project ?redis_configs ?region ?replica_count
+    ?transit_encryption_mode ?timeouts
+    ?(zone_distribution_config = []) ~shard_count ~psc_configs () :
+    google_redis_cluster =
   {
     authorization_mode;
     id;
     name;
+    node_type;
     project;
+    redis_configs;
     region;
     replica_count;
     shard_count;
     transit_encryption_mode;
     psc_configs;
     timeouts;
+    zone_distribution_config;
   }
 
 type t = {
@@ -402,8 +489,11 @@ type t = {
   discovery_endpoints : discovery_endpoints list prop;
   id : string prop;
   name : string prop;
+  node_type : string prop;
+  precise_size_gb : float prop;
   project : string prop;
   psc_connections : psc_connections list prop;
+  redis_configs : (string * string) list prop;
   region : string prop;
   replica_count : float prop;
   shard_count : float prop;
@@ -414,8 +504,9 @@ type t = {
   uid : string prop;
 }
 
-let make ?authorization_mode ?id ?name ?project ?region
-    ?replica_count ?transit_encryption_mode ?timeouts ~shard_count
+let make ?authorization_mode ?id ?name ?node_type ?project
+    ?redis_configs ?region ?replica_count ?transit_encryption_mode
+    ?timeouts ?(zone_distribution_config = []) ~shard_count
     ~psc_configs __id =
   let __type = "google_redis_cluster" in
   let __attrs =
@@ -428,8 +519,11 @@ let make ?authorization_mode ?id ?name ?project ?region
          Prop.computed __type __id "discovery_endpoints";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       node_type = Prop.computed __type __id "node_type";
+       precise_size_gb = Prop.computed __type __id "precise_size_gb";
        project = Prop.computed __type __id "project";
        psc_connections = Prop.computed __type __id "psc_connections";
+       redis_configs = Prop.computed __type __id "redis_configs";
        region = Prop.computed __type __id "region";
        replica_count = Prop.computed __type __id "replica_count";
        shard_count = Prop.computed __type __id "shard_count";
@@ -447,19 +541,22 @@ let make ?authorization_mode ?id ?name ?project ?region
     type_ = __type;
     json =
       yojson_of_google_redis_cluster
-        (google_redis_cluster ?authorization_mode ?id ?name ?project
-           ?region ?replica_count ?transit_encryption_mode ?timeouts
-           ~shard_count ~psc_configs ());
+        (google_redis_cluster ?authorization_mode ?id ?name
+           ?node_type ?project ?redis_configs ?region ?replica_count
+           ?transit_encryption_mode ?timeouts
+           ~zone_distribution_config ~shard_count ~psc_configs ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?authorization_mode ?id ?name ?project
-    ?region ?replica_count ?transit_encryption_mode ?timeouts
-    ~shard_count ~psc_configs __id =
+let register ?tf_module ?authorization_mode ?id ?name ?node_type
+    ?project ?redis_configs ?region ?replica_count
+    ?transit_encryption_mode ?timeouts
+    ?(zone_distribution_config = []) ~shard_count ~psc_configs __id =
   let (r : _ Tf_core.resource) =
-    make ?authorization_mode ?id ?name ?project ?region
-      ?replica_count ?transit_encryption_mode ?timeouts ~shard_count
-      ~psc_configs __id
+    make ?authorization_mode ?id ?name ?node_type ?project
+      ?redis_configs ?region ?replica_count ?transit_encryption_mode
+      ?timeouts ~zone_distribution_config ~shard_count ~psc_configs
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

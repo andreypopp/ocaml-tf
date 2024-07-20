@@ -40,6 +40,7 @@ type aws_kms_key = {
   key_usage : string prop option; [@option]
   multi_region : bool prop option; [@option]
   policy : string prop option; [@option]
+  rotation_period_in_days : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   xks_key_id : string prop option; [@option]
@@ -64,6 +65,7 @@ let yojson_of_aws_kms_key =
        key_usage = v_key_usage;
        multi_region = v_multi_region;
        policy = v_policy;
+       rotation_period_in_days = v_rotation_period_in_days;
        tags = v_tags;
        tags_all = v_tags_all;
        xks_key_id = v_xks_key_id;
@@ -114,6 +116,14 @@ let yojson_of_aws_kms_key =
                  v
              in
              let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rotation_period_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rotation_period_in_days", arg in
              bnd :: bnds
        in
        let bnds =
@@ -216,8 +226,9 @@ let timeouts ?create () : timeouts = { create }
 let aws_kms_key ?bypass_policy_lockout_safety_check
     ?custom_key_store_id ?customer_master_key_spec
     ?deletion_window_in_days ?description ?enable_key_rotation ?id
-    ?is_enabled ?key_usage ?multi_region ?policy ?tags ?tags_all
-    ?xks_key_id ?timeouts () : aws_kms_key =
+    ?is_enabled ?key_usage ?multi_region ?policy
+    ?rotation_period_in_days ?tags ?tags_all ?xks_key_id ?timeouts ()
+    : aws_kms_key =
   {
     bypass_policy_lockout_safety_check;
     custom_key_store_id;
@@ -230,6 +241,7 @@ let aws_kms_key ?bypass_policy_lockout_safety_check
     key_usage;
     multi_region;
     policy;
+    rotation_period_in_days;
     tags;
     tags_all;
     xks_key_id;
@@ -251,6 +263,7 @@ type t = {
   key_usage : string prop;
   multi_region : bool prop;
   policy : string prop;
+  rotation_period_in_days : float prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   xks_key_id : string prop;
@@ -259,7 +272,8 @@ type t = {
 let make ?bypass_policy_lockout_safety_check ?custom_key_store_id
     ?customer_master_key_spec ?deletion_window_in_days ?description
     ?enable_key_rotation ?id ?is_enabled ?key_usage ?multi_region
-    ?policy ?tags ?tags_all ?xks_key_id ?timeouts __id =
+    ?policy ?rotation_period_in_days ?tags ?tags_all ?xks_key_id
+    ?timeouts __id =
   let __type = "aws_kms_key" in
   let __attrs =
     ({
@@ -283,6 +297,8 @@ let make ?bypass_policy_lockout_safety_check ?custom_key_store_id
        key_usage = Prop.computed __type __id "key_usage";
        multi_region = Prop.computed __type __id "multi_region";
        policy = Prop.computed __type __id "policy";
+       rotation_period_in_days =
+         Prop.computed __type __id "rotation_period_in_days";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";
        xks_key_id = Prop.computed __type __id "xks_key_id";
@@ -297,21 +313,24 @@ let make ?bypass_policy_lockout_safety_check ?custom_key_store_id
         (aws_kms_key ?bypass_policy_lockout_safety_check
            ?custom_key_store_id ?customer_master_key_spec
            ?deletion_window_in_days ?description ?enable_key_rotation
-           ?id ?is_enabled ?key_usage ?multi_region ?policy ?tags
-           ?tags_all ?xks_key_id ?timeouts ());
+           ?id ?is_enabled ?key_usage ?multi_region ?policy
+           ?rotation_period_in_days ?tags ?tags_all ?xks_key_id
+           ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bypass_policy_lockout_safety_check
     ?custom_key_store_id ?customer_master_key_spec
     ?deletion_window_in_days ?description ?enable_key_rotation ?id
-    ?is_enabled ?key_usage ?multi_region ?policy ?tags ?tags_all
-    ?xks_key_id ?timeouts __id =
+    ?is_enabled ?key_usage ?multi_region ?policy
+    ?rotation_period_in_days ?tags ?tags_all ?xks_key_id ?timeouts
+    __id =
   let (r : _ Tf_core.resource) =
     make ?bypass_policy_lockout_safety_check ?custom_key_store_id
       ?customer_master_key_spec ?deletion_window_in_days ?description
       ?enable_key_rotation ?id ?is_enabled ?key_usage ?multi_region
-      ?policy ?tags ?tags_all ?xks_key_id ?timeouts __id
+      ?policy ?rotation_period_in_days ?tags ?tags_all ?xks_key_id
+      ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -52,6 +52,7 @@ val timeouts :
 type google_bigquery_routine
 
 val google_bigquery_routine :
+  ?data_governance_type:string prop ->
   ?description:string prop ->
   ?determinism_level:string prop ->
   ?id:string prop ->
@@ -79,6 +80,7 @@ val yojson_of_google_bigquery_routine :
 type t = private {
   tf_name : string;
   creation_time : float prop;
+  data_governance_type : string prop;
   dataset_id : string prop;
   definition_body : string prop;
   description : string prop;
@@ -96,6 +98,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?data_governance_type:string prop ->
   ?description:string prop ->
   ?determinism_level:string prop ->
   ?id:string prop ->
@@ -116,6 +119,7 @@ val register :
   t
 
 val make :
+  ?data_governance_type:string prop ->
   ?description:string prop ->
   ?determinism_level:string prop ->
   ?id:string prop ->

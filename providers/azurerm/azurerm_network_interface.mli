@@ -31,6 +31,7 @@ val timeouts :
 type azurerm_network_interface
 
 val azurerm_network_interface :
+  ?accelerated_networking_enabled:bool prop ->
   ?auxiliary_mode:string prop ->
   ?auxiliary_sku:string prop ->
   ?dns_servers:string prop list ->
@@ -39,6 +40,7 @@ val azurerm_network_interface :
   ?enable_ip_forwarding:bool prop ->
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
+  ?ip_forwarding_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -55,6 +57,7 @@ val yojson_of_azurerm_network_interface :
 
 type t = private {
   tf_name : string;
+  accelerated_networking_enabled : bool prop;
   applied_dns_servers : string list prop;
   auxiliary_mode : string prop;
   auxiliary_sku : string prop;
@@ -65,6 +68,7 @@ type t = private {
   id : string prop;
   internal_dns_name_label : string prop;
   internal_domain_name_suffix : string prop;
+  ip_forwarding_enabled : bool prop;
   location : string prop;
   mac_address : string prop;
   name : string prop;
@@ -77,6 +81,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?accelerated_networking_enabled:bool prop ->
   ?auxiliary_mode:string prop ->
   ?auxiliary_sku:string prop ->
   ?dns_servers:string prop list ->
@@ -85,6 +90,7 @@ val register :
   ?enable_ip_forwarding:bool prop ->
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
+  ?ip_forwarding_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -95,6 +101,7 @@ val register :
   t
 
 val make :
+  ?accelerated_networking_enabled:bool prop ->
   ?auxiliary_mode:string prop ->
   ?auxiliary_sku:string prop ->
   ?dns_servers:string prop list ->
@@ -103,6 +110,7 @@ val make :
   ?enable_ip_forwarding:bool prop ->
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
+  ?ip_forwarding_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   location:string prop ->

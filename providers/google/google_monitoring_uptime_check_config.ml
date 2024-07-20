@@ -176,6 +176,35 @@ let _ = yojson_of_http_check__ping_config
 
 [@@@deriving.end]
 
+type http_check__service_agent_authentication = {
+  type_ : string prop option; [@option] [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_check__service_agent_authentication) -> ()
+
+let yojson_of_http_check__service_agent_authentication =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_check__service_agent_authentication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_check__service_agent_authentication
+
+[@@@deriving.end]
+
 type http_check = {
   body : string prop option; [@option]
   content_type : string prop option; [@option]
@@ -193,6 +222,9 @@ type http_check = {
   auth_info : http_check__auth_info list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   ping_config : http_check__ping_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  service_agent_authentication :
+    http_check__service_agent_authentication list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -216,9 +248,21 @@ let yojson_of_http_check =
          v_accepted_response_status_codes;
        auth_info = v_auth_info;
        ping_config = v_ping_config;
+       service_agent_authentication = v_service_agent_authentication;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_service_agent_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_check__service_agent_authentication)
+               v_service_agent_authentication
+           in
+           let bnd = "service_agent_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_ping_config then bnds
@@ -785,10 +829,15 @@ let http_check__ping_config ~pings_count () : http_check__ping_config
     =
   { pings_count }
 
+let http_check__service_agent_authentication ?type_ () :
+    http_check__service_agent_authentication =
+  { type_ }
+
 let http_check ?body ?content_type ?custom_content_type ?headers
     ?mask_headers ?path ?port ?request_method ?use_ssl ?validate_ssl
     ?(accepted_response_status_codes = []) ?(auth_info = [])
-    ?(ping_config = []) () : http_check =
+    ?(ping_config = []) ?(service_agent_authentication = []) () :
+    http_check =
   {
     body;
     content_type;
@@ -803,6 +852,7 @@ let http_check ?body ?content_type ?custom_content_type ?headers
     accepted_response_status_codes;
     auth_info;
     ping_config;
+    service_agent_authentication;
   }
 
 let monitored_resource ~labels ~type_ () : monitored_resource =

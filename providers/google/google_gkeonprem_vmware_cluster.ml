@@ -923,6 +923,7 @@ type network_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   service_address_cidr_blocks : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  vcenter_network : string prop option; [@option]
   control_plane_v2_config :
     network_config__control_plane_v2_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -942,6 +943,7 @@ let yojson_of_network_config =
    | {
        pod_address_cidr_blocks = v_pod_address_cidr_blocks;
        service_address_cidr_blocks = v_service_address_cidr_blocks;
+       vcenter_network = v_vcenter_network;
        control_plane_v2_config = v_control_plane_v2_config;
        dhcp_ip_config = v_dhcp_ip_config;
        host_config = v_host_config;
@@ -991,6 +993,14 @@ let yojson_of_network_config =
            in
            let bnd = "control_plane_v2_config", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_vcenter_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vcenter_network", arg in
+             bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_service_address_cidr_blocks then bnds
@@ -1450,6 +1460,7 @@ type google_gkeonprem_vmware_cluster = {
   admin_cluster_membership : string prop;
   annotations : (string * string prop) list option; [@option]
   description : string prop option; [@option]
+  disable_bundled_ingress : bool prop option; [@option]
   enable_control_plane_v2 : bool prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -1489,6 +1500,7 @@ let yojson_of_google_gkeonprem_vmware_cluster =
        admin_cluster_membership = v_admin_cluster_membership;
        annotations = v_annotations;
        description = v_description;
+       disable_bundled_ingress = v_disable_bundled_ingress;
        enable_control_plane_v2 = v_enable_control_plane_v2;
        id = v_id;
        location = v_location;
@@ -1653,6 +1665,14 @@ let yojson_of_google_gkeonprem_vmware_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_disable_bundled_ingress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_bundled_ingress", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_description with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1787,13 +1807,14 @@ let network_config__static_ip_config ~ip_blocks () :
     network_config__static_ip_config =
   { ip_blocks }
 
-let network_config ?(control_plane_v2_config = [])
+let network_config ?vcenter_network ?(control_plane_v2_config = [])
     ?(dhcp_ip_config = []) ?(host_config = [])
     ?(static_ip_config = []) ~pod_address_cidr_blocks
     ~service_address_cidr_blocks () : network_config =
   {
     pod_address_cidr_blocks;
     service_address_cidr_blocks;
+    vcenter_network;
     control_plane_v2_config;
     dhcp_ip_config;
     host_config;
@@ -1822,17 +1843,18 @@ let vcenter ?ca_cert_data ?cluster ?datacenter ?datastore ?folder
   }
 
 let google_gkeonprem_vmware_cluster ?annotations ?description
-    ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-    ?(anti_affinity_groups = []) ?(authorization = [])
-    ?(auto_repair_config = []) ?(dataplane_v2 = [])
-    ?(load_balancer = []) ?(network_config = []) ?(storage = [])
-    ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+    ?disable_bundled_ingress ?enable_control_plane_v2 ?id ?project
+    ?vm_tracking_enabled ?(anti_affinity_groups = [])
+    ?(authorization = []) ?(auto_repair_config = [])
+    ?(dataplane_v2 = []) ?(load_balancer = []) ?(network_config = [])
+    ?(storage = []) ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
     ~admin_cluster_membership ~location ~name ~on_prem_version
     ~control_plane_node () : google_gkeonprem_vmware_cluster =
   {
     admin_cluster_membership;
     annotations;
     description;
+    disable_bundled_ingress;
     enable_control_plane_v2;
     id;
     location;
@@ -1860,6 +1882,7 @@ type t = {
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
+  disable_bundled_ingress : bool prop;
   effective_annotations : (string * string) list prop;
   enable_control_plane_v2 : bool prop;
   endpoint : string prop;
@@ -1880,11 +1903,12 @@ type t = {
   vm_tracking_enabled : bool prop;
 }
 
-let make ?annotations ?description ?enable_control_plane_v2 ?id
-    ?project ?vm_tracking_enabled ?(anti_affinity_groups = [])
-    ?(authorization = []) ?(auto_repair_config = [])
-    ?(dataplane_v2 = []) ?(load_balancer = []) ?(network_config = [])
-    ?(storage = []) ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+let make ?annotations ?description ?disable_bundled_ingress
+    ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
+    ?(anti_affinity_groups = []) ?(authorization = [])
+    ?(auto_repair_config = []) ?(dataplane_v2 = [])
+    ?(load_balancer = []) ?(network_config = []) ?(storage = [])
+    ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
     ~admin_cluster_membership ~location ~name ~on_prem_version
     ~control_plane_node __id =
   let __type = "google_gkeonprem_vmware_cluster" in
@@ -1897,6 +1921,8 @@ let make ?annotations ?description ?enable_control_plane_v2 ?id
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";
        description = Prop.computed __type __id "description";
+       disable_bundled_ingress =
+         Prop.computed __type __id "disable_bundled_ingress";
        effective_annotations =
          Prop.computed __type __id "effective_annotations";
        enable_control_plane_v2 =
@@ -1928,30 +1954,30 @@ let make ?annotations ?description ?enable_control_plane_v2 ?id
     json =
       yojson_of_google_gkeonprem_vmware_cluster
         (google_gkeonprem_vmware_cluster ?annotations ?description
-           ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-           ~anti_affinity_groups ~authorization ~auto_repair_config
-           ~dataplane_v2 ~load_balancer ~network_config ~storage
-           ?timeouts ~upgrade_policy ~vcenter
-           ~admin_cluster_membership ~location ~name ~on_prem_version
-           ~control_plane_node ());
+           ?disable_bundled_ingress ?enable_control_plane_v2 ?id
+           ?project ?vm_tracking_enabled ~anti_affinity_groups
+           ~authorization ~auto_repair_config ~dataplane_v2
+           ~load_balancer ~network_config ~storage ?timeouts
+           ~upgrade_policy ~vcenter ~admin_cluster_membership
+           ~location ~name ~on_prem_version ~control_plane_node ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description
-    ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-    ?(anti_affinity_groups = []) ?(authorization = [])
-    ?(auto_repair_config = []) ?(dataplane_v2 = [])
-    ?(load_balancer = []) ?(network_config = []) ?(storage = [])
-    ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+    ?disable_bundled_ingress ?enable_control_plane_v2 ?id ?project
+    ?vm_tracking_enabled ?(anti_affinity_groups = [])
+    ?(authorization = []) ?(auto_repair_config = [])
+    ?(dataplane_v2 = []) ?(load_balancer = []) ?(network_config = [])
+    ?(storage = []) ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
     ~admin_cluster_membership ~location ~name ~on_prem_version
     ~control_plane_node __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?description ?enable_control_plane_v2 ?id
-      ?project ?vm_tracking_enabled ~anti_affinity_groups
-      ~authorization ~auto_repair_config ~dataplane_v2 ~load_balancer
-      ~network_config ~storage ?timeouts ~upgrade_policy ~vcenter
-      ~admin_cluster_membership ~location ~name ~on_prem_version
-      ~control_plane_node __id
+    make ?annotations ?description ?disable_bundled_ingress
+      ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
+      ~anti_affinity_groups ~authorization ~auto_repair_config
+      ~dataplane_v2 ~load_balancer ~network_config ~storage ?timeouts
+      ~upgrade_policy ~vcenter ~admin_cluster_membership ~location
+      ~name ~on_prem_version ~control_plane_node __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

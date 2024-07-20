@@ -31,6 +31,7 @@ type aws_transfer_connector
 val aws_transfer_connector :
   ?id:string prop ->
   ?logging_role:string prop ->
+  ?security_policy_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?as2_config:as2_config list ->
@@ -51,6 +52,7 @@ type t = private {
   connector_id : string prop;
   id : string prop;
   logging_role : string prop;
+  security_policy_name : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   url : string prop;
@@ -60,6 +62,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?logging_role:string prop ->
+  ?security_policy_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?as2_config:as2_config list ->
@@ -72,6 +75,7 @@ val register :
 val make :
   ?id:string prop ->
   ?logging_role:string prop ->
+  ?security_policy_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?as2_config:as2_config list ->

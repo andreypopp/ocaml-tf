@@ -67,6 +67,7 @@ val google_compute_disk :
   ?size:float prop ->
   ?snapshot:string prop ->
   ?source_disk:string prop ->
+  ?storage_pool:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
   ?async_primary_disk:async_primary_disk list ->
@@ -109,6 +110,7 @@ type t = private {
   source_disk_id : string prop;
   source_image_id : string prop;
   source_snapshot_id : string prop;
+  storage_pool : string prop;
   terraform_labels : (string * string) list prop;
   type_ : string prop;
   users : string list prop;
@@ -130,6 +132,7 @@ val register :
   ?size:float prop ->
   ?snapshot:string prop ->
   ?source_disk:string prop ->
+  ?storage_pool:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
   ?async_primary_disk:async_primary_disk list ->
@@ -156,6 +159,7 @@ val make :
   ?size:float prop ->
   ?snapshot:string prop ->
   ?source_disk:string prop ->
+  ?storage_pool:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
   ?async_primary_disk:async_primary_disk list ->

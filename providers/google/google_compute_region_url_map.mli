@@ -454,6 +454,7 @@ type path_matcher__route_rules__match_rules
 val path_matcher__route_rules__match_rules :
   ?full_path_match:string prop ->
   ?ignore_case:bool prop ->
+  ?path_template_match:string prop ->
   ?prefix_match:string prop ->
   ?regex_match:string prop ->
   ?header_matches:
@@ -557,6 +558,7 @@ type path_matcher__route_rules__route_action__url_rewrite
 val path_matcher__route_rules__route_action__url_rewrite :
   ?host_rewrite:string prop ->
   ?path_prefix_rewrite:string prop ->
+  ?path_template_rewrite:string prop ->
   unit ->
   path_matcher__route_rules__route_action__url_rewrite
 

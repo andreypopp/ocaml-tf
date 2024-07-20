@@ -423,6 +423,7 @@ type aws_budgets_budget = {
   id : string prop option; [@option]
   name : string prop;
   name_prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -435,9 +436,26 @@ let yojson_of_aws_budgets_budget =
        id = v_id;
        name = v_name;
        name_prefix = v_name_prefix;
+       tags = v_tags;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_name_prefix with
@@ -474,9 +492,9 @@ let _ = yojson_of_aws_budgets_budget
 
 [@@@deriving.end]
 
-let aws_budgets_budget ?account_id ?id ?name_prefix ~name () :
+let aws_budgets_budget ?account_id ?id ?name_prefix ?tags ~name () :
     aws_budgets_budget =
-  { account_id; id; name; name_prefix }
+  { account_id; id; name; name_prefix; tags }
 
 type t = {
   tf_name : string;
@@ -494,12 +512,13 @@ type t = {
   name_prefix : string prop;
   notification : notification list prop;
   planned_limit : planned_limit list prop;
+  tags : (string * string) list prop;
   time_period_end : string prop;
   time_period_start : string prop;
   time_unit : string prop;
 }
 
-let make ?account_id ?id ?name_prefix ~name __id =
+let make ?account_id ?id ?name_prefix ?tags ~name __id =
   let __type = "aws_budgets_budget" in
   let __attrs =
     ({
@@ -520,6 +539,7 @@ let make ?account_id ?id ?name_prefix ~name __id =
        name_prefix = Prop.computed __type __id "name_prefix";
        notification = Prop.computed __type __id "notification";
        planned_limit = Prop.computed __type __id "planned_limit";
+       tags = Prop.computed __type __id "tags";
        time_period_end = Prop.computed __type __id "time_period_end";
        time_period_start =
          Prop.computed __type __id "time_period_start";
@@ -532,13 +552,15 @@ let make ?account_id ?id ?name_prefix ~name __id =
     type_ = __type;
     json =
       yojson_of_aws_budgets_budget
-        (aws_budgets_budget ?account_id ?id ?name_prefix ~name ());
+        (aws_budgets_budget ?account_id ?id ?name_prefix ?tags ~name
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?name_prefix ~name __id =
+let register ?tf_module ?account_id ?id ?name_prefix ?tags ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?name_prefix ~name __id
+    make ?account_id ?id ?name_prefix ?tags ~name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

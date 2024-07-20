@@ -3,11 +3,19 @@
 open! Tf_core
 
 type active_directory = {
+  aes_encryption_enabled : bool prop option; [@option]
   dns_servers : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   domain : string prop;
+  kerberos_ad_name : string prop option; [@option]
+  kerberos_kdc_ip : string prop option; [@option]
+  ldap_over_tls_enabled : bool prop option; [@option]
+  ldap_signing_enabled : bool prop option; [@option]
+  local_nfs_users_with_ldap_allowed : bool prop option; [@option]
   organizational_unit : string prop option; [@option]
   password : string prop;
+  server_root_ca_certificate : string prop option; [@option]
+  site_name : string prop option; [@option]
   smb_server_name : string prop;
   username : string prop;
 }
@@ -18,10 +26,19 @@ let _ = fun (_ : active_directory) -> ()
 let yojson_of_active_directory =
   (function
    | {
+       aes_encryption_enabled = v_aes_encryption_enabled;
        dns_servers = v_dns_servers;
        domain = v_domain;
+       kerberos_ad_name = v_kerberos_ad_name;
+       kerberos_kdc_ip = v_kerberos_kdc_ip;
+       ldap_over_tls_enabled = v_ldap_over_tls_enabled;
+       ldap_signing_enabled = v_ldap_signing_enabled;
+       local_nfs_users_with_ldap_allowed =
+         v_local_nfs_users_with_ldap_allowed;
        organizational_unit = v_organizational_unit;
        password = v_password;
+       server_root_ca_certificate = v_server_root_ca_certificate;
+       site_name = v_site_name;
        smb_server_name = v_smb_server_name;
        username = v_username;
      } ->
@@ -39,6 +56,22 @@ let yojson_of_active_directory =
          ("smb_server_name", arg) :: bnds
        in
        let bnds =
+         match v_site_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "site_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_root_ca_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_root_ca_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_password in
          ("password", arg) :: bnds
        in
@@ -48,6 +81,46 @@ let yojson_of_active_directory =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "organizational_unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_nfs_users_with_ldap_allowed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "local_nfs_users_with_ldap_allowed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ldap_signing_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ldap_signing_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ldap_over_tls_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ldap_over_tls_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_kdc_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kerberos_kdc_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_ad_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kerberos_ad_name", arg in
              bnd :: bnds
        in
        let bnds =
@@ -63,6 +136,14 @@ let yojson_of_active_directory =
            in
            let bnd = "dns_servers", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_aes_encryption_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "aes_encryption_enabled", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : active_directory -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -265,13 +346,24 @@ let _ = yojson_of_azurerm_netapp_account
 
 [@@@deriving.end]
 
-let active_directory ?organizational_unit ~dns_servers ~domain
+let active_directory ?aes_encryption_enabled ?kerberos_ad_name
+    ?kerberos_kdc_ip ?ldap_over_tls_enabled ?ldap_signing_enabled
+    ?local_nfs_users_with_ldap_allowed ?organizational_unit
+    ?server_root_ca_certificate ?site_name ~dns_servers ~domain
     ~password ~smb_server_name ~username () : active_directory =
   {
+    aes_encryption_enabled;
     dns_servers;
     domain;
+    kerberos_ad_name;
+    kerberos_kdc_ip;
+    ldap_over_tls_enabled;
+    ldap_signing_enabled;
+    local_nfs_users_with_ldap_allowed;
     organizational_unit;
     password;
+    server_root_ca_certificate;
+    site_name;
     smb_server_name;
     username;
   }

@@ -18,12 +18,14 @@ type azurerm_servicebus_queue
 
 val azurerm_servicebus_queue :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?forward_dead_lettered_messages_to:string prop ->
   ?forward_to:string prop ->
   ?id:string prop ->
@@ -31,6 +33,7 @@ val azurerm_servicebus_queue :
   ?max_delivery_count:float prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->
@@ -48,12 +51,14 @@ val yojson_of_azurerm_servicebus_queue :
 type t = private {
   tf_name : string;
   auto_delete_on_idle : string prop;
+  batched_operations_enabled : bool prop;
   dead_lettering_on_message_expiration : bool prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;
   enable_batched_operations : bool prop;
   enable_express : bool prop;
   enable_partitioning : bool prop;
+  express_enabled : bool prop;
   forward_dead_lettered_messages_to : string prop;
   forward_to : string prop;
   id : string prop;
@@ -63,6 +68,7 @@ type t = private {
   max_size_in_megabytes : float prop;
   name : string prop;
   namespace_id : string prop;
+  partitioning_enabled : bool prop;
   requires_duplicate_detection : bool prop;
   requires_session : bool prop;
   status : string prop;
@@ -71,12 +77,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?forward_dead_lettered_messages_to:string prop ->
   ?forward_to:string prop ->
   ?id:string prop ->
@@ -84,6 +92,7 @@ val register :
   ?max_delivery_count:float prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->
@@ -95,12 +104,14 @@ val register :
 
 val make :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->
   ?default_message_ttl:string prop ->
   ?duplicate_detection_history_time_window:string prop ->
   ?enable_batched_operations:bool prop ->
   ?enable_express:bool prop ->
   ?enable_partitioning:bool prop ->
+  ?express_enabled:bool prop ->
   ?forward_dead_lettered_messages_to:string prop ->
   ?forward_to:string prop ->
   ?id:string prop ->
@@ -108,6 +119,7 @@ val make :
   ?max_delivery_count:float prop ->
   ?max_message_size_in_kilobytes:float prop ->
   ?max_size_in_megabytes:float prop ->
+  ?partitioning_enabled:bool prop ->
   ?requires_duplicate_detection:bool prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->

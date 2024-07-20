@@ -506,7 +506,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type ttl = {
-  attribute_name : string prop;
+  attribute_name : string prop option; [@option]
   enabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -528,10 +528,12 @@ let yojson_of_ttl =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_attribute_name
-         in
-         ("attribute_name", arg) :: bnds
+         match v_attribute_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_name", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : ttl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -892,7 +894,7 @@ let server_side_encryption ?kms_key_arn ~enabled () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let ttl ?enabled ~attribute_name () : ttl =
+let ttl ?attribute_name ?enabled () : ttl =
   { attribute_name; enabled }
 
 let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled

@@ -375,6 +375,7 @@ type google_redis_instance = {
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   location_id : string prop option; [@option]
+  maintenance_version : string prop option; [@option]
   memory_size_gb : float prop;
   name : string prop;
   project : string prop option; [@option]
@@ -409,6 +410,7 @@ let yojson_of_google_redis_instance =
        id = v_id;
        labels = v_labels;
        location_id = v_location_id;
+       maintenance_version = v_maintenance_version;
        memory_size_gb = v_memory_size_gb;
        name = v_name;
        project = v_project;
@@ -549,6 +551,14 @@ let yojson_of_google_redis_instance =
          ("memory_size_gb", arg) :: bnds
        in
        let bnds =
+         match v_maintenance_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_location_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -657,10 +667,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_redis_instance ?alternative_location_id ?auth_enabled
     ?authorized_network ?connect_mode ?customer_managed_key
-    ?display_name ?id ?labels ?location_id ?project
-    ?read_replicas_mode ?redis_configs ?redis_version ?region
-    ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
-    ?transit_encryption_mode ?(maintenance_policy = [])
+    ?display_name ?id ?labels ?location_id ?maintenance_version
+    ?project ?read_replicas_mode ?redis_configs ?redis_version
+    ?region ?replica_count ?reserved_ip_range ?secondary_ip_range
+    ?tier ?transit_encryption_mode ?(maintenance_policy = [])
     ?(persistence_config = []) ?timeouts ~memory_size_gb ~name () :
     google_redis_instance =
   {
@@ -673,6 +683,7 @@ let google_redis_instance ?alternative_location_id ?auth_enabled
     id;
     labels;
     location_id;
+    maintenance_version;
     memory_size_gb;
     name;
     project;
@@ -707,6 +718,7 @@ type t = {
   labels : (string * string) list prop;
   location_id : string prop;
   maintenance_schedule : maintenance_schedule list prop;
+  maintenance_version : string prop;
   memory_size_gb : float prop;
   name : string prop;
   nodes : nodes list prop;
@@ -730,11 +742,11 @@ type t = {
 
 let make ?alternative_location_id ?auth_enabled ?authorized_network
     ?connect_mode ?customer_managed_key ?display_name ?id ?labels
-    ?location_id ?project ?read_replicas_mode ?redis_configs
-    ?redis_version ?region ?replica_count ?reserved_ip_range
-    ?secondary_ip_range ?tier ?transit_encryption_mode
-    ?(maintenance_policy = []) ?(persistence_config = []) ?timeouts
-    ~memory_size_gb ~name __id =
+    ?location_id ?maintenance_version ?project ?read_replicas_mode
+    ?redis_configs ?redis_version ?region ?replica_count
+    ?reserved_ip_range ?secondary_ip_range ?tier
+    ?transit_encryption_mode ?(maintenance_policy = [])
+    ?(persistence_config = []) ?timeouts ~memory_size_gb ~name __id =
   let __type = "google_redis_instance" in
   let __attrs =
     ({
@@ -760,6 +772,8 @@ let make ?alternative_location_id ?auth_enabled ?authorized_network
        location_id = Prop.computed __type __id "location_id";
        maintenance_schedule =
          Prop.computed __type __id "maintenance_schedule";
+       maintenance_version =
+         Prop.computed __type __id "maintenance_version";
        memory_size_gb = Prop.computed __type __id "memory_size_gb";
        name = Prop.computed __type __id "name";
        nodes = Prop.computed __type __id "nodes";
@@ -796,29 +810,30 @@ let make ?alternative_location_id ?auth_enabled ?authorized_network
       yojson_of_google_redis_instance
         (google_redis_instance ?alternative_location_id ?auth_enabled
            ?authorized_network ?connect_mode ?customer_managed_key
-           ?display_name ?id ?labels ?location_id ?project
-           ?read_replicas_mode ?redis_configs ?redis_version ?region
-           ?replica_count ?reserved_ip_range ?secondary_ip_range
-           ?tier ?transit_encryption_mode ~maintenance_policy
+           ?display_name ?id ?labels ?location_id
+           ?maintenance_version ?project ?read_replicas_mode
+           ?redis_configs ?redis_version ?region ?replica_count
+           ?reserved_ip_range ?secondary_ip_range ?tier
+           ?transit_encryption_mode ~maintenance_policy
            ~persistence_config ?timeouts ~memory_size_gb ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alternative_location_id ?auth_enabled
     ?authorized_network ?connect_mode ?customer_managed_key
-    ?display_name ?id ?labels ?location_id ?project
-    ?read_replicas_mode ?redis_configs ?redis_version ?region
-    ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
-    ?transit_encryption_mode ?(maintenance_policy = [])
+    ?display_name ?id ?labels ?location_id ?maintenance_version
+    ?project ?read_replicas_mode ?redis_configs ?redis_version
+    ?region ?replica_count ?reserved_ip_range ?secondary_ip_range
+    ?tier ?transit_encryption_mode ?(maintenance_policy = [])
     ?(persistence_config = []) ?timeouts ~memory_size_gb ~name __id =
   let (r : _ Tf_core.resource) =
     make ?alternative_location_id ?auth_enabled ?authorized_network
       ?connect_mode ?customer_managed_key ?display_name ?id ?labels
-      ?location_id ?project ?read_replicas_mode ?redis_configs
-      ?redis_version ?region ?replica_count ?reserved_ip_range
-      ?secondary_ip_range ?tier ?transit_encryption_mode
-      ~maintenance_policy ~persistence_config ?timeouts
-      ~memory_size_gb ~name __id
+      ?location_id ?maintenance_version ?project ?read_replicas_mode
+      ?redis_configs ?redis_version ?region ?replica_count
+      ?reserved_ip_range ?secondary_ip_range ?tier
+      ?transit_encryption_mode ~maintenance_policy
+      ~persistence_config ?timeouts ~memory_size_gb ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

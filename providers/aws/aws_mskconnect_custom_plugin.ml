@@ -114,6 +114,8 @@ type aws_mskconnect_custom_plugin = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
+  tags : (string * string prop) list option; [@option]
+  tags_all : (string * string prop) list option; [@option]
   location : location list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -129,6 +131,8 @@ let yojson_of_aws_mskconnect_custom_plugin =
        description = v_description;
        id = v_id;
        name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
        location = v_location;
        timeouts = v_timeouts;
      } ->
@@ -147,6 +151,38 @@ let yojson_of_aws_mskconnect_custom_plugin =
            in
            let bnd = "location", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -187,9 +223,19 @@ let location__s3 ?object_version ~bucket_arn ~file_key () :
 let location ~s3 () : location = { s3 }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let aws_mskconnect_custom_plugin ?description ?id ?timeouts
-    ~content_type ~name ~location () : aws_mskconnect_custom_plugin =
-  { content_type; description; id; name; location; timeouts }
+let aws_mskconnect_custom_plugin ?description ?id ?tags ?tags_all
+    ?timeouts ~content_type ~name ~location () :
+    aws_mskconnect_custom_plugin =
+  {
+    content_type;
+    description;
+    id;
+    name;
+    tags;
+    tags_all;
+    location;
+    timeouts;
+  }
 
 type t = {
   tf_name : string;
@@ -200,10 +246,12 @@ type t = {
   latest_revision : float prop;
   name : string prop;
   state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?timeouts ~content_type ~name ~location
-    __id =
+let make ?description ?id ?tags ?tags_all ?timeouts ~content_type
+    ~name ~location __id =
   let __type = "aws_mskconnect_custom_plugin" in
   let __attrs =
     ({
@@ -215,6 +263,8 @@ let make ?description ?id ?timeouts ~content_type ~name ~location
        latest_revision = Prop.computed __type __id "latest_revision";
        name = Prop.computed __type __id "name";
        state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
@@ -223,16 +273,16 @@ let make ?description ?id ?timeouts ~content_type ~name ~location
     type_ = __type;
     json =
       yojson_of_aws_mskconnect_custom_plugin
-        (aws_mskconnect_custom_plugin ?description ?id ?timeouts
-           ~content_type ~name ~location ());
+        (aws_mskconnect_custom_plugin ?description ?id ?tags
+           ?tags_all ?timeouts ~content_type ~name ~location ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts ~content_type
-    ~name ~location __id =
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~content_type ~name ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~content_type ~name ~location
-      __id
+    make ?description ?id ?tags ?tags_all ?timeouts ~content_type
+      ~name ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

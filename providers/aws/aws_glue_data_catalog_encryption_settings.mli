@@ -15,6 +15,7 @@ val data_catalog_encryption_settings__connection_password_encryption :
 type data_catalog_encryption_settings__encryption_at_rest
 
 val data_catalog_encryption_settings__encryption_at_rest :
+  ?catalog_encryption_service_role:string prop ->
   ?sse_aws_kms_key_id:string prop ->
   catalog_encryption_mode:string prop ->
   unit ->

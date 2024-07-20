@@ -4,6 +4,15 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type domains
+
+val domains :
+  ?certificate_name:string prop ->
+  ?is_managed:bool prop ->
+  name:string prop ->
+  unit ->
+  domains
+
 type firewall
 
 val firewall :
@@ -24,6 +33,22 @@ val forwarding_rule :
   target_protocol:string prop ->
   unit ->
   forwarding_rule
+
+type glb_settings__cdn
+
+val glb_settings__cdn :
+  ?is_enabled:bool prop -> unit -> glb_settings__cdn
+
+type glb_settings
+
+val glb_settings :
+  ?failover_threshold:float prop ->
+  ?region_priorities:(string * float prop) list ->
+  ?cdn:glb_settings__cdn list ->
+  target_port:float prop ->
+  target_protocol:string prop ->
+  unit ->
+  glb_settings
 
 type healthcheck
 
@@ -63,11 +88,14 @@ val digitalocean_loadbalancer :
   ?region:string prop ->
   ?size:string prop ->
   ?size_unit:float prop ->
+  ?target_load_balancer_ids:string prop list ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?glb_settings:glb_settings list ->
   ?healthcheck:healthcheck list ->
   ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
+  domains:domains list ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
   unit ->
@@ -96,6 +124,7 @@ type t = private {
   size : string prop;
   size_unit : float prop;
   status : string prop;
+  target_load_balancer_ids : string list prop;
   type_ : string prop;
   urn : string prop;
   vpc_uuid : string prop;
@@ -116,11 +145,14 @@ val register :
   ?region:string prop ->
   ?size:string prop ->
   ?size_unit:float prop ->
+  ?target_load_balancer_ids:string prop list ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?glb_settings:glb_settings list ->
   ?healthcheck:healthcheck list ->
   ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
+  domains:domains list ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
   string ->
@@ -140,11 +172,14 @@ val make :
   ?region:string prop ->
   ?size:string prop ->
   ?size_unit:float prop ->
+  ?target_load_balancer_ids:string prop list ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?glb_settings:glb_settings list ->
   ?healthcheck:healthcheck list ->
   ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
+  domains:domains list ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
   string ->

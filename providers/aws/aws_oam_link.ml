@@ -2,6 +2,106 @@
 
 open! Tf_core
 
+type link_configuration__log_group_configuration = {
+  filter : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration__log_group_configuration) -> ()
+
+let yojson_of_link_configuration__log_group_configuration =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : link_configuration__log_group_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration__log_group_configuration
+
+[@@@deriving.end]
+
+type link_configuration__metric_configuration = {
+  filter : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration__metric_configuration) -> ()
+
+let yojson_of_link_configuration__metric_configuration =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : link_configuration__metric_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration__metric_configuration
+
+[@@@deriving.end]
+
+type link_configuration = {
+  log_group_configuration :
+    link_configuration__log_group_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  metric_configuration :
+    link_configuration__metric_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration) -> ()
+
+let yojson_of_link_configuration =
+  (function
+   | {
+       log_group_configuration = v_log_group_configuration;
+       metric_configuration = v_metric_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_metric_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_link_configuration__metric_configuration)
+               v_metric_configuration
+           in
+           let bnd = "metric_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_log_group_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_link_configuration__log_group_configuration)
+               v_log_group_configuration
+           in
+           let bnd = "log_group_configuration", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : link_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -56,6 +156,8 @@ type aws_oam_link = {
   sink_identifier : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
+  link_configuration : link_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -71,6 +173,7 @@ let yojson_of_aws_oam_link =
        sink_identifier = v_sink_identifier;
        tags = v_tags;
        tags_all = v_tags_all;
+       link_configuration = v_link_configuration;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -79,6 +182,16 @@ let yojson_of_aws_oam_link =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_link_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_link_configuration)
+               v_link_configuration
+           in
+           let bnd = "link_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -149,11 +262,24 @@ let _ = yojson_of_aws_oam_link
 
 [@@@deriving.end]
 
+let link_configuration__log_group_configuration ~filter () :
+    link_configuration__log_group_configuration =
+  { filter }
+
+let link_configuration__metric_configuration ~filter () :
+    link_configuration__metric_configuration =
+  { filter }
+
+let link_configuration ?(log_group_configuration = [])
+    ?(metric_configuration = []) () : link_configuration =
+  { log_group_configuration; metric_configuration }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_oam_link ?id ?tags ?tags_all ?timeouts ~label_template
-    ~resource_types ~sink_identifier () : aws_oam_link =
+let aws_oam_link ?id ?tags ?tags_all ?(link_configuration = [])
+    ?timeouts ~label_template ~resource_types ~sink_identifier () :
+    aws_oam_link =
   {
     id;
     label_template;
@@ -161,6 +287,7 @@ let aws_oam_link ?id ?tags ?tags_all ?timeouts ~label_template
     sink_identifier;
     tags;
     tags_all;
+    link_configuration;
     timeouts;
   }
 
@@ -178,8 +305,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~label_template
-    ~resource_types ~sink_identifier __id =
+let make ?id ?tags ?tags_all ?(link_configuration = []) ?timeouts
+    ~label_template ~resource_types ~sink_identifier __id =
   let __type = "aws_oam_link" in
   let __attrs =
     ({
@@ -202,16 +329,18 @@ let make ?id ?tags ?tags_all ?timeouts ~label_template
     type_ = __type;
     json =
       yojson_of_aws_oam_link
-        (aws_oam_link ?id ?tags ?tags_all ?timeouts ~label_template
-           ~resource_types ~sink_identifier ());
+        (aws_oam_link ?id ?tags ?tags_all ~link_configuration
+           ?timeouts ~label_template ~resource_types ~sink_identifier
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~label_template
+let register ?tf_module ?id ?tags ?tags_all
+    ?(link_configuration = []) ?timeouts ~label_template
     ~resource_types ~sink_identifier __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~label_template
-      ~resource_types ~sink_identifier __id
+    make ?id ?tags ?tags_all ~link_configuration ?timeouts
+      ~label_template ~resource_types ~sink_identifier __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

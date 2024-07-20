@@ -109,6 +109,7 @@ val launch_template_config__override__instance_requirements :
   ?instance_generations:string prop list ->
   ?local_storage:string prop ->
   ?local_storage_types:string prop list ->
+  ?max_spot_price_as_percentage_of_optimal_on_demand_price:float prop ->
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
@@ -165,6 +166,13 @@ val launch_template_config :
   unit ->
   launch_template_config
 
+type on_demand_options__capacity_reservation_options
+
+val on_demand_options__capacity_reservation_options :
+  ?usage_strategy:string prop ->
+  unit ->
+  on_demand_options__capacity_reservation_options
+
 type on_demand_options
 
 val on_demand_options :
@@ -173,6 +181,8 @@ val on_demand_options :
   ?min_target_capacity:float prop ->
   ?single_availability_zone:bool prop ->
   ?single_instance_type:bool prop ->
+  ?capacity_reservation_options:
+    on_demand_options__capacity_reservation_options list ->
   unit ->
   on_demand_options
 

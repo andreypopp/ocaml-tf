@@ -30,6 +30,7 @@ val azurerm_analysis_services_server :
   ?backup_blob_container_uri:string prop ->
   ?enable_power_bi_service:bool prop ->
   ?id:string prop ->
+  ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
@@ -54,6 +55,7 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
+  power_bi_service_enabled : bool prop;
   querypool_connection_mode : string prop;
   resource_group_name : string prop;
   server_full_name : string prop;
@@ -67,6 +69,7 @@ val register :
   ?backup_blob_container_uri:string prop ->
   ?enable_power_bi_service:bool prop ->
   ?id:string prop ->
+  ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
@@ -83,6 +86,7 @@ val make :
   ?backup_blob_container_uri:string prop ->
   ?enable_power_bi_service:bool prop ->
   ?id:string prop ->
+  ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->

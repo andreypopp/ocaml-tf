@@ -146,7 +146,7 @@ type azurerm_machine_learning_compute_instance = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   local_auth_enabled : bool prop option; [@option]
-  location : string prop;
+  location : string prop option; [@option]
   machine_learning_workspace_id : string prop;
   name : string prop;
   node_public_ip_enabled : bool prop option; [@option]
@@ -267,8 +267,12 @@ let yojson_of_azurerm_machine_learning_compute_instance =
          ("machine_learning_workspace_id", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_location in
-         ("location", arg) :: bnds
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_local_auth_enabled with
@@ -322,10 +326,10 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_machine_learning_compute_instance ?authorization_type
-    ?description ?id ?local_auth_enabled ?node_public_ip_enabled
-    ?subnet_resource_id ?tags ?(assign_to_user = []) ?(identity = [])
-    ?(ssh = []) ?timeouts ~location ~machine_learning_workspace_id
-    ~name ~virtual_machine_size () :
+    ?description ?id ?local_auth_enabled ?location
+    ?node_public_ip_enabled ?subnet_resource_id ?tags
+    ?(assign_to_user = []) ?(identity = []) ?(ssh = []) ?timeouts
+    ~machine_learning_workspace_id ~name ~virtual_machine_size () :
     azurerm_machine_learning_compute_instance =
   {
     authorization_type;
@@ -361,10 +365,9 @@ type t = {
 }
 
 let make ?authorization_type ?description ?id ?local_auth_enabled
-    ?node_public_ip_enabled ?subnet_resource_id ?tags
+    ?location ?node_public_ip_enabled ?subnet_resource_id ?tags
     ?(assign_to_user = []) ?(identity = []) ?(ssh = []) ?timeouts
-    ~location ~machine_learning_workspace_id ~name
-    ~virtual_machine_size __id =
+    ~machine_learning_workspace_id ~name ~virtual_machine_size __id =
   let __type = "azurerm_machine_learning_compute_instance" in
   let __attrs =
     ({
@@ -396,22 +399,22 @@ let make ?authorization_type ?description ?id ?local_auth_enabled
       yojson_of_azurerm_machine_learning_compute_instance
         (azurerm_machine_learning_compute_instance
            ?authorization_type ?description ?id ?local_auth_enabled
-           ?node_public_ip_enabled ?subnet_resource_id ?tags
-           ~assign_to_user ~identity ~ssh ?timeouts ~location
+           ?location ?node_public_ip_enabled ?subnet_resource_id
+           ?tags ~assign_to_user ~identity ~ssh ?timeouts
            ~machine_learning_workspace_id ~name ~virtual_machine_size
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorization_type ?description ?id
-    ?local_auth_enabled ?node_public_ip_enabled ?subnet_resource_id
-    ?tags ?(assign_to_user = []) ?(identity = []) ?(ssh = [])
-    ?timeouts ~location ~machine_learning_workspace_id ~name
+    ?local_auth_enabled ?location ?node_public_ip_enabled
+    ?subnet_resource_id ?tags ?(assign_to_user = []) ?(identity = [])
+    ?(ssh = []) ?timeouts ~machine_learning_workspace_id ~name
     ~virtual_machine_size __id =
   let (r : _ Tf_core.resource) =
     make ?authorization_type ?description ?id ?local_auth_enabled
-      ?node_public_ip_enabled ?subnet_resource_id ?tags
-      ~assign_to_user ~identity ~ssh ?timeouts ~location
+      ?location ?node_public_ip_enabled ?subnet_resource_id ?tags
+      ~assign_to_user ~identity ~ssh ?timeouts
       ~machine_learning_workspace_id ~name ~virtual_machine_size __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

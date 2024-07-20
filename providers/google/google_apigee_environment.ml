@@ -93,6 +93,7 @@ type google_apigee_environment = {
   deployment_type : string prop option; [@option]
   description : string prop option; [@option]
   display_name : string prop option; [@option]
+  forward_proxy_uri : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
   org_id : string prop;
@@ -112,6 +113,7 @@ let yojson_of_google_apigee_environment =
        deployment_type = v_deployment_type;
        description = v_description;
        display_name = v_display_name;
+       forward_proxy_uri = v_forward_proxy_uri;
        id = v_id;
        name = v_name;
        org_id = v_org_id;
@@ -160,6 +162,14 @@ let yojson_of_google_apigee_environment =
              bnd :: bnds
        in
        let bnds =
+         match v_forward_proxy_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "forward_proxy_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_display_name with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -205,13 +215,15 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_apigee_environment ?api_proxy_type ?deployment_type
-    ?description ?display_name ?id ?type_ ?(node_config = [])
-    ?timeouts ~name ~org_id () : google_apigee_environment =
+    ?description ?display_name ?forward_proxy_uri ?id ?type_
+    ?(node_config = []) ?timeouts ~name ~org_id () :
+    google_apigee_environment =
   {
     api_proxy_type;
     deployment_type;
     description;
     display_name;
+    forward_proxy_uri;
     id;
     name;
     org_id;
@@ -226,6 +238,7 @@ type t = {
   deployment_type : string prop;
   description : string prop;
   display_name : string prop;
+  forward_proxy_uri : string prop;
   id : string prop;
   name : string prop;
   org_id : string prop;
@@ -233,7 +246,8 @@ type t = {
 }
 
 let make ?api_proxy_type ?deployment_type ?description ?display_name
-    ?id ?type_ ?(node_config = []) ?timeouts ~name ~org_id __id =
+    ?forward_proxy_uri ?id ?type_ ?(node_config = []) ?timeouts ~name
+    ~org_id __id =
   let __type = "google_apigee_environment" in
   let __attrs =
     ({
@@ -242,6 +256,8 @@ let make ?api_proxy_type ?deployment_type ?description ?display_name
        deployment_type = Prop.computed __type __id "deployment_type";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
+       forward_proxy_uri =
+         Prop.computed __type __id "forward_proxy_uri";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        org_id = Prop.computed __type __id "org_id";
@@ -255,17 +271,18 @@ let make ?api_proxy_type ?deployment_type ?description ?display_name
     json =
       yojson_of_google_apigee_environment
         (google_apigee_environment ?api_proxy_type ?deployment_type
-           ?description ?display_name ?id ?type_ ~node_config
-           ?timeouts ~name ~org_id ());
+           ?description ?display_name ?forward_proxy_uri ?id ?type_
+           ~node_config ?timeouts ~name ~org_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?api_proxy_type ?deployment_type ?description
-    ?display_name ?id ?type_ ?(node_config = []) ?timeouts ~name
-    ~org_id __id =
+    ?display_name ?forward_proxy_uri ?id ?type_ ?(node_config = [])
+    ?timeouts ~name ~org_id __id =
   let (r : _ Tf_core.resource) =
     make ?api_proxy_type ?deployment_type ?description ?display_name
-      ?id ?type_ ~node_config ?timeouts ~name ~org_id __id
+      ?forward_proxy_uri ?id ?type_ ~node_config ?timeouts ~name
+      ~org_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

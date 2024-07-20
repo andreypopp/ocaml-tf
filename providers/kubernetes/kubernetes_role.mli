@@ -1,3 +1,5 @@
+(** A role contains rules that represent a set of permissions. Permissions are purely additive (there are no “deny” rules). *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

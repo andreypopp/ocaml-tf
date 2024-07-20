@@ -89,6 +89,7 @@ type t = {
   domain_name : string prop;
   domain_name_servers : string prop;
   id : string prop;
+  ipv6_address_preferred_lease_time : string prop;
   netbios_name_servers : string prop;
   netbios_node_type : string prop;
   ntp_servers : string prop;
@@ -107,6 +108,9 @@ let make ?id ?owner_id ?tags ?tags_all __id =
        domain_name_servers =
          Prop.computed __type __id "domain_name_servers";
        id = Prop.computed __type __id "id";
+       ipv6_address_preferred_lease_time =
+         Prop.computed __type __id
+           "ipv6_address_preferred_lease_time";
        netbios_name_servers =
          Prop.computed __type __id "netbios_name_servers";
        netbios_node_type =

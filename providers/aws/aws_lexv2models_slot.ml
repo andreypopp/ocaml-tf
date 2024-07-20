@@ -169,17 +169,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__prompt_specification__message_group__message__custom_playload = {
+type value_elicitation_setting__prompt_specification__message_group__message__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__prompt_specification__message_group__message__custom_playload) ->
+       value_elicitation_setting__prompt_specification__message_group__message__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_playload
+let yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -191,11 +191,11 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__me
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__prompt_specification__message_group__message__custom_playload ->
+    : value_elicitation_setting__prompt_specification__message_group__message__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_playload
+  yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_payload
 
 [@@@deriving.end]
 
@@ -363,8 +363,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__prompt_specification__message_group__message = {
-  custom_playload :
-    value_elicitation_setting__prompt_specification__message_group__message__custom_playload
+  custom_payload :
+    value_elicitation_setting__prompt_specification__message_group__message__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -391,7 +391,7 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__me
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -433,14 +433,14 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__me
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -452,17 +452,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__prompt_specification__message_group__variation__custom_playload = {
+type value_elicitation_setting__prompt_specification__message_group__variation__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__prompt_specification__message_group__variation__custom_playload) ->
+       value_elicitation_setting__prompt_specification__message_group__variation__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
+let yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -474,11 +474,11 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__va
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__prompt_specification__message_group__variation__custom_playload ->
+    : value_elicitation_setting__prompt_specification__message_group__variation__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
+  yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_payload
 
 [@@@deriving.end]
 
@@ -646,8 +646,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__prompt_specification__message_group__variation = {
-  custom_playload :
-    value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
+  custom_payload :
+    value_elicitation_setting__prompt_specification__message_group__variation__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -674,7 +674,7 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__va
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -716,14 +716,14 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__va
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -1246,17 +1246,17 @@ let _ = yojson_of_value_elicitation_setting__slot_resolution_setting
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -1268,11 +1268,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload
 
 [@@@deriving.end]
 
@@ -1440,8 +1440,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -1468,7 +1468,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -1510,14 +1510,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -1529,17 +1529,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -1551,11 +1551,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload
 
 [@@@deriving.end]
 
@@ -1723,8 +1723,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -1751,7 +1751,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -1793,14 +1793,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -1919,17 +1919,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -1941,11 +1941,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload
 
 [@@@deriving.end]
 
@@ -2113,8 +2113,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -2141,7 +2141,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -2183,14 +2183,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -2202,17 +2202,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -2224,11 +2224,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload
 
 [@@@deriving.end]
 
@@ -2396,8 +2396,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -2424,7 +2424,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -2466,14 +2466,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -2608,17 +2608,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -2630,11 +2630,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload
 
 [@@@deriving.end]
 
@@ -2802,8 +2802,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -2830,7 +2830,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -2872,14 +2872,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -2891,17 +2891,17 @@ let _ =
 
 [@@@deriving.end]
 
-type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload = {
+type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload = {
   value : string prop;
 }
 [@@deriving_inline yojson_of]
 
 let _ =
  fun (_ :
-       value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload) ->
+       value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload) ->
   ()
 
-let yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
+let yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload
     =
   (function
    | { value = v_value } ->
@@ -2913,11 +2913,11 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          ("value", arg) :: bnds
        in
        `Assoc bnds
-    : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload ->
+    : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ =
-  yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
+  yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload
 
 [@@@deriving.end]
 
@@ -3085,8 +3085,8 @@ let _ =
 [@@@deriving.end]
 
 type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation = {
-  custom_playload :
-    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
+  custom_payload :
+    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   image_response_card :
@@ -3113,7 +3113,7 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
     =
   (function
    | {
-       custom_playload = v_custom_playload;
+       custom_payload = v_custom_payload;
        image_response_card = v_image_response_card;
        plain_text_message = v_plain_text_message;
        ssml_message = v_ssml_message;
@@ -3155,14 +3155,14 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
            bnd :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_custom_playload then bnds
+         if Stdlib.( = ) [] v_custom_payload then bnds
          else
            let arg =
              (yojson_of_list
-                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload)
-               v_custom_playload
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload)
+               v_custom_payload
            in
-           let bnd = "custom_playload", arg in
+           let bnd = "custom_payload", arg in
            bnd :: bnds
        in
        `Assoc bnds
@@ -3606,9 +3606,9 @@ let value_elicitation_setting__default_value_specification
     value_elicitation_setting__default_value_specification =
   { default_value_list }
 
-let value_elicitation_setting__prompt_specification__message_group__message__custom_playload
+let value_elicitation_setting__prompt_specification__message_group__message__custom_payload
     ~value () :
-    value_elicitation_setting__prompt_specification__message_group__message__custom_playload
+    value_elicitation_setting__prompt_specification__message_group__message__custom_payload
     =
   { value }
 
@@ -3637,20 +3637,20 @@ let value_elicitation_setting__prompt_specification__message_group__message__ssm
   { value }
 
 let value_elicitation_setting__prompt_specification__message_group__message
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__prompt_specification__message_group__message
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
   }
 
-let value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
+let value_elicitation_setting__prompt_specification__message_group__variation__custom_payload
     ~value () :
-    value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
+    value_elicitation_setting__prompt_specification__message_group__variation__custom_payload
     =
   { value }
 
@@ -3679,12 +3679,12 @@ let value_elicitation_setting__prompt_specification__message_group__variation__s
   { value }
 
 let value_elicitation_setting__prompt_specification__message_group__variation
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__prompt_specification__message_group__variation
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
@@ -3762,9 +3762,9 @@ let value_elicitation_setting__slot_resolution_setting
     value_elicitation_setting__slot_resolution_setting =
   { slot_resolution_strategy }
 
-let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_payload
     =
   { value }
 
@@ -3793,20 +3793,20 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
   }
 
-let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_payload
     =
   { value }
 
@@ -3835,12 +3835,12 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
@@ -3858,9 +3858,9 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
     =
   { allow_interrupt; message_group }
 
-let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_payload
     =
   { value }
 
@@ -3889,20 +3889,20 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
   }
 
-let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_payload
     =
   { value }
 
@@ -3931,12 +3931,12 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
@@ -3960,9 +3960,9 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
     message_group;
   }
 
-let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_payload
     =
   { value }
 
@@ -3991,20 +3991,20 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;
   }
 
-let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
+let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload
     ~value () :
-    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
+    value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_payload
     =
   { value }
 
@@ -4033,12 +4033,12 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
-    ?(custom_playload = []) ?(image_response_card = [])
+    ?(custom_payload = []) ?(image_response_card = [])
     ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
     =
   {
-    custom_playload;
+    custom_payload;
     image_response_card;
     plain_text_message;
     ssml_message;

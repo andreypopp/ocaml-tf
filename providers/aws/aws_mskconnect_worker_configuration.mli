@@ -4,11 +4,18 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_mskconnect_worker_configuration
 
 val aws_mskconnect_worker_configuration :
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   name:string prop ->
   properties_file_content:string prop ->
   unit ->
@@ -27,12 +34,17 @@ type t = private {
   latest_revision : float prop;
   name : string prop;
   properties_file_content : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   name:string prop ->
   properties_file_content:string prop ->
   string ->
@@ -41,6 +53,9 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   name:string prop ->
   properties_file_content:string prop ->
   string ->

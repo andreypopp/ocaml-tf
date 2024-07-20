@@ -284,6 +284,11 @@ val config__subject_config :
   unit ->
   config__subject_config
 
+type config__subject_key_id
+
+val config__subject_key_id :
+  ?key_id:string prop -> unit -> config__subject_key_id
+
 type config__x509_config__additional_extensions__object_id
 
 val config__x509_config__additional_extensions__object_id :
@@ -394,6 +399,7 @@ val config__x509_config :
 type config
 
 val config :
+  ?subject_key_id:config__subject_key_id list ->
   public_key:config__public_key list ->
   subject_config:config__subject_config list ->
   x509_config:config__x509_config list ->

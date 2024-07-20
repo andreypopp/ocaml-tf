@@ -51,6 +51,7 @@ val yojson_of_azurerm_network_interface :
 
 type t = private {
   tf_name : string;
+  accelerated_networking_enabled : bool prop;
   applied_dns_servers : string list prop;
   dns_servers : string list prop;
   enable_accelerated_networking : bool prop;
@@ -58,6 +59,7 @@ type t = private {
   id : string prop;
   internal_dns_name_label : string prop;
   ip_configuration : ip_configuration list prop;
+  ip_forwarding_enabled : bool prop;
   location : string prop;
   mac_address : string prop;
   name : string prop;

@@ -221,7 +221,6 @@ let _ = yojson_of_ingress_to
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
-  update : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,17 +228,9 @@ let _ = fun (_ : timeouts) -> ()
 
 let yojson_of_timeouts =
   (function
-   | { create = v_create; delete = v_delete; update = v_update } ->
+   | { create = v_create; delete = v_delete } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
-       in
-       let bnds =
-         match v_update with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "update", arg in
-             bnd :: bnds
        in
        let bnds =
          match v_delete with
@@ -355,8 +346,7 @@ let ingress_to__operations ?service_name ?(method_selectors = []) ()
 let ingress_to ?resources ?(operations = []) () : ingress_to =
   { resources; operations }
 
-let timeouts ?create ?delete ?update () : timeouts =
-  { create; delete; update }
+let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_access_context_manager_service_perimeter_ingress_policy
     ?id ?(ingress_from = []) ?(ingress_to = []) ?timeouts ~perimeter

@@ -29,9 +29,10 @@ val azurerm_disk_encryption_set :
   ?encryption_type:string prop ->
   ?federated_client_id:string prop ->
   ?id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
-  key_vault_key_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -53,6 +54,7 @@ type t = private {
   key_vault_key_id : string prop;
   key_vault_key_url : string prop;
   location : string prop;
+  managed_hsm_key_id : string prop;
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
@@ -64,9 +66,10 @@ val register :
   ?encryption_type:string prop ->
   ?federated_client_id:string prop ->
   ?id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
-  key_vault_key_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -79,9 +82,10 @@ val make :
   ?encryption_type:string prop ->
   ?federated_client_id:string prop ->
   ?id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
-  key_vault_key_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->

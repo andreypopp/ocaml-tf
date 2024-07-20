@@ -7,10 +7,11 @@ open! Tf_core
 type attachment_policies__action
 
 val attachment_policies__action :
+  ?add_to_network_function_group:string prop ->
+  ?association_method:string prop ->
   ?require_acceptance:bool prop ->
   ?segment:string prop ->
   ?tag_value_of_key:string prop ->
-  association_method:string prop ->
   unit ->
   attachment_policies__action
 
@@ -54,6 +55,36 @@ val core_network_configuration :
   unit ->
   core_network_configuration
 
+type network_function_groups
+
+val network_function_groups :
+  ?description:string prop ->
+  name:string prop ->
+  require_attachment_acceptance:bool prop ->
+  unit ->
+  network_function_groups
+
+type segment_actions__via__with_edge_override
+
+val segment_actions__via__with_edge_override :
+  ?edge_sets:string prop list ->
+  ?use_edge:string prop ->
+  unit ->
+  segment_actions__via__with_edge_override
+
+type segment_actions__via
+
+val segment_actions__via :
+  ?network_function_groups:string prop list ->
+  ?with_edge_override:segment_actions__via__with_edge_override list ->
+  unit ->
+  segment_actions__via
+
+type segment_actions__when_sent_to
+
+val segment_actions__when_sent_to :
+  ?segments:string prop list -> unit -> segment_actions__when_sent_to
+
 type segment_actions
 
 val segment_actions :
@@ -63,6 +94,8 @@ val segment_actions :
   ?mode:string prop ->
   ?share_with:string prop list ->
   ?share_with_except:string prop list ->
+  ?via:segment_actions__via list ->
+  ?when_sent_to:segment_actions__when_sent_to list ->
   action:string prop ->
   segment:string prop ->
   unit ->
@@ -87,6 +120,7 @@ val aws_networkmanager_core_network_policy_document :
   ?id:string prop ->
   ?version:string prop ->
   ?attachment_policies:attachment_policies list ->
+  ?network_function_groups:network_function_groups list ->
   ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
   segments:segments list ->
@@ -110,6 +144,7 @@ val register :
   ?id:string prop ->
   ?version:string prop ->
   ?attachment_policies:attachment_policies list ->
+  ?network_function_groups:network_function_groups list ->
   ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
   segments:segments list ->
@@ -120,6 +155,7 @@ val make :
   ?id:string prop ->
   ?version:string prop ->
   ?attachment_policies:attachment_policies list ->
+  ?network_function_groups:network_function_groups list ->
   ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
   segments:segments list ->

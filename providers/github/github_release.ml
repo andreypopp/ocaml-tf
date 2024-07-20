@@ -132,17 +132,27 @@ let github_release ?body ?discussion_category_name ?draft
 
 type t = {
   tf_name : string;
+  assets_url : string prop;
   body : string prop;
+  created_at : string prop;
   discussion_category_name : string prop;
   draft : bool prop;
   etag : string prop;
   generate_release_notes : bool prop;
+  html_url : string prop;
   id : string prop;
   name : string prop;
+  node_id : string prop;
   prerelease : bool prop;
+  published_at : string prop;
+  release_id : float prop;
   repository : string prop;
   tag_name : string prop;
+  tarball_url : string prop;
   target_commitish : string prop;
+  upload_url : string prop;
+  url : string prop;
+  zipball_url : string prop;
 }
 
 let make ?body ?discussion_category_name ?draft
@@ -152,20 +162,30 @@ let make ?body ?discussion_category_name ?draft
   let __attrs =
     ({
        tf_name = __id;
+       assets_url = Prop.computed __type __id "assets_url";
        body = Prop.computed __type __id "body";
+       created_at = Prop.computed __type __id "created_at";
        discussion_category_name =
          Prop.computed __type __id "discussion_category_name";
        draft = Prop.computed __type __id "draft";
        etag = Prop.computed __type __id "etag";
        generate_release_notes =
          Prop.computed __type __id "generate_release_notes";
+       html_url = Prop.computed __type __id "html_url";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       node_id = Prop.computed __type __id "node_id";
        prerelease = Prop.computed __type __id "prerelease";
+       published_at = Prop.computed __type __id "published_at";
+       release_id = Prop.computed __type __id "release_id";
        repository = Prop.computed __type __id "repository";
        tag_name = Prop.computed __type __id "tag_name";
+       tarball_url = Prop.computed __type __id "tarball_url";
        target_commitish =
          Prop.computed __type __id "target_commitish";
+       upload_url = Prop.computed __type __id "upload_url";
+       url = Prop.computed __type __id "url";
+       zipball_url = Prop.computed __type __id "zipball_url";
      }
       : t)
   in

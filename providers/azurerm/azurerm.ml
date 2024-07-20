@@ -147,12 +147,18 @@ type features__key_vault = {
   purge_soft_delete_on_destroy : bool prop option; [@option]
   purge_soft_deleted_certificates_on_destroy : bool prop option;
       [@option]
+  purge_soft_deleted_hardware_security_module_keys_on_destroy :
+    bool prop option;
+      [@option]
   purge_soft_deleted_hardware_security_modules_on_destroy :
     bool prop option;
       [@option]
   purge_soft_deleted_keys_on_destroy : bool prop option; [@option]
   purge_soft_deleted_secrets_on_destroy : bool prop option; [@option]
   recover_soft_deleted_certificates : bool prop option; [@option]
+  recover_soft_deleted_hardware_security_module_keys :
+    bool prop option;
+      [@option]
   recover_soft_deleted_key_vaults : bool prop option; [@option]
   recover_soft_deleted_keys : bool prop option; [@option]
   recover_soft_deleted_secrets : bool prop option; [@option]
@@ -167,6 +173,8 @@ let yojson_of_features__key_vault =
        purge_soft_delete_on_destroy = v_purge_soft_delete_on_destroy;
        purge_soft_deleted_certificates_on_destroy =
          v_purge_soft_deleted_certificates_on_destroy;
+       purge_soft_deleted_hardware_security_module_keys_on_destroy =
+         v_purge_soft_deleted_hardware_security_module_keys_on_destroy;
        purge_soft_deleted_hardware_security_modules_on_destroy =
          v_purge_soft_deleted_hardware_security_modules_on_destroy;
        purge_soft_deleted_keys_on_destroy =
@@ -175,6 +183,8 @@ let yojson_of_features__key_vault =
          v_purge_soft_deleted_secrets_on_destroy;
        recover_soft_deleted_certificates =
          v_recover_soft_deleted_certificates;
+       recover_soft_deleted_hardware_security_module_keys =
+         v_recover_soft_deleted_hardware_security_module_keys;
        recover_soft_deleted_key_vaults =
          v_recover_soft_deleted_key_vaults;
        recover_soft_deleted_keys = v_recover_soft_deleted_keys;
@@ -205,6 +215,19 @@ let yojson_of_features__key_vault =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "recover_soft_deleted_key_vaults", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_recover_soft_deleted_hardware_security_module_keys
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "recover_soft_deleted_hardware_security_module_keys",
+                 arg )
+             in
              bnd :: bnds
        in
        let bnds =
@@ -242,6 +265,19 @@ let yojson_of_features__key_vault =
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd =
                ( "purge_soft_deleted_hardware_security_modules_on_destroy",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_purge_soft_deleted_hardware_security_module_keys_on_destroy
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "purge_soft_deleted_hardware_security_module_keys_on_destroy",
                  arg )
              in
              bnd :: bnds
@@ -300,6 +336,40 @@ let yojson_of_features__log_analytics_workspace =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_features__log_analytics_workspace
+
+[@@@deriving.end]
+
+type features__machine_learning = {
+  purge_soft_deleted_workspace_on_destroy : bool prop option;
+      [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : features__machine_learning) -> ()
+
+let yojson_of_features__machine_learning =
+  (function
+   | {
+       purge_soft_deleted_workspace_on_destroy =
+         v_purge_soft_deleted_workspace_on_destroy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_purge_soft_deleted_workspace_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "purge_soft_deleted_workspace_on_destroy", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : features__machine_learning -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_features__machine_learning
 
 [@@@deriving.end]
 
@@ -363,6 +433,93 @@ let yojson_of_features__postgresql_flexible_server =
       Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_features__postgresql_flexible_server
+
+[@@@deriving.end]
+
+type features__recovery_service = {
+  purge_protected_items_from_vault_on_destroy : bool prop option;
+      [@option]
+  vm_backup_stop_protection_and_retain_data_on_destroy :
+    bool prop option;
+      [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : features__recovery_service) -> ()
+
+let yojson_of_features__recovery_service =
+  (function
+   | {
+       purge_protected_items_from_vault_on_destroy =
+         v_purge_protected_items_from_vault_on_destroy;
+       vm_backup_stop_protection_and_retain_data_on_destroy =
+         v_vm_backup_stop_protection_and_retain_data_on_destroy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match
+           v_vm_backup_stop_protection_and_retain_data_on_destroy
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "vm_backup_stop_protection_and_retain_data_on_destroy",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purge_protected_items_from_vault_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "purge_protected_items_from_vault_on_destroy", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : features__recovery_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_features__recovery_service
+
+[@@@deriving.end]
+
+type features__recovery_services_vaults = {
+  recover_soft_deleted_backup_protected_vm : bool prop option;
+      [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : features__recovery_services_vaults) -> ()
+
+let yojson_of_features__recovery_services_vaults =
+  (function
+   | {
+       recover_soft_deleted_backup_protected_vm =
+         v_recover_soft_deleted_backup_protected_vm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_recover_soft_deleted_backup_protected_vm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "recover_soft_deleted_backup_protected_vm", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : features__recovery_services_vaults ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_features__recovery_services_vaults
 
 [@@@deriving.end]
 
@@ -463,6 +620,7 @@ let _ = yojson_of_features__template_deployment
 
 type features__virtual_machine = {
   delete_os_disk_on_deletion : bool prop option; [@option]
+  detach_implicit_data_disk_on_deletion : bool prop option; [@option]
   graceful_shutdown : bool prop option; [@option]
   skip_shutdown_and_force_delete : bool prop option; [@option]
 }
@@ -474,6 +632,8 @@ let yojson_of_features__virtual_machine =
   (function
    | {
        delete_os_disk_on_deletion = v_delete_os_disk_on_deletion;
+       detach_implicit_data_disk_on_deletion =
+         v_detach_implicit_data_disk_on_deletion;
        graceful_shutdown = v_graceful_shutdown;
        skip_shutdown_and_force_delete =
          v_skip_shutdown_and_force_delete;
@@ -495,6 +655,16 @@ let yojson_of_features__virtual_machine =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "graceful_shutdown", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detach_implicit_data_disk_on_deletion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "detach_implicit_data_disk_on_deletion", arg
+             in
              bnd :: bnds
        in
        let bnds =
@@ -587,10 +757,16 @@ type features = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   log_analytics_workspace : features__log_analytics_workspace list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  machine_learning : features__machine_learning list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   managed_disk : features__managed_disk list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   postgresql_flexible_server :
     features__postgresql_flexible_server list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  recovery_service : features__recovery_service list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  recovery_services_vaults : features__recovery_services_vaults list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_group : features__resource_group list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -617,8 +793,11 @@ let yojson_of_features =
        cognitive_account = v_cognitive_account;
        key_vault = v_key_vault;
        log_analytics_workspace = v_log_analytics_workspace;
+       machine_learning = v_machine_learning;
        managed_disk = v_managed_disk;
        postgresql_flexible_server = v_postgresql_flexible_server;
+       recovery_service = v_recovery_service;
+       recovery_services_vaults = v_recovery_services_vaults;
        resource_group = v_resource_group;
        subscription = v_subscription;
        template_deployment = v_template_deployment;
@@ -680,6 +859,27 @@ let yojson_of_features =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_recovery_services_vaults then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_features__recovery_services_vaults)
+               v_recovery_services_vaults
+           in
+           let bnd = "recovery_services_vaults", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_recovery_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__recovery_service)
+               v_recovery_service
+           in
+           let bnd = "recovery_service", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_postgresql_flexible_server then bnds
          else
            let arg =
@@ -698,6 +898,16 @@ let yojson_of_features =
                v_managed_disk
            in
            let bnd = "managed_disk", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_machine_learning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__machine_learning)
+               v_machine_learning
+           in
+           let bnd = "machine_learning", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1081,19 +1291,23 @@ let features__cognitive_account ?purge_soft_delete_on_destroy () :
 
 let features__key_vault ?purge_soft_delete_on_destroy
     ?purge_soft_deleted_certificates_on_destroy
+    ?purge_soft_deleted_hardware_security_module_keys_on_destroy
     ?purge_soft_deleted_hardware_security_modules_on_destroy
     ?purge_soft_deleted_keys_on_destroy
     ?purge_soft_deleted_secrets_on_destroy
     ?recover_soft_deleted_certificates
+    ?recover_soft_deleted_hardware_security_module_keys
     ?recover_soft_deleted_key_vaults ?recover_soft_deleted_keys
     ?recover_soft_deleted_secrets () : features__key_vault =
   {
     purge_soft_delete_on_destroy;
     purge_soft_deleted_certificates_on_destroy;
+    purge_soft_deleted_hardware_security_module_keys_on_destroy;
     purge_soft_deleted_hardware_security_modules_on_destroy;
     purge_soft_deleted_keys_on_destroy;
     purge_soft_deleted_secrets_on_destroy;
     recover_soft_deleted_certificates;
+    recover_soft_deleted_hardware_security_module_keys;
     recover_soft_deleted_key_vaults;
     recover_soft_deleted_keys;
     recover_soft_deleted_secrets;
@@ -1103,6 +1317,11 @@ let features__log_analytics_workspace ?permanently_delete_on_destroy
     () : features__log_analytics_workspace =
   { permanently_delete_on_destroy }
 
+let features__machine_learning
+    ?purge_soft_deleted_workspace_on_destroy () :
+    features__machine_learning =
+  { purge_soft_deleted_workspace_on_destroy }
+
 let features__managed_disk ?expand_without_downtime () :
     features__managed_disk =
   { expand_without_downtime }
@@ -1111,6 +1330,20 @@ let features__postgresql_flexible_server
     ?restart_server_on_configuration_value_change () :
     features__postgresql_flexible_server =
   { restart_server_on_configuration_value_change }
+
+let features__recovery_service
+    ?purge_protected_items_from_vault_on_destroy
+    ?vm_backup_stop_protection_and_retain_data_on_destroy () :
+    features__recovery_service =
+  {
+    purge_protected_items_from_vault_on_destroy;
+    vm_backup_stop_protection_and_retain_data_on_destroy;
+  }
+
+let features__recovery_services_vaults
+    ?recover_soft_deleted_backup_protected_vm () :
+    features__recovery_services_vaults =
+  { recover_soft_deleted_backup_protected_vm }
 
 let features__resource_group ?prevent_deletion_if_contains_resources
     () : features__resource_group =
@@ -1126,10 +1359,11 @@ let features__template_deployment
   { delete_nested_items_during_deletion }
 
 let features__virtual_machine ?delete_os_disk_on_deletion
-    ?graceful_shutdown ?skip_shutdown_and_force_delete () :
-    features__virtual_machine =
+    ?detach_implicit_data_disk_on_deletion ?graceful_shutdown
+    ?skip_shutdown_and_force_delete () : features__virtual_machine =
   {
     delete_os_disk_on_deletion;
+    detach_implicit_data_disk_on_deletion;
     graceful_shutdown;
     skip_shutdown_and_force_delete;
   }
@@ -1148,10 +1382,12 @@ let features__virtual_machine_scale_set ?force_delete
 let features ?(api_management = []) ?(app_configuration = [])
     ?(application_insights = []) ?(cognitive_account = [])
     ?(key_vault = []) ?(log_analytics_workspace = [])
-    ?(managed_disk = []) ?(postgresql_flexible_server = [])
-    ?(resource_group = []) ?(subscription = [])
-    ?(template_deployment = []) ?(virtual_machine = [])
-    ?(virtual_machine_scale_set = []) () : features =
+    ?(machine_learning = []) ?(managed_disk = [])
+    ?(postgresql_flexible_server = []) ?(recovery_service = [])
+    ?(recovery_services_vaults = []) ?(resource_group = [])
+    ?(subscription = []) ?(template_deployment = [])
+    ?(virtual_machine = []) ?(virtual_machine_scale_set = []) () :
+    features =
   {
     api_management;
     app_configuration;
@@ -1159,8 +1395,11 @@ let features ?(api_management = []) ?(app_configuration = [])
     cognitive_account;
     key_vault;
     log_analytics_workspace;
+    machine_learning;
     managed_disk;
     postgresql_flexible_server;
+    recovery_service;
+    recovery_services_vaults;
     resource_group;
     subscription;
     template_deployment;

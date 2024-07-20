@@ -82,6 +82,7 @@ val vpc_config :
 type aws_eks_cluster
 
 val aws_eks_cluster :
+  ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -105,6 +106,7 @@ val yojson_of_aws_eks_cluster : aws_eks_cluster -> json
 type t = private {
   tf_name : string;
   arn : string prop;
+  bootstrap_self_managed_addons : bool prop;
   certificate_authority : certificate_authority list prop;
   cluster_id : string prop;
   created_at : string prop;
@@ -123,6 +125,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -140,6 +143,7 @@ val register :
   t
 
 val make :
+  ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->

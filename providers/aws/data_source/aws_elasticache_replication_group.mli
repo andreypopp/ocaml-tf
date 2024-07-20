@@ -29,6 +29,7 @@ type t = private {
   arn : string prop;
   auth_token_enabled : bool prop;
   automatic_failover_enabled : bool prop;
+  cluster_mode : string prop;
   configuration_endpoint_address : string prop;
   description : string prop;
   id : string prop;

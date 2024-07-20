@@ -10,6 +10,68 @@ type installation_state = {
   stage : string prop;  (** stage *)
 }
 
+type bitbucket_cloud_config__authorizer_credential
+
+val bitbucket_cloud_config__authorizer_credential :
+  user_token_secret_version:string prop ->
+  unit ->
+  bitbucket_cloud_config__authorizer_credential
+
+type bitbucket_cloud_config__read_authorizer_credential
+
+val bitbucket_cloud_config__read_authorizer_credential :
+  user_token_secret_version:string prop ->
+  unit ->
+  bitbucket_cloud_config__read_authorizer_credential
+
+type bitbucket_cloud_config
+
+val bitbucket_cloud_config :
+  webhook_secret_secret_version:string prop ->
+  workspace:string prop ->
+  authorizer_credential:
+    bitbucket_cloud_config__authorizer_credential list ->
+  read_authorizer_credential:
+    bitbucket_cloud_config__read_authorizer_credential list ->
+  unit ->
+  bitbucket_cloud_config
+
+type bitbucket_data_center_config__authorizer_credential
+
+val bitbucket_data_center_config__authorizer_credential :
+  user_token_secret_version:string prop ->
+  unit ->
+  bitbucket_data_center_config__authorizer_credential
+
+type bitbucket_data_center_config__read_authorizer_credential
+
+val bitbucket_data_center_config__read_authorizer_credential :
+  user_token_secret_version:string prop ->
+  unit ->
+  bitbucket_data_center_config__read_authorizer_credential
+
+type bitbucket_data_center_config__service_directory_config
+
+val bitbucket_data_center_config__service_directory_config :
+  service:string prop ->
+  unit ->
+  bitbucket_data_center_config__service_directory_config
+
+type bitbucket_data_center_config
+
+val bitbucket_data_center_config :
+  ?ssl_ca:string prop ->
+  ?service_directory_config:
+    bitbucket_data_center_config__service_directory_config list ->
+  host_uri:string prop ->
+  webhook_secret_secret_version:string prop ->
+  authorizer_credential:
+    bitbucket_data_center_config__authorizer_credential list ->
+  read_authorizer_credential:
+    bitbucket_data_center_config__read_authorizer_credential list ->
+  unit ->
+  bitbucket_data_center_config
+
 type github_config__authorizer_credential
 
 val github_config__authorizer_credential :
@@ -98,6 +160,8 @@ val google_cloudbuildv2_connection :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bitbucket_cloud_config:bitbucket_cloud_config list ->
+  ?bitbucket_data_center_config:bitbucket_data_center_config list ->
   ?github_config:github_config list ->
   ?github_enterprise_config:github_enterprise_config list ->
   ?gitlab_config:gitlab_config list ->
@@ -134,6 +198,8 @@ val register :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bitbucket_cloud_config:bitbucket_cloud_config list ->
+  ?bitbucket_data_center_config:bitbucket_data_center_config list ->
   ?github_config:github_config list ->
   ?github_enterprise_config:github_enterprise_config list ->
   ?gitlab_config:gitlab_config list ->
@@ -148,6 +214,8 @@ val make :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bitbucket_cloud_config:bitbucket_cloud_config list ->
+  ?bitbucket_data_center_config:bitbucket_data_center_config list ->
   ?github_config:github_config list ->
   ?github_enterprise_config:github_enterprise_config list ->
   ?gitlab_config:gitlab_config list ->

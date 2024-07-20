@@ -58,6 +58,7 @@ type t = private {
   tf_name : string;
   architectures : string list prop;
   arn : string prop;
+  code_sha256 : string prop;
   code_signing_config_arn : string prop;
   dead_letter_config : dead_letter_config list prop;
   description : string prop;

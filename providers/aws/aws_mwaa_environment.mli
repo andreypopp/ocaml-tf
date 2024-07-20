@@ -95,7 +95,9 @@ val aws_mwaa_environment :
   ?environment_class:string prop ->
   ?id:string prop ->
   ?kms_key:string prop ->
+  ?max_webservers:float prop ->
   ?max_workers:float prop ->
+  ?min_webservers:float prop ->
   ?min_workers:float prop ->
   ?plugins_s3_object_version:string prop ->
   ?plugins_s3_path:string prop ->
@@ -129,13 +131,16 @@ type t = private {
   arn : string prop;
   created_at : string prop;
   dag_s3_path : string prop;
+  database_vpc_endpoint_service : string prop;
   endpoint_management : string prop;
   environment_class : string prop;
   execution_role_arn : string prop;
   id : string prop;
   kms_key : string prop;
   last_updated : last_updated list prop;
+  max_webservers : float prop;
   max_workers : float prop;
+  min_webservers : float prop;
   min_workers : float prop;
   name : string prop;
   plugins_s3_object_version : string prop;
@@ -152,6 +157,7 @@ type t = private {
   tags_all : (string * string) list prop;
   webserver_access_mode : string prop;
   webserver_url : string prop;
+  webserver_vpc_endpoint_service : string prop;
   weekly_maintenance_window_start : string prop;
 }
 
@@ -163,7 +169,9 @@ val register :
   ?environment_class:string prop ->
   ?id:string prop ->
   ?kms_key:string prop ->
+  ?max_webservers:float prop ->
   ?max_workers:float prop ->
+  ?min_webservers:float prop ->
   ?min_workers:float prop ->
   ?plugins_s3_object_version:string prop ->
   ?plugins_s3_path:string prop ->
@@ -193,7 +201,9 @@ val make :
   ?environment_class:string prop ->
   ?id:string prop ->
   ?kms_key:string prop ->
+  ?max_webservers:float prop ->
   ?max_workers:float prop ->
+  ?min_webservers:float prop ->
   ?min_workers:float prop ->
   ?plugins_s3_object_version:string prop ->
   ?plugins_s3_path:string prop ->

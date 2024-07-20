@@ -6,6 +6,8 @@ open! Tf_core
 
 type access_config = {
   authentication_mode : string prop;  (** authentication_mode *)
+  bootstrap_cluster_creator_admin_permissions : bool prop;
+      (** bootstrap_cluster_creator_admin_permissions *)
 }
 
 type certificate_authority = { data : string prop  (** data *) }

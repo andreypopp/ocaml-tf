@@ -9,12 +9,18 @@ type anthos_cluster
 val anthos_cluster :
   ?membership:string prop -> unit -> anthos_cluster
 
+type custom_target
+
+val custom_target :
+  custom_target_type:string prop -> unit -> custom_target
+
 type execution_configs
 
 val execution_configs :
   ?artifact_storage:string prop ->
   ?execution_timeout:string prop ->
   ?service_account:string prop ->
+  ?verbose:bool prop ->
   ?worker_pool:string prop ->
   usages:string prop list ->
   unit ->
@@ -54,6 +60,7 @@ val google_clouddeploy_target :
   ?project:string prop ->
   ?require_approval:bool prop ->
   ?anthos_cluster:anthos_cluster list ->
+  ?custom_target:custom_target list ->
   ?execution_configs:execution_configs list ->
   ?gke:gke list ->
   ?multi_target:multi_target list ->
@@ -100,6 +107,7 @@ val register :
   ?project:string prop ->
   ?require_approval:bool prop ->
   ?anthos_cluster:anthos_cluster list ->
+  ?custom_target:custom_target list ->
   ?execution_configs:execution_configs list ->
   ?gke:gke list ->
   ?multi_target:multi_target list ->
@@ -119,6 +127,7 @@ val make :
   ?project:string prop ->
   ?require_approval:bool prop ->
   ?anthos_cluster:anthos_cluster list ->
+  ?custom_target:custom_target list ->
   ?execution_configs:execution_configs list ->
   ?gke:gke list ->
   ?multi_target:multi_target list ->

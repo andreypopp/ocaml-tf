@@ -245,8 +245,10 @@ type google_compute_firewall_policy_rule = {
   firewall_policy : string prop;
   id : string prop option; [@option]
   priority : float prop;
+  security_profile_group : string prop option; [@option]
   target_resources : string prop list option; [@option]
   target_service_accounts : string prop list option; [@option]
+  tls_inspect : bool prop option; [@option]
   match_ : match_ list;
       [@key "match"]
       [@default []]
@@ -268,8 +270,10 @@ let yojson_of_google_compute_firewall_policy_rule =
        firewall_policy = v_firewall_policy;
        id = v_id;
        priority = v_priority;
+       security_profile_group = v_security_profile_group;
        target_resources = v_target_resources;
        target_service_accounts = v_target_service_accounts;
+       tls_inspect = v_tls_inspect;
        match_ = v_match_;
        timeouts = v_timeouts;
      } ->
@@ -286,6 +290,14 @@ let yojson_of_google_compute_firewall_policy_rule =
            let arg = (yojson_of_list yojson_of_match_) v_match_ in
            let bnd = "match", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tls_inspect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls_inspect", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_target_service_accounts with
@@ -305,6 +317,14 @@ let yojson_of_google_compute_firewall_policy_rule =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "target_resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_profile_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_profile_group", arg in
              bnd :: bnds
        in
        let bnds =
@@ -391,9 +411,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_firewall_policy_rule ?description ?disabled
-    ?enable_logging ?id ?target_resources ?target_service_accounts
-    ?timeouts ~action ~direction ~firewall_policy ~priority ~match_
-    () : google_compute_firewall_policy_rule =
+    ?enable_logging ?id ?security_profile_group ?target_resources
+    ?target_service_accounts ?tls_inspect ?timeouts ~action
+    ~direction ~firewall_policy ~priority ~match_ () :
+    google_compute_firewall_policy_rule =
   {
     action;
     description;
@@ -403,8 +424,10 @@ let google_compute_firewall_policy_rule ?description ?disabled
     firewall_policy;
     id;
     priority;
+    security_profile_group;
     target_resources;
     target_service_accounts;
+    tls_inspect;
     match_;
     timeouts;
   }
@@ -421,13 +444,16 @@ type t = {
   kind : string prop;
   priority : float prop;
   rule_tuple_count : float prop;
+  security_profile_group : string prop;
   target_resources : string list prop;
   target_service_accounts : string list prop;
+  tls_inspect : bool prop;
 }
 
-let make ?description ?disabled ?enable_logging ?id ?target_resources
-    ?target_service_accounts ?timeouts ~action ~direction
-    ~firewall_policy ~priority ~match_ __id =
+let make ?description ?disabled ?enable_logging ?id
+    ?security_profile_group ?target_resources
+    ?target_service_accounts ?tls_inspect ?timeouts ~action
+    ~direction ~firewall_policy ~priority ~match_ __id =
   let __type = "google_compute_firewall_policy_rule" in
   let __attrs =
     ({
@@ -443,10 +469,13 @@ let make ?description ?disabled ?enable_logging ?id ?target_resources
        priority = Prop.computed __type __id "priority";
        rule_tuple_count =
          Prop.computed __type __id "rule_tuple_count";
+       security_profile_group =
+         Prop.computed __type __id "security_profile_group";
        target_resources =
          Prop.computed __type __id "target_resources";
        target_service_accounts =
          Prop.computed __type __id "target_service_accounts";
+       tls_inspect = Prop.computed __type __id "tls_inspect";
      }
       : t)
   in
@@ -456,19 +485,22 @@ let make ?description ?disabled ?enable_logging ?id ?target_resources
     json =
       yojson_of_google_compute_firewall_policy_rule
         (google_compute_firewall_policy_rule ?description ?disabled
-           ?enable_logging ?id ?target_resources
-           ?target_service_accounts ?timeouts ~action ~direction
-           ~firewall_policy ~priority ~match_ ());
+           ?enable_logging ?id ?security_profile_group
+           ?target_resources ?target_service_accounts ?tls_inspect
+           ?timeouts ~action ~direction ~firewall_policy ~priority
+           ~match_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?enable_logging ?id
-    ?target_resources ?target_service_accounts ?timeouts ~action
+    ?security_profile_group ?target_resources
+    ?target_service_accounts ?tls_inspect ?timeouts ~action
     ~direction ~firewall_policy ~priority ~match_ __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?disabled ?enable_logging ?id ?target_resources
-      ?target_service_accounts ?timeouts ~action ~direction
-      ~firewall_policy ~priority ~match_ __id
+    make ?description ?disabled ?enable_logging ?id
+      ?security_profile_group ?target_resources
+      ?target_service_accounts ?tls_inspect ?timeouts ~action
+      ~direction ~firewall_policy ~priority ~match_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

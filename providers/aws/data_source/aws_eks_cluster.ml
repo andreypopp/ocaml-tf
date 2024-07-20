@@ -2,16 +2,30 @@
 
 open! Tf_core
 
-type access_config = { authentication_mode : string prop }
+type access_config = {
+  authentication_mode : string prop;
+  bootstrap_cluster_creator_admin_permissions : bool prop;
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : access_config) -> ()
 
 let yojson_of_access_config =
   (function
-   | { authentication_mode = v_authentication_mode } ->
+   | {
+       authentication_mode = v_authentication_mode;
+       bootstrap_cluster_creator_admin_permissions =
+         v_bootstrap_cluster_creator_admin_permissions;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_bootstrap_cluster_creator_admin_permissions
+         in
+         ("bootstrap_cluster_creator_admin_permissions", arg) :: bnds
        in
        let bnds =
          let arg =

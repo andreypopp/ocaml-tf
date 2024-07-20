@@ -63,8 +63,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type workload_profile = {
-  maximum_count : float prop;
-  minimum_count : float prop;
+  maximum_count : float prop option; [@option]
+  minimum_count : float prop option; [@option]
   name : string prop;
   workload_profile_type : string prop;
 }
@@ -94,12 +94,20 @@ let yojson_of_workload_profile =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_float v_minimum_count in
-         ("minimum_count", arg) :: bnds
+         match v_minimum_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum_count", arg in
+             bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_float v_maximum_count in
-         ("maximum_count", arg) :: bnds
+         match v_maximum_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_count", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : workload_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -117,6 +125,7 @@ type azurerm_container_app_environment = {
   internal_load_balancer_enabled : bool prop option; [@option]
   location : string prop;
   log_analytics_workspace_id : string prop option; [@option]
+  mutual_tls_enabled : bool prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
@@ -142,6 +151,7 @@ let yojson_of_azurerm_container_app_environment =
          v_internal_load_balancer_enabled;
        location = v_location;
        log_analytics_workspace_id = v_log_analytics_workspace_id;
+       mutual_tls_enabled = v_mutual_tls_enabled;
        name = v_name;
        resource_group_name = v_resource_group_name;
        tags = v_tags;
@@ -199,6 +209,14 @@ let yojson_of_azurerm_container_app_environment =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mutual_tls_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "mutual_tls_enabled", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_log_analytics_workspace_id with
@@ -265,16 +283,16 @@ let _ = yojson_of_azurerm_container_app_environment
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let workload_profile ~maximum_count ~minimum_count ~name
+let workload_profile ?maximum_count ?minimum_count ~name
     ~workload_profile_type () : workload_profile =
   { maximum_count; minimum_count; name; workload_profile_type }
 
 let azurerm_container_app_environment
     ?dapr_application_insights_connection_string ?id
     ?infrastructure_resource_group_name ?infrastructure_subnet_id
-    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~workload_profile () :
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id
+    ?mutual_tls_enabled ?tags ?zone_redundancy_enabled ?timeouts
+    ~location ~name ~resource_group_name ~workload_profile () :
     azurerm_container_app_environment =
   {
     dapr_application_insights_connection_string;
@@ -284,6 +302,7 @@ let azurerm_container_app_environment
     internal_load_balancer_enabled;
     location;
     log_analytics_workspace_id;
+    mutual_tls_enabled;
     name;
     resource_group_name;
     tags;
@@ -294,6 +313,7 @@ let azurerm_container_app_environment
 
 type t = {
   tf_name : string;
+  custom_domain_verification_id : string prop;
   dapr_application_insights_connection_string : string prop;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
@@ -303,6 +323,7 @@ type t = {
   internal_load_balancer_enabled : bool prop;
   location : string prop;
   log_analytics_workspace_id : string prop;
+  mutual_tls_enabled : bool prop;
   name : string prop;
   platform_reserved_cidr : string prop;
   platform_reserved_dns_ip_address : string prop;
@@ -314,13 +335,15 @@ type t = {
 
 let make ?dapr_application_insights_connection_string ?id
     ?infrastructure_resource_group_name ?infrastructure_subnet_id
-    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~workload_profile __id =
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id
+    ?mutual_tls_enabled ?tags ?zone_redundancy_enabled ?timeouts
+    ~location ~name ~resource_group_name ~workload_profile __id =
   let __type = "azurerm_container_app_environment" in
   let __attrs =
     ({
        tf_name = __id;
+       custom_domain_verification_id =
+         Prop.computed __type __id "custom_domain_verification_id";
        dapr_application_insights_connection_string =
          Prop.computed __type __id
            "dapr_application_insights_connection_string";
@@ -338,6 +361,8 @@ let make ?dapr_application_insights_connection_string ?id
        location = Prop.computed __type __id "location";
        log_analytics_workspace_id =
          Prop.computed __type __id "log_analytics_workspace_id";
+       mutual_tls_enabled =
+         Prop.computed __type __id "mutual_tls_enabled";
        name = Prop.computed __type __id "name";
        platform_reserved_cidr =
          Prop.computed __type __id "platform_reserved_cidr";
@@ -362,23 +387,23 @@ let make ?dapr_application_insights_connection_string ?id
            ?dapr_application_insights_connection_string ?id
            ?infrastructure_resource_group_name
            ?infrastructure_subnet_id ?internal_load_balancer_enabled
-           ?log_analytics_workspace_id ?tags ?zone_redundancy_enabled
-           ?timeouts ~location ~name ~resource_group_name
-           ~workload_profile ());
+           ?log_analytics_workspace_id ?mutual_tls_enabled ?tags
+           ?zone_redundancy_enabled ?timeouts ~location ~name
+           ~resource_group_name ~workload_profile ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dapr_application_insights_connection_string
     ?id ?infrastructure_resource_group_name ?infrastructure_subnet_id
-    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~workload_profile __id =
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id
+    ?mutual_tls_enabled ?tags ?zone_redundancy_enabled ?timeouts
+    ~location ~name ~resource_group_name ~workload_profile __id =
   let (r : _ Tf_core.resource) =
     make ?dapr_application_insights_connection_string ?id
       ?infrastructure_resource_group_name ?infrastructure_subnet_id
       ?internal_load_balancer_enabled ?log_analytics_workspace_id
-      ?tags ?zone_redundancy_enabled ?timeouts ~location ~name
-      ~resource_group_name ~workload_profile __id
+      ?mutual_tls_enabled ?tags ?zone_redundancy_enabled ?timeouts
+      ~location ~name ~resource_group_name ~workload_profile __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

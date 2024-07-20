@@ -48,11 +48,7 @@ val ingress_to :
 type timeouts
 
 val timeouts :
-  ?create:string prop ->
-  ?delete:string prop ->
-  ?update:string prop ->
-  unit ->
-  timeouts
+  ?create:string prop -> ?delete:string prop -> unit -> timeouts
 
 type google_access_context_manager_service_perimeter_ingress_policy
 

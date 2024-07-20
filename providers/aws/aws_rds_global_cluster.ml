@@ -84,6 +84,7 @@ type aws_rds_global_cluster = {
   database_name : string prop option; [@option]
   deletion_protection : bool prop option; [@option]
   engine : string prop option; [@option]
+  engine_lifecycle_support : string prop option; [@option]
   engine_version : string prop option; [@option]
   force_destroy : bool prop option; [@option]
   global_cluster_identifier : string prop;
@@ -102,6 +103,7 @@ let yojson_of_aws_rds_global_cluster =
        database_name = v_database_name;
        deletion_protection = v_deletion_protection;
        engine = v_engine;
+       engine_lifecycle_support = v_engine_lifecycle_support;
        engine_version = v_engine_version;
        force_destroy = v_force_destroy;
        global_cluster_identifier = v_global_cluster_identifier;
@@ -165,6 +167,14 @@ let yojson_of_aws_rds_global_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_engine_lifecycle_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_lifecycle_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_engine with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -199,13 +209,14 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_rds_global_cluster ?database_name ?deletion_protection
-    ?engine ?engine_version ?force_destroy ?id
-    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ?engine ?engine_lifecycle_support ?engine_version ?force_destroy
+    ?id ?source_db_cluster_identifier ?storage_encrypted ?timeouts
     ~global_cluster_identifier () : aws_rds_global_cluster =
   {
     database_name;
     deletion_protection;
     engine;
+    engine_lifecycle_support;
     engine_version;
     force_destroy;
     global_cluster_identifier;
@@ -221,6 +232,7 @@ type t = {
   database_name : string prop;
   deletion_protection : bool prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
   force_destroy : bool prop;
@@ -232,9 +244,10 @@ type t = {
   storage_encrypted : bool prop;
 }
 
-let make ?database_name ?deletion_protection ?engine ?engine_version
-    ?force_destroy ?id ?source_db_cluster_identifier
-    ?storage_encrypted ?timeouts ~global_cluster_identifier __id =
+let make ?database_name ?deletion_protection ?engine
+    ?engine_lifecycle_support ?engine_version ?force_destroy ?id
+    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ~global_cluster_identifier __id =
   let __type = "aws_rds_global_cluster" in
   let __attrs =
     ({
@@ -244,6 +257,8 @@ let make ?database_name ?deletion_protection ?engine ?engine_version
        deletion_protection =
          Prop.computed __type __id "deletion_protection";
        engine = Prop.computed __type __id "engine";
+       engine_lifecycle_support =
+         Prop.computed __type __id "engine_lifecycle_support";
        engine_version = Prop.computed __type __id "engine_version";
        engine_version_actual =
          Prop.computed __type __id "engine_version_actual";
@@ -268,19 +283,21 @@ let make ?database_name ?deletion_protection ?engine ?engine_version
     json =
       yojson_of_aws_rds_global_cluster
         (aws_rds_global_cluster ?database_name ?deletion_protection
-           ?engine ?engine_version ?force_destroy ?id
-           ?source_db_cluster_identifier ?storage_encrypted ?timeouts
-           ~global_cluster_identifier ());
+           ?engine ?engine_lifecycle_support ?engine_version
+           ?force_destroy ?id ?source_db_cluster_identifier
+           ?storage_encrypted ?timeouts ~global_cluster_identifier ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?database_name ?deletion_protection ?engine
-    ?engine_version ?force_destroy ?id ?source_db_cluster_identifier
-    ?storage_encrypted ?timeouts ~global_cluster_identifier __id =
+    ?engine_lifecycle_support ?engine_version ?force_destroy ?id
+    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ~global_cluster_identifier __id =
   let (r : _ Tf_core.resource) =
-    make ?database_name ?deletion_protection ?engine ?engine_version
-      ?force_destroy ?id ?source_db_cluster_identifier
-      ?storage_encrypted ?timeouts ~global_cluster_identifier __id
+    make ?database_name ?deletion_protection ?engine
+      ?engine_lifecycle_support ?engine_version ?force_destroy ?id
+      ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+      ~global_cluster_identifier __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -271,6 +271,7 @@ type endpoints = {
   appintegrationsservice : string prop option; [@option]
   applicationautoscaling : string prop option; [@option]
   applicationinsights : string prop option; [@option]
+  applicationsignals : string prop option; [@option]
   appmesh : string prop option; [@option]
   appregistry : string prop option; [@option]
   apprunner : string prop option; [@option]
@@ -282,11 +283,13 @@ type endpoints = {
   autoscalingplans : string prop option; [@option]
   backup : string prop option; [@option]
   batch : string prop option; [@option]
+  bcmdataexports : string prop option; [@option]
   beanstalk : string prop option; [@option]
   bedrock : string prop option; [@option]
   bedrockagent : string prop option; [@option]
   budgets : string prop option; [@option]
   ce : string prop option; [@option]
+  chatbot : string prop option; [@option]
   chime : string prop option; [@option]
   chimesdkmediapipelines : string prop option; [@option]
   chimesdkvoice : string prop option; [@option]
@@ -336,9 +339,11 @@ type endpoints = {
   customerprofiles : string prop option; [@option]
   databasemigration : string prop option; [@option]
   databasemigrationservice : string prop option; [@option]
+  databrew : string prop option; [@option]
   dataexchange : string prop option; [@option]
   datapipeline : string prop option; [@option]
   datasync : string prop option; [@option]
+  datazone : string prop option; [@option]
   dax : string prop option; [@option]
   deploy : string prop option; [@option]
   detective : string prop option; [@option]
@@ -350,6 +355,7 @@ type endpoints = {
   dms : string prop option; [@option]
   docdb : string prop option; [@option]
   docdbelastic : string prop option; [@option]
+  drs : string prop option; [@option]
   ds : string prop option; [@option]
   dynamodb : string prop option; [@option]
   ec2 : string prop option; [@option]
@@ -383,6 +389,7 @@ type endpoints = {
   glacier : string prop option; [@option]
   globalaccelerator : string prop option; [@option]
   glue : string prop option; [@option]
+  gluedatabrew : string prop option; [@option]
   grafana : string prop option; [@option]
   greengrass : string prop option; [@option]
   groundstation : string prop option; [@option]
@@ -438,8 +445,10 @@ type endpoints = {
   msk : string prop option; [@option]
   mwaa : string prop option; [@option]
   neptune : string prop option; [@option]
+  neptunegraph : string prop option; [@option]
   networkfirewall : string prop option; [@option]
   networkmanager : string prop option; [@option]
+  networkmonitor : string prop option; [@option]
   oam : string prop option; [@option]
   opensearch : string prop option; [@option]
   opensearchingestion : string prop option; [@option]
@@ -449,6 +458,7 @@ type endpoints = {
   organizations : string prop option; [@option]
   osis : string prop option; [@option]
   outposts : string prop option; [@option]
+  paymentcryptography : string prop option; [@option]
   pcaconnectorad : string prop option; [@option]
   pinpoint : string prop option; [@option]
   pipes : string prop option; [@option]
@@ -475,6 +485,7 @@ type endpoints = {
   rolesanywhere : string prop option; [@option]
   route53 : string prop option; [@option]
   route53domains : string prop option; [@option]
+  route53profiles : string prop option; [@option]
   route53recoverycontrolconfig : string prop option; [@option]
   route53recoveryreadiness : string prop option; [@option]
   route53resolver : string prop option; [@option]
@@ -516,6 +527,7 @@ type endpoints = {
   sts : string prop option; [@option]
   swf : string prop option; [@option]
   synthetics : string prop option; [@option]
+  timestreaminfluxdb : string prop option; [@option]
   timestreamwrite : string prop option; [@option]
   transcribe : string prop option; [@option]
   transcribeservice : string prop option; [@option]
@@ -528,6 +540,7 @@ type endpoints = {
   wellarchitected : string prop option; [@option]
   worklink : string prop option; [@option]
   workspaces : string prop option; [@option]
+  workspacesweb : string prop option; [@option]
   xray : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -554,6 +567,7 @@ let yojson_of_endpoints =
        appintegrationsservice = v_appintegrationsservice;
        applicationautoscaling = v_applicationautoscaling;
        applicationinsights = v_applicationinsights;
+       applicationsignals = v_applicationsignals;
        appmesh = v_appmesh;
        appregistry = v_appregistry;
        apprunner = v_apprunner;
@@ -565,11 +579,13 @@ let yojson_of_endpoints =
        autoscalingplans = v_autoscalingplans;
        backup = v_backup;
        batch = v_batch;
+       bcmdataexports = v_bcmdataexports;
        beanstalk = v_beanstalk;
        bedrock = v_bedrock;
        bedrockagent = v_bedrockagent;
        budgets = v_budgets;
        ce = v_ce;
+       chatbot = v_chatbot;
        chime = v_chime;
        chimesdkmediapipelines = v_chimesdkmediapipelines;
        chimesdkvoice = v_chimesdkvoice;
@@ -619,9 +635,11 @@ let yojson_of_endpoints =
        customerprofiles = v_customerprofiles;
        databasemigration = v_databasemigration;
        databasemigrationservice = v_databasemigrationservice;
+       databrew = v_databrew;
        dataexchange = v_dataexchange;
        datapipeline = v_datapipeline;
        datasync = v_datasync;
+       datazone = v_datazone;
        dax = v_dax;
        deploy = v_deploy;
        detective = v_detective;
@@ -633,6 +651,7 @@ let yojson_of_endpoints =
        dms = v_dms;
        docdb = v_docdb;
        docdbelastic = v_docdbelastic;
+       drs = v_drs;
        ds = v_ds;
        dynamodb = v_dynamodb;
        ec2 = v_ec2;
@@ -666,6 +685,7 @@ let yojson_of_endpoints =
        glacier = v_glacier;
        globalaccelerator = v_globalaccelerator;
        glue = v_glue;
+       gluedatabrew = v_gluedatabrew;
        grafana = v_grafana;
        greengrass = v_greengrass;
        groundstation = v_groundstation;
@@ -721,8 +741,10 @@ let yojson_of_endpoints =
        msk = v_msk;
        mwaa = v_mwaa;
        neptune = v_neptune;
+       neptunegraph = v_neptunegraph;
        networkfirewall = v_networkfirewall;
        networkmanager = v_networkmanager;
+       networkmonitor = v_networkmonitor;
        oam = v_oam;
        opensearch = v_opensearch;
        opensearchingestion = v_opensearchingestion;
@@ -732,6 +754,7 @@ let yojson_of_endpoints =
        organizations = v_organizations;
        osis = v_osis;
        outposts = v_outposts;
+       paymentcryptography = v_paymentcryptography;
        pcaconnectorad = v_pcaconnectorad;
        pinpoint = v_pinpoint;
        pipes = v_pipes;
@@ -758,6 +781,7 @@ let yojson_of_endpoints =
        rolesanywhere = v_rolesanywhere;
        route53 = v_route53;
        route53domains = v_route53domains;
+       route53profiles = v_route53profiles;
        route53recoverycontrolconfig = v_route53recoverycontrolconfig;
        route53recoveryreadiness = v_route53recoveryreadiness;
        route53resolver = v_route53resolver;
@@ -800,6 +824,7 @@ let yojson_of_endpoints =
        sts = v_sts;
        swf = v_swf;
        synthetics = v_synthetics;
+       timestreaminfluxdb = v_timestreaminfluxdb;
        timestreamwrite = v_timestreamwrite;
        transcribe = v_transcribe;
        transcribeservice = v_transcribeservice;
@@ -812,6 +837,7 @@ let yojson_of_endpoints =
        wellarchitected = v_wellarchitected;
        worklink = v_worklink;
        workspaces = v_workspaces;
+       workspacesweb = v_workspacesweb;
        xray = v_xray;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -823,6 +849,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "xray", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_workspacesweb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workspacesweb", arg in
              bnd :: bnds
        in
        let bnds =
@@ -919,6 +953,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "timestreamwrite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_timestreaminfluxdb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestreaminfluxdb", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1250,6 +1292,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_route53profiles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "route53profiles", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_route53domains with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1458,6 +1508,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_paymentcryptography with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "paymentcryptography", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_outposts with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1530,6 +1588,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_networkmonitor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "networkmonitor", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_networkmanager with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1543,6 +1609,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "networkfirewall", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_neptunegraph with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "neptunegraph", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1986,6 +2060,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_gluedatabrew with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gluedatabrew", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_glue with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -2250,6 +2332,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_drs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "drs", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_docdbelastic with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -2338,6 +2428,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_datazone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "datazone", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_datasync with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -2359,6 +2457,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "dataexchange", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_databrew with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "databrew", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2746,6 +2852,14 @@ let yojson_of_endpoints =
              bnd :: bnds
        in
        let bnds =
+         match v_chatbot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "chatbot", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_ce with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -2783,6 +2897,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "beanstalk", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bcmdataexports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bcmdataexports", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2871,6 +2993,14 @@ let yojson_of_endpoints =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "appmesh", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_applicationsignals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "applicationsignals", arg in
              bnd :: bnds
        in
        let bnds =
@@ -3464,11 +3594,12 @@ let default_tags ?tags () : default_tags = { tags }
 let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     ?amplify ?apigateway ?apigatewayv2 ?appautoscaling ?appconfig
     ?appfabric ?appflow ?appintegrations ?appintegrationsservice
-    ?applicationautoscaling ?applicationinsights ?appmesh
-    ?appregistry ?apprunner ?appstream ?appsync ?athena ?auditmanager
-    ?autoscaling ?autoscalingplans ?backup ?batch ?beanstalk ?bedrock
-    ?bedrockagent ?budgets ?ce ?chime ?chimesdkmediapipelines
-    ?chimesdkvoice ?cleanrooms ?cloud9 ?cloudcontrol ?cloudcontrolapi
+    ?applicationautoscaling ?applicationinsights ?applicationsignals
+    ?appmesh ?appregistry ?apprunner ?appstream ?appsync ?athena
+    ?auditmanager ?autoscaling ?autoscalingplans ?backup ?batch
+    ?bcmdataexports ?beanstalk ?bedrock ?bedrockagent ?budgets ?ce
+    ?chatbot ?chime ?chimesdkmediapipelines ?chimesdkvoice
+    ?cleanrooms ?cloud9 ?cloudcontrol ?cloudcontrolapi
     ?cloudformation ?cloudfront ?cloudfrontkeyvaluestore ?cloudhsm
     ?cloudhsmv2 ?cloudsearch ?cloudtrail ?cloudwatch
     ?cloudwatchevents ?cloudwatchevidently ?cloudwatchlog
@@ -3480,17 +3611,17 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     ?computeoptimizer ?config ?configservice ?connect ?connectcases
     ?controltower ?costandusagereportservice ?costexplorer
     ?costoptimizationhub ?cur ?customerprofiles ?databasemigration
-    ?databasemigrationservice ?dataexchange ?datapipeline ?datasync
-    ?dax ?deploy ?detective ?devicefarm ?devopsguru ?directconnect
-    ?directoryservice ?dlm ?dms ?docdb ?docdbelastic ?ds ?dynamodb
-    ?ec2 ?ecr ?ecrpublic ?ecs ?efs ?eks ?elasticache
-    ?elasticbeanstalk ?elasticloadbalancing ?elasticloadbalancingv2
-    ?elasticsearch ?elasticsearchservice ?elastictranscoder ?elb
-    ?elbv2 ?emr ?emrcontainers ?emrserverless ?es ?eventbridge
-    ?events ?evidently ?finspace ?firehose ?fis ?fms ?fsx ?gamelift
-    ?glacier ?globalaccelerator ?glue ?grafana ?greengrass
-    ?groundstation ?guardduty ?healthlake ?iam ?identitystore
-    ?imagebuilder ?inspector ?inspector2 ?inspectorv2
+    ?databasemigrationservice ?databrew ?dataexchange ?datapipeline
+    ?datasync ?datazone ?dax ?deploy ?detective ?devicefarm
+    ?devopsguru ?directconnect ?directoryservice ?dlm ?dms ?docdb
+    ?docdbelastic ?drs ?ds ?dynamodb ?ec2 ?ecr ?ecrpublic ?ecs ?efs
+    ?eks ?elasticache ?elasticbeanstalk ?elasticloadbalancing
+    ?elasticloadbalancingv2 ?elasticsearch ?elasticsearchservice
+    ?elastictranscoder ?elb ?elbv2 ?emr ?emrcontainers ?emrserverless
+    ?es ?eventbridge ?events ?evidently ?finspace ?firehose ?fis ?fms
+    ?fsx ?gamelift ?glacier ?globalaccelerator ?glue ?gluedatabrew
+    ?grafana ?greengrass ?groundstation ?guardduty ?healthlake ?iam
+    ?identitystore ?imagebuilder ?inspector ?inspector2 ?inspectorv2
     ?internetmonitor ?iot ?iotanalytics ?iotevents ?ivs ?ivschat
     ?kafka ?kafkaconnect ?kendra ?keyspaces ?kinesis
     ?kinesisanalytics ?kinesisanalyticsv2 ?kinesisvideo ?kms
@@ -3499,15 +3630,16 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     ?licensemanager ?lightsail ?location ?locationservice ?logs
     ?lookoutmetrics ?m2 ?macie2 ?managedgrafana ?mediaconnect
     ?mediaconvert ?medialive ?mediapackage ?mediapackagev2
-    ?mediastore ?memorydb ?mq ?msk ?mwaa ?neptune ?networkfirewall
-    ?networkmanager ?oam ?opensearch ?opensearchingestion
-    ?opensearchserverless ?opensearchservice ?opsworks ?organizations
-    ?osis ?outposts ?pcaconnectorad ?pinpoint ?pipes ?polly ?pricing
-    ?prometheus ?prometheusservice ?qbusiness ?qldb ?quicksight ?ram
-    ?rbin ?rds ?recyclebin ?redshift ?redshiftdata
-    ?redshiftdataapiservice ?redshiftserverless ?rekognition
-    ?resourceexplorer2 ?resourcegroups ?resourcegroupstagging
-    ?resourcegroupstaggingapi ?rolesanywhere ?route53 ?route53domains
+    ?mediastore ?memorydb ?mq ?msk ?mwaa ?neptune ?neptunegraph
+    ?networkfirewall ?networkmanager ?networkmonitor ?oam ?opensearch
+    ?opensearchingestion ?opensearchserverless ?opensearchservice
+    ?opsworks ?organizations ?osis ?outposts ?paymentcryptography
+    ?pcaconnectorad ?pinpoint ?pipes ?polly ?pricing ?prometheus
+    ?prometheusservice ?qbusiness ?qldb ?quicksight ?ram ?rbin ?rds
+    ?recyclebin ?redshift ?redshiftdata ?redshiftdataapiservice
+    ?redshiftserverless ?rekognition ?resourceexplorer2
+    ?resourcegroups ?resourcegroupstagging ?resourcegroupstaggingapi
+    ?rolesanywhere ?route53 ?route53domains ?route53profiles
     ?route53recoverycontrolconfig ?route53recoveryreadiness
     ?route53resolver ?rum ?s3 ?s3api ?s3control ?s3outposts
     ?sagemaker ?scheduler ?schemas ?sdb ?secretsmanager ?securityhub
@@ -3516,9 +3648,10 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     ?servicediscovery ?servicequotas ?ses ?sesv2 ?sfn ?shield ?signer
     ?simpledb ?sns ?sqs ?ssm ?ssmcontacts ?ssmincidents ?ssmsap ?sso
     ?ssoadmin ?stepfunctions ?storagegateway ?sts ?swf ?synthetics
-    ?timestreamwrite ?transcribe ?transcribeservice ?transfer
-    ?verifiedpermissions ?vpclattice ?waf ?wafregional ?wafv2
-    ?wellarchitected ?worklink ?workspaces ?xray () : endpoints =
+    ?timestreaminfluxdb ?timestreamwrite ?transcribe
+    ?transcribeservice ?transfer ?verifiedpermissions ?vpclattice
+    ?waf ?wafregional ?wafv2 ?wellarchitected ?worklink ?workspaces
+    ?workspacesweb ?xray () : endpoints =
   {
     accessanalyzer;
     account;
@@ -3537,6 +3670,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     appintegrationsservice;
     applicationautoscaling;
     applicationinsights;
+    applicationsignals;
     appmesh;
     appregistry;
     apprunner;
@@ -3548,11 +3682,13 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     autoscalingplans;
     backup;
     batch;
+    bcmdataexports;
     beanstalk;
     bedrock;
     bedrockagent;
     budgets;
     ce;
+    chatbot;
     chime;
     chimesdkmediapipelines;
     chimesdkvoice;
@@ -3601,9 +3737,11 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     customerprofiles;
     databasemigration;
     databasemigrationservice;
+    databrew;
     dataexchange;
     datapipeline;
     datasync;
+    datazone;
     dax;
     deploy;
     detective;
@@ -3615,6 +3753,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     dms;
     docdb;
     docdbelastic;
+    drs;
     ds;
     dynamodb;
     ec2;
@@ -3648,6 +3787,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     glacier;
     globalaccelerator;
     glue;
+    gluedatabrew;
     grafana;
     greengrass;
     groundstation;
@@ -3703,8 +3843,10 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     msk;
     mwaa;
     neptune;
+    neptunegraph;
     networkfirewall;
     networkmanager;
+    networkmonitor;
     oam;
     opensearch;
     opensearchingestion;
@@ -3714,6 +3856,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     organizations;
     osis;
     outposts;
+    paymentcryptography;
     pcaconnectorad;
     pinpoint;
     pipes;
@@ -3740,6 +3883,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     rolesanywhere;
     route53;
     route53domains;
+    route53profiles;
     route53recoverycontrolconfig;
     route53recoveryreadiness;
     route53resolver;
@@ -3781,6 +3925,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     sts;
     swf;
     synthetics;
+    timestreaminfluxdb;
     timestreamwrite;
     transcribe;
     transcribeservice;
@@ -3793,6 +3938,7 @@ let endpoints ?accessanalyzer ?account ?acm ?acmpca ?amg ?amp
     wellarchitected;
     worklink;
     workspaces;
+    workspacesweb;
     xray;
   }
 

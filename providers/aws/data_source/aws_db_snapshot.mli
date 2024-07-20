@@ -40,6 +40,7 @@ type t = private {
   license_model : string prop;
   most_recent : bool prop;
   option_group_name : string prop;
+  original_snapshot_create_time : string prop;
   port : float prop;
   snapshot_create_time : string prop;
   snapshot_type : string prop;

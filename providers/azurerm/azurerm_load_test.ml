@@ -2,6 +2,71 @@
 
 open! Tf_core
 
+type encryption__identity = {
+  identity_id : string prop;
+  type_ : string prop; [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption__identity) -> ()
+
+let yojson_of_encryption__identity =
+  (function
+   | { identity_id = v_identity_id; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identity_id in
+         ("identity_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption__identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption__identity
+
+[@@@deriving.end]
+
+type encryption = {
+  key_url : string prop;
+  identity : encryption__identity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption) -> ()
+
+let yojson_of_encryption =
+  (function
+   | { key_url = v_key_url; identity = v_identity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption__identity)
+               v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_url in
+         ("key_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption
+
+[@@@deriving.end]
+
 type identity = {
   identity_ids : string prop list option; [@option]
   type_ : string prop; [@key "type"]
@@ -104,6 +169,8 @@ type azurerm_load_test = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
+  encryption : encryption list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -121,6 +188,7 @@ let yojson_of_azurerm_load_test =
        name = v_name;
        resource_group_name = v_resource_group_name;
        tags = v_tags;
+       encryption = v_encryption;
        identity = v_identity;
        timeouts = v_timeouts;
      } ->
@@ -138,6 +206,15 @@ let yojson_of_azurerm_load_test =
              (yojson_of_list yojson_of_identity) v_identity
            in
            let bnd = "identity", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption) v_encryption
+           in
+           let bnd = "encryption", arg in
            bnd :: bnds
        in
        let bnds =
@@ -193,15 +270,22 @@ let _ = yojson_of_azurerm_load_test
 
 [@@@deriving.end]
 
+let encryption__identity ~identity_id ~type_ () :
+    encryption__identity =
+  { identity_id; type_ }
+
+let encryption ~key_url ~identity () : encryption =
+  { key_url; identity }
+
 let identity ?identity_ids ~type_ () : identity =
   { identity_ids; type_ }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_load_test ?description ?id ?tags ?(identity = [])
-    ?timeouts ~location ~name ~resource_group_name () :
-    azurerm_load_test =
+let azurerm_load_test ?description ?id ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    () : azurerm_load_test =
   {
     description;
     id;
@@ -209,6 +293,7 @@ let azurerm_load_test ?description ?id ?tags ?(identity = [])
     name;
     resource_group_name;
     tags;
+    encryption;
     identity;
     timeouts;
   }
@@ -224,8 +309,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?(identity = []) ?timeouts ~location
-    ~name ~resource_group_name __id =
+let make ?description ?id ?tags ?(encryption = []) ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_load_test" in
   let __attrs =
     ({
@@ -246,16 +331,18 @@ let make ?description ?id ?tags ?(identity = []) ?timeouts ~location
     type_ = __type;
     json =
       yojson_of_azurerm_load_test
-        (azurerm_load_test ?description ?id ?tags ~identity ?timeouts
-           ~location ~name ~resource_group_name ());
+        (azurerm_load_test ?description ?id ?tags ~encryption
+           ~identity ?timeouts ~location ~name ~resource_group_name
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?(identity = [])
-    ?timeouts ~location ~name ~resource_group_name __id =
+let register ?tf_module ?description ?id ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ~identity ?timeouts ~location ~name
-      ~resource_group_name __id
+    make ?description ?id ?tags ~encryption ~identity ?timeouts
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -4,6 +4,39 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type extra_attributes_oauth2_client__client_secret__value
+
+val extra_attributes_oauth2_client__client_secret__value :
+  plain_text:string prop ->
+  unit ->
+  extra_attributes_oauth2_client__client_secret__value
+
+type extra_attributes_oauth2_client__client_secret
+
+val extra_attributes_oauth2_client__client_secret :
+  ?value:extra_attributes_oauth2_client__client_secret__value list ->
+  unit ->
+  extra_attributes_oauth2_client__client_secret
+
+type extra_attributes_oauth2_client__query_parameters
+
+val extra_attributes_oauth2_client__query_parameters :
+  ?filter:string prop ->
+  unit ->
+  extra_attributes_oauth2_client__query_parameters
+
+type extra_attributes_oauth2_client
+
+val extra_attributes_oauth2_client :
+  ?query_parameters:
+    extra_attributes_oauth2_client__query_parameters list ->
+  attributes_type:string prop ->
+  client_id:string prop ->
+  issuer_uri:string prop ->
+  client_secret:extra_attributes_oauth2_client__client_secret list ->
+  unit ->
+  extra_attributes_oauth2_client
+
 type oidc__client_secret__value
 
 val oidc__client_secret__value :
@@ -58,6 +91,7 @@ val google_iam_workforce_pool_provider :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?extra_attributes_oauth2_client:extra_attributes_oauth2_client list ->
   ?oidc:oidc list ->
   ?saml:saml list ->
   ?timeouts:timeouts ->
@@ -95,6 +129,7 @@ val register :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?extra_attributes_oauth2_client:extra_attributes_oauth2_client list ->
   ?oidc:oidc list ->
   ?saml:saml list ->
   ?timeouts:timeouts ->
@@ -111,6 +146,7 @@ val make :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?extra_attributes_oauth2_client:extra_attributes_oauth2_client list ->
   ?oidc:oidc list ->
   ?saml:saml list ->
   ?timeouts:timeouts ->

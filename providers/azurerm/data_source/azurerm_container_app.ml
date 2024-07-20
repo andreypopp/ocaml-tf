@@ -398,14 +398,24 @@ let _ = yojson_of_registry
 
 [@@@deriving.end]
 
-type secret = { name : string prop; value : string prop }
+type secret = {
+  identity : string prop;
+  key_vault_secret_id : string prop;
+  name : string prop;
+  value : string prop;
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : secret) -> ()
 
 let yojson_of_secret =
   (function
-   | { name = v_name; value = v_value } ->
+   | {
+       identity = v_identity;
+       key_vault_secret_id = v_key_vault_secret_id;
+       name = v_name;
+       value = v_value;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -416,6 +426,16 @@ let yojson_of_secret =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_vault_secret_id
+         in
+         ("key_vault_secret_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identity in
+         ("identity", arg) :: bnds
        in
        `Assoc bnds
     : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)

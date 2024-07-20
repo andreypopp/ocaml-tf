@@ -16,6 +16,24 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type output_options
+
+val output_options :
+  ?batch_prefix:string prop ->
+  ?batch_suffix:string prop ->
+  ?cve20214428:bool prop ->
+  ?field_delimiter:string prop ->
+  ?field_names:string prop list ->
+  ?output_type:string prop ->
+  ?record_delimiter:string prop ->
+  ?record_prefix:string prop ->
+  ?record_suffix:string prop ->
+  ?record_template:string prop ->
+  ?sample_rate:float prop ->
+  ?timestamp_format:string prop ->
+  unit ->
+  output_options
+
 type cloudflare_logpush_job
 
 val cloudflare_logpush_job :
@@ -32,6 +50,7 @@ val cloudflare_logpush_job :
   ?name:string prop ->
   ?ownership_challenge:string prop ->
   ?zone_id:string prop ->
+  ?output_options:output_options list ->
   dataset:string prop ->
   destination_conf:string prop ->
   unit ->
@@ -75,6 +94,7 @@ val register :
   ?name:string prop ->
   ?ownership_challenge:string prop ->
   ?zone_id:string prop ->
+  ?output_options:output_options list ->
   dataset:string prop ->
   destination_conf:string prop ->
   string ->
@@ -94,6 +114,7 @@ val make :
   ?name:string prop ->
   ?ownership_challenge:string prop ->
   ?zone_id:string prop ->
+  ?output_options:output_options list ->
   dataset:string prop ->
   destination_conf:string prop ->
   string ->

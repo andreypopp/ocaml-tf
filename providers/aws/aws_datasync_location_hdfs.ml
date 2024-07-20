@@ -75,7 +75,9 @@ type aws_datasync_location_hdfs = {
   block_size : float prop option; [@option]
   id : string prop option; [@option]
   kerberos_keytab : string prop option; [@option]
+  kerberos_keytab_base64 : string prop option; [@option]
   kerberos_krb5_conf : string prop option; [@option]
+  kerberos_krb5_conf_base64 : string prop option; [@option]
   kerberos_principal : string prop option; [@option]
   kms_key_provider_uri : string prop option; [@option]
   replication_factor : float prop option; [@option]
@@ -100,7 +102,9 @@ let yojson_of_aws_datasync_location_hdfs =
        block_size = v_block_size;
        id = v_id;
        kerberos_keytab = v_kerberos_keytab;
+       kerberos_keytab_base64 = v_kerberos_keytab_base64;
        kerberos_krb5_conf = v_kerberos_krb5_conf;
+       kerberos_krb5_conf_base64 = v_kerberos_krb5_conf_base64;
        kerberos_principal = v_kerberos_principal;
        kms_key_provider_uri = v_kms_key_provider_uri;
        replication_factor = v_replication_factor;
@@ -206,11 +210,27 @@ let yojson_of_aws_datasync_location_hdfs =
              bnd :: bnds
        in
        let bnds =
+         match v_kerberos_krb5_conf_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kerberos_krb5_conf_base64", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_kerberos_krb5_conf with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "kerberos_krb5_conf", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_keytab_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kerberos_keytab_base64", arg in
              bnd :: bnds
        in
        let bnds =
@@ -269,7 +289,8 @@ let qop_configuration ?data_transfer_protection ?rpc_protection () :
   { data_transfer_protection; rpc_protection }
 
 let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
-    ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
+    ?kerberos_keytab ?kerberos_keytab_base64 ?kerberos_krb5_conf
+    ?kerberos_krb5_conf_base64 ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
     ?subdirectory ?tags ?tags_all ?(qop_configuration = [])
     ~agent_arns ~name_node () : aws_datasync_location_hdfs =
@@ -279,7 +300,9 @@ let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
     block_size;
     id;
     kerberos_keytab;
+    kerberos_keytab_base64;
     kerberos_krb5_conf;
+    kerberos_krb5_conf_base64;
     kerberos_principal;
     kms_key_provider_uri;
     replication_factor;
@@ -299,7 +322,9 @@ type t = {
   block_size : float prop;
   id : string prop;
   kerberos_keytab : string prop;
+  kerberos_keytab_base64 : string prop;
   kerberos_krb5_conf : string prop;
+  kerberos_krb5_conf_base64 : string prop;
   kerberos_principal : string prop;
   kms_key_provider_uri : string prop;
   replication_factor : float prop;
@@ -311,9 +336,11 @@ type t = {
 }
 
 let make ?authentication_type ?block_size ?id ?kerberos_keytab
-    ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
-    ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
-    ?(qop_configuration = []) ~agent_arns ~name_node __id =
+    ?kerberos_keytab_base64 ?kerberos_krb5_conf
+    ?kerberos_krb5_conf_base64 ?kerberos_principal
+    ?kms_key_provider_uri ?replication_factor ?simple_user
+    ?subdirectory ?tags ?tags_all ?(qop_configuration = [])
+    ~agent_arns ~name_node __id =
   let __type = "aws_datasync_location_hdfs" in
   let __attrs =
     ({
@@ -325,8 +352,12 @@ let make ?authentication_type ?block_size ?id ?kerberos_keytab
        block_size = Prop.computed __type __id "block_size";
        id = Prop.computed __type __id "id";
        kerberos_keytab = Prop.computed __type __id "kerberos_keytab";
+       kerberos_keytab_base64 =
+         Prop.computed __type __id "kerberos_keytab_base64";
        kerberos_krb5_conf =
          Prop.computed __type __id "kerberos_krb5_conf";
+       kerberos_krb5_conf_base64 =
+         Prop.computed __type __id "kerberos_krb5_conf_base64";
        kerberos_principal =
          Prop.computed __type __id "kerberos_principal";
        kms_key_provider_uri =
@@ -347,7 +378,8 @@ let make ?authentication_type ?block_size ?id ?kerberos_keytab
     json =
       yojson_of_aws_datasync_location_hdfs
         (aws_datasync_location_hdfs ?authentication_type ?block_size
-           ?id ?kerberos_keytab ?kerberos_krb5_conf
+           ?id ?kerberos_keytab ?kerberos_keytab_base64
+           ?kerberos_krb5_conf ?kerberos_krb5_conf_base64
            ?kerberos_principal ?kms_key_provider_uri
            ?replication_factor ?simple_user ?subdirectory ?tags
            ?tags_all ~qop_configuration ~agent_arns ~name_node ());
@@ -355,15 +387,18 @@ let make ?authentication_type ?block_size ?id ?kerberos_keytab
   }
 
 let register ?tf_module ?authentication_type ?block_size ?id
-    ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
+    ?kerberos_keytab ?kerberos_keytab_base64 ?kerberos_krb5_conf
+    ?kerberos_krb5_conf_base64 ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
     ?subdirectory ?tags ?tags_all ?(qop_configuration = [])
     ~agent_arns ~name_node __id =
   let (r : _ Tf_core.resource) =
     make ?authentication_type ?block_size ?id ?kerberos_keytab
-      ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
-      ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
-      ~qop_configuration ~agent_arns ~name_node __id
+      ?kerberos_keytab_base64 ?kerberos_krb5_conf
+      ?kerberos_krb5_conf_base64 ?kerberos_principal
+      ?kms_key_provider_uri ?replication_factor ?simple_user
+      ?subdirectory ?tags ?tags_all ~qop_configuration ~agent_arns
+      ~name_node __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

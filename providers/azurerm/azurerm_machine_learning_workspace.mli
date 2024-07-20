@@ -35,6 +35,14 @@ type managed_network
 val managed_network :
   ?isolation_mode:string prop -> unit -> managed_network
 
+type serverless_compute
+
+val serverless_compute :
+  ?public_ip_enabled:bool prop ->
+  ?subnet_id:string prop ->
+  unit ->
+  serverless_compute
+
 type timeouts
 
 val timeouts :
@@ -64,6 +72,7 @@ val azurerm_machine_learning_workspace :
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->
   ?managed_network:managed_network list ->
+  ?serverless_compute:serverless_compute list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
@@ -123,6 +132,7 @@ val register :
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->
   ?managed_network:managed_network list ->
+  ?serverless_compute:serverless_compute list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
@@ -151,6 +161,7 @@ val make :
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->
   ?managed_network:managed_network list ->
+  ?serverless_compute:serverless_compute list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->

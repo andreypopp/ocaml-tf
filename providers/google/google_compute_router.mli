@@ -17,6 +17,7 @@ type bgp
 val bgp :
   ?advertise_mode:string prop ->
   ?advertised_groups:string prop list ->
+  ?identifier_range:string prop ->
   ?keepalive_interval:float prop ->
   ?advertised_ip_ranges:bgp__advertised_ip_ranges list ->
   asn:float prop ->

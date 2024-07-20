@@ -11,6 +11,15 @@ type mount_options = {
   protocol : string prop;  (** protocol *)
 }
 
+type backup_config
+
+val backup_config :
+  ?backup_policies:string prop list ->
+  ?backup_vault:string prop ->
+  ?scheduled_backup_enabled:bool prop ->
+  unit ->
+  backup_config
+
 type export_policy__rules
 
 val export_policy__rules :
@@ -112,6 +121,7 @@ val google_netapp_volume :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?backup_config:backup_config list ->
   ?export_policy:export_policy list ->
   ?restore_parameters:restore_parameters list ->
   ?snapshot_policy:snapshot_policy list ->
@@ -178,6 +188,7 @@ val register :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?backup_config:backup_config list ->
   ?export_policy:export_policy list ->
   ?restore_parameters:restore_parameters list ->
   ?snapshot_policy:snapshot_policy list ->
@@ -203,6 +214,7 @@ val make :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?backup_config:backup_config list ->
   ?export_policy:export_policy list ->
   ?restore_parameters:restore_parameters list ->
   ?snapshot_policy:snapshot_policy list ->

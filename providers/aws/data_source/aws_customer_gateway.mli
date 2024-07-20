@@ -31,6 +31,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   bgp_asn : float prop;
+  bgp_asn_extended : float prop;
   certificate_arn : string prop;
   device_name : string prop;
   id : string prop;

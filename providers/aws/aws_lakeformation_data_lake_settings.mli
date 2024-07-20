@@ -25,6 +25,7 @@ type aws_lakeformation_data_lake_settings
 val aws_lakeformation_data_lake_settings :
   ?admins:string prop list ->
   ?allow_external_data_filtering:bool prop ->
+  ?allow_full_table_external_data_access:bool prop ->
   ?authorized_session_tag_value_list:string prop list ->
   ?catalog_id:string prop ->
   ?external_data_filtering_allow_list:string prop list ->
@@ -47,6 +48,7 @@ type t = private {
   tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
+  allow_full_table_external_data_access : bool prop;
   authorized_session_tag_value_list : string list prop;
   catalog_id : string prop;
   external_data_filtering_allow_list : string list prop;
@@ -59,6 +61,7 @@ val register :
   ?tf_module:tf_module ->
   ?admins:string prop list ->
   ?allow_external_data_filtering:bool prop ->
+  ?allow_full_table_external_data_access:bool prop ->
   ?authorized_session_tag_value_list:string prop list ->
   ?catalog_id:string prop ->
   ?external_data_filtering_allow_list:string prop list ->
@@ -75,6 +78,7 @@ val register :
 val make :
   ?admins:string prop list ->
   ?allow_external_data_filtering:bool prop ->
+  ?allow_full_table_external_data_access:bool prop ->
   ?authorized_session_tag_value_list:string prop list ->
   ?catalog_id:string prop ->
   ?external_data_filtering_allow_list:string prop list ->

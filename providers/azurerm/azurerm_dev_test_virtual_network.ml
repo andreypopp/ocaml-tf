@@ -2,9 +2,87 @@
 
 open! Tf_core
 
+type subnet__shared_public_ip_address__allowed_ports = {
+  backend_port : float prop option; [@option]
+  transport_protocol : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : subnet__shared_public_ip_address__allowed_ports) -> ()
+
+let yojson_of_subnet__shared_public_ip_address__allowed_ports =
+  (function
+   | {
+       backend_port = v_backend_port;
+       transport_protocol = v_transport_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_transport_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transport_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backend_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backend_port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subnet__shared_public_ip_address__allowed_ports ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subnet__shared_public_ip_address__allowed_ports
+
+[@@@deriving.end]
+
+type subnet__shared_public_ip_address = {
+  allowed_ports :
+    subnet__shared_public_ip_address__allowed_ports list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subnet__shared_public_ip_address) -> ()
+
+let yojson_of_subnet__shared_public_ip_address =
+  (function
+   | { allowed_ports = v_allowed_ports } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_allowed_ports then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_subnet__shared_public_ip_address__allowed_ports)
+               v_allowed_ports
+           in
+           let bnd = "allowed_ports", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : subnet__shared_public_ip_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subnet__shared_public_ip_address
+
+[@@@deriving.end]
+
 type subnet = {
   use_in_virtual_machine_creation : string prop option; [@option]
   use_public_ip_address : string prop option; [@option]
+  shared_public_ip_address : subnet__shared_public_ip_address list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16,9 +94,21 @@ let yojson_of_subnet =
        use_in_virtual_machine_creation =
          v_use_in_virtual_machine_creation;
        use_public_ip_address = v_use_public_ip_address;
+       shared_public_ip_address = v_shared_public_ip_address;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_shared_public_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_subnet__shared_public_ip_address)
+               v_shared_public_ip_address
+           in
+           let bnd = "shared_public_ip_address", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_public_ip_address with
@@ -198,9 +288,22 @@ let _ = yojson_of_azurerm_dev_test_virtual_network
 
 [@@@deriving.end]
 
-let subnet ?use_in_virtual_machine_creation ?use_public_ip_address ()
-    : subnet =
-  { use_in_virtual_machine_creation; use_public_ip_address }
+let subnet__shared_public_ip_address__allowed_ports ?backend_port
+    ?transport_protocol () :
+    subnet__shared_public_ip_address__allowed_ports =
+  { backend_port; transport_protocol }
+
+let subnet__shared_public_ip_address ?(allowed_ports = []) () :
+    subnet__shared_public_ip_address =
+  { allowed_ports }
+
+let subnet ?use_in_virtual_machine_creation ?use_public_ip_address
+    ?(shared_public_ip_address = []) () : subnet =
+  {
+    use_in_virtual_machine_creation;
+    use_public_ip_address;
+    shared_public_ip_address;
+  }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

@@ -342,7 +342,7 @@ let rule__action__parameter ?as_path ?community ?route_prefix () :
     rule__action__parameter =
   { as_path; community; route_prefix }
 
-let rule__action ~type_ ~parameter () : rule__action =
+let rule__action ?(parameter = []) ~type_ () : rule__action =
   { type_; parameter }
 
 let rule__match_criterion ?as_path ?community ?route_prefix

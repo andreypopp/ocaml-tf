@@ -123,6 +123,38 @@ let _ = yojson_of_instance_maintenance_policy
 
 [@@@deriving.end]
 
+type instance_refresh__preferences__alarm_specification = {
+  alarms : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : instance_refresh__preferences__alarm_specification) -> ()
+
+let yojson_of_instance_refresh__preferences__alarm_specification =
+  (function
+   | { alarms = v_alarms } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_alarms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "alarms", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_refresh__preferences__alarm_specification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_refresh__preferences__alarm_specification
+
+[@@@deriving.end]
+
 type instance_refresh__preferences = {
   auto_rollback : bool prop option; [@option]
   checkpoint_delay : string prop option; [@option]
@@ -133,6 +165,9 @@ type instance_refresh__preferences = {
   scale_in_protected_instances : string prop option; [@option]
   skip_matching : bool prop option; [@option]
   standby_instances : string prop option; [@option]
+  alarm_specification :
+    instance_refresh__preferences__alarm_specification list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,9 +185,21 @@ let yojson_of_instance_refresh__preferences =
        scale_in_protected_instances = v_scale_in_protected_instances;
        skip_matching = v_skip_matching;
        standby_instances = v_standby_instances;
+       alarm_specification = v_alarm_specification;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_alarm_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_refresh__preferences__alarm_specification)
+               v_alarm_specification
+           in
+           let bnd = "alarm_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_standby_instances with
@@ -875,6 +922,9 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   instance_generations : string prop list option; [@option]
   local_storage : string prop option; [@option]
   local_storage_types : string prop list option; [@option]
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop option;
+      [@option]
   on_demand_max_price_percentage_over_lowest_price :
     float prop option;
       [@option]
@@ -940,6 +990,8 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
        instance_generations = v_instance_generations;
        local_storage = v_local_storage;
        local_storage_types = v_local_storage_types;
+       max_spot_price_as_percentage_of_optimal_on_demand_price =
+         v_max_spot_price_as_percentage_of_optimal_on_demand_price;
        on_demand_max_price_percentage_over_lowest_price =
          v_on_demand_max_price_percentage_over_lowest_price;
        require_hibernate_support = v_require_hibernate_support;
@@ -1084,6 +1136,19 @@ let yojson_of_mixed_instances_policy__launch_template__override__instance_requir
              let arg = yojson_of_prop yojson_of_float v in
              let bnd =
                ( "on_demand_max_price_percentage_over_lowest_price",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_max_spot_price_as_percentage_of_optimal_on_demand_price
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "max_spot_price_as_percentage_of_optimal_on_demand_price",
                  arg )
              in
              bnd :: bnds
@@ -2105,11 +2170,15 @@ let instance_maintenance_policy ~max_healthy_percentage
     ~min_healthy_percentage () : instance_maintenance_policy =
   { max_healthy_percentage; min_healthy_percentage }
 
+let instance_refresh__preferences__alarm_specification ?alarms () :
+    instance_refresh__preferences__alarm_specification =
+  { alarms }
+
 let instance_refresh__preferences ?auto_rollback ?checkpoint_delay
     ?checkpoint_percentages ?instance_warmup ?max_healthy_percentage
     ?min_healthy_percentage ?scale_in_protected_instances
-    ?skip_matching ?standby_instances () :
-    instance_refresh__preferences =
+    ?skip_matching ?standby_instances ?(alarm_specification = []) ()
+    : instance_refresh__preferences =
   {
     auto_rollback;
     checkpoint_delay;
@@ -2120,6 +2189,7 @@ let instance_refresh__preferences ?auto_rollback ?checkpoint_delay
     scale_in_protected_instances;
     skip_matching;
     standby_instances;
+    alarm_specification;
   }
 
 let instance_refresh ?triggers ?(preferences = []) ~strategy () :
@@ -2208,6 +2278,7 @@ let mixed_instances_policy__launch_template__override__instance_requirements
     ?allowed_instance_types ?bare_metal ?burstable_performance
     ?cpu_manufacturers ?excluded_instance_types ?instance_generations
     ?local_storage ?local_storage_types
+    ?max_spot_price_as_percentage_of_optimal_on_demand_price
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
     ?spot_max_price_percentage_over_lowest_price
@@ -2230,6 +2301,7 @@ let mixed_instances_policy__launch_template__override__instance_requirements
     instance_generations;
     local_storage;
     local_storage_types;
+    max_spot_price_as_percentage_of_optimal_on_demand_price;
     on_demand_max_price_percentage_over_lowest_price;
     require_hibernate_support;
     spot_max_price_percentage_over_lowest_price;

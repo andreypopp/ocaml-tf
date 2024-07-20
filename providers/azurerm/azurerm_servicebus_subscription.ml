@@ -108,6 +108,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_servicebus_subscription = {
   auto_delete_on_idle : string prop option; [@option]
+  batched_operations_enabled : bool prop option; [@option]
   client_scoped_subscription_enabled : bool prop option; [@option]
   dead_lettering_on_filter_evaluation_error : bool prop option;
       [@option]
@@ -135,6 +136,7 @@ let yojson_of_azurerm_servicebus_subscription =
   (function
    | {
        auto_delete_on_idle = v_auto_delete_on_idle;
+       batched_operations_enabled = v_batched_operations_enabled;
        client_scoped_subscription_enabled =
          v_client_scoped_subscription_enabled;
        dead_lettering_on_filter_evaluation_error =
@@ -278,6 +280,14 @@ let yojson_of_azurerm_servicebus_subscription =
              bnd :: bnds
        in
        let bnds =
+         match v_batched_operations_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "batched_operations_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_auto_delete_on_idle with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -302,7 +312,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_servicebus_subscription ?auto_delete_on_idle
-    ?client_scoped_subscription_enabled
+    ?batched_operations_enabled ?client_scoped_subscription_enabled
     ?dead_lettering_on_filter_evaluation_error
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
@@ -311,6 +321,7 @@ let azurerm_servicebus_subscription ?auto_delete_on_idle
     ~name ~topic_id () : azurerm_servicebus_subscription =
   {
     auto_delete_on_idle;
+    batched_operations_enabled;
     client_scoped_subscription_enabled;
     dead_lettering_on_filter_evaluation_error;
     dead_lettering_on_message_expiration;
@@ -332,6 +343,7 @@ let azurerm_servicebus_subscription ?auto_delete_on_idle
 type t = {
   tf_name : string;
   auto_delete_on_idle : string prop;
+  batched_operations_enabled : bool prop;
   client_scoped_subscription_enabled : bool prop;
   dead_lettering_on_filter_evaluation_error : bool prop;
   dead_lettering_on_message_expiration : bool prop;
@@ -348,7 +360,8 @@ type t = {
   topic_id : string prop;
 }
 
-let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
+let make ?auto_delete_on_idle ?batched_operations_enabled
+    ?client_scoped_subscription_enabled
     ?dead_lettering_on_filter_evaluation_error
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
@@ -361,6 +374,8 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
        tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
+       batched_operations_enabled =
+         Prop.computed __type __id "batched_operations_enabled";
        client_scoped_subscription_enabled =
          Prop.computed __type __id
            "client_scoped_subscription_enabled";
@@ -396,6 +411,7 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
     json =
       yojson_of_azurerm_servicebus_subscription
         (azurerm_servicebus_subscription ?auto_delete_on_idle
+           ?batched_operations_enabled
            ?client_scoped_subscription_enabled
            ?dead_lettering_on_filter_evaluation_error
            ?dead_lettering_on_message_expiration ?default_message_ttl
@@ -408,7 +424,7 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
   }
 
 let register ?tf_module ?auto_delete_on_idle
-    ?client_scoped_subscription_enabled
+    ?batched_operations_enabled ?client_scoped_subscription_enabled
     ?dead_lettering_on_filter_evaluation_error
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
@@ -416,7 +432,8 @@ let register ?tf_module ?auto_delete_on_idle
     ?(client_scoped_subscription = []) ?timeouts ~max_delivery_count
     ~name ~topic_id __id =
   let (r : _ Tf_core.resource) =
-    make ?auto_delete_on_idle ?client_scoped_subscription_enabled
+    make ?auto_delete_on_idle ?batched_operations_enabled
+      ?client_scoped_subscription_enabled
       ?dead_lettering_on_filter_evaluation_error
       ?dead_lettering_on_message_expiration ?default_message_ttl
       ?enable_batched_operations ?forward_dead_lettered_messages_to

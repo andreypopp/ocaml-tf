@@ -56,6 +56,7 @@ type status__stateful = {
 }
 
 type status__all_instances_config = {
+  current_revision : string prop;  (** current_revision *)
   effective : bool prop;  (** effective *)
 }
 

@@ -39,6 +39,7 @@ type bgp = {
   advertise_mode : string prop option; [@option]
   advertised_groups : string prop list option; [@option]
   asn : float prop;
+  identifier_range : string prop option; [@option]
   keepalive_interval : float prop option; [@option]
   advertised_ip_ranges : bgp__advertised_ip_ranges list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -53,6 +54,7 @@ let yojson_of_bgp =
        advertise_mode = v_advertise_mode;
        advertised_groups = v_advertised_groups;
        asn = v_asn;
+       identifier_range = v_identifier_range;
        keepalive_interval = v_keepalive_interval;
        advertised_ip_ranges = v_advertised_ip_ranges;
      } ->
@@ -75,6 +77,14 @@ let yojson_of_bgp =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "keepalive_interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identifier_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identifier_range", arg in
              bnd :: bnds
        in
        let bnds =
@@ -254,12 +264,13 @@ let bgp__advertised_ip_ranges ?description ~range () :
     bgp__advertised_ip_ranges =
   { description; range }
 
-let bgp ?advertise_mode ?advertised_groups ?keepalive_interval
-    ?(advertised_ip_ranges = []) ~asn () : bgp =
+let bgp ?advertise_mode ?advertised_groups ?identifier_range
+    ?keepalive_interval ?(advertised_ip_ranges = []) ~asn () : bgp =
   {
     advertise_mode;
     advertised_groups;
     asn;
+    identifier_range;
     keepalive_interval;
     advertised_ip_ranges;
   }

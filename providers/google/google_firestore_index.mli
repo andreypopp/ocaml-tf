@@ -4,12 +4,25 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type fields__vector_config__flat
+
+val fields__vector_config__flat : unit -> fields__vector_config__flat
+
+type fields__vector_config
+
+val fields__vector_config :
+  ?dimension:float prop ->
+  ?flat:fields__vector_config__flat list ->
+  unit ->
+  fields__vector_config
+
 type fields
 
 val fields :
   ?array_config:string prop ->
   ?field_path:string prop ->
   ?order:string prop ->
+  ?vector_config:fields__vector_config list ->
   unit ->
   fields
 

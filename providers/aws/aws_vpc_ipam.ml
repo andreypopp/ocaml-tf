@@ -76,6 +76,7 @@ type aws_vpc_ipam = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
+  tier : string prop option; [@option]
   operating_regions : operating_regions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -92,6 +93,7 @@ let yojson_of_aws_vpc_ipam =
        id = v_id;
        tags = v_tags;
        tags_all = v_tags_all;
+       tier = v_tier;
        operating_regions = v_operating_regions;
        timeouts = v_timeouts;
      } ->
@@ -111,6 +113,14 @@ let yojson_of_aws_vpc_ipam =
            in
            let bnd = "operating_regions", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tier", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -181,14 +191,15 @@ let operating_regions ~region_name () : operating_regions =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
-    ~operating_regions () : aws_vpc_ipam =
+let aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?tier
+    ?timeouts ~operating_regions () : aws_vpc_ipam =
   {
     cascade;
     description;
     id;
     tags;
     tags_all;
+    tier;
     operating_regions;
     timeouts;
   }
@@ -206,9 +217,10 @@ type t = {
   scope_count : float prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
+  tier : string prop;
 }
 
-let make ?cascade ?description ?id ?tags ?tags_all ?timeouts
+let make ?cascade ?description ?id ?tags ?tags_all ?tier ?timeouts
     ~operating_regions __id =
   let __type = "aws_vpc_ipam" in
   let __attrs =
@@ -230,6 +242,7 @@ let make ?cascade ?description ?id ?tags ?tags_all ?timeouts
        scope_count = Prop.computed __type __id "scope_count";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";
+       tier = Prop.computed __type __id "tier";
      }
       : t)
   in
@@ -238,15 +251,15 @@ let make ?cascade ?description ?id ?tags ?tags_all ?timeouts
     type_ = __type;
     json =
       yojson_of_aws_vpc_ipam
-        (aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all
+        (aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?tier
            ?timeouts ~operating_regions ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cascade ?description ?id ?tags ?tags_all
-    ?timeouts ~operating_regions __id =
+    ?tier ?timeouts ~operating_regions __id =
   let (r : _ Tf_core.resource) =
-    make ?cascade ?description ?id ?tags ?tags_all ?timeouts
+    make ?cascade ?description ?id ?tags ?tags_all ?tier ?timeouts
       ~operating_regions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -116,9 +116,9 @@ val configuration_policy__security_controls_configuration :
 type configuration_policy
 
 val configuration_policy :
+  ?enabled_standard_arns:string prop list ->
   ?security_controls_configuration:
     configuration_policy__security_controls_configuration list ->
-  enabled_standard_arns:string prop list ->
   service_enabled:bool prop ->
   unit ->
   configuration_policy

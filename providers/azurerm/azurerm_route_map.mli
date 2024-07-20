@@ -16,8 +16,8 @@ val rule__action__parameter :
 type rule__action
 
 val rule__action :
+  ?parameter:rule__action__parameter list ->
   type_:string prop ->
-  parameter:rule__action__parameter list ->
   unit ->
   rule__action
 

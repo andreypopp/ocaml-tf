@@ -421,6 +421,7 @@ let _ = yojson_of_timeouts
 
 type google_datastream_connection_profile = {
   connection_profile_id : string prop;
+  create_without_validation : bool prop option; [@option]
   display_name : string prop;
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
@@ -450,6 +451,7 @@ let yojson_of_google_datastream_connection_profile =
   (function
    | {
        connection_profile_id = v_connection_profile_id;
+       create_without_validation = v_create_without_validation;
        display_name = v_display_name;
        id = v_id;
        labels = v_labels;
@@ -580,6 +582,14 @@ let yojson_of_google_datastream_connection_profile =
          ("display_name", arg) :: bnds
        in
        let bnds =
+         match v_create_without_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create_without_validation", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg =
            yojson_of_prop yojson_of_string v_connection_profile_id
          in
@@ -632,14 +642,16 @@ let private_connectivity ~private_connection () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_datastream_connection_profile ?id ?labels ?project
-    ?(bigquery_profile = []) ?(forward_ssh_connectivity = [])
-    ?(gcs_profile = []) ?(mysql_profile = []) ?(oracle_profile = [])
+let google_datastream_connection_profile ?create_without_validation
+    ?id ?labels ?project ?(bigquery_profile = [])
+    ?(forward_ssh_connectivity = []) ?(gcs_profile = [])
+    ?(mysql_profile = []) ?(oracle_profile = [])
     ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
     ~connection_profile_id ~display_name ~location () :
     google_datastream_connection_profile =
   {
     connection_profile_id;
+    create_without_validation;
     display_name;
     id;
     labels;
@@ -658,6 +670,7 @@ let google_datastream_connection_profile ?id ?labels ?project
 type t = {
   tf_name : string;
   connection_profile_id : string prop;
+  create_without_validation : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -668,9 +681,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?(bigquery_profile = [])
-    ?(forward_ssh_connectivity = []) ?(gcs_profile = [])
-    ?(mysql_profile = []) ?(oracle_profile = [])
+let make ?create_without_validation ?id ?labels ?project
+    ?(bigquery_profile = []) ?(forward_ssh_connectivity = [])
+    ?(gcs_profile = []) ?(mysql_profile = []) ?(oracle_profile = [])
     ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
     ~connection_profile_id ~display_name ~location __id =
   let __type = "google_datastream_connection_profile" in
@@ -679,6 +692,8 @@ let make ?id ?labels ?project ?(bigquery_profile = [])
        tf_name = __id;
        connection_profile_id =
          Prop.computed __type __id "connection_profile_id";
+       create_without_validation =
+         Prop.computed __type __id "create_without_validation";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =
          Prop.computed __type __id "effective_labels";
@@ -697,7 +712,8 @@ let make ?id ?labels ?project ?(bigquery_profile = [])
     type_ = __type;
     json =
       yojson_of_google_datastream_connection_profile
-        (google_datastream_connection_profile ?id ?labels ?project
+        (google_datastream_connection_profile
+           ?create_without_validation ?id ?labels ?project
            ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
            ~mysql_profile ~oracle_profile ~postgresql_profile
            ~private_connectivity ?timeouts ~connection_profile_id
@@ -705,16 +721,18 @@ let make ?id ?labels ?project ?(bigquery_profile = [])
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?(bigquery_profile = [])
+let register ?tf_module ?create_without_validation ?id ?labels
+    ?project ?(bigquery_profile = [])
     ?(forward_ssh_connectivity = []) ?(gcs_profile = [])
     ?(mysql_profile = []) ?(oracle_profile = [])
     ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
     ~connection_profile_id ~display_name ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ~bigquery_profile
-      ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
-      ~oracle_profile ~postgresql_profile ~private_connectivity
-      ?timeouts ~connection_profile_id ~display_name ~location __id
+    make ?create_without_validation ?id ?labels ?project
+      ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
+      ~mysql_profile ~oracle_profile ~postgresql_profile
+      ~private_connectivity ?timeouts ~connection_profile_id
+      ~display_name ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

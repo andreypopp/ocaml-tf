@@ -9,6 +9,19 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type context_awareness__skip
+
+val context_awareness__skip :
+  files:bool prop -> unit -> context_awareness__skip
+
+type context_awareness
+
+val context_awareness :
+  enabled:bool prop ->
+  skip:context_awareness__skip list ->
+  unit ->
+  context_awareness
+
 type entry__pattern
 
 val entry__pattern :
@@ -32,6 +45,8 @@ type cloudflare_dlp_profile
 val cloudflare_dlp_profile :
   ?description:string prop ->
   ?id:string prop ->
+  ?ocr_enabled:bool prop ->
+  ?context_awareness:context_awareness list ->
   account_id:string prop ->
   allowed_match_count:float prop ->
   name:string prop ->
@@ -51,6 +66,7 @@ type t = private {
   description : string prop;
   id : string prop;
   name : string prop;
+  ocr_enabled : bool prop;
   type_ : string prop;
 }
 
@@ -58,6 +74,8 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?ocr_enabled:bool prop ->
+  ?context_awareness:context_awareness list ->
   account_id:string prop ->
   allowed_match_count:float prop ->
   name:string prop ->
@@ -69,6 +87,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?ocr_enabled:bool prop ->
+  ?context_awareness:context_awareness list ->
   account_id:string prop ->
   allowed_match_count:float prop ->
   name:string prop ->

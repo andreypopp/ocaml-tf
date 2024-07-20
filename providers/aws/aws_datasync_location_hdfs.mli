@@ -24,7 +24,9 @@ val aws_datasync_location_hdfs :
   ?block_size:float prop ->
   ?id:string prop ->
   ?kerberos_keytab:string prop ->
+  ?kerberos_keytab_base64:string prop ->
   ?kerberos_krb5_conf:string prop ->
+  ?kerberos_krb5_conf_base64:string prop ->
   ?kerberos_principal:string prop ->
   ?kms_key_provider_uri:string prop ->
   ?replication_factor:float prop ->
@@ -51,7 +53,9 @@ type t = private {
   block_size : float prop;
   id : string prop;
   kerberos_keytab : string prop;
+  kerberos_keytab_base64 : string prop;
   kerberos_krb5_conf : string prop;
+  kerberos_krb5_conf_base64 : string prop;
   kerberos_principal : string prop;
   kms_key_provider_uri : string prop;
   replication_factor : float prop;
@@ -68,7 +72,9 @@ val register :
   ?block_size:float prop ->
   ?id:string prop ->
   ?kerberos_keytab:string prop ->
+  ?kerberos_keytab_base64:string prop ->
   ?kerberos_krb5_conf:string prop ->
+  ?kerberos_krb5_conf_base64:string prop ->
   ?kerberos_principal:string prop ->
   ?kms_key_provider_uri:string prop ->
   ?replication_factor:float prop ->
@@ -87,7 +93,9 @@ val make :
   ?block_size:float prop ->
   ?id:string prop ->
   ?kerberos_keytab:string prop ->
+  ?kerberos_keytab_base64:string prop ->
   ?kerberos_krb5_conf:string prop ->
+  ?kerberos_krb5_conf_base64:string prop ->
   ?kerberos_principal:string prop ->
   ?kms_key_provider_uri:string prop ->
   ?replication_factor:float prop ->

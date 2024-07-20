@@ -48,9 +48,11 @@ val timeouts :
 type google_compute_router_nat
 
 val google_compute_router_nat :
+  ?auto_network_tier:string prop ->
   ?drain_nat_ips:string prop list ->
   ?enable_dynamic_port_allocation:bool prop ->
   ?enable_endpoint_independent_mapping:bool prop ->
+  ?endpoint_types:string prop list ->
   ?icmp_idle_timeout_sec:float prop ->
   ?id:string prop ->
   ?max_ports_per_vm:float prop ->
@@ -80,9 +82,11 @@ val yojson_of_google_compute_router_nat :
 
 type t = private {
   tf_name : string;
+  auto_network_tier : string prop;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;
+  endpoint_types : string list prop;
   icmp_idle_timeout_sec : float prop;
   id : string prop;
   max_ports_per_vm : float prop;
@@ -102,9 +106,11 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?auto_network_tier:string prop ->
   ?drain_nat_ips:string prop list ->
   ?enable_dynamic_port_allocation:bool prop ->
   ?enable_endpoint_independent_mapping:bool prop ->
+  ?endpoint_types:string prop list ->
   ?icmp_idle_timeout_sec:float prop ->
   ?id:string prop ->
   ?max_ports_per_vm:float prop ->
@@ -128,9 +134,11 @@ val register :
   t
 
 val make :
+  ?auto_network_tier:string prop ->
   ?drain_nat_ips:string prop list ->
   ?enable_dynamic_port_allocation:bool prop ->
   ?enable_endpoint_independent_mapping:bool prop ->
+  ?endpoint_types:string prop list ->
   ?icmp_idle_timeout_sec:float prop ->
   ?id:string prop ->
   ?max_ports_per_vm:float prop ->

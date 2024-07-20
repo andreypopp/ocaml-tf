@@ -179,6 +179,7 @@ let _ = yojson_of_timeouts
 type google_bigtable_instance = {
   deletion_protection : bool prop option; [@option]
   display_name : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
   instance_type : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
@@ -197,6 +198,7 @@ let yojson_of_google_bigtable_instance =
    | {
        deletion_protection = v_deletion_protection;
        display_name = v_display_name;
+       force_destroy = v_force_destroy;
        id = v_id;
        instance_type = v_instance_type;
        labels = v_labels;
@@ -264,6 +266,14 @@ let yojson_of_google_bigtable_instance =
              bnd :: bnds
        in
        let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_display_name with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -304,12 +314,13 @@ let cluster ?kms_key_name ?num_nodes ?storage_type ?zone
 let timeouts ?create ?read ?update () : timeouts =
   { create; read; update }
 
-let google_bigtable_instance ?deletion_protection ?display_name ?id
-    ?instance_type ?labels ?project ?(cluster = []) ?timeouts ~name
-    () : google_bigtable_instance =
+let google_bigtable_instance ?deletion_protection ?display_name
+    ?force_destroy ?id ?instance_type ?labels ?project
+    ?(cluster = []) ?timeouts ~name () : google_bigtable_instance =
   {
     deletion_protection;
     display_name;
+    force_destroy;
     id;
     instance_type;
     labels;
@@ -324,6 +335,7 @@ type t = {
   deletion_protection : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
+  force_destroy : bool prop;
   id : string prop;
   instance_type : string prop;
   labels : (string * string) list prop;
@@ -332,8 +344,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?deletion_protection ?display_name ?id ?instance_type
-    ?labels ?project ?(cluster = []) ?timeouts ~name __id =
+let make ?deletion_protection ?display_name ?force_destroy ?id
+    ?instance_type ?labels ?project ?(cluster = []) ?timeouts ~name
+    __id =
   let __type = "google_bigtable_instance" in
   let __attrs =
     ({
@@ -343,6 +356,7 @@ let make ?deletion_protection ?display_name ?id ?instance_type
        display_name = Prop.computed __type __id "display_name";
        effective_labels =
          Prop.computed __type __id "effective_labels";
+       force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";
        instance_type = Prop.computed __type __id "instance_type";
        labels = Prop.computed __type __id "labels";
@@ -359,17 +373,17 @@ let make ?deletion_protection ?display_name ?id ?instance_type
     json =
       yojson_of_google_bigtable_instance
         (google_bigtable_instance ?deletion_protection ?display_name
-           ?id ?instance_type ?labels ?project ~cluster ?timeouts
-           ~name ());
+           ?force_destroy ?id ?instance_type ?labels ?project
+           ~cluster ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?deletion_protection ?display_name ?id
-    ?instance_type ?labels ?project ?(cluster = []) ?timeouts ~name
-    __id =
+let register ?tf_module ?deletion_protection ?display_name
+    ?force_destroy ?id ?instance_type ?labels ?project
+    ?(cluster = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?deletion_protection ?display_name ?id ?instance_type
-      ?labels ?project ~cluster ?timeouts ~name __id
+    make ?deletion_protection ?display_name ?force_destroy ?id
+      ?instance_type ?labels ?project ~cluster ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

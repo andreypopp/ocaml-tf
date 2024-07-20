@@ -4,6 +4,19 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type ingestion_data_source_settings__aws_kinesis = {
+  aws_role_arn : string prop;  (** aws_role_arn *)
+  consumer_arn : string prop;  (** consumer_arn *)
+  gcp_service_account : string prop;  (** gcp_service_account *)
+  stream_arn : string prop;  (** stream_arn *)
+}
+
+type ingestion_data_source_settings = {
+  aws_kinesis : ingestion_data_source_settings__aws_kinesis list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** aws_kinesis *)
+}
+
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -32,6 +45,8 @@ type t = private {
   tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
+  ingestion_data_source_settings :
+    ingestion_data_source_settings list prop;
   kms_key_name : string prop;
   labels : (string * string) list prop;
   message_retention_duration : string prop;

@@ -7,6 +7,7 @@ open! Tf_core
 type segment_configurations
 
 val segment_configurations :
+  ?on_demand:bool prop ->
   db_paths:string prop list ->
   volume_name:string prop ->
   unit ->
@@ -28,6 +29,7 @@ val aws_finspace_kx_dataview :
   ?changeset_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
+  ?read_write:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?segment_configurations:segment_configurations list ->
@@ -59,6 +61,7 @@ type t = private {
   id : string prop;
   last_modified_timestamp : string prop;
   name : string prop;
+  read_write : bool prop;
   status : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -70,6 +73,7 @@ val register :
   ?changeset_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
+  ?read_write:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?segment_configurations:segment_configurations list ->
@@ -87,6 +91,7 @@ val make :
   ?changeset_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
+  ?read_write:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?segment_configurations:segment_configurations list ->

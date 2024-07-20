@@ -166,6 +166,29 @@ val timeouts :
   unit ->
   timeouts
 
+type volume_configuration__managed_ebs_volume
+
+val volume_configuration__managed_ebs_volume :
+  ?encrypted:bool prop ->
+  ?file_system_type:string prop ->
+  ?iops:float prop ->
+  ?kms_key_id:string prop ->
+  ?size_in_gb:float prop ->
+  ?snapshot_id:string prop ->
+  ?throughput:float prop ->
+  ?volume_type:string prop ->
+  role_arn:string prop ->
+  unit ->
+  volume_configuration__managed_ebs_volume
+
+type volume_configuration
+
+val volume_configuration :
+  name:string prop ->
+  managed_ebs_volume:volume_configuration__managed_ebs_volume list ->
+  unit ->
+  volume_configuration
+
 type aws_ecs_service
 
 val aws_ecs_service :
@@ -196,6 +219,7 @@ val aws_ecs_service :
   ?service_connect_configuration:service_connect_configuration list ->
   ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
+  ?volume_configuration:volume_configuration list ->
   name:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->
@@ -260,6 +284,7 @@ val register :
   ?service_connect_configuration:service_connect_configuration list ->
   ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
+  ?volume_configuration:volume_configuration list ->
   name:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->
@@ -295,6 +320,7 @@ val make :
   ?service_connect_configuration:service_connect_configuration list ->
   ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
+  ?volume_configuration:volume_configuration list ->
   name:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->

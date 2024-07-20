@@ -6,7 +6,11 @@ open! Tf_core
 
 type identity
 
-val identity : type_:string prop -> unit -> identity
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
 
 type timeouts
 

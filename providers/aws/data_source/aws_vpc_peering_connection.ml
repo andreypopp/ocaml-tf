@@ -86,6 +86,30 @@ let _ = yojson_of_cidr_block_set
 
 [@@@deriving.end]
 
+type ipv6_cidr_block_set = { ipv6_cidr_block : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ipv6_cidr_block_set) -> ()
+
+let yojson_of_ipv6_cidr_block_set =
+  (function
+   | { ipv6_cidr_block = v_ipv6_cidr_block } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ipv6_cidr_block
+         in
+         ("ipv6_cidr_block", arg) :: bnds
+       in
+       `Assoc bnds
+    : ipv6_cidr_block_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ipv6_cidr_block_set
+
+[@@@deriving.end]
+
 type peer_cidr_block_set = { cidr_block : string prop }
 [@@deriving_inline yojson_of]
 
@@ -105,6 +129,30 @@ let yojson_of_peer_cidr_block_set =
     : peer_cidr_block_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_peer_cidr_block_set
+
+[@@@deriving.end]
+
+type peer_ipv6_cidr_block_set = { ipv6_cidr_block : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : peer_ipv6_cidr_block_set) -> ()
+
+let yojson_of_peer_ipv6_cidr_block_set =
+  (function
+   | { ipv6_cidr_block = v_ipv6_cidr_block } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ipv6_cidr_block
+         in
+         ("ipv6_cidr_block", arg) :: bnds
+       in
+       `Assoc bnds
+    : peer_ipv6_cidr_block_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_peer_ipv6_cidr_block_set
 
 [@@@deriving.end]
 
@@ -291,9 +339,11 @@ type t = {
   cidr_block : string prop;
   cidr_block_set : cidr_block_set list prop;
   id : string prop;
+  ipv6_cidr_block_set : ipv6_cidr_block_set list prop;
   owner_id : string prop;
   peer_cidr_block : string prop;
   peer_cidr_block_set : peer_cidr_block_set list prop;
+  peer_ipv6_cidr_block_set : peer_ipv6_cidr_block_set list prop;
   peer_owner_id : string prop;
   peer_region : string prop;
   peer_vpc_id : string prop;
@@ -315,10 +365,14 @@ let make ?cidr_block ?id ?owner_id ?peer_cidr_block ?peer_owner_id
        cidr_block = Prop.computed __type __id "cidr_block";
        cidr_block_set = Prop.computed __type __id "cidr_block_set";
        id = Prop.computed __type __id "id";
+       ipv6_cidr_block_set =
+         Prop.computed __type __id "ipv6_cidr_block_set";
        owner_id = Prop.computed __type __id "owner_id";
        peer_cidr_block = Prop.computed __type __id "peer_cidr_block";
        peer_cidr_block_set =
          Prop.computed __type __id "peer_cidr_block_set";
+       peer_ipv6_cidr_block_set =
+         Prop.computed __type __id "peer_ipv6_cidr_block_set";
        peer_owner_id = Prop.computed __type __id "peer_owner_id";
        peer_region = Prop.computed __type __id "peer_region";
        peer_vpc_id = Prop.computed __type __id "peer_vpc_id";

@@ -176,6 +176,7 @@ type azurerm_express_route_connection = {
   express_route_gateway_id : string prop;
   id : string prop option; [@option]
   name : string prop;
+  private_link_fast_path_enabled : bool prop option; [@option]
   routing_weight : float prop option; [@option]
   routing : routing list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -197,6 +198,8 @@ let yojson_of_azurerm_express_route_connection =
        express_route_gateway_id = v_express_route_gateway_id;
        id = v_id;
        name = v_name;
+       private_link_fast_path_enabled =
+         v_private_link_fast_path_enabled;
        routing_weight = v_routing_weight;
        routing = v_routing;
        timeouts = v_timeouts;
@@ -221,6 +224,14 @@ let yojson_of_azurerm_express_route_connection =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "routing_weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_link_fast_path_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_link_fast_path_enabled", arg in
              bnd :: bnds
        in
        let bnds =
@@ -299,9 +310,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_express_route_connection ?authorization_key
     ?enable_internet_security ?express_route_gateway_bypass_enabled
-    ?id ?routing_weight ?(routing = []) ?timeouts
-    ~express_route_circuit_peering_id ~express_route_gateway_id ~name
-    () : azurerm_express_route_connection =
+    ?id ?private_link_fast_path_enabled ?routing_weight
+    ?(routing = []) ?timeouts ~express_route_circuit_peering_id
+    ~express_route_gateway_id ~name () :
+    azurerm_express_route_connection =
   {
     authorization_key;
     enable_internet_security;
@@ -310,6 +322,7 @@ let azurerm_express_route_connection ?authorization_key
     express_route_gateway_id;
     id;
     name;
+    private_link_fast_path_enabled;
     routing_weight;
     routing;
     timeouts;
@@ -324,12 +337,14 @@ type t = {
   express_route_gateway_id : string prop;
   id : string prop;
   name : string prop;
+  private_link_fast_path_enabled : bool prop;
   routing_weight : float prop;
 }
 
 let make ?authorization_key ?enable_internet_security
-    ?express_route_gateway_bypass_enabled ?id ?routing_weight
-    ?(routing = []) ?timeouts ~express_route_circuit_peering_id
+    ?express_route_gateway_bypass_enabled ?id
+    ?private_link_fast_path_enabled ?routing_weight ?(routing = [])
+    ?timeouts ~express_route_circuit_peering_id
     ~express_route_gateway_id ~name __id =
   let __type = "azurerm_express_route_connection" in
   let __attrs =
@@ -348,6 +363,8 @@ let make ?authorization_key ?enable_internet_security
          Prop.computed __type __id "express_route_gateway_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       private_link_fast_path_enabled =
+         Prop.computed __type __id "private_link_fast_path_enabled";
        routing_weight = Prop.computed __type __id "routing_weight";
      }
       : t)
@@ -359,20 +376,23 @@ let make ?authorization_key ?enable_internet_security
       yojson_of_azurerm_express_route_connection
         (azurerm_express_route_connection ?authorization_key
            ?enable_internet_security
-           ?express_route_gateway_bypass_enabled ?id ?routing_weight
-           ~routing ?timeouts ~express_route_circuit_peering_id
+           ?express_route_gateway_bypass_enabled ?id
+           ?private_link_fast_path_enabled ?routing_weight ~routing
+           ?timeouts ~express_route_circuit_peering_id
            ~express_route_gateway_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorization_key ?enable_internet_security
-    ?express_route_gateway_bypass_enabled ?id ?routing_weight
-    ?(routing = []) ?timeouts ~express_route_circuit_peering_id
+    ?express_route_gateway_bypass_enabled ?id
+    ?private_link_fast_path_enabled ?routing_weight ?(routing = [])
+    ?timeouts ~express_route_circuit_peering_id
     ~express_route_gateway_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?authorization_key ?enable_internet_security
-      ?express_route_gateway_bypass_enabled ?id ?routing_weight
-      ~routing ?timeouts ~express_route_circuit_peering_id
+      ?express_route_gateway_bypass_enabled ?id
+      ?private_link_fast_path_enabled ?routing_weight ~routing
+      ?timeouts ~express_route_circuit_peering_id
       ~express_route_gateway_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

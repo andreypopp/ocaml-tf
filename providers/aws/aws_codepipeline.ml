@@ -99,6 +99,7 @@ type stage__action = {
   region : string prop option; [@option]
   role_arn : string prop option; [@option]
   run_order : float prop option; [@option]
+  timeout_in_minutes : float prop option; [@option]
   version : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -119,6 +120,7 @@ let yojson_of_stage__action =
        region = v_region;
        role_arn = v_role_arn;
        run_order = v_run_order;
+       timeout_in_minutes = v_timeout_in_minutes;
        version = v_version;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -127,6 +129,14 @@ let yojson_of_stage__action =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in
          ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_in_minutes", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_run_order with
@@ -885,8 +895,9 @@ let artifact_store ?region ?(encryption_key = []) ~location ~type_ ()
   { location; region; type_; encryption_key }
 
 let stage__action ?configuration ?input_artifacts ?namespace
-    ?output_artifacts ?region ?role_arn ?run_order ~category ~name
-    ~owner ~provider ~version () : stage__action =
+    ?output_artifacts ?region ?role_arn ?run_order
+    ?timeout_in_minutes ~category ~name ~owner ~provider ~version ()
+    : stage__action =
   {
     category;
     configuration;
@@ -899,6 +910,7 @@ let stage__action ?configuration ?input_artifacts ?namespace
     region;
     role_arn;
     run_order;
+    timeout_in_minutes;
     version;
   }
 

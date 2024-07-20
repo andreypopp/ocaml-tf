@@ -7,7 +7,15 @@ open! Tf_core
 type active_directory
 
 val active_directory :
+  ?aes_encryption_enabled:bool prop ->
+  ?kerberos_ad_name:string prop ->
+  ?kerberos_kdc_ip:string prop ->
+  ?ldap_over_tls_enabled:bool prop ->
+  ?ldap_signing_enabled:bool prop ->
+  ?local_nfs_users_with_ldap_allowed:bool prop ->
   ?organizational_unit:string prop ->
+  ?server_root_ca_certificate:string prop ->
+  ?site_name:string prop ->
   dns_servers:string prop list ->
   domain:string prop ->
   password:string prop ->

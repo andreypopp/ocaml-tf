@@ -1368,8 +1368,10 @@ type rules__action_parameters = {
   cookie_fields : string prop list option; [@option]
   disable_apps : bool prop option; [@option]
   disable_railgun : bool prop option; [@option]
+  disable_rum : bool prop option; [@option]
   disable_zaraz : bool prop option; [@option]
   email_obfuscation : bool prop option; [@option]
+  fonts : bool prop option; [@option]
   host_header : string prop option; [@option]
   hotlink_protection : bool prop option; [@option]
   id : string prop option; [@option]
@@ -1442,8 +1444,10 @@ let yojson_of_rules__action_parameters =
        cookie_fields = v_cookie_fields;
        disable_apps = v_disable_apps;
        disable_railgun = v_disable_railgun;
+       disable_rum = v_disable_rum;
        disable_zaraz = v_disable_zaraz;
        email_obfuscation = v_email_obfuscation;
+       fonts = v_fonts;
        host_header = v_host_header;
        hotlink_protection = v_hotlink_protection;
        id = v_id;
@@ -1870,6 +1874,14 @@ let yojson_of_rules__action_parameters =
              bnd :: bnds
        in
        let bnds =
+         match v_fonts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "fonts", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_email_obfuscation with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1883,6 +1895,14 @@ let yojson_of_rules__action_parameters =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "disable_zaraz", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_rum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_rum", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2465,11 +2485,12 @@ let rules__action_parameters__uri ?origin ?(path = []) ?(query = [])
 
 let rules__action_parameters ?additional_cacheable_ports
     ?automatic_https_rewrites ?bic ?cache ?content ?content_type
-    ?cookie_fields ?disable_apps ?disable_railgun ?disable_zaraz
-    ?email_obfuscation ?host_header ?hotlink_protection ?id
-    ?increment ?mirage ?opportunistic_encryption
-    ?origin_cache_control ?origin_error_page_passthru ?phases ?polish
-    ?products ?read_timeout ?request_fields ?respect_strong_etags
+    ?cookie_fields ?disable_apps ?disable_railgun ?disable_rum
+    ?disable_zaraz ?email_obfuscation ?fonts ?host_header
+    ?hotlink_protection ?id ?increment ?mirage
+    ?opportunistic_encryption ?origin_cache_control
+    ?origin_error_page_passthru ?phases ?polish ?products
+    ?read_timeout ?request_fields ?respect_strong_etags
     ?response_fields ?rocket_loader ?rules ?ruleset ?rulesets
     ?security_level ?server_side_excludes ?ssl ?status_code ?sxg
     ?version ?(algorithms = []) ?(autominify = [])
@@ -2488,8 +2509,10 @@ let rules__action_parameters ?additional_cacheable_ports
     cookie_fields;
     disable_apps;
     disable_railgun;
+    disable_rum;
     disable_zaraz;
     email_obfuscation;
+    fonts;
     host_header;
     hotlink_protection;
     id;

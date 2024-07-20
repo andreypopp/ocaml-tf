@@ -337,8 +337,46 @@ let _ = yojson_of_remote_repository_config__apt_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__docker_repository__custom_repository = {
+  uri : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__docker_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__docker_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__docker_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__docker_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__docker_repository = {
   public_repository : string prop option; [@option]
+  custom_repository :
+    remote_repository_config__docker_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -346,9 +384,23 @@ let _ = fun (_ : remote_repository_config__docker_repository) -> ()
 
 let yojson_of_remote_repository_config__docker_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       public_repository = v_public_repository;
+       custom_repository = v_custom_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__docker_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_public_repository with
@@ -366,8 +418,46 @@ let _ = yojson_of_remote_repository_config__docker_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__maven_repository__custom_repository = {
+  uri : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__maven_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__maven_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__maven_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__maven_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__maven_repository = {
   public_repository : string prop option; [@option]
+  custom_repository :
+    remote_repository_config__maven_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -375,9 +465,23 @@ let _ = fun (_ : remote_repository_config__maven_repository) -> ()
 
 let yojson_of_remote_repository_config__maven_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       public_repository = v_public_repository;
+       custom_repository = v_custom_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__maven_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_public_repository with
@@ -395,8 +499,45 @@ let _ = yojson_of_remote_repository_config__maven_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__npm_repository__custom_repository = {
+  uri : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__npm_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__npm_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__npm_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__npm_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__npm_repository = {
   public_repository : string prop option; [@option]
+  custom_repository :
+    remote_repository_config__npm_repository__custom_repository list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -404,9 +545,23 @@ let _ = fun (_ : remote_repository_config__npm_repository) -> ()
 
 let yojson_of_remote_repository_config__npm_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       public_repository = v_public_repository;
+       custom_repository = v_custom_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__npm_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_public_repository with
@@ -424,8 +579,46 @@ let _ = yojson_of_remote_repository_config__npm_repository
 
 [@@@deriving.end]
 
+type remote_repository_config__python_repository__custom_repository = {
+  uri : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       remote_repository_config__python_repository__custom_repository) ->
+  ()
+
+let yojson_of_remote_repository_config__python_repository__custom_repository
+    =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : remote_repository_config__python_repository__custom_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_remote_repository_config__python_repository__custom_repository
+
+[@@@deriving.end]
+
 type remote_repository_config__python_repository = {
   public_repository : string prop option; [@option]
+  custom_repository :
+    remote_repository_config__python_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -433,9 +626,23 @@ let _ = fun (_ : remote_repository_config__python_repository) -> ()
 
 let yojson_of_remote_repository_config__python_repository =
   (function
-   | { public_repository = v_public_repository } ->
+   | {
+       public_repository = v_public_repository;
+       custom_repository = v_custom_repository;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_remote_repository_config__python_repository__custom_repository)
+               v_custom_repository
+           in
+           let bnd = "custom_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_public_repository with
@@ -616,6 +823,7 @@ let _ = yojson_of_remote_repository_config__yum_repository
 
 type remote_repository_config = {
   description : string prop option; [@option]
+  disable_upstream_validation : bool prop option; [@option]
   apt_repository : remote_repository_config__apt_repository list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   docker_repository :
@@ -642,6 +850,7 @@ let yojson_of_remote_repository_config =
   (function
    | {
        description = v_description;
+       disable_upstream_validation = v_disable_upstream_validation;
        apt_repository = v_apt_repository;
        docker_repository = v_docker_repository;
        maven_repository = v_maven_repository;
@@ -729,6 +938,14 @@ let yojson_of_remote_repository_config =
            in
            let bnd = "apt_repository", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_disable_upstream_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_upstream_validation", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -1100,21 +1317,45 @@ let remote_repository_config__apt_repository
     remote_repository_config__apt_repository =
   { public_repository }
 
-let remote_repository_config__docker_repository ?public_repository ()
-    : remote_repository_config__docker_repository =
-  { public_repository }
+let remote_repository_config__docker_repository__custom_repository
+    ?uri () :
+    remote_repository_config__docker_repository__custom_repository =
+  { uri }
 
-let remote_repository_config__maven_repository ?public_repository ()
-    : remote_repository_config__maven_repository =
-  { public_repository }
+let remote_repository_config__docker_repository ?public_repository
+    ?(custom_repository = []) () :
+    remote_repository_config__docker_repository =
+  { public_repository; custom_repository }
 
-let remote_repository_config__npm_repository ?public_repository () :
+let remote_repository_config__maven_repository__custom_repository
+    ?uri () :
+    remote_repository_config__maven_repository__custom_repository =
+  { uri }
+
+let remote_repository_config__maven_repository ?public_repository
+    ?(custom_repository = []) () :
+    remote_repository_config__maven_repository =
+  { public_repository; custom_repository }
+
+let remote_repository_config__npm_repository__custom_repository ?uri
+    () : remote_repository_config__npm_repository__custom_repository
+    =
+  { uri }
+
+let remote_repository_config__npm_repository ?public_repository
+    ?(custom_repository = []) () :
     remote_repository_config__npm_repository =
-  { public_repository }
+  { public_repository; custom_repository }
 
-let remote_repository_config__python_repository ?public_repository ()
-    : remote_repository_config__python_repository =
-  { public_repository }
+let remote_repository_config__python_repository__custom_repository
+    ?uri () :
+    remote_repository_config__python_repository__custom_repository =
+  { uri }
+
+let remote_repository_config__python_repository ?public_repository
+    ?(custom_repository = []) () :
+    remote_repository_config__python_repository =
+  { public_repository; custom_repository }
 
 let remote_repository_config__upstream_credentials__username_password_credentials
     ?password_secret_version ?username () :
@@ -1137,13 +1378,15 @@ let remote_repository_config__yum_repository
     remote_repository_config__yum_repository =
   { public_repository }
 
-let remote_repository_config ?description ?(apt_repository = [])
+let remote_repository_config ?description
+    ?disable_upstream_validation ?(apt_repository = [])
     ?(docker_repository = []) ?(maven_repository = [])
     ?(npm_repository = []) ?(python_repository = [])
     ?(upstream_credentials = []) ?(yum_repository = []) () :
     remote_repository_config =
   {
     description;
+    disable_upstream_validation;
     apt_repository;
     docker_repository;
     maven_repository;

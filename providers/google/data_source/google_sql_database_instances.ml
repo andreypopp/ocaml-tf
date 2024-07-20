@@ -732,6 +732,7 @@ type instances__settings = {
   disk_size : float prop;
   disk_type : string prop;
   edition : string prop;
+  enable_google_ml_integration : bool prop;
   insights_config : instances__settings__insights_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   ip_configuration : instances__settings__ip_configuration list;
@@ -776,6 +777,7 @@ let yojson_of_instances__settings =
        disk_size = v_disk_size;
        disk_type = v_disk_type;
        edition = v_edition;
+       enable_google_ml_integration = v_enable_google_ml_integration;
        insights_config = v_insights_config;
        ip_configuration = v_ip_configuration;
        location_preference = v_location_preference;
@@ -884,6 +886,13 @@ let yojson_of_instances__settings =
            in
            let bnd = "insights_config", arg in
            bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_enable_google_ml_integration
+         in
+         ("enable_google_ml_integration", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_edition in

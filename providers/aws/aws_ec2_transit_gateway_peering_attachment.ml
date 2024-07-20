@@ -2,6 +2,32 @@
 
 open! Tf_core
 
+type options = { dynamic_routing : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : options) -> ()
+
+let yojson_of_options =
+  (function
+   | { dynamic_routing = v_dynamic_routing } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_dynamic_routing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dynamic_routing", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_options
+
+[@@@deriving.end]
+
 type aws_ec2_transit_gateway_peering_attachment = {
   id : string prop option; [@option]
   peer_account_id : string prop option; [@option]
@@ -10,6 +36,8 @@ type aws_ec2_transit_gateway_peering_attachment = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   transit_gateway_id : string prop;
+  options : options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25,9 +53,17 @@ let yojson_of_aws_ec2_transit_gateway_peering_attachment =
        tags = v_tags;
        tags_all = v_tags_all;
        transit_gateway_id = v_transit_gateway_id;
+       options = v_options;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_options then bnds
+         else
+           let arg = (yojson_of_list yojson_of_options) v_options in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -101,9 +137,11 @@ let _ = yojson_of_aws_ec2_transit_gateway_peering_attachment
 
 [@@@deriving.end]
 
+let options ?dynamic_routing () : options = { dynamic_routing }
+
 let aws_ec2_transit_gateway_peering_attachment ?id ?peer_account_id
-    ?tags ?tags_all ~peer_region ~peer_transit_gateway_id
-    ~transit_gateway_id () :
+    ?tags ?tags_all ?(options = []) ~peer_region
+    ~peer_transit_gateway_id ~transit_gateway_id () :
     aws_ec2_transit_gateway_peering_attachment =
   {
     id;
@@ -113,6 +151,7 @@ let aws_ec2_transit_gateway_peering_attachment ?id ?peer_account_id
     tags;
     tags_all;
     transit_gateway_id;
+    options;
   }
 
 type t = {
@@ -127,8 +166,8 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let make ?id ?peer_account_id ?tags ?tags_all ~peer_region
-    ~peer_transit_gateway_id ~transit_gateway_id __id =
+let make ?id ?peer_account_id ?tags ?tags_all ?(options = [])
+    ~peer_region ~peer_transit_gateway_id ~transit_gateway_id __id =
   let __type = "aws_ec2_transit_gateway_peering_attachment" in
   let __attrs =
     ({
@@ -152,15 +191,16 @@ let make ?id ?peer_account_id ?tags ?tags_all ~peer_region
     json =
       yojson_of_aws_ec2_transit_gateway_peering_attachment
         (aws_ec2_transit_gateway_peering_attachment ?id
-           ?peer_account_id ?tags ?tags_all ~peer_region
+           ?peer_account_id ?tags ?tags_all ~options ~peer_region
            ~peer_transit_gateway_id ~transit_gateway_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?peer_account_id ?tags ?tags_all
-    ~peer_region ~peer_transit_gateway_id ~transit_gateway_id __id =
+    ?(options = []) ~peer_region ~peer_transit_gateway_id
+    ~transit_gateway_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?peer_account_id ?tags ?tags_all ~peer_region
+    make ?id ?peer_account_id ?tags ?tags_all ~options ~peer_region
       ~peer_transit_gateway_id ~transit_gateway_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

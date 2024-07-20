@@ -296,17 +296,21 @@ let _ = yojson_of_storage_account_identity
 [@@@deriving.end]
 
 type azurerm_databricks_workspace = {
+  access_connector_id : string prop option; [@option]
   customer_managed_key_enabled : bool prop option; [@option]
+  default_storage_firewall_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   infrastructure_encryption_enabled : bool prop option; [@option]
   load_balancer_backend_address_pool_id : string prop option;
       [@option]
   location : string prop;
+  managed_disk_cmk_key_vault_id : string prop option; [@option]
   managed_disk_cmk_key_vault_key_id : string prop option; [@option]
   managed_disk_cmk_rotation_to_latest_version_enabled :
     bool prop option;
       [@option]
   managed_resource_group_name : string prop option; [@option]
+  managed_services_cmk_key_vault_id : string prop option; [@option]
   managed_services_cmk_key_vault_key_id : string prop option;
       [@option]
   name : string prop;
@@ -327,18 +331,25 @@ let _ = fun (_ : azurerm_databricks_workspace) -> ()
 let yojson_of_azurerm_databricks_workspace =
   (function
    | {
+       access_connector_id = v_access_connector_id;
        customer_managed_key_enabled = v_customer_managed_key_enabled;
+       default_storage_firewall_enabled =
+         v_default_storage_firewall_enabled;
        id = v_id;
        infrastructure_encryption_enabled =
          v_infrastructure_encryption_enabled;
        load_balancer_backend_address_pool_id =
          v_load_balancer_backend_address_pool_id;
        location = v_location;
+       managed_disk_cmk_key_vault_id =
+         v_managed_disk_cmk_key_vault_id;
        managed_disk_cmk_key_vault_key_id =
          v_managed_disk_cmk_key_vault_key_id;
        managed_disk_cmk_rotation_to_latest_version_enabled =
          v_managed_disk_cmk_rotation_to_latest_version_enabled;
        managed_resource_group_name = v_managed_resource_group_name;
+       managed_services_cmk_key_vault_id =
+         v_managed_services_cmk_key_vault_id;
        managed_services_cmk_key_vault_key_id =
          v_managed_services_cmk_key_vault_key_id;
        name = v_name;
@@ -428,6 +439,14 @@ let yojson_of_azurerm_databricks_workspace =
              bnd :: bnds
        in
        let bnds =
+         match v_managed_services_cmk_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_services_cmk_key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_managed_resource_group_name with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -454,6 +473,14 @@ let yojson_of_azurerm_databricks_workspace =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "managed_disk_cmk_key_vault_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed_disk_cmk_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_disk_cmk_key_vault_id", arg in
              bnd :: bnds
        in
        let bnds =
@@ -487,11 +514,27 @@ let yojson_of_azurerm_databricks_workspace =
              bnd :: bnds
        in
        let bnds =
+         match v_default_storage_firewall_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_storage_firewall_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_customer_managed_key_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "customer_managed_key_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_connector_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_connector_id", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -527,26 +570,31 @@ let custom_parameters ?machine_learning_workspace_id
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
-    ?infrastructure_encryption_enabled
+let azurerm_databricks_workspace ?access_connector_id
+    ?customer_managed_key_enabled ?default_storage_firewall_enabled
+    ?id ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
-    ?managed_disk_cmk_key_vault_key_id
+    ?managed_disk_cmk_key_vault_id ?managed_disk_cmk_key_vault_key_id
     ?managed_disk_cmk_rotation_to_latest_version_enabled
-    ?managed_resource_group_name
+    ?managed_resource_group_name ?managed_services_cmk_key_vault_id
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
     ?public_network_access_enabled ?tags ?(custom_parameters = [])
     ?timeouts ~location ~name ~resource_group_name ~sku () :
     azurerm_databricks_workspace =
   {
+    access_connector_id;
     customer_managed_key_enabled;
+    default_storage_firewall_enabled;
     id;
     infrastructure_encryption_enabled;
     load_balancer_backend_address_pool_id;
     location;
+    managed_disk_cmk_key_vault_id;
     managed_disk_cmk_key_vault_key_id;
     managed_disk_cmk_rotation_to_latest_version_enabled;
     managed_resource_group_name;
+    managed_services_cmk_key_vault_id;
     managed_services_cmk_key_vault_key_id;
     name;
     network_security_group_rules_required;
@@ -560,17 +608,21 @@ let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
 
 type t = {
   tf_name : string;
+  access_connector_id : string prop;
   customer_managed_key_enabled : bool prop;
+  default_storage_firewall_enabled : bool prop;
   disk_encryption_set_id : string prop;
   id : string prop;
   infrastructure_encryption_enabled : bool prop;
   load_balancer_backend_address_pool_id : string prop;
   location : string prop;
+  managed_disk_cmk_key_vault_id : string prop;
   managed_disk_cmk_key_vault_key_id : string prop;
   managed_disk_cmk_rotation_to_latest_version_enabled : bool prop;
   managed_disk_identity : managed_disk_identity list prop;
   managed_resource_group_id : string prop;
   managed_resource_group_name : string prop;
+  managed_services_cmk_key_vault_id : string prop;
   managed_services_cmk_key_vault_key_id : string prop;
   name : string prop;
   network_security_group_rules_required : string prop;
@@ -583,12 +635,13 @@ type t = {
   workspace_url : string prop;
 }
 
-let make ?customer_managed_key_enabled ?id
+let make ?access_connector_id ?customer_managed_key_enabled
+    ?default_storage_firewall_enabled ?id
     ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
-    ?managed_disk_cmk_key_vault_key_id
+    ?managed_disk_cmk_key_vault_id ?managed_disk_cmk_key_vault_key_id
     ?managed_disk_cmk_rotation_to_latest_version_enabled
-    ?managed_resource_group_name
+    ?managed_resource_group_name ?managed_services_cmk_key_vault_id
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
     ?public_network_access_enabled ?tags ?(custom_parameters = [])
@@ -597,8 +650,12 @@ let make ?customer_managed_key_enabled ?id
   let __attrs =
     ({
        tf_name = __id;
+       access_connector_id =
+         Prop.computed __type __id "access_connector_id";
        customer_managed_key_enabled =
          Prop.computed __type __id "customer_managed_key_enabled";
+       default_storage_firewall_enabled =
+         Prop.computed __type __id "default_storage_firewall_enabled";
        disk_encryption_set_id =
          Prop.computed __type __id "disk_encryption_set_id";
        id = Prop.computed __type __id "id";
@@ -609,6 +666,8 @@ let make ?customer_managed_key_enabled ?id
          Prop.computed __type __id
            "load_balancer_backend_address_pool_id";
        location = Prop.computed __type __id "location";
+       managed_disk_cmk_key_vault_id =
+         Prop.computed __type __id "managed_disk_cmk_key_vault_id";
        managed_disk_cmk_key_vault_key_id =
          Prop.computed __type __id
            "managed_disk_cmk_key_vault_key_id";
@@ -621,6 +680,9 @@ let make ?customer_managed_key_enabled ?id
          Prop.computed __type __id "managed_resource_group_id";
        managed_resource_group_name =
          Prop.computed __type __id "managed_resource_group_name";
+       managed_services_cmk_key_vault_id =
+         Prop.computed __type __id
+           "managed_services_cmk_key_vault_id";
        managed_services_cmk_key_vault_key_id =
          Prop.computed __type __id
            "managed_services_cmk_key_vault_key_id";
@@ -646,12 +708,16 @@ let make ?customer_managed_key_enabled ?id
     type_ = __type;
     json =
       yojson_of_azurerm_databricks_workspace
-        (azurerm_databricks_workspace ?customer_managed_key_enabled
-           ?id ?infrastructure_encryption_enabled
+        (azurerm_databricks_workspace ?access_connector_id
+           ?customer_managed_key_enabled
+           ?default_storage_firewall_enabled ?id
+           ?infrastructure_encryption_enabled
            ?load_balancer_backend_address_pool_id
+           ?managed_disk_cmk_key_vault_id
            ?managed_disk_cmk_key_vault_key_id
            ?managed_disk_cmk_rotation_to_latest_version_enabled
            ?managed_resource_group_name
+           ?managed_services_cmk_key_vault_id
            ?managed_services_cmk_key_vault_key_id
            ?network_security_group_rules_required
            ?public_network_access_enabled ?tags ~custom_parameters
@@ -659,23 +725,26 @@ let make ?customer_managed_key_enabled ?id
     attrs = __attrs;
   }
 
-let register ?tf_module ?customer_managed_key_enabled ?id
-    ?infrastructure_encryption_enabled
+let register ?tf_module ?access_connector_id
+    ?customer_managed_key_enabled ?default_storage_firewall_enabled
+    ?id ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
-    ?managed_disk_cmk_key_vault_key_id
+    ?managed_disk_cmk_key_vault_id ?managed_disk_cmk_key_vault_key_id
     ?managed_disk_cmk_rotation_to_latest_version_enabled
-    ?managed_resource_group_name
+    ?managed_resource_group_name ?managed_services_cmk_key_vault_id
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
     ?public_network_access_enabled ?tags ?(custom_parameters = [])
     ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
-    make ?customer_managed_key_enabled ?id
+    make ?access_connector_id ?customer_managed_key_enabled
+      ?default_storage_firewall_enabled ?id
       ?infrastructure_encryption_enabled
       ?load_balancer_backend_address_pool_id
+      ?managed_disk_cmk_key_vault_id
       ?managed_disk_cmk_key_vault_key_id
       ?managed_disk_cmk_rotation_to_latest_version_enabled
-      ?managed_resource_group_name
+      ?managed_resource_group_name ?managed_services_cmk_key_vault_id
       ?managed_services_cmk_key_vault_key_id
       ?network_security_group_rules_required
       ?public_network_access_enabled ?tags ~custom_parameters

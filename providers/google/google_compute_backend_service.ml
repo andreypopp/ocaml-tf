@@ -1120,6 +1120,7 @@ type google_compute_backend_service = {
   project : string prop option; [@option]
   protocol : string prop option; [@option]
   security_policy : string prop option; [@option]
+  service_lb_policy : string prop option; [@option]
   session_affinity : string prop option; [@option]
   timeout_sec : float prop option; [@option]
   backend : backend list;
@@ -1166,6 +1167,7 @@ let yojson_of_google_compute_backend_service =
        project = v_project;
        protocol = v_protocol;
        security_policy = v_security_policy;
+       service_lb_policy = v_service_lb_policy;
        session_affinity = v_session_affinity;
        timeout_sec = v_timeout_sec;
        backend = v_backend;
@@ -1282,6 +1284,14 @@ let yojson_of_google_compute_backend_service =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "session_affinity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_lb_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_lb_policy", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1570,8 +1580,8 @@ let google_compute_backend_service ?affinity_cookie_ttl_sec
     ?custom_request_headers ?custom_response_headers ?description
     ?edge_security_policy ?enable_cdn ?health_checks ?id
     ?load_balancing_scheme ?locality_lb_policy ?port_name ?project
-    ?protocol ?security_policy ?session_affinity ?timeout_sec
-    ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?protocol ?security_policy ?service_lb_policy ?session_affinity
+    ?timeout_sec ?(cdn_policy = []) ?(circuit_breakers = [])
     ?(consistent_hash = []) ?(iap = []) ?(locality_lb_policies = [])
     ?(log_config = []) ?(outlier_detection = [])
     ?(security_settings = []) ?timeouts ~name ~backend () :
@@ -1594,6 +1604,7 @@ let google_compute_backend_service ?affinity_cookie_ttl_sec
     project;
     protocol;
     security_policy;
+    service_lb_policy;
     session_affinity;
     timeout_sec;
     backend;
@@ -1631,6 +1642,7 @@ type t = {
   protocol : string prop;
   security_policy : string prop;
   self_link : string prop;
+  service_lb_policy : string prop;
   session_affinity : string prop;
   timeout_sec : float prop;
 }
@@ -1640,8 +1652,8 @@ let make ?affinity_cookie_ttl_sec ?compression_mode
     ?custom_response_headers ?description ?edge_security_policy
     ?enable_cdn ?health_checks ?id ?load_balancing_scheme
     ?locality_lb_policy ?port_name ?project ?protocol
-    ?security_policy ?session_affinity ?timeout_sec
-    ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?security_policy ?service_lb_policy ?session_affinity
+    ?timeout_sec ?(cdn_policy = []) ?(circuit_breakers = [])
     ?(consistent_hash = []) ?(iap = []) ?(locality_lb_policies = [])
     ?(log_config = []) ?(outlier_detection = [])
     ?(security_settings = []) ?timeouts ~name ~backend __id =
@@ -1679,6 +1691,8 @@ let make ?affinity_cookie_ttl_sec ?compression_mode
        protocol = Prop.computed __type __id "protocol";
        security_policy = Prop.computed __type __id "security_policy";
        self_link = Prop.computed __type __id "self_link";
+       service_lb_policy =
+         Prop.computed __type __id "service_lb_policy";
        session_affinity =
          Prop.computed __type __id "session_affinity";
        timeout_sec = Prop.computed __type __id "timeout_sec";
@@ -1696,10 +1710,11 @@ let make ?affinity_cookie_ttl_sec ?compression_mode
            ?description ?edge_security_policy ?enable_cdn
            ?health_checks ?id ?load_balancing_scheme
            ?locality_lb_policy ?port_name ?project ?protocol
-           ?security_policy ?session_affinity ?timeout_sec
-           ~cdn_policy ~circuit_breakers ~consistent_hash ~iap
-           ~locality_lb_policies ~log_config ~outlier_detection
-           ~security_settings ?timeouts ~name ~backend ());
+           ?security_policy ?service_lb_policy ?session_affinity
+           ?timeout_sec ~cdn_policy ~circuit_breakers
+           ~consistent_hash ~iap ~locality_lb_policies ~log_config
+           ~outlier_detection ~security_settings ?timeouts ~name
+           ~backend ());
     attrs = __attrs;
   }
 
@@ -1708,8 +1723,8 @@ let register ?tf_module ?affinity_cookie_ttl_sec ?compression_mode
     ?custom_response_headers ?description ?edge_security_policy
     ?enable_cdn ?health_checks ?id ?load_balancing_scheme
     ?locality_lb_policy ?port_name ?project ?protocol
-    ?security_policy ?session_affinity ?timeout_sec
-    ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?security_policy ?service_lb_policy ?session_affinity
+    ?timeout_sec ?(cdn_policy = []) ?(circuit_breakers = [])
     ?(consistent_hash = []) ?(iap = []) ?(locality_lb_policies = [])
     ?(log_config = []) ?(outlier_detection = [])
     ?(security_settings = []) ?timeouts ~name ~backend __id =
@@ -1719,10 +1734,10 @@ let register ?tf_module ?affinity_cookie_ttl_sec ?compression_mode
       ?custom_response_headers ?description ?edge_security_policy
       ?enable_cdn ?health_checks ?id ?load_balancing_scheme
       ?locality_lb_policy ?port_name ?project ?protocol
-      ?security_policy ?session_affinity ?timeout_sec ~cdn_policy
-      ~circuit_breakers ~consistent_hash ~iap ~locality_lb_policies
-      ~log_config ~outlier_detection ~security_settings ?timeouts
-      ~name ~backend __id
+      ?security_policy ?service_lb_policy ?session_affinity
+      ?timeout_sec ~cdn_policy ~circuit_breakers ~consistent_hash
+      ~iap ~locality_lb_policies ~log_config ~outlier_detection
+      ~security_settings ?timeouts ~name ~backend __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

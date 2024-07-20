@@ -27,6 +27,7 @@ let _ = yojson_of_api_server_profile
 type cluster_profile = {
   domain : string prop;
   fips_enabled : bool prop option; [@option]
+  managed_resource_group_name : string prop option; [@option]
   pull_secret : string prop option; [@option]
   version : string prop;
 }
@@ -39,6 +40,7 @@ let yojson_of_cluster_profile =
    | {
        domain = v_domain;
        fips_enabled = v_fips_enabled;
+       managed_resource_group_name = v_managed_resource_group_name;
        pull_secret = v_pull_secret;
        version = v_version;
      } ->
@@ -55,6 +57,14 @@ let yojson_of_cluster_profile =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "pull_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed_resource_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_resource_group_name", arg in
              bnd :: bnds
        in
        let bnds =
@@ -153,6 +163,8 @@ let _ = yojson_of_main_profile
 type network_profile = {
   outbound_type : string prop option; [@option]
   pod_cidr : string prop;
+  preconfigured_network_security_group_enabled : bool prop option;
+      [@option]
   service_cidr : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -164,6 +176,8 @@ let yojson_of_network_profile =
    | {
        outbound_type = v_outbound_type;
        pod_cidr = v_pod_cidr;
+       preconfigured_network_security_group_enabled =
+         v_preconfigured_network_security_group_enabled;
        service_cidr = v_service_cidr;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -172,6 +186,16 @@ let yojson_of_network_profile =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service_cidr in
          ("service_cidr", arg) :: bnds
+       in
+       let bnds =
+         match v_preconfigured_network_security_group_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "preconfigured_network_security_group_enabled", arg
+             in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pod_cidr in
@@ -513,9 +537,15 @@ let _ = yojson_of_azurerm_redhat_openshift_cluster
 let api_server_profile ~visibility () : api_server_profile =
   { visibility }
 
-let cluster_profile ?fips_enabled ?pull_secret ~domain ~version () :
-    cluster_profile =
-  { domain; fips_enabled; pull_secret; version }
+let cluster_profile ?fips_enabled ?managed_resource_group_name
+    ?pull_secret ~domain ~version () : cluster_profile =
+  {
+    domain;
+    fips_enabled;
+    managed_resource_group_name;
+    pull_secret;
+    version;
+  }
 
 let ingress_profile ~visibility () : ingress_profile = { visibility }
 
@@ -528,9 +558,15 @@ let main_profile ?disk_encryption_set_id ?encryption_at_host_enabled
     vm_size;
   }
 
-let network_profile ?outbound_type ~pod_cidr ~service_cidr () :
-    network_profile =
-  { outbound_type; pod_cidr; service_cidr }
+let network_profile ?outbound_type
+    ?preconfigured_network_security_group_enabled ~pod_cidr
+    ~service_cidr () : network_profile =
+  {
+    outbound_type;
+    pod_cidr;
+    preconfigured_network_security_group_enabled;
+    service_cidr;
+  }
 
 let service_principal ~client_id ~client_secret () :
     service_principal =

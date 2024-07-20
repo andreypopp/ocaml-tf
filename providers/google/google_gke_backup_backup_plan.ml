@@ -133,6 +133,7 @@ type backup_config = {
   all_namespaces : bool prop option; [@option]
   include_secrets : bool prop option; [@option]
   include_volume_data : bool prop option; [@option]
+  permissive_mode : bool prop option; [@option]
   encryption_key : backup_config__encryption_key list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   selected_applications : backup_config__selected_applications list;
@@ -150,6 +151,7 @@ let yojson_of_backup_config =
        all_namespaces = v_all_namespaces;
        include_secrets = v_include_secrets;
        include_volume_data = v_include_volume_data;
+       permissive_mode = v_permissive_mode;
        encryption_key = v_encryption_key;
        selected_applications = v_selected_applications;
        selected_namespaces = v_selected_namespaces;
@@ -190,6 +192,14 @@ let yojson_of_backup_config =
            bnd :: bnds
        in
        let bnds =
+         match v_permissive_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "permissive_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_include_volume_data with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -220,9 +230,292 @@ let _ = yojson_of_backup_config
 
 [@@@deriving.end]
 
+type backup_schedule__rpo_config__exclusion_windows__days_of_week = {
+  days_of_week : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       backup_schedule__rpo_config__exclusion_windows__days_of_week) ->
+  ()
+
+let yojson_of_backup_schedule__rpo_config__exclusion_windows__days_of_week
+    =
+  (function
+   | { days_of_week = v_days_of_week } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_days_of_week with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "days_of_week", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule__rpo_config__exclusion_windows__days_of_week ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_backup_schedule__rpo_config__exclusion_windows__days_of_week
+
+[@@@deriving.end]
+
+type backup_schedule__rpo_config__exclusion_windows__single_occurrence_date = {
+  day : float prop option; [@option]
+  month : float prop option; [@option]
+  year : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       backup_schedule__rpo_config__exclusion_windows__single_occurrence_date) ->
+  ()
+
+let yojson_of_backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule__rpo_config__exclusion_windows__single_occurrence_date ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+
+[@@@deriving.end]
+
+type backup_schedule__rpo_config__exclusion_windows__start_time = {
+  hours : float prop option; [@option]
+  minutes : float prop option; [@option]
+  nanos : float prop option; [@option]
+  seconds : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : backup_schedule__rpo_config__exclusion_windows__start_time) ->
+  ()
+
+let yojson_of_backup_schedule__rpo_config__exclusion_windows__start_time
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule__rpo_config__exclusion_windows__start_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_backup_schedule__rpo_config__exclusion_windows__start_time
+
+[@@@deriving.end]
+
+type backup_schedule__rpo_config__exclusion_windows = {
+  daily : bool prop option; [@option]
+  duration : string prop;
+  days_of_week :
+    backup_schedule__rpo_config__exclusion_windows__days_of_week list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  single_occurrence_date :
+    backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  start_time :
+    backup_schedule__rpo_config__exclusion_windows__start_time list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : backup_schedule__rpo_config__exclusion_windows) -> ()
+
+let yojson_of_backup_schedule__rpo_config__exclusion_windows =
+  (function
+   | {
+       daily = v_daily;
+       duration = v_duration;
+       days_of_week = v_days_of_week;
+       single_occurrence_date = v_single_occurrence_date;
+       start_time = v_start_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup_schedule__rpo_config__exclusion_windows__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_single_occurrence_date then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup_schedule__rpo_config__exclusion_windows__single_occurrence_date)
+               v_single_occurrence_date
+           in
+           let bnd = "single_occurrence_date", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_days_of_week then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup_schedule__rpo_config__exclusion_windows__days_of_week)
+               v_days_of_week
+           in
+           let bnd = "days_of_week", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_duration in
+         ("duration", arg) :: bnds
+       in
+       let bnds =
+         match v_daily with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "daily", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule__rpo_config__exclusion_windows ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_schedule__rpo_config__exclusion_windows
+
+[@@@deriving.end]
+
+type backup_schedule__rpo_config = {
+  target_rpo_minutes : float prop;
+  exclusion_windows :
+    backup_schedule__rpo_config__exclusion_windows list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_schedule__rpo_config) -> ()
+
+let yojson_of_backup_schedule__rpo_config =
+  (function
+   | {
+       target_rpo_minutes = v_target_rpo_minutes;
+       exclusion_windows = v_exclusion_windows;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_exclusion_windows then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup_schedule__rpo_config__exclusion_windows)
+               v_exclusion_windows
+           in
+           let bnd = "exclusion_windows", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_target_rpo_minutes
+         in
+         ("target_rpo_minutes", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule__rpo_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_schedule__rpo_config
+
+[@@@deriving.end]
+
 type backup_schedule = {
   cron_schedule : string prop option; [@option]
   paused : bool prop option; [@option]
+  rpo_config : backup_schedule__rpo_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,9 +523,23 @@ let _ = fun (_ : backup_schedule) -> ()
 
 let yojson_of_backup_schedule =
   (function
-   | { cron_schedule = v_cron_schedule; paused = v_paused } ->
+   | {
+       cron_schedule = v_cron_schedule;
+       paused = v_paused;
+       rpo_config = v_rpo_config;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_rpo_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup_schedule__rpo_config)
+               v_rpo_config
+           in
+           let bnd = "rpo_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_paused with
@@ -512,20 +819,53 @@ let backup_config__selected_namespaces ~namespaces () :
   { namespaces }
 
 let backup_config ?all_namespaces ?include_secrets
-    ?include_volume_data ?(encryption_key = [])
+    ?include_volume_data ?permissive_mode ?(encryption_key = [])
     ?(selected_applications = []) ?(selected_namespaces = []) () :
     backup_config =
   {
     all_namespaces;
     include_secrets;
     include_volume_data;
+    permissive_mode;
     encryption_key;
     selected_applications;
     selected_namespaces;
   }
 
-let backup_schedule ?cron_schedule ?paused () : backup_schedule =
-  { cron_schedule; paused }
+let backup_schedule__rpo_config__exclusion_windows__days_of_week
+    ?days_of_week () :
+    backup_schedule__rpo_config__exclusion_windows__days_of_week =
+  { days_of_week }
+
+let backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+    ?day ?month ?year () :
+    backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+    =
+  { day; month; year }
+
+let backup_schedule__rpo_config__exclusion_windows__start_time ?hours
+    ?minutes ?nanos ?seconds () :
+    backup_schedule__rpo_config__exclusion_windows__start_time =
+  { hours; minutes; nanos; seconds }
+
+let backup_schedule__rpo_config__exclusion_windows ?daily
+    ?(days_of_week = []) ?(single_occurrence_date = []) ~duration
+    ~start_time () : backup_schedule__rpo_config__exclusion_windows =
+  {
+    daily;
+    duration;
+    days_of_week;
+    single_occurrence_date;
+    start_time;
+  }
+
+let backup_schedule__rpo_config ?(exclusion_windows = [])
+    ~target_rpo_minutes () : backup_schedule__rpo_config =
+  { target_rpo_minutes; exclusion_windows }
+
+let backup_schedule ?cron_schedule ?paused ?(rpo_config = []) () :
+    backup_schedule =
+  { cron_schedule; paused; rpo_config }
 
 let retention_policy ?backup_delete_lock_days ?backup_retain_days
     ?locked () : retention_policy =

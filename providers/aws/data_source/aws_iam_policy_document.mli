@@ -67,6 +67,7 @@ type t = private {
   tf_name : string;
   id : string prop;
   json : string prop;
+  minified_json : string prop;
   override_json : string prop;
   override_policy_documents : string list prop;
   policy_id : string prop;

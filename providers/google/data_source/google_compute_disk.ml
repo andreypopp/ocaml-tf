@@ -289,6 +289,7 @@ type t = {
   source_snapshot_encryption_key :
     source_snapshot_encryption_key list prop;
   source_snapshot_id : string prop;
+  storage_pool : string prop;
   terraform_labels : (string * string) list prop;
   type_ : string prop;
   users : string list prop;
@@ -344,6 +345,7 @@ let make ?id ?project ?zone ~name __id =
          Prop.computed __type __id "source_snapshot_encryption_key";
        source_snapshot_id =
          Prop.computed __type __id "source_snapshot_id";
+       storage_pool = Prop.computed __type __id "storage_pool";
        terraform_labels =
          Prop.computed __type __id "terraform_labels";
        type_ = Prop.computed __type __id "type";

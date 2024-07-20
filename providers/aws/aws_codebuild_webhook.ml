@@ -74,12 +74,52 @@ let _ = yojson_of_filter_group
 
 [@@@deriving.end]
 
+type scope_configuration = {
+  domain : string prop option; [@option]
+  name : string prop;
+  scope : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scope_configuration) -> ()
+
+let yojson_of_scope_configuration =
+  (function
+   | { domain = v_domain; name = v_name; scope = v_scope } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scope_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope_configuration
+
+[@@@deriving.end]
+
 type aws_codebuild_webhook = {
   branch_filter : string prop option; [@option]
   build_type : string prop option; [@option]
   id : string prop option; [@option]
   project_name : string prop;
   filter_group : filter_group list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  scope_configuration : scope_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -94,9 +134,20 @@ let yojson_of_aws_codebuild_webhook =
        id = v_id;
        project_name = v_project_name;
        filter_group = v_filter_group;
+       scope_configuration = v_scope_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_scope_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scope_configuration)
+               v_scope_configuration
+           in
+           let bnd = "scope_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_filter_group then bnds
@@ -148,9 +199,21 @@ let filter_group__filter ?exclude_matched_pattern ~pattern ~type_ ()
 
 let filter_group ?(filter = []) () : filter_group = { filter }
 
+let scope_configuration ?domain ~name ~scope () : scope_configuration
+    =
+  { domain; name; scope }
+
 let aws_codebuild_webhook ?branch_filter ?build_type ?id
-    ~project_name ~filter_group () : aws_codebuild_webhook =
-  { branch_filter; build_type; id; project_name; filter_group }
+    ?(scope_configuration = []) ~project_name ~filter_group () :
+    aws_codebuild_webhook =
+  {
+    branch_filter;
+    build_type;
+    id;
+    project_name;
+    filter_group;
+    scope_configuration;
+  }
 
 type t = {
   tf_name : string;
@@ -163,8 +226,8 @@ type t = {
   url : string prop;
 }
 
-let make ?branch_filter ?build_type ?id ~project_name ~filter_group
-    __id =
+let make ?branch_filter ?build_type ?id ?(scope_configuration = [])
+    ~project_name ~filter_group __id =
   let __type = "aws_codebuild_webhook" in
   let __attrs =
     ({
@@ -185,15 +248,15 @@ let make ?branch_filter ?build_type ?id ~project_name ~filter_group
     json =
       yojson_of_aws_codebuild_webhook
         (aws_codebuild_webhook ?branch_filter ?build_type ?id
-           ~project_name ~filter_group ());
+           ~scope_configuration ~project_name ~filter_group ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?branch_filter ?build_type ?id ~project_name
-    ~filter_group __id =
+let register ?tf_module ?branch_filter ?build_type ?id
+    ?(scope_configuration = []) ~project_name ~filter_group __id =
   let (r : _ Tf_core.resource) =
-    make ?branch_filter ?build_type ?id ~project_name ~filter_group
-      __id
+    make ?branch_filter ?build_type ?id ~scope_configuration
+      ~project_name ~filter_group __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

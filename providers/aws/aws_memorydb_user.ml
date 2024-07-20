@@ -3,8 +3,7 @@
 open! Tf_core
 
 type authentication_mode = {
-  passwords : string prop list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
+  passwords : string prop list option; [@option]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -22,14 +21,14 @@ let yojson_of_authentication_mode =
          ("type", arg) :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_passwords then bnds
-         else
-           let arg =
-             (yojson_of_list (yojson_of_prop yojson_of_string))
-               v_passwords
-           in
-           let bnd = "passwords", arg in
-           bnd :: bnds
+         match v_passwords with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "passwords", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : authentication_mode -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -129,7 +128,7 @@ let _ = yojson_of_aws_memorydb_user
 
 [@@@deriving.end]
 
-let authentication_mode ~passwords ~type_ () : authentication_mode =
+let authentication_mode ?passwords ~type_ () : authentication_mode =
   { passwords; type_ }
 
 let aws_memorydb_user ?id ?tags ?tags_all ~access_string ~user_name

@@ -62,6 +62,7 @@ type google_compute_target_https_proxy = {
   server_tls_policy : string prop option; [@option]
   ssl_certificates : string prop list option; [@option]
   ssl_policy : string prop option; [@option]
+  tls_early_data : string prop option; [@option]
   url_map : string prop;
   timeouts : timeouts option;
 }
@@ -85,6 +86,7 @@ let yojson_of_google_compute_target_https_proxy =
        server_tls_policy = v_server_tls_policy;
        ssl_certificates = v_ssl_certificates;
        ssl_policy = v_ssl_policy;
+       tls_early_data = v_tls_early_data;
        url_map = v_url_map;
        timeouts = v_timeouts;
      } ->
@@ -98,6 +100,14 @@ let yojson_of_google_compute_target_https_proxy =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url_map in
          ("url_map", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_early_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tls_early_data", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_ssl_policy with
@@ -210,7 +220,8 @@ let google_compute_target_https_proxy
     ?certificate_manager_certificates ?certificate_map ?description
     ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
     ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
-    ?timeouts ~name ~url_map () : google_compute_target_https_proxy =
+    ?tls_early_data ?timeouts ~name ~url_map () :
+    google_compute_target_https_proxy =
   {
     certificate_manager_certificates;
     certificate_map;
@@ -224,6 +235,7 @@ let google_compute_target_https_proxy
     server_tls_policy;
     ssl_certificates;
     ssl_policy;
+    tls_early_data;
     url_map;
     timeouts;
   }
@@ -245,13 +257,14 @@ type t = {
   server_tls_policy : string prop;
   ssl_certificates : string list prop;
   ssl_policy : string prop;
+  tls_early_data : string prop;
   url_map : string prop;
 }
 
 let make ?certificate_manager_certificates ?certificate_map
     ?description ?http_keep_alive_timeout_sec ?id ?project
     ?proxy_bind ?quic_override ?server_tls_policy ?ssl_certificates
-    ?ssl_policy ?timeouts ~name ~url_map __id =
+    ?ssl_policy ?tls_early_data ?timeouts ~name ~url_map __id =
   let __type = "google_compute_target_https_proxy" in
   let __attrs =
     ({
@@ -276,6 +289,7 @@ let make ?certificate_manager_certificates ?certificate_map
        ssl_certificates =
          Prop.computed __type __id "ssl_certificates";
        ssl_policy = Prop.computed __type __id "ssl_policy";
+       tls_early_data = Prop.computed __type __id "tls_early_data";
        url_map = Prop.computed __type __id "url_map";
      }
       : t)
@@ -289,19 +303,21 @@ let make ?certificate_manager_certificates ?certificate_map
            ?certificate_manager_certificates ?certificate_map
            ?description ?http_keep_alive_timeout_sec ?id ?project
            ?proxy_bind ?quic_override ?server_tls_policy
-           ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map ());
+           ?ssl_certificates ?ssl_policy ?tls_early_data ?timeouts
+           ~name ~url_map ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_manager_certificates
     ?certificate_map ?description ?http_keep_alive_timeout_sec ?id
     ?project ?proxy_bind ?quic_override ?server_tls_policy
-    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map __id =
+    ?ssl_certificates ?ssl_policy ?tls_early_data ?timeouts ~name
+    ~url_map __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_manager_certificates ?certificate_map
       ?description ?http_keep_alive_timeout_sec ?id ?project
       ?proxy_bind ?quic_override ?server_tls_policy ?ssl_certificates
-      ?ssl_policy ?timeouts ~name ~url_map __id
+      ?ssl_policy ?tls_early_data ?timeouts ~name ~url_map __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

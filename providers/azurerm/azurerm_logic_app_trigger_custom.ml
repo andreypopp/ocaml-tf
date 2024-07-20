@@ -127,6 +127,7 @@ let azurerm_logic_app_trigger_custom ?id ?timeouts ~body
 type t = {
   tf_name : string;
   body : string prop;
+  callback_url : string prop;
   id : string prop;
   logic_app_id : string prop;
   name : string prop;
@@ -138,6 +139,7 @@ let make ?id ?timeouts ~body ~logic_app_id ~name __id =
     ({
        tf_name = __id;
        body = Prop.computed __type __id "body";
+       callback_url = Prop.computed __type __id "callback_url";
        id = Prop.computed __type __id "id";
        logic_app_id = Prop.computed __type __id "logic_app_id";
        name = Prop.computed __type __id "name";

@@ -1066,7 +1066,9 @@ let _ = yojson_of_default_node_pool__node_network_profile
 [@@@deriving.end]
 
 type default_node_pool__upgrade_settings = {
+  drain_timeout_in_minutes : float prop option; [@option]
   max_surge : string prop;
+  node_soak_duration_in_minutes : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -1074,13 +1076,34 @@ let _ = fun (_ : default_node_pool__upgrade_settings) -> ()
 
 let yojson_of_default_node_pool__upgrade_settings =
   (function
-   | { max_surge = v_max_surge } ->
+   | {
+       drain_timeout_in_minutes = v_drain_timeout_in_minutes;
+       max_surge = v_max_surge;
+       node_soak_duration_in_minutes =
+         v_node_soak_duration_in_minutes;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
+         match v_node_soak_duration_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_soak_duration_in_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_max_surge in
          ("max_surge", arg) :: bnds
+       in
+       let bnds =
+         match v_drain_timeout_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "drain_timeout_in_minutes", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : default_node_pool__upgrade_settings ->
@@ -2560,10 +2583,13 @@ type network_profile = {
   ebpf_data_plane : string prop option; [@option]
   ip_versions : string prop list option; [@option]
   load_balancer_sku : string prop option; [@option]
+  network_data_plane : string prop option; [@option]
   network_mode : string prop option; [@option]
   network_plugin : string prop;
   network_plugin_mode : string prop option; [@option]
   network_policy : string prop option; [@option]
+  outbound_ip_address_ids : string prop list option; [@option]
+  outbound_ip_prefix_ids : string prop list option; [@option]
   outbound_type : string prop option; [@option]
   pod_cidr : string prop option; [@option]
   pod_cidrs : string prop list option; [@option]
@@ -2587,10 +2613,13 @@ let yojson_of_network_profile =
        ebpf_data_plane = v_ebpf_data_plane;
        ip_versions = v_ip_versions;
        load_balancer_sku = v_load_balancer_sku;
+       network_data_plane = v_network_data_plane;
        network_mode = v_network_mode;
        network_plugin = v_network_plugin;
        network_plugin_mode = v_network_plugin_mode;
        network_policy = v_network_policy;
+       outbound_ip_address_ids = v_outbound_ip_address_ids;
+       outbound_ip_prefix_ids = v_outbound_ip_prefix_ids;
        outbound_type = v_outbound_type;
        pod_cidr = v_pod_cidr;
        pod_cidrs = v_pod_cidrs;
@@ -2669,6 +2698,26 @@ let yojson_of_network_profile =
              bnd :: bnds
        in
        let bnds =
+         match v_outbound_ip_prefix_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "outbound_ip_prefix_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outbound_ip_address_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "outbound_ip_address_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_network_policy with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -2696,6 +2745,14 @@ let yojson_of_network_profile =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "network_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_data_plane with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_data_plane", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2829,10 +2886,72 @@ let _ = yojson_of_oms_agent
 
 [@@@deriving.end]
 
+type service_mesh_profile__certificate_authority = {
+  cert_chain_object_name : string prop;
+  cert_object_name : string prop;
+  key_object_name : string prop;
+  key_vault_id : string prop;
+  root_cert_object_name : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_mesh_profile__certificate_authority) -> ()
+
+let yojson_of_service_mesh_profile__certificate_authority =
+  (function
+   | {
+       cert_chain_object_name = v_cert_chain_object_name;
+       cert_object_name = v_cert_object_name;
+       key_object_name = v_key_object_name;
+       key_vault_id = v_key_vault_id;
+       root_cert_object_name = v_root_cert_object_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_root_cert_object_name
+         in
+         ("root_cert_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_vault_id in
+         ("key_vault_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_object_name
+         in
+         ("key_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cert_object_name
+         in
+         ("cert_object_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cert_chain_object_name
+         in
+         ("cert_chain_object_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_mesh_profile__certificate_authority ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_mesh_profile__certificate_authority
+
+[@@@deriving.end]
+
 type service_mesh_profile = {
   external_ingress_gateway_enabled : bool prop option; [@option]
   internal_ingress_gateway_enabled : bool prop option; [@option]
   mode : string prop;
+  certificate_authority :
+    service_mesh_profile__certificate_authority list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2846,9 +2965,21 @@ let yojson_of_service_mesh_profile =
        internal_ingress_gateway_enabled =
          v_internal_ingress_gateway_enabled;
        mode = v_mode;
+       certificate_authority = v_certificate_authority;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_authority then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_mesh_profile__certificate_authority)
+               v_certificate_authority
+           in
+           let bnd = "certificate_authority", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_mode in
@@ -3078,20 +3209,38 @@ let _ = yojson_of_web_app_routing__web_app_routing_identity
 
 [@@@deriving.end]
 
-type web_app_routing = { dns_zone_id : string prop }
+type web_app_routing = {
+  dns_zone_id : string prop option; [@option]
+  dns_zone_ids : string prop list option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : web_app_routing) -> ()
 
 let yojson_of_web_app_routing =
   (function
-   | { dns_zone_id = v_dns_zone_id } ->
+   | { dns_zone_id = v_dns_zone_id; dns_zone_ids = v_dns_zone_ids }
+     ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_dns_zone_id in
-         ("dns_zone_id", arg) :: bnds
+         match v_dns_zone_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_zone_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dns_zone_id", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : web_app_routing -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -3356,6 +3505,7 @@ type azurerm_kubernetes_cluster = {
       [@option]
   automatic_channel_upgrade : string prop option; [@option]
   azure_policy_enabled : bool prop option; [@option]
+  cost_analysis_enabled : bool prop option; [@option]
   custom_ca_trust_certificates_base64 : string prop list option;
       [@option]
   disk_encryption_set_id : string prop option; [@option]
@@ -3453,6 +3603,7 @@ let yojson_of_azurerm_kubernetes_cluster =
          v_api_server_authorized_ip_ranges;
        automatic_channel_upgrade = v_automatic_channel_upgrade;
        azure_policy_enabled = v_azure_policy_enabled;
+       cost_analysis_enabled = v_cost_analysis_enabled;
        custom_ca_trust_certificates_base64 =
          v_custom_ca_trust_certificates_base64;
        disk_encryption_set_id = v_disk_encryption_set_id;
@@ -4022,6 +4173,14 @@ let yojson_of_azurerm_kubernetes_cluster =
              bnd :: bnds
        in
        let bnds =
+         match v_cost_analysis_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cost_analysis_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_azure_policy_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -4200,9 +4359,14 @@ let default_node_pool__node_network_profile
     allowed_host_ports;
   }
 
-let default_node_pool__upgrade_settings ~max_surge () :
+let default_node_pool__upgrade_settings ?drain_timeout_in_minutes
+    ?node_soak_duration_in_minutes ~max_surge () :
     default_node_pool__upgrade_settings =
-  { max_surge }
+  {
+    drain_timeout_in_minutes;
+    max_surge;
+    node_soak_duration_in_minutes;
+  }
 
 let default_node_pool ?capacity_reservation_group_id
     ?custom_ca_trust_enabled ?enable_auto_scaling
@@ -4369,9 +4533,10 @@ let network_profile__nat_gateway_profile ?idle_timeout_in_minutes
   { idle_timeout_in_minutes; managed_outbound_ip_count }
 
 let network_profile ?dns_service_ip ?docker_bridge_cidr
-    ?ebpf_data_plane ?ip_versions ?load_balancer_sku ?network_mode
-    ?network_plugin_mode ?network_policy ?outbound_type ?pod_cidr
-    ?pod_cidrs ?service_cidr ?service_cidrs
+    ?ebpf_data_plane ?ip_versions ?load_balancer_sku
+    ?network_data_plane ?network_mode ?network_plugin_mode
+    ?network_policy ?outbound_ip_address_ids ?outbound_ip_prefix_ids
+    ?outbound_type ?pod_cidr ?pod_cidrs ?service_cidr ?service_cidrs
     ?(load_balancer_profile = []) ?(nat_gateway_profile = [])
     ~network_plugin () : network_profile =
   {
@@ -4380,10 +4545,13 @@ let network_profile ?dns_service_ip ?docker_bridge_cidr
     ebpf_data_plane;
     ip_versions;
     load_balancer_sku;
+    network_data_plane;
     network_mode;
     network_plugin;
     network_plugin_mode;
     network_policy;
+    outbound_ip_address_ids;
+    outbound_ip_prefix_ids;
     outbound_type;
     pod_cidr;
     pod_cidrs;
@@ -4397,13 +4565,26 @@ let oms_agent ?msi_auth_for_monitoring_enabled
     ~log_analytics_workspace_id () : oms_agent =
   { log_analytics_workspace_id; msi_auth_for_monitoring_enabled }
 
+let service_mesh_profile__certificate_authority
+    ~cert_chain_object_name ~cert_object_name ~key_object_name
+    ~key_vault_id ~root_cert_object_name () :
+    service_mesh_profile__certificate_authority =
+  {
+    cert_chain_object_name;
+    cert_object_name;
+    key_object_name;
+    key_vault_id;
+    root_cert_object_name;
+  }
+
 let service_mesh_profile ?external_ingress_gateway_enabled
-    ?internal_ingress_gateway_enabled ~mode () : service_mesh_profile
-    =
+    ?internal_ingress_gateway_enabled ?(certificate_authority = [])
+    ~mode () : service_mesh_profile =
   {
     external_ingress_gateway_enabled;
     internal_ingress_gateway_enabled;
     mode;
+    certificate_authority;
   }
 
 let service_principal ~client_id ~client_secret () :
@@ -4424,8 +4605,8 @@ let storage_profile ?blob_driver_enabled ?disk_driver_enabled
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let web_app_routing ~dns_zone_id () : web_app_routing =
-  { dns_zone_id }
+let web_app_routing ?dns_zone_id ?dns_zone_ids () : web_app_routing =
+  { dns_zone_id; dns_zone_ids }
 
 let windows_profile__gmsa ~dns_server ~root_domain () :
     windows_profile__gmsa =
@@ -4442,19 +4623,19 @@ let workload_autoscaler_profile ?keda_enabled
 
 let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
     ?automatic_channel_upgrade ?azure_policy_enabled
-    ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
-    ?dns_prefix ?dns_prefix_private_cluster ?edge_zone
-    ?enable_pod_security_policy ?http_application_routing_enabled ?id
-    ?image_cleaner_enabled ?image_cleaner_interval_hours
-    ?kubernetes_version ?local_account_disabled
-    ?node_os_channel_upgrade ?node_resource_group
-    ?oidc_issuer_enabled ?open_service_mesh_enabled
-    ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
-    ?private_dns_zone_id ?public_network_access_enabled
-    ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
-    ?support_plan ?tags ?workload_identity_enabled
-    ?(aci_connector_linux = []) ?(api_server_access_profile = [])
-    ?(auto_scaler_profile = [])
+    ?cost_analysis_enabled ?custom_ca_trust_certificates_base64
+    ?disk_encryption_set_id ?dns_prefix ?dns_prefix_private_cluster
+    ?edge_zone ?enable_pod_security_policy
+    ?http_application_routing_enabled ?id ?image_cleaner_enabled
+    ?image_cleaner_interval_hours ?kubernetes_version
+    ?local_account_disabled ?node_os_channel_upgrade
+    ?node_resource_group ?oidc_issuer_enabled
+    ?open_service_mesh_enabled ?private_cluster_enabled
+    ?private_cluster_public_fqdn_enabled ?private_dns_zone_id
+    ?public_network_access_enabled ?role_based_access_control_enabled
+    ?run_command_enabled ?sku_tier ?support_plan ?tags
+    ?workload_identity_enabled ?(aci_connector_linux = [])
+    ?(api_server_access_profile = []) ?(auto_scaler_profile = [])
     ?(azure_active_directory_role_based_access_control = [])
     ?(confidential_computing = []) ?(http_proxy_config = [])
     ?(identity = []) ?(ingress_application_gateway = [])
@@ -4473,6 +4654,7 @@ let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
     api_server_authorized_ip_ranges;
     automatic_channel_upgrade;
     azure_policy_enabled;
+    cost_analysis_enabled;
     custom_ca_trust_certificates_base64;
     disk_encryption_set_id;
     dns_prefix;
@@ -4536,6 +4718,7 @@ type t = {
   api_server_authorized_ip_ranges : string list prop;
   automatic_channel_upgrade : string prop;
   azure_policy_enabled : bool prop;
+  cost_analysis_enabled : bool prop;
   current_kubernetes_version : string prop;
   custom_ca_trust_certificates_base64 : string list prop;
   disk_encryption_set_id : string prop;
@@ -4579,19 +4762,20 @@ type t = {
 }
 
 let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
-    ?azure_policy_enabled ?custom_ca_trust_certificates_base64
-    ?disk_encryption_set_id ?dns_prefix ?dns_prefix_private_cluster
-    ?edge_zone ?enable_pod_security_policy
-    ?http_application_routing_enabled ?id ?image_cleaner_enabled
-    ?image_cleaner_interval_hours ?kubernetes_version
-    ?local_account_disabled ?node_os_channel_upgrade
-    ?node_resource_group ?oidc_issuer_enabled
-    ?open_service_mesh_enabled ?private_cluster_enabled
-    ?private_cluster_public_fqdn_enabled ?private_dns_zone_id
-    ?public_network_access_enabled ?role_based_access_control_enabled
-    ?run_command_enabled ?sku_tier ?support_plan ?tags
-    ?workload_identity_enabled ?(aci_connector_linux = [])
-    ?(api_server_access_profile = []) ?(auto_scaler_profile = [])
+    ?azure_policy_enabled ?cost_analysis_enabled
+    ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
+    ?dns_prefix ?dns_prefix_private_cluster ?edge_zone
+    ?enable_pod_security_policy ?http_application_routing_enabled ?id
+    ?image_cleaner_enabled ?image_cleaner_interval_hours
+    ?kubernetes_version ?local_account_disabled
+    ?node_os_channel_upgrade ?node_resource_group
+    ?oidc_issuer_enabled ?open_service_mesh_enabled
+    ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
+    ?private_dns_zone_id ?public_network_access_enabled
+    ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
+    ?support_plan ?tags ?workload_identity_enabled
+    ?(aci_connector_linux = []) ?(api_server_access_profile = [])
+    ?(auto_scaler_profile = [])
     ?(azure_active_directory_role_based_access_control = [])
     ?(confidential_computing = []) ?(http_proxy_config = [])
     ?(identity = []) ?(ingress_application_gateway = [])
@@ -4615,6 +4799,8 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
          Prop.computed __type __id "automatic_channel_upgrade";
        azure_policy_enabled =
          Prop.computed __type __id "azure_policy_enabled";
+       cost_analysis_enabled =
+         Prop.computed __type __id "cost_analysis_enabled";
        current_kubernetes_version =
          Prop.computed __type __id "current_kubernetes_version";
        custom_ca_trust_certificates_base64 =
@@ -4695,6 +4881,7 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
       yojson_of_azurerm_kubernetes_cluster
         (azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
            ?automatic_channel_upgrade ?azure_policy_enabled
+           ?cost_analysis_enabled
            ?custom_ca_trust_certificates_base64
            ?disk_encryption_set_id ?dns_prefix
            ?dns_prefix_private_cluster ?edge_zone
@@ -4728,19 +4915,19 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
 
 let register ?tf_module ?api_server_authorized_ip_ranges
     ?automatic_channel_upgrade ?azure_policy_enabled
-    ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
-    ?dns_prefix ?dns_prefix_private_cluster ?edge_zone
-    ?enable_pod_security_policy ?http_application_routing_enabled ?id
-    ?image_cleaner_enabled ?image_cleaner_interval_hours
-    ?kubernetes_version ?local_account_disabled
-    ?node_os_channel_upgrade ?node_resource_group
-    ?oidc_issuer_enabled ?open_service_mesh_enabled
-    ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
-    ?private_dns_zone_id ?public_network_access_enabled
-    ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
-    ?support_plan ?tags ?workload_identity_enabled
-    ?(aci_connector_linux = []) ?(api_server_access_profile = [])
-    ?(auto_scaler_profile = [])
+    ?cost_analysis_enabled ?custom_ca_trust_certificates_base64
+    ?disk_encryption_set_id ?dns_prefix ?dns_prefix_private_cluster
+    ?edge_zone ?enable_pod_security_policy
+    ?http_application_routing_enabled ?id ?image_cleaner_enabled
+    ?image_cleaner_interval_hours ?kubernetes_version
+    ?local_account_disabled ?node_os_channel_upgrade
+    ?node_resource_group ?oidc_issuer_enabled
+    ?open_service_mesh_enabled ?private_cluster_enabled
+    ?private_cluster_public_fqdn_enabled ?private_dns_zone_id
+    ?public_network_access_enabled ?role_based_access_control_enabled
+    ?run_command_enabled ?sku_tier ?support_plan ?tags
+    ?workload_identity_enabled ?(aci_connector_linux = [])
+    ?(api_server_access_profile = []) ?(auto_scaler_profile = [])
     ?(azure_active_directory_role_based_access_control = [])
     ?(confidential_computing = []) ?(http_proxy_config = [])
     ?(identity = []) ?(ingress_application_gateway = [])
@@ -4756,16 +4943,16 @@ let register ?tf_module ?api_server_authorized_ip_ranges
     ~location ~name ~resource_group_name ~default_node_pool __id =
   let (r : _ Tf_core.resource) =
     make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
-      ?azure_policy_enabled ?custom_ca_trust_certificates_base64
-      ?disk_encryption_set_id ?dns_prefix ?dns_prefix_private_cluster
-      ?edge_zone ?enable_pod_security_policy
-      ?http_application_routing_enabled ?id ?image_cleaner_enabled
-      ?image_cleaner_interval_hours ?kubernetes_version
-      ?local_account_disabled ?node_os_channel_upgrade
-      ?node_resource_group ?oidc_issuer_enabled
-      ?open_service_mesh_enabled ?private_cluster_enabled
-      ?private_cluster_public_fqdn_enabled ?private_dns_zone_id
-      ?public_network_access_enabled
+      ?azure_policy_enabled ?cost_analysis_enabled
+      ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
+      ?dns_prefix ?dns_prefix_private_cluster ?edge_zone
+      ?enable_pod_security_policy ?http_application_routing_enabled
+      ?id ?image_cleaner_enabled ?image_cleaner_interval_hours
+      ?kubernetes_version ?local_account_disabled
+      ?node_os_channel_upgrade ?node_resource_group
+      ?oidc_issuer_enabled ?open_service_mesh_enabled
+      ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
+      ?private_dns_zone_id ?public_network_access_enabled
       ?role_based_access_control_enabled ?run_command_enabled
       ?sku_tier ?support_plan ?tags ?workload_identity_enabled
       ~aci_connector_linux ~api_server_access_profile

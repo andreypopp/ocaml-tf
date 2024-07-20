@@ -9,9 +9,18 @@ type spec__egress_filter
 val spec__egress_filter :
   ?type_:string prop -> unit -> spec__egress_filter
 
+type spec__service_discovery
+
+val spec__service_discovery :
+  ?ip_preference:string prop -> unit -> spec__service_discovery
+
 type spec
 
-val spec : ?egress_filter:spec__egress_filter list -> unit -> spec
+val spec :
+  ?egress_filter:spec__egress_filter list ->
+  ?service_discovery:spec__service_discovery list ->
+  unit ->
+  spec
 
 type aws_appmesh_mesh
 

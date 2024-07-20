@@ -292,6 +292,7 @@ type secrets = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   ttl : string prop;
   version_aliases : (string * string prop) list;
+  version_destroy_ttl : string prop;
 }
 [@@deriving_inline yojson_of]
 
@@ -315,9 +316,16 @@ let yojson_of_secrets =
        topics = v_topics;
        ttl = v_ttl;
        version_aliases = v_version_aliases;
+       version_destroy_ttl = v_version_destroy_ttl;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_version_destroy_ttl
+         in
+         ("version_destroy_ttl", arg) :: bnds
        in
        let bnds =
          let arg =

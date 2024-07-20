@@ -42,7 +42,10 @@ val landing_page_design :
 type saas_app__custom_attribute__source
 
 val saas_app__custom_attribute__source :
-  name:string prop -> unit -> saas_app__custom_attribute__source
+  ?name_by_idp:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  saas_app__custom_attribute__source
 
 type saas_app__custom_attribute
 
@@ -55,9 +58,42 @@ val saas_app__custom_attribute :
   unit ->
   saas_app__custom_attribute
 
+type saas_app__custom_claim__source
+
+val saas_app__custom_claim__source :
+  ?name_by_idp:(string * string prop) list ->
+  name:string prop ->
+  unit ->
+  saas_app__custom_claim__source
+
+type saas_app__custom_claim
+
+val saas_app__custom_claim :
+  ?name:string prop ->
+  ?required:bool prop ->
+  ?scope:string prop ->
+  source:saas_app__custom_claim__source list ->
+  unit ->
+  saas_app__custom_claim
+
+type saas_app__hybrid_and_implicit_options
+
+val saas_app__hybrid_and_implicit_options :
+  ?return_access_token_from_authorization_endpoint:bool prop ->
+  ?return_id_token_from_authorization_endpoint:bool prop ->
+  unit ->
+  saas_app__hybrid_and_implicit_options
+
+type saas_app__refresh_token_options
+
+val saas_app__refresh_token_options :
+  ?lifetime:string prop -> unit -> saas_app__refresh_token_options
+
 type saas_app
 
 val saas_app :
+  ?access_token_lifetime:string prop ->
+  ?allow_pkce_without_client_secret:bool prop ->
   ?app_launcher_url:string prop ->
   ?auth_type:string prop ->
   ?consumer_service_url:string prop ->
@@ -67,11 +103,63 @@ val saas_app :
   ?name_id_format:string prop ->
   ?name_id_transform_jsonata:string prop ->
   ?redirect_uris:string prop list ->
+  ?saml_attribute_transform_jsonata:string prop ->
   ?scopes:string prop list ->
   ?sp_entity_id:string prop ->
   ?custom_attribute:saas_app__custom_attribute list ->
+  ?custom_claim:saas_app__custom_claim list ->
+  ?hybrid_and_implicit_options:
+    saas_app__hybrid_and_implicit_options list ->
+  ?refresh_token_options:saas_app__refresh_token_options list ->
   unit ->
   saas_app
+
+type scim_config__authentication
+
+val scim_config__authentication :
+  ?authorization_url:string prop ->
+  ?client_id:string prop ->
+  ?client_secret:string prop ->
+  ?password:string prop ->
+  ?scopes:string prop list ->
+  ?token:string prop ->
+  ?token_url:string prop ->
+  ?user:string prop ->
+  scheme:string prop ->
+  unit ->
+  scim_config__authentication
+
+type scim_config__mappings__operations
+
+val scim_config__mappings__operations :
+  ?create:bool prop ->
+  ?delete:bool prop ->
+  ?update:bool prop ->
+  unit ->
+  scim_config__mappings__operations
+
+type scim_config__mappings
+
+val scim_config__mappings :
+  ?enabled:bool prop ->
+  ?filter:string prop ->
+  ?transform_jsonata:string prop ->
+  ?operations:scim_config__mappings__operations list ->
+  schema:string prop ->
+  unit ->
+  scim_config__mappings
+
+type scim_config
+
+val scim_config :
+  ?deactivate_on_delete:bool prop ->
+  ?enabled:bool prop ->
+  ?authentication:scim_config__authentication list ->
+  ?mappings:scim_config__mappings list ->
+  idp_uid:string prop ->
+  remote_uri:string prop ->
+  unit ->
+  scim_config
 
 type cloudflare_access_application
 
@@ -94,6 +182,8 @@ val cloudflare_access_application :
   ?id:string prop ->
   ?logo_url:string prop ->
   ?name:string prop ->
+  ?options_preflight_bypass:bool prop ->
+  ?policies:string prop list ->
   ?same_site_cookie_attribute:string prop ->
   ?self_hosted_domains:string prop list ->
   ?service_auth_401_redirect:bool prop ->
@@ -105,6 +195,7 @@ val cloudflare_access_application :
   ?cors_headers:cors_headers list ->
   ?landing_page_design:landing_page_design list ->
   ?saas_app:saas_app list ->
+  ?scim_config:scim_config list ->
   footer_links:footer_links list ->
   unit ->
   cloudflare_access_application
@@ -135,6 +226,8 @@ type t = private {
   id : string prop;
   logo_url : string prop;
   name : string prop;
+  options_preflight_bypass : bool prop;
+  policies : string list prop;
   same_site_cookie_attribute : string prop;
   self_hosted_domains : string list prop;
   service_auth_401_redirect : bool prop;
@@ -165,6 +258,8 @@ val register :
   ?id:string prop ->
   ?logo_url:string prop ->
   ?name:string prop ->
+  ?options_preflight_bypass:bool prop ->
+  ?policies:string prop list ->
   ?same_site_cookie_attribute:string prop ->
   ?self_hosted_domains:string prop list ->
   ?service_auth_401_redirect:bool prop ->
@@ -176,6 +271,7 @@ val register :
   ?cors_headers:cors_headers list ->
   ?landing_page_design:landing_page_design list ->
   ?saas_app:saas_app list ->
+  ?scim_config:scim_config list ->
   footer_links:footer_links list ->
   string ->
   t
@@ -199,6 +295,8 @@ val make :
   ?id:string prop ->
   ?logo_url:string prop ->
   ?name:string prop ->
+  ?options_preflight_bypass:bool prop ->
+  ?policies:string prop list ->
   ?same_site_cookie_attribute:string prop ->
   ?self_hosted_domains:string prop list ->
   ?service_auth_401_redirect:bool prop ->
@@ -210,6 +308,7 @@ val make :
   ?cors_headers:cors_headers list ->
   ?landing_page_design:landing_page_design list ->
   ?saas_app:saas_app list ->
+  ?scim_config:scim_config list ->
   footer_links:footer_links list ->
   string ->
   t Tf_core.resource

@@ -60,6 +60,7 @@ val azurerm_virtual_network_gateway_connection :
   ?local_azure_ip_address_enabled:bool prop ->
   ?local_network_gateway_id:string prop ->
   ?peer_virtual_network_gateway_id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->
@@ -98,6 +99,7 @@ type t = private {
   location : string prop;
   name : string prop;
   peer_virtual_network_gateway_id : string prop;
+  private_link_fast_path_enabled : bool prop;
   resource_group_name : string prop;
   routing_weight : float prop;
   shared_key : string prop;
@@ -122,6 +124,7 @@ val register :
   ?local_azure_ip_address_enabled:bool prop ->
   ?local_network_gateway_id:string prop ->
   ?peer_virtual_network_gateway_id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->
@@ -152,6 +155,7 @@ val make :
   ?local_azure_ip_address_enabled:bool prop ->
   ?local_network_gateway_id:string prop ->
   ?peer_virtual_network_gateway_id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->

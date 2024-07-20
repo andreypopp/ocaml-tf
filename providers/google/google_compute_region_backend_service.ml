@@ -1403,6 +1403,7 @@ type t = {
   description : string prop;
   enable_cdn : bool prop;
   fingerprint : string prop;
+  generated_id : float prop;
   health_checks : string list prop;
   id : string prop;
   load_balancing_scheme : string prop;
@@ -1439,6 +1440,7 @@ let make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
        description = Prop.computed __type __id "description";
        enable_cdn = Prop.computed __type __id "enable_cdn";
        fingerprint = Prop.computed __type __id "fingerprint";
+       generated_id = Prop.computed __type __id "generated_id";
        health_checks = Prop.computed __type __id "health_checks";
        id = Prop.computed __type __id "id";
        load_balancing_scheme =

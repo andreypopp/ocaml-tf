@@ -63,6 +63,7 @@ val aws_fms_policy :
   ?description:string prop ->
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
+  ?resource_set_ids:string prop list ->
   ?resource_tags:(string * string prop) list ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->
@@ -91,6 +92,7 @@ type t = private {
   name : string prop;
   policy_update_token : string prop;
   remediation_enabled : bool prop;
+  resource_set_ids : string list prop;
   resource_tags : (string * string) list prop;
   resource_type : string prop;
   resource_type_list : string list prop;
@@ -105,6 +107,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
+  ?resource_set_ids:string prop list ->
   ?resource_tags:(string * string prop) list ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->
@@ -124,6 +127,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
+  ?resource_set_ids:string prop list ->
   ?resource_tags:(string * string prop) list ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->

@@ -79,7 +79,6 @@ let _ = yojson_of_key_vault_reference
 [@@@deriving.end]
 
 type azurerm_batch_account = {
-  encryption : encryption list option; [@option]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
@@ -92,7 +91,6 @@ let _ = fun (_ : azurerm_batch_account) -> ()
 let yojson_of_azurerm_batch_account =
   (function
    | {
-       encryption = v_encryption;
        id = v_id;
        name = v_name;
        resource_group_name = v_resource_group_name;
@@ -123,14 +121,6 @@ let yojson_of_azurerm_batch_account =
              let bnd = "id", arg in
              bnd :: bnds
        in
-       let bnds =
-         match v_encryption with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_list yojson_of_encryption v in
-             let bnd = "encryption", arg in
-             bnd :: bnds
-       in
        `Assoc bnds
     : azurerm_batch_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -140,9 +130,9 @@ let _ = yojson_of_azurerm_batch_account
 
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_batch_account ?encryption ?id ?timeouts ~name
-    ~resource_group_name () : azurerm_batch_account =
-  { encryption; id; name; resource_group_name; timeouts }
+let azurerm_batch_account ?id ?timeouts ~name ~resource_group_name ()
+    : azurerm_batch_account =
+  { id; name; resource_group_name; timeouts }
 
 type t = {
   tf_name : string;
@@ -160,7 +150,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?encryption ?id ?timeouts ~name ~resource_group_name __id =
+let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_batch_account" in
   let __attrs =
     ({
@@ -192,15 +182,15 @@ let make ?encryption ?id ?timeouts ~name ~resource_group_name __id =
     type_ = __type;
     json =
       yojson_of_azurerm_batch_account
-        (azurerm_batch_account ?encryption ?id ?timeouts ~name
+        (azurerm_batch_account ?id ?timeouts ~name
            ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?encryption ?id ?timeouts ~name
-    ~resource_group_name __id =
+let register ?tf_module ?id ?timeouts ~name ~resource_group_name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?encryption ?id ?timeouts ~name ~resource_group_name __id
+    make ?id ?timeouts ~name ~resource_group_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

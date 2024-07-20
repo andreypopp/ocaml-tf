@@ -14,13 +14,16 @@ val cloudflare_ipsec_tunnel :
   ?allow_null_cipher:bool prop ->
   ?description:string prop ->
   ?fqdn_id:string prop ->
+  ?health_check_direction:string prop ->
   ?health_check_enabled:bool prop ->
+  ?health_check_rate:string prop ->
   ?health_check_target:string prop ->
   ?health_check_type:string prop ->
   ?hex_id:string prop ->
   ?id:string prop ->
   ?psk:string prop ->
   ?remote_id:string prop ->
+  ?replay_protection:bool prop ->
   ?user_id:string prop ->
   cloudflare_endpoint:string prop ->
   customer_endpoint:string prop ->
@@ -42,7 +45,9 @@ type t = private {
   customer_endpoint : string prop;
   description : string prop;
   fqdn_id : string prop;
+  health_check_direction : string prop;
   health_check_enabled : bool prop;
+  health_check_rate : string prop;
   health_check_target : string prop;
   health_check_type : string prop;
   hex_id : string prop;
@@ -51,6 +56,7 @@ type t = private {
   name : string prop;
   psk : string prop;
   remote_id : string prop;
+  replay_protection : bool prop;
   user_id : string prop;
 }
 
@@ -60,13 +66,16 @@ val register :
   ?allow_null_cipher:bool prop ->
   ?description:string prop ->
   ?fqdn_id:string prop ->
+  ?health_check_direction:string prop ->
   ?health_check_enabled:bool prop ->
+  ?health_check_rate:string prop ->
   ?health_check_target:string prop ->
   ?health_check_type:string prop ->
   ?hex_id:string prop ->
   ?id:string prop ->
   ?psk:string prop ->
   ?remote_id:string prop ->
+  ?replay_protection:bool prop ->
   ?user_id:string prop ->
   cloudflare_endpoint:string prop ->
   customer_endpoint:string prop ->
@@ -80,13 +89,16 @@ val make :
   ?allow_null_cipher:bool prop ->
   ?description:string prop ->
   ?fqdn_id:string prop ->
+  ?health_check_direction:string prop ->
   ?health_check_enabled:bool prop ->
+  ?health_check_rate:string prop ->
   ?health_check_target:string prop ->
   ?health_check_type:string prop ->
   ?hex_id:string prop ->
   ?id:string prop ->
   ?psk:string prop ->
   ?remote_id:string prop ->
+  ?replay_protection:bool prop ->
   ?user_id:string prop ->
   cloudflare_endpoint:string prop ->
   customer_endpoint:string prop ->

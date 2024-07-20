@@ -192,6 +192,7 @@ type t = {
   configuration_access_endpoint : string prop;
   description : string prop;
   id : string prop;
+  immutable_id : string prop;
   kind : string prop;
   location : string prop;
   logs_ingestion_endpoint : string prop;
@@ -211,6 +212,7 @@ let make ?description ?id ?kind ?public_network_access_enabled ?tags
          Prop.computed __type __id "configuration_access_endpoint";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
+       immutable_id = Prop.computed __type __id "immutable_id";
        kind = Prop.computed __type __id "kind";
        location = Prop.computed __type __id "location";
        logs_ingestion_endpoint =

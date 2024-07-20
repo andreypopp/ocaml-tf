@@ -235,6 +235,7 @@ type t = {
   supported_modes : string list prop;
   supported_timezones : string list prop;
   supports_global_databases : bool prop;
+  supports_limitless_database : bool prop;
   supports_log_exports_to_cloudwatch : bool prop;
   supports_parallel_query : bool prop;
   supports_read_replica : bool prop;
@@ -287,6 +288,8 @@ let make ?default_only ?has_major_target ?has_minor_target ?id
          Prop.computed __type __id "supported_timezones";
        supports_global_databases =
          Prop.computed __type __id "supports_global_databases";
+       supports_limitless_database =
+         Prop.computed __type __id "supports_limitless_database";
        supports_log_exports_to_cloudwatch =
          Prop.computed __type __id
            "supports_log_exports_to_cloudwatch";

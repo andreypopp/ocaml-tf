@@ -839,6 +839,7 @@ type t = {
   endpoint : string prop;
   engine_version : string prop;
   id : string prop;
+  ip_address_type : string prop;
   kibana_endpoint : string prop;
   log_publishing_options : log_publishing_options list prop;
   node_to_node_encryption : node_to_node_encryption list prop;
@@ -877,6 +878,7 @@ let make ?id ?tags ?(off_peak_window_options = []) ~domain_name __id
        endpoint = Prop.computed __type __id "endpoint";
        engine_version = Prop.computed __type __id "engine_version";
        id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
        kibana_endpoint = Prop.computed __type __id "kibana_endpoint";
        log_publishing_options =
          Prop.computed __type __id "log_publishing_options";

@@ -112,6 +112,32 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
+type servers = { fqdn : string prop; name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : servers) -> ()
+
+let yojson_of_servers =
+  (function
+   | { fqdn = v_fqdn; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_fqdn in
+         ("fqdn", arg) :: bnds
+       in
+       `Assoc bnds
+    : servers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_servers
+
+[@@@deriving.end]
+
 type azurerm_cosmosdb_postgresql_cluster = {
   administrator_login_password : string prop option; [@option]
   citus_version : string prop option; [@option]
@@ -446,6 +472,7 @@ type t = {
   point_in_time_in_utc : string prop;
   preferred_primary_zone : string prop;
   resource_group_name : string prop;
+  servers : servers list prop;
   shards_on_coordinator_enabled : bool prop;
   source_location : string prop;
   source_resource_id : string prop;
@@ -498,6 +525,7 @@ let make ?administrator_login_password ?citus_version
          Prop.computed __type __id "preferred_primary_zone";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
+       servers = Prop.computed __type __id "servers";
        shards_on_coordinator_enabled =
          Prop.computed __type __id "shards_on_coordinator_enabled";
        source_location = Prop.computed __type __id "source_location";

@@ -48,17 +48,28 @@ val timeouts :
   unit ->
   timeouts
 
+type zone_distribution_config
+
+val zone_distribution_config :
+  ?mode:string prop ->
+  ?zone:string prop ->
+  unit ->
+  zone_distribution_config
+
 type google_redis_cluster
 
 val google_redis_cluster :
   ?authorization_mode:string prop ->
   ?id:string prop ->
   ?name:string prop ->
+  ?node_type:string prop ->
   ?project:string prop ->
+  ?redis_configs:(string * string prop) list ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->
   ?timeouts:timeouts ->
+  ?zone_distribution_config:zone_distribution_config list ->
   shard_count:float prop ->
   psc_configs:psc_configs list ->
   unit ->
@@ -75,8 +86,11 @@ type t = private {
   discovery_endpoints : discovery_endpoints list prop;
   id : string prop;
   name : string prop;
+  node_type : string prop;
+  precise_size_gb : float prop;
   project : string prop;
   psc_connections : psc_connections list prop;
+  redis_configs : (string * string) list prop;
   region : string prop;
   replica_count : float prop;
   shard_count : float prop;
@@ -92,11 +106,14 @@ val register :
   ?authorization_mode:string prop ->
   ?id:string prop ->
   ?name:string prop ->
+  ?node_type:string prop ->
   ?project:string prop ->
+  ?redis_configs:(string * string prop) list ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->
   ?timeouts:timeouts ->
+  ?zone_distribution_config:zone_distribution_config list ->
   shard_count:float prop ->
   psc_configs:psc_configs list ->
   string ->
@@ -106,11 +123,14 @@ val make :
   ?authorization_mode:string prop ->
   ?id:string prop ->
   ?name:string prop ->
+  ?node_type:string prop ->
   ?project:string prop ->
+  ?redis_configs:(string * string prop) list ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->
   ?timeouts:timeouts ->
+  ?zone_distribution_config:zone_distribution_config list ->
   shard_count:float prop ->
   psc_configs:psc_configs list ->
   string ->

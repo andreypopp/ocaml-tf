@@ -49,6 +49,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type google_netapp_active_directory = {
+  administrators : string prop list option; [@option]
   aes_encryption : bool prop option; [@option]
   backup_operators : string prop list option; [@option]
   description : string prop option; [@option]
@@ -79,6 +80,7 @@ let _ = fun (_ : google_netapp_active_directory) -> ()
 let yojson_of_google_netapp_active_directory =
   (function
    | {
+       administrators = v_administrators;
        aes_encryption = v_aes_encryption;
        backup_operators = v_backup_operators;
        description = v_description;
@@ -263,6 +265,16 @@ let yojson_of_google_netapp_active_directory =
              let bnd = "aes_encryption", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_administrators with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "administrators", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_netapp_active_directory ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -274,13 +286,14 @@ let _ = yojson_of_google_netapp_active_directory
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_netapp_active_directory ?aes_encryption ?backup_operators
-    ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
-    ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
-    ?project ?security_operators ?site ?timeouts ~dns ~domain
-    ~location ~name ~net_bios_prefix ~password ~username () :
-    google_netapp_active_directory =
+let google_netapp_active_directory ?administrators ?aes_encryption
+    ?backup_operators ?description ?encrypt_dc_connections ?id
+    ?kdc_hostname ?kdc_ip ?labels ?ldap_signing ?nfs_users_with_ldap
+    ?organizational_unit ?project ?security_operators ?site ?timeouts
+    ~dns ~domain ~location ~name ~net_bios_prefix ~password ~username
+    () : google_netapp_active_directory =
   {
+    administrators;
     aes_encryption;
     backup_operators;
     description;
@@ -307,6 +320,7 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
 
 type t = {
   tf_name : string;
+  administrators : string list prop;
   aes_encryption : bool prop;
   backup_operators : string list prop;
   create_time : string prop;
@@ -335,15 +349,16 @@ type t = {
   username : string prop;
 }
 
-let make ?aes_encryption ?backup_operators ?description
-    ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip ?labels
-    ?ldap_signing ?nfs_users_with_ldap ?organizational_unit ?project
-    ?security_operators ?site ?timeouts ~dns ~domain ~location ~name
-    ~net_bios_prefix ~password ~username __id =
+let make ?administrators ?aes_encryption ?backup_operators
+    ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
+    ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+    ?project ?security_operators ?site ?timeouts ~dns ~domain
+    ~location ~name ~net_bios_prefix ~password ~username __id =
   let __type = "google_netapp_active_directory" in
   let __attrs =
     ({
        tf_name = __id;
+       administrators = Prop.computed __type __id "administrators";
        aes_encryption = Prop.computed __type __id "aes_encryption";
        backup_operators =
          Prop.computed __type __id "backup_operators";
@@ -385,24 +400,25 @@ let make ?aes_encryption ?backup_operators ?description
     type_ = __type;
     json =
       yojson_of_google_netapp_active_directory
-        (google_netapp_active_directory ?aes_encryption
-           ?backup_operators ?description ?encrypt_dc_connections ?id
-           ?kdc_hostname ?kdc_ip ?labels ?ldap_signing
-           ?nfs_users_with_ldap ?organizational_unit ?project
-           ?security_operators ?site ?timeouts ~dns ~domain ~location
-           ~name ~net_bios_prefix ~password ~username ());
+        (google_netapp_active_directory ?administrators
+           ?aes_encryption ?backup_operators ?description
+           ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip ?labels
+           ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+           ?project ?security_operators ?site ?timeouts ~dns ~domain
+           ~location ~name ~net_bios_prefix ~password ~username ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?aes_encryption ?backup_operators
-    ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
-    ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
-    ?project ?security_operators ?site ?timeouts ~dns ~domain
-    ~location ~name ~net_bios_prefix ~password ~username __id =
+let register ?tf_module ?administrators ?aes_encryption
+    ?backup_operators ?description ?encrypt_dc_connections ?id
+    ?kdc_hostname ?kdc_ip ?labels ?ldap_signing ?nfs_users_with_ldap
+    ?organizational_unit ?project ?security_operators ?site ?timeouts
+    ~dns ~domain ~location ~name ~net_bios_prefix ~password ~username
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?aes_encryption ?backup_operators ?description
-      ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip ?labels
-      ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+    make ?administrators ?aes_encryption ?backup_operators
+      ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
+      ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
       ?project ?security_operators ?site ?timeouts ~dns ~domain
       ~location ~name ~net_bios_prefix ~password ~username __id
   in

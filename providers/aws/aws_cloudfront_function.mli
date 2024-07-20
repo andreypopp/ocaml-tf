@@ -9,6 +9,7 @@ type aws_cloudfront_function
 val aws_cloudfront_function :
   ?comment:string prop ->
   ?id:string prop ->
+  ?key_value_store_associations:string prop list ->
   ?publish:bool prop ->
   code:string prop ->
   name:string prop ->
@@ -28,6 +29,7 @@ type t = private {
   comment : string prop;
   etag : string prop;
   id : string prop;
+  key_value_store_associations : string list prop;
   live_stage_etag : string prop;
   name : string prop;
   publish : bool prop;
@@ -39,6 +41,7 @@ val register :
   ?tf_module:tf_module ->
   ?comment:string prop ->
   ?id:string prop ->
+  ?key_value_store_associations:string prop list ->
   ?publish:bool prop ->
   code:string prop ->
   name:string prop ->
@@ -49,6 +52,7 @@ val register :
 val make :
   ?comment:string prop ->
   ?id:string prop ->
+  ?key_value_store_associations:string prop list ->
   ?publish:bool prop ->
   code:string prop ->
   name:string prop ->

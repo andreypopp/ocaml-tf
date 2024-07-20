@@ -105,6 +105,8 @@ let azurerm_storage_container ?id ?metadata ?timeouts ~name
 type t = {
   tf_name : string;
   container_access_type : string prop;
+  default_encryption_scope : string prop;
+  encryption_scope_override_enabled : bool prop;
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;
   id : string prop;
@@ -121,6 +123,11 @@ let make ?id ?metadata ?timeouts ~name ~storage_account_name __id =
        tf_name = __id;
        container_access_type =
          Prop.computed __type __id "container_access_type";
+       default_encryption_scope =
+         Prop.computed __type __id "default_encryption_scope";
+       encryption_scope_override_enabled =
+         Prop.computed __type __id
+           "encryption_scope_override_enabled";
        has_immutability_policy =
          Prop.computed __type __id "has_immutability_policy";
        has_legal_hold = Prop.computed __type __id "has_legal_hold";

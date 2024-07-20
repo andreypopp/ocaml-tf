@@ -30,8 +30,11 @@ type google_apigee_organization
 
 val google_apigee_organization :
   ?analytics_region:string prop ->
+  ?api_consumer_data_encryption_key_name:string prop ->
+  ?api_consumer_data_location:string prop ->
   ?authorized_network:string prop ->
   ?billing_type:string prop ->
+  ?control_plane_encryption_key_name:string prop ->
   ?description:string prop ->
   ?disable_vpc_peering:bool prop ->
   ?display_name:string prop ->
@@ -53,10 +56,13 @@ val yojson_of_google_apigee_organization :
 type t = private {
   tf_name : string;
   analytics_region : string prop;
+  api_consumer_data_encryption_key_name : string prop;
+  api_consumer_data_location : string prop;
   apigee_project_id : string prop;
   authorized_network : string prop;
   billing_type : string prop;
   ca_certificate : string prop;
+  control_plane_encryption_key_name : string prop;
   description : string prop;
   disable_vpc_peering : bool prop;
   display_name : string prop;
@@ -72,8 +78,11 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?analytics_region:string prop ->
+  ?api_consumer_data_encryption_key_name:string prop ->
+  ?api_consumer_data_location:string prop ->
   ?authorized_network:string prop ->
   ?billing_type:string prop ->
+  ?control_plane_encryption_key_name:string prop ->
   ?description:string prop ->
   ?disable_vpc_peering:bool prop ->
   ?display_name:string prop ->
@@ -89,8 +98,11 @@ val register :
 
 val make :
   ?analytics_region:string prop ->
+  ?api_consumer_data_encryption_key_name:string prop ->
+  ?api_consumer_data_location:string prop ->
   ?authorized_network:string prop ->
   ?billing_type:string prop ->
+  ?control_plane_encryption_key_name:string prop ->
   ?description:string prop ->
   ?disable_vpc_peering:bool prop ->
   ?display_name:string prop ->

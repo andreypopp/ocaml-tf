@@ -46,11 +46,14 @@ val google_compute_router_peer :
   ?advertised_groups:string prop list ->
   ?advertised_route_priority:float prop ->
   ?enable:bool prop ->
+  ?enable_ipv4:bool prop ->
   ?enable_ipv6:bool prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
+  ?ipv4_nexthop_address:string prop ->
   ?ipv6_nexthop_address:string prop ->
   ?peer_ip_address:string prop ->
+  ?peer_ipv4_nexthop_address:string prop ->
   ?peer_ipv6_nexthop_address:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -77,15 +80,18 @@ type t = private {
   advertised_groups : string list prop;
   advertised_route_priority : float prop;
   enable : bool prop;
+  enable_ipv4 : bool prop;
   enable_ipv6 : bool prop;
   id : string prop;
   interface : string prop;
   ip_address : string prop;
+  ipv4_nexthop_address : string prop;
   ipv6_nexthop_address : string prop;
   management_type : string prop;
   name : string prop;
   peer_asn : float prop;
   peer_ip_address : string prop;
+  peer_ipv4_nexthop_address : string prop;
   peer_ipv6_nexthop_address : string prop;
   project : string prop;
   region : string prop;
@@ -99,11 +105,14 @@ val register :
   ?advertised_groups:string prop list ->
   ?advertised_route_priority:float prop ->
   ?enable:bool prop ->
+  ?enable_ipv4:bool prop ->
   ?enable_ipv6:bool prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
+  ?ipv4_nexthop_address:string prop ->
   ?ipv6_nexthop_address:string prop ->
   ?peer_ip_address:string prop ->
+  ?peer_ipv4_nexthop_address:string prop ->
   ?peer_ipv6_nexthop_address:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -124,11 +133,14 @@ val make :
   ?advertised_groups:string prop list ->
   ?advertised_route_priority:float prop ->
   ?enable:bool prop ->
+  ?enable_ipv4:bool prop ->
   ?enable_ipv6:bool prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
+  ?ipv4_nexthop_address:string prop ->
   ?ipv6_nexthop_address:string prop ->
   ?peer_ip_address:string prop ->
+  ?peer_ipv4_nexthop_address:string prop ->
   ?peer_ipv6_nexthop_address:string prop ->
   ?project:string prop ->
   ?region:string prop ->

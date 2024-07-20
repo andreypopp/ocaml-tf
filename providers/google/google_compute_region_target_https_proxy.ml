@@ -56,6 +56,7 @@ type google_compute_region_target_https_proxy = {
   name : string prop;
   project : string prop option; [@option]
   region : string prop option; [@option]
+  server_tls_policy : string prop option; [@option]
   ssl_certificates : string prop list option; [@option]
   ssl_policy : string prop option; [@option]
   url_map : string prop;
@@ -75,6 +76,7 @@ let yojson_of_google_compute_region_target_https_proxy =
        name = v_name;
        project = v_project;
        region = v_region;
+       server_tls_policy = v_server_tls_policy;
        ssl_certificates = v_ssl_certificates;
        ssl_policy = v_ssl_policy;
        url_map = v_url_map;
@@ -107,6 +109,14 @@ let yojson_of_google_compute_region_target_https_proxy =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "ssl_certificates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_tls_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_tls_policy", arg in
              bnd :: bnds
        in
        let bnds =
@@ -168,8 +178,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_region_target_https_proxy
     ?certificate_manager_certificates ?description ?id ?project
-    ?region ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map ()
-    : google_compute_region_target_https_proxy =
+    ?region ?server_tls_policy ?ssl_certificates ?ssl_policy
+    ?timeouts ~name ~url_map () :
+    google_compute_region_target_https_proxy =
   {
     certificate_manager_certificates;
     description;
@@ -177,6 +188,7 @@ let google_compute_region_target_https_proxy
     name;
     project;
     region;
+    server_tls_policy;
     ssl_certificates;
     ssl_policy;
     url_map;
@@ -194,14 +206,15 @@ type t = {
   proxy_id : float prop;
   region : string prop;
   self_link : string prop;
+  server_tls_policy : string prop;
   ssl_certificates : string list prop;
   ssl_policy : string prop;
   url_map : string prop;
 }
 
 let make ?certificate_manager_certificates ?description ?id ?project
-    ?region ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
-    __id =
+    ?region ?server_tls_policy ?ssl_certificates ?ssl_policy
+    ?timeouts ~name ~url_map __id =
   let __type = "google_compute_region_target_https_proxy" in
   let __attrs =
     ({
@@ -217,6 +230,8 @@ let make ?certificate_manager_certificates ?description ?id ?project
        proxy_id = Prop.computed __type __id "proxy_id";
        region = Prop.computed __type __id "region";
        self_link = Prop.computed __type __id "self_link";
+       server_tls_policy =
+         Prop.computed __type __id "server_tls_policy";
        ssl_certificates =
          Prop.computed __type __id "ssl_certificates";
        ssl_policy = Prop.computed __type __id "ssl_policy";
@@ -231,18 +246,18 @@ let make ?certificate_manager_certificates ?description ?id ?project
       yojson_of_google_compute_region_target_https_proxy
         (google_compute_region_target_https_proxy
            ?certificate_manager_certificates ?description ?id
-           ?project ?region ?ssl_certificates ?ssl_policy ?timeouts
-           ~name ~url_map ());
+           ?project ?region ?server_tls_policy ?ssl_certificates
+           ?ssl_policy ?timeouts ~name ~url_map ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_manager_certificates
-    ?description ?id ?project ?region ?ssl_certificates ?ssl_policy
-    ?timeouts ~name ~url_map __id =
+    ?description ?id ?project ?region ?server_tls_policy
+    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_manager_certificates ?description ?id ?project
-      ?region ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
-      __id
+      ?region ?server_tls_policy ?ssl_certificates ?ssl_policy
+      ?timeouts ~name ~url_map __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

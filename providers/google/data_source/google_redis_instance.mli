@@ -91,6 +91,7 @@ type t = private {
   location_id : string prop;
   maintenance_policy : maintenance_policy list prop;
   maintenance_schedule : maintenance_schedule list prop;
+  maintenance_version : string prop;
   memory_size_gb : float prop;
   name : string prop;
   nodes : nodes list prop;

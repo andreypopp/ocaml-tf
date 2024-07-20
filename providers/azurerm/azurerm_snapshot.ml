@@ -190,11 +190,14 @@ let _ = yojson_of_timeouts
 
 type azurerm_snapshot = {
   create_option : string prop;
+  disk_access_id : string prop option; [@option]
   disk_size_gb : float prop option; [@option]
   id : string prop option; [@option]
   incremental_enabled : bool prop option; [@option]
   location : string prop;
   name : string prop;
+  network_access_policy : string prop option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
   resource_group_name : string prop;
   source_resource_id : string prop option; [@option]
   source_uri : string prop option; [@option]
@@ -212,11 +215,15 @@ let yojson_of_azurerm_snapshot =
   (function
    | {
        create_option = v_create_option;
+       disk_access_id = v_disk_access_id;
        disk_size_gb = v_disk_size_gb;
        id = v_id;
        incremental_enabled = v_incremental_enabled;
        location = v_location;
        name = v_name;
+       network_access_policy = v_network_access_policy;
+       public_network_access_enabled =
+         v_public_network_access_enabled;
        resource_group_name = v_resource_group_name;
        source_resource_id = v_source_resource_id;
        source_uri = v_source_uri;
@@ -289,6 +296,22 @@ let yojson_of_azurerm_snapshot =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
+         match v_public_network_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_network_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_access_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_access_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
@@ -321,6 +344,14 @@ let yojson_of_azurerm_snapshot =
              bnd :: bnds
        in
        let bnds =
+         match v_disk_access_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_access_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_create_option in
          ("create_option", arg) :: bnds
        in
@@ -346,17 +377,22 @@ let encryption_settings ?enabled ?(disk_encryption_key = [])
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
-    ?source_resource_id ?source_uri ?storage_account_id ?tags
-    ?(encryption_settings = []) ?timeouts ~create_option ~location
-    ~name ~resource_group_name () : azurerm_snapshot =
+let azurerm_snapshot ?disk_access_id ?disk_size_gb ?id
+    ?incremental_enabled ?network_access_policy
+    ?public_network_access_enabled ?source_resource_id ?source_uri
+    ?storage_account_id ?tags ?(encryption_settings = []) ?timeouts
+    ~create_option ~location ~name ~resource_group_name () :
+    azurerm_snapshot =
   {
     create_option;
+    disk_access_id;
     disk_size_gb;
     id;
     incremental_enabled;
     location;
     name;
+    network_access_policy;
+    public_network_access_enabled;
     resource_group_name;
     source_resource_id;
     source_uri;
@@ -369,11 +405,14 @@ let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
 type t = {
   tf_name : string;
   create_option : string prop;
+  disk_access_id : string prop;
   disk_size_gb : float prop;
   id : string prop;
   incremental_enabled : bool prop;
   location : string prop;
   name : string prop;
+  network_access_policy : string prop;
+  public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   source_resource_id : string prop;
   source_uri : string prop;
@@ -382,21 +421,27 @@ type t = {
   trusted_launch_enabled : bool prop;
 }
 
-let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
-    ?source_uri ?storage_account_id ?tags ?(encryption_settings = [])
-    ?timeouts ~create_option ~location ~name ~resource_group_name
-    __id =
+let make ?disk_access_id ?disk_size_gb ?id ?incremental_enabled
+    ?network_access_policy ?public_network_access_enabled
+    ?source_resource_id ?source_uri ?storage_account_id ?tags
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_snapshot" in
   let __attrs =
     ({
        tf_name = __id;
        create_option = Prop.computed __type __id "create_option";
+       disk_access_id = Prop.computed __type __id "disk_access_id";
        disk_size_gb = Prop.computed __type __id "disk_size_gb";
        id = Prop.computed __type __id "id";
        incremental_enabled =
          Prop.computed __type __id "incremental_enabled";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
+       network_access_policy =
+         Prop.computed __type __id "network_access_policy";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        source_resource_id =
@@ -415,22 +460,26 @@ let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
     type_ = __type;
     json =
       yojson_of_azurerm_snapshot
-        (azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
-           ?source_resource_id ?source_uri ?storage_account_id ?tags
-           ~encryption_settings ?timeouts ~create_option ~location
-           ~name ~resource_group_name ());
+        (azurerm_snapshot ?disk_access_id ?disk_size_gb ?id
+           ?incremental_enabled ?network_access_policy
+           ?public_network_access_enabled ?source_resource_id
+           ?source_uri ?storage_account_id ?tags ~encryption_settings
+           ?timeouts ~create_option ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?disk_size_gb ?id ?incremental_enabled
-    ?source_resource_id ?source_uri ?storage_account_id ?tags
-    ?(encryption_settings = []) ?timeouts ~create_option ~location
-    ~name ~resource_group_name __id =
+let register ?tf_module ?disk_access_id ?disk_size_gb ?id
+    ?incremental_enabled ?network_access_policy
+    ?public_network_access_enabled ?source_resource_id ?source_uri
+    ?storage_account_id ?tags ?(encryption_settings = []) ?timeouts
+    ~create_option ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
-      ?source_uri ?storage_account_id ?tags ~encryption_settings
-      ?timeouts ~create_option ~location ~name ~resource_group_name
-      __id
+    make ?disk_access_id ?disk_size_gb ?id ?incremental_enabled
+      ?network_access_policy ?public_network_access_enabled
+      ?source_resource_id ?source_uri ?storage_account_id ?tags
+      ~encryption_settings ?timeouts ~create_option ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

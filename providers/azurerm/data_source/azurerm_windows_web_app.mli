@@ -433,6 +433,12 @@ type site_config__ip_restriction = {
       (** virtual_network_subnet_id *)
 }
 
+type site_config__handler_mapping = {
+  arguments : string prop;  (** arguments *)
+  extension : string prop;  (** extension *)
+  script_processor_path : string prop;  (** script_processor_path *)
+}
+
 type site_config__cors = {
   allowed_origins : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -447,6 +453,13 @@ type site_config__auto_heal_setting__trigger__status_code = {
   status_code_range : string prop;  (** status_code_range *)
   sub_status : float prop;  (** sub_status *)
   win32_status_code : float prop;  (** win32_status_code *)
+}
+
+type site_config__auto_heal_setting__trigger__slow_request_with_path = {
+  count : float prop;  (** count *)
+  interval : string prop;  (** interval *)
+  path : string prop;  (** path *)
+  time_taken : string prop;  (** time_taken *)
 }
 
 type site_config__auto_heal_setting__trigger__slow_request = {
@@ -470,6 +483,11 @@ type site_config__auto_heal_setting__trigger = {
     site_config__auto_heal_setting__trigger__slow_request list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** slow_request *)
+  slow_request_with_path :
+    site_config__auto_heal_setting__trigger__slow_request_with_path
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** slow_request_with_path *)
   status_code :
     site_config__auto_heal_setting__trigger__status_code list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -552,6 +570,9 @@ type site_config = {
   detailed_error_logging_enabled : bool prop;
       (** detailed_error_logging_enabled *)
   ftps_state : string prop;  (** ftps_state *)
+  handler_mapping : site_config__handler_mapping list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** handler_mapping *)
   health_check_eviction_time_in_min : float prop;
       (** health_check_eviction_time_in_min *)
   health_check_path : string prop;  (** health_check_path *)

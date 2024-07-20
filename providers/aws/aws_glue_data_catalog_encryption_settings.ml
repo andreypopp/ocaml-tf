@@ -50,6 +50,7 @@ let _ =
 
 type data_catalog_encryption_settings__encryption_at_rest = {
   catalog_encryption_mode : string prop;
+  catalog_encryption_service_role : string prop option; [@option]
   sse_aws_kms_key_id : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -61,6 +62,8 @@ let yojson_of_data_catalog_encryption_settings__encryption_at_rest =
   (function
    | {
        catalog_encryption_mode = v_catalog_encryption_mode;
+       catalog_encryption_service_role =
+         v_catalog_encryption_service_role;
        sse_aws_kms_key_id = v_sse_aws_kms_key_id;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -72,6 +75,14 @@ let yojson_of_data_catalog_encryption_settings__encryption_at_rest =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "sse_aws_kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_catalog_encryption_service_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_encryption_service_role", arg in
              bnd :: bnds
        in
        let bnds =
@@ -208,9 +219,14 @@ let data_catalog_encryption_settings__connection_password_encryption
   { aws_kms_key_id; return_connection_password_encrypted }
 
 let data_catalog_encryption_settings__encryption_at_rest
-    ?sse_aws_kms_key_id ~catalog_encryption_mode () :
+    ?catalog_encryption_service_role ?sse_aws_kms_key_id
+    ~catalog_encryption_mode () :
     data_catalog_encryption_settings__encryption_at_rest =
-  { catalog_encryption_mode; sse_aws_kms_key_id }
+  {
+    catalog_encryption_mode;
+    catalog_encryption_service_role;
+    sse_aws_kms_key_id;
+  }
 
 let data_catalog_encryption_settings ~connection_password_encryption
     ~encryption_at_rest () : data_catalog_encryption_settings =

@@ -40,6 +40,7 @@ type t = private {
   tf_name : string;
   address : string prop;
   allocation_id : string prop;
+  arn : string prop;
   associate_with_private_ip : string prop;
   association_id : string prop;
   carrier_ip : string prop;
@@ -52,6 +53,7 @@ type t = private {
   network_interface : string prop;
   private_dns : string prop;
   private_ip : string prop;
+  ptr_record : string prop;
   public_dns : string prop;
   public_ip : string prop;
   public_ipv4_pool : string prop;

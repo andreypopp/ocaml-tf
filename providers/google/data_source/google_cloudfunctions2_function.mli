@@ -29,13 +29,28 @@ type build_config__source = {
       (** storage_source *)
 }
 
+type build_config__on_deploy_update_policy = {
+  runtime_version : string prop;  (** runtime_version *)
+}
+
+type build_config__automatic_update_policy
+
 type build_config = {
+  automatic_update_policy :
+    build_config__automatic_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** automatic_update_policy *)
   build : string prop;  (** build *)
   docker_repository : string prop;  (** docker_repository *)
   entry_point : string prop;  (** entry_point *)
   environment_variables : (string * string prop) list;
       (** environment_variables *)
+  on_deploy_update_policy :
+    build_config__on_deploy_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** on_deploy_update_policy *)
   runtime : string prop;  (** runtime *)
+  service_account : string prop;  (** service_account *)
   source : build_config__source list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** source *)

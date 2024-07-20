@@ -189,6 +189,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type aws_lb = {
+  client_keep_alive : float prop option; [@option]
   customer_owned_ipv4_pool : string prop option; [@option]
   desync_mitigation_mode : string prop option; [@option]
   dns_record_client_routing_policy : string prop option; [@option]
@@ -231,6 +232,7 @@ let _ = fun (_ : aws_lb) -> ()
 let yojson_of_aws_lb =
   (function
    | {
+       client_keep_alive = v_client_keep_alive;
        customer_owned_ipv4_pool = v_customer_owned_ipv4_pool;
        desync_mitigation_mode = v_desync_mitigation_mode;
        dns_record_client_routing_policy =
@@ -519,6 +521,14 @@ let yojson_of_aws_lb =
              let bnd = "customer_owned_ipv4_pool", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_client_keep_alive with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "client_keep_alive", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : aws_lb -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -539,10 +549,11 @@ let subnet_mapping ?allocation_id ?ipv6_address ?private_ipv4_address
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
-    ?dns_record_client_routing_policy ?drop_invalid_header_fields
-    ?enable_cross_zone_load_balancing ?enable_deletion_protection
-    ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+let aws_lb ?client_keep_alive ?customer_owned_ipv4_pool
+    ?desync_mitigation_mode ?dns_record_client_routing_policy
+    ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
+    ?enable_deletion_protection ?enable_http2
+    ?enable_tls_version_and_cipher_suite_headers
     ?enable_waf_fail_open ?enable_xff_client_port
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
@@ -551,6 +562,7 @@ let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
     ?(access_logs = []) ?(connection_logs = []) ?timeouts
     ~subnet_mapping () : aws_lb =
   {
+    client_keep_alive;
     customer_owned_ipv4_pool;
     desync_mitigation_mode;
     dns_record_client_routing_policy;
@@ -585,6 +597,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
+  client_keep_alive : float prop;
   customer_owned_ipv4_pool : string prop;
   desync_mitigation_mode : string prop;
   dns_name : string prop;
@@ -615,10 +628,11 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
-    ?dns_record_client_routing_policy ?drop_invalid_header_fields
-    ?enable_cross_zone_load_balancing ?enable_deletion_protection
-    ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+let make ?client_keep_alive ?customer_owned_ipv4_pool
+    ?desync_mitigation_mode ?dns_record_client_routing_policy
+    ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
+    ?enable_deletion_protection ?enable_http2
+    ?enable_tls_version_and_cipher_suite_headers
     ?enable_waf_fail_open ?enable_xff_client_port
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
@@ -632,6 +646,8 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";
+       client_keep_alive =
+         Prop.computed __type __id "client_keep_alive";
        customer_owned_ipv4_pool =
          Prop.computed __type __id "customer_owned_ipv4_pool";
        desync_mitigation_mode =
@@ -682,8 +698,8 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
     type_ = __type;
     json =
       yojson_of_aws_lb
-        (aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
-           ?dns_record_client_routing_policy
+        (aws_lb ?client_keep_alive ?customer_owned_ipv4_pool
+           ?desync_mitigation_mode ?dns_record_client_routing_policy
            ?drop_invalid_header_fields
            ?enable_cross_zone_load_balancing
            ?enable_deletion_protection ?enable_http2
@@ -698,7 +714,7 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
     attrs = __attrs;
   }
 
-let register ?tf_module ?customer_owned_ipv4_pool
+let register ?tf_module ?client_keep_alive ?customer_owned_ipv4_pool
     ?desync_mitigation_mode ?dns_record_client_routing_policy
     ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
     ?enable_deletion_protection ?enable_http2
@@ -711,10 +727,11 @@ let register ?tf_module ?customer_owned_ipv4_pool
     ?(access_logs = []) ?(connection_logs = []) ?timeouts
     ~subnet_mapping __id =
   let (r : _ Tf_core.resource) =
-    make ?customer_owned_ipv4_pool ?desync_mitigation_mode
-      ?dns_record_client_routing_policy ?drop_invalid_header_fields
-      ?enable_cross_zone_load_balancing ?enable_deletion_protection
-      ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+    make ?client_keep_alive ?customer_owned_ipv4_pool
+      ?desync_mitigation_mode ?dns_record_client_routing_policy
+      ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
+      ?enable_deletion_protection ?enable_http2
+      ?enable_tls_version_and_cipher_suite_headers
       ?enable_waf_fail_open ?enable_xff_client_port
       ?enforce_security_group_inbound_rules_on_private_link_traffic
       ?id ?idle_timeout ?internal ?ip_address_type

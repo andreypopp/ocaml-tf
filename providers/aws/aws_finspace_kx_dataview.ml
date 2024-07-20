@@ -5,6 +5,7 @@ open! Tf_core
 type segment_configurations = {
   db_paths : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  on_demand : bool prop option; [@option]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -13,13 +14,25 @@ let _ = fun (_ : segment_configurations) -> ()
 
 let yojson_of_segment_configurations =
   (function
-   | { db_paths = v_db_paths; volume_name = v_volume_name } ->
+   | {
+       db_paths = v_db_paths;
+       on_demand = v_on_demand;
+       volume_name = v_volume_name;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_volume_name in
          ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         match v_on_demand with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "on_demand", arg in
+             bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_db_paths then bnds
@@ -94,6 +107,7 @@ type aws_finspace_kx_dataview = {
   environment_id : string prop;
   id : string prop option; [@option]
   name : string prop;
+  read_write : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   segment_configurations : segment_configurations list;
@@ -116,6 +130,7 @@ let yojson_of_aws_finspace_kx_dataview =
        environment_id = v_environment_id;
        id = v_id;
        name = v_name;
+       read_write = v_read_write;
        tags = v_tags;
        tags_all = v_tags_all;
        segment_configurations = v_segment_configurations;
@@ -168,6 +183,14 @@ let yojson_of_aws_finspace_kx_dataview =
                  v
              in
              let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_write", arg in
              bnd :: bnds
        in
        let bnds =
@@ -231,17 +254,18 @@ let _ = yojson_of_aws_finspace_kx_dataview
 
 [@@@deriving.end]
 
-let segment_configurations ~db_paths ~volume_name () :
+let segment_configurations ?on_demand ~db_paths ~volume_name () :
     segment_configurations =
-  { db_paths; volume_name }
+  { db_paths; on_demand; volume_name }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-    ?description ?id ?tags ?tags_all ?(segment_configurations = [])
-    ?timeouts ~auto_update ~az_mode ~database_name ~environment_id
-    ~name () : aws_finspace_kx_dataview =
+    ?description ?id ?read_write ?tags ?tags_all
+    ?(segment_configurations = []) ?timeouts ~auto_update ~az_mode
+    ~database_name ~environment_id ~name () :
+    aws_finspace_kx_dataview =
   {
     auto_update;
     availability_zone_id;
@@ -252,6 +276,7 @@ let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
     environment_id;
     id;
     name;
+    read_write;
     tags;
     tags_all;
     segment_configurations;
@@ -272,14 +297,16 @@ type t = {
   id : string prop;
   last_modified_timestamp : string prop;
   name : string prop;
+  read_write : bool prop;
   status : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
 }
 
-let make ?availability_zone_id ?changeset_id ?description ?id ?tags
-    ?tags_all ?(segment_configurations = []) ?timeouts ~auto_update
-    ~az_mode ~database_name ~environment_id ~name __id =
+let make ?availability_zone_id ?changeset_id ?description ?id
+    ?read_write ?tags ?tags_all ?(segment_configurations = [])
+    ?timeouts ~auto_update ~az_mode ~database_name ~environment_id
+    ~name __id =
   let __type = "aws_finspace_kx_dataview" in
   let __attrs =
     ({
@@ -299,6 +326,7 @@ let make ?availability_zone_id ?changeset_id ?description ?id ?tags
        last_modified_timestamp =
          Prop.computed __type __id "last_modified_timestamp";
        name = Prop.computed __type __id "name";
+       read_write = Prop.computed __type __id "read_write";
        status = Prop.computed __type __id "status";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";
@@ -311,20 +339,20 @@ let make ?availability_zone_id ?changeset_id ?description ?id ?tags
     json =
       yojson_of_aws_finspace_kx_dataview
         (aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-           ?description ?id ?tags ?tags_all ~segment_configurations
-           ?timeouts ~auto_update ~az_mode ~database_name
-           ~environment_id ~name ());
+           ?description ?id ?read_write ?tags ?tags_all
+           ~segment_configurations ?timeouts ~auto_update ~az_mode
+           ~database_name ~environment_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?availability_zone_id ?changeset_id
-    ?description ?id ?tags ?tags_all ?(segment_configurations = [])
-    ?timeouts ~auto_update ~az_mode ~database_name ~environment_id
-    ~name __id =
+    ?description ?id ?read_write ?tags ?tags_all
+    ?(segment_configurations = []) ?timeouts ~auto_update ~az_mode
+    ~database_name ~environment_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?availability_zone_id ?changeset_id ?description ?id ?tags
-      ?tags_all ~segment_configurations ?timeouts ~auto_update
-      ~az_mode ~database_name ~environment_id ~name __id
+    make ?availability_zone_id ?changeset_id ?description ?id
+      ?read_write ?tags ?tags_all ~segment_configurations ?timeouts
+      ~auto_update ~az_mode ~database_name ~environment_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

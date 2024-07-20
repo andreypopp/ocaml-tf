@@ -76,6 +76,28 @@ let _ = yojson_of_settings__mobile_redirect
 
 [@@@deriving.end]
 
+type settings__nel = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : settings__nel) -> ()
+
+let yojson_of_settings__nel =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : settings__nel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_settings__nel
+
+[@@@deriving.end]
+
 type settings__security_header = {
   enabled : bool prop option; [@option]
   include_subdomains : bool prop option; [@option]
@@ -204,6 +226,8 @@ type settings = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   mobile_redirect : settings__mobile_redirect list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  nel : settings__nel list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   security_header : settings__security_header list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -269,6 +293,7 @@ let yojson_of_settings =
        zero_rtt = v_zero_rtt;
        minify = v_minify;
        mobile_redirect = v_mobile_redirect;
+       nel = v_nel;
        security_header = v_security_header;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -282,6 +307,15 @@ let yojson_of_settings =
                v_security_header
            in
            let bnd = "security_header", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_nel then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__nel) v_nel
+           in
+           let bnd = "nel", arg in
            bnd :: bnds
        in
        let bnds =
@@ -789,6 +823,28 @@ let _ = yojson_of_initial_settings__security_header
 
 [@@@deriving.end]
 
+type initial_settings__nel = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : initial_settings__nel) -> ()
+
+let yojson_of_initial_settings__nel =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : initial_settings__nel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_initial_settings__nel
+
+[@@@deriving.end]
+
 type initial_settings__mobile_redirect = {
   mobile_subdomain : string prop;
   status : string prop;
@@ -897,6 +953,8 @@ type initial_settings = {
   mirage : string prop;
   mobile_redirect : initial_settings__mobile_redirect list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  nel : initial_settings__nel list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   opportunistic_encryption : string prop;
   opportunistic_onion : string prop;
   orange_to_orange : string prop;
@@ -962,6 +1020,7 @@ let yojson_of_initial_settings =
        minify = v_minify;
        mirage = v_mirage;
        mobile_redirect = v_mobile_redirect;
+       nel = v_nel;
        opportunistic_encryption = v_opportunistic_encryption;
        opportunistic_onion = v_opportunistic_onion;
        orange_to_orange = v_orange_to_orange;
@@ -1135,6 +1194,15 @@ let yojson_of_initial_settings =
            yojson_of_prop yojson_of_string v_opportunistic_encryption
          in
          ("opportunistic_encryption", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_nel then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_initial_settings__nel) v_nel
+           in
+           let bnd = "nel", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_mobile_redirect then bnds
@@ -1357,6 +1425,8 @@ let settings__mobile_redirect ~mobile_subdomain ~status ~strip_uri ()
     : settings__mobile_redirect =
   { mobile_subdomain; status; strip_uri }
 
+let settings__nel ~enabled () : settings__nel = { enabled }
+
 let settings__security_header ?enabled ?include_subdomains ?max_age
     ?nosniff ?preload () : settings__security_header =
   { enabled; include_subdomains; max_age; nosniff; preload }
@@ -1376,8 +1446,8 @@ let settings ?always_online ?always_use_https
     ?server_side_exclude ?sort_query_string_for_cache ?ssl
     ?tls_1_2_only ?tls_1_3 ?tls_client_auth ?true_client_ip_header
     ?universal_ssl ?visitor_ip ?waf ?webp ?websockets ?zero_rtt
-    ?(minify = []) ?(mobile_redirect = []) ?(security_header = []) ()
-    : settings =
+    ?(minify = []) ?(mobile_redirect = []) ?(nel = [])
+    ?(security_header = []) () : settings =
   {
     always_online;
     always_use_https;
@@ -1434,6 +1504,7 @@ let settings ?always_online ?always_use_https
     zero_rtt;
     minify;
     mobile_redirect;
+    nel;
     security_header;
   }
 

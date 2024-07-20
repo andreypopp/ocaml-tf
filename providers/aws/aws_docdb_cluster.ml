@@ -2,6 +2,65 @@
 
 open! Tf_core
 
+type restore_to_point_in_time = {
+  restore_to_time : string prop option; [@option]
+  restore_type : string prop option; [@option]
+  source_cluster_identifier : string prop;
+  use_latest_restorable_time : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restore_to_point_in_time) -> ()
+
+let yojson_of_restore_to_point_in_time =
+  (function
+   | {
+       restore_to_time = v_restore_to_time;
+       restore_type = v_restore_type;
+       source_cluster_identifier = v_source_cluster_identifier;
+       use_latest_restorable_time = v_use_latest_restorable_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_latest_restorable_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_latest_restorable_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_source_cluster_identifier
+         in
+         ("source_cluster_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_restore_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "restore_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_restore_to_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "restore_to_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_to_point_in_time -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restore_to_point_in_time
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -79,6 +138,8 @@ type aws_docdb_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
+  restore_to_point_in_time : restore_to_point_in_time list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -119,6 +180,7 @@ let yojson_of_aws_docdb_cluster =
        tags = v_tags;
        tags_all = v_tags_all;
        vpc_security_group_ids = v_vpc_security_group_ids;
+       restore_to_point_in_time = v_restore_to_point_in_time;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -127,6 +189,16 @@ let yojson_of_aws_docdb_cluster =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_restore_to_point_in_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_to_point_in_time)
+               v_restore_to_point_in_time
+           in
+           let bnd = "restore_to_point_in_time", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with
@@ -391,6 +463,16 @@ let _ = yojson_of_aws_docdb_cluster
 
 [@@@deriving.end]
 
+let restore_to_point_in_time ?restore_to_time ?restore_type
+    ?use_latest_restorable_time ~source_cluster_identifier () :
+    restore_to_point_in_time =
+  {
+    restore_to_time;
+    restore_type;
+    source_cluster_identifier;
+    use_latest_restorable_time;
+  }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
@@ -404,8 +486,9 @@ let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
     ?master_username ?port ?preferred_backup_window
     ?preferred_maintenance_window ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts () :
-    aws_docdb_cluster =
+    ?tags_all ?vpc_security_group_ids
+    ?(restore_to_point_in_time = []) ?timeouts () : aws_docdb_cluster
+    =
   {
     allow_major_version_upgrade;
     apply_immediately;
@@ -436,6 +519,7 @@ let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
     tags;
     tags_all;
     vpc_security_group_ids;
+    restore_to_point_in_time;
     timeouts;
   }
 
@@ -487,7 +571,8 @@ let make ?allow_major_version_upgrade ?apply_immediately
     ?master_username ?port ?preferred_backup_window
     ?preferred_maintenance_window ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts __id =
+    ?tags_all ?vpc_security_group_ids
+    ?(restore_to_point_in_time = []) ?timeouts __id =
   let __type = "aws_docdb_cluster" in
   let __attrs =
     ({
@@ -565,7 +650,8 @@ let make ?allow_major_version_upgrade ?apply_immediately
            ?preferred_backup_window ?preferred_maintenance_window
            ?skip_final_snapshot ?snapshot_identifier
            ?storage_encrypted ?storage_type ?tags ?tags_all
-           ?vpc_security_group_ids ?timeouts ());
+           ?vpc_security_group_ids ~restore_to_point_in_time
+           ?timeouts ());
     attrs = __attrs;
   }
 
@@ -579,7 +665,8 @@ let register ?tf_module ?allow_major_version_upgrade
     ?master_username ?port ?preferred_backup_window
     ?preferred_maintenance_window ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts __id =
+    ?tags_all ?vpc_security_group_ids
+    ?(restore_to_point_in_time = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?allow_major_version_upgrade ?apply_immediately
       ?availability_zones ?backup_retention_period
@@ -591,7 +678,8 @@ let register ?tf_module ?allow_major_version_upgrade
       ?master_username ?port ?preferred_backup_window
       ?preferred_maintenance_window ?skip_final_snapshot
       ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-      ?tags_all ?vpc_security_group_ids ?timeouts __id
+      ?tags_all ?vpc_security_group_ids ~restore_to_point_in_time
+      ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

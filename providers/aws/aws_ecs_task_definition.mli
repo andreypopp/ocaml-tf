@@ -95,6 +95,7 @@ val volume__fsx_windows_file_server_volume_configuration :
 type volume
 
 val volume :
+  ?configure_at_launch:bool prop ->
   ?host_path:string prop ->
   ?docker_volume_configuration:
     volume__docker_volume_configuration list ->

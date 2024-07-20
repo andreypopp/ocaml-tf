@@ -3,6 +3,7 @@
 open! Tf_core
 
 type google_dns_record_set = {
+  id : string prop option; [@option]
   managed_zone : string prop;
   name : string prop;
   project : string prop option; [@option]
@@ -15,6 +16,7 @@ let _ = fun (_ : google_dns_record_set) -> ()
 let yojson_of_google_dns_record_set =
   (function
    | {
+       id = v_id;
        managed_zone = v_managed_zone;
        name = v_name;
        project = v_project;
@@ -43,6 +45,14 @@ let yojson_of_google_dns_record_set =
          let arg = yojson_of_prop yojson_of_string v_managed_zone in
          ("managed_zone", arg) :: bnds
        in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_dns_record_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -50,9 +60,9 @@ let _ = yojson_of_google_dns_record_set
 
 [@@@deriving.end]
 
-let google_dns_record_set ?project ~managed_zone ~name ~type_ () :
-    google_dns_record_set =
-  { managed_zone; name; project; type_ }
+let google_dns_record_set ?id ?project ~managed_zone ~name ~type_ ()
+    : google_dns_record_set =
+  { id; managed_zone; name; project; type_ }
 
 type t = {
   tf_name : string;
@@ -65,7 +75,7 @@ type t = {
   type_ : string prop;
 }
 
-let make ?project ~managed_zone ~name ~type_ __id =
+let make ?id ?project ~managed_zone ~name ~type_ __id =
   let __type = "google_dns_record_set" in
   let __attrs =
     ({
@@ -85,13 +95,15 @@ let make ?project ~managed_zone ~name ~type_ __id =
     type_ = __type;
     json =
       yojson_of_google_dns_record_set
-        (google_dns_record_set ?project ~managed_zone ~name ~type_ ());
+        (google_dns_record_set ?id ?project ~managed_zone ~name
+           ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?project ~managed_zone ~name ~type_ __id =
+let register ?tf_module ?id ?project ~managed_zone ~name ~type_ __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?project ~managed_zone ~name ~type_ __id
+    make ?id ?project ~managed_zone ~name ~type_ __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

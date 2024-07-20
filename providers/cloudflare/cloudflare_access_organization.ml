@@ -117,7 +117,7 @@ type cloudflare_access_organization = {
   auto_redirect_to_identity : bool prop option; [@option]
   id : string prop option; [@option]
   is_ui_read_only : bool prop option; [@option]
-  name : string prop option; [@option]
+  name : string prop;
   session_duration : string prop option; [@option]
   ui_read_only_toggle_reason : string prop option; [@option]
   user_seat_expiration_inactive_time : string prop option; [@option]
@@ -213,12 +213,8 @@ let yojson_of_cloudflare_access_organization =
              bnd :: bnds
        in
        let bnds =
-         match v_name with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "name", arg in
-             bnd :: bnds
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
        in
        let bnds =
          match v_is_ui_read_only with
@@ -287,11 +283,10 @@ let login_design ?background_color ?footer_text ?header_text
 
 let cloudflare_access_organization ?account_id
     ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
-    ?is_ui_read_only ?name ?session_duration
-    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
-    ?warp_auth_session_duration ?zone_id ?(custom_pages = [])
-    ?(login_design = []) ~auth_domain () :
-    cloudflare_access_organization =
+    ?is_ui_read_only ?session_duration ?ui_read_only_toggle_reason
+    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
+    ?zone_id ?(custom_pages = []) ?(login_design = []) ~auth_domain
+    ~name () : cloudflare_access_organization =
   {
     account_id;
     allow_authenticate_via_warp;
@@ -326,11 +321,10 @@ type t = {
 }
 
 let make ?account_id ?allow_authenticate_via_warp
-    ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
-    ?session_duration ?ui_read_only_toggle_reason
-    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ?zone_id ?(custom_pages = []) ?(login_design = []) ~auth_domain
-    __id =
+    ?auto_redirect_to_identity ?id ?is_ui_read_only ?session_duration
+    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
+    ?warp_auth_session_duration ?zone_id ?(custom_pages = [])
+    ?(login_design = []) ~auth_domain ~name __id =
   let __type = "cloudflare_access_organization" in
   let __attrs =
     ({
@@ -364,26 +358,25 @@ let make ?account_id ?allow_authenticate_via_warp
       yojson_of_cloudflare_access_organization
         (cloudflare_access_organization ?account_id
            ?allow_authenticate_via_warp ?auto_redirect_to_identity
-           ?id ?is_ui_read_only ?name ?session_duration
+           ?id ?is_ui_read_only ?session_duration
            ?ui_read_only_toggle_reason
            ?user_seat_expiration_inactive_time
            ?warp_auth_session_duration ?zone_id ~custom_pages
-           ~login_design ~auth_domain ());
+           ~login_design ~auth_domain ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?allow_authenticate_via_warp
-    ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
-    ?session_duration ?ui_read_only_toggle_reason
-    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ?zone_id ?(custom_pages = []) ?(login_design = []) ~auth_domain
-    __id =
+    ?auto_redirect_to_identity ?id ?is_ui_read_only ?session_duration
+    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
+    ?warp_auth_session_duration ?zone_id ?(custom_pages = [])
+    ?(login_design = []) ~auth_domain ~name __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?allow_authenticate_via_warp
-      ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
+      ?auto_redirect_to_identity ?id ?is_ui_read_only
       ?session_duration ?ui_read_only_toggle_reason
       ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-      ?zone_id ~custom_pages ~login_design ~auth_domain __id
+      ?zone_id ~custom_pages ~login_design ~auth_domain ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

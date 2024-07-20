@@ -38,6 +38,7 @@ let _ = yojson_of_email_integration
 type filters = {
   actions : string prop list option; [@option]
   affected_components : string prop list option; [@option]
+  airport_code : string prop list option; [@option]
   alert_trigger_preferences : string prop list option; [@option]
   enabled : string prop list option; [@option]
   environment : string prop list option; [@option]
@@ -63,8 +64,10 @@ type filters = {
   slo : string prop list option; [@option]
   status : string prop list option; [@option]
   target_hostname : string prop list option; [@option]
+  target_ip : string prop list option; [@option]
   target_zone_name : string prop list option; [@option]
   tunnel_id : string prop list option; [@option]
+  tunnel_name : string prop list option; [@option]
   where : string prop list option; [@option]
   zones : string prop list option; [@option]
 }
@@ -77,6 +80,7 @@ let yojson_of_filters =
    | {
        actions = v_actions;
        affected_components = v_affected_components;
+       airport_code = v_airport_code;
        alert_trigger_preferences = v_alert_trigger_preferences;
        enabled = v_enabled;
        environment = v_environment;
@@ -102,8 +106,10 @@ let yojson_of_filters =
        slo = v_slo;
        status = v_status;
        target_hostname = v_target_hostname;
+       target_ip = v_target_ip;
        target_zone_name = v_target_zone_name;
        tunnel_id = v_tunnel_id;
+       tunnel_name = v_tunnel_name;
        where = v_where;
        zones = v_zones;
      } ->
@@ -131,6 +137,16 @@ let yojson_of_filters =
              bnd :: bnds
        in
        let bnds =
+         match v_tunnel_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tunnel_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_tunnel_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -148,6 +164,16 @@ let yojson_of_filters =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "target_zone_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_ip", arg in
              bnd :: bnds
        in
        let bnds =
@@ -401,6 +427,16 @@ let yojson_of_filters =
              bnd :: bnds
        in
        let bnds =
+         match v_airport_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "airport_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_affected_components with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -609,16 +645,18 @@ let _ = yojson_of_cloudflare_notification_policy
 
 let email_integration ?name ~id () : email_integration = { id; name }
 
-let filters ?actions ?affected_components ?alert_trigger_preferences
-    ?enabled ?environment ?event ?event_source ?event_type ?group_by
-    ?health_check_id ?incident_impact ?input_id ?limit
-    ?megabits_per_second ?new_health ?new_status ?packets_per_second
-    ?pool_id ?product ?project_id ?protocol ?requests_per_second
-    ?selectors ?services ?slo ?status ?target_hostname
-    ?target_zone_name ?tunnel_id ?where ?zones () : filters =
+let filters ?actions ?affected_components ?airport_code
+    ?alert_trigger_preferences ?enabled ?environment ?event
+    ?event_source ?event_type ?group_by ?health_check_id
+    ?incident_impact ?input_id ?limit ?megabits_per_second
+    ?new_health ?new_status ?packets_per_second ?pool_id ?product
+    ?project_id ?protocol ?requests_per_second ?selectors ?services
+    ?slo ?status ?target_hostname ?target_ip ?target_zone_name
+    ?tunnel_id ?tunnel_name ?where ?zones () : filters =
   {
     actions;
     affected_components;
+    airport_code;
     alert_trigger_preferences;
     enabled;
     environment;
@@ -644,8 +682,10 @@ let filters ?actions ?affected_components ?alert_trigger_preferences
     slo;
     status;
     target_hostname;
+    target_ip;
     target_zone_name;
     tunnel_id;
+    tunnel_name;
     where;
     zones;
   }

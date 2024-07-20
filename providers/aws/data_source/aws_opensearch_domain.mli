@@ -168,6 +168,7 @@ type t = private {
   endpoint : string prop;
   engine_version : string prop;
   id : string prop;
+  ip_address_type : string prop;
   kibana_endpoint : string prop;
   log_publishing_options : log_publishing_options list prop;
   node_to_node_encryption : node_to_node_encryption list prop;

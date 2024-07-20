@@ -130,6 +130,7 @@ type azurerm_automation_powershell72_module = {
   automation_account_id : string prop;
   id : string prop option; [@option]
   name : string prop;
+  tags : (string * string prop) list option; [@option]
   module_link : module_link list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -144,6 +145,7 @@ let yojson_of_azurerm_automation_powershell72_module =
        automation_account_id = v_automation_account_id;
        id = v_id;
        name = v_name;
+       tags = v_tags;
        module_link = v_module_link;
        timeouts = v_timeouts;
      } ->
@@ -162,6 +164,22 @@ let yojson_of_azurerm_automation_powershell72_module =
            in
            let bnd = "module_link", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -197,20 +215,21 @@ let module_link ?(hash = []) ~uri () : module_link = { uri; hash }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_automation_powershell72_module ?id ?timeouts
+let azurerm_automation_powershell72_module ?id ?tags ?timeouts
     ~automation_account_id ~name ~module_link () :
     azurerm_automation_powershell72_module =
-  { automation_account_id; id; name; module_link; timeouts }
+  { automation_account_id; id; name; tags; module_link; timeouts }
 
 type t = {
   tf_name : string;
   automation_account_id : string prop;
   id : string prop;
   name : string prop;
+  tags : (string * string) list prop;
 }
 
-let make ?id ?timeouts ~automation_account_id ~name ~module_link __id
-    =
+let make ?id ?tags ?timeouts ~automation_account_id ~name
+    ~module_link __id =
   let __type = "azurerm_automation_powershell72_module" in
   let __attrs =
     ({
@@ -219,6 +238,7 @@ let make ?id ?timeouts ~automation_account_id ~name ~module_link __id
          Prop.computed __type __id "automation_account_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
@@ -227,15 +247,16 @@ let make ?id ?timeouts ~automation_account_id ~name ~module_link __id
     type_ = __type;
     json =
       yojson_of_azurerm_automation_powershell72_module
-        (azurerm_automation_powershell72_module ?id ?timeouts
+        (azurerm_automation_powershell72_module ?id ?tags ?timeouts
            ~automation_account_id ~name ~module_link ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~automation_account_id ~name
-    ~module_link __id =
+let register ?tf_module ?id ?tags ?timeouts ~automation_account_id
+    ~name ~module_link __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~automation_account_id ~name ~module_link __id
+    make ?id ?tags ?timeouts ~automation_account_id ~name
+      ~module_link __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -48,6 +48,7 @@ type t = private {
   access_logs : access_logs list prop;
   arn : string prop;
   arn_suffix : string prop;
+  client_keep_alive : float prop;
   connection_logs : connection_logs list prop;
   customer_owned_ipv4_pool : string prop;
   desync_mitigation_mode : string prop;

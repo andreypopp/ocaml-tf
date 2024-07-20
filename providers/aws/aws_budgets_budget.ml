@@ -354,6 +354,8 @@ type aws_budgets_budget = {
   limit_unit : string prop option; [@option]
   name : string prop option; [@option]
   name_prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
+  tags_all : (string * string prop) list option; [@option]
   time_period_end : string prop option; [@option]
   time_period_start : string prop option; [@option]
   time_unit : string prop;
@@ -382,6 +384,8 @@ let yojson_of_aws_budgets_budget =
        limit_unit = v_limit_unit;
        name = v_name;
        name_prefix = v_name_prefix;
+       tags = v_tags;
+       tags_all = v_tags_all;
        time_period_end = v_time_period_end;
        time_period_start = v_time_period_start;
        time_unit = v_time_unit;
@@ -458,6 +462,38 @@ let yojson_of_aws_budgets_budget =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "time_period_end", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
              bnd :: bnds
        in
        let bnds =
@@ -563,10 +599,10 @@ let planned_limit ~amount ~start_time ~unit () : planned_limit =
   { amount; start_time; unit }
 
 let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
-    ?name ?name_prefix ?time_period_end ?time_period_start
-    ?(auto_adjust_data = []) ?(cost_types = []) ~budget_type
-    ~time_unit ~cost_filter ~notification ~planned_limit () :
-    aws_budgets_budget =
+    ?name ?name_prefix ?tags ?tags_all ?time_period_end
+    ?time_period_start ?(auto_adjust_data = []) ?(cost_types = [])
+    ~budget_type ~time_unit ~cost_filter ~notification ~planned_limit
+    () : aws_budgets_budget =
   {
     account_id;
     budget_type;
@@ -575,6 +611,8 @@ let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
     limit_unit;
     name;
     name_prefix;
+    tags;
+    tags_all;
     time_period_end;
     time_period_start;
     time_unit;
@@ -595,15 +633,17 @@ type t = {
   limit_unit : string prop;
   name : string prop;
   name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   time_period_end : string prop;
   time_period_start : string prop;
   time_unit : string prop;
 }
 
 let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
-    ?time_period_end ?time_period_start ?(auto_adjust_data = [])
-    ?(cost_types = []) ~budget_type ~time_unit ~cost_filter
-    ~notification ~planned_limit __id =
+    ?tags ?tags_all ?time_period_end ?time_period_start
+    ?(auto_adjust_data = []) ?(cost_types = []) ~budget_type
+    ~time_unit ~cost_filter ~notification ~planned_limit __id =
   let __type = "aws_budgets_budget" in
   let __attrs =
     ({
@@ -616,6 +656,8 @@ let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
        limit_unit = Prop.computed __type __id "limit_unit";
        name = Prop.computed __type __id "name";
        name_prefix = Prop.computed __type __id "name_prefix";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        time_period_end = Prop.computed __type __id "time_period_end";
        time_period_start =
          Prop.computed __type __id "time_period_start";
@@ -629,21 +671,23 @@ let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
     json =
       yojson_of_aws_budgets_budget
         (aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
-           ?name ?name_prefix ?time_period_end ?time_period_start
-           ~auto_adjust_data ~cost_types ~budget_type ~time_unit
-           ~cost_filter ~notification ~planned_limit ());
+           ?name ?name_prefix ?tags ?tags_all ?time_period_end
+           ?time_period_start ~auto_adjust_data ~cost_types
+           ~budget_type ~time_unit ~cost_filter ~notification
+           ~planned_limit ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?id ?limit_amount ?limit_unit
-    ?name ?name_prefix ?time_period_end ?time_period_start
-    ?(auto_adjust_data = []) ?(cost_types = []) ~budget_type
-    ~time_unit ~cost_filter ~notification ~planned_limit __id =
+    ?name ?name_prefix ?tags ?tags_all ?time_period_end
+    ?time_period_start ?(auto_adjust_data = []) ?(cost_types = [])
+    ~budget_type ~time_unit ~cost_filter ~notification ~planned_limit
+    __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
-      ?time_period_end ?time_period_start ~auto_adjust_data
-      ~cost_types ~budget_type ~time_unit ~cost_filter ~notification
-      ~planned_limit __id
+      ?tags ?tags_all ?time_period_end ?time_period_start
+      ~auto_adjust_data ~cost_types ~budget_type ~time_unit
+      ~cost_filter ~notification ~planned_limit __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

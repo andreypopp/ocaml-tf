@@ -32,12 +32,16 @@ let _ = yojson_of_cognito_config
 [@@@deriving.end]
 
 type oidc_config = {
+  authentication_request_extra_params :
+    (string * string prop) list option;
+      [@option]
   authorization_endpoint : string prop;
   client_id : string prop;
   client_secret : string prop;
   issuer : string prop;
   jwks_uri : string prop;
   logout_endpoint : string prop;
+  scope : string prop option; [@option]
   token_endpoint : string prop;
   user_info_endpoint : string prop;
 }
@@ -48,12 +52,15 @@ let _ = fun (_ : oidc_config) -> ()
 let yojson_of_oidc_config =
   (function
    | {
+       authentication_request_extra_params =
+         v_authentication_request_extra_params;
        authorization_endpoint = v_authorization_endpoint;
        client_id = v_client_id;
        client_secret = v_client_secret;
        issuer = v_issuer;
        jwks_uri = v_jwks_uri;
        logout_endpoint = v_logout_endpoint;
+       scope = v_scope;
        token_endpoint = v_token_endpoint;
        user_info_endpoint = v_user_info_endpoint;
      } ->
@@ -71,6 +78,14 @@ let yojson_of_oidc_config =
            yojson_of_prop yojson_of_string v_token_endpoint
          in
          ("token_endpoint", arg) :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -99,6 +114,22 @@ let yojson_of_oidc_config =
            yojson_of_prop yojson_of_string v_authorization_endpoint
          in
          ("authorization_endpoint", arg) :: bnds
+       in
+       let bnds =
+         match v_authentication_request_extra_params with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "authentication_request_extra_params", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : oidc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -284,16 +315,19 @@ let _ = yojson_of_aws_sagemaker_workforce
 let cognito_config ~client_id ~user_pool () : cognito_config =
   { client_id; user_pool }
 
-let oidc_config ~authorization_endpoint ~client_id ~client_secret
-    ~issuer ~jwks_uri ~logout_endpoint ~token_endpoint
-    ~user_info_endpoint () : oidc_config =
+let oidc_config ?authentication_request_extra_params ?scope
+    ~authorization_endpoint ~client_id ~client_secret ~issuer
+    ~jwks_uri ~logout_endpoint ~token_endpoint ~user_info_endpoint ()
+    : oidc_config =
   {
+    authentication_request_extra_params;
     authorization_endpoint;
     client_id;
     client_secret;
     issuer;
     jwks_uri;
     logout_endpoint;
+    scope;
     token_endpoint;
     user_info_endpoint;
   }

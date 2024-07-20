@@ -70,6 +70,7 @@ val aws_db_instance :
   ?customer_owned_ip_enabled:bool prop ->
   ?db_name:string prop ->
   ?db_subnet_group_name:string prop ->
+  ?dedicated_log_volume:bool prop ->
   ?delete_automated_backups:bool prop ->
   ?deletion_protection:bool prop ->
   ?domain:string prop ->
@@ -80,6 +81,7 @@ val aws_db_instance :
   ?domain_ou:string prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
   ?iam_database_authentication_enabled:bool prop ->
@@ -149,6 +151,7 @@ type t = private {
   customer_owned_ip_enabled : bool prop;
   db_name : string prop;
   db_subnet_group_name : string prop;
+  dedicated_log_volume : bool prop;
   delete_automated_backups : bool prop;
   deletion_protection : bool prop;
   domain : string prop;
@@ -160,6 +163,7 @@ type t = private {
   enabled_cloudwatch_logs_exports : string list prop;
   endpoint : string prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
   final_snapshot_identifier : string prop;
@@ -226,6 +230,7 @@ val register :
   ?customer_owned_ip_enabled:bool prop ->
   ?db_name:string prop ->
   ?db_subnet_group_name:string prop ->
+  ?dedicated_log_volume:bool prop ->
   ?delete_automated_backups:bool prop ->
   ?deletion_protection:bool prop ->
   ?domain:string prop ->
@@ -236,6 +241,7 @@ val register :
   ?domain_ou:string prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
   ?iam_database_authentication_enabled:bool prop ->
@@ -298,6 +304,7 @@ val make :
   ?customer_owned_ip_enabled:bool prop ->
   ?db_name:string prop ->
   ?db_subnet_group_name:string prop ->
+  ?dedicated_log_volume:bool prop ->
   ?delete_automated_backups:bool prop ->
   ?deletion_protection:bool prop ->
   ?domain:string prop ->
@@ -308,6 +315,7 @@ val make :
   ?domain_ou:string prop ->
   ?enabled_cloudwatch_logs_exports:string prop list ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?final_snapshot_identifier:string prop ->
   ?iam_database_authentication_enabled:bool prop ->

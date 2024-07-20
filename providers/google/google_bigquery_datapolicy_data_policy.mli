@@ -7,7 +7,10 @@ open! Tf_core
 type data_masking_policy
 
 val data_masking_policy :
-  predefined_expression:string prop -> unit -> data_masking_policy
+  ?predefined_expression:string prop ->
+  ?routine:string prop ->
+  unit ->
+  data_masking_policy
 
 type timeouts
 

@@ -140,6 +140,37 @@ let _ = yojson_of_protocol_details
 
 [@@@deriving.end]
 
+type s3_storage_options = {
+  directory_listing_optimization : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : s3_storage_options) -> ()
+
+let yojson_of_s3_storage_options =
+  (function
+   | {
+       directory_listing_optimization =
+         v_directory_listing_optimization;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_directory_listing_optimization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "directory_listing_optimization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : s3_storage_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_s3_storage_options
+
+[@@@deriving.end]
+
 type workflow_details__on_partial_upload = {
   execution_role : string prop;
   workflow_id : string prop;
@@ -273,6 +304,7 @@ type aws_transfer_server = {
   pre_authentication_login_banner : string prop option; [@option]
   protocols : string prop list option; [@option]
   security_policy_name : string prop option; [@option]
+  sftp_authentication_methods : string prop option; [@option]
   structured_log_destinations : string prop list option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
@@ -280,6 +312,8 @@ type aws_transfer_server = {
   endpoint_details : endpoint_details list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   protocol_details : protocol_details list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  s3_storage_options : s3_storage_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   workflow_details : workflow_details list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -308,12 +342,14 @@ let yojson_of_aws_transfer_server =
          v_pre_authentication_login_banner;
        protocols = v_protocols;
        security_policy_name = v_security_policy_name;
+       sftp_authentication_methods = v_sftp_authentication_methods;
        structured_log_destinations = v_structured_log_destinations;
        tags = v_tags;
        tags_all = v_tags_all;
        url = v_url;
        endpoint_details = v_endpoint_details;
        protocol_details = v_protocol_details;
+       s3_storage_options = v_s3_storage_options;
        workflow_details = v_workflow_details;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -327,6 +363,16 @@ let yojson_of_aws_transfer_server =
                v_workflow_details
            in
            let bnd = "workflow_details", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_s3_storage_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_storage_options)
+               v_s3_storage_options
+           in
+           let bnd = "s3_storage_options", arg in
            bnd :: bnds
        in
        let bnds =
@@ -397,6 +443,14 @@ let yojson_of_aws_transfer_server =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "structured_log_destinations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sftp_authentication_methods with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sftp_authentication_methods", arg in
              bnd :: bnds
        in
        let bnds =
@@ -547,6 +601,10 @@ let protocol_details ?as2_transports ?passive_ip ?set_stat_option
     tls_session_resumption_mode;
   }
 
+let s3_storage_options ?directory_listing_optimization () :
+    s3_storage_options =
+  { directory_listing_optimization }
+
 let workflow_details__on_partial_upload ~execution_role ~workflow_id
     () : workflow_details__on_partial_upload =
   { execution_role; workflow_id }
@@ -564,9 +622,10 @@ let aws_transfer_server ?certificate ?directory_id ?domain
     ?identity_provider_type ?invocation_role ?logging_role
     ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
-    ?structured_log_destinations ?tags ?tags_all ?url
-    ?(endpoint_details = []) ?(protocol_details = [])
-    ?(workflow_details = []) () : aws_transfer_server =
+    ?sftp_authentication_methods ?structured_log_destinations ?tags
+    ?tags_all ?url ?(endpoint_details = []) ?(protocol_details = [])
+    ?(s3_storage_options = []) ?(workflow_details = []) () :
+    aws_transfer_server =
   {
     certificate;
     directory_id;
@@ -583,12 +642,14 @@ let aws_transfer_server ?certificate ?directory_id ?domain
     pre_authentication_login_banner;
     protocols;
     security_policy_name;
+    sftp_authentication_methods;
     structured_log_destinations;
     tags;
     tags_all;
     url;
     endpoint_details;
     protocol_details;
+    s3_storage_options;
     workflow_details;
   }
 
@@ -612,6 +673,7 @@ type t = {
   pre_authentication_login_banner : string prop;
   protocols : string list prop;
   security_policy_name : string prop;
+  sftp_authentication_methods : string prop;
   structured_log_destinations : string list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -622,9 +684,9 @@ let make ?certificate ?directory_id ?domain ?endpoint_type
     ?force_destroy ?function_ ?host_key ?id ?identity_provider_type
     ?invocation_role ?logging_role ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
-    ?structured_log_destinations ?tags ?tags_all ?url
-    ?(endpoint_details = []) ?(protocol_details = [])
-    ?(workflow_details = []) __id =
+    ?sftp_authentication_methods ?structured_log_destinations ?tags
+    ?tags_all ?url ?(endpoint_details = []) ?(protocol_details = [])
+    ?(s3_storage_options = []) ?(workflow_details = []) __id =
   let __type = "aws_transfer_server" in
   let __attrs =
     ({
@@ -652,6 +714,8 @@ let make ?certificate ?directory_id ?domain ?endpoint_type
        protocols = Prop.computed __type __id "protocols";
        security_policy_name =
          Prop.computed __type __id "security_policy_name";
+       sftp_authentication_methods =
+         Prop.computed __type __id "sftp_authentication_methods";
        structured_log_destinations =
          Prop.computed __type __id "structured_log_destinations";
        tags = Prop.computed __type __id "tags";
@@ -670,8 +734,9 @@ let make ?certificate ?directory_id ?domain ?endpoint_type
            ?identity_provider_type ?invocation_role ?logging_role
            ?post_authentication_login_banner
            ?pre_authentication_login_banner ?protocols
-           ?security_policy_name ?structured_log_destinations ?tags
-           ?tags_all ?url ~endpoint_details ~protocol_details
+           ?security_policy_name ?sftp_authentication_methods
+           ?structured_log_destinations ?tags ?tags_all ?url
+           ~endpoint_details ~protocol_details ~s3_storage_options
            ~workflow_details ());
     attrs = __attrs;
   }
@@ -681,17 +746,18 @@ let register ?tf_module ?certificate ?directory_id ?domain
     ?identity_provider_type ?invocation_role ?logging_role
     ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
-    ?structured_log_destinations ?tags ?tags_all ?url
-    ?(endpoint_details = []) ?(protocol_details = [])
-    ?(workflow_details = []) __id =
+    ?sftp_authentication_methods ?structured_log_destinations ?tags
+    ?tags_all ?url ?(endpoint_details = []) ?(protocol_details = [])
+    ?(s3_storage_options = []) ?(workflow_details = []) __id =
   let (r : _ Tf_core.resource) =
     make ?certificate ?directory_id ?domain ?endpoint_type
       ?force_destroy ?function_ ?host_key ?id ?identity_provider_type
       ?invocation_role ?logging_role
       ?post_authentication_login_banner
       ?pre_authentication_login_banner ?protocols
-      ?security_policy_name ?structured_log_destinations ?tags
-      ?tags_all ?url ~endpoint_details ~protocol_details
+      ?security_policy_name ?sftp_authentication_methods
+      ?structured_log_destinations ?tags ?tags_all ?url
+      ~endpoint_details ~protocol_details ~s3_storage_options
       ~workflow_details __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

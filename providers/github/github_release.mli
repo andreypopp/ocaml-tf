@@ -26,17 +26,27 @@ val yojson_of_github_release : github_release -> json
 
 type t = private {
   tf_name : string;
+  assets_url : string prop;
   body : string prop;
+  created_at : string prop;
   discussion_category_name : string prop;
   draft : bool prop;
   etag : string prop;
   generate_release_notes : bool prop;
+  html_url : string prop;
   id : string prop;
   name : string prop;
+  node_id : string prop;
   prerelease : bool prop;
+  published_at : string prop;
+  release_id : float prop;
   repository : string prop;
   tag_name : string prop;
+  tarball_url : string prop;
   target_commitish : string prop;
+  upload_url : string prop;
+  url : string prop;
+  zipball_url : string prop;
 }
 
 val register :

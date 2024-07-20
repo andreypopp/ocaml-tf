@@ -122,6 +122,33 @@ type initial_user
 val initial_user :
   ?user:string prop -> password:string prop -> unit -> initial_user
 
+type maintenance_update_policy__maintenance_windows__start_time
+
+val maintenance_update_policy__maintenance_windows__start_time :
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  hours:float prop ->
+  unit ->
+  maintenance_update_policy__maintenance_windows__start_time
+
+type maintenance_update_policy__maintenance_windows
+
+val maintenance_update_policy__maintenance_windows :
+  day:string prop ->
+  start_time:
+    maintenance_update_policy__maintenance_windows__start_time list ->
+  unit ->
+  maintenance_update_policy__maintenance_windows
+
+type maintenance_update_policy
+
+val maintenance_update_policy :
+  ?maintenance_windows:
+    maintenance_update_policy__maintenance_windows list ->
+  unit ->
+  maintenance_update_policy
+
 type network_config
 
 val network_config :
@@ -129,6 +156,10 @@ val network_config :
   ?network:string prop ->
   unit ->
   network_config
+
+type psc_config
+
+val psc_config : ?psc_enabled:bool prop -> unit -> psc_config
 
 type restore_backup_source
 
@@ -174,7 +205,9 @@ val google_alloydb_cluster :
   ?continuous_backup_config:continuous_backup_config list ->
   ?encryption_config:encryption_config list ->
   ?initial_user:initial_user list ->
+  ?maintenance_update_policy:maintenance_update_policy list ->
   ?network_config:network_config list ->
+  ?psc_config:psc_config list ->
   ?restore_backup_source:restore_backup_source list ->
   ?restore_continuous_backup_source:
     restore_continuous_backup_source list ->
@@ -232,7 +265,9 @@ val register :
   ?continuous_backup_config:continuous_backup_config list ->
   ?encryption_config:encryption_config list ->
   ?initial_user:initial_user list ->
+  ?maintenance_update_policy:maintenance_update_policy list ->
   ?network_config:network_config list ->
+  ?psc_config:psc_config list ->
   ?restore_backup_source:restore_backup_source list ->
   ?restore_continuous_backup_source:
     restore_continuous_backup_source list ->
@@ -258,7 +293,9 @@ val make :
   ?continuous_backup_config:continuous_backup_config list ->
   ?encryption_config:encryption_config list ->
   ?initial_user:initial_user list ->
+  ?maintenance_update_policy:maintenance_update_policy list ->
   ?network_config:network_config list ->
+  ?psc_config:psc_config list ->
   ?restore_backup_source:restore_backup_source list ->
   ?restore_continuous_backup_source:
     restore_continuous_backup_source list ->

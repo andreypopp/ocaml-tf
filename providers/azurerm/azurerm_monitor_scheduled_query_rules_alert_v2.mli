@@ -43,6 +43,14 @@ val criteria :
   unit ->
   criteria
 
+type identity
+
+val identity :
+  ?identity_ids:string prop list ->
+  type_:string prop ->
+  unit ->
+  identity
+
 type timeouts
 
 val timeouts :
@@ -69,6 +77,7 @@ val azurerm_monitor_scheduled_query_rules_alert_v2 :
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -125,6 +134,7 @@ val register :
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -150,6 +160,7 @@ val make :
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

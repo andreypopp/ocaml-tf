@@ -82,6 +82,7 @@ let aws_lambda_layer_version ?compatible_architecture
 type t = {
   tf_name : string;
   arn : string prop;
+  code_sha256 : string prop;
   compatible_architecture : string prop;
   compatible_architectures : string list prop;
   compatible_runtime : string prop;
@@ -106,6 +107,7 @@ let make ?compatible_architecture ?compatible_runtime ?id ?version
     ({
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
+       code_sha256 = Prop.computed __type __id "code_sha256";
        compatible_architecture =
          Prop.computed __type __id "compatible_architecture";
        compatible_architectures =

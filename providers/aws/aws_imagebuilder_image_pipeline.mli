@@ -38,6 +38,24 @@ val schedule :
   unit ->
   schedule
 
+type workflow__parameter
+
+val workflow__parameter :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  workflow__parameter
+
+type workflow
+
+val workflow :
+  ?on_failure:string prop ->
+  ?parallel_group:string prop ->
+  workflow_arn:string prop ->
+  parameter:workflow__parameter list ->
+  unit ->
+  workflow
+
 type aws_imagebuilder_image_pipeline
 
 val aws_imagebuilder_image_pipeline :
@@ -45,6 +63,7 @@ val aws_imagebuilder_image_pipeline :
   ?description:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?status:string prop ->
@@ -53,6 +72,7 @@ val aws_imagebuilder_image_pipeline :
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?schedule:schedule list ->
+  ?workflow:workflow list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
   unit ->
@@ -74,6 +94,7 @@ type t = private {
   description : string prop;
   distribution_configuration_arn : string prop;
   enhanced_image_metadata_enabled : bool prop;
+  execution_role : string prop;
   id : string prop;
   image_recipe_arn : string prop;
   infrastructure_configuration_arn : string prop;
@@ -90,6 +111,7 @@ val register :
   ?description:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?status:string prop ->
@@ -98,6 +120,7 @@ val register :
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?schedule:schedule list ->
+  ?workflow:workflow list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
   string ->
@@ -108,6 +131,7 @@ val make :
   ?description:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?status:string prop ->
@@ -116,6 +140,7 @@ val make :
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?schedule:schedule list ->
+  ?workflow:workflow list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
   string ->

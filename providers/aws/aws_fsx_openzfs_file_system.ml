@@ -300,8 +300,10 @@ type aws_fsx_openzfs_file_system = {
   copy_tags_to_backups : bool prop option; [@option]
   copy_tags_to_volumes : bool prop option; [@option]
   daily_automatic_backup_start_time : string prop option; [@option]
+  delete_options : string prop list option; [@option]
   deployment_type : string prop;
   endpoint_ip_address_range : string prop option; [@option]
+  final_backup_tags : (string * string prop) list option; [@option]
   id : string prop option; [@option]
   kms_key_id : string prop option; [@option]
   preferred_subnet_id : string prop option; [@option]
@@ -336,8 +338,10 @@ let yojson_of_aws_fsx_openzfs_file_system =
        copy_tags_to_volumes = v_copy_tags_to_volumes;
        daily_automatic_backup_start_time =
          v_daily_automatic_backup_start_time;
+       delete_options = v_delete_options;
        deployment_type = v_deployment_type;
        endpoint_ip_address_range = v_endpoint_ip_address_range;
+       final_backup_tags = v_final_backup_tags;
        id = v_id;
        kms_key_id = v_kms_key_id;
        preferred_subnet_id = v_preferred_subnet_id;
@@ -508,6 +512,22 @@ let yojson_of_aws_fsx_openzfs_file_system =
              bnd :: bnds
        in
        let bnds =
+         match v_final_backup_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "final_backup_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_endpoint_ip_address_range with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -520,6 +540,16 @@ let yojson_of_aws_fsx_openzfs_file_system =
            yojson_of_prop yojson_of_string v_deployment_type
          in
          ("deployment_type", arg) :: bnds
+       in
+       let bnds =
+         match v_delete_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "delete_options", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_daily_automatic_backup_start_time with
@@ -605,10 +635,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
     ?backup_id ?copy_tags_to_backups ?copy_tags_to_volumes
-    ?daily_automatic_backup_start_time ?endpoint_ip_address_range ?id
-    ?kms_key_id ?preferred_subnet_id ?route_table_ids
-    ?security_group_ids ?skip_final_backup ?storage_capacity
-    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?delete_options
+    ?endpoint_ip_address_range ?final_backup_tags ?id ?kms_key_id
+    ?preferred_subnet_id ?route_table_ids ?security_group_ids
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
     ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
     ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity () :
     aws_fsx_openzfs_file_system =
@@ -618,8 +649,10 @@ let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
     copy_tags_to_backups;
     copy_tags_to_volumes;
     daily_automatic_backup_start_time;
+    delete_options;
     deployment_type;
     endpoint_ip_address_range;
+    final_backup_tags;
     id;
     kms_key_id;
     preferred_subnet_id;
@@ -646,9 +679,12 @@ type t = {
   copy_tags_to_backups : bool prop;
   copy_tags_to_volumes : bool prop;
   daily_automatic_backup_start_time : string prop;
+  delete_options : string list prop;
   deployment_type : string prop;
   dns_name : string prop;
+  endpoint_ip_address : string prop;
   endpoint_ip_address_range : string prop;
+  final_backup_tags : (string * string) list prop;
   id : string prop;
   kms_key_id : string prop;
   network_interface_ids : string list prop;
@@ -670,10 +706,11 @@ type t = {
 
 let make ?automatic_backup_retention_days ?backup_id
     ?copy_tags_to_backups ?copy_tags_to_volumes
-    ?daily_automatic_backup_start_time ?endpoint_ip_address_range ?id
-    ?kms_key_id ?preferred_subnet_id ?route_table_ids
-    ?security_group_ids ?skip_final_backup ?storage_capacity
-    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?delete_options
+    ?endpoint_ip_address_range ?final_backup_tags ?id ?kms_key_id
+    ?preferred_subnet_id ?route_table_ids ?security_group_ids
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
     ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
     ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity __id
     =
@@ -692,10 +729,15 @@ let make ?automatic_backup_retention_days ?backup_id
        daily_automatic_backup_start_time =
          Prop.computed __type __id
            "daily_automatic_backup_start_time";
+       delete_options = Prop.computed __type __id "delete_options";
        deployment_type = Prop.computed __type __id "deployment_type";
        dns_name = Prop.computed __type __id "dns_name";
+       endpoint_ip_address =
+         Prop.computed __type __id "endpoint_ip_address";
        endpoint_ip_address_range =
          Prop.computed __type __id "endpoint_ip_address_range";
+       final_backup_tags =
+         Prop.computed __type __id "final_backup_tags";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";
        network_interface_ids =
@@ -730,33 +772,35 @@ let make ?automatic_backup_retention_days ?backup_id
       yojson_of_aws_fsx_openzfs_file_system
         (aws_fsx_openzfs_file_system ?automatic_backup_retention_days
            ?backup_id ?copy_tags_to_backups ?copy_tags_to_volumes
-           ?daily_automatic_backup_start_time
-           ?endpoint_ip_address_range ?id ?kms_key_id
-           ?preferred_subnet_id ?route_table_ids ?security_group_ids
-           ?skip_final_backup ?storage_capacity ?storage_type ?tags
-           ?tags_all ?weekly_maintenance_start_time
-           ~disk_iops_configuration ~root_volume_configuration
-           ?timeouts ~deployment_type ~subnet_ids
-           ~throughput_capacity ());
+           ?daily_automatic_backup_start_time ?delete_options
+           ?endpoint_ip_address_range ?final_backup_tags ?id
+           ?kms_key_id ?preferred_subnet_id ?route_table_ids
+           ?security_group_ids ?skip_final_backup ?storage_capacity
+           ?storage_type ?tags ?tags_all
+           ?weekly_maintenance_start_time ~disk_iops_configuration
+           ~root_volume_configuration ?timeouts ~deployment_type
+           ~subnet_ids ~throughput_capacity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatic_backup_retention_days ?backup_id
     ?copy_tags_to_backups ?copy_tags_to_volumes
-    ?daily_automatic_backup_start_time ?endpoint_ip_address_range ?id
-    ?kms_key_id ?preferred_subnet_id ?route_table_ids
-    ?security_group_ids ?skip_final_backup ?storage_capacity
-    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+    ?daily_automatic_backup_start_time ?delete_options
+    ?endpoint_ip_address_range ?final_backup_tags ?id ?kms_key_id
+    ?preferred_subnet_id ?route_table_ids ?security_group_ids
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
     ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
     ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity __id
     =
   let (r : _ Tf_core.resource) =
     make ?automatic_backup_retention_days ?backup_id
       ?copy_tags_to_backups ?copy_tags_to_volumes
-      ?daily_automatic_backup_start_time ?endpoint_ip_address_range
-      ?id ?kms_key_id ?preferred_subnet_id ?route_table_ids
-      ?security_group_ids ?skip_final_backup ?storage_capacity
-      ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+      ?daily_automatic_backup_start_time ?delete_options
+      ?endpoint_ip_address_range ?final_backup_tags ?id ?kms_key_id
+      ?preferred_subnet_id ?route_table_ids ?security_group_ids
+      ?skip_final_backup ?storage_capacity ?storage_type ?tags
+      ?tags_all ?weekly_maintenance_start_time
       ~disk_iops_configuration ~root_volume_configuration ?timeouts
       ~deployment_type ~subnet_ids ~throughput_capacity __id
   in

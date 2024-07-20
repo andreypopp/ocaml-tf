@@ -4,6 +4,11 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type servers = {
+  fqdn : string prop;  (** fqdn *)
+  name : string prop;  (** name *)
+}
+
 type maintenance_window
 
 val maintenance_window :
@@ -80,6 +85,7 @@ type t = private {
   point_in_time_in_utc : string prop;
   preferred_primary_zone : string prop;
   resource_group_name : string prop;
+  servers : servers list prop;
   shards_on_coordinator_enabled : bool prop;
   source_location : string prop;
   source_resource_id : string prop;

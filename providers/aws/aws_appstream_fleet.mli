@@ -7,7 +7,10 @@ open! Tf_core
 type compute_capacity
 
 val compute_capacity :
-  desired_instances:float prop -> unit -> compute_capacity
+  ?desired_instances:float prop ->
+  ?desired_sessions:float prop ->
+  unit ->
+  compute_capacity
 
 type domain_join_info
 
@@ -38,6 +41,7 @@ val aws_appstream_fleet :
   ?idle_disconnect_timeout_in_seconds:float prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
+  ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->
@@ -69,6 +73,7 @@ type t = private {
   image_arn : string prop;
   image_name : string prop;
   instance_type : string prop;
+  max_sessions_per_instance : float prop;
   max_user_duration_in_seconds : float prop;
   name : string prop;
   state : string prop;
@@ -89,6 +94,7 @@ val register :
   ?idle_disconnect_timeout_in_seconds:float prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
+  ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->
@@ -112,6 +118,7 @@ val make :
   ?idle_disconnect_timeout_in_seconds:float prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
+  ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->

@@ -16,6 +16,7 @@ val timeouts :
 type google_netapp_active_directory
 
 val google_netapp_active_directory :
+  ?administrators:string prop list ->
   ?aes_encryption:bool prop ->
   ?backup_operators:string prop list ->
   ?description:string prop ->
@@ -48,6 +49,7 @@ val yojson_of_google_netapp_active_directory :
 
 type t = private {
   tf_name : string;
+  administrators : string list prop;
   aes_encryption : bool prop;
   backup_operators : string list prop;
   create_time : string prop;
@@ -78,6 +80,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?administrators:string prop list ->
   ?aes_encryption:bool prop ->
   ?backup_operators:string prop list ->
   ?description:string prop ->
@@ -104,6 +107,7 @@ val register :
   t
 
 val make :
+  ?administrators:string prop list ->
   ?aes_encryption:bool prop ->
   ?backup_operators:string prop list ->
   ?description:string prop ->

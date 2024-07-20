@@ -15,6 +15,7 @@ val google_compute_router_interface :
   ?id:string prop ->
   ?interconnect_attachment:string prop ->
   ?ip_range:string prop ->
+  ?ip_version:string prop ->
   ?private_ip_address:string prop ->
   ?project:string prop ->
   ?redundant_interface:string prop ->
@@ -37,6 +38,7 @@ type t = private {
   id : string prop;
   interconnect_attachment : string prop;
   ip_range : string prop;
+  ip_version : string prop;
   name : string prop;
   private_ip_address : string prop;
   project : string prop;
@@ -52,6 +54,7 @@ val register :
   ?id:string prop ->
   ?interconnect_attachment:string prop ->
   ?ip_range:string prop ->
+  ?ip_version:string prop ->
   ?private_ip_address:string prop ->
   ?project:string prop ->
   ?redundant_interface:string prop ->
@@ -68,6 +71,7 @@ val make :
   ?id:string prop ->
   ?interconnect_attachment:string prop ->
   ?ip_range:string prop ->
+  ?ip_version:string prop ->
   ?private_ip_address:string prop ->
   ?project:string prop ->
   ?redundant_interface:string prop ->

@@ -27,11 +27,13 @@ type t = private {
   tf_name : string;
   address_prefix : string prop;
   address_prefixes : string list prop;
+  default_outbound_access_enabled : bool prop;
   enforce_private_link_endpoint_network_policies : bool prop;
   enforce_private_link_service_network_policies : bool prop;
   id : string prop;
   name : string prop;
   network_security_group_id : string prop;
+  private_endpoint_network_policies : string prop;
   private_endpoint_network_policies_enabled : bool prop;
   private_link_service_network_policies_enabled : bool prop;
   resource_group_name : string prop;

@@ -43,6 +43,7 @@ type google_compute_router_interface = {
   id : string prop option; [@option]
   interconnect_attachment : string prop option; [@option]
   ip_range : string prop option; [@option]
+  ip_version : string prop option; [@option]
   name : string prop;
   private_ip_address : string prop option; [@option]
   project : string prop option; [@option]
@@ -63,6 +64,7 @@ let yojson_of_google_compute_router_interface =
        id = v_id;
        interconnect_attachment = v_interconnect_attachment;
        ip_range = v_ip_range;
+       ip_version = v_ip_version;
        name = v_name;
        private_ip_address = v_private_ip_address;
        project = v_project;
@@ -137,6 +139,14 @@ let yojson_of_google_compute_router_interface =
          ("name", arg) :: bnds
        in
        let bnds =
+         match v_ip_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_ip_range with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -171,13 +181,14 @@ let _ = yojson_of_google_compute_router_interface
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_router_interface ?id ?interconnect_attachment
-    ?ip_range ?private_ip_address ?project ?redundant_interface
-    ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router () :
-    google_compute_router_interface =
+    ?ip_range ?ip_version ?private_ip_address ?project
+    ?redundant_interface ?region ?subnetwork ?vpn_tunnel ?timeouts
+    ~name ~router () : google_compute_router_interface =
   {
     id;
     interconnect_attachment;
     ip_range;
+    ip_version;
     name;
     private_ip_address;
     project;
@@ -194,6 +205,7 @@ type t = {
   id : string prop;
   interconnect_attachment : string prop;
   ip_range : string prop;
+  ip_version : string prop;
   name : string prop;
   private_ip_address : string prop;
   project : string prop;
@@ -204,9 +216,9 @@ type t = {
   vpn_tunnel : string prop;
 }
 
-let make ?id ?interconnect_attachment ?ip_range ?private_ip_address
-    ?project ?redundant_interface ?region ?subnetwork ?vpn_tunnel
-    ?timeouts ~name ~router __id =
+let make ?id ?interconnect_attachment ?ip_range ?ip_version
+    ?private_ip_address ?project ?redundant_interface ?region
+    ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __id =
   let __type = "google_compute_router_interface" in
   let __attrs =
     ({
@@ -215,6 +227,7 @@ let make ?id ?interconnect_attachment ?ip_range ?private_ip_address
        interconnect_attachment =
          Prop.computed __type __id "interconnect_attachment";
        ip_range = Prop.computed __type __id "ip_range";
+       ip_version = Prop.computed __type __id "ip_version";
        name = Prop.computed __type __id "name";
        private_ip_address =
          Prop.computed __type __id "private_ip_address";
@@ -234,19 +247,19 @@ let make ?id ?interconnect_attachment ?ip_range ?private_ip_address
     json =
       yojson_of_google_compute_router_interface
         (google_compute_router_interface ?id ?interconnect_attachment
-           ?ip_range ?private_ip_address ?project
+           ?ip_range ?ip_version ?private_ip_address ?project
            ?redundant_interface ?region ?subnetwork ?vpn_tunnel
            ?timeouts ~name ~router ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?interconnect_attachment ?ip_range
-    ?private_ip_address ?project ?redundant_interface ?region
-    ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __id =
+    ?ip_version ?private_ip_address ?project ?redundant_interface
+    ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?interconnect_attachment ?ip_range ?private_ip_address
-      ?project ?redundant_interface ?region ?subnetwork ?vpn_tunnel
-      ?timeouts ~name ~router __id
+    make ?id ?interconnect_attachment ?ip_range ?ip_version
+      ?private_ip_address ?project ?redundant_interface ?region
+      ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -40,17 +40,69 @@ val backup_config :
   ?all_namespaces:bool prop ->
   ?include_secrets:bool prop ->
   ?include_volume_data:bool prop ->
+  ?permissive_mode:bool prop ->
   ?encryption_key:backup_config__encryption_key list ->
   ?selected_applications:backup_config__selected_applications list ->
   ?selected_namespaces:backup_config__selected_namespaces list ->
   unit ->
   backup_config
 
+type backup_schedule__rpo_config__exclusion_windows__days_of_week
+
+val backup_schedule__rpo_config__exclusion_windows__days_of_week :
+  ?days_of_week:string prop list ->
+  unit ->
+  backup_schedule__rpo_config__exclusion_windows__days_of_week
+
+type backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+
+val backup_schedule__rpo_config__exclusion_windows__single_occurrence_date :
+  ?day:float prop ->
+  ?month:float prop ->
+  ?year:float prop ->
+  unit ->
+  backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+
+type backup_schedule__rpo_config__exclusion_windows__start_time
+
+val backup_schedule__rpo_config__exclusion_windows__start_time :
+  ?hours:float prop ->
+  ?minutes:float prop ->
+  ?nanos:float prop ->
+  ?seconds:float prop ->
+  unit ->
+  backup_schedule__rpo_config__exclusion_windows__start_time
+
+type backup_schedule__rpo_config__exclusion_windows
+
+val backup_schedule__rpo_config__exclusion_windows :
+  ?daily:bool prop ->
+  ?days_of_week:
+    backup_schedule__rpo_config__exclusion_windows__days_of_week list ->
+  ?single_occurrence_date:
+    backup_schedule__rpo_config__exclusion_windows__single_occurrence_date
+    list ->
+  duration:string prop ->
+  start_time:
+    backup_schedule__rpo_config__exclusion_windows__start_time list ->
+  unit ->
+  backup_schedule__rpo_config__exclusion_windows
+
+type backup_schedule__rpo_config
+
+val backup_schedule__rpo_config :
+  ?exclusion_windows:
+    backup_schedule__rpo_config__exclusion_windows list ->
+  target_rpo_minutes:float prop ->
+  unit ->
+  backup_schedule__rpo_config
+
 type backup_schedule
 
 val backup_schedule :
   ?cron_schedule:string prop ->
   ?paused:bool prop ->
+  ?rpo_config:backup_schedule__rpo_config list ->
   unit ->
   backup_schedule
 

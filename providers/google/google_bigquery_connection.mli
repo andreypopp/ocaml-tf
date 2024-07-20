@@ -94,6 +94,7 @@ val google_bigquery_connection :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
+  ?kms_key_name:string prop ->
   ?location:string prop ->
   ?project:string prop ->
   ?aws:aws list ->
@@ -118,6 +119,7 @@ type t = private {
   friendly_name : string prop;
   has_credential : bool prop;
   id : string prop;
+  kms_key_name : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
@@ -129,6 +131,7 @@ val register :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
+  ?kms_key_name:string prop ->
   ?location:string prop ->
   ?project:string prop ->
   ?aws:aws list ->
@@ -146,6 +149,7 @@ val make :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
+  ?kms_key_name:string prop ->
   ?location:string prop ->
   ?project:string prop ->
   ?aws:aws list ->

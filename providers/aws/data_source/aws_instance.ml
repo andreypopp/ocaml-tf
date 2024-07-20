@@ -610,6 +610,7 @@ type t = {
   instance_type : string prop;
   ipv6_addresses : string list prop;
   key_name : string prop;
+  launch_time : string prop;
   maintenance_options : maintenance_options list prop;
   metadata_options : metadata_options list prop;
   monitoring : bool prop;
@@ -674,6 +675,7 @@ let make ?get_password_data ?get_user_data ?id ?instance_id
        instance_type = Prop.computed __type __id "instance_type";
        ipv6_addresses = Prop.computed __type __id "ipv6_addresses";
        key_name = Prop.computed __type __id "key_name";
+       launch_time = Prop.computed __type __id "launch_time";
        maintenance_options =
          Prop.computed __type __id "maintenance_options";
        metadata_options =

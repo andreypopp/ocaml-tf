@@ -123,6 +123,7 @@ type t = {
   access_tier : string prop;
   content_md5 : string prop;
   content_type : string prop;
+  encryption_scope : string prop;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;
@@ -141,6 +142,8 @@ let make ?id ?metadata ?timeouts ~name ~storage_account_name
        access_tier = Prop.computed __type __id "access_tier";
        content_md5 = Prop.computed __type __id "content_md5";
        content_type = Prop.computed __type __id "content_type";
+       encryption_scope =
+         Prop.computed __type __id "encryption_scope";
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";
        name = Prop.computed __type __id "name";

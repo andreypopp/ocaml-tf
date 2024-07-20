@@ -39,6 +39,43 @@ let _ = yojson_of_log_configuration
 
 [@@@deriving.end]
 
+type metadata_configuration = {
+  iops : float prop option; [@option]
+  mode : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata_configuration) -> ()
+
+let yojson_of_metadata_configuration =
+  (function
+   | { iops = v_iops; mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata_configuration
+
+[@@@deriving.end]
+
 type root_squash_configuration = {
   no_squash_nids : string prop list option; [@option]
   root_squash : string prop option; [@option]
@@ -138,12 +175,14 @@ type aws_fsx_lustre_file_system = {
   drive_cache_type : string prop option; [@option]
   export_path : string prop option; [@option]
   file_system_type_version : string prop option; [@option]
+  final_backup_tags : (string * string prop) list option; [@option]
   id : string prop option; [@option]
   import_path : string prop option; [@option]
   imported_file_chunk_size : float prop option; [@option]
   kms_key_id : string prop option; [@option]
   per_unit_storage_throughput : float prop option; [@option]
   security_group_ids : string prop list option; [@option]
+  skip_final_backup : bool prop option; [@option]
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
@@ -152,6 +191,8 @@ type aws_fsx_lustre_file_system = {
   tags_all : (string * string prop) list option; [@option]
   weekly_maintenance_start_time : string prop option; [@option]
   log_configuration : log_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  metadata_configuration : metadata_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   root_squash_configuration : root_squash_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -176,12 +217,14 @@ let yojson_of_aws_fsx_lustre_file_system =
        drive_cache_type = v_drive_cache_type;
        export_path = v_export_path;
        file_system_type_version = v_file_system_type_version;
+       final_backup_tags = v_final_backup_tags;
        id = v_id;
        import_path = v_import_path;
        imported_file_chunk_size = v_imported_file_chunk_size;
        kms_key_id = v_kms_key_id;
        per_unit_storage_throughput = v_per_unit_storage_throughput;
        security_group_ids = v_security_group_ids;
+       skip_final_backup = v_skip_final_backup;
        storage_capacity = v_storage_capacity;
        storage_type = v_storage_type;
        subnet_ids = v_subnet_ids;
@@ -190,6 +233,7 @@ let yojson_of_aws_fsx_lustre_file_system =
        weekly_maintenance_start_time =
          v_weekly_maintenance_start_time;
        log_configuration = v_log_configuration;
+       metadata_configuration = v_metadata_configuration;
        root_squash_configuration = v_root_squash_configuration;
        timeouts = v_timeouts;
      } ->
@@ -208,6 +252,16 @@ let yojson_of_aws_fsx_lustre_file_system =
                v_root_squash_configuration
            in
            let bnd = "root_squash_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_metadata_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata_configuration)
+               v_metadata_configuration
+           in
+           let bnd = "metadata_configuration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -287,6 +341,14 @@ let yojson_of_aws_fsx_lustre_file_system =
              bnd :: bnds
        in
        let bnds =
+         match v_skip_final_backup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_final_backup", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_security_group_ids with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -334,6 +396,22 @@ let yojson_of_aws_fsx_lustre_file_system =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_final_backup_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "final_backup_tags", arg in
              bnd :: bnds
        in
        let bnds =
@@ -426,6 +504,9 @@ let _ = yojson_of_aws_fsx_lustre_file_system
 let log_configuration ?destination ?level () : log_configuration =
   { destination; level }
 
+let metadata_configuration ?iops ?mode () : metadata_configuration =
+  { iops; mode }
+
 let root_squash_configuration ?no_squash_nids ?root_squash () :
     root_squash_configuration =
   { no_squash_nids; root_squash }
@@ -437,11 +518,12 @@ let aws_fsx_lustre_file_system ?auto_import_policy
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?data_compression_type
     ?deployment_type ?drive_cache_type ?export_path
-    ?file_system_type_version ?id ?import_path
+    ?file_system_type_version ?final_backup_tags ?id ?import_path
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
-    ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
+    ?(log_configuration = []) ?(metadata_configuration = [])
     ?(root_squash_configuration = []) ?timeouts ~subnet_ids () :
     aws_fsx_lustre_file_system =
   {
@@ -455,12 +537,14 @@ let aws_fsx_lustre_file_system ?auto_import_policy
     drive_cache_type;
     export_path;
     file_system_type_version;
+    final_backup_tags;
     id;
     import_path;
     imported_file_chunk_size;
     kms_key_id;
     per_unit_storage_throughput;
     security_group_ids;
+    skip_final_backup;
     storage_capacity;
     storage_type;
     subnet_ids;
@@ -468,6 +552,7 @@ let aws_fsx_lustre_file_system ?auto_import_policy
     tags_all;
     weekly_maintenance_start_time;
     log_configuration;
+    metadata_configuration;
     root_squash_configuration;
     timeouts;
   }
@@ -486,6 +571,7 @@ type t = {
   drive_cache_type : string prop;
   export_path : string prop;
   file_system_type_version : string prop;
+  final_backup_tags : (string * string) list prop;
   id : string prop;
   import_path : string prop;
   imported_file_chunk_size : float prop;
@@ -495,6 +581,7 @@ type t = {
   owner_id : string prop;
   per_unit_storage_throughput : float prop;
   security_group_ids : string list prop;
+  skip_final_backup : bool prop;
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
@@ -508,11 +595,12 @@ let make ?auto_import_policy ?automatic_backup_retention_days
     ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?data_compression_type
     ?deployment_type ?drive_cache_type ?export_path
-    ?file_system_type_version ?id ?import_path
+    ?file_system_type_version ?final_backup_tags ?id ?import_path
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
-    ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
+    ?(log_configuration = []) ?(metadata_configuration = [])
     ?(root_squash_configuration = []) ?timeouts ~subnet_ids __id =
   let __type = "aws_fsx_lustre_file_system" in
   let __attrs =
@@ -538,6 +626,8 @@ let make ?auto_import_policy ?automatic_backup_retention_days
        export_path = Prop.computed __type __id "export_path";
        file_system_type_version =
          Prop.computed __type __id "file_system_type_version";
+       final_backup_tags =
+         Prop.computed __type __id "final_backup_tags";
        id = Prop.computed __type __id "id";
        import_path = Prop.computed __type __id "import_path";
        imported_file_chunk_size =
@@ -551,6 +641,8 @@ let make ?auto_import_policy ?automatic_backup_retention_days
          Prop.computed __type __id "per_unit_storage_throughput";
        security_group_ids =
          Prop.computed __type __id "security_group_ids";
+       skip_final_backup =
+         Prop.computed __type __id "skip_final_backup";
        storage_capacity =
          Prop.computed __type __id "storage_capacity";
        storage_type = Prop.computed __type __id "storage_type";
@@ -572,11 +664,12 @@ let make ?auto_import_policy ?automatic_backup_retention_days
            ?automatic_backup_retention_days ?backup_id
            ?copy_tags_to_backups ?daily_automatic_backup_start_time
            ?data_compression_type ?deployment_type ?drive_cache_type
-           ?export_path ?file_system_type_version ?id ?import_path
-           ?imported_file_chunk_size ?kms_key_id
+           ?export_path ?file_system_type_version ?final_backup_tags
+           ?id ?import_path ?imported_file_chunk_size ?kms_key_id
            ?per_unit_storage_throughput ?security_group_ids
-           ?storage_capacity ?storage_type ?tags ?tags_all
-           ?weekly_maintenance_start_time ~log_configuration
+           ?skip_final_backup ?storage_capacity ?storage_type ?tags
+           ?tags_all ?weekly_maintenance_start_time
+           ~log_configuration ~metadata_configuration
            ~root_squash_configuration ?timeouts ~subnet_ids ());
     attrs = __attrs;
   }
@@ -585,23 +678,25 @@ let register ?tf_module ?auto_import_policy
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?data_compression_type
     ?deployment_type ?drive_cache_type ?export_path
-    ?file_system_type_version ?id ?import_path
+    ?file_system_type_version ?final_backup_tags ?id ?import_path
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
-    ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time
+    ?(log_configuration = []) ?(metadata_configuration = [])
     ?(root_squash_configuration = []) ?timeouts ~subnet_ids __id =
   let (r : _ Tf_core.resource) =
     make ?auto_import_policy ?automatic_backup_retention_days
       ?backup_id ?copy_tags_to_backups
       ?daily_automatic_backup_start_time ?data_compression_type
       ?deployment_type ?drive_cache_type ?export_path
-      ?file_system_type_version ?id ?import_path
+      ?file_system_type_version ?final_backup_tags ?id ?import_path
       ?imported_file_chunk_size ?kms_key_id
       ?per_unit_storage_throughput ?security_group_ids
-      ?storage_capacity ?storage_type ?tags ?tags_all
-      ?weekly_maintenance_start_time ~log_configuration
-      ~root_squash_configuration ?timeouts ~subnet_ids __id
+      ?skip_final_backup ?storage_capacity ?storage_type ?tags
+      ?tags_all ?weekly_maintenance_start_time ~log_configuration
+      ~metadata_configuration ~root_squash_configuration ?timeouts
+      ~subnet_ids __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

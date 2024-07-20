@@ -4,6 +4,10 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type timeouts
+
+val timeouts : ?delete:string prop -> unit -> timeouts
+
 type aws_iam_server_certificate
 
 val aws_iam_server_certificate :
@@ -14,6 +18,7 @@ val aws_iam_server_certificate :
   ?path:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   certificate_body:string prop ->
   private_key:string prop ->
   unit ->
@@ -49,6 +54,7 @@ val register :
   ?path:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   certificate_body:string prop ->
   private_key:string prop ->
   string ->
@@ -62,6 +68,7 @@ val make :
   ?path:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   certificate_body:string prop ->
   private_key:string prop ->
   string ->

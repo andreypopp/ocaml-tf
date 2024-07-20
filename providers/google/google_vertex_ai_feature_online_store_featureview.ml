@@ -81,6 +81,7 @@ let _ = yojson_of_feature_registry_source__feature_groups
 [@@@deriving.end]
 
 type feature_registry_source = {
+  project_number : string prop option; [@option]
   feature_groups : feature_registry_source__feature_groups list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -90,7 +91,10 @@ let _ = fun (_ : feature_registry_source) -> ()
 
 let yojson_of_feature_registry_source =
   (function
-   | { feature_groups = v_feature_groups } ->
+   | {
+       project_number = v_project_number;
+       feature_groups = v_feature_groups;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -104,6 +108,14 @@ let yojson_of_feature_registry_source =
            in
            let bnd = "feature_groups", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_project_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_number", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : feature_registry_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -319,9 +331,9 @@ let feature_registry_source__feature_groups ~feature_group_id
     ~feature_ids () : feature_registry_source__feature_groups =
   { feature_group_id; feature_ids }
 
-let feature_registry_source ~feature_groups () :
+let feature_registry_source ?project_number ~feature_groups () :
     feature_registry_source =
-  { feature_groups }
+  { project_number; feature_groups }
 
 let sync_config ?cron () : sync_config = { cron }
 

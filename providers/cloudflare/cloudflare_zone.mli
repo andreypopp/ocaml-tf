@@ -17,6 +17,7 @@ val cloudflare_zone :
   ?paused:bool prop ->
   ?plan:string prop ->
   ?type_:string prop ->
+  ?vanity_name_servers:string prop list ->
   account_id:string prop ->
   zone:string prop ->
   unit ->
@@ -49,6 +50,7 @@ val register :
   ?paused:bool prop ->
   ?plan:string prop ->
   ?type_:string prop ->
+  ?vanity_name_servers:string prop list ->
   account_id:string prop ->
   zone:string prop ->
   string ->
@@ -60,6 +62,7 @@ val make :
   ?paused:bool prop ->
   ?plan:string prop ->
   ?type_:string prop ->
+  ?vanity_name_servers:string prop list ->
   account_id:string prop ->
   zone:string prop ->
   string ->

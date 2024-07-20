@@ -210,6 +210,34 @@ let _ = yojson_of_config__subject_config
 
 [@@@deriving.end]
 
+type config__subject_key_id = {
+  key_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__subject_key_id) -> ()
+
+let yojson_of_config__subject_key_id =
+  (function
+   | { key_id = v_key_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__subject_key_id -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__subject_key_id
+
+[@@@deriving.end]
+
 type config__x509_config__additional_extensions__object_id = {
   object_id_path : float prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -907,6 +935,8 @@ let _ = yojson_of_config__x509_config
 type config = {
   subject_config : config__subject_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  subject_key_id : config__subject_key_id list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   x509_config : config__x509_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -918,6 +948,7 @@ let yojson_of_config =
   (function
    | {
        subject_config = v_subject_config;
+       subject_key_id = v_subject_key_id;
        x509_config = v_x509_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -931,6 +962,16 @@ let yojson_of_config =
                v_x509_config
            in
            let bnd = "x509_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_subject_key_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__subject_key_id)
+               v_subject_key_id
+           in
+           let bnd = "subject_key_id", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1380,6 +1421,9 @@ let config__subject_config ?(subject_alt_name = []) ~subject () :
     config__subject_config =
   { subject; subject_alt_name }
 
+let config__subject_key_id ?key_id () : config__subject_key_id =
+  { key_id }
+
 let config__x509_config__additional_extensions__object_id
     ~object_id_path () :
     config__x509_config__additional_extensions__object_id =
@@ -1473,8 +1517,9 @@ let config__x509_config ?aia_ocsp_servers
     policy_ids;
   }
 
-let config ~subject_config ~x509_config () : config =
-  { subject_config; x509_config }
+let config ?(subject_key_id = []) ~subject_config ~x509_config () :
+    config =
+  { subject_config; subject_key_id; x509_config }
 
 let key_spec ?algorithm ?cloud_kms_key_version () : key_spec =
   { algorithm; cloud_kms_key_version }

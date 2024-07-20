@@ -8,6 +8,7 @@ type aws_mskconnect_worker_configuration
 
 val aws_mskconnect_worker_configuration :
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
   name:string prop ->
   unit ->
   aws_mskconnect_worker_configuration
@@ -25,14 +26,20 @@ type t = private {
   latest_revision : float prop;
   name : string prop;
   properties_file_content : string prop;
+  tags : (string * string) list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
   name:string prop ->
   string ->
   t
 
 val make :
-  ?id:string prop -> name:string prop -> string -> t Tf_core.resource
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

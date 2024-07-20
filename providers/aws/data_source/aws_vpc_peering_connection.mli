@@ -6,8 +6,16 @@ open! Tf_core
 
 type cidr_block_set = { cidr_block : string prop  (** cidr_block *) }
 
+type ipv6_cidr_block_set = {
+  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
+}
+
 type peer_cidr_block_set = {
   cidr_block : string prop;  (** cidr_block *)
+}
+
+type peer_ipv6_cidr_block_set = {
+  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
 }
 
 type filter
@@ -49,9 +57,11 @@ type t = private {
   cidr_block : string prop;
   cidr_block_set : cidr_block_set list prop;
   id : string prop;
+  ipv6_cidr_block_set : ipv6_cidr_block_set list prop;
   owner_id : string prop;
   peer_cidr_block : string prop;
   peer_cidr_block_set : peer_cidr_block_set list prop;
+  peer_ipv6_cidr_block_set : peer_ipv6_cidr_block_set list prop;
   peer_owner_id : string prop;
   peer_region : string prop;
   peer_vpc_id : string prop;

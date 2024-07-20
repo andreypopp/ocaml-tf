@@ -16,6 +16,42 @@ val external_data_configuration__avro_options :
   unit ->
   external_data_configuration__avro_options
 
+type external_data_configuration__bigtable_options__column_family__column
+
+val external_data_configuration__bigtable_options__column_family__column :
+  ?encoding:string prop ->
+  ?field_name:string prop ->
+  ?only_read_latest:bool prop ->
+  ?qualifier_encoded:string prop ->
+  ?qualifier_string:string prop ->
+  ?type_:string prop ->
+  unit ->
+  external_data_configuration__bigtable_options__column_family__column
+
+type external_data_configuration__bigtable_options__column_family
+
+val external_data_configuration__bigtable_options__column_family :
+  ?encoding:string prop ->
+  ?family_id:string prop ->
+  ?only_read_latest:bool prop ->
+  ?type_:string prop ->
+  ?column:
+    external_data_configuration__bigtable_options__column_family__column
+    list ->
+  unit ->
+  external_data_configuration__bigtable_options__column_family
+
+type external_data_configuration__bigtable_options
+
+val external_data_configuration__bigtable_options :
+  ?ignore_unspecified_column_families:bool prop ->
+  ?output_column_families_as_json:bool prop ->
+  ?read_rowkey_as_string:bool prop ->
+  ?column_family:
+    external_data_configuration__bigtable_options__column_family list ->
+  unit ->
+  external_data_configuration__bigtable_options
+
 type external_data_configuration__csv_options
 
 val external_data_configuration__csv_options :
@@ -67,6 +103,7 @@ val external_data_configuration :
   ?connection_id:string prop ->
   ?file_set_spec_type:string prop ->
   ?ignore_unknown_values:bool prop ->
+  ?json_extension:string prop ->
   ?max_bad_records:float prop ->
   ?metadata_cache_mode:string prop ->
   ?object_metadata:string prop ->
@@ -74,6 +111,8 @@ val external_data_configuration :
   ?schema:string prop ->
   ?source_format:string prop ->
   ?avro_options:external_data_configuration__avro_options list ->
+  ?bigtable_options:
+    external_data_configuration__bigtable_options list ->
   ?csv_options:external_data_configuration__csv_options list ->
   ?google_sheets_options:
     external_data_configuration__google_sheets_options list ->

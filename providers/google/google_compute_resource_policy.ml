@@ -577,6 +577,7 @@ let _ = yojson_of_snapshot_schedule_policy
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -584,9 +585,17 @@ let _ = fun (_ : timeouts) -> ()
 
 let yojson_of_timeouts =
   (function
-   | { create = v_create; delete = v_delete } ->
+   | { create = v_create; delete = v_delete; update = v_update } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_delete with
@@ -804,7 +813,8 @@ let snapshot_schedule_policy ?(retention_policy = [])
     snapshot_schedule_policy =
   { retention_policy; schedule; snapshot_properties }
 
-let timeouts ?create ?delete () : timeouts = { create; delete }
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
 
 let google_compute_resource_policy ?description ?id ?project ?region
     ?(disk_consistency_group_policy = [])

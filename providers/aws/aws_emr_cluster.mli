@@ -282,6 +282,7 @@ val aws_emr_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
+  ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->
   ?auto_termination_policy:auto_termination_policy list ->
   ?bootstrap_action:bootstrap_action list ->
@@ -329,6 +330,7 @@ type t = private {
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   termination_protection : bool prop;
+  unhealthy_node_replacement : bool prop;
   visible_to_all_users : bool prop;
 }
 
@@ -354,6 +356,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
+  ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->
   ?auto_termination_policy:auto_termination_policy list ->
   ?bootstrap_action:bootstrap_action list ->
@@ -390,6 +393,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
+  ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->
   ?auto_termination_policy:auto_termination_policy list ->
   ?bootstrap_action:bootstrap_action list ->

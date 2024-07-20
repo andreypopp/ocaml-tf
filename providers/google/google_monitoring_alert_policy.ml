@@ -958,10 +958,49 @@ let _ = yojson_of_conditions
 
 [@@@deriving.end]
 
+type documentation__links = {
+  display_name : string prop option; [@option]
+  url : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : documentation__links) -> ()
+
+let yojson_of_documentation__links =
+  (function
+   | { display_name = v_display_name; url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : documentation__links -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_documentation__links
+
+[@@@deriving.end]
+
 type documentation = {
   content : string prop option; [@option]
   mime_type : string prop option; [@option]
   subject : string prop option; [@option]
+  links : documentation__links list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -973,9 +1012,19 @@ let yojson_of_documentation =
        content = v_content;
        mime_type = v_mime_type;
        subject = v_subject;
+       links = v_links;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_links then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_documentation__links) v_links
+           in
+           let bnd = "links", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subject with
@@ -1351,8 +1400,13 @@ let conditions ?(condition_absent = []) ?(condition_matched_log = [])
     condition_threshold;
   }
 
-let documentation ?content ?mime_type ?subject () : documentation =
-  { content; mime_type; subject }
+let documentation__links ?display_name ?url () : documentation__links
+    =
+  { display_name; url }
+
+let documentation ?content ?mime_type ?subject ?(links = []) () :
+    documentation =
+  { content; mime_type; subject; links }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

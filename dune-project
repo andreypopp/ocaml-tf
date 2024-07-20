@@ -29,8 +29,8 @@
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
- (name tf_azure)
- (synopsis "Generated bindings to Azure terraform/opentofu provider")
+ (name tf_azurerm)
+ (synopsis "Generated bindings to Azure RM terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package

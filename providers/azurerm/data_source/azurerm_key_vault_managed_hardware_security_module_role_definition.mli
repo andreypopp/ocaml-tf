@@ -27,9 +27,10 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition
 
 val azurerm_key_vault_managed_hardware_security_module_role_definition :
   ?id:string prop ->
+  ?managed_hsm_id:string prop ->
+  ?vault_base_url:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  vault_base_url:string prop ->
   unit ->
   azurerm_key_vault_managed_hardware_security_module_role_definition
 
@@ -44,6 +45,7 @@ type t = private {
   assignable_scopes : string list prop;
   description : string prop;
   id : string prop;
+  managed_hsm_id : string prop;
   name : string prop;
   permission : permission list prop;
   resource_manager_id : string prop;
@@ -55,16 +57,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?managed_hsm_id:string prop ->
+  ?vault_base_url:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  vault_base_url:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?managed_hsm_id:string prop ->
+  ?vault_base_url:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
-  vault_base_url:string prop ->
   string ->
   t Tf_core.resource

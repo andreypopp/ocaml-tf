@@ -25,6 +25,13 @@ val instance_maintenance_policy :
   unit ->
   instance_maintenance_policy
 
+type instance_refresh__preferences__alarm_specification
+
+val instance_refresh__preferences__alarm_specification :
+  ?alarms:string prop list ->
+  unit ->
+  instance_refresh__preferences__alarm_specification
+
 type instance_refresh__preferences
 
 val instance_refresh__preferences :
@@ -37,6 +44,8 @@ val instance_refresh__preferences :
   ?scale_in_protected_instances:string prop ->
   ?skip_matching:bool prop ->
   ?standby_instances:string prop ->
+  ?alarm_specification:
+    instance_refresh__preferences__alarm_specification list ->
   unit ->
   instance_refresh__preferences
 
@@ -165,6 +174,7 @@ val mixed_instances_policy__launch_template__override__instance_requirements :
   ?instance_generations:string prop list ->
   ?local_storage:string prop ->
   ?local_storage_types:string prop list ->
+  ?max_spot_price_as_percentage_of_optimal_on_demand_price:float prop ->
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->

@@ -44,6 +44,27 @@ type event_grouping
 val event_grouping :
   aggregation_method:string prop -> unit -> event_grouping
 
+type incident__grouping
+
+val incident__grouping :
+  ?by_alert_details:string prop list ->
+  ?by_custom_details:string prop list ->
+  ?by_entities:string prop list ->
+  ?enabled:bool prop ->
+  ?entity_matching_method:string prop ->
+  ?lookback_duration:string prop ->
+  ?reopen_closed_incidents:bool prop ->
+  unit ->
+  incident__grouping
+
+type incident
+
+val incident :
+  create_incident_enabled:bool prop ->
+  grouping:incident__grouping list ->
+  unit ->
+  incident
+
 type incident_configuration__grouping
 
 val incident_configuration__grouping :
@@ -100,6 +121,7 @@ val azurerm_sentinel_alert_rule_scheduled :
   ?alert_details_override:alert_details_override list ->
   ?entity_mapping:entity_mapping list ->
   ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
   ?incident_configuration:incident_configuration list ->
   ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->
@@ -158,6 +180,7 @@ val register :
   ?alert_details_override:alert_details_override list ->
   ?entity_mapping:entity_mapping list ->
   ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
   ?incident_configuration:incident_configuration list ->
   ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->
@@ -187,6 +210,7 @@ val make :
   ?alert_details_override:alert_details_override list ->
   ?entity_mapping:entity_mapping list ->
   ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
   ?incident_configuration:incident_configuration list ->
   ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->

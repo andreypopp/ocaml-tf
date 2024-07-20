@@ -4,6 +4,16 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type restore_to_point_in_time
+
+val restore_to_point_in_time :
+  ?restore_to_time:string prop ->
+  ?restore_type:string prop ->
+  ?use_latest_restorable_time:bool prop ->
+  source_cluster_identifier:string prop ->
+  unit ->
+  restore_to_point_in_time
+
 type timeouts
 
 val timeouts :
@@ -45,6 +55,7 @@ val aws_docdb_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?timeouts:timeouts ->
   unit ->
   aws_docdb_cluster
@@ -122,6 +133,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -156,6 +168,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

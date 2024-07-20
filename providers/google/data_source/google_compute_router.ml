@@ -38,6 +38,7 @@ type bgp = {
   advertised_ip_ranges : bgp__advertised_ip_ranges list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   asn : float prop;
+  identifier_range : string prop;
   keepalive_interval : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -51,6 +52,7 @@ let yojson_of_bgp =
        advertised_groups = v_advertised_groups;
        advertised_ip_ranges = v_advertised_ip_ranges;
        asn = v_asn;
+       identifier_range = v_identifier_range;
        keepalive_interval = v_keepalive_interval;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -61,6 +63,12 @@ let yojson_of_bgp =
            yojson_of_prop yojson_of_float v_keepalive_interval
          in
          ("keepalive_interval", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identifier_range
+         in
+         ("identifier_range", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_asn in

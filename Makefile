@@ -28,20 +28,41 @@ gen0: \
 	gen_hcloud_provider \
 	gen_github_provider
 gen_digitialocean_provider:
+	rm -f ./providers/digitalocean/*.{ml,mli}
+	rm -f ./providers/digitalocean/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/digitalocean/digitalocean" ./providers/digitalocean
 gen_aws_provider:
+	rm -f ./providers/aws/*.{ml,mli}
+	rm -f ./providers/aws/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/hashicorp/aws" ./providers/aws
 gen_azurerm_provider:
+	rm -f ./providers/azurerm/*.{ml,mli}
+	rm -f ./providers/azurerm/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/hashicorp/azurerm" ./providers/azurerm
 gen_google_provider:
+	rm -f ./providers/google/*.{ml,mli}
+	rm -f ./providers/google/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/hashicorp/google" ./providers/google
 gen_cloudflare_provider:
+	rm -f ./providers/cloudflare/*.{ml,mli}
+	rm -f ./providers/cloudflare/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/cloudflare/cloudflare" ./providers/cloudflare
 gen_kubernetes_provider:
+	rm -f ./providers/kubernetes/*.{ml,mli}
+	rm -f ./providers/kubernetes/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/hashicorp/kubernetes" ./providers/kubernetes
 gen_hcloud_provider:
+	rm -f ./providers/hcloud/*.{ml,mli}
+	rm -f ./providers/hcloud/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/hetznercloud/hcloud" ./providers/hcloud
 gen_github_provider:
+	rm -f ./providers/github/*.{ml,mli}
+	rm -f ./providers/github/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/integrations/github" ./providers/github
 gen_okta_provider:
+	rm -f ./providers/okta/*.{ml,mli}
+	rm -f ./providers/okta/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/okta/okta" ./providers/okta
+
+providers.json: .terraform.lock.hcl
+	terraform providers schema -json | jq -S . > $(@)

@@ -192,6 +192,7 @@ val instance_requirements :
   ?instance_generations:string prop list ->
   ?local_storage:string prop ->
   ?local_storage_types:string prop list ->
+  ?max_spot_price_as_percentage_of_optimal_on_demand_price:float prop ->
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
@@ -259,6 +260,7 @@ val network_interfaces :
   ?ipv6_prefixes:string prop list ->
   ?network_card_index:float prop ->
   ?network_interface_id:string prop ->
+  ?primary_ipv6:string prop ->
   ?private_ip_address:string prop ->
   ?security_groups:string prop list ->
   ?subnet_id:string prop ->

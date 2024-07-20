@@ -25,11 +25,22 @@ val event_publish_config :
   unit ->
   event_publish_config
 
+type network_config__private_service_connect_config
+
+val network_config__private_service_connect_config :
+  ?network_attachment:string prop ->
+  ?unreachable_cidr_block:string prop ->
+  unit ->
+  network_config__private_service_connect_config
+
 type network_config
 
 val network_config :
-  ip_allocation:string prop ->
-  network:string prop ->
+  ?connection_type:string prop ->
+  ?ip_allocation:string prop ->
+  ?network:string prop ->
+  ?private_service_connect_config:
+    network_config__private_service_connect_config list ->
   unit ->
   network_config
 

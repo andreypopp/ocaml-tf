@@ -548,8 +548,7 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy = {
-  enabled_standard_arns : string prop list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
+  enabled_standard_arns : string prop list option; [@option]
   service_enabled : bool prop;
   security_controls_configuration :
     configuration_policy__security_controls_configuration list;
@@ -587,14 +586,14 @@ let yojson_of_configuration_policy =
          ("service_enabled", arg) :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_enabled_standard_arns then bnds
-         else
-           let arg =
-             (yojson_of_list (yojson_of_prop yojson_of_string))
-               v_enabled_standard_arns
-           in
-           let bnd = "enabled_standard_arns", arg in
-           bnd :: bnds
+         match v_enabled_standard_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "enabled_standard_arns", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : configuration_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -746,9 +745,9 @@ let configuration_policy__security_controls_configuration
     security_control_custom_parameter;
   }
 
-let configuration_policy ?(security_controls_configuration = [])
-    ~enabled_standard_arns ~service_enabled () : configuration_policy
-    =
+let configuration_policy ?enabled_standard_arns
+    ?(security_controls_configuration = []) ~service_enabled () :
+    configuration_policy =
   {
     enabled_standard_arns;
     service_enabled;

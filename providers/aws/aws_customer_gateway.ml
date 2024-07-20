@@ -3,7 +3,8 @@
 open! Tf_core
 
 type aws_customer_gateway = {
-  bgp_asn : string prop;
+  bgp_asn : string prop option; [@option]
+  bgp_asn_extended : string prop option; [@option]
   certificate_arn : string prop option; [@option]
   device_name : string prop option; [@option]
   id : string prop option; [@option]
@@ -20,6 +21,7 @@ let yojson_of_aws_customer_gateway =
   (function
    | {
        bgp_asn = v_bgp_asn;
+       bgp_asn_extended = v_bgp_asn_extended;
        certificate_arn = v_certificate_arn;
        device_name = v_device_name;
        id = v_id;
@@ -100,8 +102,20 @@ let yojson_of_aws_customer_gateway =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_bgp_asn in
-         ("bgp_asn", arg) :: bnds
+         match v_bgp_asn_extended with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bgp_asn_extended", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bgp_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bgp_asn", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : aws_customer_gateway -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -110,11 +124,12 @@ let _ = yojson_of_aws_customer_gateway
 
 [@@@deriving.end]
 
-let aws_customer_gateway ?certificate_arn ?device_name ?id
-    ?ip_address ?tags ?tags_all ~bgp_asn ~type_ () :
+let aws_customer_gateway ?bgp_asn ?bgp_asn_extended ?certificate_arn
+    ?device_name ?id ?ip_address ?tags ?tags_all ~type_ () :
     aws_customer_gateway =
   {
     bgp_asn;
+    bgp_asn_extended;
     certificate_arn;
     device_name;
     id;
@@ -128,6 +143,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
+  bgp_asn_extended : string prop;
   certificate_arn : string prop;
   device_name : string prop;
   id : string prop;
@@ -137,14 +153,16 @@ type t = {
   type_ : string prop;
 }
 
-let make ?certificate_arn ?device_name ?id ?ip_address ?tags
-    ?tags_all ~bgp_asn ~type_ __id =
+let make ?bgp_asn ?bgp_asn_extended ?certificate_arn ?device_name ?id
+    ?ip_address ?tags ?tags_all ~type_ __id =
   let __type = "aws_customer_gateway" in
   let __attrs =
     ({
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bgp_asn = Prop.computed __type __id "bgp_asn";
+       bgp_asn_extended =
+         Prop.computed __type __id "bgp_asn_extended";
        certificate_arn = Prop.computed __type __id "certificate_arn";
        device_name = Prop.computed __type __id "device_name";
        id = Prop.computed __type __id "id";
@@ -160,16 +178,17 @@ let make ?certificate_arn ?device_name ?id ?ip_address ?tags
     type_ = __type;
     json =
       yojson_of_aws_customer_gateway
-        (aws_customer_gateway ?certificate_arn ?device_name ?id
-           ?ip_address ?tags ?tags_all ~bgp_asn ~type_ ());
+        (aws_customer_gateway ?bgp_asn ?bgp_asn_extended
+           ?certificate_arn ?device_name ?id ?ip_address ?tags
+           ?tags_all ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?certificate_arn ?device_name ?id ?ip_address
-    ?tags ?tags_all ~bgp_asn ~type_ __id =
+let register ?tf_module ?bgp_asn ?bgp_asn_extended ?certificate_arn
+    ?device_name ?id ?ip_address ?tags ?tags_all ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?certificate_arn ?device_name ?id ?ip_address ?tags
-      ?tags_all ~bgp_asn ~type_ __id
+    make ?bgp_asn ?bgp_asn_extended ?certificate_arn ?device_name ?id
+      ?ip_address ?tags ?tags_all ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

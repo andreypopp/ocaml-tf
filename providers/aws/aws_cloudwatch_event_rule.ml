@@ -6,6 +6,7 @@ type aws_cloudwatch_event_rule = {
   description : string prop option; [@option]
   event_bus_name : string prop option; [@option]
   event_pattern : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
   is_enabled : bool prop option; [@option]
   name : string prop option; [@option]
@@ -26,6 +27,7 @@ let yojson_of_aws_cloudwatch_event_rule =
        description = v_description;
        event_bus_name = v_event_bus_name;
        event_pattern = v_event_pattern;
+       force_destroy = v_force_destroy;
        id = v_id;
        is_enabled = v_is_enabled;
        name = v_name;
@@ -128,6 +130,14 @@ let yojson_of_aws_cloudwatch_event_rule =
              bnd :: bnds
        in
        let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_event_pattern with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -159,13 +169,14 @@ let _ = yojson_of_aws_cloudwatch_event_rule
 [@@@deriving.end]
 
 let aws_cloudwatch_event_rule ?description ?event_bus_name
-    ?event_pattern ?id ?is_enabled ?name ?name_prefix ?role_arn
-    ?schedule_expression ?state ?tags ?tags_all () :
+    ?event_pattern ?force_destroy ?id ?is_enabled ?name ?name_prefix
+    ?role_arn ?schedule_expression ?state ?tags ?tags_all () :
     aws_cloudwatch_event_rule =
   {
     description;
     event_bus_name;
     event_pattern;
+    force_destroy;
     id;
     is_enabled;
     name;
@@ -183,6 +194,7 @@ type t = {
   description : string prop;
   event_bus_name : string prop;
   event_pattern : string prop;
+  force_destroy : bool prop;
   id : string prop;
   is_enabled : bool prop;
   name : string prop;
@@ -194,9 +206,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?event_bus_name ?event_pattern ?id ?is_enabled
-    ?name ?name_prefix ?role_arn ?schedule_expression ?state ?tags
-    ?tags_all __id =
+let make ?description ?event_bus_name ?event_pattern ?force_destroy
+    ?id ?is_enabled ?name ?name_prefix ?role_arn ?schedule_expression
+    ?state ?tags ?tags_all __id =
   let __type = "aws_cloudwatch_event_rule" in
   let __attrs =
     ({
@@ -205,6 +217,7 @@ let make ?description ?event_bus_name ?event_pattern ?id ?is_enabled
        description = Prop.computed __type __id "description";
        event_bus_name = Prop.computed __type __id "event_bus_name";
        event_pattern = Prop.computed __type __id "event_pattern";
+       force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";
        is_enabled = Prop.computed __type __id "is_enabled";
        name = Prop.computed __type __id "name";
@@ -224,18 +237,19 @@ let make ?description ?event_bus_name ?event_pattern ?id ?is_enabled
     json =
       yojson_of_aws_cloudwatch_event_rule
         (aws_cloudwatch_event_rule ?description ?event_bus_name
-           ?event_pattern ?id ?is_enabled ?name ?name_prefix
-           ?role_arn ?schedule_expression ?state ?tags ?tags_all ());
+           ?event_pattern ?force_destroy ?id ?is_enabled ?name
+           ?name_prefix ?role_arn ?schedule_expression ?state ?tags
+           ?tags_all ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?event_bus_name ?event_pattern
-    ?id ?is_enabled ?name ?name_prefix ?role_arn ?schedule_expression
-    ?state ?tags ?tags_all __id =
+    ?force_destroy ?id ?is_enabled ?name ?name_prefix ?role_arn
+    ?schedule_expression ?state ?tags ?tags_all __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?event_bus_name ?event_pattern ?id ?is_enabled
-      ?name ?name_prefix ?role_arn ?schedule_expression ?state ?tags
-      ?tags_all __id
+    make ?description ?event_bus_name ?event_pattern ?force_destroy
+      ?id ?is_enabled ?name ?name_prefix ?role_arn
+      ?schedule_expression ?state ?tags ?tags_all __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

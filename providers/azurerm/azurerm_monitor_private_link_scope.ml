@@ -64,7 +64,9 @@ let _ = yojson_of_timeouts
 
 type azurerm_monitor_private_link_scope = {
   id : string prop option; [@option]
+  ingestion_access_mode : string prop option; [@option]
   name : string prop;
+  query_access_mode : string prop option; [@option]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   timeouts : timeouts option;
@@ -77,7 +79,9 @@ let yojson_of_azurerm_monitor_private_link_scope =
   (function
    | {
        id = v_id;
+       ingestion_access_mode = v_ingestion_access_mode;
        name = v_name;
+       query_access_mode = v_query_access_mode;
        resource_group_name = v_resource_group_name;
        tags = v_tags;
        timeouts = v_timeouts;
@@ -112,8 +116,24 @@ let yojson_of_azurerm_monitor_private_link_scope =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
+         match v_query_access_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_access_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_ingestion_access_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ingestion_access_mode", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -134,25 +154,41 @@ let _ = yojson_of_azurerm_monitor_private_link_scope
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_monitor_private_link_scope ?id ?tags ?timeouts ~name
-    ~resource_group_name () : azurerm_monitor_private_link_scope =
-  { id; name; resource_group_name; tags; timeouts }
+let azurerm_monitor_private_link_scope ?id ?ingestion_access_mode
+    ?query_access_mode ?tags ?timeouts ~name ~resource_group_name ()
+    : azurerm_monitor_private_link_scope =
+  {
+    id;
+    ingestion_access_mode;
+    name;
+    query_access_mode;
+    resource_group_name;
+    tags;
+    timeouts;
+  }
 
 type t = {
   tf_name : string;
   id : string prop;
+  ingestion_access_mode : string prop;
   name : string prop;
+  query_access_mode : string prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
+let make ?id ?ingestion_access_mode ?query_access_mode ?tags
+    ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_monitor_private_link_scope" in
   let __attrs =
     ({
        tf_name = __id;
        id = Prop.computed __type __id "id";
+       ingestion_access_mode =
+         Prop.computed __type __id "ingestion_access_mode";
        name = Prop.computed __type __id "name";
+       query_access_mode =
+         Prop.computed __type __id "query_access_mode";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        tags = Prop.computed __type __id "tags";
@@ -164,15 +200,17 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
     type_ = __type;
     json =
       yojson_of_azurerm_monitor_private_link_scope
-        (azurerm_monitor_private_link_scope ?id ?tags ?timeouts ~name
-           ~resource_group_name ());
+        (azurerm_monitor_private_link_scope ?id
+           ?ingestion_access_mode ?query_access_mode ?tags ?timeouts
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~name
-    ~resource_group_name __id =
+let register ?tf_module ?id ?ingestion_access_mode ?query_access_mode
+    ?tags ?timeouts ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~name ~resource_group_name __id
+    make ?id ?ingestion_access_mode ?query_access_mode ?tags
+      ?timeouts ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

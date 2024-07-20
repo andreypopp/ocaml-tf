@@ -17,6 +17,7 @@ val cloudwatch_alarm :
 type cloudwatch_logs
 
 val cloudwatch_logs :
+  ?batch_mode:bool prop ->
   log_group_name:string prop ->
   role_arn:string prop ->
   unit ->
@@ -87,6 +88,7 @@ val error_action__cloudwatch_alarm :
 type error_action__cloudwatch_logs
 
 val error_action__cloudwatch_logs :
+  ?batch_mode:bool prop ->
   log_group_name:string prop ->
   role_arn:string prop ->
   unit ->

@@ -2,6 +2,86 @@
 
 open! Tf_core
 
+type ingestion_data_source_settings__aws_kinesis = {
+  aws_role_arn : string prop;
+  consumer_arn : string prop;
+  gcp_service_account : string prop;
+  stream_arn : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingestion_data_source_settings__aws_kinesis) -> ()
+
+let yojson_of_ingestion_data_source_settings__aws_kinesis =
+  (function
+   | {
+       aws_role_arn = v_aws_role_arn;
+       consumer_arn = v_consumer_arn;
+       gcp_service_account = v_gcp_service_account;
+       stream_arn = v_stream_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_arn in
+         ("stream_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gcp_service_account
+         in
+         ("gcp_service_account", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_consumer_arn in
+         ("consumer_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_aws_role_arn in
+         ("aws_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : ingestion_data_source_settings__aws_kinesis ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingestion_data_source_settings__aws_kinesis
+
+[@@@deriving.end]
+
+type ingestion_data_source_settings = {
+  aws_kinesis : ingestion_data_source_settings__aws_kinesis list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingestion_data_source_settings) -> ()
+
+let yojson_of_ingestion_data_source_settings =
+  (function
+   | { aws_kinesis = v_aws_kinesis } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_aws_kinesis then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ingestion_data_source_settings__aws_kinesis)
+               v_aws_kinesis
+           in
+           let bnd = "aws_kinesis", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : ingestion_data_source_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingestion_data_source_settings
+
+[@@@deriving.end]
+
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -120,6 +200,9 @@ type google_pubsub_topic = {
   message_retention_duration : string prop option; [@option]
   name : string prop;
   project : string prop option; [@option]
+  ingestion_data_source_settings :
+    ingestion_data_source_settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   message_storage_policy : message_storage_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   schema_settings : schema_settings list;
@@ -139,6 +222,8 @@ let yojson_of_google_pubsub_topic =
        message_retention_duration = v_message_retention_duration;
        name = v_name;
        project = v_project;
+       ingestion_data_source_settings =
+         v_ingestion_data_source_settings;
        message_storage_policy = v_message_storage_policy;
        schema_settings = v_schema_settings;
        timeouts = v_timeouts;
@@ -168,6 +253,17 @@ let yojson_of_google_pubsub_topic =
                v_message_storage_policy
            in
            let bnd = "message_storage_policy", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_ingestion_data_source_settings then
+           bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingestion_data_source_settings)
+               v_ingestion_data_source_settings
+           in
+           let bnd = "ingestion_data_source_settings", arg in
            bnd :: bnds
        in
        let bnds =
@@ -229,6 +325,15 @@ let _ = yojson_of_google_pubsub_topic
 
 [@@@deriving.end]
 
+let ingestion_data_source_settings__aws_kinesis ~aws_role_arn
+    ~consumer_arn ~gcp_service_account ~stream_arn () :
+    ingestion_data_source_settings__aws_kinesis =
+  { aws_role_arn; consumer_arn; gcp_service_account; stream_arn }
+
+let ingestion_data_source_settings ?(aws_kinesis = []) () :
+    ingestion_data_source_settings =
+  { aws_kinesis }
+
 let message_storage_policy ~allowed_persistence_regions () :
     message_storage_policy =
   { allowed_persistence_regions }
@@ -241,6 +346,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_pubsub_topic ?id ?kms_key_name ?labels
     ?message_retention_duration ?project
+    ?(ingestion_data_source_settings = [])
     ?(message_storage_policy = []) ?(schema_settings = []) ?timeouts
     ~name () : google_pubsub_topic =
   {
@@ -250,6 +356,7 @@ let google_pubsub_topic ?id ?kms_key_name ?labels
     message_retention_duration;
     name;
     project;
+    ingestion_data_source_settings;
     message_storage_policy;
     schema_settings;
     timeouts;
@@ -268,8 +375,9 @@ type t = {
 }
 
 let make ?id ?kms_key_name ?labels ?message_retention_duration
-    ?project ?(message_storage_policy = []) ?(schema_settings = [])
-    ?timeouts ~name __id =
+    ?project ?(ingestion_data_source_settings = [])
+    ?(message_storage_policy = []) ?(schema_settings = []) ?timeouts
+    ~name __id =
   let __type = "google_pubsub_topic" in
   let __attrs =
     ({
@@ -295,19 +403,20 @@ let make ?id ?kms_key_name ?labels ?message_retention_duration
       yojson_of_google_pubsub_topic
         (google_pubsub_topic ?id ?kms_key_name ?labels
            ?message_retention_duration ?project
-           ~message_storage_policy ~schema_settings ?timeouts ~name
-           ());
+           ~ingestion_data_source_settings ~message_storage_policy
+           ~schema_settings ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?kms_key_name ?labels
     ?message_retention_duration ?project
+    ?(ingestion_data_source_settings = [])
     ?(message_storage_policy = []) ?(schema_settings = []) ?timeouts
     ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?kms_key_name ?labels ?message_retention_duration
-      ?project ~message_storage_policy ~schema_settings ?timeouts
-      ~name __id
+      ?project ~ingestion_data_source_settings
+      ~message_storage_policy ~schema_settings ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

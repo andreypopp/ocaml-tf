@@ -4,11 +4,27 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type subnet__shared_public_ip_address__allowed_ports
+
+val subnet__shared_public_ip_address__allowed_ports :
+  ?backend_port:float prop ->
+  ?transport_protocol:string prop ->
+  unit ->
+  subnet__shared_public_ip_address__allowed_ports
+
+type subnet__shared_public_ip_address
+
+val subnet__shared_public_ip_address :
+  ?allowed_ports:subnet__shared_public_ip_address__allowed_ports list ->
+  unit ->
+  subnet__shared_public_ip_address
+
 type subnet
 
 val subnet :
   ?use_in_virtual_machine_creation:string prop ->
   ?use_public_ip_address:string prop ->
+  ?shared_public_ip_address:subnet__shared_public_ip_address list ->
   unit ->
   subnet
 

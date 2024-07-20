@@ -331,6 +331,7 @@ type t = {
   topics : topics list prop;
   ttl : string prop;
   version_aliases : (string * string) list prop;
+  version_destroy_ttl : string prop;
 }
 
 let make ?id ?project ~secret_id __id =
@@ -357,6 +358,8 @@ let make ?id ?project ~secret_id __id =
        topics = Prop.computed __type __id "topics";
        ttl = Prop.computed __type __id "ttl";
        version_aliases = Prop.computed __type __id "version_aliases";
+       version_destroy_ttl =
+         Prop.computed __type __id "version_destroy_ttl";
      }
       : t)
   in

@@ -237,6 +237,7 @@ type t = {
   tf_name : string;
   address : string prop;
   allocation_id : string prop;
+  arn : string prop;
   associate_with_private_ip : string prop;
   association_id : string prop;
   carrier_ip : string prop;
@@ -249,6 +250,7 @@ type t = {
   network_interface : string prop;
   private_dns : string prop;
   private_ip : string prop;
+  ptr_record : string prop;
   public_dns : string prop;
   public_ip : string prop;
   public_ipv4_pool : string prop;
@@ -267,6 +269,7 @@ let make ?address ?associate_with_private_ip
        tf_name = __id;
        address = Prop.computed __type __id "address";
        allocation_id = Prop.computed __type __id "allocation_id";
+       arn = Prop.computed __type __id "arn";
        associate_with_private_ip =
          Prop.computed __type __id "associate_with_private_ip";
        association_id = Prop.computed __type __id "association_id";
@@ -284,6 +287,7 @@ let make ?address ?associate_with_private_ip
          Prop.computed __type __id "network_interface";
        private_dns = Prop.computed __type __id "private_dns";
        private_ip = Prop.computed __type __id "private_ip";
+       ptr_record = Prop.computed __type __id "ptr_record";
        public_dns = Prop.computed __type __id "public_dns";
        public_ip = Prop.computed __type __id "public_ip";
        public_ipv4_pool =

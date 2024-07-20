@@ -817,6 +817,7 @@ let _ = yojson_of_sqs_target
 type aws_cloudwatch_event_target = {
   arn : string prop;
   event_bus_name : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
   input : string prop option; [@option]
   input_path : string prop option; [@option]
@@ -855,6 +856,7 @@ let yojson_of_aws_cloudwatch_event_target =
    | {
        arn = v_arn;
        event_bus_name = v_event_bus_name;
+       force_destroy = v_force_destroy;
        id = v_id;
        input = v_input;
        input_path = v_input_path;
@@ -1026,6 +1028,14 @@ let yojson_of_aws_cloudwatch_event_target =
              bnd :: bnds
        in
        let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_event_bus_name with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1134,8 +1144,8 @@ let sagemaker_pipeline_target ~pipeline_parameter_list () :
 let sqs_target ?message_group_id () : sqs_target =
   { message_group_id }
 
-let aws_cloudwatch_event_target ?event_bus_name ?id ?input
-    ?input_path ?role_arn ?target_id ?(batch_target = [])
+let aws_cloudwatch_event_target ?event_bus_name ?force_destroy ?id
+    ?input ?input_path ?role_arn ?target_id ?(batch_target = [])
     ?(dead_letter_config = []) ?(ecs_target = []) ?(http_target = [])
     ?(input_transformer = []) ?(kinesis_target = [])
     ?(redshift_target = []) ?(retry_policy = [])
@@ -1144,6 +1154,7 @@ let aws_cloudwatch_event_target ?event_bus_name ?id ?input
   {
     arn;
     event_bus_name;
+    force_destroy;
     id;
     input;
     input_path;
@@ -1167,6 +1178,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   event_bus_name : string prop;
+  force_destroy : bool prop;
   id : string prop;
   input : string prop;
   input_path : string prop;
@@ -1175,19 +1187,20 @@ type t = {
   target_id : string prop;
 }
 
-let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
-    ?(batch_target = []) ?(dead_letter_config = [])
-    ?(ecs_target = []) ?(http_target = []) ?(input_transformer = [])
-    ?(kinesis_target = []) ?(redshift_target = [])
-    ?(retry_policy = []) ?(run_command_targets = [])
-    ?(sagemaker_pipeline_target = []) ?(sqs_target = []) ~arn ~rule
-    __id =
+let make ?event_bus_name ?force_destroy ?id ?input ?input_path
+    ?role_arn ?target_id ?(batch_target = [])
+    ?(dead_letter_config = []) ?(ecs_target = []) ?(http_target = [])
+    ?(input_transformer = []) ?(kinesis_target = [])
+    ?(redshift_target = []) ?(retry_policy = [])
+    ?(run_command_targets = []) ?(sagemaker_pipeline_target = [])
+    ?(sqs_target = []) ~arn ~rule __id =
   let __type = "aws_cloudwatch_event_target" in
   let __attrs =
     ({
        tf_name = __id;
        arn = Prop.computed __type __id "arn";
        event_bus_name = Prop.computed __type __id "event_bus_name";
+       force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";
        input = Prop.computed __type __id "input";
        input_path = Prop.computed __type __id "input_path";
@@ -1202,8 +1215,8 @@ let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
     type_ = __type;
     json =
       yojson_of_aws_cloudwatch_event_target
-        (aws_cloudwatch_event_target ?event_bus_name ?id ?input
-           ?input_path ?role_arn ?target_id ~batch_target
+        (aws_cloudwatch_event_target ?event_bus_name ?force_destroy
+           ?id ?input ?input_path ?role_arn ?target_id ~batch_target
            ~dead_letter_config ~ecs_target ~http_target
            ~input_transformer ~kinesis_target ~redshift_target
            ~retry_policy ~run_command_targets
@@ -1211,19 +1224,19 @@ let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
     attrs = __attrs;
   }
 
-let register ?tf_module ?event_bus_name ?id ?input ?input_path
-    ?role_arn ?target_id ?(batch_target = [])
+let register ?tf_module ?event_bus_name ?force_destroy ?id ?input
+    ?input_path ?role_arn ?target_id ?(batch_target = [])
     ?(dead_letter_config = []) ?(ecs_target = []) ?(http_target = [])
     ?(input_transformer = []) ?(kinesis_target = [])
     ?(redshift_target = []) ?(retry_policy = [])
     ?(run_command_targets = []) ?(sagemaker_pipeline_target = [])
     ?(sqs_target = []) ~arn ~rule __id =
   let (r : _ Tf_core.resource) =
-    make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
-      ~batch_target ~dead_letter_config ~ecs_target ~http_target
-      ~input_transformer ~kinesis_target ~redshift_target
-      ~retry_policy ~run_command_targets ~sagemaker_pipeline_target
-      ~sqs_target ~arn ~rule __id
+    make ?event_bus_name ?force_destroy ?id ?input ?input_path
+      ?role_arn ?target_id ~batch_target ~dead_letter_config
+      ~ecs_target ~http_target ~input_transformer ~kinesis_target
+      ~redshift_target ~retry_policy ~run_command_targets
+      ~sagemaker_pipeline_target ~sqs_target ~arn ~rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

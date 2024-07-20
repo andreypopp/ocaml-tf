@@ -4,6 +4,41 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type auto_scale_profile
+
+val auto_scale_profile :
+  max_capacity:float prop ->
+  min_capacity:float prop ->
+  name:string prop ->
+  unit ->
+  auto_scale_profile
+
+type configuration__config_file
+
+val configuration__config_file :
+  content:string prop ->
+  virtual_path:string prop ->
+  unit ->
+  configuration__config_file
+
+type configuration__protected_file
+
+val configuration__protected_file :
+  content:string prop ->
+  virtual_path:string prop ->
+  unit ->
+  configuration__protected_file
+
+type configuration
+
+val configuration :
+  ?package_data:string prop ->
+  root_file:string prop ->
+  config_file:configuration__config_file list ->
+  protected_file:configuration__protected_file list ->
+  unit ->
+  configuration
+
 type frontend_private
 
 val frontend_private :
@@ -59,6 +94,8 @@ val azurerm_nginx_deployment :
   ?id:string prop ->
   ?managed_resource_group:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_scale_profile:auto_scale_profile list ->
+  ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->
   ?frontend_public:frontend_public list ->
   ?identity:identity list ->
@@ -103,6 +140,8 @@ val register :
   ?id:string prop ->
   ?managed_resource_group:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_scale_profile:auto_scale_profile list ->
+  ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->
   ?frontend_public:frontend_public list ->
   ?identity:identity list ->
@@ -124,6 +163,8 @@ val make :
   ?id:string prop ->
   ?managed_resource_group:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_scale_profile:auto_scale_profile list ->
+  ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->
   ?frontend_public:frontend_public list ->
   ?identity:identity list ->

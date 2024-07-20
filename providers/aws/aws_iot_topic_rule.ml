@@ -47,6 +47,7 @@ let _ = yojson_of_cloudwatch_alarm
 [@@@deriving.end]
 
 type cloudwatch_logs = {
+  batch_mode : bool prop option; [@option]
   log_group_name : string prop;
   role_arn : string prop;
 }
@@ -56,7 +57,11 @@ let _ = fun (_ : cloudwatch_logs) -> ()
 
 let yojson_of_cloudwatch_logs =
   (function
-   | { log_group_name = v_log_group_name; role_arn = v_role_arn } ->
+   | {
+       batch_mode = v_batch_mode;
+       log_group_name = v_log_group_name;
+       role_arn = v_role_arn;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -69,6 +74,14 @@ let yojson_of_cloudwatch_logs =
            yojson_of_prop yojson_of_string v_log_group_name
          in
          ("log_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_batch_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "batch_mode", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : cloudwatch_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -401,6 +414,7 @@ let _ = yojson_of_error_action__cloudwatch_alarm
 [@@@deriving.end]
 
 type error_action__cloudwatch_logs = {
+  batch_mode : bool prop option; [@option]
   log_group_name : string prop;
   role_arn : string prop;
 }
@@ -410,7 +424,11 @@ let _ = fun (_ : error_action__cloudwatch_logs) -> ()
 
 let yojson_of_error_action__cloudwatch_logs =
   (function
-   | { log_group_name = v_log_group_name; role_arn = v_role_arn } ->
+   | {
+       batch_mode = v_batch_mode;
+       log_group_name = v_log_group_name;
+       role_arn = v_role_arn;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -423,6 +441,14 @@ let yojson_of_error_action__cloudwatch_logs =
            yojson_of_prop yojson_of_string v_log_group_name
          in
          ("log_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_batch_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "batch_mode", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : error_action__cloudwatch_logs ->
@@ -2774,8 +2800,9 @@ let cloudwatch_alarm ~alarm_name ~role_arn ~state_reason ~state_value
     () : cloudwatch_alarm =
   { alarm_name; role_arn; state_reason; state_value }
 
-let cloudwatch_logs ~log_group_name ~role_arn () : cloudwatch_logs =
-  { log_group_name; role_arn }
+let cloudwatch_logs ?batch_mode ~log_group_name ~role_arn () :
+    cloudwatch_logs =
+  { batch_mode; log_group_name; role_arn }
 
 let cloudwatch_metric ?metric_timestamp ~metric_name
     ~metric_namespace ~metric_unit ~metric_value ~role_arn () :
@@ -2819,9 +2846,9 @@ let error_action__cloudwatch_alarm ~alarm_name ~role_arn
     ~state_reason ~state_value () : error_action__cloudwatch_alarm =
   { alarm_name; role_arn; state_reason; state_value }
 
-let error_action__cloudwatch_logs ~log_group_name ~role_arn () :
-    error_action__cloudwatch_logs =
-  { log_group_name; role_arn }
+let error_action__cloudwatch_logs ?batch_mode ~log_group_name
+    ~role_arn () : error_action__cloudwatch_logs =
+  { batch_mode; log_group_name; role_arn }
 
 let error_action__cloudwatch_metric ?metric_timestamp ~metric_name
     ~metric_namespace ~metric_unit ~metric_value ~role_arn () :

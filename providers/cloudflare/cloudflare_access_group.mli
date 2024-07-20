@@ -75,9 +75,11 @@ val exclude :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->
@@ -161,9 +163,11 @@ val include_ :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->
@@ -247,9 +251,11 @@ val require :
   ?auth_method:string prop ->
   ?certificate:bool prop ->
   ?common_name:string prop ->
+  ?common_names:string prop list ->
   ?device_posture:string prop list ->
   ?email:string prop list ->
   ?email_domain:string prop list ->
+  ?email_list:string prop list ->
   ?everyone:bool prop ->
   ?geo:string prop list ->
   ?group:string prop list ->

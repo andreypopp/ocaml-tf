@@ -402,6 +402,52 @@ let _ = yojson_of_scaling_config
 
 [@@@deriving.end]
 
+type scheduled_backup = {
+  backup_location : string prop;
+  cron_schedule : string prop;
+  enabled : bool prop;
+  time_zone : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduled_backup) -> ()
+
+let yojson_of_scheduled_backup =
+  (function
+   | {
+       backup_location = v_backup_location;
+       cron_schedule = v_cron_schedule;
+       enabled = v_enabled;
+       time_zone = v_time_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cron_schedule in
+         ("cron_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_backup_location
+         in
+         ("backup_location", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduled_backup -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduled_backup
+
+[@@@deriving.end]
+
 type telemetry_config = { log_format : string prop }
 [@@deriving_inline yojson_of]
 
@@ -501,6 +547,7 @@ type t = {
   project : string prop;
   release_channel : string prop;
   scaling_config : scaling_config list prop;
+  scheduled_backup : scheduled_backup list prop;
   service_id : string prop;
   state : string prop;
   state_message : string prop;
@@ -539,6 +586,8 @@ let make ?id ?project ~location ~service_id __id =
        project = Prop.computed __type __id "project";
        release_channel = Prop.computed __type __id "release_channel";
        scaling_config = Prop.computed __type __id "scaling_config";
+       scheduled_backup =
+         Prop.computed __type __id "scheduled_backup";
        service_id = Prop.computed __type __id "service_id";
        state = Prop.computed __type __id "state";
        state_message = Prop.computed __type __id "state_message";

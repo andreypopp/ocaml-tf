@@ -13,6 +13,7 @@ type cluster_profile
 
 val cluster_profile :
   ?fips_enabled:bool prop ->
+  ?managed_resource_group_name:string prop ->
   ?pull_secret:string prop ->
   domain:string prop ->
   version:string prop ->
@@ -38,6 +39,7 @@ type network_profile
 
 val network_profile :
   ?outbound_type:string prop ->
+  ?preconfigured_network_security_group_enabled:bool prop ->
   pod_cidr:string prop ->
   service_cidr:string prop ->
   unit ->

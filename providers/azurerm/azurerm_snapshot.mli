@@ -42,9 +42,12 @@ val timeouts :
 type azurerm_snapshot
 
 val azurerm_snapshot :
+  ?disk_access_id:string prop ->
   ?disk_size_gb:float prop ->
   ?id:string prop ->
   ?incremental_enabled:bool prop ->
+  ?network_access_policy:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
@@ -65,11 +68,14 @@ val yojson_of_azurerm_snapshot : azurerm_snapshot -> json
 type t = private {
   tf_name : string;
   create_option : string prop;
+  disk_access_id : string prop;
   disk_size_gb : float prop;
   id : string prop;
   incremental_enabled : bool prop;
   location : string prop;
   name : string prop;
+  network_access_policy : string prop;
+  public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   source_resource_id : string prop;
   source_uri : string prop;
@@ -80,9 +86,12 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?disk_access_id:string prop ->
   ?disk_size_gb:float prop ->
   ?id:string prop ->
   ?incremental_enabled:bool prop ->
+  ?network_access_policy:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
@@ -97,9 +106,12 @@ val register :
   t
 
 val make :
+  ?disk_access_id:string prop ->
   ?disk_size_gb:float prop ->
   ?id:string prop ->
   ?incremental_enabled:bool prop ->
+  ?network_access_policy:string prop ->
+  ?public_network_access_enabled:bool prop ->
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->

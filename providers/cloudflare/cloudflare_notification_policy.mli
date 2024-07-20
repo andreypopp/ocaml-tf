@@ -19,6 +19,7 @@ type filters
 val filters :
   ?actions:string prop list ->
   ?affected_components:string prop list ->
+  ?airport_code:string prop list ->
   ?alert_trigger_preferences:string prop list ->
   ?enabled:string prop list ->
   ?environment:string prop list ->
@@ -44,8 +45,10 @@ val filters :
   ?slo:string prop list ->
   ?status:string prop list ->
   ?target_hostname:string prop list ->
+  ?target_ip:string prop list ->
   ?target_zone_name:string prop list ->
   ?tunnel_id:string prop list ->
+  ?tunnel_name:string prop list ->
   ?where:string prop list ->
   ?zones:string prop list ->
   unit ->

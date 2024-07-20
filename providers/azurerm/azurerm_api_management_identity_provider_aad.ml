@@ -67,6 +67,7 @@ type azurerm_api_management_identity_provider_aad = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   api_management_name : string prop;
   client_id : string prop;
+  client_library : string prop option; [@option]
   client_secret : string prop;
   id : string prop option; [@option]
   resource_group_name : string prop;
@@ -83,6 +84,7 @@ let yojson_of_azurerm_api_management_identity_provider_aad =
        allowed_tenants = v_allowed_tenants;
        api_management_name = v_api_management_name;
        client_id = v_client_id;
+       client_library = v_client_library;
        client_secret = v_client_secret;
        id = v_id;
        resource_group_name = v_resource_group_name;
@@ -123,6 +125,14 @@ let yojson_of_azurerm_api_management_identity_provider_aad =
          ("client_secret", arg) :: bnds
        in
        let bnds =
+         match v_client_library with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_library", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_id in
          ("client_id", arg) :: bnds
        in
@@ -153,14 +163,15 @@ let _ = yojson_of_azurerm_api_management_identity_provider_aad
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_api_management_identity_provider_aad ?id ?signin_tenant
-    ?timeouts ~allowed_tenants ~api_management_name ~client_id
-    ~client_secret ~resource_group_name () :
+let azurerm_api_management_identity_provider_aad ?client_library ?id
+    ?signin_tenant ?timeouts ~allowed_tenants ~api_management_name
+    ~client_id ~client_secret ~resource_group_name () :
     azurerm_api_management_identity_provider_aad =
   {
     allowed_tenants;
     api_management_name;
     client_id;
+    client_library;
     client_secret;
     id;
     resource_group_name;
@@ -173,14 +184,15 @@ type t = {
   allowed_tenants : string list prop;
   api_management_name : string prop;
   client_id : string prop;
+  client_library : string prop;
   client_secret : string prop;
   id : string prop;
   resource_group_name : string prop;
   signin_tenant : string prop;
 }
 
-let make ?id ?signin_tenant ?timeouts ~allowed_tenants
-    ~api_management_name ~client_id ~client_secret
+let make ?client_library ?id ?signin_tenant ?timeouts
+    ~allowed_tenants ~api_management_name ~client_id ~client_secret
     ~resource_group_name __id =
   let __type = "azurerm_api_management_identity_provider_aad" in
   let __attrs =
@@ -190,6 +202,7 @@ let make ?id ?signin_tenant ?timeouts ~allowed_tenants
        api_management_name =
          Prop.computed __type __id "api_management_name";
        client_id = Prop.computed __type __id "client_id";
+       client_library = Prop.computed __type __id "client_library";
        client_secret = Prop.computed __type __id "client_secret";
        id = Prop.computed __type __id "id";
        resource_group_name =
@@ -203,19 +216,19 @@ let make ?id ?signin_tenant ?timeouts ~allowed_tenants
     type_ = __type;
     json =
       yojson_of_azurerm_api_management_identity_provider_aad
-        (azurerm_api_management_identity_provider_aad ?id
-           ?signin_tenant ?timeouts ~allowed_tenants
+        (azurerm_api_management_identity_provider_aad ?client_library
+           ?id ?signin_tenant ?timeouts ~allowed_tenants
            ~api_management_name ~client_id ~client_secret
            ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?signin_tenant ?timeouts ~allowed_tenants
-    ~api_management_name ~client_id ~client_secret
+let register ?tf_module ?client_library ?id ?signin_tenant ?timeouts
+    ~allowed_tenants ~api_management_name ~client_id ~client_secret
     ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?signin_tenant ?timeouts ~allowed_tenants
-      ~api_management_name ~client_id ~client_secret
+    make ?client_library ?id ?signin_tenant ?timeouts
+      ~allowed_tenants ~api_management_name ~client_id ~client_secret
       ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

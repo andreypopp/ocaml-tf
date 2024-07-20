@@ -86,7 +86,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_stack_hci_cluster = {
   automanage_configuration_id : string prop option; [@option]
-  client_id : string prop;
+  client_id : string prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -178,8 +178,12 @@ let yojson_of_azurerm_stack_hci_cluster =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_client_id in
-         ("client_id", arg) :: bnds
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_automanage_configuration_id with
@@ -201,8 +205,8 @@ let identity ~type_ () : identity = { type_ }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_stack_hci_cluster ?automanage_configuration_id ?id ?tags
-    ?tenant_id ?(identity = []) ?timeouts ~client_id ~location ~name
+let azurerm_stack_hci_cluster ?automanage_configuration_id ?client_id
+    ?id ?tags ?tenant_id ?(identity = []) ?timeouts ~location ~name
     ~resource_group_name () : azurerm_stack_hci_cluster =
   {
     automanage_configuration_id;
@@ -232,9 +236,9 @@ type t = {
   tenant_id : string prop;
 }
 
-let make ?automanage_configuration_id ?id ?tags ?tenant_id
-    ?(identity = []) ?timeouts ~client_id ~location ~name
-    ~resource_group_name __id =
+let make ?automanage_configuration_id ?client_id ?id ?tags ?tenant_id
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_stack_hci_cluster" in
   let __attrs =
     ({
@@ -262,18 +266,18 @@ let make ?automanage_configuration_id ?id ?tags ?tenant_id
     type_ = __type;
     json =
       yojson_of_azurerm_stack_hci_cluster
-        (azurerm_stack_hci_cluster ?automanage_configuration_id ?id
-           ?tags ?tenant_id ~identity ?timeouts ~client_id ~location
-           ~name ~resource_group_name ());
+        (azurerm_stack_hci_cluster ?automanage_configuration_id
+           ?client_id ?id ?tags ?tenant_id ~identity ?timeouts
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?automanage_configuration_id ?id ?tags
-    ?tenant_id ?(identity = []) ?timeouts ~client_id ~location ~name
+let register ?tf_module ?automanage_configuration_id ?client_id ?id
+    ?tags ?tenant_id ?(identity = []) ?timeouts ~location ~name
     ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?automanage_configuration_id ?id ?tags ?tenant_id ~identity
-      ?timeouts ~client_id ~location ~name ~resource_group_name __id
+    make ?automanage_configuration_id ?client_id ?id ?tags ?tenant_id
+      ~identity ?timeouts ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

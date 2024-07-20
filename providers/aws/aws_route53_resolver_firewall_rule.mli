@@ -11,7 +11,9 @@ val aws_route53_resolver_firewall_rule :
   ?block_override_domain:string prop ->
   ?block_override_ttl:float prop ->
   ?block_response:string prop ->
+  ?firewall_domain_redirection_action:string prop ->
   ?id:string prop ->
+  ?q_type:string prop ->
   action:string prop ->
   firewall_domain_list_id:string prop ->
   firewall_rule_group_id:string prop ->
@@ -33,10 +35,12 @@ type t = private {
   block_override_ttl : float prop;
   block_response : string prop;
   firewall_domain_list_id : string prop;
+  firewall_domain_redirection_action : string prop;
   firewall_rule_group_id : string prop;
   id : string prop;
   name : string prop;
   priority : float prop;
+  q_type : string prop;
 }
 
 val register :
@@ -45,7 +49,9 @@ val register :
   ?block_override_domain:string prop ->
   ?block_override_ttl:float prop ->
   ?block_response:string prop ->
+  ?firewall_domain_redirection_action:string prop ->
   ?id:string prop ->
+  ?q_type:string prop ->
   action:string prop ->
   firewall_domain_list_id:string prop ->
   firewall_rule_group_id:string prop ->
@@ -59,7 +65,9 @@ val make :
   ?block_override_domain:string prop ->
   ?block_override_ttl:float prop ->
   ?block_response:string prop ->
+  ?firewall_domain_redirection_action:string prop ->
   ?id:string prop ->
+  ?q_type:string prop ->
   action:string prop ->
   firewall_domain_list_id:string prop ->
   firewall_rule_group_id:string prop ->

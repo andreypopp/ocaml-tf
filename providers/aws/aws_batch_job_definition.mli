@@ -143,6 +143,7 @@ type aws_batch_job_definition
 
 val aws_batch_job_definition :
   ?container_properties:string prop ->
+  ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
   ?parameters:(string * string prop) list ->
@@ -169,6 +170,7 @@ type t = private {
   arn : string prop;
   arn_prefix : string prop;
   container_properties : string prop;
+  deregister_on_new_revision : bool prop;
   id : string prop;
   name : string prop;
   node_properties : string prop;
@@ -185,6 +187,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?container_properties:string prop ->
+  ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
   ?parameters:(string * string prop) list ->
@@ -203,6 +206,7 @@ val register :
 
 val make :
   ?container_properties:string prop ->
+  ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
   ?parameters:(string * string prop) list ->

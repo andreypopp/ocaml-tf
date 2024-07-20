@@ -50,6 +50,14 @@ val initial_capacity :
   unit ->
   initial_capacity
 
+type interactive_configuration
+
+val interactive_configuration :
+  ?livy_endpoint_enabled:bool prop ->
+  ?studio_enabled:bool prop ->
+  unit ->
+  interactive_configuration
+
 type maximum_capacity
 
 val maximum_capacity :
@@ -77,6 +85,7 @@ val aws_emrserverless_application :
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->
+  ?interactive_configuration:interactive_configuration list ->
   ?maximum_capacity:maximum_capacity list ->
   ?network_configuration:network_configuration list ->
   name:string prop ->
@@ -112,6 +121,7 @@ val register :
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->
+  ?interactive_configuration:interactive_configuration list ->
   ?maximum_capacity:maximum_capacity list ->
   ?network_configuration:network_configuration list ->
   name:string prop ->
@@ -129,6 +139,7 @@ val make :
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->
+  ?interactive_configuration:interactive_configuration list ->
   ?maximum_capacity:maximum_capacity list ->
   ?network_configuration:network_configuration list ->
   name:string prop ->

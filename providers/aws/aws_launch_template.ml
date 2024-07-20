@@ -938,6 +938,9 @@ type instance_requirements = {
   instance_generations : string prop list option; [@option]
   local_storage : string prop option; [@option]
   local_storage_types : string prop list option; [@option]
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop option;
+      [@option]
   on_demand_max_price_percentage_over_lowest_price :
     float prop option;
       [@option]
@@ -987,6 +990,8 @@ let yojson_of_instance_requirements =
        instance_generations = v_instance_generations;
        local_storage = v_local_storage;
        local_storage_types = v_local_storage_types;
+       max_spot_price_as_percentage_of_optimal_on_demand_price =
+         v_max_spot_price_as_percentage_of_optimal_on_demand_price;
        on_demand_max_price_percentage_over_lowest_price =
          v_on_demand_max_price_percentage_over_lowest_price;
        require_hibernate_support = v_require_hibernate_support;
@@ -1131,6 +1136,19 @@ let yojson_of_instance_requirements =
              let arg = yojson_of_prop yojson_of_float v in
              let bnd =
                ( "on_demand_max_price_percentage_over_lowest_price",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_max_spot_price_as_percentage_of_optimal_on_demand_price
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "max_spot_price_as_percentage_of_optimal_on_demand_price",
                  arg )
              in
              bnd :: bnds
@@ -1414,6 +1432,7 @@ type network_interfaces = {
   ipv6_prefixes : string prop list option; [@option]
   network_card_index : float prop option; [@option]
   network_interface_id : string prop option; [@option]
+  primary_ipv6 : string prop option; [@option]
   private_ip_address : string prop option; [@option]
   security_groups : string prop list option; [@option]
   subnet_id : string prop option; [@option]
@@ -1441,6 +1460,7 @@ let yojson_of_network_interfaces =
        ipv6_prefixes = v_ipv6_prefixes;
        network_card_index = v_network_card_index;
        network_interface_id = v_network_interface_id;
+       primary_ipv6 = v_primary_ipv6;
        private_ip_address = v_private_ip_address;
        security_groups = v_security_groups;
        subnet_id = v_subnet_id;
@@ -1472,6 +1492,14 @@ let yojson_of_network_interfaces =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "private_ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_primary_ipv6 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_ipv6", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2417,6 +2445,7 @@ let instance_requirements ?accelerator_manufacturers
     ?bare_metal ?burstable_performance ?cpu_manufacturers
     ?excluded_instance_types ?instance_generations ?local_storage
     ?local_storage_types
+    ?max_spot_price_as_percentage_of_optimal_on_demand_price
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
     ?spot_max_price_percentage_over_lowest_price
@@ -2437,6 +2466,7 @@ let instance_requirements ?accelerator_manufacturers
     instance_generations;
     local_storage;
     local_storage_types;
+    max_spot_price_as_percentage_of_optimal_on_demand_price;
     on_demand_max_price_percentage_over_lowest_price;
     require_hibernate_support;
     spot_max_price_percentage_over_lowest_price;
@@ -2476,8 +2506,9 @@ let network_interfaces ?associate_carrier_ip_address
     ?device_index ?interface_type ?ipv4_address_count ?ipv4_addresses
     ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
     ?ipv6_addresses ?ipv6_prefix_count ?ipv6_prefixes
-    ?network_card_index ?network_interface_id ?private_ip_address
-    ?security_groups ?subnet_id () : network_interfaces =
+    ?network_card_index ?network_interface_id ?primary_ipv6
+    ?private_ip_address ?security_groups ?subnet_id () :
+    network_interfaces =
   {
     associate_carrier_ip_address;
     associate_public_ip_address;
@@ -2495,6 +2526,7 @@ let network_interfaces ?associate_carrier_ip_address
     ipv6_prefixes;
     network_card_index;
     network_interface_id;
+    primary_ipv6;
     private_ip_address;
     security_groups;
     subnet_id;

@@ -239,6 +239,7 @@ type azurerm_virtual_network_gateway_connection = {
   location : string prop;
   name : string prop;
   peer_virtual_network_gateway_id : string prop option; [@option]
+  private_link_fast_path_enabled : bool prop option; [@option]
   resource_group_name : string prop;
   routing_weight : float prop option; [@option]
   shared_key : string prop option; [@option]
@@ -278,6 +279,8 @@ let yojson_of_azurerm_virtual_network_gateway_connection =
        name = v_name;
        peer_virtual_network_gateway_id =
          v_peer_virtual_network_gateway_id;
+       private_link_fast_path_enabled =
+         v_private_link_fast_path_enabled;
        resource_group_name = v_resource_group_name;
        routing_weight = v_routing_weight;
        shared_key = v_shared_key;
@@ -383,6 +386,14 @@ let yojson_of_azurerm_virtual_network_gateway_connection =
            yojson_of_prop yojson_of_string v_resource_group_name
          in
          ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_private_link_fast_path_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_link_fast_path_enabled", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_peer_virtual_network_gateway_id with
@@ -538,11 +549,12 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
     ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
-    ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
-    ?tags ?use_policy_based_traffic_selectors
-    ?(custom_bgp_addresses = []) ?(ipsec_policy = []) ?timeouts
-    ?(traffic_selector_policy = []) ~location ~name
-    ~resource_group_name ~type_ ~virtual_network_gateway_id () :
+    ?peer_virtual_network_gateway_id ?private_link_fast_path_enabled
+    ?routing_weight ?shared_key ?tags
+    ?use_policy_based_traffic_selectors ?(custom_bgp_addresses = [])
+    ?(ipsec_policy = []) ?timeouts ?(traffic_selector_policy = [])
+    ~location ~name ~resource_group_name ~type_
+    ~virtual_network_gateway_id () :
     azurerm_virtual_network_gateway_connection =
   {
     authorization_key;
@@ -560,6 +572,7 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     location;
     name;
     peer_virtual_network_gateway_id;
+    private_link_fast_path_enabled;
     resource_group_name;
     routing_weight;
     shared_key;
@@ -590,6 +603,7 @@ type t = {
   location : string prop;
   name : string prop;
   peer_virtual_network_gateway_id : string prop;
+  private_link_fast_path_enabled : bool prop;
   resource_group_name : string prop;
   routing_weight : float prop;
   shared_key : string prop;
@@ -604,7 +618,7 @@ let make ?authorization_key ?connection_mode ?connection_protocol
     ?express_route_circuit_id ?express_route_gateway_bypass ?id
     ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
     ?local_network_gateway_id ?peer_virtual_network_gateway_id
-    ?routing_weight ?shared_key ?tags
+    ?private_link_fast_path_enabled ?routing_weight ?shared_key ?tags
     ?use_policy_based_traffic_selectors ?(custom_bgp_addresses = [])
     ?(ipsec_policy = []) ?timeouts ?(traffic_selector_policy = [])
     ~location ~name ~resource_group_name ~type_
@@ -638,6 +652,8 @@ let make ?authorization_key ?connection_mode ?connection_protocol
        name = Prop.computed __type __id "name";
        peer_virtual_network_gateway_id =
          Prop.computed __type __id "peer_virtual_network_gateway_id";
+       private_link_fast_path_enabled =
+         Prop.computed __type __id "private_link_fast_path_enabled";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
        routing_weight = Prop.computed __type __id "routing_weight";
@@ -663,11 +679,11 @@ let make ?authorization_key ?connection_mode ?connection_protocol
            ?express_route_circuit_id ?express_route_gateway_bypass
            ?id ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
            ?local_network_gateway_id ?peer_virtual_network_gateway_id
-           ?routing_weight ?shared_key ?tags
-           ?use_policy_based_traffic_selectors ~custom_bgp_addresses
-           ~ipsec_policy ?timeouts ~traffic_selector_policy ~location
-           ~name ~resource_group_name ~type_
-           ~virtual_network_gateway_id ());
+           ?private_link_fast_path_enabled ?routing_weight
+           ?shared_key ?tags ?use_policy_based_traffic_selectors
+           ~custom_bgp_addresses ~ipsec_policy ?timeouts
+           ~traffic_selector_policy ~location ~name
+           ~resource_group_name ~type_ ~virtual_network_gateway_id ());
     attrs = __attrs;
   }
 
@@ -676,19 +692,20 @@ let register ?tf_module ?authorization_key ?connection_mode
     ?enable_bgp ?express_route_circuit_id
     ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
-    ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
-    ?tags ?use_policy_based_traffic_selectors
-    ?(custom_bgp_addresses = []) ?(ipsec_policy = []) ?timeouts
-    ?(traffic_selector_policy = []) ~location ~name
-    ~resource_group_name ~type_ ~virtual_network_gateway_id __id =
+    ?peer_virtual_network_gateway_id ?private_link_fast_path_enabled
+    ?routing_weight ?shared_key ?tags
+    ?use_policy_based_traffic_selectors ?(custom_bgp_addresses = [])
+    ?(ipsec_policy = []) ?timeouts ?(traffic_selector_policy = [])
+    ~location ~name ~resource_group_name ~type_
+    ~virtual_network_gateway_id __id =
   let (r : _ Tf_core.resource) =
     make ?authorization_key ?connection_mode ?connection_protocol
       ?dpd_timeout_seconds ?egress_nat_rule_ids ?enable_bgp
       ?express_route_circuit_id ?express_route_gateway_bypass ?id
       ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
       ?local_network_gateway_id ?peer_virtual_network_gateway_id
-      ?routing_weight ?shared_key ?tags
-      ?use_policy_based_traffic_selectors ~custom_bgp_addresses
+      ?private_link_fast_path_enabled ?routing_weight ?shared_key
+      ?tags ?use_policy_based_traffic_selectors ~custom_bgp_addresses
       ~ipsec_policy ?timeouts ~traffic_selector_policy ~location
       ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
       __id

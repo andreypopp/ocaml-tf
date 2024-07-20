@@ -224,6 +224,41 @@ let _ = yojson_of_criteria
 
 [@@@deriving.end]
 
+type identity = {
+  identity_ids : string prop list option; [@option]
+  type_ : string prop; [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -308,6 +343,8 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   criteria : criteria list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  identity : identity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -340,6 +377,7 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          v_workspace_alerts_storage_enabled;
        action = v_action;
        criteria = v_criteria;
+       identity = v_identity;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -348,6 +386,15 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_criteria then bnds
@@ -542,6 +589,9 @@ let criteria ?metric_measure_column ?resource_id_column
     failing_periods;
   }
 
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
+
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
@@ -550,9 +600,9 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
     ?evaluation_frequency ?id ?mute_actions_after_alert_duration
     ?query_time_range_override ?skip_query_validation ?tags
     ?target_resource_types ?workspace_alerts_storage_enabled
-    ?(action = []) ?timeouts ~location ~name ~resource_group_name
-    ~scopes ~severity ~window_duration ~criteria () :
-    azurerm_monitor_scheduled_query_rules_alert_v2 =
+    ?(action = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~scopes ~severity ~window_duration ~criteria
+    () : azurerm_monitor_scheduled_query_rules_alert_v2 =
   {
     auto_mitigation_enabled;
     description;
@@ -574,6 +624,7 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
     workspace_alerts_storage_enabled;
     action;
     criteria;
+    identity;
     timeouts;
   }
 
@@ -606,8 +657,9 @@ let make ?auto_mitigation_enabled ?description ?display_name ?enabled
     ?evaluation_frequency ?id ?mute_actions_after_alert_duration
     ?query_time_range_override ?skip_query_validation ?tags
     ?target_resource_types ?workspace_alerts_storage_enabled
-    ?(action = []) ?timeouts ~location ~name ~resource_group_name
-    ~scopes ~severity ~window_duration ~criteria __id =
+    ?(action = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~scopes ~severity ~window_duration ~criteria
+    __id =
   let __type = "azurerm_monitor_scheduled_query_rules_alert_v2" in
   let __attrs =
     ({
@@ -660,8 +712,9 @@ let make ?auto_mitigation_enabled ?description ?display_name ?enabled
            ?mute_actions_after_alert_duration
            ?query_time_range_override ?skip_query_validation ?tags
            ?target_resource_types ?workspace_alerts_storage_enabled
-           ~action ?timeouts ~location ~name ~resource_group_name
-           ~scopes ~severity ~window_duration ~criteria ());
+           ~action ~identity ?timeouts ~location ~name
+           ~resource_group_name ~scopes ~severity ~window_duration
+           ~criteria ());
     attrs = __attrs;
   }
 
@@ -669,16 +722,17 @@ let register ?tf_module ?auto_mitigation_enabled ?description
     ?display_name ?enabled ?evaluation_frequency ?id
     ?mute_actions_after_alert_duration ?query_time_range_override
     ?skip_query_validation ?tags ?target_resource_types
-    ?workspace_alerts_storage_enabled ?(action = []) ?timeouts
-    ~location ~name ~resource_group_name ~scopes ~severity
+    ?workspace_alerts_storage_enabled ?(action = []) ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
     ~window_duration ~criteria __id =
   let (r : _ Tf_core.resource) =
     make ?auto_mitigation_enabled ?description ?display_name ?enabled
       ?evaluation_frequency ?id ?mute_actions_after_alert_duration
       ?query_time_range_override ?skip_query_validation ?tags
       ?target_resource_types ?workspace_alerts_storage_enabled
-      ~action ?timeouts ~location ~name ~resource_group_name ~scopes
-      ~severity ~window_duration ~criteria __id
+      ~action ~identity ?timeouts ~location ~name
+      ~resource_group_name ~scopes ~severity ~window_duration
+      ~criteria __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

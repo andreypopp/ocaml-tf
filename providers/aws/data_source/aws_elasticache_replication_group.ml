@@ -93,6 +93,7 @@ type t = {
   arn : string prop;
   auth_token_enabled : bool prop;
   automatic_failover_enabled : bool prop;
+  cluster_mode : string prop;
   configuration_endpoint_address : string prop;
   description : string prop;
   id : string prop;
@@ -121,6 +122,7 @@ let make ?id ~replication_group_id __id =
          Prop.computed __type __id "auth_token_enabled";
        automatic_failover_enabled =
          Prop.computed __type __id "automatic_failover_enabled";
+       cluster_mode = Prop.computed __type __id "cluster_mode";
        configuration_endpoint_address =
          Prop.computed __type __id "configuration_endpoint_address";
        description = Prop.computed __type __id "description";

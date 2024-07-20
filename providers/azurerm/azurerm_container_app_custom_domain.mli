@@ -16,10 +16,10 @@ val timeouts :
 type azurerm_container_app_custom_domain
 
 val azurerm_container_app_custom_domain :
+  ?certificate_binding_type:string prop ->
+  ?container_app_environment_certificate_id:string prop ->
   ?id:string prop ->
   ?timeouts:timeouts ->
-  certificate_binding_type:string prop ->
-  container_app_environment_certificate_id:string prop ->
   container_app_id:string prop ->
   name:string prop ->
   unit ->
@@ -41,20 +41,20 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?certificate_binding_type:string prop ->
+  ?container_app_environment_certificate_id:string prop ->
   ?id:string prop ->
   ?timeouts:timeouts ->
-  certificate_binding_type:string prop ->
-  container_app_environment_certificate_id:string prop ->
   container_app_id:string prop ->
   name:string prop ->
   string ->
   t
 
 val make :
+  ?certificate_binding_type:string prop ->
+  ?container_app_environment_certificate_id:string prop ->
   ?id:string prop ->
   ?timeouts:timeouts ->
-  certificate_binding_type:string prop ->
-  container_app_environment_certificate_id:string prop ->
   container_app_id:string prop ->
   name:string prop ->
   string ->

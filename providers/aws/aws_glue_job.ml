@@ -123,6 +123,7 @@ type aws_glue_job = {
   execution_class : string prop option; [@option]
   glue_version : string prop option; [@option]
   id : string prop option; [@option]
+  maintenance_window : string prop option; [@option]
   max_capacity : float prop option; [@option]
   max_retries : float prop option; [@option]
   name : string prop;
@@ -155,6 +156,7 @@ let yojson_of_aws_glue_job =
        execution_class = v_execution_class;
        glue_version = v_glue_version;
        id = v_id;
+       maintenance_window = v_maintenance_window;
        max_capacity = v_max_capacity;
        max_retries = v_max_retries;
        name = v_name;
@@ -305,6 +307,14 @@ let yojson_of_aws_glue_job =
              bnd :: bnds
        in
        let bnds =
+         match v_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -381,11 +391,12 @@ let notification_property ?notify_delay_after () :
   { notify_delay_after }
 
 let aws_glue_job ?connections ?default_arguments ?description
-    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
-    ?non_overridable_arguments ?number_of_workers
-    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ?(execution_property = []) ?(notification_property = []) ~name
-    ~role_arn ~command () : aws_glue_job =
+    ?execution_class ?glue_version ?id ?maintenance_window
+    ?max_capacity ?max_retries ?non_overridable_arguments
+    ?number_of_workers ?security_configuration ?tags ?tags_all
+    ?timeout ?worker_type ?(execution_property = [])
+    ?(notification_property = []) ~name ~role_arn ~command () :
+    aws_glue_job =
   {
     connections;
     default_arguments;
@@ -393,6 +404,7 @@ let aws_glue_job ?connections ?default_arguments ?description
     execution_class;
     glue_version;
     id;
+    maintenance_window;
     max_capacity;
     max_retries;
     name;
@@ -418,6 +430,7 @@ type t = {
   execution_class : string prop;
   glue_version : string prop;
   id : string prop;
+  maintenance_window : string prop;
   max_capacity : float prop;
   max_retries : float prop;
   name : string prop;
@@ -432,11 +445,11 @@ type t = {
 }
 
 let make ?connections ?default_arguments ?description
-    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
-    ?non_overridable_arguments ?number_of_workers
-    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ?(execution_property = []) ?(notification_property = []) ~name
-    ~role_arn ~command __id =
+    ?execution_class ?glue_version ?id ?maintenance_window
+    ?max_capacity ?max_retries ?non_overridable_arguments
+    ?number_of_workers ?security_configuration ?tags ?tags_all
+    ?timeout ?worker_type ?(execution_property = [])
+    ?(notification_property = []) ~name ~role_arn ~command __id =
   let __type = "aws_glue_job" in
   let __attrs =
     ({
@@ -449,6 +462,8 @@ let make ?connections ?default_arguments ?description
        execution_class = Prop.computed __type __id "execution_class";
        glue_version = Prop.computed __type __id "glue_version";
        id = Prop.computed __type __id "id";
+       maintenance_window =
+         Prop.computed __type __id "maintenance_window";
        max_capacity = Prop.computed __type __id "max_capacity";
        max_retries = Prop.computed __type __id "max_retries";
        name = Prop.computed __type __id "name";
@@ -472,27 +487,27 @@ let make ?connections ?default_arguments ?description
     json =
       yojson_of_aws_glue_job
         (aws_glue_job ?connections ?default_arguments ?description
-           ?execution_class ?glue_version ?id ?max_capacity
-           ?max_retries ?non_overridable_arguments ?number_of_workers
-           ?security_configuration ?tags ?tags_all ?timeout
-           ?worker_type ~execution_property ~notification_property
-           ~name ~role_arn ~command ());
+           ?execution_class ?glue_version ?id ?maintenance_window
+           ?max_capacity ?max_retries ?non_overridable_arguments
+           ?number_of_workers ?security_configuration ?tags ?tags_all
+           ?timeout ?worker_type ~execution_property
+           ~notification_property ~name ~role_arn ~command ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?connections ?default_arguments ?description
-    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
-    ?non_overridable_arguments ?number_of_workers
-    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ?(execution_property = []) ?(notification_property = []) ~name
-    ~role_arn ~command __id =
+    ?execution_class ?glue_version ?id ?maintenance_window
+    ?max_capacity ?max_retries ?non_overridable_arguments
+    ?number_of_workers ?security_configuration ?tags ?tags_all
+    ?timeout ?worker_type ?(execution_property = [])
+    ?(notification_property = []) ~name ~role_arn ~command __id =
   let (r : _ Tf_core.resource) =
     make ?connections ?default_arguments ?description
-      ?execution_class ?glue_version ?id ?max_capacity ?max_retries
-      ?non_overridable_arguments ?number_of_workers
-      ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-      ~execution_property ~notification_property ~name ~role_arn
-      ~command __id
+      ?execution_class ?glue_version ?id ?maintenance_window
+      ?max_capacity ?max_retries ?non_overridable_arguments
+      ?number_of_workers ?security_configuration ?tags ?tags_all
+      ?timeout ?worker_type ~execution_property
+      ~notification_property ~name ~role_arn ~command __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

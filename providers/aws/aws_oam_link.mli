@@ -4,6 +4,29 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type link_configuration__log_group_configuration
+
+val link_configuration__log_group_configuration :
+  filter:string prop ->
+  unit ->
+  link_configuration__log_group_configuration
+
+type link_configuration__metric_configuration
+
+val link_configuration__metric_configuration :
+  filter:string prop ->
+  unit ->
+  link_configuration__metric_configuration
+
+type link_configuration
+
+val link_configuration :
+  ?log_group_configuration:
+    link_configuration__log_group_configuration list ->
+  ?metric_configuration:link_configuration__metric_configuration list ->
+  unit ->
+  link_configuration
+
 type timeouts
 
 val timeouts :
@@ -19,6 +42,7 @@ val aws_oam_link :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?link_configuration:link_configuration list ->
   ?timeouts:timeouts ->
   label_template:string prop ->
   resource_types:string prop list ->
@@ -49,6 +73,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?link_configuration:link_configuration list ->
   ?timeouts:timeouts ->
   label_template:string prop ->
   resource_types:string prop list ->
@@ -60,6 +85,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?link_configuration:link_configuration list ->
   ?timeouts:timeouts ->
   label_template:string prop ->
   resource_types:string prop list ->

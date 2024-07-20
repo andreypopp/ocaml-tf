@@ -4,6 +4,7 @@ open! Tf_core
 
 type data_catalog_encryption_settings__encryption_at_rest = {
   catalog_encryption_mode : string prop;
+  catalog_encryption_service_role : string prop;
   sse_aws_kms_key_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -15,6 +16,8 @@ let yojson_of_data_catalog_encryption_settings__encryption_at_rest =
   (function
    | {
        catalog_encryption_mode = v_catalog_encryption_mode;
+       catalog_encryption_service_role =
+         v_catalog_encryption_service_role;
        sse_aws_kms_key_id = v_sse_aws_kms_key_id;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -25,6 +28,13 @@ let yojson_of_data_catalog_encryption_settings__encryption_at_rest =
            yojson_of_prop yojson_of_string v_sse_aws_kms_key_id
          in
          ("sse_aws_kms_key_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_catalog_encryption_service_role
+         in
+         ("catalog_encryption_service_role", arg) :: bnds
        in
        let bnds =
          let arg =

@@ -22,6 +22,7 @@ val azurerm_storage_account_customer_managed_key :
   ?key_vault_id:string prop ->
   ?key_vault_uri:string prop ->
   ?key_version:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?user_assigned_identity_id:string prop ->
   ?timeouts:timeouts ->
   key_name:string prop ->
@@ -42,6 +43,7 @@ type t = private {
   key_vault_id : string prop;
   key_vault_uri : string prop;
   key_version : string prop;
+  managed_hsm_key_id : string prop;
   storage_account_id : string prop;
   user_assigned_identity_id : string prop;
 }
@@ -53,6 +55,7 @@ val register :
   ?key_vault_id:string prop ->
   ?key_vault_uri:string prop ->
   ?key_version:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?user_assigned_identity_id:string prop ->
   ?timeouts:timeouts ->
   key_name:string prop ->
@@ -66,6 +69,7 @@ val make :
   ?key_vault_id:string prop ->
   ?key_vault_uri:string prop ->
   ?key_version:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?user_assigned_identity_id:string prop ->
   ?timeouts:timeouts ->
   key_name:string prop ->

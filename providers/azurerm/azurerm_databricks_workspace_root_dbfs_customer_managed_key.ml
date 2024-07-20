@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_databricks_workspace_root_dbfs_customer_managed_key = {
   id : string prop option; [@option]
+  key_vault_id : string prop option; [@option]
   key_vault_key_id : string prop;
   workspace_id : string prop;
   timeouts : timeouts option;
@@ -80,6 +81,7 @@ let yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key
   (function
    | {
        id = v_id;
+       key_vault_id = v_key_vault_id;
        key_vault_key_id = v_key_vault_key_id;
        workspace_id = v_workspace_id;
        timeouts = v_timeouts;
@@ -102,6 +104,14 @@ let yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key
          ("key_vault_key_id", arg) :: bnds
        in
        let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -122,18 +132,20 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_databricks_workspace_root_dbfs_customer_managed_key ?id
-    ?timeouts ~key_vault_key_id ~workspace_id () :
+    ?key_vault_id ?timeouts ~key_vault_key_id ~workspace_id () :
     azurerm_databricks_workspace_root_dbfs_customer_managed_key =
-  { id; key_vault_key_id; workspace_id; timeouts }
+  { id; key_vault_id; key_vault_key_id; workspace_id; timeouts }
 
 type t = {
   tf_name : string;
   id : string prop;
+  key_vault_id : string prop;
   key_vault_key_id : string prop;
   workspace_id : string prop;
 }
 
-let make ?id ?timeouts ~key_vault_key_id ~workspace_id __id =
+let make ?id ?key_vault_id ?timeouts ~key_vault_key_id ~workspace_id
+    __id =
   let __type =
     "azurerm_databricks_workspace_root_dbfs_customer_managed_key"
   in
@@ -141,6 +153,7 @@ let make ?id ?timeouts ~key_vault_key_id ~workspace_id __id =
     ({
        tf_name = __id;
        id = Prop.computed __type __id "id";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
        key_vault_key_id =
          Prop.computed __type __id "key_vault_key_id";
        workspace_id = Prop.computed __type __id "workspace_id";
@@ -153,14 +166,16 @@ let make ?id ?timeouts ~key_vault_key_id ~workspace_id __id =
     json =
       yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key
         (azurerm_databricks_workspace_root_dbfs_customer_managed_key
-           ?id ?timeouts ~key_vault_key_id ~workspace_id ());
+           ?id ?key_vault_id ?timeouts ~key_vault_key_id
+           ~workspace_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~key_vault_key_id ~workspace_id
-    __id =
+let register ?tf_module ?id ?key_vault_id ?timeouts ~key_vault_key_id
+    ~workspace_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~key_vault_key_id ~workspace_id __id
+    make ?id ?key_vault_id ?timeouts ~key_vault_key_id ~workspace_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

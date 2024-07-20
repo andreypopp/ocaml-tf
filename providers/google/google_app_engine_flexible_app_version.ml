@@ -714,6 +714,46 @@ let _ = yojson_of_entrypoint
 
 [@@@deriving.end]
 
+type flexible_runtime_settings = {
+  operating_system : string prop option; [@option]
+  runtime_version : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : flexible_runtime_settings) -> ()
+
+let yojson_of_flexible_runtime_settings =
+  (function
+   | {
+       operating_system = v_operating_system;
+       runtime_version = v_runtime_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_runtime_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operating_system with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operating_system", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : flexible_runtime_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_flexible_runtime_settings
+
+[@@@deriving.end]
+
 type handlers__script = { script_path : string prop }
 [@@deriving_inline yojson_of]
 
@@ -1388,6 +1428,8 @@ type google_app_engine_flexible_app_version = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   entrypoint : entrypoint list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  flexible_runtime_settings : flexible_runtime_settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   handlers : handlers list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   liveness_check : liveness_check list;
@@ -1434,6 +1476,7 @@ let yojson_of_google_app_engine_flexible_app_version =
        deployment = v_deployment;
        endpoints_api_service = v_endpoints_api_service;
        entrypoint = v_entrypoint;
+       flexible_runtime_settings = v_flexible_runtime_settings;
        handlers = v_handlers;
        liveness_check = v_liveness_check;
        manual_scaling = v_manual_scaling;
@@ -1513,6 +1556,16 @@ let yojson_of_google_app_engine_flexible_app_version =
              (yojson_of_list yojson_of_handlers) v_handlers
            in
            let bnd = "handlers", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_flexible_runtime_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_flexible_runtime_settings)
+               v_flexible_runtime_settings
+           in
+           let bnd = "flexible_runtime_settings", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1805,6 +1858,10 @@ let endpoints_api_service ?config_id ?disable_trace_sampling
 
 let entrypoint ~shell () : entrypoint = { shell }
 
+let flexible_runtime_settings ?operating_system ?runtime_version () :
+    flexible_runtime_settings =
+  { operating_system; runtime_version }
+
 let handlers__script ~script_path () : handlers__script =
   { script_path }
 
@@ -1892,10 +1949,11 @@ let google_app_engine_flexible_app_version ?beta_settings
     ?runtime_main_executable_path ?service_account ?serving_status
     ?version_id ?(api_config = []) ?(automatic_scaling = [])
     ?(deployment = []) ?(endpoints_api_service = [])
-    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
-    ?(network = []) ?(resources = []) ?timeouts
-    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
-    ~readiness_check () : google_app_engine_flexible_app_version =
+    ?(entrypoint = []) ?(flexible_runtime_settings = [])
+    ?(handlers = []) ?(manual_scaling = []) ?(network = [])
+    ?(resources = []) ?timeouts ?(vpc_access_connector = []) ~runtime
+    ~service ~liveness_check ~readiness_check () :
+    google_app_engine_flexible_app_version =
   {
     beta_settings;
     default_expiration;
@@ -1920,6 +1978,7 @@ let google_app_engine_flexible_app_version ?beta_settings
     deployment;
     endpoints_api_service;
     entrypoint;
+    flexible_runtime_settings;
     handlers;
     liveness_check;
     manual_scaling;
@@ -1960,10 +2019,10 @@ let make ?beta_settings ?default_expiration
     ?runtime_main_executable_path ?service_account ?serving_status
     ?version_id ?(api_config = []) ?(automatic_scaling = [])
     ?(deployment = []) ?(endpoints_api_service = [])
-    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
-    ?(network = []) ?(resources = []) ?timeouts
-    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
-    ~readiness_check __id =
+    ?(entrypoint = []) ?(flexible_runtime_settings = [])
+    ?(handlers = []) ?(manual_scaling = []) ?(network = [])
+    ?(resources = []) ?timeouts ?(vpc_access_connector = []) ~runtime
+    ~service ~liveness_check ~readiness_check __id =
   let __type = "google_app_engine_flexible_app_version" in
   let __attrs =
     ({
@@ -2008,10 +2067,10 @@ let make ?beta_settings ?default_expiration
            ?runtime_api_version ?runtime_channel
            ?runtime_main_executable_path ?service_account
            ?serving_status ?version_id ~api_config ~automatic_scaling
-           ~deployment ~endpoints_api_service ~entrypoint ~handlers
-           ~manual_scaling ~network ~resources ?timeouts
-           ~vpc_access_connector ~runtime ~service ~liveness_check
-           ~readiness_check ());
+           ~deployment ~endpoints_api_service ~entrypoint
+           ~flexible_runtime_settings ~handlers ~manual_scaling
+           ~network ~resources ?timeouts ~vpc_access_connector
+           ~runtime ~service ~liveness_check ~readiness_check ());
     attrs = __attrs;
   }
 
@@ -2022,10 +2081,10 @@ let register ?tf_module ?beta_settings ?default_expiration
     ?runtime_main_executable_path ?service_account ?serving_status
     ?version_id ?(api_config = []) ?(automatic_scaling = [])
     ?(deployment = []) ?(endpoints_api_service = [])
-    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
-    ?(network = []) ?(resources = []) ?timeouts
-    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
-    ~readiness_check __id =
+    ?(entrypoint = []) ?(flexible_runtime_settings = [])
+    ?(handlers = []) ?(manual_scaling = []) ?(network = [])
+    ?(resources = []) ?timeouts ?(vpc_access_connector = []) ~runtime
+    ~service ~liveness_check ~readiness_check __id =
   let (r : _ Tf_core.resource) =
     make ?beta_settings ?default_expiration
       ?delete_service_on_destroy ?env_variables ?id ?inbound_services
@@ -2033,9 +2092,10 @@ let register ?tf_module ?beta_settings ?default_expiration
       ?runtime_api_version ?runtime_channel
       ?runtime_main_executable_path ?service_account ?serving_status
       ?version_id ~api_config ~automatic_scaling ~deployment
-      ~endpoints_api_service ~entrypoint ~handlers ~manual_scaling
-      ~network ~resources ?timeouts ~vpc_access_connector ~runtime
-      ~service ~liveness_check ~readiness_check __id
+      ~endpoints_api_service ~entrypoint ~flexible_runtime_settings
+      ~handlers ~manual_scaling ~network ~resources ?timeouts
+      ~vpc_access_connector ~runtime ~service ~liveness_check
+      ~readiness_check __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

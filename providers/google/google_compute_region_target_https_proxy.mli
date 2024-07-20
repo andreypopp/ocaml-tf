@@ -21,6 +21,7 @@ val google_compute_region_target_https_proxy :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
   ?timeouts:timeouts ->
@@ -45,6 +46,7 @@ type t = private {
   proxy_id : float prop;
   region : string prop;
   self_link : string prop;
+  server_tls_policy : string prop;
   ssl_certificates : string list prop;
   ssl_policy : string prop;
   url_map : string prop;
@@ -57,6 +59,7 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
   ?timeouts:timeouts ->
@@ -71,6 +74,7 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
   ?timeouts:timeouts ->

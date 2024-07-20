@@ -93,6 +93,7 @@ val storage_descriptor__sort_columns :
 type storage_descriptor
 
 val storage_descriptor :
+  ?additional_locations:string prop list ->
   ?bucket_columns:string prop list ->
   ?compressed:bool prop ->
   ?input_format:string prop ->

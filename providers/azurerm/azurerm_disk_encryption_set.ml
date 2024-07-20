@@ -102,8 +102,9 @@ type azurerm_disk_encryption_set = {
   encryption_type : string prop option; [@option]
   federated_client_id : string prop option; [@option]
   id : string prop option; [@option]
-  key_vault_key_id : string prop;
+  key_vault_key_id : string prop option; [@option]
   location : string prop;
+  managed_hsm_key_id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
@@ -124,6 +125,7 @@ let yojson_of_azurerm_disk_encryption_set =
        id = v_id;
        key_vault_key_id = v_key_vault_key_id;
        location = v_location;
+       managed_hsm_key_id = v_managed_hsm_key_id;
        name = v_name;
        resource_group_name = v_resource_group_name;
        tags = v_tags;
@@ -173,14 +175,24 @@ let yojson_of_azurerm_disk_encryption_set =
          ("name", arg) :: bnds
        in
        let bnds =
+         match v_managed_hsm_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_hsm_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
          ("location", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_key_vault_key_id
-         in
-         ("key_vault_key_id", arg) :: bnds
+         match v_key_vault_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_key_id", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -229,9 +241,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_disk_encryption_set ?auto_key_rotation_enabled
-    ?encryption_type ?federated_client_id ?id ?tags ?timeouts
-    ~key_vault_key_id ~location ~name ~resource_group_name ~identity
-    () : azurerm_disk_encryption_set =
+    ?encryption_type ?federated_client_id ?id ?key_vault_key_id
+    ?managed_hsm_key_id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~identity () : azurerm_disk_encryption_set =
   {
     auto_key_rotation_enabled;
     encryption_type;
@@ -239,6 +251,7 @@ let azurerm_disk_encryption_set ?auto_key_rotation_enabled
     id;
     key_vault_key_id;
     location;
+    managed_hsm_key_id;
     name;
     resource_group_name;
     tags;
@@ -255,14 +268,16 @@ type t = {
   key_vault_key_id : string prop;
   key_vault_key_url : string prop;
   location : string prop;
+  managed_hsm_key_id : string prop;
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }
 
 let make ?auto_key_rotation_enabled ?encryption_type
-    ?federated_client_id ?id ?tags ?timeouts ~key_vault_key_id
-    ~location ~name ~resource_group_name ~identity __id =
+    ?federated_client_id ?id ?key_vault_key_id ?managed_hsm_key_id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+    __id =
   let __type = "azurerm_disk_encryption_set" in
   let __attrs =
     ({
@@ -278,6 +293,8 @@ let make ?auto_key_rotation_enabled ?encryption_type
        key_vault_key_url =
          Prop.computed __type __id "key_vault_key_url";
        location = Prop.computed __type __id "location";
+       managed_hsm_key_id =
+         Prop.computed __type __id "managed_hsm_key_id";
        name = Prop.computed __type __id "name";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
@@ -291,19 +308,21 @@ let make ?auto_key_rotation_enabled ?encryption_type
     json =
       yojson_of_azurerm_disk_encryption_set
         (azurerm_disk_encryption_set ?auto_key_rotation_enabled
-           ?encryption_type ?federated_client_id ?id ?tags ?timeouts
-           ~key_vault_key_id ~location ~name ~resource_group_name
-           ~identity ());
+           ?encryption_type ?federated_client_id ?id
+           ?key_vault_key_id ?managed_hsm_key_id ?tags ?timeouts
+           ~location ~name ~resource_group_name ~identity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_key_rotation_enabled ?encryption_type
-    ?federated_client_id ?id ?tags ?timeouts ~key_vault_key_id
-    ~location ~name ~resource_group_name ~identity __id =
+    ?federated_client_id ?id ?key_vault_key_id ?managed_hsm_key_id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+    __id =
   let (r : _ Tf_core.resource) =
     make ?auto_key_rotation_enabled ?encryption_type
-      ?federated_client_id ?id ?tags ?timeouts ~key_vault_key_id
-      ~location ~name ~resource_group_name ~identity __id
+      ?federated_client_id ?id ?key_vault_key_id ?managed_hsm_key_id
+      ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

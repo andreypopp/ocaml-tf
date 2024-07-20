@@ -477,6 +477,7 @@ let _ = yojson_of_storage_descriptor__sort_columns
 [@@@deriving.end]
 
 type storage_descriptor = {
+  additional_locations : string prop list option; [@option]
   bucket_columns : string prop list option; [@option]
   compressed : bool prop option; [@option]
   input_format : string prop option; [@option]
@@ -503,6 +504,7 @@ let _ = fun (_ : storage_descriptor) -> ()
 let yojson_of_storage_descriptor =
   (function
    | {
+       additional_locations = v_additional_locations;
        bucket_columns = v_bucket_columns;
        compressed = v_compressed;
        input_format = v_input_format;
@@ -646,6 +648,16 @@ let yojson_of_storage_descriptor =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "bucket_columns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "additional_locations", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -942,12 +954,14 @@ let storage_descriptor__sort_columns ~column ~sort_order () :
     storage_descriptor__sort_columns =
   { column; sort_order }
 
-let storage_descriptor ?bucket_columns ?compressed ?input_format
-    ?location ?number_of_buckets ?output_format ?parameters
-    ?stored_as_sub_directories ?(columns = [])
-    ?(schema_reference = []) ?(ser_de_info = []) ?(skewed_info = [])
-    ?(sort_columns = []) () : storage_descriptor =
+let storage_descriptor ?additional_locations ?bucket_columns
+    ?compressed ?input_format ?location ?number_of_buckets
+    ?output_format ?parameters ?stored_as_sub_directories
+    ?(columns = []) ?(schema_reference = []) ?(ser_de_info = [])
+    ?(skewed_info = []) ?(sort_columns = []) () : storage_descriptor
+    =
   {
+    additional_locations;
     bucket_columns;
     compressed;
     input_format;

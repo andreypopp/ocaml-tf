@@ -3,6 +3,9 @@
 open! Tf_core
 
 type deployment_targets = {
+  account_filter_type : string prop option; [@option]
+  accounts : string prop list option; [@option]
+  accounts_url : string prop option; [@option]
   organizational_unit_ids : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -11,7 +14,12 @@ let _ = fun (_ : deployment_targets) -> ()
 
 let yojson_of_deployment_targets =
   (function
-   | { organizational_unit_ids = v_organizational_unit_ids } ->
+   | {
+       account_filter_type = v_account_filter_type;
+       accounts = v_accounts;
+       accounts_url = v_accounts_url;
+       organizational_unit_ids = v_organizational_unit_ids;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -23,6 +31,32 @@ let yojson_of_deployment_targets =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "organizational_unit_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accounts_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accounts_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "accounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_filter_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_filter_type", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -329,9 +363,14 @@ let _ = yojson_of_aws_cloudformation_stack_set_instance
 
 [@@@deriving.end]
 
-let deployment_targets ?organizational_unit_ids () :
-    deployment_targets =
-  { organizational_unit_ids }
+let deployment_targets ?account_filter_type ?accounts ?accounts_url
+    ?organizational_unit_ids () : deployment_targets =
+  {
+    account_filter_type;
+    accounts;
+    accounts_url;
+    organizational_unit_ids;
+  }
 
 let operation_preferences ?failure_tolerance_count
     ?failure_tolerance_percentage ?max_concurrent_count

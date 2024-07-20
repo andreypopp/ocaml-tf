@@ -61,6 +61,7 @@ type t = private {
   allow_nested_items_to_be_public : bool prop;
   azure_files_authentication : azure_files_authentication list prop;
   custom_domain : custom_domain list prop;
+  dns_endpoint_type : string prop;
   enable_https_traffic_only : bool prop;
   id : string prop;
   identity : identity list prop;

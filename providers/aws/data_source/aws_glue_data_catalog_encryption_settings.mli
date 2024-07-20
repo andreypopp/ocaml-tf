@@ -7,6 +7,8 @@ open! Tf_core
 type data_catalog_encryption_settings__encryption_at_rest = {
   catalog_encryption_mode : string prop;
       (** catalog_encryption_mode *)
+  catalog_encryption_service_role : string prop;
+      (** catalog_encryption_service_role *)
   sse_aws_kms_key_id : string prop;  (** sse_aws_kms_key_id *)
 }
 

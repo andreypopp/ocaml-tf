@@ -62,6 +62,9 @@ type storage_descriptor__columns = {
 }
 
 type storage_descriptor = {
+  additional_locations : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** additional_locations *)
   bucket_columns : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** bucket_columns *)

@@ -9,10 +9,12 @@ type aws_route53_resolver_firewall_rule = {
   block_override_ttl : float prop option; [@option]
   block_response : string prop option; [@option]
   firewall_domain_list_id : string prop;
+  firewall_domain_redirection_action : string prop option; [@option]
   firewall_rule_group_id : string prop;
   id : string prop option; [@option]
   name : string prop;
   priority : float prop;
+  q_type : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -27,13 +29,24 @@ let yojson_of_aws_route53_resolver_firewall_rule =
        block_override_ttl = v_block_override_ttl;
        block_response = v_block_response;
        firewall_domain_list_id = v_firewall_domain_list_id;
+       firewall_domain_redirection_action =
+         v_firewall_domain_redirection_action;
        firewall_rule_group_id = v_firewall_rule_group_id;
        id = v_id;
        name = v_name;
        priority = v_priority;
+       q_type = v_q_type;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_q_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "q_type", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -56,6 +69,14 @@ let yojson_of_aws_route53_resolver_firewall_rule =
            yojson_of_prop yojson_of_string v_firewall_rule_group_id
          in
          ("firewall_rule_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_firewall_domain_redirection_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "firewall_domain_redirection_action", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg =
@@ -108,9 +129,10 @@ let _ = yojson_of_aws_route53_resolver_firewall_rule
 [@@@deriving.end]
 
 let aws_route53_resolver_firewall_rule ?block_override_dns_type
-    ?block_override_domain ?block_override_ttl ?block_response ?id
-    ~action ~firewall_domain_list_id ~firewall_rule_group_id ~name
-    ~priority () : aws_route53_resolver_firewall_rule =
+    ?block_override_domain ?block_override_ttl ?block_response
+    ?firewall_domain_redirection_action ?id ?q_type ~action
+    ~firewall_domain_list_id ~firewall_rule_group_id ~name ~priority
+    () : aws_route53_resolver_firewall_rule =
   {
     action;
     block_override_dns_type;
@@ -118,10 +140,12 @@ let aws_route53_resolver_firewall_rule ?block_override_dns_type
     block_override_ttl;
     block_response;
     firewall_domain_list_id;
+    firewall_domain_redirection_action;
     firewall_rule_group_id;
     id;
     name;
     priority;
+    q_type;
   }
 
 type t = {
@@ -132,14 +156,17 @@ type t = {
   block_override_ttl : float prop;
   block_response : string prop;
   firewall_domain_list_id : string prop;
+  firewall_domain_redirection_action : string prop;
   firewall_rule_group_id : string prop;
   id : string prop;
   name : string prop;
   priority : float prop;
+  q_type : string prop;
 }
 
 let make ?block_override_dns_type ?block_override_domain
-    ?block_override_ttl ?block_response ?id ~action
+    ?block_override_ttl ?block_response
+    ?firewall_domain_redirection_action ?id ?q_type ~action
     ~firewall_domain_list_id ~firewall_rule_group_id ~name ~priority
     __id =
   let __type = "aws_route53_resolver_firewall_rule" in
@@ -156,11 +183,15 @@ let make ?block_override_dns_type ?block_override_domain
        block_response = Prop.computed __type __id "block_response";
        firewall_domain_list_id =
          Prop.computed __type __id "firewall_domain_list_id";
+       firewall_domain_redirection_action =
+         Prop.computed __type __id
+           "firewall_domain_redirection_action";
        firewall_rule_group_id =
          Prop.computed __type __id "firewall_rule_group_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        priority = Prop.computed __type __id "priority";
+       q_type = Prop.computed __type __id "q_type";
      }
       : t)
   in
@@ -171,18 +202,21 @@ let make ?block_override_dns_type ?block_override_domain
       yojson_of_aws_route53_resolver_firewall_rule
         (aws_route53_resolver_firewall_rule ?block_override_dns_type
            ?block_override_domain ?block_override_ttl ?block_response
-           ?id ~action ~firewall_domain_list_id
-           ~firewall_rule_group_id ~name ~priority ());
+           ?firewall_domain_redirection_action ?id ?q_type ~action
+           ~firewall_domain_list_id ~firewall_rule_group_id ~name
+           ~priority ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?block_override_dns_type
-    ?block_override_domain ?block_override_ttl ?block_response ?id
-    ~action ~firewall_domain_list_id ~firewall_rule_group_id ~name
-    ~priority __id =
+    ?block_override_domain ?block_override_ttl ?block_response
+    ?firewall_domain_redirection_action ?id ?q_type ~action
+    ~firewall_domain_list_id ~firewall_rule_group_id ~name ~priority
+    __id =
   let (r : _ Tf_core.resource) =
     make ?block_override_dns_type ?block_override_domain
-      ?block_override_ttl ?block_response ?id ~action
+      ?block_override_ttl ?block_response
+      ?firewall_domain_redirection_action ?id ?q_type ~action
       ~firewall_domain_list_id ~firewall_rule_group_id ~name
       ~priority __id
   in

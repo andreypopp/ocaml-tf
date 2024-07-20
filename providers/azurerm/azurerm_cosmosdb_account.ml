@@ -589,11 +589,13 @@ let _ = yojson_of_virtual_network_rule
 type azurerm_cosmosdb_account = {
   access_key_metadata_writes_enabled : bool prop option; [@option]
   analytical_storage_enabled : bool prop option; [@option]
+  automatic_failover_enabled : bool prop option; [@option]
   create_mode : string prop option; [@option]
   default_identity_type : string prop option; [@option]
   enable_automatic_failover : bool prop option; [@option]
   enable_free_tier : bool prop option; [@option]
   enable_multiple_write_locations : bool prop option; [@option]
+  free_tier_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   ip_range_filter : string prop option; [@option]
   is_virtual_network_filter_enabled : bool prop option; [@option]
@@ -603,6 +605,7 @@ type azurerm_cosmosdb_account = {
   location : string prop;
   minimal_tls_version : string prop option; [@option]
   mongo_server_version : string prop option; [@option]
+  multiple_write_locations_enabled : bool prop option; [@option]
   name : string prop;
   network_acl_bypass_for_azure_services : bool prop option; [@option]
   network_acl_bypass_ids : string prop list option; [@option]
@@ -643,12 +646,14 @@ let yojson_of_azurerm_cosmosdb_account =
        access_key_metadata_writes_enabled =
          v_access_key_metadata_writes_enabled;
        analytical_storage_enabled = v_analytical_storage_enabled;
+       automatic_failover_enabled = v_automatic_failover_enabled;
        create_mode = v_create_mode;
        default_identity_type = v_default_identity_type;
        enable_automatic_failover = v_enable_automatic_failover;
        enable_free_tier = v_enable_free_tier;
        enable_multiple_write_locations =
          v_enable_multiple_write_locations;
+       free_tier_enabled = v_free_tier_enabled;
        id = v_id;
        ip_range_filter = v_ip_range_filter;
        is_virtual_network_filter_enabled =
@@ -660,6 +665,8 @@ let yojson_of_azurerm_cosmosdb_account =
        location = v_location;
        minimal_tls_version = v_minimal_tls_version;
        mongo_server_version = v_mongo_server_version;
+       multiple_write_locations_enabled =
+         v_multiple_write_locations_enabled;
        name = v_name;
        network_acl_bypass_for_azure_services =
          v_network_acl_bypass_for_azure_services;
@@ -845,6 +852,14 @@ let yojson_of_azurerm_cosmosdb_account =
          ("name", arg) :: bnds
        in
        let bnds =
+         match v_multiple_write_locations_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multiple_write_locations_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_mongo_server_version with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -913,6 +928,14 @@ let yojson_of_azurerm_cosmosdb_account =
              bnd :: bnds
        in
        let bnds =
+         match v_free_tier_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "free_tier_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_enable_multiple_write_locations with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -950,6 +973,14 @@ let yojson_of_azurerm_cosmosdb_account =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "create_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automatic_failover_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "automatic_failover_enabled", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1045,27 +1076,30 @@ let virtual_network_rule ?ignore_missing_vnet_service_endpoint ~id ()
   { id; ignore_missing_vnet_service_endpoint }
 
 let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
-    ?analytical_storage_enabled ?create_mode ?default_identity_type
-    ?enable_automatic_failover ?enable_free_tier
-    ?enable_multiple_write_locations ?id ?ip_range_filter
+    ?analytical_storage_enabled ?automatic_failover_enabled
+    ?create_mode ?default_identity_type ?enable_automatic_failover
+    ?enable_free_tier ?enable_multiple_write_locations
+    ?free_tier_enabled ?id ?ip_range_filter
     ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
     ?local_authentication_disabled ?minimal_tls_version
-    ?mongo_server_version ?network_acl_bypass_for_azure_services
-    ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?(analytical_storage = [])
-    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
-    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~capabilities
+    ?mongo_server_version ?multiple_write_locations_enabled
+    ?network_acl_bypass_for_azure_services ?network_acl_bypass_ids
+    ?partition_merge_enabled ?public_network_access_enabled ?tags
+    ?(analytical_storage = []) ?(backup = []) ?(capacity = [])
+    ?(cors_rule = []) ?(identity = []) ?(restore = []) ?timeouts
+    ~location ~name ~offer_type ~resource_group_name ~capabilities
     ~consistency_policy ~geo_location ~virtual_network_rule () :
     azurerm_cosmosdb_account =
   {
     access_key_metadata_writes_enabled;
     analytical_storage_enabled;
+    automatic_failover_enabled;
     create_mode;
     default_identity_type;
     enable_automatic_failover;
     enable_free_tier;
     enable_multiple_write_locations;
+    free_tier_enabled;
     id;
     ip_range_filter;
     is_virtual_network_filter_enabled;
@@ -1075,6 +1109,7 @@ let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
     location;
     minimal_tls_version;
     mongo_server_version;
+    multiple_write_locations_enabled;
     name;
     network_acl_bypass_for_azure_services;
     network_acl_bypass_ids;
@@ -1100,6 +1135,7 @@ type t = {
   tf_name : string;
   access_key_metadata_writes_enabled : bool prop;
   analytical_storage_enabled : bool prop;
+  automatic_failover_enabled : bool prop;
   connection_strings : string list prop;
   create_mode : string prop;
   default_identity_type : string prop;
@@ -1107,6 +1143,7 @@ type t = {
   enable_free_tier : bool prop;
   enable_multiple_write_locations : bool prop;
   endpoint : string prop;
+  free_tier_enabled : bool prop;
   id : string prop;
   ip_range_filter : string prop;
   is_virtual_network_filter_enabled : bool prop;
@@ -1116,6 +1153,7 @@ type t = {
   location : string prop;
   minimal_tls_version : string prop;
   mongo_server_version : string prop;
+  multiple_write_locations_enabled : bool prop;
   name : string prop;
   network_acl_bypass_for_azure_services : bool prop;
   network_acl_bypass_ids : string list prop;
@@ -1141,17 +1179,18 @@ type t = {
 }
 
 let make ?access_key_metadata_writes_enabled
-    ?analytical_storage_enabled ?create_mode ?default_identity_type
-    ?enable_automatic_failover ?enable_free_tier
-    ?enable_multiple_write_locations ?id ?ip_range_filter
+    ?analytical_storage_enabled ?automatic_failover_enabled
+    ?create_mode ?default_identity_type ?enable_automatic_failover
+    ?enable_free_tier ?enable_multiple_write_locations
+    ?free_tier_enabled ?id ?ip_range_filter
     ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
     ?local_authentication_disabled ?minimal_tls_version
-    ?mongo_server_version ?network_acl_bypass_for_azure_services
-    ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?(analytical_storage = [])
-    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
-    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~capabilities
+    ?mongo_server_version ?multiple_write_locations_enabled
+    ?network_acl_bypass_for_azure_services ?network_acl_bypass_ids
+    ?partition_merge_enabled ?public_network_access_enabled ?tags
+    ?(analytical_storage = []) ?(backup = []) ?(capacity = [])
+    ?(cors_rule = []) ?(identity = []) ?(restore = []) ?timeouts
+    ~location ~name ~offer_type ~resource_group_name ~capabilities
     ~consistency_policy ~geo_location ~virtual_network_rule __id =
   let __type = "azurerm_cosmosdb_account" in
   let __attrs =
@@ -1162,6 +1201,8 @@ let make ?access_key_metadata_writes_enabled
            "access_key_metadata_writes_enabled";
        analytical_storage_enabled =
          Prop.computed __type __id "analytical_storage_enabled";
+       automatic_failover_enabled =
+         Prop.computed __type __id "automatic_failover_enabled";
        connection_strings =
          Prop.computed __type __id "connection_strings";
        create_mode = Prop.computed __type __id "create_mode";
@@ -1174,6 +1215,8 @@ let make ?access_key_metadata_writes_enabled
        enable_multiple_write_locations =
          Prop.computed __type __id "enable_multiple_write_locations";
        endpoint = Prop.computed __type __id "endpoint";
+       free_tier_enabled =
+         Prop.computed __type __id "free_tier_enabled";
        id = Prop.computed __type __id "id";
        ip_range_filter = Prop.computed __type __id "ip_range_filter";
        is_virtual_network_filter_enabled =
@@ -1189,6 +1232,8 @@ let make ?access_key_metadata_writes_enabled
          Prop.computed __type __id "minimal_tls_version";
        mongo_server_version =
          Prop.computed __type __id "mongo_server_version";
+       multiple_write_locations_enabled =
+         Prop.computed __type __id "multiple_write_locations_enabled";
        name = Prop.computed __type __id "name";
        network_acl_bypass_for_azure_services =
          Prop.computed __type __id
@@ -1242,12 +1287,14 @@ let make ?access_key_metadata_writes_enabled
     json =
       yojson_of_azurerm_cosmosdb_account
         (azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
-           ?analytical_storage_enabled ?create_mode
-           ?default_identity_type ?enable_automatic_failover
-           ?enable_free_tier ?enable_multiple_write_locations ?id
+           ?analytical_storage_enabled ?automatic_failover_enabled
+           ?create_mode ?default_identity_type
+           ?enable_automatic_failover ?enable_free_tier
+           ?enable_multiple_write_locations ?free_tier_enabled ?id
            ?ip_range_filter ?is_virtual_network_filter_enabled
            ?key_vault_key_id ?kind ?local_authentication_disabled
            ?minimal_tls_version ?mongo_server_version
+           ?multiple_write_locations_enabled
            ?network_acl_bypass_for_azure_services
            ?network_acl_bypass_ids ?partition_merge_enabled
            ?public_network_access_enabled ?tags ~analytical_storage
@@ -1259,31 +1306,34 @@ let make ?access_key_metadata_writes_enabled
   }
 
 let register ?tf_module ?access_key_metadata_writes_enabled
-    ?analytical_storage_enabled ?create_mode ?default_identity_type
-    ?enable_automatic_failover ?enable_free_tier
-    ?enable_multiple_write_locations ?id ?ip_range_filter
+    ?analytical_storage_enabled ?automatic_failover_enabled
+    ?create_mode ?default_identity_type ?enable_automatic_failover
+    ?enable_free_tier ?enable_multiple_write_locations
+    ?free_tier_enabled ?id ?ip_range_filter
     ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
     ?local_authentication_disabled ?minimal_tls_version
-    ?mongo_server_version ?network_acl_bypass_for_azure_services
-    ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?(analytical_storage = [])
-    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
-    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~capabilities
+    ?mongo_server_version ?multiple_write_locations_enabled
+    ?network_acl_bypass_for_azure_services ?network_acl_bypass_ids
+    ?partition_merge_enabled ?public_network_access_enabled ?tags
+    ?(analytical_storage = []) ?(backup = []) ?(capacity = [])
+    ?(cors_rule = []) ?(identity = []) ?(restore = []) ?timeouts
+    ~location ~name ~offer_type ~resource_group_name ~capabilities
     ~consistency_policy ~geo_location ~virtual_network_rule __id =
   let (r : _ Tf_core.resource) =
     make ?access_key_metadata_writes_enabled
-      ?analytical_storage_enabled ?create_mode ?default_identity_type
-      ?enable_automatic_failover ?enable_free_tier
-      ?enable_multiple_write_locations ?id ?ip_range_filter
+      ?analytical_storage_enabled ?automatic_failover_enabled
+      ?create_mode ?default_identity_type ?enable_automatic_failover
+      ?enable_free_tier ?enable_multiple_write_locations
+      ?free_tier_enabled ?id ?ip_range_filter
       ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
       ?local_authentication_disabled ?minimal_tls_version
-      ?mongo_server_version ?network_acl_bypass_for_azure_services
-      ?network_acl_bypass_ids ?partition_merge_enabled
-      ?public_network_access_enabled ?tags ~analytical_storage
-      ~backup ~capacity ~cors_rule ~identity ~restore ?timeouts
-      ~location ~name ~offer_type ~resource_group_name ~capabilities
-      ~consistency_policy ~geo_location ~virtual_network_rule __id
+      ?mongo_server_version ?multiple_write_locations_enabled
+      ?network_acl_bypass_for_azure_services ?network_acl_bypass_ids
+      ?partition_merge_enabled ?public_network_access_enabled ?tags
+      ~analytical_storage ~backup ~capacity ~cors_rule ~identity
+      ~restore ?timeouts ~location ~name ~offer_type
+      ~resource_group_name ~capabilities ~consistency_policy
+      ~geo_location ~virtual_network_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

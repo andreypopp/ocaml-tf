@@ -18,6 +18,8 @@ type azurerm_monitor_private_link_scope
 
 val azurerm_monitor_private_link_scope :
   ?id:string prop ->
+  ?ingestion_access_mode:string prop ->
+  ?query_access_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -33,7 +35,9 @@ val yojson_of_azurerm_monitor_private_link_scope :
 type t = private {
   tf_name : string;
   id : string prop;
+  ingestion_access_mode : string prop;
   name : string prop;
+  query_access_mode : string prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }
@@ -41,6 +45,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?ingestion_access_mode:string prop ->
+  ?query_access_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -50,6 +56,8 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?ingestion_access_mode:string prop ->
+  ?query_access_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?timeouts:timeouts ->
   name:string prop ->

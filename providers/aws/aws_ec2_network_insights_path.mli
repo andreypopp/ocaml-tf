@@ -7,13 +7,13 @@ open! Tf_core
 type aws_ec2_network_insights_path
 
 val aws_ec2_network_insights_path :
+  ?destination:string prop ->
   ?destination_ip:string prop ->
   ?destination_port:float prop ->
   ?id:string prop ->
   ?source_ip:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  destination:string prop ->
   protocol:string prop ->
   source:string prop ->
   unit ->
@@ -42,26 +42,26 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?destination:string prop ->
   ?destination_ip:string prop ->
   ?destination_port:float prop ->
   ?id:string prop ->
   ?source_ip:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  destination:string prop ->
   protocol:string prop ->
   source:string prop ->
   string ->
   t
 
 val make :
+  ?destination:string prop ->
   ?destination_ip:string prop ->
   ?destination_port:float prop ->
   ?id:string prop ->
   ?source_ip:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  destination:string prop ->
   protocol:string prop ->
   source:string prop ->
   string ->

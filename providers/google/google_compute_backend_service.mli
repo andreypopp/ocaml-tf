@@ -206,6 +206,7 @@ val google_compute_backend_service :
   ?project:string prop ->
   ?protocol:string prop ->
   ?security_policy:string prop ->
+  ?service_lb_policy:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
   ?cdn_policy:cdn_policy list ->
@@ -250,6 +251,7 @@ type t = private {
   protocol : string prop;
   security_policy : string prop;
   self_link : string prop;
+  service_lb_policy : string prop;
   session_affinity : string prop;
   timeout_sec : float prop;
 }
@@ -272,6 +274,7 @@ val register :
   ?project:string prop ->
   ?protocol:string prop ->
   ?security_policy:string prop ->
+  ?service_lb_policy:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
   ?cdn_policy:cdn_policy list ->
@@ -305,6 +308,7 @@ val make :
   ?project:string prop ->
   ?protocol:string prop ->
   ?security_policy:string prop ->
+  ?service_lb_policy:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
   ?cdn_policy:cdn_policy list ->

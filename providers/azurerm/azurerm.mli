@@ -39,10 +39,13 @@ type features__key_vault
 val features__key_vault :
   ?purge_soft_delete_on_destroy:bool prop ->
   ?purge_soft_deleted_certificates_on_destroy:bool prop ->
+  ?purge_soft_deleted_hardware_security_module_keys_on_destroy:
+    bool prop ->
   ?purge_soft_deleted_hardware_security_modules_on_destroy:bool prop ->
   ?purge_soft_deleted_keys_on_destroy:bool prop ->
   ?purge_soft_deleted_secrets_on_destroy:bool prop ->
   ?recover_soft_deleted_certificates:bool prop ->
+  ?recover_soft_deleted_hardware_security_module_keys:bool prop ->
   ?recover_soft_deleted_key_vaults:bool prop ->
   ?recover_soft_deleted_keys:bool prop ->
   ?recover_soft_deleted_secrets:bool prop ->
@@ -55,6 +58,13 @@ val features__log_analytics_workspace :
   ?permanently_delete_on_destroy:bool prop ->
   unit ->
   features__log_analytics_workspace
+
+type features__machine_learning
+
+val features__machine_learning :
+  ?purge_soft_deleted_workspace_on_destroy:bool prop ->
+  unit ->
+  features__machine_learning
 
 type features__managed_disk
 
@@ -69,6 +79,21 @@ val features__postgresql_flexible_server :
   ?restart_server_on_configuration_value_change:bool prop ->
   unit ->
   features__postgresql_flexible_server
+
+type features__recovery_service
+
+val features__recovery_service :
+  ?purge_protected_items_from_vault_on_destroy:bool prop ->
+  ?vm_backup_stop_protection_and_retain_data_on_destroy:bool prop ->
+  unit ->
+  features__recovery_service
+
+type features__recovery_services_vaults
+
+val features__recovery_services_vaults :
+  ?recover_soft_deleted_backup_protected_vm:bool prop ->
+  unit ->
+  features__recovery_services_vaults
 
 type features__resource_group
 
@@ -95,6 +120,7 @@ type features__virtual_machine
 
 val features__virtual_machine :
   ?delete_os_disk_on_deletion:bool prop ->
+  ?detach_implicit_data_disk_on_deletion:bool prop ->
   ?graceful_shutdown:bool prop ->
   ?skip_shutdown_and_force_delete:bool prop ->
   unit ->
@@ -119,9 +145,12 @@ val features :
   ?cognitive_account:features__cognitive_account list ->
   ?key_vault:features__key_vault list ->
   ?log_analytics_workspace:features__log_analytics_workspace list ->
+  ?machine_learning:features__machine_learning list ->
   ?managed_disk:features__managed_disk list ->
   ?postgresql_flexible_server:
     features__postgresql_flexible_server list ->
+  ?recovery_service:features__recovery_service list ->
+  ?recovery_services_vaults:features__recovery_services_vaults list ->
   ?resource_group:features__resource_group list ->
   ?subscription:features__subscription list ->
   ?template_deployment:features__template_deployment list ->

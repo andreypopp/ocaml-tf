@@ -25,6 +25,7 @@ type t = private {
   comment : string prop;
   etag : string prop;
   id : string prop;
+  key_value_store_associations : string list prop;
   last_modified_time : string prop;
   name : string prop;
   runtime : string prop;

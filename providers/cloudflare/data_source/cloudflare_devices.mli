@@ -21,6 +21,7 @@ type devices = {
   os_distro_name : string prop;  (** os_distro_name *)
   os_distro_revision : string prop;  (** os_distro_revision *)
   os_version : string prop;  (** os_version *)
+  os_version_extra : string prop;  (** os_version_extra *)
   revoked_at : string prop;  (** revoked_at *)
   serial_number : string prop;  (** serial_number *)
   updated : string prop;  (** updated *)

@@ -2,6 +2,86 @@
 
 open! Tf_core
 
+type ingestion_data_source_settings__aws_kinesis = {
+  aws_role_arn : string prop;
+  consumer_arn : string prop;
+  gcp_service_account : string prop;
+  stream_arn : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingestion_data_source_settings__aws_kinesis) -> ()
+
+let yojson_of_ingestion_data_source_settings__aws_kinesis =
+  (function
+   | {
+       aws_role_arn = v_aws_role_arn;
+       consumer_arn = v_consumer_arn;
+       gcp_service_account = v_gcp_service_account;
+       stream_arn = v_stream_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_arn in
+         ("stream_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gcp_service_account
+         in
+         ("gcp_service_account", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_consumer_arn in
+         ("consumer_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_aws_role_arn in
+         ("aws_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : ingestion_data_source_settings__aws_kinesis ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingestion_data_source_settings__aws_kinesis
+
+[@@@deriving.end]
+
+type ingestion_data_source_settings = {
+  aws_kinesis : ingestion_data_source_settings__aws_kinesis list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingestion_data_source_settings) -> ()
+
+let yojson_of_ingestion_data_source_settings =
+  (function
+   | { aws_kinesis = v_aws_kinesis } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_aws_kinesis then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ingestion_data_source_settings__aws_kinesis)
+               v_aws_kinesis
+           in
+           let bnd = "aws_kinesis", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : ingestion_data_source_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingestion_data_source_settings
+
+[@@@deriving.end]
+
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -112,6 +192,8 @@ type t = {
   tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
+  ingestion_data_source_settings :
+    ingestion_data_source_settings list prop;
   kms_key_name : string prop;
   labels : (string * string) list prop;
   message_retention_duration : string prop;
@@ -130,6 +212,8 @@ let make ?id ?project ~name __id =
        effective_labels =
          Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";
+       ingestion_data_source_settings =
+         Prop.computed __type __id "ingestion_data_source_settings";
        kms_key_name = Prop.computed __type __id "kms_key_name";
        labels = Prop.computed __type __id "labels";
        message_retention_duration =

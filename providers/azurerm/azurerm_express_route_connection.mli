@@ -39,6 +39,7 @@ val azurerm_express_route_connection :
   ?enable_internet_security:bool prop ->
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?routing:routing list ->
   ?timeouts:timeouts ->
@@ -62,6 +63,7 @@ type t = private {
   express_route_gateway_id : string prop;
   id : string prop;
   name : string prop;
+  private_link_fast_path_enabled : bool prop;
   routing_weight : float prop;
 }
 
@@ -71,6 +73,7 @@ val register :
   ?enable_internet_security:bool prop ->
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?routing:routing list ->
   ?timeouts:timeouts ->
@@ -85,6 +88,7 @@ val make :
   ?enable_internet_security:bool prop ->
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
+  ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?routing:routing list ->
   ?timeouts:timeouts ->

@@ -322,11 +322,91 @@ let _ = yojson_of_rule__match__expr
 
 [@@@deriving.end]
 
+type rule__match__expr_options__recaptcha_options = {
+  action_token_site_keys : string prop list option; [@option]
+  session_token_site_keys : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__match__expr_options__recaptcha_options) -> ()
+
+let yojson_of_rule__match__expr_options__recaptcha_options =
+  (function
+   | {
+       action_token_site_keys = v_action_token_site_keys;
+       session_token_site_keys = v_session_token_site_keys;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_session_token_site_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "session_token_site_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_action_token_site_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "action_token_site_keys", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__match__expr_options__recaptcha_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__match__expr_options__recaptcha_options
+
+[@@@deriving.end]
+
+type rule__match__expr_options = {
+  recaptcha_options :
+    rule__match__expr_options__recaptcha_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__match__expr_options) -> ()
+
+let yojson_of_rule__match__expr_options =
+  (function
+   | { recaptcha_options = v_recaptcha_options } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_recaptcha_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__match__expr_options__recaptcha_options)
+               v_recaptcha_options
+           in
+           let bnd = "recaptcha_options", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__match__expr_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__match__expr_options
+
+[@@@deriving.end]
+
 type rule__match = {
   versioned_expr : string prop option; [@option]
   config : rule__match__config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   expr : rule__match__expr list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  expr_options : rule__match__expr_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -339,9 +419,20 @@ let yojson_of_rule__match =
        versioned_expr = v_versioned_expr;
        config = v_config;
        expr = v_expr;
+       expr_options = v_expr_options;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_expr_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__match__expr_options)
+               v_expr_options
+           in
+           let bnd = "expr_options", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_expr then bnds
@@ -926,9 +1017,18 @@ let rule__match__config ~src_ip_ranges () : rule__match__config =
 let rule__match__expr ~expression () : rule__match__expr =
   { expression }
 
-let rule__match ?versioned_expr ?(config = []) ?(expr = []) () :
-    rule__match =
-  { versioned_expr; config; expr }
+let rule__match__expr_options__recaptcha_options
+    ?action_token_site_keys ?session_token_site_keys () :
+    rule__match__expr_options__recaptcha_options =
+  { action_token_site_keys; session_token_site_keys }
+
+let rule__match__expr_options ~recaptcha_options () :
+    rule__match__expr_options =
+  { recaptcha_options }
+
+let rule__match ?versioned_expr ?(config = []) ?(expr = [])
+    ?(expr_options = []) () : rule__match =
+  { versioned_expr; config; expr; expr_options }
 
 let rule__rate_limit_options__ban_threshold ~count ~interval_sec () :
     rule__rate_limit_options__ban_threshold =

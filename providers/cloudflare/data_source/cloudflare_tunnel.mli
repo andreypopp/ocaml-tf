@@ -9,6 +9,7 @@ open! Tf_core
 type cloudflare_tunnel
 
 val cloudflare_tunnel :
+  ?is_deleted:bool prop ->
   account_id:string prop ->
   name:string prop ->
   unit ->
@@ -22,6 +23,7 @@ type t = private {
   tf_name : string;
   account_id : string prop;
   id : string prop;
+  is_deleted : bool prop;
   name : string prop;
   remote_config : bool prop;
   status : string prop;
@@ -30,12 +32,14 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?is_deleted:bool prop ->
   account_id:string prop ->
   name:string prop ->
   string ->
   t
 
 val make :
+  ?is_deleted:bool prop ->
   account_id:string prop ->
   name:string prop ->
   string ->

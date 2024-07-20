@@ -204,6 +204,10 @@ type lifecycle_rule__condition = {
   no_age : bool prop option; [@option]
   noncurrent_time_before : string prop option; [@option]
   num_newer_versions : float prop option; [@option]
+  send_days_since_custom_time_if_zero : bool prop option; [@option]
+  send_days_since_noncurrent_time_if_zero : bool prop option;
+      [@option]
+  send_num_newer_versions_if_zero : bool prop option; [@option]
   with_state : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -224,6 +228,12 @@ let yojson_of_lifecycle_rule__condition =
        no_age = v_no_age;
        noncurrent_time_before = v_noncurrent_time_before;
        num_newer_versions = v_num_newer_versions;
+       send_days_since_custom_time_if_zero =
+         v_send_days_since_custom_time_if_zero;
+       send_days_since_noncurrent_time_if_zero =
+         v_send_days_since_noncurrent_time_if_zero;
+       send_num_newer_versions_if_zero =
+         v_send_num_newer_versions_if_zero;
        with_state = v_with_state;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -235,6 +245,32 @@ let yojson_of_lifecycle_rule__condition =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "with_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_send_num_newer_versions_if_zero with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_num_newer_versions_if_zero", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_send_days_since_noncurrent_time_if_zero with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "send_days_since_noncurrent_time_if_zero", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_send_days_since_custom_time_if_zero with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_days_since_custom_time_if_zero", arg in
              bnd :: bnds
        in
        let bnds =
@@ -455,6 +491,34 @@ let _ = yojson_of_retention_policy
 
 [@@@deriving.end]
 
+type soft_delete_policy = {
+  retention_duration_seconds : float prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : soft_delete_policy) -> ()
+
+let yojson_of_soft_delete_policy =
+  (function
+   | { retention_duration_seconds = v_retention_duration_seconds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_retention_duration_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retention_duration_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : soft_delete_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_soft_delete_policy
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   read : string prop option; [@option]
@@ -590,6 +654,8 @@ type google_storage_bucket = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_policy : retention_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  soft_delete_policy : soft_delete_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
   versioning : versioning list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -623,6 +689,7 @@ let yojson_of_google_storage_bucket =
        lifecycle_rule = v_lifecycle_rule;
        logging = v_logging;
        retention_policy = v_retention_policy;
+       soft_delete_policy = v_soft_delete_policy;
        timeouts = v_timeouts;
        versioning = v_versioning;
        website = v_website;
@@ -649,6 +716,16 @@ let yojson_of_google_storage_bucket =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_soft_delete_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_soft_delete_policy)
+               v_soft_delete_policy
+           in
+           let bnd = "soft_delete_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_retention_policy then bnds
@@ -845,7 +922,10 @@ let lifecycle_rule__condition ?age ?created_before
     ?custom_time_before ?days_since_custom_time
     ?days_since_noncurrent_time ?matches_prefix
     ?matches_storage_class ?matches_suffix ?no_age
-    ?noncurrent_time_before ?num_newer_versions ?with_state () :
+    ?noncurrent_time_before ?num_newer_versions
+    ?send_days_since_custom_time_if_zero
+    ?send_days_since_noncurrent_time_if_zero
+    ?send_num_newer_versions_if_zero ?with_state () :
     lifecycle_rule__condition =
   {
     age;
@@ -859,6 +939,9 @@ let lifecycle_rule__condition ?age ?created_before
     no_age;
     noncurrent_time_before;
     num_newer_versions;
+    send_days_since_custom_time_if_zero;
+    send_days_since_noncurrent_time_if_zero;
+    send_num_newer_versions_if_zero;
     with_state;
   }
 
@@ -871,6 +954,10 @@ let logging ?log_object_prefix ~log_bucket () : logging =
 let retention_policy ?is_locked ~retention_period () :
     retention_policy =
   { is_locked; retention_period }
+
+let soft_delete_policy ?retention_duration_seconds () :
+    soft_delete_policy =
+  { retention_duration_seconds }
 
 let timeouts ?create ?read ?update () : timeouts =
   { create; read; update }
@@ -886,8 +973,8 @@ let google_storage_bucket ?default_event_based_hold
     ?uniform_bucket_level_access ?(autoclass = []) ?(cors = [])
     ?(custom_placement_config = []) ?(encryption = [])
     ?(lifecycle_rule = []) ?(logging = []) ?(retention_policy = [])
-    ?timeouts ?(versioning = []) ?(website = []) ~location ~name () :
-    google_storage_bucket =
+    ?(soft_delete_policy = []) ?timeouts ?(versioning = [])
+    ?(website = []) ~location ~name () : google_storage_bucket =
   {
     default_event_based_hold;
     enable_object_retention;
@@ -909,6 +996,7 @@ let google_storage_bucket ?default_event_based_hold
     lifecycle_rule;
     logging;
     retention_policy;
+    soft_delete_policy;
     timeouts;
     versioning;
     website;
@@ -925,6 +1013,7 @@ type t = {
   location : string prop;
   name : string prop;
   project : string prop;
+  project_number : float prop;
   public_access_prevention : string prop;
   requester_pays : bool prop;
   rpo : string prop;
@@ -940,8 +1029,8 @@ let make ?default_event_based_hold ?enable_object_retention
     ?requester_pays ?rpo ?storage_class ?uniform_bucket_level_access
     ?(autoclass = []) ?(cors = []) ?(custom_placement_config = [])
     ?(encryption = []) ?(lifecycle_rule = []) ?(logging = [])
-    ?(retention_policy = []) ?timeouts ?(versioning = [])
-    ?(website = []) ~location ~name __id =
+    ?(retention_policy = []) ?(soft_delete_policy = []) ?timeouts
+    ?(versioning = []) ?(website = []) ~location ~name __id =
   let __type = "google_storage_bucket" in
   let __attrs =
     ({
@@ -958,6 +1047,7 @@ let make ?default_event_based_hold ?enable_object_retention
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";
+       project_number = Prop.computed __type __id "project_number";
        public_access_prevention =
          Prop.computed __type __id "public_access_prevention";
        requester_pays = Prop.computed __type __id "requester_pays";
@@ -982,8 +1072,8 @@ let make ?default_event_based_hold ?enable_object_retention
            ?project ?public_access_prevention ?requester_pays ?rpo
            ?storage_class ?uniform_bucket_level_access ~autoclass
            ~cors ~custom_placement_config ~encryption ~lifecycle_rule
-           ~logging ~retention_policy ?timeouts ~versioning ~website
-           ~location ~name ());
+           ~logging ~retention_policy ~soft_delete_policy ?timeouts
+           ~versioning ~website ~location ~name ());
     attrs = __attrs;
   }
 
@@ -993,16 +1083,16 @@ let register ?tf_module ?default_event_based_hold
     ?uniform_bucket_level_access ?(autoclass = []) ?(cors = [])
     ?(custom_placement_config = []) ?(encryption = [])
     ?(lifecycle_rule = []) ?(logging = []) ?(retention_policy = [])
-    ?timeouts ?(versioning = []) ?(website = []) ~location ~name __id
-    =
+    ?(soft_delete_policy = []) ?timeouts ?(versioning = [])
+    ?(website = []) ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?default_event_based_hold ?enable_object_retention
       ?force_destroy ?id ?labels ?project ?public_access_prevention
       ?requester_pays ?rpo ?storage_class
       ?uniform_bucket_level_access ~autoclass ~cors
       ~custom_placement_config ~encryption ~lifecycle_rule ~logging
-      ~retention_policy ?timeouts ~versioning ~website ~location
-      ~name __id
+      ~retention_policy ~soft_delete_policy ?timeouts ~versioning
+      ~website ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

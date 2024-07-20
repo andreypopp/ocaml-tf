@@ -393,6 +393,15 @@ val http_endpoint_configuration__s3_configuration :
   unit ->
   http_endpoint_configuration__s3_configuration
 
+type http_endpoint_configuration__secrets_manager_configuration
+
+val http_endpoint_configuration__secrets_manager_configuration :
+  ?enabled:bool prop ->
+  ?role_arn:string prop ->
+  ?secret_arn:string prop ->
+  unit ->
+  http_endpoint_configuration__secrets_manager_configuration
+
 type http_endpoint_configuration
 
 val http_endpoint_configuration :
@@ -409,6 +418,8 @@ val http_endpoint_configuration :
     http_endpoint_configuration__processing_configuration list ->
   ?request_configuration:
     http_endpoint_configuration__request_configuration list ->
+  ?secrets_manager_configuration:
+    http_endpoint_configuration__secrets_manager_configuration list ->
   url:string prop ->
   s3_configuration:http_endpoint_configuration__s3_configuration list ->
   unit ->
@@ -724,24 +735,35 @@ val redshift_configuration__s3_configuration :
   unit ->
   redshift_configuration__s3_configuration
 
+type redshift_configuration__secrets_manager_configuration
+
+val redshift_configuration__secrets_manager_configuration :
+  ?enabled:bool prop ->
+  ?role_arn:string prop ->
+  ?secret_arn:string prop ->
+  unit ->
+  redshift_configuration__secrets_manager_configuration
+
 type redshift_configuration
 
 val redshift_configuration :
   ?copy_options:string prop ->
   ?data_table_columns:string prop ->
+  ?password:string prop ->
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
+  ?username:string prop ->
   ?cloudwatch_logging_options:
     redshift_configuration__cloudwatch_logging_options list ->
   ?processing_configuration:
     redshift_configuration__processing_configuration list ->
   ?s3_backup_configuration:
     redshift_configuration__s3_backup_configuration list ->
+  ?secrets_manager_configuration:
+    redshift_configuration__secrets_manager_configuration list ->
   cluster_jdbcurl:string prop ->
   data_table_name:string prop ->
-  password:string prop ->
   role_arn:string prop ->
-  username:string prop ->
   s3_configuration:redshift_configuration__s3_configuration list ->
   unit ->
   redshift_configuration
@@ -754,6 +776,123 @@ val server_side_encryption :
   ?key_type:string prop ->
   unit ->
   server_side_encryption
+
+type snowflake_configuration__cloudwatch_logging_options
+
+val snowflake_configuration__cloudwatch_logging_options :
+  ?enabled:bool prop ->
+  ?log_group_name:string prop ->
+  ?log_stream_name:string prop ->
+  unit ->
+  snowflake_configuration__cloudwatch_logging_options
+
+type snowflake_configuration__processing_configuration__processors__parameters
+
+val snowflake_configuration__processing_configuration__processors__parameters :
+  parameter_name:string prop ->
+  parameter_value:string prop ->
+  unit ->
+  snowflake_configuration__processing_configuration__processors__parameters
+
+type snowflake_configuration__processing_configuration__processors
+
+val snowflake_configuration__processing_configuration__processors :
+  type_:string prop ->
+  parameters:
+    snowflake_configuration__processing_configuration__processors__parameters
+    list ->
+  unit ->
+  snowflake_configuration__processing_configuration__processors
+
+type snowflake_configuration__processing_configuration
+
+val snowflake_configuration__processing_configuration :
+  ?enabled:bool prop ->
+  ?processors:
+    snowflake_configuration__processing_configuration__processors
+    list ->
+  unit ->
+  snowflake_configuration__processing_configuration
+
+type snowflake_configuration__s3_configuration__cloudwatch_logging_options
+
+val snowflake_configuration__s3_configuration__cloudwatch_logging_options :
+  ?enabled:bool prop ->
+  ?log_group_name:string prop ->
+  ?log_stream_name:string prop ->
+  unit ->
+  snowflake_configuration__s3_configuration__cloudwatch_logging_options
+
+type snowflake_configuration__s3_configuration
+
+val snowflake_configuration__s3_configuration :
+  ?buffering_interval:float prop ->
+  ?buffering_size:float prop ->
+  ?compression_format:string prop ->
+  ?error_output_prefix:string prop ->
+  ?kms_key_arn:string prop ->
+  ?prefix:string prop ->
+  ?cloudwatch_logging_options:
+    snowflake_configuration__s3_configuration__cloudwatch_logging_options
+    list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
+  unit ->
+  snowflake_configuration__s3_configuration
+
+type snowflake_configuration__secrets_manager_configuration
+
+val snowflake_configuration__secrets_manager_configuration :
+  ?enabled:bool prop ->
+  ?role_arn:string prop ->
+  ?secret_arn:string prop ->
+  unit ->
+  snowflake_configuration__secrets_manager_configuration
+
+type snowflake_configuration__snowflake_role_configuration
+
+val snowflake_configuration__snowflake_role_configuration :
+  ?enabled:bool prop ->
+  ?snowflake_role:string prop ->
+  unit ->
+  snowflake_configuration__snowflake_role_configuration
+
+type snowflake_configuration__snowflake_vpc_configuration
+
+val snowflake_configuration__snowflake_vpc_configuration :
+  private_link_vpce_id:string prop ->
+  unit ->
+  snowflake_configuration__snowflake_vpc_configuration
+
+type snowflake_configuration
+
+val snowflake_configuration :
+  ?content_column_name:string prop ->
+  ?data_loading_option:string prop ->
+  ?key_passphrase:string prop ->
+  ?metadata_column_name:string prop ->
+  ?private_key:string prop ->
+  ?retry_duration:float prop ->
+  ?s3_backup_mode:string prop ->
+  ?user:string prop ->
+  ?cloudwatch_logging_options:
+    snowflake_configuration__cloudwatch_logging_options list ->
+  ?processing_configuration:
+    snowflake_configuration__processing_configuration list ->
+  ?secrets_manager_configuration:
+    snowflake_configuration__secrets_manager_configuration list ->
+  ?snowflake_role_configuration:
+    snowflake_configuration__snowflake_role_configuration list ->
+  ?snowflake_vpc_configuration:
+    snowflake_configuration__snowflake_vpc_configuration list ->
+  account_url:string prop ->
+  database:string prop ->
+  role_arn:string prop ->
+  schema:string prop ->
+  table:string prop ->
+  s3_configuration:snowflake_configuration__s3_configuration list ->
+  unit ->
+  snowflake_configuration
 
 type splunk_configuration__cloudwatch_logging_options
 
@@ -817,6 +956,15 @@ val splunk_configuration__s3_configuration :
   unit ->
   splunk_configuration__s3_configuration
 
+type splunk_configuration__secrets_manager_configuration
+
+val splunk_configuration__secrets_manager_configuration :
+  ?enabled:bool prop ->
+  ?role_arn:string prop ->
+  ?secret_arn:string prop ->
+  unit ->
+  splunk_configuration__secrets_manager_configuration
+
 type splunk_configuration
 
 val splunk_configuration :
@@ -824,14 +972,16 @@ val splunk_configuration :
   ?buffering_size:float prop ->
   ?hec_acknowledgment_timeout:float prop ->
   ?hec_endpoint_type:string prop ->
+  ?hec_token:string prop ->
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
   ?cloudwatch_logging_options:
     splunk_configuration__cloudwatch_logging_options list ->
   ?processing_configuration:
     splunk_configuration__processing_configuration list ->
+  ?secrets_manager_configuration:
+    splunk_configuration__secrets_manager_configuration list ->
   hec_endpoint:string prop ->
-  hec_token:string prop ->
   s3_configuration:splunk_configuration__s3_configuration list ->
   unit ->
   splunk_configuration
@@ -864,6 +1014,7 @@ val aws_kinesis_firehose_delivery_stream :
     opensearchserverless_configuration list ->
   ?redshift_configuration:redshift_configuration list ->
   ?server_side_encryption:server_side_encryption list ->
+  ?snowflake_configuration:snowflake_configuration list ->
   ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->
@@ -906,6 +1057,7 @@ val register :
     opensearchserverless_configuration list ->
   ?redshift_configuration:redshift_configuration list ->
   ?server_side_encryption:server_side_encryption list ->
+  ?snowflake_configuration:snowflake_configuration list ->
   ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->
@@ -930,6 +1082,7 @@ val make :
     opensearchserverless_configuration list ->
   ?redshift_configuration:redshift_configuration list ->
   ?server_side_encryption:server_side_encryption list ->
+  ?snowflake_configuration:snowflake_configuration list ->
   ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->

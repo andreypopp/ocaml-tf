@@ -50,6 +50,8 @@ val fleet_default_member_config__configmanagement__config_sync__oci :
 type fleet_default_member_config__configmanagement__config_sync
 
 val fleet_default_member_config__configmanagement__config_sync :
+  ?enabled:bool prop ->
+  ?prevent_drift:bool prop ->
   ?source_format:string prop ->
   ?git:
     fleet_default_member_config__configmanagement__config_sync__git

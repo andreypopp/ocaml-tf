@@ -39,6 +39,7 @@ type t = private {
   configuration_access_endpoint : string prop;
   description : string prop;
   id : string prop;
+  immutable_id : string prop;
   kind : string prop;
   location : string prop;
   logs_ingestion_endpoint : string prop;

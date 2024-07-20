@@ -40,6 +40,7 @@ type google_bigtable_instance
 val google_bigtable_instance :
   ?deletion_protection:bool prop ->
   ?display_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->
@@ -60,6 +61,7 @@ type t = private {
   deletion_protection : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
+  force_destroy : bool prop;
   id : string prop;
   instance_type : string prop;
   labels : (string * string) list prop;
@@ -72,6 +74,7 @@ val register :
   ?tf_module:tf_module ->
   ?deletion_protection:bool prop ->
   ?display_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->
@@ -85,6 +88,7 @@ val register :
 val make :
   ?deletion_protection:bool prop ->
   ?display_name:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->

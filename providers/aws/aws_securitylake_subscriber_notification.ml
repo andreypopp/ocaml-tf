@@ -5,9 +5,9 @@ open! Tf_core
 type configuration__https_notification_configuration = {
   authorization_api_key_name : string prop option; [@option]
   authorization_api_key_value : string prop option; [@option]
-  endpoint : string prop option; [@option]
+  endpoint : string prop;
   http_method : string prop option; [@option]
-  target_role_arn : string prop option; [@option]
+  target_role_arn : string prop;
 }
 [@@deriving_inline yojson_of]
 
@@ -27,12 +27,10 @@ let yojson_of_configuration__https_notification_configuration =
          []
        in
        let bnds =
-         match v_target_role_arn with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "target_role_arn", arg in
-             bnd :: bnds
+         let arg =
+           yojson_of_prop yojson_of_string v_target_role_arn
+         in
+         ("target_role_arn", arg) :: bnds
        in
        let bnds =
          match v_http_method with
@@ -43,12 +41,8 @@ let yojson_of_configuration__https_notification_configuration =
              bnd :: bnds
        in
        let bnds =
-         match v_endpoint with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "endpoint", arg in
-             bnd :: bnds
+         let arg = yojson_of_prop yojson_of_string v_endpoint in
+         ("endpoint", arg) :: bnds
        in
        let bnds =
          match v_authorization_api_key_value with
@@ -183,7 +177,7 @@ let _ = yojson_of_aws_securitylake_subscriber_notification
 
 let configuration__https_notification_configuration
     ?authorization_api_key_name ?authorization_api_key_value
-    ?endpoint ?http_method ?target_role_arn () :
+    ?http_method ~endpoint ~target_role_arn () :
     configuration__https_notification_configuration =
   {
     authorization_api_key_name;
@@ -210,6 +204,7 @@ type t = {
   tf_name : string;
   endpoint_id : string prop;
   id : string prop;
+  subscriber_endpoint : string prop;
   subscriber_id : string prop;
 }
 
@@ -220,6 +215,8 @@ let make ?(configuration = []) ~subscriber_id __id =
        tf_name = __id;
        endpoint_id = Prop.computed __type __id "endpoint_id";
        id = Prop.computed __type __id "id";
+       subscriber_endpoint =
+         Prop.computed __type __id "subscriber_endpoint";
        subscriber_id = Prop.computed __type __id "subscriber_id";
      }
       : t)

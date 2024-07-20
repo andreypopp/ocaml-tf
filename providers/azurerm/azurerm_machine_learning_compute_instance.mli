@@ -40,6 +40,7 @@ val azurerm_machine_learning_compute_instance :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
+  ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
@@ -47,7 +48,6 @@ val azurerm_machine_learning_compute_instance :
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->
-  location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->
@@ -80,6 +80,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
+  ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
@@ -87,7 +88,6 @@ val register :
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->
-  location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->
@@ -99,6 +99,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
+  ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
@@ -106,7 +107,6 @@ val make :
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->
-  location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->

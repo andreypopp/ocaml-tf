@@ -232,6 +232,7 @@ type t = {
   access_logs : access_logs list prop;
   arn : string prop;
   arn_suffix : string prop;
+  client_keep_alive : float prop;
   connection_logs : connection_logs list prop;
   customer_owned_ipv4_pool : string prop;
   desync_mitigation_mode : string prop;
@@ -270,6 +271,8 @@ let make ?arn ?id ?name ?tags ?timeouts __id =
        access_logs = Prop.computed __type __id "access_logs";
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";
+       client_keep_alive =
+         Prop.computed __type __id "client_keep_alive";
        connection_logs = Prop.computed __type __id "connection_logs";
        customer_owned_ipv4_pool =
          Prop.computed __type __id "customer_owned_ipv4_pool";

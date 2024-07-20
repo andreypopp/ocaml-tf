@@ -37,6 +37,31 @@ val target_failover :
   unit ->
   target_failover
 
+type target_group_health__dns_failover
+
+val target_group_health__dns_failover :
+  ?minimum_healthy_targets_count:string prop ->
+  ?minimum_healthy_targets_percentage:string prop ->
+  unit ->
+  target_group_health__dns_failover
+
+type target_group_health__unhealthy_state_routing
+
+val target_group_health__unhealthy_state_routing :
+  ?minimum_healthy_targets_count:float prop ->
+  ?minimum_healthy_targets_percentage:string prop ->
+  unit ->
+  target_group_health__unhealthy_state_routing
+
+type target_group_health
+
+val target_group_health :
+  ?dns_failover:target_group_health__dns_failover list ->
+  ?unhealthy_state_routing:
+    target_group_health__unhealthy_state_routing list ->
+  unit ->
+  target_group_health
+
 type target_health_state
 
 val target_health_state :
@@ -70,6 +95,7 @@ val aws_alb_target_group :
   ?health_check:health_check list ->
   ?stickiness:stickiness list ->
   ?target_failover:target_failover list ->
+  ?target_group_health:target_group_health list ->
   ?target_health_state:target_health_state list ->
   unit ->
   aws_alb_target_group
@@ -130,6 +156,7 @@ val register :
   ?health_check:health_check list ->
   ?stickiness:stickiness list ->
   ?target_failover:target_failover list ->
+  ?target_group_health:target_group_health list ->
   ?target_health_state:target_health_state list ->
   string ->
   t
@@ -158,6 +185,7 @@ val make :
   ?health_check:health_check list ->
   ?stickiness:stickiness list ->
   ?target_failover:target_failover list ->
+  ?target_group_health:target_group_health list ->
   ?target_health_state:target_health_state list ->
   string ->
   t Tf_core.resource

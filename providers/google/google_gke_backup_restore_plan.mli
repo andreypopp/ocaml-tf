@@ -41,6 +41,42 @@ val restore_config__excluded_namespaces :
   unit ->
   restore_config__excluded_namespaces
 
+type restore_config__restore_order__group_kind_dependencies__requiring
+
+val restore_config__restore_order__group_kind_dependencies__requiring :
+  ?resource_group:string prop ->
+  ?resource_kind:string prop ->
+  unit ->
+  restore_config__restore_order__group_kind_dependencies__requiring
+
+type restore_config__restore_order__group_kind_dependencies__satisfying
+
+val restore_config__restore_order__group_kind_dependencies__satisfying :
+  ?resource_group:string prop ->
+  ?resource_kind:string prop ->
+  unit ->
+  restore_config__restore_order__group_kind_dependencies__satisfying
+
+type restore_config__restore_order__group_kind_dependencies
+
+val restore_config__restore_order__group_kind_dependencies :
+  requiring:
+    restore_config__restore_order__group_kind_dependencies__requiring
+    list ->
+  satisfying:
+    restore_config__restore_order__group_kind_dependencies__satisfying
+    list ->
+  unit ->
+  restore_config__restore_order__group_kind_dependencies
+
+type restore_config__restore_order
+
+val restore_config__restore_order :
+  group_kind_dependencies:
+    restore_config__restore_order__group_kind_dependencies list ->
+  unit ->
+  restore_config__restore_order
+
 type restore_config__selected_applications__namespaced_names
 
 val restore_config__selected_applications__namespaced_names :
@@ -104,6 +140,14 @@ val restore_config__transformation_rules :
   unit ->
   restore_config__transformation_rules
 
+type restore_config__volume_data_restore_policy_bindings
+
+val restore_config__volume_data_restore_policy_bindings :
+  policy:string prop ->
+  volume_type:string prop ->
+  unit ->
+  restore_config__volume_data_restore_policy_bindings
+
 type restore_config
 
 val restore_config :
@@ -115,9 +159,12 @@ val restore_config :
   ?cluster_resource_restore_scope:
     restore_config__cluster_resource_restore_scope list ->
   ?excluded_namespaces:restore_config__excluded_namespaces list ->
+  ?restore_order:restore_config__restore_order list ->
   ?selected_applications:restore_config__selected_applications list ->
   ?selected_namespaces:restore_config__selected_namespaces list ->
   ?transformation_rules:restore_config__transformation_rules list ->
+  ?volume_data_restore_policy_bindings:
+    restore_config__volume_data_restore_policy_bindings list ->
   unit ->
   restore_config
 

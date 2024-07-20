@@ -142,6 +142,7 @@ type t = {
   license_model : string prop;
   most_recent : bool prop;
   option_group_name : string prop;
+  original_snapshot_create_time : string prop;
   port : float prop;
   snapshot_create_time : string prop;
   snapshot_type : string prop;
@@ -181,6 +182,8 @@ let make ?db_instance_identifier ?db_snapshot_identifier ?id
        most_recent = Prop.computed __type __id "most_recent";
        option_group_name =
          Prop.computed __type __id "option_group_name";
+       original_snapshot_create_time =
+         Prop.computed __type __id "original_snapshot_create_time";
        port = Prop.computed __type __id "port";
        snapshot_create_time =
          Prop.computed __type __id "snapshot_create_time";

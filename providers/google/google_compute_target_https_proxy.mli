@@ -27,6 +27,7 @@ val google_compute_target_https_proxy :
   ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
+  ?tls_early_data:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
   url_map:string prop ->
@@ -55,6 +56,7 @@ type t = private {
   server_tls_policy : string prop;
   ssl_certificates : string list prop;
   ssl_policy : string prop;
+  tls_early_data : string prop;
   url_map : string prop;
 }
 
@@ -71,6 +73,7 @@ val register :
   ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
+  ?tls_early_data:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
   url_map:string prop ->
@@ -89,6 +92,7 @@ val make :
   ?server_tls_policy:string prop ->
   ?ssl_certificates:string prop list ->
   ?ssl_policy:string prop ->
+  ?tls_early_data:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
   url_map:string prop ->

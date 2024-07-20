@@ -291,6 +291,40 @@ let _ = yojson_of_default_encryption_configuration
 
 [@@@deriving.end]
 
+type external_dataset_reference = {
+  connection : string prop;
+  external_source : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_dataset_reference) -> ()
+
+let yojson_of_external_dataset_reference =
+  (function
+   | {
+       connection = v_connection;
+       external_source = v_external_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_external_source
+         in
+         ("external_source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection in
+         ("connection", arg) :: bnds
+       in
+       `Assoc bnds
+    : external_dataset_reference -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_dataset_reference
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -357,6 +391,8 @@ type google_bigquery_dataset = {
   default_encryption_configuration :
     default_encryption_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  external_dataset_reference : external_dataset_reference list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -384,6 +420,7 @@ let yojson_of_google_bigquery_dataset =
        access = v_access;
        default_encryption_configuration =
          v_default_encryption_configuration;
+       external_dataset_reference = v_external_dataset_reference;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -392,6 +429,16 @@ let yojson_of_google_bigquery_dataset =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_external_dataset_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_external_dataset_reference)
+               v_external_dataset_reference
+           in
+           let bnd = "external_dataset_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_default_encryption_configuration then
@@ -569,6 +616,10 @@ let default_encryption_configuration ~kms_key_name () :
     default_encryption_configuration =
   { kms_key_name }
 
+let external_dataset_reference ~connection ~external_source () :
+    external_dataset_reference =
+  { connection; external_source }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
@@ -577,8 +628,9 @@ let google_bigquery_dataset ?default_collation
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
     ?project ?storage_billing_model
-    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
-    ~access () : google_bigquery_dataset =
+    ?(default_encryption_configuration = [])
+    ?(external_dataset_reference = []) ?timeouts ~dataset_id ~access
+    () : google_bigquery_dataset =
   {
     dataset_id;
     default_collation;
@@ -596,6 +648,7 @@ let google_bigquery_dataset ?default_collation
     storage_billing_model;
     access;
     default_encryption_configuration;
+    external_dataset_reference;
     timeouts;
   }
 
@@ -627,8 +680,9 @@ let make ?default_collation ?default_partition_expiration_ms
     ?default_table_expiration_ms ?delete_contents_on_destroy
     ?description ?friendly_name ?id ?is_case_insensitive ?labels
     ?location ?max_time_travel_hours ?project ?storage_billing_model
-    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
-    ~access __id =
+    ?(default_encryption_configuration = [])
+    ?(external_dataset_reference = []) ?timeouts ~dataset_id ~access
+    __id =
   let __type = "google_bigquery_dataset" in
   let __attrs =
     ({
@@ -677,7 +731,8 @@ let make ?default_collation ?default_partition_expiration_ms
            ?description ?friendly_name ?id ?is_case_insensitive
            ?labels ?location ?max_time_travel_hours ?project
            ?storage_billing_model ~default_encryption_configuration
-           ?timeouts ~dataset_id ~access ());
+           ~external_dataset_reference ?timeouts ~dataset_id ~access
+           ());
     attrs = __attrs;
   }
 
@@ -686,15 +741,16 @@ let register ?tf_module ?default_collation
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
     ?project ?storage_billing_model
-    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
-    ~access __id =
+    ?(default_encryption_configuration = [])
+    ?(external_dataset_reference = []) ?timeouts ~dataset_id ~access
+    __id =
   let (r : _ Tf_core.resource) =
     make ?default_collation ?default_partition_expiration_ms
       ?default_table_expiration_ms ?delete_contents_on_destroy
       ?description ?friendly_name ?id ?is_case_insensitive ?labels
       ?location ?max_time_travel_hours ?project
       ?storage_billing_model ~default_encryption_configuration
-      ?timeouts ~dataset_id ~access __id
+      ~external_dataset_reference ?timeouts ~dataset_id ~access __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

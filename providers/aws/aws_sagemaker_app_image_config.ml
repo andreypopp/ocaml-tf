@@ -2,6 +2,176 @@
 
 open! Tf_core
 
+type code_editor_app_image_config__container_config = {
+  container_arguments : string prop list option; [@option]
+  container_entrypoint : string prop list option; [@option]
+  container_environment_variables :
+    (string * string prop) list option;
+      [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : code_editor_app_image_config__container_config) -> ()
+
+let yojson_of_code_editor_app_image_config__container_config =
+  (function
+   | {
+       container_arguments = v_container_arguments;
+       container_entrypoint = v_container_entrypoint;
+       container_environment_variables =
+         v_container_environment_variables;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_container_environment_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "container_environment_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_entrypoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "container_entrypoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_arguments with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "container_arguments", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : code_editor_app_image_config__container_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_code_editor_app_image_config__container_config
+
+[@@@deriving.end]
+
+type code_editor_app_image_config__file_system_config = {
+  default_gid : float prop option; [@option]
+  default_uid : float prop option; [@option]
+  mount_path : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : code_editor_app_image_config__file_system_config) -> ()
+
+let yojson_of_code_editor_app_image_config__file_system_config =
+  (function
+   | {
+       default_gid = v_default_gid;
+       default_uid = v_default_uid;
+       mount_path = v_mount_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mount_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_uid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_uid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_gid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_gid", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : code_editor_app_image_config__file_system_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_code_editor_app_image_config__file_system_config
+
+[@@@deriving.end]
+
+type code_editor_app_image_config = {
+  container_config :
+    code_editor_app_image_config__container_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  file_system_config :
+    code_editor_app_image_config__file_system_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : code_editor_app_image_config) -> ()
+
+let yojson_of_code_editor_app_image_config =
+  (function
+   | {
+       container_config = v_container_config;
+       file_system_config = v_file_system_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_file_system_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_code_editor_app_image_config__file_system_config)
+               v_file_system_config
+           in
+           let bnd = "file_system_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_container_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_code_editor_app_image_config__container_config)
+               v_container_config
+           in
+           let bnd = "container_config", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : code_editor_app_image_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_code_editor_app_image_config
+
+[@@@deriving.end]
+
 type jupyter_lab_image_config__container_config = {
   container_arguments : string prop list option; [@option]
   container_entrypoint : string prop list option; [@option]
@@ -68,8 +238,62 @@ let _ = yojson_of_jupyter_lab_image_config__container_config
 
 [@@@deriving.end]
 
+type jupyter_lab_image_config__file_system_config = {
+  default_gid : float prop option; [@option]
+  default_uid : float prop option; [@option]
+  mount_path : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jupyter_lab_image_config__file_system_config) -> ()
+
+let yojson_of_jupyter_lab_image_config__file_system_config =
+  (function
+   | {
+       default_gid = v_default_gid;
+       default_uid = v_default_uid;
+       mount_path = v_mount_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mount_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_uid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_uid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_gid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_gid", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jupyter_lab_image_config__file_system_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jupyter_lab_image_config__file_system_config
+
+[@@@deriving.end]
+
 type jupyter_lab_image_config = {
   container_config : jupyter_lab_image_config__container_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  file_system_config :
+    jupyter_lab_image_config__file_system_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -78,9 +302,23 @@ let _ = fun (_ : jupyter_lab_image_config) -> ()
 
 let yojson_of_jupyter_lab_image_config =
   (function
-   | { container_config = v_container_config } ->
+   | {
+       container_config = v_container_config;
+       file_system_config = v_file_system_config;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_file_system_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_jupyter_lab_image_config__file_system_config)
+               v_file_system_config
+           in
+           let bnd = "file_system_config", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_container_config then bnds
@@ -241,6 +479,8 @@ type aws_sagemaker_app_image_config = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
+  code_editor_app_image_config : code_editor_app_image_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   jupyter_lab_image_config : jupyter_lab_image_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   kernel_gateway_image_config : kernel_gateway_image_config list;
@@ -257,6 +497,7 @@ let yojson_of_aws_sagemaker_app_image_config =
        id = v_id;
        tags = v_tags;
        tags_all = v_tags_all;
+       code_editor_app_image_config = v_code_editor_app_image_config;
        jupyter_lab_image_config = v_jupyter_lab_image_config;
        kernel_gateway_image_config = v_kernel_gateway_image_config;
      } ->
@@ -281,6 +522,16 @@ let yojson_of_aws_sagemaker_app_image_config =
                v_jupyter_lab_image_config
            in
            let bnd = "jupyter_lab_image_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_code_editor_app_image_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_code_editor_app_image_config)
+               v_code_editor_app_image_config
+           in
+           let bnd = "code_editor_app_image_config", arg in
            bnd :: bnds
        in
        let bnds =
@@ -337,6 +588,25 @@ let _ = yojson_of_aws_sagemaker_app_image_config
 
 [@@@deriving.end]
 
+let code_editor_app_image_config__container_config
+    ?container_arguments ?container_entrypoint
+    ?container_environment_variables () :
+    code_editor_app_image_config__container_config =
+  {
+    container_arguments;
+    container_entrypoint;
+    container_environment_variables;
+  }
+
+let code_editor_app_image_config__file_system_config ?default_gid
+    ?default_uid ?mount_path () :
+    code_editor_app_image_config__file_system_config =
+  { default_gid; default_uid; mount_path }
+
+let code_editor_app_image_config ?(container_config = [])
+    ?(file_system_config = []) () : code_editor_app_image_config =
+  { container_config; file_system_config }
+
 let jupyter_lab_image_config__container_config ?container_arguments
     ?container_entrypoint ?container_environment_variables () :
     jupyter_lab_image_config__container_config =
@@ -346,9 +616,14 @@ let jupyter_lab_image_config__container_config ?container_arguments
     container_environment_variables;
   }
 
-let jupyter_lab_image_config ?(container_config = []) () :
-    jupyter_lab_image_config =
-  { container_config }
+let jupyter_lab_image_config__file_system_config ?default_gid
+    ?default_uid ?mount_path () :
+    jupyter_lab_image_config__file_system_config =
+  { default_gid; default_uid; mount_path }
+
+let jupyter_lab_image_config ?(container_config = [])
+    ?(file_system_config = []) () : jupyter_lab_image_config =
+  { container_config; file_system_config }
 
 let kernel_gateway_image_config__file_system_config ?default_gid
     ?default_uid ?mount_path () :
@@ -364,6 +639,7 @@ let kernel_gateway_image_config ?(file_system_config = [])
   { file_system_config; kernel_spec }
 
 let aws_sagemaker_app_image_config ?id ?tags ?tags_all
+    ?(code_editor_app_image_config = [])
     ?(jupyter_lab_image_config = [])
     ?(kernel_gateway_image_config = []) ~app_image_config_name () :
     aws_sagemaker_app_image_config =
@@ -372,6 +648,7 @@ let aws_sagemaker_app_image_config ?id ?tags ?tags_all
     id;
     tags;
     tags_all;
+    code_editor_app_image_config;
     jupyter_lab_image_config;
     kernel_gateway_image_config;
   }
@@ -385,7 +662,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?(jupyter_lab_image_config = [])
+let make ?id ?tags ?tags_all ?(code_editor_app_image_config = [])
+    ?(jupyter_lab_image_config = [])
     ?(kernel_gateway_image_config = []) ~app_image_config_name __id =
   let __type = "aws_sagemaker_app_image_config" in
   let __attrs =
@@ -406,17 +684,19 @@ let make ?id ?tags ?tags_all ?(jupyter_lab_image_config = [])
     json =
       yojson_of_aws_sagemaker_app_image_config
         (aws_sagemaker_app_image_config ?id ?tags ?tags_all
-           ~jupyter_lab_image_config ~kernel_gateway_image_config
-           ~app_image_config_name ());
+           ~code_editor_app_image_config ~jupyter_lab_image_config
+           ~kernel_gateway_image_config ~app_image_config_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?tags ?tags_all
+    ?(code_editor_app_image_config = [])
     ?(jupyter_lab_image_config = [])
     ?(kernel_gateway_image_config = []) ~app_image_config_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~jupyter_lab_image_config
-      ~kernel_gateway_image_config ~app_image_config_name __id
+    make ?id ?tags ?tags_all ~code_editor_app_image_config
+      ~jupyter_lab_image_config ~kernel_gateway_image_config
+      ~app_image_config_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

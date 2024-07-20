@@ -17,6 +17,7 @@ val timeouts :
 type azurerm_api_management_identity_provider_aad
 
 val azurerm_api_management_identity_provider_aad :
+  ?client_library:string prop ->
   ?id:string prop ->
   ?signin_tenant:string prop ->
   ?timeouts:timeouts ->
@@ -38,6 +39,7 @@ type t = private {
   allowed_tenants : string list prop;
   api_management_name : string prop;
   client_id : string prop;
+  client_library : string prop;
   client_secret : string prop;
   id : string prop;
   resource_group_name : string prop;
@@ -46,6 +48,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?client_library:string prop ->
   ?id:string prop ->
   ?signin_tenant:string prop ->
   ?timeouts:timeouts ->
@@ -58,6 +61,7 @@ val register :
   t
 
 val make :
+  ?client_library:string prop ->
   ?id:string prop ->
   ?signin_tenant:string prop ->
   ?timeouts:timeouts ->

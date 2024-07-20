@@ -20,6 +20,7 @@ val azurerm_mssql_server_transparent_data_encryption :
   ?auto_rotation_enabled:bool prop ->
   ?id:string prop ->
   ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?timeouts:timeouts ->
   server_id:string prop ->
   unit ->
@@ -35,6 +36,7 @@ type t = private {
   auto_rotation_enabled : bool prop;
   id : string prop;
   key_vault_key_id : string prop;
+  managed_hsm_key_id : string prop;
   server_id : string prop;
 }
 
@@ -43,6 +45,7 @@ val register :
   ?auto_rotation_enabled:bool prop ->
   ?id:string prop ->
   ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?timeouts:timeouts ->
   server_id:string prop ->
   string ->
@@ -52,6 +55,7 @@ val make :
   ?auto_rotation_enabled:bool prop ->
   ?id:string prop ->
   ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   ?timeouts:timeouts ->
   server_id:string prop ->
   string ->

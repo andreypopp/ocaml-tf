@@ -122,6 +122,7 @@ type t = {
   tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
+  allow_full_table_external_data_access : bool prop;
   authorized_session_tag_value_list : string list prop;
   catalog_id : string prop;
   create_database_default_permissions :
@@ -142,6 +143,9 @@ let make ?catalog_id ?id __id =
        admins = Prop.computed __type __id "admins";
        allow_external_data_filtering =
          Prop.computed __type __id "allow_external_data_filtering";
+       allow_full_table_external_data_access =
+         Prop.computed __type __id
+           "allow_full_table_external_data_access";
        authorized_session_tag_value_list =
          Prop.computed __type __id
            "authorized_session_tag_value_list";

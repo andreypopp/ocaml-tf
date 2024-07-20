@@ -34,9 +34,19 @@ val management_cluster__node_type_configs :
   unit ->
   management_cluster__node_type_configs
 
+type management_cluster__stretched_cluster_config
+
+val management_cluster__stretched_cluster_config :
+  ?preferred_location:string prop ->
+  ?secondary_location:string prop ->
+  unit ->
+  management_cluster__stretched_cluster_config
+
 type management_cluster
 
 val management_cluster :
+  ?stretched_cluster_config:
+    management_cluster__stretched_cluster_config list ->
   cluster_id:string prop ->
   node_type_configs:management_cluster__node_type_configs list ->
   unit ->

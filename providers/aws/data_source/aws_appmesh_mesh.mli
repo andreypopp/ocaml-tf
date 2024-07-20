@@ -4,6 +4,10 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type spec__service_discovery = {
+  ip_preference : string prop;  (** ip_preference *)
+}
+
 type spec__egress_filter = {
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -12,6 +16,9 @@ type spec = {
   egress_filter : spec__egress_filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** egress_filter *)
+  service_discovery : spec__service_discovery list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** service_discovery *)
 }
 
 type aws_appmesh_mesh

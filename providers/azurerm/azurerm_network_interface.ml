@@ -167,6 +167,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_network_interface = {
+  accelerated_networking_enabled : bool prop option; [@option]
   auxiliary_mode : string prop option; [@option]
   auxiliary_sku : string prop option; [@option]
   dns_servers : string prop list option; [@option]
@@ -175,6 +176,7 @@ type azurerm_network_interface = {
   enable_ip_forwarding : bool prop option; [@option]
   id : string prop option; [@option]
   internal_dns_name_label : string prop option; [@option]
+  ip_forwarding_enabled : bool prop option; [@option]
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -190,6 +192,8 @@ let _ = fun (_ : azurerm_network_interface) -> ()
 let yojson_of_azurerm_network_interface =
   (function
    | {
+       accelerated_networking_enabled =
+         v_accelerated_networking_enabled;
        auxiliary_mode = v_auxiliary_mode;
        auxiliary_sku = v_auxiliary_sku;
        dns_servers = v_dns_servers;
@@ -199,6 +203,7 @@ let yojson_of_azurerm_network_interface =
        enable_ip_forwarding = v_enable_ip_forwarding;
        id = v_id;
        internal_dns_name_label = v_internal_dns_name_label;
+       ip_forwarding_enabled = v_ip_forwarding_enabled;
        location = v_location;
        name = v_name;
        resource_group_name = v_resource_group_name;
@@ -252,6 +257,14 @@ let yojson_of_azurerm_network_interface =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
          ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_forwarding_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ip_forwarding_enabled", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_internal_dns_name_label with
@@ -319,6 +332,14 @@ let yojson_of_azurerm_network_interface =
              let bnd = "auxiliary_mode", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_accelerated_networking_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "accelerated_networking_enabled", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : azurerm_network_interface -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -345,12 +366,14 @@ let ip_configuration
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
-    ?dns_servers ?edge_zone ?enable_accelerated_networking
-    ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
-    ?timeouts ~location ~name ~resource_group_name ~ip_configuration
-    () : azurerm_network_interface =
+let azurerm_network_interface ?accelerated_networking_enabled
+    ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+    ?enable_accelerated_networking ?enable_ip_forwarding ?id
+    ?internal_dns_name_label ?ip_forwarding_enabled ?tags ?timeouts
+    ~location ~name ~resource_group_name ~ip_configuration () :
+    azurerm_network_interface =
   {
+    accelerated_networking_enabled;
     auxiliary_mode;
     auxiliary_sku;
     dns_servers;
@@ -359,6 +382,7 @@ let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
     enable_ip_forwarding;
     id;
     internal_dns_name_label;
+    ip_forwarding_enabled;
     location;
     name;
     resource_group_name;
@@ -369,6 +393,7 @@ let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
 
 type t = {
   tf_name : string;
+  accelerated_networking_enabled : bool prop;
   applied_dns_servers : string list prop;
   auxiliary_mode : string prop;
   auxiliary_sku : string prop;
@@ -379,6 +404,7 @@ type t = {
   id : string prop;
   internal_dns_name_label : string prop;
   internal_domain_name_suffix : string prop;
+  ip_forwarding_enabled : bool prop;
   location : string prop;
   mac_address : string prop;
   name : string prop;
@@ -389,14 +415,17 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+let make ?accelerated_networking_enabled ?auxiliary_mode
+    ?auxiliary_sku ?dns_servers ?edge_zone
     ?enable_accelerated_networking ?enable_ip_forwarding ?id
-    ?internal_dns_name_label ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __id =
+    ?internal_dns_name_label ?ip_forwarding_enabled ?tags ?timeouts
+    ~location ~name ~resource_group_name ~ip_configuration __id =
   let __type = "azurerm_network_interface" in
   let __attrs =
     ({
        tf_name = __id;
+       accelerated_networking_enabled =
+         Prop.computed __type __id "accelerated_networking_enabled";
        applied_dns_servers =
          Prop.computed __type __id "applied_dns_servers";
        auxiliary_mode = Prop.computed __type __id "auxiliary_mode";
@@ -412,6 +441,8 @@ let make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
          Prop.computed __type __id "internal_dns_name_label";
        internal_domain_name_suffix =
          Prop.computed __type __id "internal_domain_name_suffix";
+       ip_forwarding_enabled =
+         Prop.computed __type __id "ip_forwarding_enabled";
        location = Prop.computed __type __id "location";
        mac_address = Prop.computed __type __id "mac_address";
        name = Prop.computed __type __id "name";
@@ -432,23 +463,26 @@ let make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
     type_ = __type;
     json =
       yojson_of_azurerm_network_interface
-        (azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
-           ?dns_servers ?edge_zone ?enable_accelerated_networking
-           ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
+        (azurerm_network_interface ?accelerated_networking_enabled
+           ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+           ?enable_accelerated_networking ?enable_ip_forwarding ?id
+           ?internal_dns_name_label ?ip_forwarding_enabled ?tags
            ?timeouts ~location ~name ~resource_group_name
            ~ip_configuration ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?auxiliary_mode ?auxiliary_sku ?dns_servers
-    ?edge_zone ?enable_accelerated_networking ?enable_ip_forwarding
-    ?id ?internal_dns_name_label ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __id =
+let register ?tf_module ?accelerated_networking_enabled
+    ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+    ?enable_accelerated_networking ?enable_ip_forwarding ?id
+    ?internal_dns_name_label ?ip_forwarding_enabled ?tags ?timeouts
+    ~location ~name ~resource_group_name ~ip_configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+    make ?accelerated_networking_enabled ?auxiliary_mode
+      ?auxiliary_sku ?dns_servers ?edge_zone
       ?enable_accelerated_networking ?enable_ip_forwarding ?id
-      ?internal_dns_name_label ?tags ?timeouts ~location ~name
-      ~resource_group_name ~ip_configuration __id
+      ?internal_dns_name_label ?ip_forwarding_enabled ?tags ?timeouts
+      ~location ~name ~resource_group_name ~ip_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

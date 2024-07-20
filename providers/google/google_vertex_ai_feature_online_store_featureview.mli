@@ -23,6 +23,7 @@ val feature_registry_source__feature_groups :
 type feature_registry_source
 
 val feature_registry_source :
+  ?project_number:string prop ->
   feature_groups:feature_registry_source__feature_groups list ->
   unit ->
   feature_registry_source

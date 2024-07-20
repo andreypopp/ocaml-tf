@@ -5,6 +5,7 @@ open! Tf_core
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -12,9 +13,17 @@ let _ = fun (_ : timeouts) -> ()
 
 let yojson_of_timeouts =
   (function
-   | { create = v_create; delete = v_delete } ->
+   | { create = v_create; delete = v_delete; update = v_update } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_delete with
@@ -45,6 +54,7 @@ type google_compute_global_address = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   ip_version : string prop option; [@option]
+  labels : (string * string prop) list option; [@option]
   name : string prop;
   network : string prop option; [@option]
   prefix_length : float prop option; [@option]
@@ -64,6 +74,7 @@ let yojson_of_google_compute_global_address =
        description = v_description;
        id = v_id;
        ip_version = v_ip_version;
+       labels = v_labels;
        name = v_name;
        network = v_network;
        prefix_length = v_prefix_length;
@@ -115,6 +126,22 @@ let yojson_of_google_compute_global_address =
          ("name", arg) :: bnds
        in
        let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_ip_version with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -162,10 +189,11 @@ let _ = yojson_of_google_compute_global_address
 
 [@@@deriving.end]
 
-let timeouts ?create ?delete () : timeouts = { create; delete }
+let timeouts ?create ?delete ?update () : timeouts =
+  { create; delete; update }
 
 let google_compute_global_address ?address ?address_type ?description
-    ?id ?ip_version ?network ?prefix_length ?project ?purpose
+    ?id ?ip_version ?labels ?network ?prefix_length ?project ?purpose
     ?timeouts ~name () : google_compute_global_address =
   {
     address;
@@ -173,6 +201,7 @@ let google_compute_global_address ?address ?address_type ?description
     description;
     id;
     ip_version;
+    labels;
     name;
     network;
     prefix_length;
@@ -187,18 +216,21 @@ type t = {
   address_type : string prop;
   creation_timestamp : string prop;
   description : string prop;
+  effective_labels : (string * string) list prop;
   id : string prop;
   ip_version : string prop;
+  labels : (string * string) list prop;
   name : string prop;
   network : string prop;
   prefix_length : float prop;
   project : string prop;
   purpose : string prop;
   self_link : string prop;
+  terraform_labels : (string * string) list prop;
 }
 
-let make ?address ?address_type ?description ?id ?ip_version ?network
-    ?prefix_length ?project ?purpose ?timeouts ~name __id =
+let make ?address ?address_type ?description ?id ?ip_version ?labels
+    ?network ?prefix_length ?project ?purpose ?timeouts ~name __id =
   let __type = "google_compute_global_address" in
   let __attrs =
     ({
@@ -208,14 +240,19 @@ let make ?address ?address_type ?description ?id ?ip_version ?network
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";
        ip_version = Prop.computed __type __id "ip_version";
+       labels = Prop.computed __type __id "labels";
        name = Prop.computed __type __id "name";
        network = Prop.computed __type __id "network";
        prefix_length = Prop.computed __type __id "prefix_length";
        project = Prop.computed __type __id "project";
        purpose = Prop.computed __type __id "purpose";
        self_link = Prop.computed __type __id "self_link";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
@@ -225,17 +262,17 @@ let make ?address ?address_type ?description ?id ?ip_version ?network
     json =
       yojson_of_google_compute_global_address
         (google_compute_global_address ?address ?address_type
-           ?description ?id ?ip_version ?network ?prefix_length
-           ?project ?purpose ?timeouts ~name ());
+           ?description ?id ?ip_version ?labels ?network
+           ?prefix_length ?project ?purpose ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?address ?address_type ?description ?id
-    ?ip_version ?network ?prefix_length ?project ?purpose ?timeouts
-    ~name __id =
+    ?ip_version ?labels ?network ?prefix_length ?project ?purpose
+    ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?address ?address_type ?description ?id ?ip_version ?network
-      ?prefix_length ?project ?purpose ?timeouts ~name __id
+    make ?address ?address_type ?description ?id ?ip_version ?labels
+      ?network ?prefix_length ?project ?purpose ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

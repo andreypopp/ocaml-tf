@@ -69,12 +69,28 @@ type rule__match__expr
 val rule__match__expr :
   expression:string prop -> unit -> rule__match__expr
 
+type rule__match__expr_options__recaptcha_options
+
+val rule__match__expr_options__recaptcha_options :
+  ?action_token_site_keys:string prop list ->
+  ?session_token_site_keys:string prop list ->
+  unit ->
+  rule__match__expr_options__recaptcha_options
+
+type rule__match__expr_options
+
+val rule__match__expr_options :
+  recaptcha_options:rule__match__expr_options__recaptcha_options list ->
+  unit ->
+  rule__match__expr_options
+
 type rule__match
 
 val rule__match :
   ?versioned_expr:string prop ->
   ?config:rule__match__config list ->
   ?expr:rule__match__expr list ->
+  ?expr_options:rule__match__expr_options list ->
   unit ->
   rule__match
 

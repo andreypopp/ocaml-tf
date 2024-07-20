@@ -230,6 +230,7 @@ let _ = yojson_of_blob_properties__cors_rule
 
 type blob_properties__delete_retention_policy = {
   days : float prop option; [@option]
+  permanent_delete_enabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,9 +238,20 @@ let _ = fun (_ : blob_properties__delete_retention_policy) -> ()
 
 let yojson_of_blob_properties__delete_retention_policy =
   (function
-   | { days = v_days } ->
+   | {
+       days = v_days;
+       permanent_delete_enabled = v_permanent_delete_enabled;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_permanent_delete_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "permanent_delete_enabled", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_days with
@@ -444,7 +456,8 @@ let _ = yojson_of_custom_domain
 [@@@deriving.end]
 
 type customer_managed_key = {
-  key_vault_key_id : string prop;
+  key_vault_key_id : string prop option; [@option]
+  managed_hsm_key_id : string prop option; [@option]
   user_assigned_identity_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -455,6 +468,7 @@ let yojson_of_customer_managed_key =
   (function
    | {
        key_vault_key_id = v_key_vault_key_id;
+       managed_hsm_key_id = v_managed_hsm_key_id;
        user_assigned_identity_id = v_user_assigned_identity_id;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -468,10 +482,20 @@ let yojson_of_customer_managed_key =
          ("user_assigned_identity_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_key_vault_key_id
-         in
-         ("key_vault_key_id", arg) :: bnds
+         match v_managed_hsm_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_hsm_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_key_id", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : customer_managed_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1438,6 +1462,7 @@ type azurerm_storage_account = {
   allowed_copy_scope : string prop option; [@option]
   cross_tenant_replication_enabled : bool prop option; [@option]
   default_to_oauth_authentication : bool prop option; [@option]
+  dns_endpoint_type : string prop option; [@option]
   edge_zone : string prop option; [@option]
   enable_https_traffic_only : bool prop option; [@option]
   id : string prop option; [@option]
@@ -1500,6 +1525,7 @@ let yojson_of_azurerm_storage_account =
          v_cross_tenant_replication_enabled;
        default_to_oauth_authentication =
          v_default_to_oauth_authentication;
+       dns_endpoint_type = v_dns_endpoint_type;
        edge_zone = v_edge_zone;
        enable_https_traffic_only = v_enable_https_traffic_only;
        id = v_id;
@@ -1797,6 +1823,14 @@ let yojson_of_azurerm_storage_account =
              bnd :: bnds
        in
        let bnds =
+         match v_dns_endpoint_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dns_endpoint_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_default_to_oauth_authentication with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1892,9 +1926,10 @@ let blob_properties__cors_rule ~allowed_headers ~allowed_methods
     max_age_in_seconds;
   }
 
-let blob_properties__delete_retention_policy ?days () :
+let blob_properties__delete_retention_policy ?days
+    ?permanent_delete_enabled () :
     blob_properties__delete_retention_policy =
-  { days }
+  { days; permanent_delete_enabled }
 
 let blob_properties__restore_policy ~days () :
     blob_properties__restore_policy =
@@ -1921,9 +1956,9 @@ let blob_properties ?change_feed_enabled
 let custom_domain ?use_subdomain ~name () : custom_domain =
   { name; use_subdomain }
 
-let customer_managed_key ~key_vault_key_id ~user_assigned_identity_id
-    () : customer_managed_key =
-  { key_vault_key_id; user_assigned_identity_id }
+let customer_managed_key ?key_vault_key_id ?managed_hsm_key_id
+    ~user_assigned_identity_id () : customer_managed_key =
+  { key_vault_key_id; managed_hsm_key_id; user_assigned_identity_id }
 
 let identity ?identity_ids ~type_ () : identity =
   { identity_ids; type_ }
@@ -2027,7 +2062,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_storage_account ?access_tier ?account_kind
     ?allow_nested_items_to_be_public ?allowed_copy_scope
     ?cross_tenant_replication_enabled
-    ?default_to_oauth_authentication ?edge_zone
+    ?default_to_oauth_authentication ?dns_endpoint_type ?edge_zone
     ?enable_https_traffic_only ?id ?infrastructure_encryption_enabled
     ?is_hns_enabled ?large_file_share_enabled ?local_user_enabled
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
@@ -2050,6 +2085,7 @@ let azurerm_storage_account ?access_tier ?account_kind
     allowed_copy_scope;
     cross_tenant_replication_enabled;
     default_to_oauth_authentication;
+    dns_endpoint_type;
     edge_zone;
     enable_https_traffic_only;
     id;
@@ -2093,6 +2129,7 @@ type t = {
   allowed_copy_scope : string prop;
   cross_tenant_replication_enabled : bool prop;
   default_to_oauth_authentication : bool prop;
+  dns_endpoint_type : string prop;
   edge_zone : string prop;
   enable_https_traffic_only : bool prop;
   id : string prop;
@@ -2187,7 +2224,7 @@ type t = {
 
 let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
     ?allowed_copy_scope ?cross_tenant_replication_enabled
-    ?default_to_oauth_authentication ?edge_zone
+    ?default_to_oauth_authentication ?dns_endpoint_type ?edge_zone
     ?enable_https_traffic_only ?id ?infrastructure_encryption_enabled
     ?is_hns_enabled ?large_file_share_enabled ?local_user_enabled
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
@@ -2217,6 +2254,8 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
          Prop.computed __type __id "cross_tenant_replication_enabled";
        default_to_oauth_authentication =
          Prop.computed __type __id "default_to_oauth_authentication";
+       dns_endpoint_type =
+         Prop.computed __type __id "dns_endpoint_type";
        edge_zone = Prop.computed __type __id "edge_zone";
        enable_https_traffic_only =
          Prop.computed __type __id "enable_https_traffic_only";
@@ -2404,8 +2443,8 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
         (azurerm_storage_account ?access_tier ?account_kind
            ?allow_nested_items_to_be_public ?allowed_copy_scope
            ?cross_tenant_replication_enabled
-           ?default_to_oauth_authentication ?edge_zone
-           ?enable_https_traffic_only ?id
+           ?default_to_oauth_authentication ?dns_endpoint_type
+           ?edge_zone ?enable_https_traffic_only ?id
            ?infrastructure_encryption_enabled ?is_hns_enabled
            ?large_file_share_enabled ?local_user_enabled
            ?min_tls_version ?nfsv3_enabled
@@ -2424,7 +2463,7 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
 let register ?tf_module ?access_tier ?account_kind
     ?allow_nested_items_to_be_public ?allowed_copy_scope
     ?cross_tenant_replication_enabled
-    ?default_to_oauth_authentication ?edge_zone
+    ?default_to_oauth_authentication ?dns_endpoint_type ?edge_zone
     ?enable_https_traffic_only ?id ?infrastructure_encryption_enabled
     ?is_hns_enabled ?large_file_share_enabled ?local_user_enabled
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
@@ -2440,7 +2479,7 @@ let register ?tf_module ?access_tier ?account_kind
   let (r : _ Tf_core.resource) =
     make ?access_tier ?account_kind ?allow_nested_items_to_be_public
       ?allowed_copy_scope ?cross_tenant_replication_enabled
-      ?default_to_oauth_authentication ?edge_zone
+      ?default_to_oauth_authentication ?dns_endpoint_type ?edge_zone
       ?enable_https_traffic_only ?id
       ?infrastructure_encryption_enabled ?is_hns_enabled
       ?large_file_share_enabled ?local_user_enabled ?min_tls_version

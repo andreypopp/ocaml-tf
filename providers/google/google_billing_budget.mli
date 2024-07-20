@@ -8,6 +8,7 @@ type all_updates_rule
 
 val all_updates_rule :
   ?disable_default_iam_recipients:bool prop ->
+  ?enable_project_level_recipients:bool prop ->
   ?monitoring_notification_channels:string prop list ->
   ?pubsub_topic:string prop ->
   ?schema_version:string prop ->
@@ -94,6 +95,7 @@ type google_billing_budget
 val google_billing_budget :
   ?display_name:string prop ->
   ?id:string prop ->
+  ?ownership_scope:string prop ->
   ?all_updates_rule:all_updates_rule list ->
   ?budget_filter:budget_filter list ->
   ?threshold_rules:threshold_rules list ->
@@ -113,12 +115,14 @@ type t = private {
   display_name : string prop;
   id : string prop;
   name : string prop;
+  ownership_scope : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?ownership_scope:string prop ->
   ?all_updates_rule:all_updates_rule list ->
   ?budget_filter:budget_filter list ->
   ?threshold_rules:threshold_rules list ->
@@ -131,6 +135,7 @@ val register :
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
+  ?ownership_scope:string prop ->
   ?all_updates_rule:all_updates_rule list ->
   ?budget_filter:budget_filter list ->
   ?threshold_rules:threshold_rules list ->

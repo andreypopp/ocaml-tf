@@ -26,6 +26,7 @@ val yojson_of_azurerm_kubernetes_service_versions :
 
 type t = private {
   tf_name : string;
+  default_version : string prop;
   id : string prop;
   include_preview : bool prop;
   latest_version : string prop;

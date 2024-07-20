@@ -28,6 +28,7 @@ type azurerm_lb_backend_address_pool
 
 val azurerm_lb_backend_address_pool :
   ?id:string prop ->
+  ?synchronous_mode:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
   ?tunnel_interface:tunnel_interface list ->
@@ -50,12 +51,14 @@ type t = private {
   loadbalancer_id : string prop;
   name : string prop;
   outbound_rules : string list prop;
+  synchronous_mode : string prop;
   virtual_network_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?synchronous_mode:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
   ?tunnel_interface:tunnel_interface list ->
@@ -66,6 +69,7 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?synchronous_mode:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
   ?tunnel_interface:tunnel_interface list ->

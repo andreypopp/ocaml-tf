@@ -30,16 +30,18 @@ val azurerm_bastion_host :
   ?file_copy_enabled:bool prop ->
   ?id:string prop ->
   ?ip_connect_enabled:bool prop ->
+  ?kerberos_enabled:bool prop ->
   ?scale_units:float prop ->
   ?shareable_link_enabled:bool prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?tunneling_enabled:bool prop ->
+  ?virtual_network_id:string prop ->
+  ?ip_configuration:ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ip_configuration:ip_configuration list ->
   unit ->
   azurerm_bastion_host
 
@@ -54,6 +56,7 @@ type t = private {
   file_copy_enabled : bool prop;
   id : string prop;
   ip_connect_enabled : bool prop;
+  kerberos_enabled : bool prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -62,6 +65,7 @@ type t = private {
   sku : string prop;
   tags : (string * string) list prop;
   tunneling_enabled : bool prop;
+  virtual_network_id : string prop;
 }
 
 val register :
@@ -70,16 +74,18 @@ val register :
   ?file_copy_enabled:bool prop ->
   ?id:string prop ->
   ?ip_connect_enabled:bool prop ->
+  ?kerberos_enabled:bool prop ->
   ?scale_units:float prop ->
   ?shareable_link_enabled:bool prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?tunneling_enabled:bool prop ->
+  ?virtual_network_id:string prop ->
+  ?ip_configuration:ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ip_configuration:ip_configuration list ->
   string ->
   t
 
@@ -88,15 +94,17 @@ val make :
   ?file_copy_enabled:bool prop ->
   ?id:string prop ->
   ?ip_connect_enabled:bool prop ->
+  ?kerberos_enabled:bool prop ->
   ?scale_units:float prop ->
   ?shareable_link_enabled:bool prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?tunneling_enabled:bool prop ->
+  ?virtual_network_id:string prop ->
+  ?ip_configuration:ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ip_configuration:ip_configuration list ->
   string ->
   t Tf_core.resource

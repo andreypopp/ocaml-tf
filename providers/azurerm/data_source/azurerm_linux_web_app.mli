@@ -434,6 +434,13 @@ type site_config__auto_heal_setting__trigger__status_code = {
   win32_status_code : float prop;  (** win32_status_code *)
 }
 
+type site_config__auto_heal_setting__trigger__slow_request_with_path = {
+  count : float prop;  (** count *)
+  interval : string prop;  (** interval *)
+  path : string prop;  (** path *)
+  time_taken : string prop;  (** time_taken *)
+}
+
 type site_config__auto_heal_setting__trigger__slow_request = {
   count : float prop;  (** count *)
   interval : string prop;  (** interval *)
@@ -454,6 +461,11 @@ type site_config__auto_heal_setting__trigger = {
     site_config__auto_heal_setting__trigger__slow_request list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** slow_request *)
+  slow_request_with_path :
+    site_config__auto_heal_setting__trigger__slow_request_with_path
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** slow_request_with_path *)
   status_code :
     site_config__auto_heal_setting__trigger__status_code list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

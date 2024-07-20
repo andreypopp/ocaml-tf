@@ -483,6 +483,7 @@ type production_variants = {
     float prop option;
       [@option]
   enable_ssm_access : bool prop option; [@option]
+  inference_ami_version : string prop option; [@option]
   initial_instance_count : float prop option; [@option]
   initial_variant_weight : float prop option; [@option]
   instance_type : string prop option; [@option]
@@ -509,6 +510,7 @@ let yojson_of_production_variants =
        container_startup_health_check_timeout_in_seconds =
          v_container_startup_health_check_timeout_in_seconds;
        enable_ssm_access = v_enable_ssm_access;
+       inference_ami_version = v_inference_ami_version;
        initial_instance_count = v_initial_instance_count;
        initial_variant_weight = v_initial_variant_weight;
        instance_type = v_instance_type;
@@ -609,6 +611,14 @@ let yojson_of_production_variants =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "initial_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_inference_ami_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "inference_ami_version", arg in
              bnd :: bnds
        in
        let bnds =
@@ -762,6 +772,7 @@ type shadow_production_variants = {
     float prop option;
       [@option]
   enable_ssm_access : bool prop option; [@option]
+  inference_ami_version : string prop option; [@option]
   initial_instance_count : float prop option; [@option]
   initial_variant_weight : float prop option; [@option]
   instance_type : string prop option; [@option]
@@ -790,6 +801,7 @@ let yojson_of_shadow_production_variants =
        container_startup_health_check_timeout_in_seconds =
          v_container_startup_health_check_timeout_in_seconds;
        enable_ssm_access = v_enable_ssm_access;
+       inference_ami_version = v_inference_ami_version;
        initial_instance_count = v_initial_instance_count;
        initial_variant_weight = v_initial_variant_weight;
        instance_type = v_instance_type;
@@ -890,6 +902,14 @@ let yojson_of_shadow_production_variants =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "initial_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_inference_ami_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "inference_ami_version", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1138,7 +1158,7 @@ let production_variants__serverless_config ?provisioned_concurrency
 
 let production_variants ?accelerator_type
     ?container_startup_health_check_timeout_in_seconds
-    ?enable_ssm_access ?initial_instance_count
+    ?enable_ssm_access ?inference_ami_version ?initial_instance_count
     ?initial_variant_weight ?instance_type
     ?model_data_download_timeout_in_seconds ?variant_name
     ?volume_size_in_gb ?(core_dump_config = [])
@@ -1148,6 +1168,7 @@ let production_variants ?accelerator_type
     accelerator_type;
     container_startup_health_check_timeout_in_seconds;
     enable_ssm_access;
+    inference_ami_version;
     initial_instance_count;
     initial_variant_weight;
     instance_type;
@@ -1175,7 +1196,7 @@ let shadow_production_variants__serverless_config
 
 let shadow_production_variants ?accelerator_type
     ?container_startup_health_check_timeout_in_seconds
-    ?enable_ssm_access ?initial_instance_count
+    ?enable_ssm_access ?inference_ami_version ?initial_instance_count
     ?initial_variant_weight ?instance_type
     ?model_data_download_timeout_in_seconds ?variant_name
     ?volume_size_in_gb ?(core_dump_config = [])
@@ -1185,6 +1206,7 @@ let shadow_production_variants ?accelerator_type
     accelerator_type;
     container_startup_health_check_timeout_in_seconds;
     enable_ssm_access;
+    inference_ami_version;
     initial_instance_count;
     initial_variant_weight;
     instance_type;

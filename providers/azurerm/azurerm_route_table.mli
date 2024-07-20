@@ -25,6 +25,7 @@ val timeouts :
 type azurerm_route_table
 
 val azurerm_route_table :
+  ?bgp_route_propagation_enabled:bool prop ->
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->
@@ -42,6 +43,7 @@ val yojson_of_azurerm_route_table : azurerm_route_table -> json
 
 type t = private {
   tf_name : string;
+  bgp_route_propagation_enabled : bool prop;
   disable_bgp_route_propagation : bool prop;
   id : string prop;
   location : string prop;
@@ -54,6 +56,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?bgp_route_propagation_enabled:bool prop ->
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->
@@ -66,6 +69,7 @@ val register :
   t
 
 val make :
+  ?bgp_route_propagation_enabled:bool prop ->
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->

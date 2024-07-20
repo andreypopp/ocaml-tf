@@ -18,6 +18,7 @@ type azurerm_data_protection_backup_instance_blob_storage
 
 val azurerm_data_protection_backup_instance_blob_storage :
   ?id:string prop ->
+  ?storage_account_container_names:string prop list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   location:string prop ->
@@ -38,6 +39,7 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
+  storage_account_container_names : string list prop;
   storage_account_id : string prop;
   vault_id : string prop;
 }
@@ -45,6 +47,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?storage_account_container_names:string prop list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   location:string prop ->
@@ -56,6 +59,7 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?storage_account_container_names:string prop list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   location:string prop ->

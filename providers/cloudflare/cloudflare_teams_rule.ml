@@ -125,6 +125,168 @@ let _ = yojson_of_rule_settings__check_session
 
 [@@@deriving.end]
 
+type rule_settings__dns_resolvers__ipv4 = {
+  ip : string prop;
+  port : float prop option; [@option]
+  route_through_private_network : bool prop option; [@option]
+  vnet_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__dns_resolvers__ipv4) -> ()
+
+let yojson_of_rule_settings__dns_resolvers__ipv4 =
+  (function
+   | {
+       ip = v_ip;
+       port = v_port;
+       route_through_private_network =
+         v_route_through_private_network;
+       vnet_id = v_vnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route_through_private_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "route_through_private_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__dns_resolvers__ipv4 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__dns_resolvers__ipv4
+
+[@@@deriving.end]
+
+type rule_settings__dns_resolvers__ipv6 = {
+  ip : string prop;
+  port : float prop option; [@option]
+  route_through_private_network : bool prop option; [@option]
+  vnet_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__dns_resolvers__ipv6) -> ()
+
+let yojson_of_rule_settings__dns_resolvers__ipv6 =
+  (function
+   | {
+       ip = v_ip;
+       port = v_port;
+       route_through_private_network =
+         v_route_through_private_network;
+       vnet_id = v_vnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route_through_private_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "route_through_private_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__dns_resolvers__ipv6 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__dns_resolvers__ipv6
+
+[@@@deriving.end]
+
+type rule_settings__dns_resolvers = {
+  ipv4 : rule_settings__dns_resolvers__ipv4 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  ipv6 : rule_settings__dns_resolvers__ipv6 list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__dns_resolvers) -> ()
+
+let yojson_of_rule_settings__dns_resolvers =
+  (function
+   | { ipv4 = v_ipv4; ipv6 = v_ipv6 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_ipv6 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule_settings__dns_resolvers__ipv6)
+               v_ipv6
+           in
+           let bnd = "ipv6", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_ipv4 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule_settings__dns_resolvers__ipv4)
+               v_ipv4
+           in
+           let bnd = "ipv4", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__dns_resolvers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__dns_resolvers
+
+[@@@deriving.end]
+
 type rule_settings__egress = {
   ipv4 : string prop;
   ipv4_fallback : string prop option; [@option]
@@ -308,11 +470,14 @@ type rule_settings = {
   ip_categories : bool prop option; [@option]
   override_host : string prop option; [@option]
   override_ips : string prop list option; [@option]
+  resolve_dns_through_cloudflare : bool prop option; [@option]
   audit_ssh : rule_settings__audit_ssh list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   biso_admin_controls : rule_settings__biso_admin_controls list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   check_session : rule_settings__check_session list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  dns_resolvers : rule_settings__dns_resolvers list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   egress : rule_settings__egress list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -342,9 +507,12 @@ let yojson_of_rule_settings =
        ip_categories = v_ip_categories;
        override_host = v_override_host;
        override_ips = v_override_ips;
+       resolve_dns_through_cloudflare =
+         v_resolve_dns_through_cloudflare;
        audit_ssh = v_audit_ssh;
        biso_admin_controls = v_biso_admin_controls;
        check_session = v_check_session;
+       dns_resolvers = v_dns_resolvers;
        egress = v_egress;
        l4override = v_l4override;
        notification_settings = v_notification_settings;
@@ -406,6 +574,16 @@ let yojson_of_rule_settings =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_dns_resolvers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__dns_resolvers)
+               v_dns_resolvers
+           in
+           let bnd = "dns_resolvers", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_check_session then bnds
          else
            let arg =
@@ -435,6 +613,14 @@ let yojson_of_rule_settings =
            in
            let bnd = "audit_ssh", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_resolve_dns_through_cloudflare with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "resolve_dns_through_cloudflare", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_override_ips with
@@ -668,6 +854,20 @@ let rule_settings__check_session ~duration ~enforce () :
     rule_settings__check_session =
   { duration; enforce }
 
+let rule_settings__dns_resolvers__ipv4 ?port
+    ?route_through_private_network ?vnet_id ~ip () :
+    rule_settings__dns_resolvers__ipv4 =
+  { ip; port; route_through_private_network; vnet_id }
+
+let rule_settings__dns_resolvers__ipv6 ?port
+    ?route_through_private_network ?vnet_id ~ip () :
+    rule_settings__dns_resolvers__ipv6 =
+  { ip; port; route_through_private_network; vnet_id }
+
+let rule_settings__dns_resolvers ?(ipv4 = []) ?(ipv6 = []) () :
+    rule_settings__dns_resolvers =
+  { ipv4; ipv6 }
+
 let rule_settings__egress ?ipv4_fallback ~ipv4 ~ipv6 () :
     rule_settings__egress =
   { ipv4; ipv4_fallback; ipv6 }
@@ -691,8 +891,9 @@ let rule_settings__untrusted_cert ?action () :
 let rule_settings ?add_headers ?allow_child_bypass
     ?block_page_enabled ?block_page_reason ?bypass_parent_rule
     ?insecure_disable_dnssec_validation ?ip_categories ?override_host
-    ?override_ips ?(audit_ssh = []) ?(biso_admin_controls = [])
-    ?(check_session = []) ?(egress = []) ?(l4override = [])
+    ?override_ips ?resolve_dns_through_cloudflare ?(audit_ssh = [])
+    ?(biso_admin_controls = []) ?(check_session = [])
+    ?(dns_resolvers = []) ?(egress = []) ?(l4override = [])
     ?(notification_settings = []) ?(payload_log = [])
     ?(untrusted_cert = []) () : rule_settings =
   {
@@ -705,9 +906,11 @@ let rule_settings ?add_headers ?allow_child_bypass
     ip_categories;
     override_host;
     override_ips;
+    resolve_dns_through_cloudflare;
     audit_ssh;
     biso_admin_controls;
     check_session;
+    dns_resolvers;
     egress;
     l4override;
     notification_settings;

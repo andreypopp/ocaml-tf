@@ -315,6 +315,86 @@ let _ = yojson_of_retention_yearly
 
 [@@@deriving.end]
 
+type tiering_policy__archived_restore_point = {
+  duration : float prop option; [@option]
+  duration_type : string prop option; [@option]
+  mode : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tiering_policy__archived_restore_point) -> ()
+
+let yojson_of_tiering_policy__archived_restore_point =
+  (function
+   | {
+       duration = v_duration;
+       duration_type = v_duration_type;
+       mode = v_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_duration_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "duration_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : tiering_policy__archived_restore_point ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tiering_policy__archived_restore_point
+
+[@@@deriving.end]
+
+type tiering_policy = {
+  archived_restore_point :
+    tiering_policy__archived_restore_point list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tiering_policy) -> ()
+
+let yojson_of_tiering_policy =
+  (function
+   | { archived_restore_point = v_archived_restore_point } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_archived_restore_point then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_tiering_policy__archived_restore_point)
+               v_archived_restore_point
+           in
+           let bnd = "archived_restore_point", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : tiering_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tiering_policy
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -396,6 +476,8 @@ type azurerm_backup_policy_vm = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   retention_yearly : retention_yearly list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  tiering_policy : tiering_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -420,6 +502,7 @@ let yojson_of_azurerm_backup_policy_vm =
        retention_monthly = v_retention_monthly;
        retention_weekly = v_retention_weekly;
        retention_yearly = v_retention_yearly;
+       tiering_policy = v_tiering_policy;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -428,6 +511,16 @@ let yojson_of_azurerm_backup_policy_vm =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_tiering_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tiering_policy)
+               v_tiering_policy
+           in
+           let bnd = "tiering_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_retention_yearly then bnds
@@ -563,15 +656,22 @@ let retention_yearly ?days ?include_last_days ?weekdays ?weeks ~count
     ~months () : retention_yearly =
   { count; days; include_last_days; months; weekdays; weeks }
 
+let tiering_policy__archived_restore_point ?duration ?duration_type
+    ~mode () : tiering_policy__archived_restore_point =
+  { duration; duration_type; mode }
+
+let tiering_policy ~archived_restore_point () : tiering_policy =
+  { archived_restore_point }
+
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
     ?policy_type ?timezone ?(instant_restore_resource_group = [])
     ?(retention_daily = []) ?(retention_monthly = [])
-    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
-    ~recovery_vault_name ~resource_group_name ~backup () :
-    azurerm_backup_policy_vm =
+    ?(retention_weekly = []) ?(retention_yearly = [])
+    ?(tiering_policy = []) ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup () : azurerm_backup_policy_vm =
   {
     id;
     instant_restore_retention_days;
@@ -586,6 +686,7 @@ let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
     retention_monthly;
     retention_weekly;
     retention_yearly;
+    tiering_policy;
     timeouts;
   }
 
@@ -603,8 +704,8 @@ type t = {
 let make ?id ?instant_restore_retention_days ?policy_type ?timezone
     ?(instant_restore_resource_group = []) ?(retention_daily = [])
     ?(retention_monthly = []) ?(retention_weekly = [])
-    ?(retention_yearly = []) ?timeouts ~name ~recovery_vault_name
-    ~resource_group_name ~backup __id =
+    ?(retention_yearly = []) ?(tiering_policy = []) ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup __id =
   let __type = "azurerm_backup_policy_vm" in
   let __attrs =
     ({
@@ -630,22 +731,23 @@ let make ?id ?instant_restore_retention_days ?policy_type ?timezone
         (azurerm_backup_policy_vm ?id ?instant_restore_retention_days
            ?policy_type ?timezone ~instant_restore_resource_group
            ~retention_daily ~retention_monthly ~retention_weekly
-           ~retention_yearly ?timeouts ~name ~recovery_vault_name
-           ~resource_group_name ~backup ());
+           ~retention_yearly ~tiering_policy ?timeouts ~name
+           ~recovery_vault_name ~resource_group_name ~backup ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?instant_restore_retention_days
     ?policy_type ?timezone ?(instant_restore_resource_group = [])
     ?(retention_daily = []) ?(retention_monthly = [])
-    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
-    ~recovery_vault_name ~resource_group_name ~backup __id =
+    ?(retention_weekly = []) ?(retention_yearly = [])
+    ?(tiering_policy = []) ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup __id =
   let (r : _ Tf_core.resource) =
     make ?id ?instant_restore_retention_days ?policy_type ?timezone
       ~instant_restore_resource_group ~retention_daily
       ~retention_monthly ~retention_weekly ~retention_yearly
-      ?timeouts ~name ~recovery_vault_name ~resource_group_name
-      ~backup __id
+      ~tiering_policy ?timeouts ~name ~recovery_vault_name
+      ~resource_group_name ~backup __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

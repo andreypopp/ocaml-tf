@@ -2512,6 +2512,7 @@ let _ =
 type path_matcher__route_rules__match_rules = {
   full_path_match : string prop option; [@option]
   ignore_case : bool prop option; [@option]
+  path_template_match : string prop option; [@option]
   prefix_match : string prop option; [@option]
   regex_match : string prop option; [@option]
   header_matches :
@@ -2534,6 +2535,7 @@ let yojson_of_path_matcher__route_rules__match_rules =
    | {
        full_path_match = v_full_path_match;
        ignore_case = v_ignore_case;
+       path_template_match = v_path_template_match;
        prefix_match = v_prefix_match;
        regex_match = v_regex_match;
        header_matches = v_header_matches;
@@ -2590,6 +2592,14 @@ let yojson_of_path_matcher__route_rules__match_rules =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "prefix_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path_template_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_template_match", arg in
              bnd :: bnds
        in
        let bnds =
@@ -3082,6 +3092,7 @@ let _ = yojson_of_path_matcher__route_rules__route_action__timeout
 type path_matcher__route_rules__route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
   path_prefix_rewrite : string prop option; [@option]
+  path_template_rewrite : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -3093,9 +3104,18 @@ let yojson_of_path_matcher__route_rules__route_action__url_rewrite =
    | {
        host_rewrite = v_host_rewrite;
        path_prefix_rewrite = v_path_prefix_rewrite;
+       path_template_rewrite = v_path_template_rewrite;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_path_template_rewrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_template_rewrite", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_path_prefix_rewrite with
@@ -4285,12 +4305,14 @@ let path_matcher__route_rules__match_rules__query_parameter_matches
   { exact_match; name; present_match; regex_match }
 
 let path_matcher__route_rules__match_rules ?full_path_match
-    ?ignore_case ?prefix_match ?regex_match ?(header_matches = [])
-    ?(metadata_filters = []) ?(query_parameter_matches = []) () :
+    ?ignore_case ?path_template_match ?prefix_match ?regex_match
+    ?(header_matches = []) ?(metadata_filters = [])
+    ?(query_parameter_matches = []) () :
     path_matcher__route_rules__match_rules =
   {
     full_path_match;
     ignore_case;
+    path_template_match;
     prefix_match;
     regex_match;
     header_matches;
@@ -4358,9 +4380,9 @@ let path_matcher__route_rules__route_action__timeout ?nanos ~seconds
   { nanos; seconds }
 
 let path_matcher__route_rules__route_action__url_rewrite
-    ?host_rewrite ?path_prefix_rewrite () :
+    ?host_rewrite ?path_prefix_rewrite ?path_template_rewrite () :
     path_matcher__route_rules__route_action__url_rewrite =
-  { host_rewrite; path_prefix_rewrite }
+  { host_rewrite; path_prefix_rewrite; path_template_rewrite }
 
 let path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
     ~header_name ~header_value ~replace () :

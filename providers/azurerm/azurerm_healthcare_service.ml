@@ -129,6 +129,28 @@ let _ = yojson_of_cors_configuration
 
 [@@@deriving.end]
 
+type identity = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -191,6 +213,8 @@ let _ = yojson_of_timeouts
 
 type azurerm_healthcare_service = {
   access_policy_object_ids : string prop list option; [@option]
+  configuration_export_storage_account_name : string prop option;
+      [@option]
   cosmosdb_key_vault_key_versionless_id : string prop option;
       [@option]
   cosmosdb_throughput : float prop option; [@option]
@@ -205,6 +229,8 @@ type azurerm_healthcare_service = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cors_configuration : cors_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  identity : identity list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -215,6 +241,8 @@ let yojson_of_azurerm_healthcare_service =
   (function
    | {
        access_policy_object_ids = v_access_policy_object_ids;
+       configuration_export_storage_account_name =
+         v_configuration_export_storage_account_name;
        cosmosdb_key_vault_key_versionless_id =
          v_cosmosdb_key_vault_key_versionless_id;
        cosmosdb_throughput = v_cosmosdb_throughput;
@@ -228,6 +256,7 @@ let yojson_of_azurerm_healthcare_service =
        tags = v_tags;
        authentication_configuration = v_authentication_configuration;
        cors_configuration = v_cors_configuration;
+       identity = v_identity;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -236,6 +265,15 @@ let yojson_of_azurerm_healthcare_service =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_cors_configuration then bnds
@@ -330,6 +368,16 @@ let yojson_of_azurerm_healthcare_service =
              bnd :: bnds
        in
        let bnds =
+         match v_configuration_export_storage_account_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "configuration_export_storage_account_name", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
          match v_access_policy_object_ids with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -361,17 +409,21 @@ let cors_configuration ?allow_credentials ?allowed_headers
     max_age_in_seconds;
   }
 
+let identity ~type_ () : identity = { type_ }
+
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_healthcare_service ?access_policy_object_ids
+    ?configuration_export_storage_account_name
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags
     ?(authentication_configuration = []) ?(cors_configuration = [])
-    ?timeouts ~location ~name ~resource_group_name () :
-    azurerm_healthcare_service =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    () : azurerm_healthcare_service =
   {
     access_policy_object_ids;
+    configuration_export_storage_account_name;
     cosmosdb_key_vault_key_versionless_id;
     cosmosdb_throughput;
     id;
@@ -383,12 +435,14 @@ let azurerm_healthcare_service ?access_policy_object_ids
     tags;
     authentication_configuration;
     cors_configuration;
+    identity;
     timeouts;
   }
 
 type t = {
   tf_name : string;
   access_policy_object_ids : string list prop;
+  configuration_export_storage_account_name : string prop;
   cosmosdb_key_vault_key_versionless_id : string prop;
   cosmosdb_throughput : float prop;
   id : string prop;
@@ -401,16 +455,21 @@ type t = {
 }
 
 let make ?access_policy_object_ids
+    ?configuration_export_storage_account_name
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags
     ?(authentication_configuration = []) ?(cors_configuration = [])
-    ?timeouts ~location ~name ~resource_group_name __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_healthcare_service" in
   let __attrs =
     ({
        tf_name = __id;
        access_policy_object_ids =
          Prop.computed __type __id "access_policy_object_ids";
+       configuration_export_storage_account_name =
+         Prop.computed __type __id
+           "configuration_export_storage_account_name";
        cosmosdb_key_vault_key_versionless_id =
          Prop.computed __type __id
            "cosmosdb_key_vault_key_versionless_id";
@@ -434,25 +493,30 @@ let make ?access_policy_object_ids
     json =
       yojson_of_azurerm_healthcare_service
         (azurerm_healthcare_service ?access_policy_object_ids
+           ?configuration_export_storage_account_name
            ?cosmosdb_key_vault_key_versionless_id
            ?cosmosdb_throughput ?id ?kind
            ?public_network_access_enabled ?tags
            ~authentication_configuration ~cors_configuration
-           ?timeouts ~location ~name ~resource_group_name ());
+           ~identity ?timeouts ~location ~name ~resource_group_name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_policy_object_ids
+    ?configuration_export_storage_account_name
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags
     ?(authentication_configuration = []) ?(cors_configuration = [])
-    ?timeouts ~location ~name ~resource_group_name __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?access_policy_object_ids
+      ?configuration_export_storage_account_name
       ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
       ?kind ?public_network_access_enabled ?tags
-      ~authentication_configuration ~cors_configuration ?timeouts
-      ~location ~name ~resource_group_name __id
+      ~authentication_configuration ~cors_configuration ~identity
+      ?timeouts ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -35,6 +35,7 @@ type t = private {
   domain_name : string prop;
   domain_name_servers : string list prop;
   id : string prop;
+  ipv6_address_preferred_lease_time : string prop;
   netbios_name_servers : string list prop;
   netbios_node_type : string prop;
   ntp_servers : string list prop;

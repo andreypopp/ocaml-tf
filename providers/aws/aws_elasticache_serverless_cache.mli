@@ -17,7 +17,8 @@ type reader_endpoint = {
 type cache_usage_limits__data_storage
 
 val cache_usage_limits__data_storage :
-  maximum:float prop ->
+  ?maximum:float prop ->
+  ?minimum:float prop ->
   unit:string prop ->
   unit ->
   cache_usage_limits__data_storage
@@ -25,7 +26,10 @@ val cache_usage_limits__data_storage :
 type cache_usage_limits__ecpu_per_second
 
 val cache_usage_limits__ecpu_per_second :
-  maximum:float prop -> unit -> cache_usage_limits__ecpu_per_second
+  ?maximum:float prop ->
+  ?minimum:float prop ->
+  unit ->
+  cache_usage_limits__ecpu_per_second
 
 type cache_usage_limits
 

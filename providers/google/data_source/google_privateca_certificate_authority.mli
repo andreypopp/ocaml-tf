@@ -133,6 +133,8 @@ type config__x509_config = {
       (** policy_ids *)
 }
 
+type config__subject_key_id = { key_id : string prop  (** key_id *) }
+
 type config__subject_config__subject_alt_name = {
   dns_names : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -172,6 +174,9 @@ type config = {
   subject_config : config__subject_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** subject_config *)
+  subject_key_id : config__subject_key_id list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** subject_key_id *)
   x509_config : config__x509_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** x509_config *)

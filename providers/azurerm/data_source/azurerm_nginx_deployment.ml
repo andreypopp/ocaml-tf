@@ -28,6 +28,44 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
+type auto_scale_profile = {
+  max_capacity : float prop;
+  min_capacity : float prop;
+  name : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_scale_profile) -> ()
+
+let yojson_of_auto_scale_profile =
+  (function
+   | {
+       max_capacity = v_max_capacity;
+       min_capacity = v_min_capacity;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_capacity in
+         ("min_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_capacity in
+         ("max_capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_scale_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_scale_profile
+
+[@@@deriving.end]
+
 type frontend_private = {
   allocation_method : string prop;
   ip_address : string prop;
@@ -261,6 +299,7 @@ let azurerm_nginx_deployment ?id ?timeouts ~name ~resource_group_name
 
 type t = {
   tf_name : string;
+  auto_scale_profile : auto_scale_profile list prop;
   automatic_upgrade_channel : string prop;
   capacity : float prop;
   diagnose_support_enabled : bool prop;
@@ -286,6 +325,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __attrs =
     ({
        tf_name = __id;
+       auto_scale_profile =
+         Prop.computed __type __id "auto_scale_profile";
        automatic_upgrade_channel =
          Prop.computed __type __id "automatic_upgrade_channel";
        capacity = Prop.computed __type __id "capacity";

@@ -229,6 +229,7 @@ let _ = yojson_of_zone_signing_keys
 [@@@deriving.end]
 
 type google_dns_keys = {
+  id : string prop option; [@option]
   managed_zone : string prop;
   project : string prop option; [@option]
 }
@@ -238,7 +239,11 @@ let _ = fun (_ : google_dns_keys) -> ()
 
 let yojson_of_google_dns_keys =
   (function
-   | { managed_zone = v_managed_zone; project = v_project } ->
+   | {
+       id = v_id;
+       managed_zone = v_managed_zone;
+       project = v_project;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -254,6 +259,14 @@ let yojson_of_google_dns_keys =
          let arg = yojson_of_prop yojson_of_string v_managed_zone in
          ("managed_zone", arg) :: bnds
        in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_dns_keys -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -261,8 +274,8 @@ let _ = yojson_of_google_dns_keys
 
 [@@@deriving.end]
 
-let google_dns_keys ?project ~managed_zone () : google_dns_keys =
-  { managed_zone; project }
+let google_dns_keys ?id ?project ~managed_zone () : google_dns_keys =
+  { id; managed_zone; project }
 
 type t = {
   tf_name : string;
@@ -273,7 +286,7 @@ type t = {
   zone_signing_keys : zone_signing_keys list prop;
 }
 
-let make ?project ~managed_zone __id =
+let make ?id ?project ~managed_zone __id =
   let __type = "google_dns_keys" in
   let __attrs =
     ({
@@ -293,11 +306,13 @@ let make ?project ~managed_zone __id =
     type_ = __type;
     json =
       yojson_of_google_dns_keys
-        (google_dns_keys ?project ~managed_zone ());
+        (google_dns_keys ?id ?project ~managed_zone ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?project ~managed_zone __id =
-  let (r : _ Tf_core.resource) = make ?project ~managed_zone __id in
+let register ?tf_module ?id ?project ~managed_zone __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ~managed_zone __id
+  in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

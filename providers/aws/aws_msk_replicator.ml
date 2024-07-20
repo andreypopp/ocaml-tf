@@ -190,12 +190,49 @@ let _ = yojson_of_replication_info_list__consumer_group_replication
 
 [@@@deriving.end]
 
+type replication_info_list__topic_replication__starting_position = {
+  type_ : string prop option; [@option] [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       replication_info_list__topic_replication__starting_position) ->
+  ()
+
+let yojson_of_replication_info_list__topic_replication__starting_position
+    =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : replication_info_list__topic_replication__starting_position ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_replication_info_list__topic_replication__starting_position
+
+[@@@deriving.end]
+
 type replication_info_list__topic_replication = {
   copy_access_control_lists_for_topics : bool prop option; [@option]
   copy_topic_configurations : bool prop option; [@option]
   detect_and_copy_new_topics : bool prop option; [@option]
   topics_to_exclude : string prop list option; [@option]
   topics_to_replicate : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  starting_position :
+    replication_info_list__topic_replication__starting_position list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -211,9 +248,21 @@ let yojson_of_replication_info_list__topic_replication =
        detect_and_copy_new_topics = v_detect_and_copy_new_topics;
        topics_to_exclude = v_topics_to_exclude;
        topics_to_replicate = v_topics_to_replicate;
+       starting_position = v_starting_position;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_starting_position then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication_info_list__topic_replication__starting_position)
+               v_starting_position
+           in
+           let bnd = "starting_position", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_topics_to_replicate then bnds
@@ -533,10 +582,15 @@ let replication_info_list__consumer_group_replication
     synchronise_consumer_group_offsets;
   }
 
+let replication_info_list__topic_replication__starting_position
+    ?type_ () :
+    replication_info_list__topic_replication__starting_position =
+  { type_ }
+
 let replication_info_list__topic_replication
     ?copy_access_control_lists_for_topics ?copy_topic_configurations
     ?detect_and_copy_new_topics ?topics_to_exclude
-    ~topics_to_replicate () :
+    ?(starting_position = []) ~topics_to_replicate () :
     replication_info_list__topic_replication =
   {
     copy_access_control_lists_for_topics;
@@ -544,6 +598,7 @@ let replication_info_list__topic_replication
     detect_and_copy_new_topics;
     topics_to_exclude;
     topics_to_replicate;
+    starting_position;
   }
 
 let replication_info_list ~source_kafka_cluster_arn

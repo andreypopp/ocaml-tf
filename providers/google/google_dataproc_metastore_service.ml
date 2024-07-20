@@ -413,6 +413,64 @@ let _ = yojson_of_scaling_config
 
 [@@@deriving.end]
 
+type scheduled_backup = {
+  backup_location : string prop;
+  cron_schedule : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  time_zone : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduled_backup) -> ()
+
+let yojson_of_scheduled_backup =
+  (function
+   | {
+       backup_location = v_backup_location;
+       cron_schedule = v_cron_schedule;
+       enabled = v_enabled;
+       time_zone = v_time_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cron_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cron_schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_backup_location
+         in
+         ("backup_location", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduled_backup -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduled_backup
+
+[@@@deriving.end]
+
 type telemetry_config = { log_format : string prop option [@option] }
 [@@deriving_inline yojson_of]
 
@@ -508,6 +566,8 @@ type google_dataproc_metastore_service = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   scaling_config : scaling_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  scheduled_backup : scheduled_backup list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   telemetry_config : telemetry_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -535,6 +595,7 @@ let yojson_of_google_dataproc_metastore_service =
        metadata_integration = v_metadata_integration;
        network_config = v_network_config;
        scaling_config = v_scaling_config;
+       scheduled_backup = v_scheduled_backup;
        telemetry_config = v_telemetry_config;
        timeouts = v_timeouts;
      } ->
@@ -553,6 +614,16 @@ let yojson_of_google_dataproc_metastore_service =
                v_telemetry_config
            in
            let bnd = "telemetry_config", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_scheduled_backup then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduled_backup)
+               v_scheduled_backup
+           in
+           let bnd = "scheduled_backup", arg in
            bnd :: bnds
        in
        let bnds =
@@ -754,6 +825,10 @@ let scaling_config ?instance_size ?scaling_factor () : scaling_config
     =
   { instance_size; scaling_factor }
 
+let scheduled_backup ?cron_schedule ?enabled ?time_zone
+    ~backup_location () : scheduled_backup =
+  { backup_location; cron_schedule; enabled; time_zone }
+
 let telemetry_config ?log_format () : telemetry_config =
   { log_format }
 
@@ -765,8 +840,8 @@ let google_dataproc_metastore_service ?database_type ?id ?labels
     ?(encryption_config = []) ?(hive_metastore_config = [])
     ?(maintenance_window = []) ?(metadata_integration = [])
     ?(network_config = []) ?(scaling_config = [])
-    ?(telemetry_config = []) ?timeouts ~service_id () :
-    google_dataproc_metastore_service =
+    ?(scheduled_backup = []) ?(telemetry_config = []) ?timeouts
+    ~service_id () : google_dataproc_metastore_service =
   {
     database_type;
     id;
@@ -784,6 +859,7 @@ let google_dataproc_metastore_service ?database_type ?id ?labels
     metadata_integration;
     network_config;
     scaling_config;
+    scheduled_backup;
     telemetry_config;
     timeouts;
   }
@@ -814,8 +890,8 @@ let make ?database_type ?id ?labels ?location ?network ?port ?project
     ?release_channel ?tier ?(encryption_config = [])
     ?(hive_metastore_config = []) ?(maintenance_window = [])
     ?(metadata_integration = []) ?(network_config = [])
-    ?(scaling_config = []) ?(telemetry_config = []) ?timeouts
-    ~service_id __id =
+    ?(scaling_config = []) ?(scheduled_backup = [])
+    ?(telemetry_config = []) ?timeouts ~service_id __id =
   let __type = "google_dataproc_metastore_service" in
   let __attrs =
     ({
@@ -853,7 +929,8 @@ let make ?database_type ?id ?labels ?location ?network ?port ?project
            ?location ?network ?port ?project ?release_channel ?tier
            ~encryption_config ~hive_metastore_config
            ~maintenance_window ~metadata_integration ~network_config
-           ~scaling_config ~telemetry_config ?timeouts ~service_id ());
+           ~scaling_config ~scheduled_backup ~telemetry_config
+           ?timeouts ~service_id ());
     attrs = __attrs;
   }
 
@@ -861,14 +938,14 @@ let register ?tf_module ?database_type ?id ?labels ?location ?network
     ?port ?project ?release_channel ?tier ?(encryption_config = [])
     ?(hive_metastore_config = []) ?(maintenance_window = [])
     ?(metadata_integration = []) ?(network_config = [])
-    ?(scaling_config = []) ?(telemetry_config = []) ?timeouts
-    ~service_id __id =
+    ?(scaling_config = []) ?(scheduled_backup = [])
+    ?(telemetry_config = []) ?timeouts ~service_id __id =
   let (r : _ Tf_core.resource) =
     make ?database_type ?id ?labels ?location ?network ?port ?project
       ?release_channel ?tier ~encryption_config
       ~hive_metastore_config ~maintenance_window
       ~metadata_integration ~network_config ~scaling_config
-      ~telemetry_config ?timeouts ~service_id __id
+      ~scheduled_backup ~telemetry_config ?timeouts ~service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

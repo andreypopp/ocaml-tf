@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_servicebus_queue = {
   auto_delete_on_idle : string prop option; [@option]
+  batched_operations_enabled : bool prop option; [@option]
   dead_lettering_on_message_expiration : bool prop option; [@option]
   default_message_ttl : string prop option; [@option]
   duplicate_detection_history_time_window : string prop option;
@@ -71,6 +72,7 @@ type azurerm_servicebus_queue = {
   enable_batched_operations : bool prop option; [@option]
   enable_express : bool prop option; [@option]
   enable_partitioning : bool prop option; [@option]
+  express_enabled : bool prop option; [@option]
   forward_dead_lettered_messages_to : string prop option; [@option]
   forward_to : string prop option; [@option]
   id : string prop option; [@option]
@@ -80,6 +82,7 @@ type azurerm_servicebus_queue = {
   max_size_in_megabytes : float prop option; [@option]
   name : string prop;
   namespace_id : string prop;
+  partitioning_enabled : bool prop option; [@option]
   requires_duplicate_detection : bool prop option; [@option]
   requires_session : bool prop option; [@option]
   status : string prop option; [@option]
@@ -93,6 +96,7 @@ let yojson_of_azurerm_servicebus_queue =
   (function
    | {
        auto_delete_on_idle = v_auto_delete_on_idle;
+       batched_operations_enabled = v_batched_operations_enabled;
        dead_lettering_on_message_expiration =
          v_dead_lettering_on_message_expiration;
        default_message_ttl = v_default_message_ttl;
@@ -101,6 +105,7 @@ let yojson_of_azurerm_servicebus_queue =
        enable_batched_operations = v_enable_batched_operations;
        enable_express = v_enable_express;
        enable_partitioning = v_enable_partitioning;
+       express_enabled = v_express_enabled;
        forward_dead_lettered_messages_to =
          v_forward_dead_lettered_messages_to;
        forward_to = v_forward_to;
@@ -112,6 +117,7 @@ let yojson_of_azurerm_servicebus_queue =
        max_size_in_megabytes = v_max_size_in_megabytes;
        name = v_name;
        namespace_id = v_namespace_id;
+       partitioning_enabled = v_partitioning_enabled;
        requires_duplicate_detection = v_requires_duplicate_detection;
        requires_session = v_requires_session;
        status = v_status;
@@ -146,6 +152,14 @@ let yojson_of_azurerm_servicebus_queue =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "requires_duplicate_detection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partitioning_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "partitioning_enabled", arg in
              bnd :: bnds
        in
        let bnds =
@@ -213,6 +227,14 @@ let yojson_of_azurerm_servicebus_queue =
              bnd :: bnds
        in
        let bnds =
+         match v_express_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "express_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_enable_partitioning with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -263,6 +285,14 @@ let yojson_of_azurerm_servicebus_queue =
              bnd :: bnds
        in
        let bnds =
+         match v_batched_operations_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "batched_operations_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_auto_delete_on_idle with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -281,22 +311,25 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_servicebus_queue ?auto_delete_on_idle
-    ?dead_lettering_on_message_expiration ?default_message_ttl
-    ?duplicate_detection_history_time_window
+    ?batched_operations_enabled ?dead_lettering_on_message_expiration
+    ?default_message_ttl ?duplicate_detection_history_time_window
     ?enable_batched_operations ?enable_express ?enable_partitioning
-    ?forward_dead_lettered_messages_to ?forward_to ?id ?lock_duration
-    ?max_delivery_count ?max_message_size_in_kilobytes
-    ?max_size_in_megabytes ?requires_duplicate_detection
+    ?express_enabled ?forward_dead_lettered_messages_to ?forward_to
+    ?id ?lock_duration ?max_delivery_count
+    ?max_message_size_in_kilobytes ?max_size_in_megabytes
+    ?partitioning_enabled ?requires_duplicate_detection
     ?requires_session ?status ?timeouts ~name ~namespace_id () :
     azurerm_servicebus_queue =
   {
     auto_delete_on_idle;
+    batched_operations_enabled;
     dead_lettering_on_message_expiration;
     default_message_ttl;
     duplicate_detection_history_time_window;
     enable_batched_operations;
     enable_express;
     enable_partitioning;
+    express_enabled;
     forward_dead_lettered_messages_to;
     forward_to;
     id;
@@ -306,6 +339,7 @@ let azurerm_servicebus_queue ?auto_delete_on_idle
     max_size_in_megabytes;
     name;
     namespace_id;
+    partitioning_enabled;
     requires_duplicate_detection;
     requires_session;
     status;
@@ -315,12 +349,14 @@ let azurerm_servicebus_queue ?auto_delete_on_idle
 type t = {
   tf_name : string;
   auto_delete_on_idle : string prop;
+  batched_operations_enabled : bool prop;
   dead_lettering_on_message_expiration : bool prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;
   enable_batched_operations : bool prop;
   enable_express : bool prop;
   enable_partitioning : bool prop;
+  express_enabled : bool prop;
   forward_dead_lettered_messages_to : string prop;
   forward_to : string prop;
   id : string prop;
@@ -330,17 +366,20 @@ type t = {
   max_size_in_megabytes : float prop;
   name : string prop;
   namespace_id : string prop;
+  partitioning_enabled : bool prop;
   requires_duplicate_detection : bool prop;
   requires_session : bool prop;
   status : string prop;
 }
 
-let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
-    ?default_message_ttl ?duplicate_detection_history_time_window
+let make ?auto_delete_on_idle ?batched_operations_enabled
+    ?dead_lettering_on_message_expiration ?default_message_ttl
+    ?duplicate_detection_history_time_window
     ?enable_batched_operations ?enable_express ?enable_partitioning
-    ?forward_dead_lettered_messages_to ?forward_to ?id ?lock_duration
-    ?max_delivery_count ?max_message_size_in_kilobytes
-    ?max_size_in_megabytes ?requires_duplicate_detection
+    ?express_enabled ?forward_dead_lettered_messages_to ?forward_to
+    ?id ?lock_duration ?max_delivery_count
+    ?max_message_size_in_kilobytes ?max_size_in_megabytes
+    ?partitioning_enabled ?requires_duplicate_detection
     ?requires_session ?status ?timeouts ~name ~namespace_id __id =
   let __type = "azurerm_servicebus_queue" in
   let __attrs =
@@ -348,6 +387,8 @@ let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
        tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
+       batched_operations_enabled =
+         Prop.computed __type __id "batched_operations_enabled";
        dead_lettering_on_message_expiration =
          Prop.computed __type __id
            "dead_lettering_on_message_expiration";
@@ -361,6 +402,7 @@ let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
        enable_express = Prop.computed __type __id "enable_express";
        enable_partitioning =
          Prop.computed __type __id "enable_partitioning";
+       express_enabled = Prop.computed __type __id "express_enabled";
        forward_dead_lettered_messages_to =
          Prop.computed __type __id
            "forward_dead_lettered_messages_to";
@@ -375,6 +417,8 @@ let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
          Prop.computed __type __id "max_size_in_megabytes";
        name = Prop.computed __type __id "name";
        namespace_id = Prop.computed __type __id "namespace_id";
+       partitioning_enabled =
+         Prop.computed __type __id "partitioning_enabled";
        requires_duplicate_detection =
          Prop.computed __type __id "requires_duplicate_detection";
        requires_session =
@@ -389,34 +433,38 @@ let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
     json =
       yojson_of_azurerm_servicebus_queue
         (azurerm_servicebus_queue ?auto_delete_on_idle
+           ?batched_operations_enabled
            ?dead_lettering_on_message_expiration ?default_message_ttl
            ?duplicate_detection_history_time_window
            ?enable_batched_operations ?enable_express
-           ?enable_partitioning ?forward_dead_lettered_messages_to
-           ?forward_to ?id ?lock_duration ?max_delivery_count
+           ?enable_partitioning ?express_enabled
+           ?forward_dead_lettered_messages_to ?forward_to ?id
+           ?lock_duration ?max_delivery_count
            ?max_message_size_in_kilobytes ?max_size_in_megabytes
-           ?requires_duplicate_detection ?requires_session ?status
-           ?timeouts ~name ~namespace_id ());
+           ?partitioning_enabled ?requires_duplicate_detection
+           ?requires_session ?status ?timeouts ~name ~namespace_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_delete_on_idle
-    ?dead_lettering_on_message_expiration ?default_message_ttl
-    ?duplicate_detection_history_time_window
+    ?batched_operations_enabled ?dead_lettering_on_message_expiration
+    ?default_message_ttl ?duplicate_detection_history_time_window
     ?enable_batched_operations ?enable_express ?enable_partitioning
-    ?forward_dead_lettered_messages_to ?forward_to ?id ?lock_duration
-    ?max_delivery_count ?max_message_size_in_kilobytes
-    ?max_size_in_megabytes ?requires_duplicate_detection
+    ?express_enabled ?forward_dead_lettered_messages_to ?forward_to
+    ?id ?lock_duration ?max_delivery_count
+    ?max_message_size_in_kilobytes ?max_size_in_megabytes
+    ?partitioning_enabled ?requires_duplicate_detection
     ?requires_session ?status ?timeouts ~name ~namespace_id __id =
   let (r : _ Tf_core.resource) =
-    make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
-      ?default_message_ttl ?duplicate_detection_history_time_window
+    make ?auto_delete_on_idle ?batched_operations_enabled
+      ?dead_lettering_on_message_expiration ?default_message_ttl
+      ?duplicate_detection_history_time_window
       ?enable_batched_operations ?enable_express ?enable_partitioning
-      ?forward_dead_lettered_messages_to ?forward_to ?id
-      ?lock_duration ?max_delivery_count
+      ?express_enabled ?forward_dead_lettered_messages_to ?forward_to
+      ?id ?lock_duration ?max_delivery_count
       ?max_message_size_in_kilobytes ?max_size_in_megabytes
-      ?requires_duplicate_detection ?requires_session ?status
-      ?timeouts ~name ~namespace_id __id
+      ?partitioning_enabled ?requires_duplicate_detection
+      ?requires_session ?status ?timeouts ~name ~namespace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

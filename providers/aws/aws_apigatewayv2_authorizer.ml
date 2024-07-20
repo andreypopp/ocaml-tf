@@ -41,6 +41,32 @@ let _ = yojson_of_jwt_configuration
 
 [@@@deriving.end]
 
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
 type aws_apigatewayv2_authorizer = {
   api_id : string prop;
   authorizer_credentials_arn : string prop option; [@option]
@@ -54,6 +80,7 @@ type aws_apigatewayv2_authorizer = {
   name : string prop;
   jwt_configuration : jwt_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
 
@@ -75,9 +102,14 @@ let yojson_of_aws_apigatewayv2_authorizer =
        identity_sources = v_identity_sources;
        name = v_name;
        jwt_configuration = v_jwt_configuration;
+       timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_jwt_configuration then bnds
@@ -172,12 +204,14 @@ let _ = yojson_of_aws_apigatewayv2_authorizer
 let jwt_configuration ?audience ?issuer () : jwt_configuration =
   { audience; issuer }
 
+let timeouts ?delete () : timeouts = { delete }
+
 let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
     ?enable_simple_responses ?id ?identity_sources
-    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name () :
-    aws_apigatewayv2_authorizer =
+    ?(jwt_configuration = []) ?timeouts ~api_id ~authorizer_type
+    ~name () : aws_apigatewayv2_authorizer =
   {
     api_id;
     authorizer_credentials_arn;
@@ -190,6 +224,7 @@ let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
     identity_sources;
     name;
     jwt_configuration;
+    timeouts;
   }
 
 type t = {
@@ -210,7 +245,8 @@ let make ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
     ?enable_simple_responses ?id ?identity_sources
-    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name __id =
+    ?(jwt_configuration = []) ?timeouts ~api_id ~authorizer_type
+    ~name __id =
   let __type = "aws_apigatewayv2_authorizer" in
   let __attrs =
     ({
@@ -243,7 +279,8 @@ let make ?authorizer_credentials_arn
            ?authorizer_payload_format_version
            ?authorizer_result_ttl_in_seconds ?authorizer_uri
            ?enable_simple_responses ?id ?identity_sources
-           ~jwt_configuration ~api_id ~authorizer_type ~name ());
+           ~jwt_configuration ?timeouts ~api_id ~authorizer_type
+           ~name ());
     attrs = __attrs;
   }
 
@@ -251,13 +288,15 @@ let register ?tf_module ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
     ?enable_simple_responses ?id ?identity_sources
-    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name __id =
+    ?(jwt_configuration = []) ?timeouts ~api_id ~authorizer_type
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?authorizer_credentials_arn
       ?authorizer_payload_format_version
       ?authorizer_result_ttl_in_seconds ?authorizer_uri
       ?enable_simple_responses ?id ?identity_sources
-      ~jwt_configuration ~api_id ~authorizer_type ~name __id
+      ~jwt_configuration ?timeouts ~api_id ~authorizer_type ~name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

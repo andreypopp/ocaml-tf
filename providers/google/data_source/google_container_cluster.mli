@@ -4,6 +4,10 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type addons_config__stateful_ha_config = {
+  enabled : bool prop;  (** enabled *)
+}
+
 type addons_config__network_policy_config = {
   disabled : bool prop;  (** disabled *)
 }
@@ -82,6 +86,9 @@ type addons_config = {
   network_policy_config : addons_config__network_policy_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_policy_config *)
+  stateful_ha_config : addons_config__stateful_ha_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** stateful_ha_config *)
 }
 
 type authenticator_groups_config = {
@@ -387,6 +394,11 @@ type node_config__shielded_instance_config = {
   enable_secure_boot : bool prop;  (** enable_secure_boot *)
 }
 
+type node_config__secondary_boot_disks = {
+  disk_image : string prop;  (** disk_image *)
+  mode : string prop;  (** mode *)
+}
+
 type node_config__reservation_affinity = {
   consume_reservation_type : string prop;
       (** consume_reservation_type *)
@@ -461,11 +473,45 @@ type node_config__effective_taints = {
   value : string prop;  (** value *)
 }
 
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;  (** secret_uri *)
+}
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** fqdns *)
+  gcp_secret_manager_certificate_config :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** gcp_secret_manager_certificate_config *)
+}
+
+type node_config__containerd_config__private_registry_access_config = {
+  certificate_authority_domain_config :
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** certificate_authority_domain_config *)
+  enabled : bool prop;  (** enabled *)
+}
+
+type node_config__containerd_config = {
+  private_registry_access_config :
+    node_config__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** private_registry_access_config *)
+}
+
 type node_config__confidential_nodes = {
   enabled : bool prop;  (** enabled *)
 }
 
 type node_config__advanced_machine_features = {
+  enable_nested_virtualization : bool prop;
+      (** enable_nested_virtualization *)
   threads_per_core : float prop;  (** threads_per_core *)
 }
 
@@ -478,6 +524,9 @@ type node_config = {
   confidential_nodes : node_config__confidential_nodes list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** confidential_nodes *)
+  containerd_config : node_config__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** containerd_config *)
   disk_size_gb : float prop;  (** disk_size_gb *)
   disk_type : string prop;  (** disk_type *)
   effective_taints : node_config__effective_taints list;
@@ -534,6 +583,9 @@ type node_config = {
       (** resource_labels *)
   resource_manager_tags : (string * string prop) list;
       (** resource_manager_tags *)
+  secondary_boot_disks : node_config__secondary_boot_disks list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** secondary_boot_disks *)
   service_account : string prop;  (** service_account *)
   shielded_instance_config :
     node_config__shielded_instance_config list;
@@ -581,6 +633,10 @@ type node_pool__upgrade_settings = {
   strategy : string prop;  (** strategy *)
 }
 
+type node_pool__queued_provisioning = {
+  enabled : bool prop;  (** enabled *)
+}
+
 type node_pool__placement_policy = {
   policy_name : string prop;  (** policy_name *)
   tpu_topology : string prop;  (** tpu_topology *)
@@ -616,6 +672,11 @@ type node_pool__node_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop;
       (** enable_integrity_monitoring *)
   enable_secure_boot : bool prop;  (** enable_secure_boot *)
+}
+
+type node_pool__node_config__secondary_boot_disks = {
+  disk_image : string prop;  (** disk_image *)
+  mode : string prop;  (** mode *)
 }
 
 type node_pool__node_config__reservation_affinity = {
@@ -695,11 +756,45 @@ type node_pool__node_config__effective_taints = {
   value : string prop;  (** value *)
 }
 
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;  (** secret_uri *)
+}
+
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** fqdns *)
+  gcp_secret_manager_certificate_config :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** gcp_secret_manager_certificate_config *)
+}
+
+type node_pool__node_config__containerd_config__private_registry_access_config = {
+  certificate_authority_domain_config :
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** certificate_authority_domain_config *)
+  enabled : bool prop;  (** enabled *)
+}
+
+type node_pool__node_config__containerd_config = {
+  private_registry_access_config :
+    node_pool__node_config__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** private_registry_access_config *)
+}
+
 type node_pool__node_config__confidential_nodes = {
   enabled : bool prop;  (** enabled *)
 }
 
 type node_pool__node_config__advanced_machine_features = {
+  enable_nested_virtualization : bool prop;
+      (** enable_nested_virtualization *)
   threads_per_core : float prop;  (** threads_per_core *)
 }
 
@@ -713,6 +808,9 @@ type node_pool__node_config = {
     node_pool__node_config__confidential_nodes list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** confidential_nodes *)
+  containerd_config : node_pool__node_config__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** containerd_config *)
   disk_size_gb : float prop;  (** disk_size_gb *)
   disk_type : string prop;  (** disk_type *)
   effective_taints : node_pool__node_config__effective_taints list;
@@ -770,6 +868,10 @@ type node_pool__node_config = {
       (** resource_labels *)
   resource_manager_tags : (string * string prop) list;
       (** resource_manager_tags *)
+  secondary_boot_disks :
+    node_pool__node_config__secondary_boot_disks list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** secondary_boot_disks *)
   service_account : string prop;  (** service_account *)
   shielded_instance_config :
     node_pool__node_config__shielded_instance_config list;
@@ -859,6 +961,9 @@ type node_pool = {
   placement_policy : node_pool__placement_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** placement_policy *)
+  queued_provisioning : node_pool__queued_provisioning list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** queued_provisioning *)
   upgrade_settings : node_pool__upgrade_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** upgrade_settings *)
@@ -875,9 +980,47 @@ type node_pool_auto_config = {
   network_tags : node_pool_auto_config__network_tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_tags *)
+  resource_manager_tags : (string * string prop) list;
+      (** resource_manager_tags *)
+}
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config = {
+  secret_uri : string prop;  (** secret_uri *)
+}
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config = {
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** fqdns *)
+  gcp_secret_manager_certificate_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** gcp_secret_manager_certificate_config *)
+}
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config = {
+  certificate_authority_domain_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** certificate_authority_domain_config *)
+  enabled : bool prop;  (** enabled *)
+}
+
+type node_pool_defaults__node_config_defaults__containerd_config = {
+  private_registry_access_config :
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** private_registry_access_config *)
 }
 
 type node_pool_defaults__node_config_defaults = {
+  containerd_config :
+    node_pool_defaults__node_config_defaults__containerd_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** containerd_config *)
   logging_variant : string prop;  (** logging_variant *)
 }
 
@@ -997,6 +1140,7 @@ type t = private {
   description : string prop;
   dns_config : dns_config list prop;
   enable_autopilot : bool prop;
+  enable_cilium_clusterwide_network_policy : bool prop;
   enable_intranode_visibility : bool prop;
   enable_k8s_beta_apis : enable_k8s_beta_apis list prop;
   enable_kubernetes_alpha : bool prop;

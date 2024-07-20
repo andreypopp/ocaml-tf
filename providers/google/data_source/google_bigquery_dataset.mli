@@ -52,6 +52,11 @@ type default_encryption_configuration = {
   kms_key_name : string prop;  (** kms_key_name *)
 }
 
+type external_dataset_reference = {
+  connection : string prop;  (** connection *)
+  external_source : string prop;  (** external_source *)
+}
+
 type google_bigquery_dataset
 
 val google_bigquery_dataset :
@@ -80,6 +85,7 @@ type t = private {
   description : string prop;
   effective_labels : (string * string) list prop;
   etag : string prop;
+  external_dataset_reference : external_dataset_reference list prop;
   friendly_name : string prop;
   id : string prop;
   is_case_insensitive : bool prop;

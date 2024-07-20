@@ -476,6 +476,31 @@ let _ = yojson_of_data_quality_spec__rules__set_expectation
 
 [@@@deriving.end]
 
+type data_quality_spec__rules__sql_assertion = {
+  sql_statement : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__rules__sql_assertion) -> ()
+
+let yojson_of_data_quality_spec__rules__sql_assertion =
+  (function
+   | { sql_statement = v_sql_statement } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sql_statement in
+         ("sql_statement", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__sql_assertion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__sql_assertion
+
+[@@@deriving.end]
+
 type data_quality_spec__rules__statistic_range_expectation = {
   max_value : string prop option; [@option]
   min_value : string prop option; [@option]
@@ -612,6 +637,8 @@ type data_quality_spec__rules = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   set_expectation : data_quality_spec__rules__set_expectation list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  sql_assertion : data_quality_spec__rules__sql_assertion list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   statistic_range_expectation :
     data_quality_spec__rules__statistic_range_expectation list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -640,6 +667,7 @@ let yojson_of_data_quality_spec__rules =
        regex_expectation = v_regex_expectation;
        row_condition_expectation = v_row_condition_expectation;
        set_expectation = v_set_expectation;
+       sql_assertion = v_sql_assertion;
        statistic_range_expectation = v_statistic_range_expectation;
        table_condition_expectation = v_table_condition_expectation;
        uniqueness_expectation = v_uniqueness_expectation;
@@ -678,6 +706,17 @@ let yojson_of_data_quality_spec__rules =
                v_statistic_range_expectation
            in
            let bnd = "statistic_range_expectation", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_sql_assertion then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_spec__rules__sql_assertion)
+               v_sql_assertion
+           in
+           let bnd = "sql_assertion", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1260,6 +1299,10 @@ let data_quality_spec__rules__set_expectation ~values () :
     data_quality_spec__rules__set_expectation =
   { values }
 
+let data_quality_spec__rules__sql_assertion ~sql_statement () :
+    data_quality_spec__rules__sql_assertion =
+  { sql_statement }
+
 let data_quality_spec__rules__statistic_range_expectation ?max_value
     ?min_value ?strict_max_enabled ?strict_min_enabled ~statistic ()
     : data_quality_spec__rules__statistic_range_expectation =
@@ -1281,7 +1324,8 @@ let data_quality_spec__rules__uniqueness_expectation () = ()
 let data_quality_spec__rules ?column ?description ?ignore_null ?name
     ?threshold ?(non_null_expectation = []) ?(range_expectation = [])
     ?(regex_expectation = []) ?(row_condition_expectation = [])
-    ?(set_expectation = []) ?(statistic_range_expectation = [])
+    ?(set_expectation = []) ?(sql_assertion = [])
+    ?(statistic_range_expectation = [])
     ?(table_condition_expectation = [])
     ?(uniqueness_expectation = []) ~dimension () :
     data_quality_spec__rules =
@@ -1297,6 +1341,7 @@ let data_quality_spec__rules ?column ?description ?ignore_null ?name
     regex_expectation;
     row_condition_expectation;
     set_expectation;
+    sql_assertion;
     statistic_range_expectation;
     table_condition_expectation;
     uniqueness_expectation;

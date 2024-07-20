@@ -26,6 +26,7 @@ type azurerm_servicebus_subscription
 
 val azurerm_servicebus_subscription :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?client_scoped_subscription_enabled:bool prop ->
   ?dead_lettering_on_filter_evaluation_error:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->
@@ -53,6 +54,7 @@ val yojson_of_azurerm_servicebus_subscription :
 type t = private {
   tf_name : string;
   auto_delete_on_idle : string prop;
+  batched_operations_enabled : bool prop;
   client_scoped_subscription_enabled : bool prop;
   dead_lettering_on_filter_evaluation_error : bool prop;
   dead_lettering_on_message_expiration : bool prop;
@@ -72,6 +74,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?client_scoped_subscription_enabled:bool prop ->
   ?dead_lettering_on_filter_evaluation_error:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->
@@ -93,6 +96,7 @@ val register :
 
 val make :
   ?auto_delete_on_idle:string prop ->
+  ?batched_operations_enabled:bool prop ->
   ?client_scoped_subscription_enabled:bool prop ->
   ?dead_lettering_on_filter_evaluation_error:bool prop ->
   ?dead_lettering_on_message_expiration:bool prop ->

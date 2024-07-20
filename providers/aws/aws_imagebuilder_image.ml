@@ -158,6 +158,94 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
+type workflow__parameter = {
+  name : string prop;
+  value : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workflow__parameter) -> ()
+
+let yojson_of_workflow__parameter =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : workflow__parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workflow__parameter
+
+[@@@deriving.end]
+
+type workflow = {
+  on_failure : string prop option; [@option]
+  parallel_group : string prop option; [@option]
+  workflow_arn : string prop;
+  parameter : workflow__parameter list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workflow) -> ()
+
+let yojson_of_workflow =
+  (function
+   | {
+       on_failure = v_on_failure;
+       parallel_group = v_parallel_group;
+       workflow_arn = v_workflow_arn;
+       parameter = v_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workflow__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workflow_arn in
+         ("workflow_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_parallel_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parallel_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_on_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "on_failure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : workflow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workflow
+
+[@@@deriving.end]
+
 type output_resources__containers = {
   image_uris : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -291,6 +379,7 @@ type aws_imagebuilder_image = {
   container_recipe_arn : string prop option; [@option]
   distribution_configuration_arn : string prop option; [@option]
   enhanced_image_metadata_enabled : bool prop option; [@option]
+  execution_role : string prop option; [@option]
   id : string prop option; [@option]
   image_recipe_arn : string prop option; [@option]
   infrastructure_configuration_arn : string prop;
@@ -301,6 +390,8 @@ type aws_imagebuilder_image = {
   image_tests_configuration : image_tests_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
+  workflow : workflow list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -314,6 +405,7 @@ let yojson_of_aws_imagebuilder_image =
          v_distribution_configuration_arn;
        enhanced_image_metadata_enabled =
          v_enhanced_image_metadata_enabled;
+       execution_role = v_execution_role;
        id = v_id;
        image_recipe_arn = v_image_recipe_arn;
        infrastructure_configuration_arn =
@@ -323,9 +415,19 @@ let yojson_of_aws_imagebuilder_image =
        image_scanning_configuration = v_image_scanning_configuration;
        image_tests_configuration = v_image_tests_configuration;
        timeouts = v_timeouts;
+       workflow = v_workflow;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_workflow then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workflow) v_workflow
+           in
+           let bnd = "workflow", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
@@ -407,6 +509,14 @@ let yojson_of_aws_imagebuilder_image =
              bnd :: bnds
        in
        let bnds =
+         match v_execution_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_enhanced_image_metadata_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -452,16 +562,25 @@ let image_tests_configuration ?image_tests_enabled ?timeout_minutes
 
 let timeouts ?create () : timeouts = { create }
 
+let workflow__parameter ~name ~value () : workflow__parameter =
+  { name; value }
+
+let workflow ?on_failure ?parallel_group ~workflow_arn ~parameter ()
+    : workflow =
+  { on_failure; parallel_group; workflow_arn; parameter }
+
 let aws_imagebuilder_image ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
-    ?id ?image_recipe_arn ?tags ?tags_all
+    ?execution_role ?id ?image_recipe_arn ?tags ?tags_all
     ?(image_scanning_configuration = [])
     ?(image_tests_configuration = []) ?timeouts
-    ~infrastructure_configuration_arn () : aws_imagebuilder_image =
+    ~infrastructure_configuration_arn ~workflow () :
+    aws_imagebuilder_image =
   {
     container_recipe_arn;
     distribution_configuration_arn;
     enhanced_image_metadata_enabled;
+    execution_role;
     id;
     image_recipe_arn;
     infrastructure_configuration_arn;
@@ -470,6 +589,7 @@ let aws_imagebuilder_image ?container_recipe_arn
     image_scanning_configuration;
     image_tests_configuration;
     timeouts;
+    workflow;
   }
 
 type t = {
@@ -479,6 +599,7 @@ type t = {
   date_created : string prop;
   distribution_configuration_arn : string prop;
   enhanced_image_metadata_enabled : bool prop;
+  execution_role : string prop;
   id : string prop;
   image_recipe_arn : string prop;
   infrastructure_configuration_arn : string prop;
@@ -492,10 +613,11 @@ type t = {
 }
 
 let make ?container_recipe_arn ?distribution_configuration_arn
-    ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
-    ?tags_all ?(image_scanning_configuration = [])
+    ?enhanced_image_metadata_enabled ?execution_role ?id
+    ?image_recipe_arn ?tags ?tags_all
+    ?(image_scanning_configuration = [])
     ?(image_tests_configuration = []) ?timeouts
-    ~infrastructure_configuration_arn __id =
+    ~infrastructure_configuration_arn ~workflow __id =
   let __type = "aws_imagebuilder_image" in
   let __attrs =
     ({
@@ -508,6 +630,7 @@ let make ?container_recipe_arn ?distribution_configuration_arn
          Prop.computed __type __id "distribution_configuration_arn";
        enhanced_image_metadata_enabled =
          Prop.computed __type __id "enhanced_image_metadata_enabled";
+       execution_role = Prop.computed __type __id "execution_role";
        id = Prop.computed __type __id "id";
        image_recipe_arn =
          Prop.computed __type __id "image_recipe_arn";
@@ -531,25 +654,25 @@ let make ?container_recipe_arn ?distribution_configuration_arn
       yojson_of_aws_imagebuilder_image
         (aws_imagebuilder_image ?container_recipe_arn
            ?distribution_configuration_arn
-           ?enhanced_image_metadata_enabled ?id ?image_recipe_arn
-           ?tags ?tags_all ~image_scanning_configuration
-           ~image_tests_configuration ?timeouts
-           ~infrastructure_configuration_arn ());
+           ?enhanced_image_metadata_enabled ?execution_role ?id
+           ?image_recipe_arn ?tags ?tags_all
+           ~image_scanning_configuration ~image_tests_configuration
+           ?timeouts ~infrastructure_configuration_arn ~workflow ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
-    ?id ?image_recipe_arn ?tags ?tags_all
+    ?execution_role ?id ?image_recipe_arn ?tags ?tags_all
     ?(image_scanning_configuration = [])
     ?(image_tests_configuration = []) ?timeouts
-    ~infrastructure_configuration_arn __id =
+    ~infrastructure_configuration_arn ~workflow __id =
   let (r : _ Tf_core.resource) =
     make ?container_recipe_arn ?distribution_configuration_arn
-      ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
-      ?tags_all ~image_scanning_configuration
+      ?enhanced_image_metadata_enabled ?execution_role ?id
+      ?image_recipe_arn ?tags ?tags_all ~image_scanning_configuration
       ~image_tests_configuration ?timeouts
-      ~infrastructure_configuration_arn __id
+      ~infrastructure_configuration_arn ~workflow __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

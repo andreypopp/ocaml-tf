@@ -8,6 +8,7 @@ type bigquery_config
 
 val bigquery_config :
   ?drop_unknown_fields:bool prop ->
+  ?service_account_email:string prop ->
   ?use_table_schema:bool prop ->
   ?use_topic_schema:bool prop ->
   ?write_metadata:bool prop ->
@@ -25,10 +26,12 @@ val cloud_storage_config__avro_config :
 type cloud_storage_config
 
 val cloud_storage_config :
+  ?filename_datetime_format:string prop ->
   ?filename_prefix:string prop ->
   ?filename_suffix:string prop ->
   ?max_bytes:float prop ->
   ?max_duration:string prop ->
+  ?service_account_email:string prop ->
   ?avro_config:cloud_storage_config__avro_config list ->
   bucket:string prop ->
   unit ->

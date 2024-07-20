@@ -1,3 +1,5 @@
+(** A PriorityClass is a non-namespaced object that defines a mapping from a priority class name to the integer value of the priority. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -7,13 +7,14 @@ open! Tf_core
 type aws_customer_gateway
 
 val aws_customer_gateway :
+  ?bgp_asn:string prop ->
+  ?bgp_asn_extended:string prop ->
   ?certificate_arn:string prop ->
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  bgp_asn:string prop ->
   type_:string prop ->
   unit ->
   aws_customer_gateway
@@ -26,6 +27,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
+  bgp_asn_extended : string prop;
   certificate_arn : string prop;
   device_name : string prop;
   id : string prop;
@@ -37,25 +39,27 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?bgp_asn:string prop ->
+  ?bgp_asn_extended:string prop ->
   ?certificate_arn:string prop ->
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  bgp_asn:string prop ->
   type_:string prop ->
   string ->
   t
 
 val make :
+  ?bgp_asn:string prop ->
+  ?bgp_asn_extended:string prop ->
   ?certificate_arn:string prop ->
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  bgp_asn:string prop ->
   type_:string prop ->
   string ->
   t Tf_core.resource

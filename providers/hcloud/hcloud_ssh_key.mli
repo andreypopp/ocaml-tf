@@ -1,3 +1,16 @@
+(** Provides a Hetzner Cloud SSH key resource to manage SSH keys for server access.
+
+## Example Usage
+
+```hcl
+# Create a new SSH key
+resource hcloud_ssh_key default {
+  name       = Terraform Example
+  public_key = file(~/.ssh/id_rsa.pub)
+}
+```
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core
@@ -7,7 +20,6 @@ open! Tf_core
 type hcloud_ssh_key
 
 val hcloud_ssh_key :
-  ?id:string prop ->
   ?labels:(string * string prop) list ->
   name:string prop ->
   public_key:string prop ->
@@ -29,7 +41,6 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?id:string prop ->
   ?labels:(string * string prop) list ->
   name:string prop ->
   public_key:string prop ->
@@ -37,7 +48,6 @@ val register :
   t
 
 val make :
-  ?id:string prop ->
   ?labels:(string * string prop) list ->
   name:string prop ->
   public_key:string prop ->

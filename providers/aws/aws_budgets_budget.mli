@@ -71,6 +71,8 @@ val aws_budgets_budget :
   ?limit_unit:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
   ?auto_adjust_data:auto_adjust_data list ->
@@ -97,6 +99,8 @@ type t = private {
   limit_unit : string prop;
   name : string prop;
   name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   time_period_end : string prop;
   time_period_start : string prop;
   time_unit : string prop;
@@ -110,6 +114,8 @@ val register :
   ?limit_unit:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
   ?auto_adjust_data:auto_adjust_data list ->
@@ -129,6 +135,8 @@ val make :
   ?limit_unit:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
   ?auto_adjust_data:auto_adjust_data list ->

@@ -81,6 +81,7 @@ type t = private {
   topics : topics list prop;
   ttl : string prop;
   version_aliases : (string * string) list prop;
+  version_destroy_ttl : string prop;
 }
 
 val register :

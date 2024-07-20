@@ -14,6 +14,8 @@ type initial_settings__security_header = {
   preload : bool prop;  (** preload *)
 }
 
+type initial_settings__nel = { enabled : bool prop  (** enabled *) }
+
 type initial_settings__mobile_redirect = {
   mobile_subdomain : string prop;  (** mobile_subdomain *)
   status : string prop;  (** status *)
@@ -64,6 +66,9 @@ type initial_settings = {
   mobile_redirect : initial_settings__mobile_redirect list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** mobile_redirect *)
+  nel : initial_settings__nel list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** nel *)
   opportunistic_encryption : string prop;
       (** opportunistic_encryption *)
   opportunistic_onion : string prop;  (** opportunistic_onion *)
@@ -116,6 +121,10 @@ val settings__mobile_redirect :
   strip_uri:bool prop ->
   unit ->
   settings__mobile_redirect
+
+type settings__nel
+
+val settings__nel : enabled:bool prop -> unit -> settings__nel
 
 type settings__security_header
 
@@ -186,6 +195,7 @@ val settings :
   ?zero_rtt:string prop ->
   ?minify:settings__minify list ->
   ?mobile_redirect:settings__mobile_redirect list ->
+  ?nel:settings__nel list ->
   ?security_header:settings__security_header list ->
   unit ->
   settings

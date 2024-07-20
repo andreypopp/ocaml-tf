@@ -100,6 +100,8 @@ type aws_ssm_association = {
   parameters : (string * string prop) list option; [@option]
   schedule_expression : string prop option; [@option]
   sync_compliance : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
+  tags_all : (string * string prop) list option; [@option]
   wait_for_success_timeout_seconds : float prop option; [@option]
   output_location : output_location list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -127,6 +129,8 @@ let yojson_of_aws_ssm_association =
        parameters = v_parameters;
        schedule_expression = v_schedule_expression;
        sync_compliance = v_sync_compliance;
+       tags = v_tags;
+       tags_all = v_tags_all;
        wait_for_success_timeout_seconds =
          v_wait_for_success_timeout_seconds;
        output_location = v_output_location;
@@ -158,6 +162,38 @@ let yojson_of_aws_ssm_association =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "wait_for_success_timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
              bnd :: bnds
        in
        let bnds =
@@ -285,9 +321,9 @@ let aws_ssm_association ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
-    ?sync_compliance ?wait_for_success_timeout_seconds
-    ?(output_location = []) ?(targets = []) ~name () :
-    aws_ssm_association =
+    ?sync_compliance ?tags ?tags_all
+    ?wait_for_success_timeout_seconds ?(output_location = [])
+    ?(targets = []) ~name () : aws_ssm_association =
   {
     apply_only_at_cron_interval;
     association_name;
@@ -302,6 +338,8 @@ let aws_ssm_association ?apply_only_at_cron_interval
     parameters;
     schedule_expression;
     sync_compliance;
+    tags;
+    tags_all;
     wait_for_success_timeout_seconds;
     output_location;
     targets;
@@ -324,13 +362,15 @@ type t = {
   parameters : (string * string) list prop;
   schedule_expression : string prop;
   sync_compliance : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   wait_for_success_timeout_seconds : float prop;
 }
 
 let make ?apply_only_at_cron_interval ?association_name
     ?automation_target_parameter_name ?compliance_severity
     ?document_version ?id ?instance_id ?max_concurrency ?max_errors
-    ?parameters ?schedule_expression ?sync_compliance
+    ?parameters ?schedule_expression ?sync_compliance ?tags ?tags_all
     ?wait_for_success_timeout_seconds ?(output_location = [])
     ?(targets = []) ~name __id =
   let __type = "aws_ssm_association" in
@@ -358,6 +398,8 @@ let make ?apply_only_at_cron_interval ?association_name
        schedule_expression =
          Prop.computed __type __id "schedule_expression";
        sync_compliance = Prop.computed __type __id "sync_compliance";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        wait_for_success_timeout_seconds =
          Prop.computed __type __id "wait_for_success_timeout_seconds";
      }
@@ -372,7 +414,7 @@ let make ?apply_only_at_cron_interval ?association_name
            ?association_name ?automation_target_parameter_name
            ?compliance_severity ?document_version ?id ?instance_id
            ?max_concurrency ?max_errors ?parameters
-           ?schedule_expression ?sync_compliance
+           ?schedule_expression ?sync_compliance ?tags ?tags_all
            ?wait_for_success_timeout_seconds ~output_location
            ~targets ~name ());
     attrs = __attrs;
@@ -382,15 +424,16 @@ let register ?tf_module ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
-    ?sync_compliance ?wait_for_success_timeout_seconds
-    ?(output_location = []) ?(targets = []) ~name __id =
+    ?sync_compliance ?tags ?tags_all
+    ?wait_for_success_timeout_seconds ?(output_location = [])
+    ?(targets = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?apply_only_at_cron_interval ?association_name
       ?automation_target_parameter_name ?compliance_severity
       ?document_version ?id ?instance_id ?max_concurrency ?max_errors
-      ?parameters ?schedule_expression ?sync_compliance
-      ?wait_for_success_timeout_seconds ~output_location ~targets
-      ~name __id
+      ?parameters ?schedule_expression ?sync_compliance ?tags
+      ?tags_all ?wait_for_success_timeout_seconds ~output_location
+      ~targets ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

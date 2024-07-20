@@ -172,6 +172,8 @@ val default_node_pool__node_network_profile :
 type default_node_pool__upgrade_settings
 
 val default_node_pool__upgrade_settings :
+  ?drain_timeout_in_minutes:float prop ->
+  ?node_soak_duration_in_minutes:float prop ->
   max_surge:string prop ->
   unit ->
   default_node_pool__upgrade_settings
@@ -416,9 +418,12 @@ val network_profile :
   ?ebpf_data_plane:string prop ->
   ?ip_versions:string prop list ->
   ?load_balancer_sku:string prop ->
+  ?network_data_plane:string prop ->
   ?network_mode:string prop ->
   ?network_plugin_mode:string prop ->
   ?network_policy:string prop ->
+  ?outbound_ip_address_ids:string prop list ->
+  ?outbound_ip_prefix_ids:string prop list ->
   ?outbound_type:string prop ->
   ?pod_cidr:string prop ->
   ?pod_cidrs:string prop list ->
@@ -445,11 +450,24 @@ val oms_agent :
   unit ->
   oms_agent
 
+type service_mesh_profile__certificate_authority
+
+val service_mesh_profile__certificate_authority :
+  cert_chain_object_name:string prop ->
+  cert_object_name:string prop ->
+  key_object_name:string prop ->
+  key_vault_id:string prop ->
+  root_cert_object_name:string prop ->
+  unit ->
+  service_mesh_profile__certificate_authority
+
 type service_mesh_profile
 
 val service_mesh_profile :
   ?external_ingress_gateway_enabled:bool prop ->
   ?internal_ingress_gateway_enabled:bool prop ->
+  ?certificate_authority:
+    service_mesh_profile__certificate_authority list ->
   mode:string prop ->
   unit ->
   service_mesh_profile
@@ -493,7 +511,10 @@ type web_app_routing__web_app_routing_identity = {
 type web_app_routing
 
 val web_app_routing :
-  dns_zone_id:string prop -> unit -> web_app_routing
+  ?dns_zone_id:string prop ->
+  ?dns_zone_ids:string prop list ->
+  unit ->
+  web_app_routing
 
 type windows_profile__gmsa
 
@@ -527,6 +548,7 @@ val azurerm_kubernetes_cluster :
   ?api_server_authorized_ip_ranges:string prop list ->
   ?automatic_channel_upgrade:string prop ->
   ?azure_policy_enabled:bool prop ->
+  ?cost_analysis_enabled:bool prop ->
   ?custom_ca_trust_certificates_base64:string prop list ->
   ?disk_encryption_set_id:string prop ->
   ?dns_prefix:string prop ->
@@ -598,6 +620,7 @@ type t = private {
   api_server_authorized_ip_ranges : string list prop;
   automatic_channel_upgrade : string prop;
   azure_policy_enabled : bool prop;
+  cost_analysis_enabled : bool prop;
   current_kubernetes_version : string prop;
   custom_ca_trust_certificates_base64 : string list prop;
   disk_encryption_set_id : string prop;
@@ -645,6 +668,7 @@ val register :
   ?api_server_authorized_ip_ranges:string prop list ->
   ?automatic_channel_upgrade:string prop ->
   ?azure_policy_enabled:bool prop ->
+  ?cost_analysis_enabled:bool prop ->
   ?custom_ca_trust_certificates_base64:string prop list ->
   ?disk_encryption_set_id:string prop ->
   ?dns_prefix:string prop ->
@@ -710,6 +734,7 @@ val make :
   ?api_server_authorized_ip_ranges:string prop list ->
   ?automatic_channel_upgrade:string prop ->
   ?azure_policy_enabled:bool prop ->
+  ?cost_analysis_enabled:bool prop ->
   ?custom_ca_trust_certificates_base64:string prop list ->
   ?disk_encryption_set_id:string prop ->
   ?dns_prefix:string prop ->

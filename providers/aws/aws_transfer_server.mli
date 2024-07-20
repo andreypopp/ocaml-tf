@@ -25,6 +25,13 @@ val protocol_details :
   unit ->
   protocol_details
 
+type s3_storage_options
+
+val s3_storage_options :
+  ?directory_listing_optimization:string prop ->
+  unit ->
+  s3_storage_options
+
 type workflow_details__on_partial_upload
 
 val workflow_details__on_partial_upload :
@@ -67,12 +74,14 @@ val aws_transfer_server :
   ?pre_authentication_login_banner:string prop ->
   ?protocols:string prop list ->
   ?security_policy_name:string prop ->
+  ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->
+  ?s3_storage_options:s3_storage_options list ->
   ?workflow_details:workflow_details list ->
   unit ->
   aws_transfer_server
@@ -101,6 +110,7 @@ type t = private {
   pre_authentication_login_banner : string prop;
   protocols : string list prop;
   security_policy_name : string prop;
+  sftp_authentication_methods : string prop;
   structured_log_destinations : string list prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -124,12 +134,14 @@ val register :
   ?pre_authentication_login_banner:string prop ->
   ?protocols:string prop list ->
   ?security_policy_name:string prop ->
+  ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->
+  ?s3_storage_options:s3_storage_options list ->
   ?workflow_details:workflow_details list ->
   string ->
   t
@@ -150,12 +162,14 @@ val make :
   ?pre_authentication_login_banner:string prop ->
   ?protocols:string prop list ->
   ?security_policy_name:string prop ->
+  ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->
+  ?s3_storage_options:s3_storage_options list ->
   ?workflow_details:workflow_details list ->
   string ->
   t Tf_core.resource

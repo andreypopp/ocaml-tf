@@ -783,6 +783,7 @@ type google_privateca_certificate_template = {
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   location : string prop;
+  maximum_lifetime : string prop option; [@option]
   name : string prop;
   project : string prop option; [@option]
   identity_constraints : identity_constraints list;
@@ -804,6 +805,7 @@ let yojson_of_google_privateca_certificate_template =
        id = v_id;
        labels = v_labels;
        location = v_location;
+       maximum_lifetime = v_maximum_lifetime;
        name = v_name;
        project = v_project;
        identity_constraints = v_identity_constraints;
@@ -859,6 +861,14 @@ let yojson_of_google_privateca_certificate_template =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maximum_lifetime", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
@@ -997,7 +1007,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_privateca_certificate_template ?description ?id ?labels
-    ?project ?(identity_constraints = [])
+    ?maximum_lifetime ?project ?(identity_constraints = [])
     ?(passthrough_extensions = []) ?(predefined_values = [])
     ?timeouts ~location ~name () :
     google_privateca_certificate_template =
@@ -1006,6 +1016,7 @@ let google_privateca_certificate_template ?description ?id ?labels
     id;
     labels;
     location;
+    maximum_lifetime;
     name;
     project;
     identity_constraints;
@@ -1022,13 +1033,14 @@ type t = {
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
+  maximum_lifetime : string prop;
   name : string prop;
   project : string prop;
   terraform_labels : (string * string) list prop;
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project
+let make ?description ?id ?labels ?maximum_lifetime ?project
     ?(identity_constraints = []) ?(passthrough_extensions = [])
     ?(predefined_values = []) ?timeouts ~location ~name __id =
   let __type = "google_privateca_certificate_template" in
@@ -1042,6 +1054,8 @@ let make ?description ?id ?labels ?project
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
        location = Prop.computed __type __id "location";
+       maximum_lifetime =
+         Prop.computed __type __id "maximum_lifetime";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";
        terraform_labels =
@@ -1056,19 +1070,20 @@ let make ?description ?id ?labels ?project
     json =
       yojson_of_google_privateca_certificate_template
         (google_privateca_certificate_template ?description ?id
-           ?labels ?project ~identity_constraints
+           ?labels ?maximum_lifetime ?project ~identity_constraints
            ~passthrough_extensions ~predefined_values ?timeouts
            ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project
-    ?(identity_constraints = []) ?(passthrough_extensions = [])
-    ?(predefined_values = []) ?timeouts ~location ~name __id =
+let register ?tf_module ?description ?id ?labels ?maximum_lifetime
+    ?project ?(identity_constraints = [])
+    ?(passthrough_extensions = []) ?(predefined_values = [])
+    ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ~identity_constraints
-      ~passthrough_extensions ~predefined_values ?timeouts ~location
-      ~name __id
+    make ?description ?id ?labels ?maximum_lifetime ?project
+      ~identity_constraints ~passthrough_extensions
+      ~predefined_values ?timeouts ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

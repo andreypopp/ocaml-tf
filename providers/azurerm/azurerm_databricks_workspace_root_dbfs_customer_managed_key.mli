@@ -18,6 +18,7 @@ type azurerm_databricks_workspace_root_dbfs_customer_managed_key
 
 val azurerm_databricks_workspace_root_dbfs_customer_managed_key :
   ?id:string prop ->
+  ?key_vault_id:string prop ->
   ?timeouts:timeouts ->
   key_vault_key_id:string prop ->
   workspace_id:string prop ->
@@ -32,6 +33,7 @@ val yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key :
 type t = private {
   tf_name : string;
   id : string prop;
+  key_vault_id : string prop;
   key_vault_key_id : string prop;
   workspace_id : string prop;
 }
@@ -39,6 +41,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?key_vault_id:string prop ->
   ?timeouts:timeouts ->
   key_vault_key_id:string prop ->
   workspace_id:string prop ->
@@ -47,6 +50,7 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?key_vault_id:string prop ->
   ?timeouts:timeouts ->
   key_vault_key_id:string prop ->
   workspace_id:string prop ->

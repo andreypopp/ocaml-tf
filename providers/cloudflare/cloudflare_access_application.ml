@@ -215,16 +215,35 @@ let _ = yojson_of_landing_page_design
 
 [@@@deriving.end]
 
-type saas_app__custom_attribute__source = { name : string prop }
+type saas_app__custom_attribute__source = {
+  name : string prop;
+  name_by_idp : (string * string prop) list option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : saas_app__custom_attribute__source) -> ()
 
 let yojson_of_saas_app__custom_attribute__source =
   (function
-   | { name = v_name } ->
+   | { name = v_name; name_by_idp = v_name_by_idp } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_name_by_idp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "name_by_idp", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -312,7 +331,192 @@ let _ = yojson_of_saas_app__custom_attribute
 
 [@@@deriving.end]
 
+type saas_app__custom_claim__source = {
+  name : string prop;
+  name_by_idp : (string * string prop) list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saas_app__custom_claim__source) -> ()
+
+let yojson_of_saas_app__custom_claim__source =
+  (function
+   | { name = v_name; name_by_idp = v_name_by_idp } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name_by_idp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "name_by_idp", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : saas_app__custom_claim__source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saas_app__custom_claim__source
+
+[@@@deriving.end]
+
+type saas_app__custom_claim = {
+  name : string prop option; [@option]
+  required : bool prop option; [@option]
+  scope : string prop option; [@option]
+  source : saas_app__custom_claim__source list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saas_app__custom_claim) -> ()
+
+let yojson_of_saas_app__custom_claim =
+  (function
+   | {
+       name = v_name;
+       required = v_required;
+       scope = v_scope;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saas_app__custom_claim__source)
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : saas_app__custom_claim -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saas_app__custom_claim
+
+[@@@deriving.end]
+
+type saas_app__hybrid_and_implicit_options = {
+  return_access_token_from_authorization_endpoint : bool prop option;
+      [@option]
+  return_id_token_from_authorization_endpoint : bool prop option;
+      [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saas_app__hybrid_and_implicit_options) -> ()
+
+let yojson_of_saas_app__hybrid_and_implicit_options =
+  (function
+   | {
+       return_access_token_from_authorization_endpoint =
+         v_return_access_token_from_authorization_endpoint;
+       return_id_token_from_authorization_endpoint =
+         v_return_id_token_from_authorization_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_return_id_token_from_authorization_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "return_id_token_from_authorization_endpoint", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_return_access_token_from_authorization_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "return_access_token_from_authorization_endpoint", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : saas_app__hybrid_and_implicit_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saas_app__hybrid_and_implicit_options
+
+[@@@deriving.end]
+
+type saas_app__refresh_token_options = {
+  lifetime : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saas_app__refresh_token_options) -> ()
+
+let yojson_of_saas_app__refresh_token_options =
+  (function
+   | { lifetime = v_lifetime } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifetime", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : saas_app__refresh_token_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saas_app__refresh_token_options
+
+[@@@deriving.end]
+
 type saas_app = {
+  access_token_lifetime : string prop option; [@option]
+  allow_pkce_without_client_secret : bool prop option; [@option]
   app_launcher_url : string prop option; [@option]
   auth_type : string prop option; [@option]
   consumer_service_url : string prop option; [@option]
@@ -322,9 +526,17 @@ type saas_app = {
   name_id_format : string prop option; [@option]
   name_id_transform_jsonata : string prop option; [@option]
   redirect_uris : string prop list option; [@option]
+  saml_attribute_transform_jsonata : string prop option; [@option]
   scopes : string prop list option; [@option]
   sp_entity_id : string prop option; [@option]
   custom_attribute : saas_app__custom_attribute list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  custom_claim : saas_app__custom_claim list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  hybrid_and_implicit_options :
+    saas_app__hybrid_and_implicit_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  refresh_token_options : saas_app__refresh_token_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -334,6 +546,9 @@ let _ = fun (_ : saas_app) -> ()
 let yojson_of_saas_app =
   (function
    | {
+       access_token_lifetime = v_access_token_lifetime;
+       allow_pkce_without_client_secret =
+         v_allow_pkce_without_client_secret;
        app_launcher_url = v_app_launcher_url;
        auth_type = v_auth_type;
        consumer_service_url = v_consumer_service_url;
@@ -343,12 +558,49 @@ let yojson_of_saas_app =
        name_id_format = v_name_id_format;
        name_id_transform_jsonata = v_name_id_transform_jsonata;
        redirect_uris = v_redirect_uris;
+       saml_attribute_transform_jsonata =
+         v_saml_attribute_transform_jsonata;
        scopes = v_scopes;
        sp_entity_id = v_sp_entity_id;
        custom_attribute = v_custom_attribute;
+       custom_claim = v_custom_claim;
+       hybrid_and_implicit_options = v_hybrid_and_implicit_options;
+       refresh_token_options = v_refresh_token_options;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_refresh_token_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_saas_app__refresh_token_options)
+               v_refresh_token_options
+           in
+           let bnd = "refresh_token_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_hybrid_and_implicit_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_saas_app__hybrid_and_implicit_options)
+               v_hybrid_and_implicit_options
+           in
+           let bnd = "hybrid_and_implicit_options", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_custom_claim then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saas_app__custom_claim)
+               v_custom_claim
+           in
+           let bnd = "custom_claim", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_custom_attribute then bnds
@@ -376,6 +628,14 @@ let yojson_of_saas_app =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_saml_attribute_transform_jsonata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "saml_attribute_transform_jsonata", arg in
              bnd :: bnds
        in
        let bnds =
@@ -454,10 +714,330 @@ let yojson_of_saas_app =
              let bnd = "app_launcher_url", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_allow_pkce_without_client_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_pkce_without_client_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_token_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_token_lifetime", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : saas_app -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_saas_app
+
+[@@@deriving.end]
+
+type scim_config__authentication = {
+  authorization_url : string prop option; [@option]
+  client_id : string prop option; [@option]
+  client_secret : string prop option; [@option]
+  password : string prop option; [@option]
+  scheme : string prop;
+  scopes : string prop list option; [@option]
+  token : string prop option; [@option]
+  token_url : string prop option; [@option]
+  user : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scim_config__authentication) -> ()
+
+let yojson_of_scim_config__authentication =
+  (function
+   | {
+       authorization_url = v_authorization_url;
+       client_id = v_client_id;
+       client_secret = v_client_secret;
+       password = v_password;
+       scheme = v_scheme;
+       scopes = v_scopes;
+       token = v_token;
+       token_url = v_token_url;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_token_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scheme in
+         ("scheme", arg) :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorization_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authorization_url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scim_config__authentication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scim_config__authentication
+
+[@@@deriving.end]
+
+type scim_config__mappings__operations = {
+  create : bool prop option; [@option]
+  delete : bool prop option; [@option]
+  update : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scim_config__mappings__operations) -> ()
+
+let yojson_of_scim_config__mappings__operations =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scim_config__mappings__operations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scim_config__mappings__operations
+
+[@@@deriving.end]
+
+type scim_config__mappings = {
+  enabled : bool prop option; [@option]
+  filter : string prop option; [@option]
+  schema : string prop;
+  transform_jsonata : string prop option; [@option]
+  operations : scim_config__mappings__operations list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scim_config__mappings) -> ()
+
+let yojson_of_scim_config__mappings =
+  (function
+   | {
+       enabled = v_enabled;
+       filter = v_filter;
+       schema = v_schema;
+       transform_jsonata = v_transform_jsonata;
+       operations = v_operations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scim_config__mappings__operations)
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_transform_jsonata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transform_jsonata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schema in
+         ("schema", arg) :: bnds
+       in
+       let bnds =
+         match v_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scim_config__mappings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scim_config__mappings
+
+[@@@deriving.end]
+
+type scim_config = {
+  deactivate_on_delete : bool prop option; [@option]
+  enabled : bool prop option; [@option]
+  idp_uid : string prop;
+  remote_uri : string prop;
+  authentication : scim_config__authentication list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  mappings : scim_config__mappings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scim_config) -> ()
+
+let yojson_of_scim_config =
+  (function
+   | {
+       deactivate_on_delete = v_deactivate_on_delete;
+       enabled = v_enabled;
+       idp_uid = v_idp_uid;
+       remote_uri = v_remote_uri;
+       authentication = v_authentication;
+       mappings = v_mappings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_mappings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scim_config__mappings)
+               v_mappings
+           in
+           let bnd = "mappings", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scim_config__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_remote_uri in
+         ("remote_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_idp_uid in
+         ("idp_uid", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deactivate_on_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deactivate_on_delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scim_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scim_config
 
 [@@@deriving.end]
 
@@ -480,6 +1060,8 @@ type cloudflare_access_application = {
   id : string prop option; [@option]
   logo_url : string prop option; [@option]
   name : string prop option; [@option]
+  options_preflight_bypass : bool prop option; [@option]
+  policies : string prop list option; [@option]
   same_site_cookie_attribute : string prop option; [@option]
   self_hosted_domains : string prop list option; [@option]
   service_auth_401_redirect : bool prop option; [@option]
@@ -495,6 +1077,8 @@ type cloudflare_access_application = {
   landing_page_design : landing_page_design list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   saas_app : saas_app list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  scim_config : scim_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -522,6 +1106,8 @@ let yojson_of_cloudflare_access_application =
        id = v_id;
        logo_url = v_logo_url;
        name = v_name;
+       options_preflight_bypass = v_options_preflight_bypass;
+       policies = v_policies;
        same_site_cookie_attribute = v_same_site_cookie_attribute;
        self_hosted_domains = v_self_hosted_domains;
        service_auth_401_redirect = v_service_auth_401_redirect;
@@ -534,9 +1120,19 @@ let yojson_of_cloudflare_access_application =
        footer_links = v_footer_links;
        landing_page_design = v_landing_page_design;
        saas_app = v_saas_app;
+       scim_config = v_scim_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_scim_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scim_config) v_scim_config
+           in
+           let bnd = "scim_config", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_saas_app then bnds
@@ -641,6 +1237,24 @@ let yojson_of_cloudflare_access_application =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "same_site_cookie_attribute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "policies", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_options_preflight_bypass with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "options_preflight_bypass", arg in
              bnd :: bnds
        in
        let bnds =
@@ -819,19 +1433,46 @@ let landing_page_design ?button_color ?button_text_color ?image_url
     ?message ?title () : landing_page_design =
   { button_color; button_text_color; image_url; message; title }
 
-let saas_app__custom_attribute__source ~name () :
+let saas_app__custom_attribute__source ?name_by_idp ~name () :
     saas_app__custom_attribute__source =
-  { name }
+  { name; name_by_idp }
 
 let saas_app__custom_attribute ?friendly_name ?name ?name_format
     ?required ~source () : saas_app__custom_attribute =
   { friendly_name; name; name_format; required; source }
 
-let saas_app ?app_launcher_url ?auth_type ?consumer_service_url
-    ?default_relay_state ?grant_types ?group_filter_regex
-    ?name_id_format ?name_id_transform_jsonata ?redirect_uris ?scopes
-    ?sp_entity_id ?(custom_attribute = []) () : saas_app =
+let saas_app__custom_claim__source ?name_by_idp ~name () :
+    saas_app__custom_claim__source =
+  { name; name_by_idp }
+
+let saas_app__custom_claim ?name ?required ?scope ~source () :
+    saas_app__custom_claim =
+  { name; required; scope; source }
+
+let saas_app__hybrid_and_implicit_options
+    ?return_access_token_from_authorization_endpoint
+    ?return_id_token_from_authorization_endpoint () :
+    saas_app__hybrid_and_implicit_options =
   {
+    return_access_token_from_authorization_endpoint;
+    return_id_token_from_authorization_endpoint;
+  }
+
+let saas_app__refresh_token_options ?lifetime () :
+    saas_app__refresh_token_options =
+  { lifetime }
+
+let saas_app ?access_token_lifetime ?allow_pkce_without_client_secret
+    ?app_launcher_url ?auth_type ?consumer_service_url
+    ?default_relay_state ?grant_types ?group_filter_regex
+    ?name_id_format ?name_id_transform_jsonata ?redirect_uris
+    ?saml_attribute_transform_jsonata ?scopes ?sp_entity_id
+    ?(custom_attribute = []) ?(custom_claim = [])
+    ?(hybrid_and_implicit_options = []) ?(refresh_token_options = [])
+    () : saas_app =
+  {
+    access_token_lifetime;
+    allow_pkce_without_client_secret;
     app_launcher_url;
     auth_type;
     consumer_service_url;
@@ -841,9 +1482,47 @@ let saas_app ?app_launcher_url ?auth_type ?consumer_service_url
     name_id_format;
     name_id_transform_jsonata;
     redirect_uris;
+    saml_attribute_transform_jsonata;
     scopes;
     sp_entity_id;
     custom_attribute;
+    custom_claim;
+    hybrid_and_implicit_options;
+    refresh_token_options;
+  }
+
+let scim_config__authentication ?authorization_url ?client_id
+    ?client_secret ?password ?scopes ?token ?token_url ?user ~scheme
+    () : scim_config__authentication =
+  {
+    authorization_url;
+    client_id;
+    client_secret;
+    password;
+    scheme;
+    scopes;
+    token;
+    token_url;
+    user;
+  }
+
+let scim_config__mappings__operations ?create ?delete ?update () :
+    scim_config__mappings__operations =
+  { create; delete; update }
+
+let scim_config__mappings ?enabled ?filter ?transform_jsonata
+    ?(operations = []) ~schema () : scim_config__mappings =
+  { enabled; filter; schema; transform_jsonata; operations }
+
+let scim_config ?deactivate_on_delete ?enabled ?(authentication = [])
+    ?(mappings = []) ~idp_uid ~remote_uri () : scim_config =
+  {
+    deactivate_on_delete;
+    enabled;
+    idp_uid;
+    remote_uri;
+    authentication;
+    mappings;
   }
 
 let cloudflare_access_application ?account_id
@@ -853,11 +1532,11 @@ let cloudflare_access_application ?account_id
     ?custom_non_identity_deny_url ?custom_pages ?domain
     ?enable_binding_cookie ?header_bg_color
     ?http_only_cookie_attribute ?id ?logo_url ?name
-    ?same_site_cookie_attribute ?self_hosted_domains
-    ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ?(cors_headers = [])
-    ?(landing_page_design = []) ?(saas_app = []) ~footer_links () :
-    cloudflare_access_application =
+    ?options_preflight_bypass ?policies ?same_site_cookie_attribute
+    ?self_hosted_domains ?service_auth_401_redirect ?session_duration
+    ?skip_interstitial ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ?(scim_config = [])
+    ~footer_links () : cloudflare_access_application =
   {
     account_id;
     allow_authenticate_via_warp;
@@ -877,6 +1556,8 @@ let cloudflare_access_application ?account_id
     id;
     logo_url;
     name;
+    options_preflight_bypass;
+    policies;
     same_site_cookie_attribute;
     self_hosted_domains;
     service_auth_401_redirect;
@@ -889,6 +1570,7 @@ let cloudflare_access_application ?account_id
     footer_links;
     landing_page_design;
     saas_app;
+    scim_config;
   }
 
 type t = {
@@ -912,6 +1594,8 @@ type t = {
   id : string prop;
   logo_url : string prop;
   name : string prop;
+  options_preflight_bypass : bool prop;
+  policies : string list prop;
   same_site_cookie_attribute : string prop;
   self_hosted_domains : string list prop;
   service_auth_401_redirect : bool prop;
@@ -928,10 +1612,11 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
     ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
     ?domain ?enable_binding_cookie ?header_bg_color
     ?http_only_cookie_attribute ?id ?logo_url ?name
-    ?same_site_cookie_attribute ?self_hosted_domains
-    ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ?(cors_headers = [])
-    ?(landing_page_design = []) ?(saas_app = []) ~footer_links __id =
+    ?options_preflight_bypass ?policies ?same_site_cookie_attribute
+    ?self_hosted_domains ?service_auth_401_redirect ?session_duration
+    ?skip_interstitial ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ?(scim_config = [])
+    ~footer_links __id =
   let __type = "cloudflare_access_application" in
   let __attrs =
     ({
@@ -963,6 +1648,9 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
        id = Prop.computed __type __id "id";
        logo_url = Prop.computed __type __id "logo_url";
        name = Prop.computed __type __id "name";
+       options_preflight_bypass =
+         Prop.computed __type __id "options_preflight_bypass";
+       policies = Prop.computed __type __id "policies";
        same_site_cookie_attribute =
          Prop.computed __type __id "same_site_cookie_attribute";
        self_hosted_domains =
@@ -991,10 +1679,12 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
            ?custom_deny_url ?custom_non_identity_deny_url
            ?custom_pages ?domain ?enable_binding_cookie
            ?header_bg_color ?http_only_cookie_attribute ?id ?logo_url
-           ?name ?same_site_cookie_attribute ?self_hosted_domains
+           ?name ?options_preflight_bypass ?policies
+           ?same_site_cookie_attribute ?self_hosted_domains
            ?service_auth_401_redirect ?session_duration
            ?skip_interstitial ?tags ?type_ ?zone_id ~cors_headers
-           ~landing_page_design ~saas_app ~footer_links ());
+           ~landing_page_design ~saas_app ~scim_config ~footer_links
+           ());
     attrs = __attrs;
   }
 
@@ -1004,10 +1694,11 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
     ?domain ?enable_binding_cookie ?header_bg_color
     ?http_only_cookie_attribute ?id ?logo_url ?name
-    ?same_site_cookie_attribute ?self_hosted_domains
-    ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ?(cors_headers = [])
-    ?(landing_page_design = []) ?(saas_app = []) ~footer_links __id =
+    ?options_preflight_bypass ?policies ?same_site_cookie_attribute
+    ?self_hosted_domains ?service_auth_401_redirect ?session_duration
+    ?skip_interstitial ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ?(scim_config = [])
+    ~footer_links __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?allow_authenticate_via_warp ?allowed_idps
       ?app_launcher_logo_url ?app_launcher_visible
@@ -1015,10 +1706,11 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
       ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
       ?domain ?enable_binding_cookie ?header_bg_color
       ?http_only_cookie_attribute ?id ?logo_url ?name
-      ?same_site_cookie_attribute ?self_hosted_domains
-      ?service_auth_401_redirect ?session_duration ?skip_interstitial
-      ?tags ?type_ ?zone_id ~cors_headers ~landing_page_design
-      ~saas_app ~footer_links __id
+      ?options_preflight_bypass ?policies ?same_site_cookie_attribute
+      ?self_hosted_domains ?service_auth_401_redirect
+      ?session_duration ?skip_interstitial ?tags ?type_ ?zone_id
+      ~cors_headers ~landing_page_design ~saas_app ~scim_config
+      ~footer_links __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

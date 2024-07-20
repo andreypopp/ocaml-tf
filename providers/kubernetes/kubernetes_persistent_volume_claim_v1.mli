@@ -1,3 +1,5 @@
+(** This resource allows the user to request for and claim to a persistent volume. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

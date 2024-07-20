@@ -2,6 +2,34 @@
 
 open! Tf_core
 
+type build_config__automatic_update_policy = unit
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__automatic_update_policy) -> ()
+
+let yojson_of_build_config__automatic_update_policy =
+  (yojson_of_unit
+    : build_config__automatic_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__automatic_update_policy
+
+[@@@deriving.end]
+
+type build_config__on_deploy_update_policy = unit
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__on_deploy_update_policy) -> ()
+
+let yojson_of_build_config__on_deploy_update_policy =
+  (yojson_of_unit
+    : build_config__on_deploy_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__on_deploy_update_policy
+
+[@@@deriving.end]
+
 type build_config__source__repo_source = {
   branch_name : string prop option; [@option]
   commit_sha : string prop option; [@option]
@@ -198,7 +226,14 @@ type build_config = {
   environment_variables : (string * string prop) list option;
       [@option]
   runtime : string prop option; [@option]
+  service_account : string prop option; [@option]
   worker_pool : string prop option; [@option]
+  automatic_update_policy :
+    build_config__automatic_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  on_deploy_update_policy :
+    build_config__on_deploy_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   source : build_config__source list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -213,7 +248,10 @@ let yojson_of_build_config =
        entry_point = v_entry_point;
        environment_variables = v_environment_variables;
        runtime = v_runtime;
+       service_account = v_service_account;
        worker_pool = v_worker_pool;
+       automatic_update_policy = v_automatic_update_policy;
+       on_deploy_update_policy = v_on_deploy_update_policy;
        source = v_source;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -229,11 +267,41 @@ let yojson_of_build_config =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_on_deploy_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__on_deploy_update_policy)
+               v_on_deploy_update_policy
+           in
+           let bnd = "on_deploy_update_policy", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_automatic_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__automatic_update_policy)
+               v_automatic_update_policy
+           in
+           let bnd = "automatic_update_policy", arg in
+           bnd :: bnds
+       in
+       let bnds =
          match v_worker_pool with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "worker_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
              bnd :: bnds
        in
        let bnds =
@@ -907,6 +975,9 @@ let _ = yojson_of_google_cloudfunctions2_function
 
 [@@@deriving.end]
 
+let build_config__automatic_update_policy () = ()
+let build_config__on_deploy_update_policy () = ()
+
 let build_config__source__repo_source ?branch_name ?commit_sha ?dir
     ?invert_regex ?project_id ?repo_name ?tag_name () :
     build_config__source__repo_source =
@@ -929,14 +1000,18 @@ let build_config__source ?(repo_source = []) ?(storage_source = [])
   { repo_source; storage_source }
 
 let build_config ?docker_repository ?entry_point
-    ?environment_variables ?runtime ?worker_pool ?(source = []) () :
-    build_config =
+    ?environment_variables ?runtime ?service_account ?worker_pool
+    ?(automatic_update_policy = []) ?(on_deploy_update_policy = [])
+    ?(source = []) () : build_config =
   {
     docker_repository;
     entry_point;
     environment_variables;
     runtime;
+    service_account;
     worker_pool;
+    automatic_update_policy;
+    on_deploy_update_policy;
     source;
   }
 

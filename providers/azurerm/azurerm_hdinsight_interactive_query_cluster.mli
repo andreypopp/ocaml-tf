@@ -95,6 +95,26 @@ val network :
   unit ->
   network
 
+type private_link_configuration__ip_configuration
+
+val private_link_configuration__ip_configuration :
+  ?primary:bool prop ->
+  ?private_ip_address:string prop ->
+  ?private_ip_allocation_method:string prop ->
+  ?subnet_id:string prop ->
+  name:string prop ->
+  unit ->
+  private_link_configuration__ip_configuration
+
+type private_link_configuration
+
+val private_link_configuration :
+  group_id:string prop ->
+  name:string prop ->
+  ip_configuration:private_link_configuration__ip_configuration list ->
+  unit ->
+  private_link_configuration
+
 type roles__head_node__script_actions
 
 val roles__head_node__script_actions :
@@ -261,6 +281,7 @@ val azurerm_hdinsight_interactive_query_cluster :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->
   ?storage_account_gen2:storage_account_gen2 list ->
@@ -308,6 +329,7 @@ val register :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->
   ?storage_account_gen2:storage_account_gen2 list ->
@@ -334,6 +356,7 @@ val make :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->
   ?storage_account_gen2:storage_account_gen2 list ->

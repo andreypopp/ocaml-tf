@@ -65,6 +65,11 @@ type addons_config__network_policy_config
 val addons_config__network_policy_config :
   disabled:bool prop -> unit -> addons_config__network_policy_config
 
+type addons_config__stateful_ha_config
+
+val addons_config__stateful_ha_config :
+  enabled:bool prop -> unit -> addons_config__stateful_ha_config
+
 type addons_config
 
 val addons_config :
@@ -84,6 +89,7 @@ val addons_config :
     addons_config__horizontal_pod_autoscaling list ->
   ?http_load_balancing:addons_config__http_load_balancing list ->
   ?network_policy_config:addons_config__network_policy_config list ->
+  ?stateful_ha_config:addons_config__stateful_ha_config list ->
   unit ->
   addons_config
 
@@ -426,6 +432,7 @@ type node_config__guest_accelerator = {
 type node_config__advanced_machine_features
 
 val node_config__advanced_machine_features :
+  ?enable_nested_virtualization:bool prop ->
   threads_per_core:float prop ->
   unit ->
   node_config__advanced_machine_features
@@ -434,6 +441,42 @@ type node_config__confidential_nodes
 
 val node_config__confidential_nodes :
   enabled:bool prop -> unit -> node_config__confidential_nodes
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+val node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config :
+  secret_uri:string prop ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+val node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config :
+  fqdns:string prop list ->
+  gcp_secret_manager_certificate_config:
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+type node_config__containerd_config__private_registry_access_config
+
+val node_config__containerd_config__private_registry_access_config :
+  ?certificate_authority_domain_config:
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list ->
+  enabled:bool prop ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config
+
+type node_config__containerd_config
+
+val node_config__containerd_config :
+  ?private_registry_access_config:
+    node_config__containerd_config__private_registry_access_config
+    list ->
+  unit ->
+  node_config__containerd_config
 
 type node_config__ephemeral_storage_local_ssd_config
 
@@ -497,6 +540,14 @@ val node_config__reservation_affinity :
   consume_reservation_type:string prop ->
   unit ->
   node_config__reservation_affinity
+
+type node_config__secondary_boot_disks
+
+val node_config__secondary_boot_disks :
+  ?mode:string prop ->
+  disk_image:string prop ->
+  unit ->
+  node_config__secondary_boot_disks
 
 type node_config__shielded_instance_config
 
@@ -562,6 +613,7 @@ val node_config :
   ?advanced_machine_features:
     node_config__advanced_machine_features list ->
   ?confidential_nodes:node_config__confidential_nodes list ->
+  ?containerd_config:node_config__containerd_config list ->
   ?ephemeral_storage_local_ssd_config:
     node_config__ephemeral_storage_local_ssd_config list ->
   ?fast_socket:node_config__fast_socket list ->
@@ -573,6 +625,7 @@ val node_config :
   ?local_nvme_ssd_block_config:
     node_config__local_nvme_ssd_block_config list ->
   ?reservation_affinity:node_config__reservation_affinity list ->
+  ?secondary_boot_disks:node_config__secondary_boot_disks list ->
   ?shielded_instance_config:
     node_config__shielded_instance_config list ->
   ?sole_tenant_config:node_config__sole_tenant_config list ->
@@ -664,6 +717,7 @@ type node_pool__node_config__guest_accelerator = {
 type node_pool__node_config__advanced_machine_features
 
 val node_pool__node_config__advanced_machine_features :
+  ?enable_nested_virtualization:bool prop ->
   threads_per_core:float prop ->
   unit ->
   node_pool__node_config__advanced_machine_features
@@ -674,6 +728,42 @@ val node_pool__node_config__confidential_nodes :
   enabled:bool prop ->
   unit ->
   node_pool__node_config__confidential_nodes
+
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+val node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config :
+  secret_uri:string prop ->
+  unit ->
+  node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+type node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+val node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config :
+  fqdns:string prop list ->
+  gcp_secret_manager_certificate_config:
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list ->
+  unit ->
+  node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+type node_pool__node_config__containerd_config__private_registry_access_config
+
+val node_pool__node_config__containerd_config__private_registry_access_config :
+  ?certificate_authority_domain_config:
+    node_pool__node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list ->
+  enabled:bool prop ->
+  unit ->
+  node_pool__node_config__containerd_config__private_registry_access_config
+
+type node_pool__node_config__containerd_config
+
+val node_pool__node_config__containerd_config :
+  ?private_registry_access_config:
+    node_pool__node_config__containerd_config__private_registry_access_config
+    list ->
+  unit ->
+  node_pool__node_config__containerd_config
 
 type node_pool__node_config__ephemeral_storage_local_ssd_config
 
@@ -737,6 +827,14 @@ val node_pool__node_config__reservation_affinity :
   consume_reservation_type:string prop ->
   unit ->
   node_pool__node_config__reservation_affinity
+
+type node_pool__node_config__secondary_boot_disks
+
+val node_pool__node_config__secondary_boot_disks :
+  ?mode:string prop ->
+  disk_image:string prop ->
+  unit ->
+  node_pool__node_config__secondary_boot_disks
 
 type node_pool__node_config__shielded_instance_config
 
@@ -805,6 +903,7 @@ val node_pool__node_config :
   ?advanced_machine_features:
     node_pool__node_config__advanced_machine_features list ->
   ?confidential_nodes:node_pool__node_config__confidential_nodes list ->
+  ?containerd_config:node_pool__node_config__containerd_config list ->
   ?ephemeral_storage_local_ssd_config:
     node_pool__node_config__ephemeral_storage_local_ssd_config list ->
   ?fast_socket:node_pool__node_config__fast_socket list ->
@@ -818,6 +917,8 @@ val node_pool__node_config :
     node_pool__node_config__local_nvme_ssd_block_config list ->
   ?reservation_affinity:
     node_pool__node_config__reservation_affinity list ->
+  ?secondary_boot_disks:
+    node_pool__node_config__secondary_boot_disks list ->
   ?shielded_instance_config:
     node_pool__node_config__shielded_instance_config list ->
   ?sole_tenant_config:node_pool__node_config__sole_tenant_config list ->
@@ -835,6 +936,11 @@ val node_pool__placement_policy :
   type_:string prop ->
   unit ->
   node_pool__placement_policy
+
+type node_pool__queued_provisioning
+
+val node_pool__queued_provisioning :
+  enabled:bool prop -> unit -> node_pool__queued_provisioning
 
 type node_pool__upgrade_settings__blue_green_settings__standard_rollout_policy
 
@@ -881,6 +987,7 @@ val node_pool :
   ?network_config:node_pool__network_config list ->
   ?node_config:node_pool__node_config list ->
   ?placement_policy:node_pool__placement_policy list ->
+  ?queued_provisioning:node_pool__queued_provisioning list ->
   ?upgrade_settings:node_pool__upgrade_settings list ->
   unit ->
   node_pool
@@ -895,14 +1002,53 @@ val node_pool_auto_config__network_tags :
 type node_pool_auto_config
 
 val node_pool_auto_config :
+  ?resource_manager_tags:(string * string prop) list ->
   ?network_tags:node_pool_auto_config__network_tags list ->
   unit ->
   node_pool_auto_config
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+val node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config :
+  secret_uri:string prop ->
+  unit ->
+  node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+val node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config :
+  fqdns:string prop list ->
+  gcp_secret_manager_certificate_config:
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list ->
+  unit ->
+  node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+type node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+
+val node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config :
+  ?certificate_authority_domain_config:
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list ->
+  enabled:bool prop ->
+  unit ->
+  node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+
+type node_pool_defaults__node_config_defaults__containerd_config
+
+val node_pool_defaults__node_config_defaults__containerd_config :
+  ?private_registry_access_config:
+    node_pool_defaults__node_config_defaults__containerd_config__private_registry_access_config
+    list ->
+  unit ->
+  node_pool_defaults__node_config_defaults__containerd_config
 
 type node_pool_defaults__node_config_defaults
 
 val node_pool_defaults__node_config_defaults :
   ?logging_variant:string prop ->
+  ?containerd_config:
+    node_pool_defaults__node_config_defaults__containerd_config list ->
   unit ->
   node_pool_defaults__node_config_defaults
 
@@ -1019,6 +1165,7 @@ val google_container_cluster :
   ?deletion_protection:bool prop ->
   ?description:string prop ->
   ?enable_autopilot:bool prop ->
+  ?enable_cilium_clusterwide_network_policy:bool prop ->
   ?enable_intranode_visibility:bool prop ->
   ?enable_kubernetes_alpha:bool prop ->
   ?enable_l4_ilb_subsetting:bool prop ->
@@ -1093,6 +1240,7 @@ type t = private {
   deletion_protection : bool prop;
   description : string prop;
   enable_autopilot : bool prop;
+  enable_cilium_clusterwide_network_policy : bool prop;
   enable_intranode_visibility : bool prop;
   enable_kubernetes_alpha : bool prop;
   enable_l4_ilb_subsetting : bool prop;
@@ -1133,6 +1281,7 @@ val register :
   ?deletion_protection:bool prop ->
   ?description:string prop ->
   ?enable_autopilot:bool prop ->
+  ?enable_cilium_clusterwide_network_policy:bool prop ->
   ?enable_intranode_visibility:bool prop ->
   ?enable_kubernetes_alpha:bool prop ->
   ?enable_l4_ilb_subsetting:bool prop ->
@@ -1201,6 +1350,7 @@ val make :
   ?deletion_protection:bool prop ->
   ?description:string prop ->
   ?enable_autopilot:bool prop ->
+  ?enable_cilium_clusterwide_network_policy:bool prop ->
   ?enable_intranode_visibility:bool prop ->
   ?enable_kubernetes_alpha:bool prop ->
   ?enable_l4_ilb_subsetting:bool prop ->

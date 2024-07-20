@@ -29,6 +29,7 @@ type t = private {
   access_tier : string prop;
   content_md5 : string prop;
   content_type : string prop;
+  encryption_scope : string prop;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;

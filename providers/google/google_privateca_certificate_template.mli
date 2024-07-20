@@ -142,6 +142,7 @@ val google_privateca_certificate_template :
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?maximum_lifetime:string prop ->
   ?project:string prop ->
   ?identity_constraints:identity_constraints list ->
   ?passthrough_extensions:passthrough_extensions list ->
@@ -165,6 +166,7 @@ type t = private {
   id : string prop;
   labels : (string * string) list prop;
   location : string prop;
+  maximum_lifetime : string prop;
   name : string prop;
   project : string prop;
   terraform_labels : (string * string) list prop;
@@ -176,6 +178,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?maximum_lifetime:string prop ->
   ?project:string prop ->
   ?identity_constraints:identity_constraints list ->
   ?passthrough_extensions:passthrough_extensions list ->
@@ -190,6 +193,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?maximum_lifetime:string prop ->
   ?project:string prop ->
   ?identity_constraints:identity_constraints list ->
   ?passthrough_extensions:passthrough_extensions list ->

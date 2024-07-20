@@ -112,6 +112,7 @@ let _ = yojson_of_error
 [@@@deriving.end]
 
 type google_datastream_private_connection = {
+  create_without_validation : bool prop option; [@option]
   display_name : string prop;
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
@@ -129,6 +130,7 @@ let _ = fun (_ : google_datastream_private_connection) -> ()
 let yojson_of_google_datastream_private_connection =
   (function
    | {
+       create_without_validation = v_create_without_validation;
        display_name = v_display_name;
        id = v_id;
        labels = v_labels;
@@ -201,6 +203,14 @@ let yojson_of_google_datastream_private_connection =
          let arg = yojson_of_prop yojson_of_string v_display_name in
          ("display_name", arg) :: bnds
        in
+       let bnds =
+         match v_create_without_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create_without_validation", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : google_datastream_private_connection ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -215,10 +225,12 @@ let timeouts ?create ?delete ?update () : timeouts =
 let vpc_peering_config ~subnet ~vpc () : vpc_peering_config =
   { subnet; vpc }
 
-let google_datastream_private_connection ?id ?labels ?project
-    ?timeouts ~display_name ~location ~private_connection_id
-    ~vpc_peering_config () : google_datastream_private_connection =
+let google_datastream_private_connection ?create_without_validation
+    ?id ?labels ?project ?timeouts ~display_name ~location
+    ~private_connection_id ~vpc_peering_config () :
+    google_datastream_private_connection =
   {
+    create_without_validation;
     display_name;
     id;
     labels;
@@ -231,6 +243,7 @@ let google_datastream_private_connection ?id ?labels ?project
 
 type t = {
   tf_name : string;
+  create_without_validation : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   error : error list prop;
@@ -244,12 +257,15 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?timeouts ~display_name ~location
-    ~private_connection_id ~vpc_peering_config __id =
+let make ?create_without_validation ?id ?labels ?project ?timeouts
+    ~display_name ~location ~private_connection_id
+    ~vpc_peering_config __id =
   let __type = "google_datastream_private_connection" in
   let __attrs =
     ({
        tf_name = __id;
+       create_without_validation =
+         Prop.computed __type __id "create_without_validation";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =
          Prop.computed __type __id "effective_labels";
@@ -272,17 +288,20 @@ let make ?id ?labels ?project ?timeouts ~display_name ~location
     type_ = __type;
     json =
       yojson_of_google_datastream_private_connection
-        (google_datastream_private_connection ?id ?labels ?project
-           ?timeouts ~display_name ~location ~private_connection_id
+        (google_datastream_private_connection
+           ?create_without_validation ?id ?labels ?project ?timeouts
+           ~display_name ~location ~private_connection_id
            ~vpc_peering_config ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?timeouts ~display_name
-    ~location ~private_connection_id ~vpc_peering_config __id =
+let register ?tf_module ?create_without_validation ?id ?labels
+    ?project ?timeouts ~display_name ~location ~private_connection_id
+    ~vpc_peering_config __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?timeouts ~display_name ~location
-      ~private_connection_id ~vpc_peering_config __id
+    make ?create_without_validation ?id ?labels ?project ?timeouts
+      ~display_name ~location ~private_connection_id
+      ~vpc_peering_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -445,6 +445,120 @@ let _ = yojson_of_network
 
 [@@@deriving.end]
 
+type private_link_configuration__ip_configuration = {
+  name : string prop;
+  primary : bool prop option; [@option]
+  private_ip_address : string prop option; [@option]
+  private_ip_allocation_method : string prop option; [@option]
+  subnet_id : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_link_configuration__ip_configuration) -> ()
+
+let yojson_of_private_link_configuration__ip_configuration =
+  (function
+   | {
+       name = v_name;
+       primary = v_primary;
+       private_ip_address = v_private_ip_address;
+       private_ip_allocation_method = v_private_ip_allocation_method;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_allocation_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_allocation_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_primary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "primary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : private_link_configuration__ip_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_link_configuration__ip_configuration
+
+[@@@deriving.end]
+
+type private_link_configuration = {
+  group_id : string prop;
+  name : string prop;
+  ip_configuration :
+    private_link_configuration__ip_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_link_configuration) -> ()
+
+let yojson_of_private_link_configuration =
+  (function
+   | {
+       group_id = v_group_id;
+       name = v_name;
+       ip_configuration = v_ip_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_link_configuration__ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_id in
+         ("group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : private_link_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_link_configuration
+
+[@@@deriving.end]
+
 type roles__edge_node__https_endpoints = {
   access_modes : string prop list option; [@option]
   destination_port : float prop option; [@option]
@@ -1585,6 +1699,8 @@ type azurerm_hdinsight_hadoop_cluster = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   network : network list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  private_link_configuration : private_link_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   roles : roles list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   security_profile : security_profile list;
@@ -1618,6 +1734,7 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
        metastores = v_metastores;
        monitor = v_monitor;
        network = v_network;
+       private_link_configuration = v_private_link_configuration;
        roles = v_roles;
        security_profile = v_security_profile;
        storage_account = v_storage_account;
@@ -1666,6 +1783,16 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
          else
            let arg = (yojson_of_list yojson_of_roles) v_roles in
            let bnd = "roles", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_private_link_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_link_configuration)
+               v_private_link_configuration
+           in
+           let bnd = "private_link_configuration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -1846,6 +1973,21 @@ let network ?connection_direction ?private_link_enabled () : network
     =
   { connection_direction; private_link_enabled }
 
+let private_link_configuration__ip_configuration ?primary
+    ?private_ip_address ?private_ip_allocation_method ?subnet_id
+    ~name () : private_link_configuration__ip_configuration =
+  {
+    name;
+    primary;
+    private_ip_address;
+    private_ip_allocation_method;
+    subnet_id;
+  }
+
+let private_link_configuration ~group_id ~name ~ip_configuration () :
+    private_link_configuration =
+  { group_id; name; ip_configuration }
+
 let roles__edge_node__https_endpoints ?access_modes ?destination_port
     ?disable_gateway_auth ?private_ip_address ?sub_domain_suffix () :
     roles__edge_node__https_endpoints =
@@ -1990,7 +2132,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
     ?(compute_isolation = []) ?(disk_encryption = [])
     ?(extension = []) ?(metastores = []) ?(monitor = [])
-    ?(network = []) ?(security_profile = []) ?(storage_account = [])
+    ?(network = []) ?(private_link_configuration = [])
+    ?(security_profile = []) ?(storage_account = [])
     ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
     ~name ~resource_group_name ~tier ~component_version ~gateway
     ~roles () : azurerm_hdinsight_hadoop_cluster =
@@ -2011,6 +2154,7 @@ let azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
     metastores;
     monitor;
     network;
+    private_link_configuration;
     roles;
     security_profile;
     storage_account;
@@ -2034,7 +2178,8 @@ type t = {
 
 let make ?id ?tags ?tls_min_version ?(compute_isolation = [])
     ?(disk_encryption = []) ?(extension = []) ?(metastores = [])
-    ?(monitor = []) ?(network = []) ?(security_profile = [])
+    ?(monitor = []) ?(network = [])
+    ?(private_link_configuration = []) ?(security_profile = [])
     ?(storage_account = []) ?(storage_account_gen2 = []) ?timeouts
     ~cluster_version ~location ~name ~resource_group_name ~tier
     ~component_version ~gateway ~roles __id =
@@ -2063,26 +2208,29 @@ let make ?id ?tags ?tls_min_version ?(compute_isolation = [])
       yojson_of_azurerm_hdinsight_hadoop_cluster
         (azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
            ~compute_isolation ~disk_encryption ~extension ~metastores
-           ~monitor ~network ~security_profile ~storage_account
-           ~storage_account_gen2 ?timeouts ~cluster_version ~location
-           ~name ~resource_group_name ~tier ~component_version
-           ~gateway ~roles ());
+           ~monitor ~network ~private_link_configuration
+           ~security_profile ~storage_account ~storage_account_gen2
+           ?timeouts ~cluster_version ~location ~name
+           ~resource_group_name ~tier ~component_version ~gateway
+           ~roles ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?tags ?tls_min_version
     ?(compute_isolation = []) ?(disk_encryption = [])
     ?(extension = []) ?(metastores = []) ?(monitor = [])
-    ?(network = []) ?(security_profile = []) ?(storage_account = [])
+    ?(network = []) ?(private_link_configuration = [])
+    ?(security_profile = []) ?(storage_account = [])
     ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
     ~name ~resource_group_name ~tier ~component_version ~gateway
     ~roles __id =
   let (r : _ Tf_core.resource) =
     make ?id ?tags ?tls_min_version ~compute_isolation
       ~disk_encryption ~extension ~metastores ~monitor ~network
-      ~security_profile ~storage_account ~storage_account_gen2
-      ?timeouts ~cluster_version ~location ~name ~resource_group_name
-      ~tier ~component_version ~gateway ~roles __id
+      ~private_link_configuration ~security_profile ~storage_account
+      ~storage_account_gen2 ?timeouts ~cluster_version ~location
+      ~name ~resource_group_name ~tier ~component_version ~gateway
+      ~roles __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

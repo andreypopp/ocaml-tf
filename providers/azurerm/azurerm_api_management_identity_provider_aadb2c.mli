@@ -17,6 +17,7 @@ val timeouts :
 type azurerm_api_management_identity_provider_aadb2c
 
 val azurerm_api_management_identity_provider_aadb2c :
+  ?client_library:string prop ->
   ?id:string prop ->
   ?password_reset_policy:string prop ->
   ?profile_editing_policy:string prop ->
@@ -44,6 +45,7 @@ type t = private {
   api_management_name : string prop;
   authority : string prop;
   client_id : string prop;
+  client_library : string prop;
   client_secret : string prop;
   id : string prop;
   password_reset_policy : string prop;
@@ -56,6 +58,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?client_library:string prop ->
   ?id:string prop ->
   ?password_reset_policy:string prop ->
   ?profile_editing_policy:string prop ->
@@ -73,6 +76,7 @@ val register :
   t
 
 val make :
+  ?client_library:string prop ->
   ?id:string prop ->
   ?password_reset_policy:string prop ->
   ?profile_editing_policy:string prop ->

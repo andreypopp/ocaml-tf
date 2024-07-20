@@ -420,6 +420,7 @@ type google_bigquery_connection = {
   description : string prop option; [@option]
   friendly_name : string prop option; [@option]
   id : string prop option; [@option]
+  kms_key_name : string prop option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
   aws : aws list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -446,6 +447,7 @@ let yojson_of_google_bigquery_connection =
        description = v_description;
        friendly_name = v_friendly_name;
        id = v_id;
+       kms_key_name = v_kms_key_name;
        location = v_location;
        project = v_project;
        aws = v_aws;
@@ -526,6 +528,14 @@ let yojson_of_google_bigquery_connection =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
              bnd :: bnds
        in
        let bnds =
@@ -614,14 +624,16 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_bigquery_connection ?connection_id ?description
-    ?friendly_name ?id ?location ?project ?(aws = []) ?(azure = [])
-    ?(cloud_resource = []) ?(cloud_spanner = []) ?(cloud_sql = [])
-    ?(spark = []) ?timeouts () : google_bigquery_connection =
+    ?friendly_name ?id ?kms_key_name ?location ?project ?(aws = [])
+    ?(azure = []) ?(cloud_resource = []) ?(cloud_spanner = [])
+    ?(cloud_sql = []) ?(spark = []) ?timeouts () :
+    google_bigquery_connection =
   {
     connection_id;
     description;
     friendly_name;
     id;
+    kms_key_name;
     location;
     project;
     aws;
@@ -640,15 +652,16 @@ type t = {
   friendly_name : string prop;
   has_credential : bool prop;
   id : string prop;
+  kms_key_name : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
 }
 
-let make ?connection_id ?description ?friendly_name ?id ?location
-    ?project ?(aws = []) ?(azure = []) ?(cloud_resource = [])
-    ?(cloud_spanner = []) ?(cloud_sql = []) ?(spark = []) ?timeouts
-    __id =
+let make ?connection_id ?description ?friendly_name ?id ?kms_key_name
+    ?location ?project ?(aws = []) ?(azure = [])
+    ?(cloud_resource = []) ?(cloud_spanner = []) ?(cloud_sql = [])
+    ?(spark = []) ?timeouts __id =
   let __type = "google_bigquery_connection" in
   let __attrs =
     ({
@@ -658,6 +671,7 @@ let make ?connection_id ?description ?friendly_name ?id ?location
        friendly_name = Prop.computed __type __id "friendly_name";
        has_credential = Prop.computed __type __id "has_credential";
        id = Prop.computed __type __id "id";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";
@@ -670,20 +684,20 @@ let make ?connection_id ?description ?friendly_name ?id ?location
     json =
       yojson_of_google_bigquery_connection
         (google_bigquery_connection ?connection_id ?description
-           ?friendly_name ?id ?location ?project ~aws ~azure
-           ~cloud_resource ~cloud_spanner ~cloud_sql ~spark ?timeouts
-           ());
+           ?friendly_name ?id ?kms_key_name ?location ?project ~aws
+           ~azure ~cloud_resource ~cloud_spanner ~cloud_sql ~spark
+           ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?connection_id ?description ?friendly_name
-    ?id ?location ?project ?(aws = []) ?(azure = [])
+    ?id ?kms_key_name ?location ?project ?(aws = []) ?(azure = [])
     ?(cloud_resource = []) ?(cloud_spanner = []) ?(cloud_sql = [])
     ?(spark = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?connection_id ?description ?friendly_name ?id ?location
-      ?project ~aws ~azure ~cloud_resource ~cloud_spanner ~cloud_sql
-      ~spark ?timeouts __id
+    make ?connection_id ?description ?friendly_name ?id ?kms_key_name
+      ?location ?project ~aws ~azure ~cloud_resource ~cloud_spanner
+      ~cloud_sql ~spark ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

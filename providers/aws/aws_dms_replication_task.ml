@@ -10,6 +10,7 @@ type aws_dms_replication_task = {
   replication_instance_arn : string prop;
   replication_task_id : string prop;
   replication_task_settings : string prop option; [@option]
+  resource_identifier : string prop option; [@option]
   source_endpoint_arn : string prop;
   start_replication_task : bool prop option; [@option]
   table_mappings : string prop;
@@ -31,6 +32,7 @@ let yojson_of_aws_dms_replication_task =
        replication_instance_arn = v_replication_instance_arn;
        replication_task_id = v_replication_task_id;
        replication_task_settings = v_replication_task_settings;
+       resource_identifier = v_resource_identifier;
        source_endpoint_arn = v_source_endpoint_arn;
        start_replication_task = v_start_replication_task;
        table_mappings = v_table_mappings;
@@ -100,6 +102,14 @@ let yojson_of_aws_dms_replication_task =
          ("source_endpoint_arn", arg) :: bnds
        in
        let bnds =
+         match v_resource_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_replication_task_settings with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -157,10 +167,11 @@ let _ = yojson_of_aws_dms_replication_task
 [@@@deriving.end]
 
 let aws_dms_replication_task ?cdc_start_position ?cdc_start_time ?id
-    ?replication_task_settings ?start_replication_task ?tags
-    ?tags_all ~migration_type ~replication_instance_arn
-    ~replication_task_id ~source_endpoint_arn ~table_mappings
-    ~target_endpoint_arn () : aws_dms_replication_task =
+    ?replication_task_settings ?resource_identifier
+    ?start_replication_task ?tags ?tags_all ~migration_type
+    ~replication_instance_arn ~replication_task_id
+    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn () :
+    aws_dms_replication_task =
   {
     cdc_start_position;
     cdc_start_time;
@@ -169,6 +180,7 @@ let aws_dms_replication_task ?cdc_start_position ?cdc_start_time ?id
     replication_instance_arn;
     replication_task_id;
     replication_task_settings;
+    resource_identifier;
     source_endpoint_arn;
     start_replication_task;
     table_mappings;
@@ -187,6 +199,7 @@ type t = {
   replication_task_arn : string prop;
   replication_task_id : string prop;
   replication_task_settings : string prop;
+  resource_identifier : string prop;
   source_endpoint_arn : string prop;
   start_replication_task : bool prop;
   status : string prop;
@@ -197,10 +210,10 @@ type t = {
 }
 
 let make ?cdc_start_position ?cdc_start_time ?id
-    ?replication_task_settings ?start_replication_task ?tags
-    ?tags_all ~migration_type ~replication_instance_arn
-    ~replication_task_id ~source_endpoint_arn ~table_mappings
-    ~target_endpoint_arn __id =
+    ?replication_task_settings ?resource_identifier
+    ?start_replication_task ?tags ?tags_all ~migration_type
+    ~replication_instance_arn ~replication_task_id
+    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn __id =
   let __type = "aws_dms_replication_task" in
   let __attrs =
     ({
@@ -218,6 +231,8 @@ let make ?cdc_start_position ?cdc_start_time ?id
          Prop.computed __type __id "replication_task_id";
        replication_task_settings =
          Prop.computed __type __id "replication_task_settings";
+       resource_identifier =
+         Prop.computed __type __id "resource_identifier";
        source_endpoint_arn =
          Prop.computed __type __id "source_endpoint_arn";
        start_replication_task =
@@ -237,24 +252,25 @@ let make ?cdc_start_position ?cdc_start_time ?id
     json =
       yojson_of_aws_dms_replication_task
         (aws_dms_replication_task ?cdc_start_position ?cdc_start_time
-           ?id ?replication_task_settings ?start_replication_task
-           ?tags ?tags_all ~migration_type ~replication_instance_arn
-           ~replication_task_id ~source_endpoint_arn ~table_mappings
-           ~target_endpoint_arn ());
+           ?id ?replication_task_settings ?resource_identifier
+           ?start_replication_task ?tags ?tags_all ~migration_type
+           ~replication_instance_arn ~replication_task_id
+           ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cdc_start_position ?cdc_start_time ?id
-    ?replication_task_settings ?start_replication_task ?tags
-    ?tags_all ~migration_type ~replication_instance_arn
-    ~replication_task_id ~source_endpoint_arn ~table_mappings
-    ~target_endpoint_arn __id =
+    ?replication_task_settings ?resource_identifier
+    ?start_replication_task ?tags ?tags_all ~migration_type
+    ~replication_instance_arn ~replication_task_id
+    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn __id =
   let (r : _ Tf_core.resource) =
     make ?cdc_start_position ?cdc_start_time ?id
-      ?replication_task_settings ?start_replication_task ?tags
-      ?tags_all ~migration_type ~replication_instance_arn
-      ~replication_task_id ~source_endpoint_arn ~table_mappings
-      ~target_endpoint_arn __id
+      ?replication_task_settings ?resource_identifier
+      ?start_replication_task ?tags ?tags_all ~migration_type
+      ~replication_instance_arn ~replication_task_id
+      ~source_endpoint_arn ~table_mappings ~target_endpoint_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

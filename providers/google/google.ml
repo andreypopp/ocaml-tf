@@ -53,6 +53,7 @@ type google = {
   apigee_custom_endpoint : string prop option; [@option]
   apikeys_custom_endpoint : string prop option; [@option]
   app_engine_custom_endpoint : string prop option; [@option]
+  apphub_custom_endpoint : string prop option; [@option]
   artifact_registry_custom_endpoint : string prop option; [@option]
   assured_workloads_custom_endpoint : string prop option; [@option]
   beyondcorp_custom_endpoint : string prop option; [@option]
@@ -82,6 +83,7 @@ type google = {
   cloud_functions_custom_endpoint : string prop option; [@option]
   cloud_identity_custom_endpoint : string prop option; [@option]
   cloud_ids_custom_endpoint : string prop option; [@option]
+  cloud_quotas_custom_endpoint : string prop option; [@option]
   cloud_resource_manager_custom_endpoint : string prop option;
       [@option]
   cloud_run_custom_endpoint : string prop option; [@option]
@@ -149,6 +151,7 @@ type google = {
       [@option]
   integration_connectors_custom_endpoint : string prop option;
       [@option]
+  integrations_custom_endpoint : string prop option; [@option]
   kms_custom_endpoint : string prop option; [@option]
   logging_custom_endpoint : string prop option; [@option]
   looker_custom_endpoint : string prop option; [@option]
@@ -167,6 +170,8 @@ type google = {
   os_config_custom_endpoint : string prop option; [@option]
   os_login_custom_endpoint : string prop option; [@option]
   privateca_custom_endpoint : string prop option; [@option]
+  privileged_access_manager_custom_endpoint : string prop option;
+      [@option]
   project : string prop option; [@option]
   public_ca_custom_endpoint : string prop option; [@option]
   pubsub_custom_endpoint : string prop option; [@option]
@@ -184,10 +189,14 @@ type google = {
   secure_source_manager_custom_endpoint : string prop option;
       [@option]
   security_center_custom_endpoint : string prop option; [@option]
+  security_center_management_custom_endpoint : string prop option;
+      [@option]
+  security_center_v2_custom_endpoint : string prop option; [@option]
   securityposture_custom_endpoint : string prop option; [@option]
   service_management_custom_endpoint : string prop option; [@option]
   service_networking_custom_endpoint : string prop option; [@option]
   service_usage_custom_endpoint : string prop option; [@option]
+  site_verification_custom_endpoint : string prop option; [@option]
   source_repo_custom_endpoint : string prop option; [@option]
   spanner_custom_endpoint : string prop option; [@option]
   sql_custom_endpoint : string prop option; [@option]
@@ -230,6 +239,7 @@ let yojson_of_google =
        apigee_custom_endpoint = v_apigee_custom_endpoint;
        apikeys_custom_endpoint = v_apikeys_custom_endpoint;
        app_engine_custom_endpoint = v_app_engine_custom_endpoint;
+       apphub_custom_endpoint = v_apphub_custom_endpoint;
        artifact_registry_custom_endpoint =
          v_artifact_registry_custom_endpoint;
        assured_workloads_custom_endpoint =
@@ -267,6 +277,7 @@ let yojson_of_google =
        cloud_identity_custom_endpoint =
          v_cloud_identity_custom_endpoint;
        cloud_ids_custom_endpoint = v_cloud_ids_custom_endpoint;
+       cloud_quotas_custom_endpoint = v_cloud_quotas_custom_endpoint;
        cloud_resource_manager_custom_endpoint =
          v_cloud_resource_manager_custom_endpoint;
        cloud_run_custom_endpoint = v_cloud_run_custom_endpoint;
@@ -353,6 +364,7 @@ let yojson_of_google =
          v_impersonate_service_account_delegates;
        integration_connectors_custom_endpoint =
          v_integration_connectors_custom_endpoint;
+       integrations_custom_endpoint = v_integrations_custom_endpoint;
        kms_custom_endpoint = v_kms_custom_endpoint;
        logging_custom_endpoint = v_logging_custom_endpoint;
        looker_custom_endpoint = v_looker_custom_endpoint;
@@ -375,6 +387,8 @@ let yojson_of_google =
        os_config_custom_endpoint = v_os_config_custom_endpoint;
        os_login_custom_endpoint = v_os_login_custom_endpoint;
        privateca_custom_endpoint = v_privateca_custom_endpoint;
+       privileged_access_manager_custom_endpoint =
+         v_privileged_access_manager_custom_endpoint;
        project = v_project;
        public_ca_custom_endpoint = v_public_ca_custom_endpoint;
        pubsub_custom_endpoint = v_pubsub_custom_endpoint;
@@ -396,6 +410,10 @@ let yojson_of_google =
          v_secure_source_manager_custom_endpoint;
        security_center_custom_endpoint =
          v_security_center_custom_endpoint;
+       security_center_management_custom_endpoint =
+         v_security_center_management_custom_endpoint;
+       security_center_v2_custom_endpoint =
+         v_security_center_v2_custom_endpoint;
        securityposture_custom_endpoint =
          v_securityposture_custom_endpoint;
        service_management_custom_endpoint =
@@ -404,6 +422,8 @@ let yojson_of_google =
          v_service_networking_custom_endpoint;
        service_usage_custom_endpoint =
          v_service_usage_custom_endpoint;
+       site_verification_custom_endpoint =
+         v_site_verification_custom_endpoint;
        source_repo_custom_endpoint = v_source_repo_custom_endpoint;
        spanner_custom_endpoint = v_spanner_custom_endpoint;
        sql_custom_endpoint = v_sql_custom_endpoint;
@@ -587,6 +607,14 @@ let yojson_of_google =
              bnd :: bnds
        in
        let bnds =
+         match v_site_verification_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "site_verification_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_service_usage_custom_endpoint with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -616,6 +644,24 @@ let yojson_of_google =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "securityposture_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_center_v2_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_center_v2_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_center_management_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "security_center_management_custom_endpoint", arg
+             in
              bnd :: bnds
        in
        let bnds =
@@ -740,6 +786,16 @@ let yojson_of_google =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_privileged_access_manager_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "privileged_access_manager_custom_endpoint", arg
+             in
              bnd :: bnds
        in
        let bnds =
@@ -876,6 +932,14 @@ let yojson_of_google =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "kms_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integrations_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integrations_custom_endpoint", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1387,6 +1451,14 @@ let yojson_of_google =
              bnd :: bnds
        in
        let bnds =
+         match v_cloud_quotas_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloud_quotas_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_cloud_ids_custom_endpoint with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1579,6 +1651,14 @@ let yojson_of_google =
              bnd :: bnds
        in
        let bnds =
+         match v_apphub_custom_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "apphub_custom_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_app_engine_custom_endpoint with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -1667,7 +1747,8 @@ let google ?access_approval_custom_endpoint
     ?active_directory_custom_endpoint
     ?add_terraform_attribution_label ?alloydb_custom_endpoint
     ?apigee_custom_endpoint ?apikeys_custom_endpoint
-    ?app_engine_custom_endpoint ?artifact_registry_custom_endpoint
+    ?app_engine_custom_endpoint ?apphub_custom_endpoint
+    ?artifact_registry_custom_endpoint
     ?assured_workloads_custom_endpoint ?beyondcorp_custom_endpoint
     ?big_query_custom_endpoint ?biglake_custom_endpoint
     ?bigquery_analytics_hub_custom_endpoint
@@ -1682,7 +1763,7 @@ let google ?access_approval_custom_endpoint
     ?cloud_billing_custom_endpoint ?cloud_build_custom_endpoint
     ?cloud_build_worker_pool_custom_endpoint
     ?cloud_functions_custom_endpoint ?cloud_identity_custom_endpoint
-    ?cloud_ids_custom_endpoint
+    ?cloud_ids_custom_endpoint ?cloud_quotas_custom_endpoint
     ?cloud_resource_manager_custom_endpoint
     ?cloud_run_custom_endpoint ?cloud_run_v2_custom_endpoint
     ?cloud_scheduler_custom_endpoint ?cloud_tasks_custom_endpoint
@@ -1718,7 +1799,8 @@ let google ?access_approval_custom_endpoint
     ?iam_workforce_pool_custom_endpoint ?iap_custom_endpoint
     ?identity_platform_custom_endpoint ?impersonate_service_account
     ?impersonate_service_account_delegates
-    ?integration_connectors_custom_endpoint ?kms_custom_endpoint
+    ?integration_connectors_custom_endpoint
+    ?integrations_custom_endpoint ?kms_custom_endpoint
     ?logging_custom_endpoint ?looker_custom_endpoint
     ?memcache_custom_endpoint ?migration_center_custom_endpoint
     ?ml_engine_custom_endpoint ?monitoring_custom_endpoint
@@ -1727,7 +1809,8 @@ let google ?access_approval_custom_endpoint
     ?network_security_custom_endpoint
     ?network_services_custom_endpoint ?notebooks_custom_endpoint
     ?org_policy_custom_endpoint ?os_config_custom_endpoint
-    ?os_login_custom_endpoint ?privateca_custom_endpoint ?project
+    ?os_login_custom_endpoint ?privateca_custom_endpoint
+    ?privileged_access_manager_custom_endpoint ?project
     ?public_ca_custom_endpoint ?pubsub_custom_endpoint
     ?pubsub_lite_custom_endpoint
     ?recaptcha_enterprise_custom_endpoint ?redis_custom_endpoint
@@ -1736,12 +1819,16 @@ let google ?access_approval_custom_endpoint
     ?resource_manager_v3_custom_endpoint ?scopes
     ?secret_manager_custom_endpoint
     ?secure_source_manager_custom_endpoint
-    ?security_center_custom_endpoint ?securityposture_custom_endpoint
+    ?security_center_custom_endpoint
+    ?security_center_management_custom_endpoint
+    ?security_center_v2_custom_endpoint
+    ?securityposture_custom_endpoint
     ?service_management_custom_endpoint
     ?service_networking_custom_endpoint
-    ?service_usage_custom_endpoint ?source_repo_custom_endpoint
-    ?spanner_custom_endpoint ?sql_custom_endpoint
-    ?storage_custom_endpoint ?storage_insights_custom_endpoint
+    ?service_usage_custom_endpoint ?site_verification_custom_endpoint
+    ?source_repo_custom_endpoint ?spanner_custom_endpoint
+    ?sql_custom_endpoint ?storage_custom_endpoint
+    ?storage_insights_custom_endpoint
     ?storage_transfer_custom_endpoint ?tags_custom_endpoint
     ?tags_location_custom_endpoint
     ?terraform_attribution_label_addition_strategy
@@ -1759,6 +1846,7 @@ let google ?access_approval_custom_endpoint
     apigee_custom_endpoint;
     apikeys_custom_endpoint;
     app_engine_custom_endpoint;
+    apphub_custom_endpoint;
     artifact_registry_custom_endpoint;
     assured_workloads_custom_endpoint;
     beyondcorp_custom_endpoint;
@@ -1782,6 +1870,7 @@ let google ?access_approval_custom_endpoint
     cloud_functions_custom_endpoint;
     cloud_identity_custom_endpoint;
     cloud_ids_custom_endpoint;
+    cloud_quotas_custom_endpoint;
     cloud_resource_manager_custom_endpoint;
     cloud_run_custom_endpoint;
     cloud_run_v2_custom_endpoint;
@@ -1843,6 +1932,7 @@ let google ?access_approval_custom_endpoint
     impersonate_service_account;
     impersonate_service_account_delegates;
     integration_connectors_custom_endpoint;
+    integrations_custom_endpoint;
     kms_custom_endpoint;
     logging_custom_endpoint;
     looker_custom_endpoint;
@@ -1860,6 +1950,7 @@ let google ?access_approval_custom_endpoint
     os_config_custom_endpoint;
     os_login_custom_endpoint;
     privateca_custom_endpoint;
+    privileged_access_manager_custom_endpoint;
     project;
     public_ca_custom_endpoint;
     pubsub_custom_endpoint;
@@ -1875,10 +1966,13 @@ let google ?access_approval_custom_endpoint
     secret_manager_custom_endpoint;
     secure_source_manager_custom_endpoint;
     security_center_custom_endpoint;
+    security_center_management_custom_endpoint;
+    security_center_v2_custom_endpoint;
     securityposture_custom_endpoint;
     service_management_custom_endpoint;
     service_networking_custom_endpoint;
     service_usage_custom_endpoint;
+    site_verification_custom_endpoint;
     source_repo_custom_endpoint;
     spanner_custom_endpoint;
     sql_custom_endpoint;
@@ -1905,7 +1999,8 @@ let make ?access_approval_custom_endpoint
     ?active_directory_custom_endpoint
     ?add_terraform_attribution_label ?alloydb_custom_endpoint
     ?apigee_custom_endpoint ?apikeys_custom_endpoint
-    ?app_engine_custom_endpoint ?artifact_registry_custom_endpoint
+    ?app_engine_custom_endpoint ?apphub_custom_endpoint
+    ?artifact_registry_custom_endpoint
     ?assured_workloads_custom_endpoint ?beyondcorp_custom_endpoint
     ?big_query_custom_endpoint ?biglake_custom_endpoint
     ?bigquery_analytics_hub_custom_endpoint
@@ -1920,7 +2015,7 @@ let make ?access_approval_custom_endpoint
     ?cloud_billing_custom_endpoint ?cloud_build_custom_endpoint
     ?cloud_build_worker_pool_custom_endpoint
     ?cloud_functions_custom_endpoint ?cloud_identity_custom_endpoint
-    ?cloud_ids_custom_endpoint
+    ?cloud_ids_custom_endpoint ?cloud_quotas_custom_endpoint
     ?cloud_resource_manager_custom_endpoint
     ?cloud_run_custom_endpoint ?cloud_run_v2_custom_endpoint
     ?cloud_scheduler_custom_endpoint ?cloud_tasks_custom_endpoint
@@ -1956,7 +2051,8 @@ let make ?access_approval_custom_endpoint
     ?iam_workforce_pool_custom_endpoint ?iap_custom_endpoint
     ?identity_platform_custom_endpoint ?impersonate_service_account
     ?impersonate_service_account_delegates
-    ?integration_connectors_custom_endpoint ?kms_custom_endpoint
+    ?integration_connectors_custom_endpoint
+    ?integrations_custom_endpoint ?kms_custom_endpoint
     ?logging_custom_endpoint ?looker_custom_endpoint
     ?memcache_custom_endpoint ?migration_center_custom_endpoint
     ?ml_engine_custom_endpoint ?monitoring_custom_endpoint
@@ -1965,7 +2061,8 @@ let make ?access_approval_custom_endpoint
     ?network_security_custom_endpoint
     ?network_services_custom_endpoint ?notebooks_custom_endpoint
     ?org_policy_custom_endpoint ?os_config_custom_endpoint
-    ?os_login_custom_endpoint ?privateca_custom_endpoint ?project
+    ?os_login_custom_endpoint ?privateca_custom_endpoint
+    ?privileged_access_manager_custom_endpoint ?project
     ?public_ca_custom_endpoint ?pubsub_custom_endpoint
     ?pubsub_lite_custom_endpoint
     ?recaptcha_enterprise_custom_endpoint ?redis_custom_endpoint
@@ -1974,12 +2071,16 @@ let make ?access_approval_custom_endpoint
     ?resource_manager_v3_custom_endpoint ?scopes
     ?secret_manager_custom_endpoint
     ?secure_source_manager_custom_endpoint
-    ?security_center_custom_endpoint ?securityposture_custom_endpoint
+    ?security_center_custom_endpoint
+    ?security_center_management_custom_endpoint
+    ?security_center_v2_custom_endpoint
+    ?securityposture_custom_endpoint
     ?service_management_custom_endpoint
     ?service_networking_custom_endpoint
-    ?service_usage_custom_endpoint ?source_repo_custom_endpoint
-    ?spanner_custom_endpoint ?sql_custom_endpoint
-    ?storage_custom_endpoint ?storage_insights_custom_endpoint
+    ?service_usage_custom_endpoint ?site_verification_custom_endpoint
+    ?source_repo_custom_endpoint ?spanner_custom_endpoint
+    ?sql_custom_endpoint ?storage_custom_endpoint
+    ?storage_insights_custom_endpoint
     ?storage_transfer_custom_endpoint ?tags_custom_endpoint
     ?tags_location_custom_endpoint
     ?terraform_attribution_label_addition_strategy
@@ -1996,7 +2097,7 @@ let make ?access_approval_custom_endpoint
            ?active_directory_custom_endpoint
            ?add_terraform_attribution_label ?alloydb_custom_endpoint
            ?apigee_custom_endpoint ?apikeys_custom_endpoint
-           ?app_engine_custom_endpoint
+           ?app_engine_custom_endpoint ?apphub_custom_endpoint
            ?artifact_registry_custom_endpoint
            ?assured_workloads_custom_endpoint
            ?beyondcorp_custom_endpoint ?big_query_custom_endpoint
@@ -2016,6 +2117,7 @@ let make ?access_approval_custom_endpoint
            ?cloud_build_worker_pool_custom_endpoint
            ?cloud_functions_custom_endpoint
            ?cloud_identity_custom_endpoint ?cloud_ids_custom_endpoint
+           ?cloud_quotas_custom_endpoint
            ?cloud_resource_manager_custom_endpoint
            ?cloud_run_custom_endpoint ?cloud_run_v2_custom_endpoint
            ?cloud_scheduler_custom_endpoint
@@ -2058,8 +2160,9 @@ let make ?access_approval_custom_endpoint
            ?impersonate_service_account
            ?impersonate_service_account_delegates
            ?integration_connectors_custom_endpoint
-           ?kms_custom_endpoint ?logging_custom_endpoint
-           ?looker_custom_endpoint ?memcache_custom_endpoint
+           ?integrations_custom_endpoint ?kms_custom_endpoint
+           ?logging_custom_endpoint ?looker_custom_endpoint
+           ?memcache_custom_endpoint
            ?migration_center_custom_endpoint
            ?ml_engine_custom_endpoint ?monitoring_custom_endpoint
            ?netapp_custom_endpoint
@@ -2069,7 +2172,8 @@ let make ?access_approval_custom_endpoint
            ?network_services_custom_endpoint
            ?notebooks_custom_endpoint ?org_policy_custom_endpoint
            ?os_config_custom_endpoint ?os_login_custom_endpoint
-           ?privateca_custom_endpoint ?project
+           ?privateca_custom_endpoint
+           ?privileged_access_manager_custom_endpoint ?project
            ?public_ca_custom_endpoint ?pubsub_custom_endpoint
            ?pubsub_lite_custom_endpoint
            ?recaptcha_enterprise_custom_endpoint
@@ -2079,10 +2183,13 @@ let make ?access_approval_custom_endpoint
            ?secret_manager_custom_endpoint
            ?secure_source_manager_custom_endpoint
            ?security_center_custom_endpoint
+           ?security_center_management_custom_endpoint
+           ?security_center_v2_custom_endpoint
            ?securityposture_custom_endpoint
            ?service_management_custom_endpoint
            ?service_networking_custom_endpoint
            ?service_usage_custom_endpoint
+           ?site_verification_custom_endpoint
            ?source_repo_custom_endpoint ?spanner_custom_endpoint
            ?sql_custom_endpoint ?storage_custom_endpoint
            ?storage_insights_custom_endpoint
@@ -2101,7 +2208,8 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?active_directory_custom_endpoint
     ?add_terraform_attribution_label ?alloydb_custom_endpoint
     ?apigee_custom_endpoint ?apikeys_custom_endpoint
-    ?app_engine_custom_endpoint ?artifact_registry_custom_endpoint
+    ?app_engine_custom_endpoint ?apphub_custom_endpoint
+    ?artifact_registry_custom_endpoint
     ?assured_workloads_custom_endpoint ?beyondcorp_custom_endpoint
     ?big_query_custom_endpoint ?biglake_custom_endpoint
     ?bigquery_analytics_hub_custom_endpoint
@@ -2116,7 +2224,7 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?cloud_billing_custom_endpoint ?cloud_build_custom_endpoint
     ?cloud_build_worker_pool_custom_endpoint
     ?cloud_functions_custom_endpoint ?cloud_identity_custom_endpoint
-    ?cloud_ids_custom_endpoint
+    ?cloud_ids_custom_endpoint ?cloud_quotas_custom_endpoint
     ?cloud_resource_manager_custom_endpoint
     ?cloud_run_custom_endpoint ?cloud_run_v2_custom_endpoint
     ?cloud_scheduler_custom_endpoint ?cloud_tasks_custom_endpoint
@@ -2152,7 +2260,8 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?iam_workforce_pool_custom_endpoint ?iap_custom_endpoint
     ?identity_platform_custom_endpoint ?impersonate_service_account
     ?impersonate_service_account_delegates
-    ?integration_connectors_custom_endpoint ?kms_custom_endpoint
+    ?integration_connectors_custom_endpoint
+    ?integrations_custom_endpoint ?kms_custom_endpoint
     ?logging_custom_endpoint ?looker_custom_endpoint
     ?memcache_custom_endpoint ?migration_center_custom_endpoint
     ?ml_engine_custom_endpoint ?monitoring_custom_endpoint
@@ -2161,7 +2270,8 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?network_security_custom_endpoint
     ?network_services_custom_endpoint ?notebooks_custom_endpoint
     ?org_policy_custom_endpoint ?os_config_custom_endpoint
-    ?os_login_custom_endpoint ?privateca_custom_endpoint ?project
+    ?os_login_custom_endpoint ?privateca_custom_endpoint
+    ?privileged_access_manager_custom_endpoint ?project
     ?public_ca_custom_endpoint ?pubsub_custom_endpoint
     ?pubsub_lite_custom_endpoint
     ?recaptcha_enterprise_custom_endpoint ?redis_custom_endpoint
@@ -2170,12 +2280,16 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?resource_manager_v3_custom_endpoint ?scopes
     ?secret_manager_custom_endpoint
     ?secure_source_manager_custom_endpoint
-    ?security_center_custom_endpoint ?securityposture_custom_endpoint
+    ?security_center_custom_endpoint
+    ?security_center_management_custom_endpoint
+    ?security_center_v2_custom_endpoint
+    ?securityposture_custom_endpoint
     ?service_management_custom_endpoint
     ?service_networking_custom_endpoint
-    ?service_usage_custom_endpoint ?source_repo_custom_endpoint
-    ?spanner_custom_endpoint ?sql_custom_endpoint
-    ?storage_custom_endpoint ?storage_insights_custom_endpoint
+    ?service_usage_custom_endpoint ?site_verification_custom_endpoint
+    ?source_repo_custom_endpoint ?spanner_custom_endpoint
+    ?sql_custom_endpoint ?storage_custom_endpoint
+    ?storage_insights_custom_endpoint
     ?storage_transfer_custom_endpoint ?tags_custom_endpoint
     ?tags_location_custom_endpoint
     ?terraform_attribution_label_addition_strategy
@@ -2189,7 +2303,8 @@ let register ?tf_module ?access_approval_custom_endpoint
       ?active_directory_custom_endpoint
       ?add_terraform_attribution_label ?alloydb_custom_endpoint
       ?apigee_custom_endpoint ?apikeys_custom_endpoint
-      ?app_engine_custom_endpoint ?artifact_registry_custom_endpoint
+      ?app_engine_custom_endpoint ?apphub_custom_endpoint
+      ?artifact_registry_custom_endpoint
       ?assured_workloads_custom_endpoint ?beyondcorp_custom_endpoint
       ?big_query_custom_endpoint ?biglake_custom_endpoint
       ?bigquery_analytics_hub_custom_endpoint
@@ -2206,6 +2321,7 @@ let register ?tf_module ?access_approval_custom_endpoint
       ?cloud_build_worker_pool_custom_endpoint
       ?cloud_functions_custom_endpoint
       ?cloud_identity_custom_endpoint ?cloud_ids_custom_endpoint
+      ?cloud_quotas_custom_endpoint
       ?cloud_resource_manager_custom_endpoint
       ?cloud_run_custom_endpoint ?cloud_run_v2_custom_endpoint
       ?cloud_scheduler_custom_endpoint ?cloud_tasks_custom_endpoint
@@ -2241,7 +2357,8 @@ let register ?tf_module ?access_approval_custom_endpoint
       ?iam_workforce_pool_custom_endpoint ?iap_custom_endpoint
       ?identity_platform_custom_endpoint ?impersonate_service_account
       ?impersonate_service_account_delegates
-      ?integration_connectors_custom_endpoint ?kms_custom_endpoint
+      ?integration_connectors_custom_endpoint
+      ?integrations_custom_endpoint ?kms_custom_endpoint
       ?logging_custom_endpoint ?looker_custom_endpoint
       ?memcache_custom_endpoint ?migration_center_custom_endpoint
       ?ml_engine_custom_endpoint ?monitoring_custom_endpoint
@@ -2250,7 +2367,8 @@ let register ?tf_module ?access_approval_custom_endpoint
       ?network_security_custom_endpoint
       ?network_services_custom_endpoint ?notebooks_custom_endpoint
       ?org_policy_custom_endpoint ?os_config_custom_endpoint
-      ?os_login_custom_endpoint ?privateca_custom_endpoint ?project
+      ?os_login_custom_endpoint ?privateca_custom_endpoint
+      ?privileged_access_manager_custom_endpoint ?project
       ?public_ca_custom_endpoint ?pubsub_custom_endpoint
       ?pubsub_lite_custom_endpoint
       ?recaptcha_enterprise_custom_endpoint ?redis_custom_endpoint
@@ -2260,10 +2378,13 @@ let register ?tf_module ?access_approval_custom_endpoint
       ?secret_manager_custom_endpoint
       ?secure_source_manager_custom_endpoint
       ?security_center_custom_endpoint
+      ?security_center_management_custom_endpoint
+      ?security_center_v2_custom_endpoint
       ?securityposture_custom_endpoint
       ?service_management_custom_endpoint
       ?service_networking_custom_endpoint
-      ?service_usage_custom_endpoint ?source_repo_custom_endpoint
+      ?service_usage_custom_endpoint
+      ?site_verification_custom_endpoint ?source_repo_custom_endpoint
       ?spanner_custom_endpoint ?sql_custom_endpoint
       ?storage_custom_endpoint ?storage_insights_custom_endpoint
       ?storage_transfer_custom_endpoint ?tags_custom_endpoint

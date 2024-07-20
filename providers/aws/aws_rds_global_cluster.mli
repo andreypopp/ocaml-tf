@@ -24,6 +24,7 @@ val aws_rds_global_cluster :
   ?database_name:string prop ->
   ?deletion_protection:bool prop ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
@@ -44,6 +45,7 @@ type t = private {
   database_name : string prop;
   deletion_protection : bool prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
   force_destroy : bool prop;
@@ -60,6 +62,7 @@ val register :
   ?database_name:string prop ->
   ?deletion_protection:bool prop ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
@@ -74,6 +77,7 @@ val make :
   ?database_name:string prop ->
   ?deletion_protection:bool prop ->
   ?engine:string prop ->
+  ?engine_lifecycle_support:string prop ->
   ?engine_version:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->

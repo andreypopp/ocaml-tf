@@ -244,9 +244,11 @@ let google_compute_router_nat ?id ?project ?region ~name ~router () :
 
 type t = {
   tf_name : string;
+  auto_network_tier : string prop;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;
+  endpoint_types : string list prop;
   icmp_idle_timeout_sec : float prop;
   id : string prop;
   log_config : log_config list prop;
@@ -272,12 +274,15 @@ let make ?id ?project ?region ~name ~router __id =
   let __attrs =
     ({
        tf_name = __id;
+       auto_network_tier =
+         Prop.computed __type __id "auto_network_tier";
        drain_nat_ips = Prop.computed __type __id "drain_nat_ips";
        enable_dynamic_port_allocation =
          Prop.computed __type __id "enable_dynamic_port_allocation";
        enable_endpoint_independent_mapping =
          Prop.computed __type __id
            "enable_endpoint_independent_mapping";
+       endpoint_types = Prop.computed __type __id "endpoint_types";
        icmp_idle_timeout_sec =
          Prop.computed __type __id "icmp_idle_timeout_sec";
        id = Prop.computed __type __id "id";

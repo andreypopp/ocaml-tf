@@ -24,6 +24,10 @@ val cors_configuration :
   unit ->
   cors_configuration
 
+type identity
+
+val identity : type_:string prop -> unit -> identity
+
 type timeouts
 
 val timeouts :
@@ -38,6 +42,7 @@ type azurerm_healthcare_service
 
 val azurerm_healthcare_service :
   ?access_policy_object_ids:string prop list ->
+  ?configuration_export_storage_account_name:string prop ->
   ?cosmosdb_key_vault_key_versionless_id:string prop ->
   ?cosmosdb_throughput:float prop ->
   ?id:string prop ->
@@ -46,6 +51,7 @@ val azurerm_healthcare_service :
   ?tags:(string * string prop) list ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -61,6 +67,7 @@ val yojson_of_azurerm_healthcare_service :
 type t = private {
   tf_name : string;
   access_policy_object_ids : string list prop;
+  configuration_export_storage_account_name : string prop;
   cosmosdb_key_vault_key_versionless_id : string prop;
   cosmosdb_throughput : float prop;
   id : string prop;
@@ -75,6 +82,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?access_policy_object_ids:string prop list ->
+  ?configuration_export_storage_account_name:string prop ->
   ?cosmosdb_key_vault_key_versionless_id:string prop ->
   ?cosmosdb_throughput:float prop ->
   ?id:string prop ->
@@ -83,6 +91,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -92,6 +101,7 @@ val register :
 
 val make :
   ?access_policy_object_ids:string prop list ->
+  ?configuration_export_storage_account_name:string prop ->
   ?cosmosdb_key_vault_key_versionless_id:string prop ->
   ?cosmosdb_throughput:float prop ->
   ?id:string prop ->
@@ -100,6 +110,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

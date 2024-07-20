@@ -151,6 +151,117 @@ let _ = yojson_of_notification_configuration
 
 [@@@deriving.end]
 
+type worker_access_configuration__s3_presign__iam_policy_constraints = {
+  source_ip : string prop option; [@option]
+  vpc_source_ip : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       worker_access_configuration__s3_presign__iam_policy_constraints) ->
+  ()
+
+let yojson_of_worker_access_configuration__s3_presign__iam_policy_constraints
+    =
+  (function
+   | { source_ip = v_source_ip; vpc_source_ip = v_vpc_source_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vpc_source_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_source_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_ip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : worker_access_configuration__s3_presign__iam_policy_constraints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_worker_access_configuration__s3_presign__iam_policy_constraints
+
+[@@@deriving.end]
+
+type worker_access_configuration__s3_presign = {
+  iam_policy_constraints :
+    worker_access_configuration__s3_presign__iam_policy_constraints
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : worker_access_configuration__s3_presign) -> ()
+
+let yojson_of_worker_access_configuration__s3_presign =
+  (function
+   | { iam_policy_constraints = v_iam_policy_constraints } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_iam_policy_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_worker_access_configuration__s3_presign__iam_policy_constraints)
+               v_iam_policy_constraints
+           in
+           let bnd = "iam_policy_constraints", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : worker_access_configuration__s3_presign ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_worker_access_configuration__s3_presign
+
+[@@@deriving.end]
+
+type worker_access_configuration = {
+  s3_presign : worker_access_configuration__s3_presign list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : worker_access_configuration) -> ()
+
+let yojson_of_worker_access_configuration =
+  (function
+   | { s3_presign = v_s3_presign } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_s3_presign then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_worker_access_configuration__s3_presign)
+               v_s3_presign
+           in
+           let bnd = "s3_presign", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : worker_access_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_worker_access_configuration
+
+[@@@deriving.end]
+
 type aws_sagemaker_workteam = {
   description : string prop;
   id : string prop option; [@option]
@@ -161,6 +272,8 @@ type aws_sagemaker_workteam = {
   member_definition : member_definition list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   notification_configuration : notification_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  worker_access_configuration : worker_access_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
@@ -178,9 +291,20 @@ let yojson_of_aws_sagemaker_workteam =
        workteam_name = v_workteam_name;
        member_definition = v_member_definition;
        notification_configuration = v_notification_configuration;
+       worker_access_configuration = v_worker_access_configuration;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_worker_access_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_worker_access_configuration)
+               v_worker_access_configuration
+           in
+           let bnd = "worker_access_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_notification_configuration then bnds
@@ -280,8 +404,23 @@ let notification_configuration ?notification_topic_arn () :
     notification_configuration =
   { notification_topic_arn }
 
+let worker_access_configuration__s3_presign__iam_policy_constraints
+    ?source_ip ?vpc_source_ip () :
+    worker_access_configuration__s3_presign__iam_policy_constraints =
+  { source_ip; vpc_source_ip }
+
+let worker_access_configuration__s3_presign
+    ?(iam_policy_constraints = []) () :
+    worker_access_configuration__s3_presign =
+  { iam_policy_constraints }
+
+let worker_access_configuration ?(s3_presign = []) () :
+    worker_access_configuration =
+  { s3_presign }
+
 let aws_sagemaker_workteam ?id ?tags ?tags_all
-    ?(notification_configuration = []) ~description ~workforce_name
+    ?(notification_configuration = [])
+    ?(worker_access_configuration = []) ~description ~workforce_name
     ~workteam_name ~member_definition () : aws_sagemaker_workteam =
   {
     description;
@@ -292,6 +431,7 @@ let aws_sagemaker_workteam ?id ?tags ?tags_all
     workteam_name;
     member_definition;
     notification_configuration;
+    worker_access_configuration;
   }
 
 type t = {
@@ -307,8 +447,8 @@ type t = {
 }
 
 let make ?id ?tags ?tags_all ?(notification_configuration = [])
-    ~description ~workforce_name ~workteam_name ~member_definition
-    __id =
+    ?(worker_access_configuration = []) ~description ~workforce_name
+    ~workteam_name ~member_definition __id =
   let __type = "aws_sagemaker_workteam" in
   let __attrs =
     ({
@@ -330,17 +470,20 @@ let make ?id ?tags ?tags_all ?(notification_configuration = [])
     json =
       yojson_of_aws_sagemaker_workteam
         (aws_sagemaker_workteam ?id ?tags ?tags_all
-           ~notification_configuration ~description ~workforce_name
-           ~workteam_name ~member_definition ());
+           ~notification_configuration ~worker_access_configuration
+           ~description ~workforce_name ~workteam_name
+           ~member_definition ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?tags ?tags_all
-    ?(notification_configuration = []) ~description ~workforce_name
+    ?(notification_configuration = [])
+    ?(worker_access_configuration = []) ~description ~workforce_name
     ~workteam_name ~member_definition __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~notification_configuration ~description
-      ~workforce_name ~workteam_name ~member_definition __id
+    make ?id ?tags ?tags_all ~notification_configuration
+      ~worker_access_configuration ~description ~workforce_name
+      ~workteam_name ~member_definition __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

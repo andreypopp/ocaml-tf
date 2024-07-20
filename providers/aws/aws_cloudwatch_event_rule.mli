@@ -10,6 +10,7 @@ val aws_cloudwatch_event_rule :
   ?description:string prop ->
   ?event_bus_name:string prop ->
   ?event_pattern:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?name:string prop ->
@@ -33,6 +34,7 @@ type t = private {
   description : string prop;
   event_bus_name : string prop;
   event_pattern : string prop;
+  force_destroy : bool prop;
   id : string prop;
   is_enabled : bool prop;
   name : string prop;
@@ -49,6 +51,7 @@ val register :
   ?description:string prop ->
   ?event_bus_name:string prop ->
   ?event_pattern:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?name:string prop ->
@@ -65,6 +68,7 @@ val make :
   ?description:string prop ->
   ?event_bus_name:string prop ->
   ?event_pattern:string prop ->
+  ?force_destroy:bool prop ->
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?name:string prop ->

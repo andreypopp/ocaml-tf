@@ -63,6 +63,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_bot_service_azure_bot = {
+  cmk_key_vault_key_url : string prop option; [@option]
   developer_app_insights_api_key : string prop option; [@option]
   developer_app_insights_application_id : string prop option;
       [@option]
@@ -94,6 +95,7 @@ let _ = fun (_ : azurerm_bot_service_azure_bot) -> ()
 let yojson_of_azurerm_bot_service_azure_bot =
   (function
    | {
+       cmk_key_vault_key_url = v_cmk_key_vault_key_url;
        developer_app_insights_api_key =
          v_developer_app_insights_api_key;
        developer_app_insights_application_id =
@@ -291,6 +293,14 @@ let yojson_of_azurerm_bot_service_azure_bot =
              let bnd = "developer_app_insights_api_key", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_cmk_key_vault_key_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cmk_key_vault_key_url", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : azurerm_bot_service_azure_bot ->
       Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -302,7 +312,8 @@ let _ = yojson_of_azurerm_bot_service_azure_bot
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
+let azurerm_bot_service_azure_bot ?cmk_key_vault_key_url
+    ?developer_app_insights_api_key
     ?developer_app_insights_application_id
     ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
     ?local_authentication_enabled ?luis_app_ids ?luis_key
@@ -312,6 +323,7 @@ let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
     ~microsoft_app_id ~name ~resource_group_name ~sku () :
     azurerm_bot_service_azure_bot =
   {
+    cmk_key_vault_key_url;
     developer_app_insights_api_key;
     developer_app_insights_application_id;
     developer_app_insights_key;
@@ -338,6 +350,7 @@ let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
 
 type t = {
   tf_name : string;
+  cmk_key_vault_key_url : string prop;
   developer_app_insights_api_key : string prop;
   developer_app_insights_application_id : string prop;
   developer_app_insights_key : string prop;
@@ -361,7 +374,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?developer_app_insights_api_key
+let make ?cmk_key_vault_key_url ?developer_app_insights_api_key
     ?developer_app_insights_application_id
     ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
     ?local_authentication_enabled ?luis_app_ids ?luis_key
@@ -373,6 +386,8 @@ let make ?developer_app_insights_api_key
   let __attrs =
     ({
        tf_name = __id;
+       cmk_key_vault_key_url =
+         Prop.computed __type __id "cmk_key_vault_key_url";
        developer_app_insights_api_key =
          Prop.computed __type __id "developer_app_insights_api_key";
        developer_app_insights_application_id =
@@ -414,7 +429,7 @@ let make ?developer_app_insights_api_key
     type_ = __type;
     json =
       yojson_of_azurerm_bot_service_azure_bot
-        (azurerm_bot_service_azure_bot
+        (azurerm_bot_service_azure_bot ?cmk_key_vault_key_url
            ?developer_app_insights_api_key
            ?developer_app_insights_application_id
            ?developer_app_insights_key ?display_name ?endpoint
@@ -426,7 +441,8 @@ let make ?developer_app_insights_api_key
     attrs = __attrs;
   }
 
-let register ?tf_module ?developer_app_insights_api_key
+let register ?tf_module ?cmk_key_vault_key_url
+    ?developer_app_insights_api_key
     ?developer_app_insights_application_id
     ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
     ?local_authentication_enabled ?luis_app_ids ?luis_key
@@ -435,7 +451,7 @@ let register ?tf_module ?developer_app_insights_api_key
     ?streaming_endpoint_enabled ?tags ?timeouts ~location
     ~microsoft_app_id ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
-    make ?developer_app_insights_api_key
+    make ?cmk_key_vault_key_url ?developer_app_insights_api_key
       ?developer_app_insights_application_id
       ?developer_app_insights_key ?display_name ?endpoint ?icon_url
       ?id ?local_authentication_enabled ?luis_app_ids ?luis_key

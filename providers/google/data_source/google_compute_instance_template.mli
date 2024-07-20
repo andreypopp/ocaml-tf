@@ -12,6 +12,8 @@ type advanced_machine_features = {
 }
 
 type confidential_instance_config = {
+  confidential_instance_type : string prop;
+      (** confidential_instance_type *)
   enable_confidential_compute : bool prop;
       (** enable_confidential_compute *)
 }
@@ -134,12 +136,21 @@ type reservation_affinity = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+type scheduling__on_instance_stop_action = {
+  discard_local_ssd : bool prop;  (** discard_local_ssd *)
+}
+
 type scheduling__node_affinities = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
+}
+
+type scheduling__max_run_duration = {
+  nanos : float prop;  (** nanos *)
+  seconds : float prop;  (** seconds *)
 }
 
 type scheduling__local_ssd_recovery_timeout = {
@@ -155,11 +166,17 @@ type scheduling = {
     scheduling__local_ssd_recovery_timeout list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** local_ssd_recovery_timeout *)
+  max_run_duration : scheduling__max_run_duration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** max_run_duration *)
   min_node_cpus : float prop;  (** min_node_cpus *)
   node_affinities : scheduling__node_affinities list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_affinities *)
   on_host_maintenance : string prop;  (** on_host_maintenance *)
+  on_instance_stop_action : scheduling__on_instance_stop_action list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** on_instance_stop_action *)
   preemptible : bool prop;  (** preemptible *)
   provisioning_model : string prop;  (** provisioning_model *)
 }

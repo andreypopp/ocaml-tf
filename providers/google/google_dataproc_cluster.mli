@@ -24,6 +24,7 @@ type cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_
 val cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config :
   ?boot_disk_size_gb:float prop ->
   ?boot_disk_type:string prop ->
+  ?local_ssd_interface:string prop ->
   ?num_local_ssds:float prop ->
   unit ->
   cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
@@ -164,6 +165,7 @@ type cluster_config__master_config__disk_config
 val cluster_config__master_config__disk_config :
   ?boot_disk_size_gb:float prop ->
   ?boot_disk_type:string prop ->
+  ?local_ssd_interface:string prop ->
   ?num_local_ssds:float prop ->
   unit ->
   cluster_config__master_config__disk_config
@@ -192,6 +194,7 @@ type cluster_config__preemptible_worker_config__disk_config
 val cluster_config__preemptible_worker_config__disk_config :
   ?boot_disk_size_gb:float prop ->
   ?boot_disk_type:string prop ->
+  ?local_ssd_interface:string prop ->
   ?num_local_ssds:float prop ->
   unit ->
   cluster_config__preemptible_worker_config__disk_config
@@ -282,6 +285,7 @@ type cluster_config__worker_config__disk_config
 val cluster_config__worker_config__disk_config :
   ?boot_disk_size_gb:float prop ->
   ?boot_disk_type:string prop ->
+  ?local_ssd_interface:string prop ->
   ?num_local_ssds:float prop ->
   unit ->
   cluster_config__worker_config__disk_config

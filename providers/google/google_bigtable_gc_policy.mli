@@ -24,6 +24,7 @@ val google_bigtable_gc_policy :
   ?deletion_policy:string prop ->
   ?gc_rules:string prop ->
   ?id:string prop ->
+  ?ignore_warnings:bool prop ->
   ?mode:string prop ->
   ?project:string prop ->
   ?max_age:max_age list ->
@@ -46,6 +47,7 @@ type t = private {
   deletion_policy : string prop;
   gc_rules : string prop;
   id : string prop;
+  ignore_warnings : bool prop;
   instance_name : string prop;
   mode : string prop;
   project : string prop;
@@ -57,6 +59,7 @@ val register :
   ?deletion_policy:string prop ->
   ?gc_rules:string prop ->
   ?id:string prop ->
+  ?ignore_warnings:bool prop ->
   ?mode:string prop ->
   ?project:string prop ->
   ?max_age:max_age list ->
@@ -72,6 +75,7 @@ val make :
   ?deletion_policy:string prop ->
   ?gc_rules:string prop ->
   ?id:string prop ->
+  ?ignore_warnings:bool prop ->
   ?mode:string prop ->
   ?project:string prop ->
   ?max_age:max_age list ->

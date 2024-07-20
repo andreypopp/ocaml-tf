@@ -222,6 +222,46 @@ let _ = yojson_of_initial_capacity
 
 [@@@deriving.end]
 
+type interactive_configuration = {
+  livy_endpoint_enabled : bool prop option; [@option]
+  studio_enabled : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : interactive_configuration) -> ()
+
+let yojson_of_interactive_configuration =
+  (function
+   | {
+       livy_endpoint_enabled = v_livy_endpoint_enabled;
+       studio_enabled = v_studio_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_studio_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "studio_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_livy_endpoint_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "livy_endpoint_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : interactive_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_interactive_configuration
+
+[@@@deriving.end]
+
 type maximum_capacity = {
   cpu : string prop;
   disk : string prop option; [@option]
@@ -320,6 +360,8 @@ type aws_emrserverless_application = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   initial_capacity : initial_capacity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  interactive_configuration : interactive_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   maximum_capacity : maximum_capacity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   network_configuration : network_configuration list;
@@ -343,6 +385,7 @@ let yojson_of_aws_emrserverless_application =
        auto_stop_configuration = v_auto_stop_configuration;
        image_configuration = v_image_configuration;
        initial_capacity = v_initial_capacity;
+       interactive_configuration = v_interactive_configuration;
        maximum_capacity = v_maximum_capacity;
        network_configuration = v_network_configuration;
      } ->
@@ -367,6 +410,16 @@ let yojson_of_aws_emrserverless_application =
                v_maximum_capacity
            in
            let bnd = "maximum_capacity", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_interactive_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_interactive_configuration)
+               v_interactive_configuration
+           in
+           let bnd = "interactive_configuration", arg in
            bnd :: bnds
        in
        let bnds =
@@ -501,6 +554,10 @@ let initial_capacity ?(initial_capacity_config = [])
     ~initial_capacity_type () : initial_capacity =
   { initial_capacity_type; initial_capacity_config }
 
+let interactive_configuration ?livy_endpoint_enabled ?studio_enabled
+    () : interactive_configuration =
+  { livy_endpoint_enabled; studio_enabled }
+
 let maximum_capacity ?disk ~cpu ~memory () : maximum_capacity =
   { cpu; disk; memory }
 
@@ -510,9 +567,10 @@ let network_configuration ?security_group_ids ?subnet_ids () :
 
 let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
     ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
-    ?(image_configuration = []) ?(maximum_capacity = [])
-    ?(network_configuration = []) ~name ~release_label ~type_
-    ~initial_capacity () : aws_emrserverless_application =
+    ?(image_configuration = []) ?(interactive_configuration = [])
+    ?(maximum_capacity = []) ?(network_configuration = []) ~name
+    ~release_label ~type_ ~initial_capacity () :
+    aws_emrserverless_application =
   {
     architecture;
     id;
@@ -525,6 +583,7 @@ let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
     auto_stop_configuration;
     image_configuration;
     initial_capacity;
+    interactive_configuration;
     maximum_capacity;
     network_configuration;
   }
@@ -543,9 +602,9 @@ type t = {
 
 let make ?architecture ?id ?tags ?tags_all
     ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
-    ?(image_configuration = []) ?(maximum_capacity = [])
-    ?(network_configuration = []) ~name ~release_label ~type_
-    ~initial_capacity __id =
+    ?(image_configuration = []) ?(interactive_configuration = [])
+    ?(maximum_capacity = []) ?(network_configuration = []) ~name
+    ~release_label ~type_ ~initial_capacity __id =
   let __type = "aws_emrserverless_application" in
   let __attrs =
     ({
@@ -569,19 +628,21 @@ let make ?architecture ?id ?tags ?tags_all
         (aws_emrserverless_application ?architecture ?id ?tags
            ?tags_all ~auto_start_configuration
            ~auto_stop_configuration ~image_configuration
-           ~maximum_capacity ~network_configuration ~name
-           ~release_label ~type_ ~initial_capacity ());
+           ~interactive_configuration ~maximum_capacity
+           ~network_configuration ~name ~release_label ~type_
+           ~initial_capacity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?architecture ?id ?tags ?tags_all
     ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
-    ?(image_configuration = []) ?(maximum_capacity = [])
-    ?(network_configuration = []) ~name ~release_label ~type_
-    ~initial_capacity __id =
+    ?(image_configuration = []) ?(interactive_configuration = [])
+    ?(maximum_capacity = []) ?(network_configuration = []) ~name
+    ~release_label ~type_ ~initial_capacity __id =
   let (r : _ Tf_core.resource) =
     make ?architecture ?id ?tags ?tags_all ~auto_start_configuration
-      ~auto_stop_configuration ~image_configuration ~maximum_capacity
+      ~auto_stop_configuration ~image_configuration
+      ~interactive_configuration ~maximum_capacity
       ~network_configuration ~name ~release_label ~type_
       ~initial_capacity __id
   in

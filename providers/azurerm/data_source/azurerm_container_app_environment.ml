@@ -87,6 +87,7 @@ let azurerm_container_app_environment ?id ?timeouts ~name
 
 type t = {
   tf_name : string;
+  custom_domain_verification_id : string prop;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
   id : string prop;
@@ -107,6 +108,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __attrs =
     ({
        tf_name = __id;
+       custom_domain_verification_id =
+         Prop.computed __type __id "custom_domain_verification_id";
        default_domain = Prop.computed __type __id "default_domain";
        docker_bridge_cidr =
          Prop.computed __type __id "docker_bridge_cidr";

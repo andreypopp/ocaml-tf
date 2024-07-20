@@ -24,6 +24,90 @@ type rule__rule__or__tags = {
       (** values *)
 }
 
+type rule__rule__or__or__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__or__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__or__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__or = {
+  cost_category : rule__rule__or__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__or__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__or__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
+type rule__rule__or__not__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__not__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__not__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__not = {
+  cost_category : rule__rule__or__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__or__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__or__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
 type rule__rule__or__dimension = {
   key : string prop;  (** key *)
   match_options : string prop list;
@@ -44,13 +128,64 @@ type rule__rule__or__cost_category = {
       (** values *)
 }
 
+type rule__rule__or__and__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__and__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__and__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__or__and = {
+  cost_category : rule__rule__or__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__or__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__or__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
 type rule__rule__or = {
+  and_ : rule__rule__or__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+      (** and *)
   cost_category : rule__rule__or__cost_category list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cost_category *)
   dimension : rule__rule__or__dimension list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
+  not : rule__rule__or__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** not *)
+  or_ : rule__rule__or__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+      (** or *)
   tags : rule__rule__or__tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
@@ -64,6 +199,90 @@ type rule__rule__not__tags = {
   values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** values *)
+}
+
+type rule__rule__not__or__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__or__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__or__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__or = {
+  cost_category : rule__rule__not__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__not__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__not__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
+type rule__rule__not__not__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__not__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__not__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__not = {
+  cost_category : rule__rule__not__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__not__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__not__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
 }
 
 type rule__rule__not__dimension = {
@@ -86,13 +305,64 @@ type rule__rule__not__cost_category = {
       (** values *)
 }
 
+type rule__rule__not__and__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__and__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__and__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__not__and = {
+  cost_category : rule__rule__not__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__not__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__not__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
 type rule__rule__not = {
+  and_ : rule__rule__not__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+      (** and *)
   cost_category : rule__rule__not__cost_category list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cost_category *)
   dimension : rule__rule__not__dimension list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
+  not : rule__rule__not__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** not *)
+  or_ : rule__rule__not__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+      (** or *)
   tags : rule__rule__not__tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
@@ -128,6 +398,90 @@ type rule__rule__and__tags = {
       (** values *)
 }
 
+type rule__rule__and__or__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__or__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__or__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__or = {
+  cost_category : rule__rule__and__or__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__and__or__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__and__or__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
+type rule__rule__and__not__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__not__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__not__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__not = {
+  cost_category : rule__rule__and__not__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__and__not__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__and__not__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
 type rule__rule__and__dimension = {
   key : string prop;  (** key *)
   match_options : string prop list;
@@ -148,13 +502,64 @@ type rule__rule__and__cost_category = {
       (** values *)
 }
 
+type rule__rule__and__and__tags = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__and__dimension = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__and__cost_category = {
+  key : string prop;  (** key *)
+  match_options : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** match_options *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** values *)
+}
+
+type rule__rule__and__and = {
+  cost_category : rule__rule__and__and__cost_category list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** cost_category *)
+  dimension : rule__rule__and__and__dimension list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** dimension *)
+  tags : rule__rule__and__and__tags list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** tags *)
+}
+
 type rule__rule__and = {
+  and_ : rule__rule__and__and list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "and"]
+      (** and *)
   cost_category : rule__rule__and__cost_category list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cost_category *)
   dimension : rule__rule__and__dimension list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** dimension *)
+  not : rule__rule__and__not list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** not *)
+  or_ : rule__rule__and__or list;
+      [@default []] [@yojson_drop_default Stdlib.( = )] [@key "or"]
+      (** or *)
   tags : rule__rule__and__tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)

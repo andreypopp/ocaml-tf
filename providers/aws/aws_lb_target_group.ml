@@ -202,6 +202,141 @@ let _ = yojson_of_target_failover
 
 [@@@deriving.end]
 
+type target_group_health__dns_failover = {
+  minimum_healthy_targets_count : string prop option; [@option]
+  minimum_healthy_targets_percentage : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_group_health__dns_failover) -> ()
+
+let yojson_of_target_group_health__dns_failover =
+  (function
+   | {
+       minimum_healthy_targets_count =
+         v_minimum_healthy_targets_count;
+       minimum_healthy_targets_percentage =
+         v_minimum_healthy_targets_percentage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_minimum_healthy_targets_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimum_healthy_targets_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimum_healthy_targets_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimum_healthy_targets_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_group_health__dns_failover ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_group_health__dns_failover
+
+[@@@deriving.end]
+
+type target_group_health__unhealthy_state_routing = {
+  minimum_healthy_targets_count : float prop option; [@option]
+  minimum_healthy_targets_percentage : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_group_health__unhealthy_state_routing) -> ()
+
+let yojson_of_target_group_health__unhealthy_state_routing =
+  (function
+   | {
+       minimum_healthy_targets_count =
+         v_minimum_healthy_targets_count;
+       minimum_healthy_targets_percentage =
+         v_minimum_healthy_targets_percentage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_minimum_healthy_targets_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimum_healthy_targets_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimum_healthy_targets_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum_healthy_targets_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_group_health__unhealthy_state_routing ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_group_health__unhealthy_state_routing
+
+[@@@deriving.end]
+
+type target_group_health = {
+  dns_failover : target_group_health__dns_failover list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  unhealthy_state_routing :
+    target_group_health__unhealthy_state_routing list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_group_health) -> ()
+
+let yojson_of_target_group_health =
+  (function
+   | {
+       dns_failover = v_dns_failover;
+       unhealthy_state_routing = v_unhealthy_state_routing;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_unhealthy_state_routing then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_group_health__unhealthy_state_routing)
+               v_unhealthy_state_routing
+           in
+           let bnd = "unhealthy_state_routing", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_dns_failover then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_group_health__dns_failover)
+               v_dns_failover
+           in
+           let bnd = "dns_failover", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : target_group_health -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_group_health
+
+[@@@deriving.end]
+
 type target_health_state = {
   enable_unhealthy_connection_termination : bool prop;
 }
@@ -259,6 +394,8 @@ type aws_lb_target_group = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   target_failover : target_failover list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  target_group_health : target_group_health list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   target_health_state : target_health_state list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -296,6 +433,7 @@ let yojson_of_aws_lb_target_group =
        health_check = v_health_check;
        stickiness = v_stickiness;
        target_failover = v_target_failover;
+       target_group_health = v_target_group_health;
        target_health_state = v_target_health_state;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -309,6 +447,16 @@ let yojson_of_aws_lb_target_group =
                v_target_health_state
            in
            let bnd = "target_health_state", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_target_group_health then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_group_health)
+               v_target_group_health
+           in
+           let bnd = "target_group_health", arg in
            bnd :: bnds
        in
        let bnds =
@@ -544,6 +692,27 @@ let target_failover ~on_deregistration ~on_unhealthy () :
     target_failover =
   { on_deregistration; on_unhealthy }
 
+let target_group_health__dns_failover ?minimum_healthy_targets_count
+    ?minimum_healthy_targets_percentage () :
+    target_group_health__dns_failover =
+  {
+    minimum_healthy_targets_count;
+    minimum_healthy_targets_percentage;
+  }
+
+let target_group_health__unhealthy_state_routing
+    ?minimum_healthy_targets_count
+    ?minimum_healthy_targets_percentage () :
+    target_group_health__unhealthy_state_routing =
+  {
+    minimum_healthy_targets_count;
+    minimum_healthy_targets_percentage;
+  }
+
+let target_group_health ?(dns_failover = [])
+    ?(unhealthy_state_routing = []) () : target_group_health =
+  { dns_failover; unhealthy_state_routing }
+
 let target_health_state ~enable_unhealthy_connection_termination () :
     target_health_state =
   { enable_unhealthy_connection_termination }
@@ -555,8 +724,8 @@ let aws_lb_target_group ?connection_termination ?deregistration_delay
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
     ?vpc_id ?(health_check = []) ?(stickiness = [])
-    ?(target_failover = []) ?(target_health_state = []) () :
-    aws_lb_target_group =
+    ?(target_failover = []) ?(target_group_health = [])
+    ?(target_health_state = []) () : aws_lb_target_group =
   {
     connection_termination;
     deregistration_delay;
@@ -581,6 +750,7 @@ let aws_lb_target_group ?connection_termination ?deregistration_delay
     health_check;
     stickiness;
     target_failover;
+    target_group_health;
     target_health_state;
   }
 
@@ -618,7 +788,8 @@ let make ?connection_termination ?deregistration_delay ?id
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
     ?vpc_id ?(health_check = []) ?(stickiness = [])
-    ?(target_failover = []) ?(target_health_state = []) __id =
+    ?(target_failover = []) ?(target_group_health = [])
+    ?(target_health_state = []) __id =
   let __type = "aws_lb_target_group" in
   let __attrs =
     ({
@@ -676,7 +847,8 @@ let make ?connection_termination ?deregistration_delay ?id
            ?port ?preserve_client_ip ?protocol ?protocol_version
            ?proxy_protocol_v2 ?slow_start ?tags ?tags_all
            ?target_type ?vpc_id ~health_check ~stickiness
-           ~target_failover ~target_health_state ());
+           ~target_failover ~target_group_health ~target_health_state
+           ());
     attrs = __attrs;
   }
 
@@ -687,7 +859,8 @@ let register ?tf_module ?connection_termination ?deregistration_delay
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
     ?vpc_id ?(health_check = []) ?(stickiness = [])
-    ?(target_failover = []) ?(target_health_state = []) __id =
+    ?(target_failover = []) ?(target_group_health = [])
+    ?(target_health_state = []) __id =
   let (r : _ Tf_core.resource) =
     make ?connection_termination ?deregistration_delay ?id
       ?ip_address_type ?lambda_multi_value_headers_enabled
@@ -697,7 +870,7 @@ let register ?tf_module ?connection_termination ?deregistration_delay
       ?preserve_client_ip ?protocol ?protocol_version
       ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
       ?vpc_id ~health_check ~stickiness ~target_failover
-      ~target_health_state __id
+      ~target_group_health ~target_health_state __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

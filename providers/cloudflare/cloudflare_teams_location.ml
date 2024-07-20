@@ -27,6 +27,7 @@ let _ = yojson_of_networks
 type cloudflare_teams_location = {
   account_id : string prop;
   client_default : bool prop option; [@option]
+  ecs_support : bool prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
   networks : networks list;
@@ -41,6 +42,7 @@ let yojson_of_cloudflare_teams_location =
    | {
        account_id = v_account_id;
        client_default = v_client_default;
+       ecs_support = v_ecs_support;
        id = v_id;
        name = v_name;
        networks = v_networks;
@@ -70,6 +72,14 @@ let yojson_of_cloudflare_teams_location =
              bnd :: bnds
        in
        let bnds =
+         match v_ecs_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ecs_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_client_default with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -90,9 +100,9 @@ let _ = yojson_of_cloudflare_teams_location
 
 let networks ~network () : networks = { network }
 
-let cloudflare_teams_location ?client_default ?id ~account_id ~name
-    ~networks () : cloudflare_teams_location =
-  { account_id; client_default; id; name; networks }
+let cloudflare_teams_location ?client_default ?ecs_support ?id
+    ~account_id ~name ~networks () : cloudflare_teams_location =
+  { account_id; client_default; ecs_support; id; name; networks }
 
 type t = {
   tf_name : string;
@@ -100,6 +110,7 @@ type t = {
   anonymized_logs_enabled : bool prop;
   client_default : bool prop;
   doh_subdomain : string prop;
+  ecs_support : bool prop;
   id : string prop;
   ip : string prop;
   ipv4_destination : string prop;
@@ -107,7 +118,8 @@ type t = {
   policy_ids : string list prop;
 }
 
-let make ?client_default ?id ~account_id ~name ~networks __id =
+let make ?client_default ?ecs_support ?id ~account_id ~name ~networks
+    __id =
   let __type = "cloudflare_teams_location" in
   let __attrs =
     ({
@@ -117,6 +129,7 @@ let make ?client_default ?id ~account_id ~name ~networks __id =
          Prop.computed __type __id "anonymized_logs_enabled";
        client_default = Prop.computed __type __id "client_default";
        doh_subdomain = Prop.computed __type __id "doh_subdomain";
+       ecs_support = Prop.computed __type __id "ecs_support";
        id = Prop.computed __type __id "id";
        ip = Prop.computed __type __id "ip";
        ipv4_destination =
@@ -131,15 +144,16 @@ let make ?client_default ?id ~account_id ~name ~networks __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_teams_location
-        (cloudflare_teams_location ?client_default ?id ~account_id
-           ~name ~networks ());
+        (cloudflare_teams_location ?client_default ?ecs_support ?id
+           ~account_id ~name ~networks ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?client_default ?id ~account_id ~name
-    ~networks __id =
+let register ?tf_module ?client_default ?ecs_support ?id ~account_id
+    ~name ~networks __id =
   let (r : _ Tf_core.resource) =
-    make ?client_default ?id ~account_id ~name ~networks __id
+    make ?client_default ?ecs_support ?id ~account_id ~name ~networks
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

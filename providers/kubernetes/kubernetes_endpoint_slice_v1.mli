@@ -1,3 +1,5 @@
+(** An EndpointSlice contains references to a set of network endpoints. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -33,6 +33,7 @@ val google_compute_interconnect_attachment :
   ?project:string prop ->
   ?region:string prop ->
   ?stack_type:string prop ->
+  ?subnet_length:float prop ->
   ?type_:string prop ->
   ?vlan_tag8021q:float prop ->
   ?timeouts:timeouts ->
@@ -52,8 +53,10 @@ type t = private {
   bandwidth : string prop;
   candidate_subnets : string list prop;
   cloud_router_ip_address : string prop;
+  cloud_router_ipv6_address : string prop;
   creation_timestamp : string prop;
   customer_router_ip_address : string prop;
+  customer_router_ipv6_address : string prop;
   description : string prop;
   edge_availability_domain : string prop;
   encryption : string prop;
@@ -72,6 +75,7 @@ type t = private {
   self_link : string prop;
   stack_type : string prop;
   state : string prop;
+  subnet_length : float prop;
   type_ : string prop;
   vlan_tag8021q : float prop;
 }
@@ -91,6 +95,7 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?stack_type:string prop ->
+  ?subnet_length:float prop ->
   ?type_:string prop ->
   ?vlan_tag8021q:float prop ->
   ?timeouts:timeouts ->
@@ -113,6 +118,7 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?stack_type:string prop ->
+  ?subnet_length:float prop ->
   ?type_:string prop ->
   ?vlan_tag8021q:float prop ->
   ?timeouts:timeouts ->

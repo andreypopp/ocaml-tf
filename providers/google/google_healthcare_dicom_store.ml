@@ -2,16 +2,30 @@
 
 open! Tf_core
 
-type notification_config = { pubsub_topic : string prop }
+type notification_config = {
+  pubsub_topic : string prop;
+  send_for_bulk_import : bool prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : notification_config) -> ()
 
 let yojson_of_notification_config =
   (function
-   | { pubsub_topic = v_pubsub_topic } ->
+   | {
+       pubsub_topic = v_pubsub_topic;
+       send_for_bulk_import = v_send_for_bulk_import;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         match v_send_for_bulk_import with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_for_bulk_import", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pubsub_topic in
@@ -150,8 +164,9 @@ let _ = yojson_of_google_healthcare_dicom_store
 
 [@@@deriving.end]
 
-let notification_config ~pubsub_topic () : notification_config =
-  { pubsub_topic }
+let notification_config ?send_for_bulk_import ~pubsub_topic () :
+    notification_config =
+  { pubsub_topic; send_for_bulk_import }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

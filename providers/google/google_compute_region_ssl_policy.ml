@@ -56,7 +56,7 @@ type google_compute_region_ssl_policy = {
   name : string prop;
   profile : string prop option; [@option]
   project : string prop option; [@option]
-  region : string prop;
+  region : string prop option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -84,8 +84,12 @@ let yojson_of_google_compute_region_ssl_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_region in
-         ("region", arg) :: bnds
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_project with
@@ -153,7 +157,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_region_ssl_policy ?custom_features ?description
-    ?id ?min_tls_version ?profile ?project ?timeouts ~name ~region ()
+    ?id ?min_tls_version ?profile ?project ?region ?timeouts ~name ()
     : google_compute_region_ssl_policy =
   {
     custom_features;
@@ -184,7 +188,7 @@ type t = {
 }
 
 let make ?custom_features ?description ?id ?min_tls_version ?profile
-    ?project ?timeouts ~name ~region __id =
+    ?project ?region ?timeouts ~name __id =
   let __type = "google_compute_region_ssl_policy" in
   let __attrs =
     ({
@@ -213,15 +217,15 @@ let make ?custom_features ?description ?id ?min_tls_version ?profile
       yojson_of_google_compute_region_ssl_policy
         (google_compute_region_ssl_policy ?custom_features
            ?description ?id ?min_tls_version ?profile ?project
-           ?timeouts ~name ~region ());
+           ?region ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_features ?description ?id
-    ?min_tls_version ?profile ?project ?timeouts ~name ~region __id =
+    ?min_tls_version ?profile ?project ?region ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?custom_features ?description ?id ?min_tls_version ?profile
-      ?project ?timeouts ~name ~region __id
+      ?project ?region ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

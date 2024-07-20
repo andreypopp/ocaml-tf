@@ -33,6 +33,7 @@ val aws_glue_job :
   ?execution_class:string prop ->
   ?glue_version:string prop ->
   ?id:string prop ->
+  ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?non_overridable_arguments:(string * string prop) list ->
@@ -63,6 +64,7 @@ type t = private {
   execution_class : string prop;
   glue_version : string prop;
   id : string prop;
+  maintenance_window : string prop;
   max_capacity : float prop;
   max_retries : float prop;
   name : string prop;
@@ -84,6 +86,7 @@ val register :
   ?execution_class:string prop ->
   ?glue_version:string prop ->
   ?id:string prop ->
+  ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?non_overridable_arguments:(string * string prop) list ->
@@ -108,6 +111,7 @@ val make :
   ?execution_class:string prop ->
   ?glue_version:string prop ->
   ?id:string prop ->
+  ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?non_overridable_arguments:(string * string prop) list ->

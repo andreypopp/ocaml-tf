@@ -42,6 +42,7 @@ val azurerm_virtual_desktop_host_pool :
   ?maximum_sessions_allowed:float prop ->
   ?personal_desktop_assignment_type:string prop ->
   ?preferred_app_group_type:string prop ->
+  ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
@@ -73,6 +74,7 @@ type t = private {
   name : string prop;
   personal_desktop_assignment_type : string prop;
   preferred_app_group_type : string prop;
+  public_network_access : string prop;
   resource_group_name : string prop;
   start_vm_on_connect : bool prop;
   tags : (string * string) list prop;
@@ -90,6 +92,7 @@ val register :
   ?maximum_sessions_allowed:float prop ->
   ?personal_desktop_assignment_type:string prop ->
   ?preferred_app_group_type:string prop ->
+  ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
@@ -112,6 +115,7 @@ val make :
   ?maximum_sessions_allowed:float prop ->
   ?personal_desktop_assignment_type:string prop ->
   ?preferred_app_group_type:string prop ->
+  ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->

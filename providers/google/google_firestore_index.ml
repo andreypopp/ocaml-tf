@@ -2,10 +2,65 @@
 
 open! Tf_core
 
+type fields__vector_config__flat = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields__vector_config__flat) -> ()
+
+let yojson_of_fields__vector_config__flat =
+  (yojson_of_unit
+    : fields__vector_config__flat ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields__vector_config__flat
+
+[@@@deriving.end]
+
+type fields__vector_config = {
+  dimension : float prop option; [@option]
+  flat : fields__vector_config__flat list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields__vector_config) -> ()
+
+let yojson_of_fields__vector_config =
+  (function
+   | { dimension = v_dimension; flat = v_flat } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_flat then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fields__vector_config__flat)
+               v_flat
+           in
+           let bnd = "flat", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_dimension with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "dimension", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fields__vector_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields__vector_config
+
+[@@@deriving.end]
+
 type fields = {
   array_config : string prop option; [@option]
   field_path : string prop option; [@option]
   order : string prop option; [@option]
+  vector_config : fields__vector_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,9 +72,20 @@ let yojson_of_fields =
        array_config = v_array_config;
        field_path = v_field_path;
        order = v_order;
+       vector_config = v_vector_config;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_vector_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fields__vector_config)
+               v_vector_config
+           in
+           let bnd = "vector_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_order with
@@ -181,8 +247,15 @@ let _ = yojson_of_google_firestore_index
 
 [@@@deriving.end]
 
-let fields ?array_config ?field_path ?order () : fields =
-  { array_config; field_path; order }
+let fields__vector_config__flat () = ()
+
+let fields__vector_config ?dimension ?(flat = []) () :
+    fields__vector_config =
+  { dimension; flat }
+
+let fields ?array_config ?field_path ?order ?(vector_config = []) ()
+    : fields =
+  { array_config; field_path; order; vector_config }
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

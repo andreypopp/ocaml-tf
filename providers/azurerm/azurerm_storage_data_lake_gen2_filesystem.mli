@@ -27,6 +27,7 @@ val timeouts :
 type azurerm_storage_data_lake_gen2_filesystem
 
 val azurerm_storage_data_lake_gen2_filesystem :
+  ?default_encryption_scope:string prop ->
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
@@ -45,6 +46,7 @@ val yojson_of_azurerm_storage_data_lake_gen2_filesystem :
 
 type t = private {
   tf_name : string;
+  default_encryption_scope : string prop;
   group : string prop;
   id : string prop;
   name : string prop;
@@ -55,6 +57,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?default_encryption_scope:string prop ->
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
@@ -67,6 +70,7 @@ val register :
   t
 
 val make :
+  ?default_encryption_scope:string prop ->
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->

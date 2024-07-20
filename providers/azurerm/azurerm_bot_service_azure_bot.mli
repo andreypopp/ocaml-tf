@@ -17,6 +17,7 @@ val timeouts :
 type azurerm_bot_service_azure_bot
 
 val azurerm_bot_service_azure_bot :
+  ?cmk_key_vault_key_url:string prop ->
   ?developer_app_insights_api_key:string prop ->
   ?developer_app_insights_application_id:string prop ->
   ?developer_app_insights_key:string prop ->
@@ -49,6 +50,7 @@ val yojson_of_azurerm_bot_service_azure_bot :
 
 type t = private {
   tf_name : string;
+  cmk_key_vault_key_url : string prop;
   developer_app_insights_api_key : string prop;
   developer_app_insights_application_id : string prop;
   developer_app_insights_key : string prop;
@@ -74,6 +76,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?cmk_key_vault_key_url:string prop ->
   ?developer_app_insights_api_key:string prop ->
   ?developer_app_insights_application_id:string prop ->
   ?developer_app_insights_key:string prop ->
@@ -100,6 +103,7 @@ val register :
   t
 
 val make :
+  ?cmk_key_vault_key_url:string prop ->
   ?developer_app_insights_api_key:string prop ->
   ?developer_app_insights_application_id:string prop ->
   ?developer_app_insights_key:string prop ->

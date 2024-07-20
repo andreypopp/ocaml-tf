@@ -22,6 +22,7 @@ val aws_vpc_ipam_pool :
   ?allocation_resource_tags:(string * string prop) list ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
+  ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?locale:string prop ->
@@ -50,6 +51,7 @@ type t = private {
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
+  cascade : bool prop;
   description : string prop;
   id : string prop;
   ipam_scope_id : string prop;
@@ -72,6 +74,7 @@ val register :
   ?allocation_resource_tags:(string * string prop) list ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
+  ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?locale:string prop ->
@@ -93,6 +96,7 @@ val make :
   ?allocation_resource_tags:(string * string prop) list ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
+  ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?locale:string prop ->

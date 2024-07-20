@@ -82,6 +82,7 @@ val google_redis_instance :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?location_id:string prop ->
+  ?maintenance_version:string prop ->
   ?project:string prop ->
   ?read_replicas_mode:string prop ->
   ?redis_configs:(string * string prop) list ->
@@ -121,6 +122,7 @@ type t = private {
   labels : (string * string) list prop;
   location_id : string prop;
   maintenance_schedule : maintenance_schedule list prop;
+  maintenance_version : string prop;
   memory_size_gb : float prop;
   name : string prop;
   nodes : nodes list prop;
@@ -153,6 +155,7 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?location_id:string prop ->
+  ?maintenance_version:string prop ->
   ?project:string prop ->
   ?read_replicas_mode:string prop ->
   ?redis_configs:(string * string prop) list ->
@@ -181,6 +184,7 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?location_id:string prop ->
+  ?maintenance_version:string prop ->
   ?project:string prop ->
   ?read_replicas_mode:string prop ->
   ?redis_configs:(string * string prop) list ->

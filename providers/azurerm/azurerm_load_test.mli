@@ -4,6 +4,22 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type encryption__identity
+
+val encryption__identity :
+  identity_id:string prop ->
+  type_:string prop ->
+  unit ->
+  encryption__identity
+
+type encryption
+
+val encryption :
+  key_url:string prop ->
+  identity:encryption__identity list ->
+  unit ->
+  encryption
+
 type identity
 
 val identity :
@@ -28,6 +44,7 @@ val azurerm_load_test :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -56,6 +73,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -68,6 +86,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

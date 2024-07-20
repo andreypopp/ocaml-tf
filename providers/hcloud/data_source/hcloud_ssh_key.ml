@@ -5,7 +5,9 @@ open! Tf_core
 type hcloud_ssh_key = {
   fingerprint : string prop option; [@option]
   id : float prop option; [@option]
+  labels : (string * string prop) list option; [@option]
   name : string prop option; [@option]
+  public_key : string prop option; [@option]
   selector : string prop option; [@option]
   with_selector : string prop option; [@option]
 }
@@ -18,7 +20,9 @@ let yojson_of_hcloud_ssh_key =
    | {
        fingerprint = v_fingerprint;
        id = v_id;
+       labels = v_labels;
        name = v_name;
+       public_key = v_public_key;
        selector = v_selector;
        with_selector = v_with_selector;
      } ->
@@ -42,11 +46,35 @@ let yojson_of_hcloud_ssh_key =
              bnd :: bnds
        in
        let bnds =
+         match v_public_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_name with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
              bnd :: bnds
        in
        let bnds =
@@ -72,9 +100,17 @@ let _ = yojson_of_hcloud_ssh_key
 
 [@@@deriving.end]
 
-let hcloud_ssh_key ?fingerprint ?id ?name ?selector ?with_selector ()
-    : hcloud_ssh_key =
-  { fingerprint; id; name; selector; with_selector }
+let hcloud_ssh_key ?fingerprint ?id ?labels ?name ?public_key
+    ?selector ?with_selector () : hcloud_ssh_key =
+  {
+    fingerprint;
+    id;
+    labels;
+    name;
+    public_key;
+    selector;
+    with_selector;
+  }
 
 type t = {
   tf_name : string;
@@ -87,7 +123,8 @@ type t = {
   with_selector : string prop;
 }
 
-let make ?fingerprint ?id ?name ?selector ?with_selector __id =
+let make ?fingerprint ?id ?labels ?name ?public_key ?selector
+    ?with_selector __id =
   let __type = "hcloud_ssh_key" in
   let __attrs =
     ({
@@ -107,15 +144,16 @@ let make ?fingerprint ?id ?name ?selector ?with_selector __id =
     type_ = __type;
     json =
       yojson_of_hcloud_ssh_key
-        (hcloud_ssh_key ?fingerprint ?id ?name ?selector
-           ?with_selector ());
+        (hcloud_ssh_key ?fingerprint ?id ?labels ?name ?public_key
+           ?selector ?with_selector ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?fingerprint ?id ?name ?selector
-    ?with_selector __id =
+let register ?tf_module ?fingerprint ?id ?labels ?name ?public_key
+    ?selector ?with_selector __id =
   let (r : _ Tf_core.resource) =
-    make ?fingerprint ?id ?name ?selector ?with_selector __id
+    make ?fingerprint ?id ?labels ?name ?public_key ?selector
+      ?with_selector __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

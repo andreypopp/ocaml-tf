@@ -46,6 +46,7 @@ type blob_properties__delete_retention_policy
 
 val blob_properties__delete_retention_policy :
   ?days:float prop ->
+  ?permanent_delete_enabled:bool prop ->
   unit ->
   blob_properties__delete_retention_policy
 
@@ -82,7 +83,8 @@ val custom_domain :
 type customer_managed_key
 
 val customer_managed_key :
-  key_vault_key_id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?managed_hsm_key_id:string prop ->
   user_assigned_identity_id:string prop ->
   unit ->
   customer_managed_key
@@ -255,6 +257,7 @@ val azurerm_storage_account :
   ?allowed_copy_scope:string prop ->
   ?cross_tenant_replication_enabled:bool prop ->
   ?default_to_oauth_authentication:bool prop ->
+  ?dns_endpoint_type:string prop ->
   ?edge_zone:string prop ->
   ?enable_https_traffic_only:bool prop ->
   ?id:string prop ->
@@ -306,6 +309,7 @@ type t = private {
   allowed_copy_scope : string prop;
   cross_tenant_replication_enabled : bool prop;
   default_to_oauth_authentication : bool prop;
+  dns_endpoint_type : string prop;
   edge_zone : string prop;
   enable_https_traffic_only : bool prop;
   id : string prop;
@@ -406,6 +410,7 @@ val register :
   ?allowed_copy_scope:string prop ->
   ?cross_tenant_replication_enabled:bool prop ->
   ?default_to_oauth_authentication:bool prop ->
+  ?dns_endpoint_type:string prop ->
   ?edge_zone:string prop ->
   ?enable_https_traffic_only:bool prop ->
   ?id:string prop ->
@@ -449,6 +454,7 @@ val make :
   ?allowed_copy_scope:string prop ->
   ?cross_tenant_replication_enabled:bool prop ->
   ?default_to_oauth_authentication:bool prop ->
+  ?dns_endpoint_type:string prop ->
   ?edge_zone:string prop ->
   ?enable_https_traffic_only:bool prop ->
   ?id:string prop ->

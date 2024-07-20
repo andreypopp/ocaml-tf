@@ -44,6 +44,7 @@ val timeouts :
 type aws_lb
 
 val aws_lb :
+  ?client_keep_alive:float prop ->
   ?customer_owned_ipv4_pool:string prop ->
   ?desync_mitigation_mode:string prop ->
   ?dns_record_client_routing_policy:string prop ->
@@ -84,6 +85,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
+  client_keep_alive : float prop;
   customer_owned_ipv4_pool : string prop;
   desync_mitigation_mode : string prop;
   dns_name : string prop;
@@ -116,6 +118,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?client_keep_alive:float prop ->
   ?customer_owned_ipv4_pool:string prop ->
   ?desync_mitigation_mode:string prop ->
   ?dns_record_client_routing_policy:string prop ->
@@ -149,6 +152,7 @@ val register :
   t
 
 val make :
+  ?client_keep_alive:float prop ->
   ?customer_owned_ipv4_pool:string prop ->
   ?desync_mitigation_mode:string prop ->
   ?dns_record_client_routing_policy:string prop ->

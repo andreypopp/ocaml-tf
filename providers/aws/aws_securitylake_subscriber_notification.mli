@@ -9,9 +9,9 @@ type configuration__https_notification_configuration
 val configuration__https_notification_configuration :
   ?authorization_api_key_name:string prop ->
   ?authorization_api_key_value:string prop ->
-  ?endpoint:string prop ->
   ?http_method:string prop ->
-  ?target_role_arn:string prop ->
+  endpoint:string prop ->
+  target_role_arn:string prop ->
   unit ->
   configuration__https_notification_configuration
 
@@ -47,6 +47,7 @@ type t = private {
   tf_name : string;
   endpoint_id : string prop;
   id : string prop;
+  subscriber_endpoint : string prop;
   subscriber_id : string prop;
 }
 

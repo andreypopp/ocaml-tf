@@ -301,6 +301,7 @@ type aws_db_instance = {
   customer_owned_ip_enabled : bool prop option; [@option]
   db_name : string prop option; [@option]
   db_subnet_group_name : string prop option; [@option]
+  dedicated_log_volume : bool prop option; [@option]
   delete_automated_backups : bool prop option; [@option]
   deletion_protection : bool prop option; [@option]
   domain : string prop option; [@option]
@@ -312,6 +313,7 @@ type aws_db_instance = {
   enabled_cloudwatch_logs_exports : string prop list option;
       [@option]
   engine : string prop option; [@option]
+  engine_lifecycle_support : string prop option; [@option]
   engine_version : string prop option; [@option]
   final_snapshot_identifier : string prop option; [@option]
   iam_database_authentication_enabled : bool prop option; [@option]
@@ -382,6 +384,7 @@ let yojson_of_aws_db_instance =
        customer_owned_ip_enabled = v_customer_owned_ip_enabled;
        db_name = v_db_name;
        db_subnet_group_name = v_db_subnet_group_name;
+       dedicated_log_volume = v_dedicated_log_volume;
        delete_automated_backups = v_delete_automated_backups;
        deletion_protection = v_deletion_protection;
        domain = v_domain;
@@ -393,6 +396,7 @@ let yojson_of_aws_db_instance =
        enabled_cloudwatch_logs_exports =
          v_enabled_cloudwatch_logs_exports;
        engine = v_engine;
+       engine_lifecycle_support = v_engine_lifecycle_support;
        engine_version = v_engine_version;
        final_snapshot_identifier = v_final_snapshot_identifier;
        iam_database_authentication_enabled =
@@ -808,6 +812,14 @@ let yojson_of_aws_db_instance =
              bnd :: bnds
        in
        let bnds =
+         match v_engine_lifecycle_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_lifecycle_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_engine with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -889,6 +901,14 @@ let yojson_of_aws_db_instance =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "delete_automated_backups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dedicated_log_volume with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "dedicated_log_volume", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1050,10 +1070,11 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
     ?backup_retention_period ?backup_target ?backup_window
     ?ca_cert_identifier ?character_set_name ?copy_tags_to_snapshot
     ?custom_iam_instance_profile ?customer_owned_ip_enabled ?db_name
-    ?db_subnet_group_name ?delete_automated_backups
-    ?deletion_protection ?domain ?domain_auth_secret_arn
-    ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name ?domain_ou
-    ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+    ?db_subnet_group_name ?dedicated_log_volume
+    ?delete_automated_backups ?deletion_protection ?domain
+    ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
+    ?domain_iam_role_name ?domain_ou ?enabled_cloudwatch_logs_exports
+    ?engine ?engine_lifecycle_support ?engine_version
     ?final_snapshot_identifier ?iam_database_authentication_enabled
     ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
     ?license_model ?maintenance_window ?manage_master_user_password
@@ -1085,6 +1106,7 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
     customer_owned_ip_enabled;
     db_name;
     db_subnet_group_name;
+    dedicated_log_volume;
     delete_automated_backups;
     deletion_protection;
     domain;
@@ -1095,6 +1117,7 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
     domain_ou;
     enabled_cloudwatch_logs_exports;
     engine;
+    engine_lifecycle_support;
     engine_version;
     final_snapshot_identifier;
     iam_database_authentication_enabled;
@@ -1159,6 +1182,7 @@ type t = {
   customer_owned_ip_enabled : bool prop;
   db_name : string prop;
   db_subnet_group_name : string prop;
+  dedicated_log_volume : bool prop;
   delete_automated_backups : bool prop;
   deletion_protection : bool prop;
   domain : string prop;
@@ -1170,6 +1194,7 @@ type t = {
   enabled_cloudwatch_logs_exports : string list prop;
   endpoint : string prop;
   engine : string prop;
+  engine_lifecycle_support : string prop;
   engine_version : string prop;
   engine_version_actual : string prop;
   final_snapshot_identifier : string prop;
@@ -1224,10 +1249,11 @@ let make ?allocated_storage ?allow_major_version_upgrade
     ?backup_retention_period ?backup_target ?backup_window
     ?ca_cert_identifier ?character_set_name ?copy_tags_to_snapshot
     ?custom_iam_instance_profile ?customer_owned_ip_enabled ?db_name
-    ?db_subnet_group_name ?delete_automated_backups
-    ?deletion_protection ?domain ?domain_auth_secret_arn
-    ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name ?domain_ou
-    ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+    ?db_subnet_group_name ?dedicated_log_volume
+    ?delete_automated_backups ?deletion_protection ?domain
+    ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
+    ?domain_iam_role_name ?domain_ou ?enabled_cloudwatch_logs_exports
+    ?engine ?engine_lifecycle_support ?engine_version
     ?final_snapshot_identifier ?iam_database_authentication_enabled
     ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
     ?license_model ?maintenance_window ?manage_master_user_password
@@ -1276,6 +1302,8 @@ let make ?allocated_storage ?allow_major_version_upgrade
        db_name = Prop.computed __type __id "db_name";
        db_subnet_group_name =
          Prop.computed __type __id "db_subnet_group_name";
+       dedicated_log_volume =
+         Prop.computed __type __id "dedicated_log_volume";
        delete_automated_backups =
          Prop.computed __type __id "delete_automated_backups";
        deletion_protection =
@@ -1292,6 +1320,8 @@ let make ?allocated_storage ?allow_major_version_upgrade
          Prop.computed __type __id "enabled_cloudwatch_logs_exports";
        endpoint = Prop.computed __type __id "endpoint";
        engine = Prop.computed __type __id "engine";
+       engine_lifecycle_support =
+         Prop.computed __type __id "engine_lifecycle_support";
        engine_version = Prop.computed __type __id "engine_version";
        engine_version_actual =
          Prop.computed __type __id "engine_version_actual";
@@ -1382,10 +1412,11 @@ let make ?allocated_storage ?allow_major_version_upgrade
            ?ca_cert_identifier ?character_set_name
            ?copy_tags_to_snapshot ?custom_iam_instance_profile
            ?customer_owned_ip_enabled ?db_name ?db_subnet_group_name
-           ?delete_automated_backups ?deletion_protection ?domain
-           ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
-           ?domain_iam_role_name ?domain_ou
-           ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+           ?dedicated_log_volume ?delete_automated_backups
+           ?deletion_protection ?domain ?domain_auth_secret_arn
+           ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name
+           ?domain_ou ?enabled_cloudwatch_logs_exports ?engine
+           ?engine_lifecycle_support ?engine_version
            ?final_snapshot_identifier
            ?iam_database_authentication_enabled ?id ?identifier
            ?identifier_prefix ?iops ?kms_key_id ?license_model
@@ -1412,10 +1443,11 @@ let register ?tf_module ?allocated_storage
     ?backup_retention_period ?backup_target ?backup_window
     ?ca_cert_identifier ?character_set_name ?copy_tags_to_snapshot
     ?custom_iam_instance_profile ?customer_owned_ip_enabled ?db_name
-    ?db_subnet_group_name ?delete_automated_backups
-    ?deletion_protection ?domain ?domain_auth_secret_arn
-    ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name ?domain_ou
-    ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+    ?db_subnet_group_name ?dedicated_log_volume
+    ?delete_automated_backups ?deletion_protection ?domain
+    ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
+    ?domain_iam_role_name ?domain_ou ?enabled_cloudwatch_logs_exports
+    ?engine ?engine_lifecycle_support ?engine_version
     ?final_snapshot_identifier ?iam_database_authentication_enabled
     ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
     ?license_model ?maintenance_window ?manage_master_user_password
@@ -1438,10 +1470,11 @@ let register ?tf_module ?allocated_storage
       ?backup_window ?ca_cert_identifier ?character_set_name
       ?copy_tags_to_snapshot ?custom_iam_instance_profile
       ?customer_owned_ip_enabled ?db_name ?db_subnet_group_name
-      ?delete_automated_backups ?deletion_protection ?domain
-      ?domain_auth_secret_arn ?domain_dns_ips ?domain_fqdn
-      ?domain_iam_role_name ?domain_ou
-      ?enabled_cloudwatch_logs_exports ?engine ?engine_version
+      ?dedicated_log_volume ?delete_automated_backups
+      ?deletion_protection ?domain ?domain_auth_secret_arn
+      ?domain_dns_ips ?domain_fqdn ?domain_iam_role_name ?domain_ou
+      ?enabled_cloudwatch_logs_exports ?engine
+      ?engine_lifecycle_support ?engine_version
       ?final_snapshot_identifier ?iam_database_authentication_enabled
       ?id ?identifier ?identifier_prefix ?iops ?kms_key_id
       ?license_model ?maintenance_window ?manage_master_user_password

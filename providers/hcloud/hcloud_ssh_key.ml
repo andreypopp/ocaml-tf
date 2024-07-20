@@ -3,7 +3,6 @@
 open! Tf_core
 
 type hcloud_ssh_key = {
-  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   name : string prop;
   public_key : string prop;
@@ -14,12 +13,8 @@ let _ = fun (_ : hcloud_ssh_key) -> ()
 
 let yojson_of_hcloud_ssh_key =
   (function
-   | {
-       id = v_id;
-       labels = v_labels;
-       name = v_name;
-       public_key = v_public_key;
-     } ->
+   | { labels = v_labels; name = v_name; public_key = v_public_key }
+     ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -47,14 +42,6 @@ let yojson_of_hcloud_ssh_key =
              let bnd = "labels", arg in
              bnd :: bnds
        in
-       let bnds =
-         match v_id with
-         | Ppx_yojson_conv_lib.Option.None -> bnds
-         | Ppx_yojson_conv_lib.Option.Some v ->
-             let arg = yojson_of_prop yojson_of_string v in
-             let bnd = "id", arg in
-             bnd :: bnds
-       in
        `Assoc bnds
     : hcloud_ssh_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -62,9 +49,8 @@ let _ = yojson_of_hcloud_ssh_key
 
 [@@@deriving.end]
 
-let hcloud_ssh_key ?id ?labels ~name ~public_key () : hcloud_ssh_key
-    =
-  { id; labels; name; public_key }
+let hcloud_ssh_key ?labels ~name ~public_key () : hcloud_ssh_key =
+  { labels; name; public_key }
 
 type t = {
   tf_name : string;
@@ -75,7 +61,7 @@ type t = {
   public_key : string prop;
 }
 
-let make ?id ?labels ~name ~public_key __id =
+let make ?labels ~name ~public_key __id =
   let __type = "hcloud_ssh_key" in
   let __attrs =
     ({
@@ -93,13 +79,13 @@ let make ?id ?labels ~name ~public_key __id =
     type_ = __type;
     json =
       yojson_of_hcloud_ssh_key
-        (hcloud_ssh_key ?id ?labels ~name ~public_key ());
+        (hcloud_ssh_key ?labels ~name ~public_key ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ~name ~public_key __id =
+let register ?tf_module ?labels ~name ~public_key __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ~name ~public_key __id
+    make ?labels ~name ~public_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

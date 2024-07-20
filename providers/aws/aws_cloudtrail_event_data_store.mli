@@ -37,6 +37,7 @@ val timeouts :
 type aws_cloudtrail_event_data_store
 
 val aws_cloudtrail_event_data_store :
+  ?billing_mode:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?multi_region_enabled:bool prop ->
@@ -59,6 +60,7 @@ val yojson_of_aws_cloudtrail_event_data_store :
 type t = private {
   tf_name : string;
   arn : string prop;
+  billing_mode : string prop;
   id : string prop;
   kms_key_id : string prop;
   multi_region_enabled : bool prop;
@@ -72,6 +74,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?billing_mode:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?multi_region_enabled:bool prop ->
@@ -87,6 +90,7 @@ val register :
   t
 
 val make :
+  ?billing_mode:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?multi_region_enabled:bool prop ->

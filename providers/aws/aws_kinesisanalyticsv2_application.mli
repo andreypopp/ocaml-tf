@@ -444,6 +444,7 @@ val timeouts :
 type aws_kinesisanalyticsv2_application
 
 val aws_kinesisanalyticsv2_application :
+  ?application_mode:string prop ->
   ?description:string prop ->
   ?force_stop:bool prop ->
   ?id:string prop ->
@@ -466,6 +467,7 @@ val yojson_of_aws_kinesisanalyticsv2_application :
 
 type t = private {
   tf_name : string;
+  application_mode : string prop;
   arn : string prop;
   create_timestamp : string prop;
   description : string prop;
@@ -484,6 +486,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?application_mode:string prop ->
   ?description:string prop ->
   ?force_stop:bool prop ->
   ?id:string prop ->
@@ -500,6 +503,7 @@ val register :
   t
 
 val make :
+  ?application_mode:string prop ->
   ?description:string prop ->
   ?force_stop:bool prop ->
   ?id:string prop ->

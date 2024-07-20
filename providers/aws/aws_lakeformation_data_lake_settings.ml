@@ -85,6 +85,7 @@ let _ = yojson_of_create_table_default_permissions
 type aws_lakeformation_data_lake_settings = {
   admins : string prop list option; [@option]
   allow_external_data_filtering : bool prop option; [@option]
+  allow_full_table_external_data_access : bool prop option; [@option]
   authorized_session_tag_value_list : string prop list option;
       [@option]
   catalog_id : string prop option; [@option]
@@ -110,6 +111,8 @@ let yojson_of_aws_lakeformation_data_lake_settings =
        admins = v_admins;
        allow_external_data_filtering =
          v_allow_external_data_filtering;
+       allow_full_table_external_data_access =
+         v_allow_full_table_external_data_access;
        authorized_session_tag_value_list =
          v_authorized_session_tag_value_list;
        catalog_id = v_catalog_id;
@@ -207,6 +210,16 @@ let yojson_of_aws_lakeformation_data_lake_settings =
              bnd :: bnds
        in
        let bnds =
+         match v_allow_full_table_external_data_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "allow_full_table_external_data_access", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
          match v_allow_external_data_filtering with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -241,15 +254,18 @@ let create_table_default_permissions ?permissions ?principal () :
   { permissions; principal }
 
 let aws_lakeformation_data_lake_settings ?admins
-    ?allow_external_data_filtering ?authorized_session_tag_value_list
-    ?catalog_id ?external_data_filtering_allow_list ?id
-    ?read_only_admins ?trusted_resource_owners
+    ?allow_external_data_filtering
+    ?allow_full_table_external_data_access
+    ?authorized_session_tag_value_list ?catalog_id
+    ?external_data_filtering_allow_list ?id ?read_only_admins
+    ?trusted_resource_owners
     ?(create_database_default_permissions = [])
     ?(create_table_default_permissions = []) () :
     aws_lakeformation_data_lake_settings =
   {
     admins;
     allow_external_data_filtering;
+    allow_full_table_external_data_access;
     authorized_session_tag_value_list;
     catalog_id;
     external_data_filtering_allow_list;
@@ -264,6 +280,7 @@ type t = {
   tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
+  allow_full_table_external_data_access : bool prop;
   authorized_session_tag_value_list : string list prop;
   catalog_id : string prop;
   external_data_filtering_allow_list : string list prop;
@@ -273,6 +290,7 @@ type t = {
 }
 
 let make ?admins ?allow_external_data_filtering
+    ?allow_full_table_external_data_access
     ?authorized_session_tag_value_list ?catalog_id
     ?external_data_filtering_allow_list ?id ?read_only_admins
     ?trusted_resource_owners
@@ -285,6 +303,9 @@ let make ?admins ?allow_external_data_filtering
        admins = Prop.computed __type __id "admins";
        allow_external_data_filtering =
          Prop.computed __type __id "allow_external_data_filtering";
+       allow_full_table_external_data_access =
+         Prop.computed __type __id
+           "allow_full_table_external_data_access";
        authorized_session_tag_value_list =
          Prop.computed __type __id
            "authorized_session_tag_value_list";
@@ -307,6 +328,7 @@ let make ?admins ?allow_external_data_filtering
       yojson_of_aws_lakeformation_data_lake_settings
         (aws_lakeformation_data_lake_settings ?admins
            ?allow_external_data_filtering
+           ?allow_full_table_external_data_access
            ?authorized_session_tag_value_list ?catalog_id
            ?external_data_filtering_allow_list ?id ?read_only_admins
            ?trusted_resource_owners
@@ -316,6 +338,7 @@ let make ?admins ?allow_external_data_filtering
   }
 
 let register ?tf_module ?admins ?allow_external_data_filtering
+    ?allow_full_table_external_data_access
     ?authorized_session_tag_value_list ?catalog_id
     ?external_data_filtering_allow_list ?id ?read_only_admins
     ?trusted_resource_owners
@@ -323,6 +346,7 @@ let register ?tf_module ?admins ?allow_external_data_filtering
     ?(create_table_default_permissions = []) __id =
   let (r : _ Tf_core.resource) =
     make ?admins ?allow_external_data_filtering
+      ?allow_full_table_external_data_access
       ?authorized_session_tag_value_list ?catalog_id
       ?external_data_filtering_allow_list ?id ?read_only_admins
       ?trusted_resource_owners ~create_database_default_permissions

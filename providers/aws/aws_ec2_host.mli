@@ -4,6 +4,15 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type timeouts
+
+val timeouts :
+  ?create:string prop ->
+  ?delete:string prop ->
+  ?update:string prop ->
+  unit ->
+  timeouts
+
 type aws_ec2_host
 
 val aws_ec2_host :
@@ -16,6 +25,7 @@ val aws_ec2_host :
   ?outpost_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   unit ->
   aws_ec2_host
@@ -51,6 +61,7 @@ val register :
   ?outpost_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->
   t
@@ -65,6 +76,7 @@ val make :
   ?outpost_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->
   t Tf_core.resource

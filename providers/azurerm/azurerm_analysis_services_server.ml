@@ -107,6 +107,7 @@ type azurerm_analysis_services_server = {
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
+  power_bi_service_enabled : bool prop option; [@option]
   querypool_connection_mode : string prop option; [@option]
   resource_group_name : string prop;
   sku : string prop;
@@ -128,6 +129,7 @@ let yojson_of_azurerm_analysis_services_server =
        id = v_id;
        location = v_location;
        name = v_name;
+       power_bi_service_enabled = v_power_bi_service_enabled;
        querypool_connection_mode = v_querypool_connection_mode;
        resource_group_name = v_resource_group_name;
        sku = v_sku;
@@ -184,6 +186,14 @@ let yojson_of_azurerm_analysis_services_server =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "querypool_connection_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_power_bi_service_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "power_bi_service_enabled", arg in
              bnd :: bnds
        in
        let bnds =
@@ -245,9 +255,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_analysis_services_server ?admin_users
     ?backup_blob_container_uri ?enable_power_bi_service ?id
-    ?querypool_connection_mode ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~ipv4_firewall_rule () :
-    azurerm_analysis_services_server =
+    ?power_bi_service_enabled ?querypool_connection_mode ?tags
+    ?timeouts ~location ~name ~resource_group_name ~sku
+    ~ipv4_firewall_rule () : azurerm_analysis_services_server =
   {
     admin_users;
     backup_blob_container_uri;
@@ -255,6 +265,7 @@ let azurerm_analysis_services_server ?admin_users
     id;
     location;
     name;
+    power_bi_service_enabled;
     querypool_connection_mode;
     resource_group_name;
     sku;
@@ -271,6 +282,7 @@ type t = {
   id : string prop;
   location : string prop;
   name : string prop;
+  power_bi_service_enabled : bool prop;
   querypool_connection_mode : string prop;
   resource_group_name : string prop;
   server_full_name : string prop;
@@ -279,9 +291,9 @@ type t = {
 }
 
 let make ?admin_users ?backup_blob_container_uri
-    ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~ipv4_firewall_rule __id =
+    ?enable_power_bi_service ?id ?power_bi_service_enabled
+    ?querypool_connection_mode ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~ipv4_firewall_rule __id =
   let __type = "azurerm_analysis_services_server" in
   let __attrs =
     ({
@@ -294,6 +306,8 @@ let make ?admin_users ?backup_blob_container_uri
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
+       power_bi_service_enabled =
+         Prop.computed __type __id "power_bi_service_enabled";
        querypool_connection_mode =
          Prop.computed __type __id "querypool_connection_mode";
        resource_group_name =
@@ -312,20 +326,21 @@ let make ?admin_users ?backup_blob_container_uri
       yojson_of_azurerm_analysis_services_server
         (azurerm_analysis_services_server ?admin_users
            ?backup_blob_container_uri ?enable_power_bi_service ?id
-           ?querypool_connection_mode ?tags ?timeouts ~location ~name
-           ~resource_group_name ~sku ~ipv4_firewall_rule ());
+           ?power_bi_service_enabled ?querypool_connection_mode ?tags
+           ?timeouts ~location ~name ~resource_group_name ~sku
+           ~ipv4_firewall_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?admin_users ?backup_blob_container_uri
-    ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~ipv4_firewall_rule __id =
+    ?enable_power_bi_service ?id ?power_bi_service_enabled
+    ?querypool_connection_mode ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~ipv4_firewall_rule __id =
   let (r : _ Tf_core.resource) =
     make ?admin_users ?backup_blob_container_uri
-      ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
-      ?timeouts ~location ~name ~resource_group_name ~sku
-      ~ipv4_firewall_rule __id
+      ?enable_power_bi_service ?id ?power_bi_service_enabled
+      ?querypool_connection_mode ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sku ~ipv4_firewall_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

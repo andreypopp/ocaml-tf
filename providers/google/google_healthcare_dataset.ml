@@ -2,6 +2,34 @@
 
 open! Tf_core
 
+type encryption_spec = {
+  kms_key_name : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_spec) -> ()
+
+let yojson_of_encryption_spec =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : encryption_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_spec
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -54,6 +82,8 @@ type google_healthcare_dataset = {
   name : string prop;
   project : string prop option; [@option]
   time_zone : string prop option; [@option]
+  encryption_spec : encryption_spec list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -68,6 +98,7 @@ let yojson_of_google_healthcare_dataset =
        name = v_name;
        project = v_project;
        time_zone = v_time_zone;
+       encryption_spec = v_encryption_spec;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -76,6 +107,16 @@ let yojson_of_google_healthcare_dataset =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_encryption_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_spec)
+               v_encryption_spec
+           in
+           let bnd = "encryption_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with
@@ -116,12 +157,24 @@ let _ = yojson_of_google_healthcare_dataset
 
 [@@@deriving.end]
 
+let encryption_spec ?kms_key_name () : encryption_spec =
+  { kms_key_name }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_healthcare_dataset ?id ?project ?time_zone ?timeouts
-    ~location ~name () : google_healthcare_dataset =
-  { id; location; name; project; time_zone; timeouts }
+let google_healthcare_dataset ?id ?project ?time_zone
+    ?(encryption_spec = []) ?timeouts ~location ~name () :
+    google_healthcare_dataset =
+  {
+    id;
+    location;
+    name;
+    project;
+    time_zone;
+    encryption_spec;
+    timeouts;
+  }
 
 type t = {
   tf_name : string;
@@ -133,7 +186,8 @@ type t = {
   time_zone : string prop;
 }
 
-let make ?id ?project ?time_zone ?timeouts ~location ~name __id =
+let make ?id ?project ?time_zone ?(encryption_spec = []) ?timeouts
+    ~location ~name __id =
   let __type = "google_healthcare_dataset" in
   let __attrs =
     ({
@@ -152,15 +206,16 @@ let make ?id ?project ?time_zone ?timeouts ~location ~name __id =
     type_ = __type;
     json =
       yojson_of_google_healthcare_dataset
-        (google_healthcare_dataset ?id ?project ?time_zone ?timeouts
-           ~location ~name ());
+        (google_healthcare_dataset ?id ?project ?time_zone
+           ~encryption_spec ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?time_zone ?timeouts ~location
-    ~name __id =
+let register ?tf_module ?id ?project ?time_zone
+    ?(encryption_spec = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?time_zone ?timeouts ~location ~name __id
+    make ?id ?project ?time_zone ~encryption_spec ?timeouts ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -18,6 +18,26 @@ type bigtable
 val bigtable :
   auto_scaling:bigtable__auto_scaling list -> unit -> bigtable
 
+type dedicated_serving_endpoint__private_service_connect_config
+
+val dedicated_serving_endpoint__private_service_connect_config :
+  ?project_allowlist:string prop list ->
+  enable_private_service_connect:bool prop ->
+  unit ->
+  dedicated_serving_endpoint__private_service_connect_config
+
+type dedicated_serving_endpoint
+
+val dedicated_serving_endpoint :
+  ?private_service_connect_config:
+    dedicated_serving_endpoint__private_service_connect_config list ->
+  unit ->
+  dedicated_serving_endpoint
+
+type optimized
+
+val optimized : unit -> optimized
+
 type timeouts
 
 val timeouts :
@@ -36,6 +56,8 @@ val google_vertex_ai_feature_online_store :
   ?project:string prop ->
   ?region:string prop ->
   ?bigtable:bigtable list ->
+  ?dedicated_serving_endpoint:dedicated_serving_endpoint list ->
+  ?optimized:optimized list ->
   ?timeouts:timeouts ->
   name:string prop ->
   unit ->
@@ -70,6 +92,8 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?bigtable:bigtable list ->
+  ?dedicated_serving_endpoint:dedicated_serving_endpoint list ->
+  ?optimized:optimized list ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->
@@ -82,6 +106,8 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?bigtable:bigtable list ->
+  ?dedicated_serving_endpoint:dedicated_serving_endpoint list ->
+  ?optimized:optimized list ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->

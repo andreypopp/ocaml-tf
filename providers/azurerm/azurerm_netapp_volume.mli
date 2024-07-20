@@ -24,6 +24,12 @@ val data_protection_snapshot_policy :
 type export_policy_rule
 
 val export_policy_rule :
+  ?kerberos_5_read_only_enabled:bool prop ->
+  ?kerberos_5_read_write_enabled:bool prop ->
+  ?kerberos_5i_read_only_enabled:bool prop ->
+  ?kerberos_5i_read_write_enabled:bool prop ->
+  ?kerberos_5p_read_only_enabled:bool prop ->
+  ?kerberos_5p_read_write_enabled:bool prop ->
   ?protocols_enabled:string prop list ->
   ?root_access_enabled:bool prop ->
   ?unix_read_only:bool prop ->
@@ -50,11 +56,13 @@ val azurerm_netapp_volume :
   ?create_from_snapshot_resource_id:string prop ->
   ?encryption_key_source:string prop ->
   ?id:string prop ->
+  ?kerberos_enabled:bool prop ->
   ?key_vault_private_endpoint_id:string prop ->
   ?network_features:string prop ->
   ?protocols:string prop list ->
   ?security_style:string prop ->
   ?smb_access_based_enumeration_enabled:bool prop ->
+  ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
   ?tags:(string * string prop) list ->
@@ -88,6 +96,7 @@ type t = private {
   create_from_snapshot_resource_id : string prop;
   encryption_key_source : string prop;
   id : string prop;
+  kerberos_enabled : bool prop;
   key_vault_private_endpoint_id : string prop;
   location : string prop;
   mount_ip_addresses : string list prop;
@@ -99,6 +108,7 @@ type t = private {
   security_style : string prop;
   service_level : string prop;
   smb_access_based_enumeration_enabled : bool prop;
+  smb_continuous_availability_enabled : bool prop;
   smb_non_browsable_enabled : bool prop;
   snapshot_directory_visible : bool prop;
   storage_quota_in_gb : float prop;
@@ -115,11 +125,13 @@ val register :
   ?create_from_snapshot_resource_id:string prop ->
   ?encryption_key_source:string prop ->
   ?id:string prop ->
+  ?kerberos_enabled:bool prop ->
   ?key_vault_private_endpoint_id:string prop ->
   ?network_features:string prop ->
   ?protocols:string prop list ->
   ?security_style:string prop ->
   ?smb_access_based_enumeration_enabled:bool prop ->
+  ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
   ?tags:(string * string prop) list ->
@@ -147,11 +159,13 @@ val make :
   ?create_from_snapshot_resource_id:string prop ->
   ?encryption_key_source:string prop ->
   ?id:string prop ->
+  ?kerberos_enabled:bool prop ->
   ?key_vault_private_endpoint_id:string prop ->
   ?network_features:string prop ->
   ?protocols:string prop list ->
   ?security_style:string prop ->
   ?smb_access_based_enumeration_enabled:bool prop ->
+  ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
   ?tags:(string * string prop) list ->

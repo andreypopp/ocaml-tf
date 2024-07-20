@@ -269,8 +269,10 @@ val rules__action_parameters :
   ?cookie_fields:string prop list ->
   ?disable_apps:bool prop ->
   ?disable_railgun:bool prop ->
+  ?disable_rum:bool prop ->
   ?disable_zaraz:bool prop ->
   ?email_obfuscation:bool prop ->
+  ?fonts:bool prop ->
   ?host_header:string prop ->
   ?hotlink_protection:bool prop ->
   ?id:string prop ->

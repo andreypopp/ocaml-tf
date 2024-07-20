@@ -28,7 +28,7 @@ val github_enterprise_actions_permissions :
   ?allowed_actions_config:allowed_actions_config list ->
   ?enabled_organizations_config:enabled_organizations_config list ->
   enabled_organizations:string prop ->
-  enterprise_id:string prop ->
+  enterprise_slug:string prop ->
   unit ->
   github_enterprise_actions_permissions
 
@@ -41,7 +41,7 @@ type t = private {
   tf_name : string;
   allowed_actions : string prop;
   enabled_organizations : string prop;
-  enterprise_id : string prop;
+  enterprise_slug : string prop;
   id : string prop;
 }
 
@@ -52,7 +52,7 @@ val register :
   ?allowed_actions_config:allowed_actions_config list ->
   ?enabled_organizations_config:enabled_organizations_config list ->
   enabled_organizations:string prop ->
-  enterprise_id:string prop ->
+  enterprise_slug:string prop ->
   string ->
   t
 
@@ -62,6 +62,6 @@ val make :
   ?allowed_actions_config:allowed_actions_config list ->
   ?enabled_organizations_config:enabled_organizations_config list ->
   enabled_organizations:string prop ->
-  enterprise_id:string prop ->
+  enterprise_slug:string prop ->
   string ->
   t Tf_core.resource

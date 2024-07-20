@@ -7,7 +7,10 @@ open! Tf_core
 type additional_capabilities
 
 val additional_capabilities :
-  ?ultra_ssd_enabled:bool prop -> unit -> additional_capabilities
+  ?hibernation_enabled:bool prop ->
+  ?ultra_ssd_enabled:bool prop ->
+  unit ->
+  additional_capabilities
 
 type additional_unattend_content
 

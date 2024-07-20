@@ -103,6 +103,7 @@ type google_bigtable_gc_policy = {
   deletion_policy : string prop option; [@option]
   gc_rules : string prop option; [@option]
   id : string prop option; [@option]
+  ignore_warnings : bool prop option; [@option]
   instance_name : string prop;
   mode : string prop option; [@option]
   project : string prop option; [@option]
@@ -124,6 +125,7 @@ let yojson_of_google_bigtable_gc_policy =
        deletion_policy = v_deletion_policy;
        gc_rules = v_gc_rules;
        id = v_id;
+       ignore_warnings = v_ignore_warnings;
        instance_name = v_instance_name;
        mode = v_mode;
        project = v_project;
@@ -180,6 +182,14 @@ let yojson_of_google_bigtable_gc_policy =
          ("instance_name", arg) :: bnds
        in
        let bnds =
+         match v_ignore_warnings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_warnings", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -218,15 +228,16 @@ let max_age ?days ?duration () : max_age = { days; duration }
 let max_version ~number () : max_version = { number }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
-    ?project ?(max_age = []) ?(max_version = []) ?timeouts
-    ~column_family ~instance_name ~table () :
-    google_bigtable_gc_policy =
+let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id
+    ?ignore_warnings ?mode ?project ?(max_age = [])
+    ?(max_version = []) ?timeouts ~column_family ~instance_name
+    ~table () : google_bigtable_gc_policy =
   {
     column_family;
     deletion_policy;
     gc_rules;
     id;
+    ignore_warnings;
     instance_name;
     mode;
     project;
@@ -242,15 +253,16 @@ type t = {
   deletion_policy : string prop;
   gc_rules : string prop;
   id : string prop;
+  ignore_warnings : bool prop;
   instance_name : string prop;
   mode : string prop;
   project : string prop;
   table : string prop;
 }
 
-let make ?deletion_policy ?gc_rules ?id ?mode ?project
-    ?(max_age = []) ?(max_version = []) ?timeouts ~column_family
-    ~instance_name ~table __id =
+let make ?deletion_policy ?gc_rules ?id ?ignore_warnings ?mode
+    ?project ?(max_age = []) ?(max_version = []) ?timeouts
+    ~column_family ~instance_name ~table __id =
   let __type = "google_bigtable_gc_policy" in
   let __attrs =
     ({
@@ -259,6 +271,7 @@ let make ?deletion_policy ?gc_rules ?id ?mode ?project
        deletion_policy = Prop.computed __type __id "deletion_policy";
        gc_rules = Prop.computed __type __id "gc_rules";
        id = Prop.computed __type __id "id";
+       ignore_warnings = Prop.computed __type __id "ignore_warnings";
        instance_name = Prop.computed __type __id "instance_name";
        mode = Prop.computed __type __id "mode";
        project = Prop.computed __type __id "project";
@@ -272,18 +285,19 @@ let make ?deletion_policy ?gc_rules ?id ?mode ?project
     json =
       yojson_of_google_bigtable_gc_policy
         (google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id
-           ?mode ?project ~max_age ~max_version ?timeouts
-           ~column_family ~instance_name ~table ());
+           ?ignore_warnings ?mode ?project ~max_age ~max_version
+           ?timeouts ~column_family ~instance_name ~table ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?deletion_policy ?gc_rules ?id ?mode ?project
-    ?(max_age = []) ?(max_version = []) ?timeouts ~column_family
-    ~instance_name ~table __id =
+let register ?tf_module ?deletion_policy ?gc_rules ?id
+    ?ignore_warnings ?mode ?project ?(max_age = [])
+    ?(max_version = []) ?timeouts ~column_family ~instance_name
+    ~table __id =
   let (r : _ Tf_core.resource) =
-    make ?deletion_policy ?gc_rules ?id ?mode ?project ~max_age
-      ~max_version ?timeouts ~column_family ~instance_name ~table
-      __id
+    make ?deletion_policy ?gc_rules ?id ?ignore_warnings ?mode
+      ?project ~max_age ~max_version ?timeouts ~column_family
+      ~instance_name ~table __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

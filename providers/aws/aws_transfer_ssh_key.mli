@@ -23,6 +23,7 @@ type t = private {
   body : string prop;
   id : string prop;
   server_id : string prop;
+  ssh_key_id : string prop;
   user_name : string prop;
 }
 

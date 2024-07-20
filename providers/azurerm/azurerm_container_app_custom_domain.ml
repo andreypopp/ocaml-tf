@@ -49,8 +49,9 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_container_app_custom_domain = {
-  certificate_binding_type : string prop;
-  container_app_environment_certificate_id : string prop;
+  certificate_binding_type : string prop option; [@option]
+  container_app_environment_certificate_id : string prop option;
+      [@option]
   container_app_id : string prop;
   id : string prop option; [@option]
   name : string prop;
@@ -97,17 +98,22 @@ let yojson_of_azurerm_container_app_custom_domain =
          ("container_app_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string
-             v_container_app_environment_certificate_id
-         in
-         ("container_app_environment_certificate_id", arg) :: bnds
+         match v_container_app_environment_certificate_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "container_app_environment_certificate_id", arg
+             in
+             bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_certificate_binding_type
-         in
-         ("certificate_binding_type", arg) :: bnds
+         match v_certificate_binding_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_binding_type", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : azurerm_container_app_custom_domain ->
@@ -120,10 +126,10 @@ let _ = yojson_of_azurerm_container_app_custom_domain
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
-let azurerm_container_app_custom_domain ?id ?timeouts
-    ~certificate_binding_type
-    ~container_app_environment_certificate_id ~container_app_id ~name
-    () : azurerm_container_app_custom_domain =
+let azurerm_container_app_custom_domain ?certificate_binding_type
+    ?container_app_environment_certificate_id ?id ?timeouts
+    ~container_app_id ~name () : azurerm_container_app_custom_domain
+    =
   {
     certificate_binding_type;
     container_app_environment_certificate_id;
@@ -142,9 +148,9 @@ type t = {
   name : string prop;
 }
 
-let make ?id ?timeouts ~certificate_binding_type
-    ~container_app_environment_certificate_id ~container_app_id ~name
-    __id =
+let make ?certificate_binding_type
+    ?container_app_environment_certificate_id ?id ?timeouts
+    ~container_app_id ~name __id =
   let __type = "azurerm_container_app_custom_domain" in
   let __attrs =
     ({
@@ -166,20 +172,20 @@ let make ?id ?timeouts ~certificate_binding_type
     type_ = __type;
     json =
       yojson_of_azurerm_container_app_custom_domain
-        (azurerm_container_app_custom_domain ?id ?timeouts
-           ~certificate_binding_type
-           ~container_app_environment_certificate_id
+        (azurerm_container_app_custom_domain
+           ?certificate_binding_type
+           ?container_app_environment_certificate_id ?id ?timeouts
            ~container_app_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~certificate_binding_type
-    ~container_app_environment_certificate_id ~container_app_id ~name
-    __id =
+let register ?tf_module ?certificate_binding_type
+    ?container_app_environment_certificate_id ?id ?timeouts
+    ~container_app_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~certificate_binding_type
-      ~container_app_environment_certificate_id ~container_app_id
-      ~name __id
+    make ?certificate_binding_type
+      ?container_app_environment_certificate_id ?id ?timeouts
+      ~container_app_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

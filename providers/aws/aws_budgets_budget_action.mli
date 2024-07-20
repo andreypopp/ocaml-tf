@@ -70,6 +70,8 @@ type aws_budgets_budget_action
 val aws_budgets_budget_action :
   ?account_id:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
   action_type:string prop ->
   approval_model:string prop ->
@@ -99,12 +101,16 @@ type t = private {
   id : string prop;
   notification_type : string prop;
   status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
   action_type:string prop ->
   approval_model:string prop ->
@@ -120,6 +126,8 @@ val register :
 val make :
   ?account_id:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
   action_type:string prop ->
   approval_model:string prop ->

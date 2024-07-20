@@ -3,6 +3,7 @@
 open! Tf_core
 
 type additional_capabilities = {
+  hibernation_enabled : bool prop option; [@option]
   ultra_ssd_enabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -11,7 +12,10 @@ let _ = fun (_ : additional_capabilities) -> ()
 
 let yojson_of_additional_capabilities =
   (function
-   | { ultra_ssd_enabled = v_ultra_ssd_enabled } ->
+   | {
+       hibernation_enabled = v_hibernation_enabled;
+       ultra_ssd_enabled = v_ultra_ssd_enabled;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -21,6 +25,14 @@ let yojson_of_additional_capabilities =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_bool v in
              let bnd = "ultra_ssd_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hibernation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "hibernation_enabled", arg in
              bnd :: bnds
        in
        `Assoc bnds
@@ -1157,9 +1169,9 @@ let _ = yojson_of_azurerm_linux_virtual_machine
 
 [@@@deriving.end]
 
-let additional_capabilities ?ultra_ssd_enabled () :
-    additional_capabilities =
-  { ultra_ssd_enabled }
+let additional_capabilities ?hibernation_enabled ?ultra_ssd_enabled
+    () : additional_capabilities =
+  { hibernation_enabled; ultra_ssd_enabled }
 
 let admin_ssh_key ~public_key ~username () : admin_ssh_key =
   { public_key; username }

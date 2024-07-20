@@ -40,6 +40,7 @@ type t = private {
   job_schedule_id : string prop;
   parameters : (string * string) list prop;
   resource_group_name : string prop;
+  resource_manager_id : string prop;
   run_on : string prop;
   runbook_name : string prop;
   schedule_name : string prop;

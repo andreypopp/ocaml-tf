@@ -269,6 +269,7 @@ type google_compute_disk = {
   size : float prop option; [@option]
   snapshot : string prop option; [@option]
   source_disk : string prop option; [@option]
+  storage_pool : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   zone : string prop option; [@option]
   async_primary_disk : async_primary_disk list;
@@ -305,6 +306,7 @@ let yojson_of_google_compute_disk =
        size = v_size;
        snapshot = v_snapshot;
        source_disk = v_source_disk;
+       storage_pool = v_storage_pool;
        type_ = v_type_;
        zone = v_zone;
        async_primary_disk = v_async_primary_disk;
@@ -387,6 +389,14 @@ let yojson_of_google_compute_disk =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_pool", arg in
              bnd :: bnds
        in
        let bnds =
@@ -543,8 +553,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_disk ?description ?enable_confidential_compute ?id
     ?image ?labels ?licenses ?physical_block_size_bytes ?project
     ?provisioned_iops ?provisioned_throughput ?size ?snapshot
-    ?source_disk ?type_ ?zone ?(async_primary_disk = [])
-    ?(disk_encryption_key = []) ?(source_image_encryption_key = [])
+    ?source_disk ?storage_pool ?type_ ?zone
+    ?(async_primary_disk = []) ?(disk_encryption_key = [])
+    ?(source_image_encryption_key = [])
     ?(source_snapshot_encryption_key = []) ?timeouts ~name
     ~guest_os_features () : google_compute_disk =
   {
@@ -562,6 +573,7 @@ let google_compute_disk ?description ?enable_confidential_compute ?id
     size;
     snapshot;
     source_disk;
+    storage_pool;
     type_;
     zone;
     async_primary_disk;
@@ -598,6 +610,7 @@ type t = {
   source_disk_id : string prop;
   source_image_id : string prop;
   source_snapshot_id : string prop;
+  storage_pool : string prop;
   terraform_labels : (string * string) list prop;
   type_ : string prop;
   users : string list prop;
@@ -606,9 +619,9 @@ type t = {
 
 let make ?description ?enable_confidential_compute ?id ?image ?labels
     ?licenses ?physical_block_size_bytes ?project ?provisioned_iops
-    ?provisioned_throughput ?size ?snapshot ?source_disk ?type_ ?zone
-    ?(async_primary_disk = []) ?(disk_encryption_key = [])
-    ?(source_image_encryption_key = [])
+    ?provisioned_throughput ?size ?snapshot ?source_disk
+    ?storage_pool ?type_ ?zone ?(async_primary_disk = [])
+    ?(disk_encryption_key = []) ?(source_image_encryption_key = [])
     ?(source_snapshot_encryption_key = []) ?timeouts ~name
     ~guest_os_features __id =
   let __type = "google_compute_disk" in
@@ -649,6 +662,7 @@ let make ?description ?enable_confidential_compute ?id ?image ?labels
        source_image_id = Prop.computed __type __id "source_image_id";
        source_snapshot_id =
          Prop.computed __type __id "source_snapshot_id";
+       storage_pool = Prop.computed __type __id "storage_pool";
        terraform_labels =
          Prop.computed __type __id "terraform_labels";
        type_ = Prop.computed __type __id "type";
@@ -666,8 +680,8 @@ let make ?description ?enable_confidential_compute ?id ?image ?labels
            ?enable_confidential_compute ?id ?image ?labels ?licenses
            ?physical_block_size_bytes ?project ?provisioned_iops
            ?provisioned_throughput ?size ?snapshot ?source_disk
-           ?type_ ?zone ~async_primary_disk ~disk_encryption_key
-           ~source_image_encryption_key
+           ?storage_pool ?type_ ?zone ~async_primary_disk
+           ~disk_encryption_key ~source_image_encryption_key
            ~source_snapshot_encryption_key ?timeouts ~name
            ~guest_os_features ());
     attrs = __attrs;
@@ -676,17 +690,19 @@ let make ?description ?enable_confidential_compute ?id ?image ?labels
 let register ?tf_module ?description ?enable_confidential_compute ?id
     ?image ?labels ?licenses ?physical_block_size_bytes ?project
     ?provisioned_iops ?provisioned_throughput ?size ?snapshot
-    ?source_disk ?type_ ?zone ?(async_primary_disk = [])
-    ?(disk_encryption_key = []) ?(source_image_encryption_key = [])
+    ?source_disk ?storage_pool ?type_ ?zone
+    ?(async_primary_disk = []) ?(disk_encryption_key = [])
+    ?(source_image_encryption_key = [])
     ?(source_snapshot_encryption_key = []) ?timeouts ~name
     ~guest_os_features __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enable_confidential_compute ?id ?image ?labels
       ?licenses ?physical_block_size_bytes ?project ?provisioned_iops
-      ?provisioned_throughput ?size ?snapshot ?source_disk ?type_
-      ?zone ~async_primary_disk ~disk_encryption_key
-      ~source_image_encryption_key ~source_snapshot_encryption_key
-      ?timeouts ~name ~guest_os_features __id
+      ?provisioned_throughput ?size ?snapshot ?source_disk
+      ?storage_pool ?type_ ?zone ~async_primary_disk
+      ~disk_encryption_key ~source_image_encryption_key
+      ~source_snapshot_encryption_key ?timeouts ~name
+      ~guest_os_features __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

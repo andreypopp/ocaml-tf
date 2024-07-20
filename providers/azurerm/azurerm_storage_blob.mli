@@ -21,6 +21,7 @@ val azurerm_storage_blob :
   ?cache_control:string prop ->
   ?content_md5:string prop ->
   ?content_type:string prop ->
+  ?encryption_scope:string prop ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
   ?parallelism:float prop ->
@@ -46,6 +47,7 @@ type t = private {
   cache_control : string prop;
   content_md5 : string prop;
   content_type : string prop;
+  encryption_scope : string prop;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;
@@ -66,6 +68,7 @@ val register :
   ?cache_control:string prop ->
   ?content_md5:string prop ->
   ?content_type:string prop ->
+  ?encryption_scope:string prop ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
   ?parallelism:float prop ->
@@ -86,6 +89,7 @@ val make :
   ?cache_control:string prop ->
   ?content_md5:string prop ->
   ?content_type:string prop ->
+  ?encryption_scope:string prop ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
   ?parallelism:float prop ->

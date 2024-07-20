@@ -12,6 +12,14 @@ val log_configuration :
   unit ->
   log_configuration
 
+type metadata_configuration
+
+val metadata_configuration :
+  ?iops:float prop ->
+  ?mode:string prop ->
+  unit ->
+  metadata_configuration
+
 type root_squash_configuration
 
 val root_squash_configuration :
@@ -42,18 +50,21 @@ val aws_fsx_lustre_file_system :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
   ?kms_key_id:string prop ->
   ?per_unit_storage_throughput:float prop ->
   ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
+  ?metadata_configuration:metadata_configuration list ->
   ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
@@ -79,6 +90,7 @@ type t = private {
   drive_cache_type : string prop;
   export_path : string prop;
   file_system_type_version : string prop;
+  final_backup_tags : (string * string) list prop;
   id : string prop;
   import_path : string prop;
   imported_file_chunk_size : float prop;
@@ -88,6 +100,7 @@ type t = private {
   owner_id : string prop;
   per_unit_storage_throughput : float prop;
   security_group_ids : string list prop;
+  skip_final_backup : bool prop;
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
@@ -109,18 +122,21 @@ val register :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
   ?kms_key_id:string prop ->
   ?per_unit_storage_throughput:float prop ->
   ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
+  ?metadata_configuration:metadata_configuration list ->
   ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
@@ -138,18 +154,21 @@ val make :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
+  ?final_backup_tags:(string * string prop) list ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
   ?kms_key_id:string prop ->
   ?per_unit_storage_throughput:float prop ->
   ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
+  ?metadata_configuration:metadata_configuration list ->
   ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->

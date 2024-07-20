@@ -4,6 +4,16 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type build_config__automatic_update_policy
+
+val build_config__automatic_update_policy :
+  unit -> build_config__automatic_update_policy
+
+type build_config__on_deploy_update_policy
+
+val build_config__on_deploy_update_policy :
+  unit -> build_config__on_deploy_update_policy
+
 type build_config__source__repo_source
 
 val build_config__source__repo_source :
@@ -41,7 +51,10 @@ val build_config :
   ?entry_point:string prop ->
   ?environment_variables:(string * string prop) list ->
   ?runtime:string prop ->
+  ?service_account:string prop ->
   ?worker_pool:string prop ->
+  ?automatic_update_policy:build_config__automatic_update_policy list ->
+  ?on_deploy_update_policy:build_config__on_deploy_update_policy list ->
   ?source:build_config__source list ->
   unit ->
   build_config

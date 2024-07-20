@@ -82,6 +82,7 @@ val google_secret_manager_secret :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->
   ?topics:topics list ->
@@ -110,6 +111,7 @@ type t = private {
   terraform_labels : (string * string) list prop;
   ttl : string prop;
   version_aliases : (string * string) list prop;
+  version_destroy_ttl : string prop;
 }
 
 val register :
@@ -121,6 +123,7 @@ val register :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->
   ?topics:topics list ->
@@ -137,6 +140,7 @@ val make :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->
   ?topics:topics list ->

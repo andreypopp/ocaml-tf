@@ -67,6 +67,7 @@ type azurerm_api_management_identity_provider_aadb2c = {
   api_management_name : string prop;
   authority : string prop;
   client_id : string prop;
+  client_library : string prop option; [@option]
   client_secret : string prop;
   id : string prop option; [@option]
   password_reset_policy : string prop option; [@option]
@@ -89,6 +90,7 @@ let yojson_of_azurerm_api_management_identity_provider_aadb2c =
        api_management_name = v_api_management_name;
        authority = v_authority;
        client_id = v_client_id;
+       client_library = v_client_library;
        client_secret = v_client_secret;
        id = v_id;
        password_reset_policy = v_password_reset_policy;
@@ -153,6 +155,14 @@ let yojson_of_azurerm_api_management_identity_provider_aadb2c =
          ("client_secret", arg) :: bnds
        in
        let bnds =
+         match v_client_library with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_library", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_id in
          ("client_id", arg) :: bnds
        in
@@ -183,8 +193,8 @@ let _ = yojson_of_azurerm_api_management_identity_provider_aadb2c
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_api_management_identity_provider_aadb2c ?id
-    ?password_reset_policy ?profile_editing_policy ?timeouts
+let azurerm_api_management_identity_provider_aadb2c ?client_library
+    ?id ?password_reset_policy ?profile_editing_policy ?timeouts
     ~allowed_tenant ~api_management_name ~authority ~client_id
     ~client_secret ~resource_group_name ~signin_policy ~signin_tenant
     ~signup_policy () :
@@ -194,6 +204,7 @@ let azurerm_api_management_identity_provider_aadb2c ?id
     api_management_name;
     authority;
     client_id;
+    client_library;
     client_secret;
     id;
     password_reset_policy;
@@ -211,6 +222,7 @@ type t = {
   api_management_name : string prop;
   authority : string prop;
   client_id : string prop;
+  client_library : string prop;
   client_secret : string prop;
   id : string prop;
   password_reset_policy : string prop;
@@ -221,10 +233,11 @@ type t = {
   signup_policy : string prop;
 }
 
-let make ?id ?password_reset_policy ?profile_editing_policy ?timeouts
-    ~allowed_tenant ~api_management_name ~authority ~client_id
-    ~client_secret ~resource_group_name ~signin_policy ~signin_tenant
-    ~signup_policy __id =
+let make ?client_library ?id ?password_reset_policy
+    ?profile_editing_policy ?timeouts ~allowed_tenant
+    ~api_management_name ~authority ~client_id ~client_secret
+    ~resource_group_name ~signin_policy ~signin_tenant ~signup_policy
+    __id =
   let __type = "azurerm_api_management_identity_provider_aadb2c" in
   let __attrs =
     ({
@@ -234,6 +247,7 @@ let make ?id ?password_reset_policy ?profile_editing_policy ?timeouts
          Prop.computed __type __id "api_management_name";
        authority = Prop.computed __type __id "authority";
        client_id = Prop.computed __type __id "client_id";
+       client_library = Prop.computed __type __id "client_library";
        client_secret = Prop.computed __type __id "client_secret";
        id = Prop.computed __type __id "id";
        password_reset_policy =
@@ -253,24 +267,26 @@ let make ?id ?password_reset_policy ?profile_editing_policy ?timeouts
     type_ = __type;
     json =
       yojson_of_azurerm_api_management_identity_provider_aadb2c
-        (azurerm_api_management_identity_provider_aadb2c ?id
-           ?password_reset_policy ?profile_editing_policy ?timeouts
-           ~allowed_tenant ~api_management_name ~authority ~client_id
-           ~client_secret ~resource_group_name ~signin_policy
-           ~signin_tenant ~signup_policy ());
+        (azurerm_api_management_identity_provider_aadb2c
+           ?client_library ?id ?password_reset_policy
+           ?profile_editing_policy ?timeouts ~allowed_tenant
+           ~api_management_name ~authority ~client_id ~client_secret
+           ~resource_group_name ~signin_policy ~signin_tenant
+           ~signup_policy ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?password_reset_policy
+let register ?tf_module ?client_library ?id ?password_reset_policy
     ?profile_editing_policy ?timeouts ~allowed_tenant
     ~api_management_name ~authority ~client_id ~client_secret
     ~resource_group_name ~signin_policy ~signin_tenant ~signup_policy
     __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?password_reset_policy ?profile_editing_policy ?timeouts
-      ~allowed_tenant ~api_management_name ~authority ~client_id
-      ~client_secret ~resource_group_name ~signin_policy
-      ~signin_tenant ~signup_policy __id
+    make ?client_library ?id ?password_reset_policy
+      ?profile_editing_policy ?timeouts ~allowed_tenant
+      ~api_management_name ~authority ~client_id ~client_secret
+      ~resource_group_name ~signin_policy ~signin_tenant
+      ~signup_policy __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

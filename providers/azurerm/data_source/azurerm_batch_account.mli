@@ -20,7 +20,6 @@ val timeouts : ?read:string prop -> unit -> timeouts
 type azurerm_batch_account
 
 val azurerm_batch_account :
-  ?encryption:encryption list ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -50,7 +49,6 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?encryption:encryption list ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -59,7 +57,6 @@ val register :
   t
 
 val make :
-  ?encryption:encryption list ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->

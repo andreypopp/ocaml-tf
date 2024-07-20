@@ -60,6 +60,7 @@ type t = private {
   master_account_arn : string prop;
   master_account_email : string prop;
   master_account_id : string prop;
+  master_account_name : string prop;
   non_master_accounts : non_master_accounts list prop;
   roots : roots list prop;
 }

@@ -2,20 +2,33 @@
 
 open! Tf_core
 
-type identity = { type_ : string prop [@key "type"] }
+type identity = {
+  identity_ids : string prop list option; [@option]
+  type_ : string prop; [@key "type"]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : identity) -> ()
 
 let yojson_of_identity =
   (function
-   | { type_ = v_type_ } ->
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
          ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -181,7 +194,8 @@ let _ = yojson_of_azurerm_log_analytics_cluster
 
 [@@@deriving.end]
 
-let identity ~type_ () : identity = { type_ }
+let identity ?identity_ids ~type_ () : identity =
+  { identity_ids; type_ }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

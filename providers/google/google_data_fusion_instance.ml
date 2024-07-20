@@ -84,9 +84,55 @@ let _ = yojson_of_event_publish_config
 
 [@@@deriving.end]
 
+type network_config__private_service_connect_config = {
+  network_attachment : string prop option; [@option]
+  unreachable_cidr_block : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : network_config__private_service_connect_config) -> ()
+
+let yojson_of_network_config__private_service_connect_config =
+  (function
+   | {
+       network_attachment = v_network_attachment;
+       unreachable_cidr_block = v_unreachable_cidr_block;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_unreachable_cidr_block with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unreachable_cidr_block", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_attachment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_attachment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_config__private_service_connect_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config__private_service_connect_config
+
+[@@@deriving.end]
+
 type network_config = {
-  ip_allocation : string prop;
-  network : string prop;
+  connection_type : string prop option; [@option]
+  ip_allocation : string prop option; [@option]
+  network : string prop option; [@option]
+  private_service_connect_config :
+    network_config__private_service_connect_config list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,17 +140,51 @@ let _ = fun (_ : network_config) -> ()
 
 let yojson_of_network_config =
   (function
-   | { ip_allocation = v_ip_allocation; network = v_network } ->
+   | {
+       connection_type = v_connection_type;
+       ip_allocation = v_ip_allocation;
+       network = v_network;
+       private_service_connect_config =
+         v_private_service_connect_config;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_network in
-         ("network", arg) :: bnds
+         if Stdlib.( = ) [] v_private_service_connect_config then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_config__private_service_connect_config)
+               v_private_service_connect_config
+           in
+           let bnd = "private_service_connect_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_ip_allocation in
-         ("ip_allocation", arg) :: bnds
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_allocation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_allocation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_type", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -415,8 +495,19 @@ let crypto_key_config ~key_reference () : crypto_key_config =
 let event_publish_config ~enabled ~topic () : event_publish_config =
   { enabled; topic }
 
-let network_config ~ip_allocation ~network () : network_config =
-  { ip_allocation; network }
+let network_config__private_service_connect_config
+    ?network_attachment ?unreachable_cidr_block () :
+    network_config__private_service_connect_config =
+  { network_attachment; unreachable_cidr_block }
+
+let network_config ?connection_type ?ip_allocation ?network
+    ?(private_service_connect_config = []) () : network_config =
+  {
+    connection_type;
+    ip_allocation;
+    network;
+    private_service_connect_config;
+  }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

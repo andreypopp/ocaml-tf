@@ -137,12 +137,14 @@ let _ = yojson_of_timeouts
 type azurerm_subnet = {
   address_prefixes : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  default_outbound_access_enabled : bool prop option; [@option]
   enforce_private_link_endpoint_network_policies : bool prop option;
       [@option]
   enforce_private_link_service_network_policies : bool prop option;
       [@option]
   id : string prop option; [@option]
   name : string prop;
+  private_endpoint_network_policies : string prop option; [@option]
   private_endpoint_network_policies_enabled : bool prop option;
       [@option]
   private_link_service_network_policies_enabled : bool prop option;
@@ -163,12 +165,16 @@ let yojson_of_azurerm_subnet =
   (function
    | {
        address_prefixes = v_address_prefixes;
+       default_outbound_access_enabled =
+         v_default_outbound_access_enabled;
        enforce_private_link_endpoint_network_policies =
          v_enforce_private_link_endpoint_network_policies;
        enforce_private_link_service_network_policies =
          v_enforce_private_link_service_network_policies;
        id = v_id;
        name = v_name;
+       private_endpoint_network_policies =
+         v_private_endpoint_network_policies;
        private_endpoint_network_policies_enabled =
          v_private_endpoint_network_policies_enabled;
        private_link_service_network_policies_enabled =
@@ -249,6 +255,14 @@ let yojson_of_azurerm_subnet =
              bnd :: bnds
        in
        let bnds =
+         match v_private_endpoint_network_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_endpoint_network_policies", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
@@ -281,6 +295,14 @@ let yojson_of_azurerm_subnet =
              bnd :: bnds
        in
        let bnds =
+         match v_default_outbound_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_outbound_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_address_prefixes then bnds
          else
            let arg =
@@ -307,8 +329,10 @@ let delegation ~name ~service_delegation () : delegation =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_subnet ?enforce_private_link_endpoint_network_policies
+let azurerm_subnet ?default_outbound_access_enabled
+    ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
     ?service_endpoint_policy_ids ?service_endpoints
@@ -316,10 +340,12 @@ let azurerm_subnet ?enforce_private_link_endpoint_network_policies
     ~resource_group_name ~virtual_network_name () : azurerm_subnet =
   {
     address_prefixes;
+    default_outbound_access_enabled;
     enforce_private_link_endpoint_network_policies;
     enforce_private_link_service_network_policies;
     id;
     name;
+    private_endpoint_network_policies;
     private_endpoint_network_policies_enabled;
     private_link_service_network_policies_enabled;
     resource_group_name;
@@ -333,10 +359,12 @@ let azurerm_subnet ?enforce_private_link_endpoint_network_policies
 type t = {
   tf_name : string;
   address_prefixes : string list prop;
+  default_outbound_access_enabled : bool prop;
   enforce_private_link_endpoint_network_policies : bool prop;
   enforce_private_link_service_network_policies : bool prop;
   id : string prop;
   name : string prop;
+  private_endpoint_network_policies : string prop;
   private_endpoint_network_policies_enabled : bool prop;
   private_link_service_network_policies_enabled : bool prop;
   resource_group_name : string prop;
@@ -345,8 +373,10 @@ type t = {
   virtual_network_name : string prop;
 }
 
-let make ?enforce_private_link_endpoint_network_policies
+let make ?default_outbound_access_enabled
+    ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
     ?service_endpoint_policy_ids ?service_endpoints
@@ -358,6 +388,8 @@ let make ?enforce_private_link_endpoint_network_policies
        tf_name = __id;
        address_prefixes =
          Prop.computed __type __id "address_prefixes";
+       default_outbound_access_enabled =
+         Prop.computed __type __id "default_outbound_access_enabled";
        enforce_private_link_endpoint_network_policies =
          Prop.computed __type __id
            "enforce_private_link_endpoint_network_policies";
@@ -366,6 +398,9 @@ let make ?enforce_private_link_endpoint_network_policies
            "enforce_private_link_service_network_policies";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
+       private_endpoint_network_policies =
+         Prop.computed __type __id
+           "private_endpoint_network_policies";
        private_endpoint_network_policies_enabled =
          Prop.computed __type __id
            "private_endpoint_network_policies_enabled";
@@ -388,9 +423,10 @@ let make ?enforce_private_link_endpoint_network_policies
     type_ = __type;
     json =
       yojson_of_azurerm_subnet
-        (azurerm_subnet
+        (azurerm_subnet ?default_outbound_access_enabled
            ?enforce_private_link_endpoint_network_policies
            ?enforce_private_link_service_network_policies ?id
+           ?private_endpoint_network_policies
            ?private_endpoint_network_policies_enabled
            ?private_link_service_network_policies_enabled
            ?service_endpoint_policy_ids ?service_endpoints
@@ -399,17 +435,20 @@ let make ?enforce_private_link_endpoint_network_policies
     attrs = __attrs;
   }
 
-let register ?tf_module
+let register ?tf_module ?default_outbound_access_enabled
     ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
     ?service_endpoint_policy_ids ?service_endpoints
     ?(delegation = []) ?timeouts ~address_prefixes ~name
     ~resource_group_name ~virtual_network_name __id =
   let (r : _ Tf_core.resource) =
-    make ?enforce_private_link_endpoint_network_policies
+    make ?default_outbound_access_enabled
+      ?enforce_private_link_endpoint_network_policies
       ?enforce_private_link_service_network_policies ?id
+      ?private_endpoint_network_policies
       ?private_endpoint_network_policies_enabled
       ?private_link_service_network_policies_enabled
       ?service_endpoint_policy_ids ?service_endpoints ~delegation

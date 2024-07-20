@@ -86,6 +86,7 @@ type google_compute_interconnect_attachment = {
   region : string prop option; [@option]
   router : string prop;
   stack_type : string prop option; [@option]
+  subnet_length : float prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   vlan_tag8021q : float prop option; [@option]
   timeouts : timeouts option;
@@ -112,6 +113,7 @@ let yojson_of_google_compute_interconnect_attachment =
        region = v_region;
        router = v_router;
        stack_type = v_stack_type;
+       subnet_length = v_subnet_length;
        type_ = v_type_;
        vlan_tag8021q = v_vlan_tag8021q;
        timeouts = v_timeouts;
@@ -137,6 +139,14 @@ let yojson_of_google_compute_interconnect_attachment =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "subnet_length", arg in
              bnd :: bnds
        in
        let bnds =
@@ -269,8 +279,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
     ?candidate_subnets ?description ?edge_availability_domain
     ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
-    ?project ?region ?stack_type ?type_ ?vlan_tag8021q ?timeouts
-    ~name ~router () : google_compute_interconnect_attachment =
+    ?project ?region ?stack_type ?subnet_length ?type_ ?vlan_tag8021q
+    ?timeouts ~name ~router () :
+    google_compute_interconnect_attachment =
   {
     admin_enabled;
     bandwidth;
@@ -287,6 +298,7 @@ let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
     region;
     router;
     stack_type;
+    subnet_length;
     type_;
     vlan_tag8021q;
     timeouts;
@@ -298,8 +310,10 @@ type t = {
   bandwidth : string prop;
   candidate_subnets : string list prop;
   cloud_router_ip_address : string prop;
+  cloud_router_ipv6_address : string prop;
   creation_timestamp : string prop;
   customer_router_ip_address : string prop;
+  customer_router_ipv6_address : string prop;
   description : string prop;
   edge_availability_domain : string prop;
   encryption : string prop;
@@ -318,6 +332,7 @@ type t = {
   self_link : string prop;
   stack_type : string prop;
   state : string prop;
+  subnet_length : float prop;
   type_ : string prop;
   vlan_tag8021q : float prop;
 }
@@ -325,7 +340,8 @@ type t = {
 let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
     ?edge_availability_domain ?encryption ?id ?interconnect
     ?ipsec_internal_addresses ?mtu ?project ?region ?stack_type
-    ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id =
+    ?subnet_length ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id
+    =
   let __type = "google_compute_interconnect_attachment" in
   let __attrs =
     ({
@@ -336,10 +352,14 @@ let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
          Prop.computed __type __id "candidate_subnets";
        cloud_router_ip_address =
          Prop.computed __type __id "cloud_router_ip_address";
+       cloud_router_ipv6_address =
+         Prop.computed __type __id "cloud_router_ipv6_address";
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        customer_router_ip_address =
          Prop.computed __type __id "customer_router_ip_address";
+       customer_router_ipv6_address =
+         Prop.computed __type __id "customer_router_ipv6_address";
        description = Prop.computed __type __id "description";
        edge_availability_domain =
          Prop.computed __type __id "edge_availability_domain";
@@ -362,6 +382,7 @@ let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
        self_link = Prop.computed __type __id "self_link";
        stack_type = Prop.computed __type __id "stack_type";
        state = Prop.computed __type __id "state";
+       subnet_length = Prop.computed __type __id "subnet_length";
        type_ = Prop.computed __type __id "type";
        vlan_tag8021q = Prop.computed __type __id "vlan_tag8021q";
      }
@@ -376,20 +397,22 @@ let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
            ?bandwidth ?candidate_subnets ?description
            ?edge_availability_domain ?encryption ?id ?interconnect
            ?ipsec_internal_addresses ?mtu ?project ?region
-           ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router
-           ());
+           ?stack_type ?subnet_length ?type_ ?vlan_tag8021q ?timeouts
+           ~name ~router ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?admin_enabled ?bandwidth ?candidate_subnets
     ?description ?edge_availability_domain ?encryption ?id
     ?interconnect ?ipsec_internal_addresses ?mtu ?project ?region
-    ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id =
+    ?stack_type ?subnet_length ?type_ ?vlan_tag8021q ?timeouts ~name
+    ~router __id =
   let (r : _ Tf_core.resource) =
     make ?admin_enabled ?bandwidth ?candidate_subnets ?description
       ?edge_availability_domain ?encryption ?id ?interconnect
       ?ipsec_internal_addresses ?mtu ?project ?region ?stack_type
-      ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id
+      ?subnet_length ?type_ ?vlan_tag8021q ?timeouts ~name ~router
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

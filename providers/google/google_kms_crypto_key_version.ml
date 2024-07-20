@@ -2,6 +2,47 @@
 
 open! Tf_core
 
+type external_protection_level_options = {
+  ekm_connection_key_path : string prop option; [@option]
+  external_key_uri : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_protection_level_options) -> ()
+
+let yojson_of_external_protection_level_options =
+  (function
+   | {
+       ekm_connection_key_path = v_ekm_connection_key_path;
+       external_key_uri = v_external_key_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_external_key_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "external_key_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ekm_connection_key_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ekm_connection_key_path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_protection_level_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_protection_level_options
+
+[@@@deriving.end]
+
 type timeouts = {
   create : string prop option; [@option]
   delete : string prop option; [@option]
@@ -211,6 +252,9 @@ type google_kms_crypto_key_version = {
   crypto_key : string prop;
   id : string prop option; [@option]
   state : string prop option; [@option]
+  external_protection_level_options :
+    external_protection_level_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -223,6 +267,8 @@ let yojson_of_google_kms_crypto_key_version =
        crypto_key = v_crypto_key;
        id = v_id;
        state = v_state;
+       external_protection_level_options =
+         v_external_protection_level_options;
        timeouts = v_timeouts;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -231,6 +277,18 @@ let yojson_of_google_kms_crypto_key_version =
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_external_protection_level_options then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_protection_level_options)
+               v_external_protection_level_options
+           in
+           let bnd = "external_protection_level_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_state with
@@ -260,12 +318,23 @@ let _ = yojson_of_google_kms_crypto_key_version
 
 [@@@deriving.end]
 
+let external_protection_level_options ?ekm_connection_key_path
+    ?external_key_uri () : external_protection_level_options =
+  { ekm_connection_key_path; external_key_uri }
+
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key ()
-    : google_kms_crypto_key_version =
-  { crypto_key; id; state; timeouts }
+let google_kms_crypto_key_version ?id ?state
+    ?(external_protection_level_options = []) ?timeouts ~crypto_key
+    () : google_kms_crypto_key_version =
+  {
+    crypto_key;
+    id;
+    state;
+    external_protection_level_options;
+    timeouts;
+  }
 
 type t = {
   tf_name : string;
@@ -279,7 +348,8 @@ type t = {
   state : string prop;
 }
 
-let make ?id ?state ?timeouts ~crypto_key __id =
+let make ?id ?state ?(external_protection_level_options = [])
+    ?timeouts ~crypto_key __id =
   let __type = "google_kms_crypto_key_version" in
   let __attrs =
     ({
@@ -301,14 +371,18 @@ let make ?id ?state ?timeouts ~crypto_key __id =
     type_ = __type;
     json =
       yojson_of_google_kms_crypto_key_version
-        (google_kms_crypto_key_version ?id ?state ?timeouts
-           ~crypto_key ());
+        (google_kms_crypto_key_version ?id ?state
+           ~external_protection_level_options ?timeouts ~crypto_key
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?state ?timeouts ~crypto_key __id =
+let register ?tf_module ?id ?state
+    ?(external_protection_level_options = []) ?timeouts ~crypto_key
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?state ?timeouts ~crypto_key __id
+    make ?id ?state ~external_protection_level_options ?timeouts
+      ~crypto_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

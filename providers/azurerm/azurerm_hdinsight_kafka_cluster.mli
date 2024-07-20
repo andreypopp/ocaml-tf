@@ -95,6 +95,26 @@ val network :
   unit ->
   network
 
+type private_link_configuration__ip_configuration
+
+val private_link_configuration__ip_configuration :
+  ?primary:bool prop ->
+  ?private_ip_address:string prop ->
+  ?private_ip_allocation_method:string prop ->
+  ?subnet_id:string prop ->
+  name:string prop ->
+  unit ->
+  private_link_configuration__ip_configuration
+
+type private_link_configuration
+
+val private_link_configuration :
+  group_id:string prop ->
+  name:string prop ->
+  ip_configuration:private_link_configuration__ip_configuration list ->
+  unit ->
+  private_link_configuration
+
 type rest_proxy
 
 val rest_proxy :
@@ -259,6 +279,7 @@ val azurerm_hdinsight_kafka_cluster :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?rest_proxy:rest_proxy list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->
@@ -308,6 +329,7 @@ val register :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?rest_proxy:rest_proxy list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->
@@ -335,6 +357,7 @@ val make :
   ?metastores:metastores list ->
   ?monitor:monitor list ->
   ?network:network list ->
+  ?private_link_configuration:private_link_configuration list ->
   ?rest_proxy:rest_proxy list ->
   ?security_profile:security_profile list ->
   ?storage_account:storage_account list ->

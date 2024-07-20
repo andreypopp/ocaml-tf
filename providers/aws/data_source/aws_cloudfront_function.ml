@@ -51,6 +51,7 @@ type t = {
   comment : string prop;
   etag : string prop;
   id : string prop;
+  key_value_store_associations : string list prop;
   last_modified_time : string prop;
   name : string prop;
   runtime : string prop;
@@ -68,6 +69,8 @@ let make ?id ~name ~stage __id =
        comment = Prop.computed __type __id "comment";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
+       key_value_store_associations =
+         Prop.computed __type __id "key_value_store_associations";
        last_modified_time =
          Prop.computed __type __id "last_modified_time";
        name = Prop.computed __type __id "name";

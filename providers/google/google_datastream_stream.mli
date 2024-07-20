@@ -520,6 +520,7 @@ val timeouts :
 type google_datastream_stream
 
 val google_datastream_stream :
+  ?create_without_validation:bool prop ->
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
@@ -543,6 +544,7 @@ val yojson_of_google_datastream_stream :
 
 type t = private {
   tf_name : string;
+  create_without_validation : bool prop;
   customer_managed_encryption_key : string prop;
   desired_state : string prop;
   display_name : string prop;
@@ -559,6 +561,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?create_without_validation:bool prop ->
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
@@ -576,6 +579,7 @@ val register :
   t
 
 val make :
+  ?create_without_validation:bool prop ->
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->

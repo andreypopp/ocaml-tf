@@ -194,6 +194,7 @@ type rolling_upgrade_policy
 
 val rolling_upgrade_policy :
   ?cross_zone_upgrades_enabled:bool prop ->
+  ?maximum_surge_instances_enabled:bool prop ->
   ?prioritize_unhealthy_instances_enabled:bool prop ->
   max_batch_instance_percent:float prop ->
   max_unhealthy_instance_percent:float prop ->

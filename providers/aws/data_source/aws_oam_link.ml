@@ -2,6 +2,106 @@
 
 open! Tf_core
 
+type link_configuration__metric_configuration = {
+  filter : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration__metric_configuration) -> ()
+
+let yojson_of_link_configuration__metric_configuration =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : link_configuration__metric_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration__metric_configuration
+
+[@@@deriving.end]
+
+type link_configuration__log_group_configuration = {
+  filter : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration__log_group_configuration) -> ()
+
+let yojson_of_link_configuration__log_group_configuration =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : link_configuration__log_group_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration__log_group_configuration
+
+[@@@deriving.end]
+
+type link_configuration = {
+  log_group_configuration :
+    link_configuration__log_group_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  metric_configuration :
+    link_configuration__metric_configuration list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : link_configuration) -> ()
+
+let yojson_of_link_configuration =
+  (function
+   | {
+       log_group_configuration = v_log_group_configuration;
+       metric_configuration = v_metric_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_metric_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_link_configuration__metric_configuration)
+               v_metric_configuration
+           in
+           let bnd = "metric_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_log_group_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_link_configuration__log_group_configuration)
+               v_log_group_configuration
+           in
+           let bnd = "log_group_configuration", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : link_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_link_configuration
+
+[@@@deriving.end]
+
 type aws_oam_link = {
   id : string prop option; [@option]
   link_identifier : string prop;
@@ -67,6 +167,7 @@ type t = {
   id : string prop;
   label : string prop;
   label_template : string prop;
+  link_configuration : link_configuration list prop;
   link_id : string prop;
   link_identifier : string prop;
   resource_types : string list prop;
@@ -83,6 +184,8 @@ let make ?id ?tags ~link_identifier __id =
        id = Prop.computed __type __id "id";
        label = Prop.computed __type __id "label";
        label_template = Prop.computed __type __id "label_template";
+       link_configuration =
+         Prop.computed __type __id "link_configuration";
        link_id = Prop.computed __type __id "link_id";
        link_identifier = Prop.computed __type __id "link_identifier";
        resource_types = Prop.computed __type __id "resource_types";

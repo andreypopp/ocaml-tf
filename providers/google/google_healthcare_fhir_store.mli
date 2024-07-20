@@ -9,6 +9,15 @@ type notification_config
 val notification_config :
   pubsub_topic:string prop -> unit -> notification_config
 
+type notification_configs
+
+val notification_configs :
+  ?send_full_resource:bool prop ->
+  ?send_previous_resource_on_delete:bool prop ->
+  pubsub_topic:string prop ->
+  unit ->
+  notification_configs
+
 type stream_configs__bigquery_destination__schema_config__last_updated_partition_config
 
 val stream_configs__bigquery_destination__schema_config__last_updated_partition_config :
@@ -66,6 +75,7 @@ val google_healthcare_fhir_store :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?notification_config:notification_config list ->
+  ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
@@ -108,6 +118,7 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?notification_config:notification_config list ->
+  ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
@@ -126,6 +137,7 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?notification_config:notification_config list ->
+  ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->

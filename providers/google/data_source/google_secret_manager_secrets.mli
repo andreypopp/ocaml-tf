@@ -76,6 +76,7 @@ type secrets = {
   ttl : string prop;  (** ttl *)
   version_aliases : (string * string prop) list;
       (** version_aliases *)
+  version_destroy_ttl : string prop;  (** version_destroy_ttl *)
 }
 
 type google_secret_manager_secrets

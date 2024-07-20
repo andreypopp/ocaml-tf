@@ -310,6 +310,7 @@ type t = {
   tf_name : string;
   architectures : string list prop;
   arn : string prop;
+  code_sha256 : string prop;
   code_signing_config_arn : string prop;
   dead_letter_config : dead_letter_config list prop;
   description : string prop;
@@ -350,6 +351,7 @@ let make ?id ?qualifier ?tags ~function_name __id =
        tf_name = __id;
        architectures = Prop.computed __type __id "architectures";
        arn = Prop.computed __type __id "arn";
+       code_sha256 = Prop.computed __type __id "code_sha256";
        code_signing_config_arn =
          Prop.computed __type __id "code_signing_config_arn";
        dead_letter_config =

@@ -2,6 +2,42 @@
 
 open! Tf_core
 
+type certificate_settings = {
+  custom_certificate_arn : string prop option; [@option]
+  type_ : string prop; [@key "type"]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_settings) -> ()
+
+let yojson_of_certificate_settings =
+  (function
+   | {
+       custom_certificate_arn = v_custom_certificate_arn;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_custom_certificate_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_certificate_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : certificate_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_settings
+
+[@@@deriving.end]
+
 type sub_domain = { branch_name : string prop; prefix : string prop }
 [@@deriving_inline yojson_of]
 
@@ -34,6 +70,8 @@ type aws_amplify_domain_association = {
   enable_auto_sub_domain : bool prop option; [@option]
   id : string prop option; [@option]
   wait_for_verification : bool prop option; [@option]
+  certificate_settings : certificate_settings list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   sub_domain : sub_domain list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -49,6 +87,7 @@ let yojson_of_aws_amplify_domain_association =
        enable_auto_sub_domain = v_enable_auto_sub_domain;
        id = v_id;
        wait_for_verification = v_wait_for_verification;
+       certificate_settings = v_certificate_settings;
        sub_domain = v_sub_domain;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -61,6 +100,16 @@ let yojson_of_aws_amplify_domain_association =
              (yojson_of_list yojson_of_sub_domain) v_sub_domain
            in
            let bnd = "sub_domain", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_certificate_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate_settings)
+               v_certificate_settings
+           in
+           let bnd = "certificate_settings", arg in
            bnd :: bnds
        in
        let bnds =
@@ -103,18 +152,23 @@ let _ = yojson_of_aws_amplify_domain_association
 
 [@@@deriving.end]
 
+let certificate_settings ?custom_certificate_arn ~type_ () :
+    certificate_settings =
+  { custom_certificate_arn; type_ }
+
 let sub_domain ~branch_name ~prefix () : sub_domain =
   { branch_name; prefix }
 
 let aws_amplify_domain_association ?enable_auto_sub_domain ?id
-    ?wait_for_verification ~app_id ~domain_name ~sub_domain () :
-    aws_amplify_domain_association =
+    ?wait_for_verification ?(certificate_settings = []) ~app_id
+    ~domain_name ~sub_domain () : aws_amplify_domain_association =
   {
     app_id;
     domain_name;
     enable_auto_sub_domain;
     id;
     wait_for_verification;
+    certificate_settings;
     sub_domain;
   }
 
@@ -129,8 +183,9 @@ type t = {
   wait_for_verification : bool prop;
 }
 
-let make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
-    ~domain_name ~sub_domain __id =
+let make ?enable_auto_sub_domain ?id ?wait_for_verification
+    ?(certificate_settings = []) ~app_id ~domain_name ~sub_domain
+    __id =
   let __type = "aws_amplify_domain_association" in
   let __attrs =
     ({
@@ -155,15 +210,17 @@ let make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
     json =
       yojson_of_aws_amplify_domain_association
         (aws_amplify_domain_association ?enable_auto_sub_domain ?id
-           ?wait_for_verification ~app_id ~domain_name ~sub_domain ());
+           ?wait_for_verification ~certificate_settings ~app_id
+           ~domain_name ~sub_domain ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_auto_sub_domain ?id
-    ?wait_for_verification ~app_id ~domain_name ~sub_domain __id =
+    ?wait_for_verification ?(certificate_settings = []) ~app_id
+    ~domain_name ~sub_domain __id =
   let (r : _ Tf_core.resource) =
-    make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
-      ~domain_name ~sub_domain __id
+    make ?enable_auto_sub_domain ?id ?wait_for_verification
+      ~certificate_settings ~app_id ~domain_name ~sub_domain __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

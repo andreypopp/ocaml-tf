@@ -197,6 +197,7 @@ val aws_opensearch_domain :
   ?advanced_options:(string * string prop) list ->
   ?engine_version:string prop ->
   ?id:string prop ->
+  ?ip_address_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?advanced_security_options:advanced_security_options list ->
@@ -232,6 +233,7 @@ type t = private {
   endpoint : string prop;
   engine_version : string prop;
   id : string prop;
+  ip_address_type : string prop;
   kibana_endpoint : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -243,6 +245,7 @@ val register :
   ?advanced_options:(string * string prop) list ->
   ?engine_version:string prop ->
   ?id:string prop ->
+  ?ip_address_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?advanced_security_options:advanced_security_options list ->
@@ -268,6 +271,7 @@ val make :
   ?advanced_options:(string * string prop) list ->
   ?engine_version:string prop ->
   ?id:string prop ->
+  ?ip_address_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?advanced_security_options:advanced_security_options list ->

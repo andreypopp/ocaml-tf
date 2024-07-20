@@ -132,6 +132,46 @@ let _ = yojson_of_action
 
 [@@@deriving.end]
 
+type experiment_options = {
+  account_targeting : string prop option; [@option]
+  empty_target_resolution_mode : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : experiment_options) -> ()
+
+let yojson_of_experiment_options =
+  (function
+   | {
+       account_targeting = v_account_targeting;
+       empty_target_resolution_mode = v_empty_target_resolution_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_empty_target_resolution_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "empty_target_resolution_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_targeting with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_targeting", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : experiment_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_experiment_options
+
+[@@@deriving.end]
+
 type log_configuration__cloudwatch_logs_configuration = {
   log_group_arn : string prop;
 }
@@ -497,6 +537,8 @@ type aws_fis_experiment_template = {
   tags_all : (string * string prop) list option; [@option]
   action : action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  experiment_options : experiment_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   log_configuration : log_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   stop_condition : stop_condition list;
@@ -518,6 +560,7 @@ let yojson_of_aws_fis_experiment_template =
        tags = v_tags;
        tags_all = v_tags_all;
        action = v_action;
+       experiment_options = v_experiment_options;
        log_configuration = v_log_configuration;
        stop_condition = v_stop_condition;
        target = v_target;
@@ -555,6 +598,16 @@ let yojson_of_aws_fis_experiment_template =
                v_log_configuration
            in
            let bnd = "log_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_experiment_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_experiment_options)
+               v_experiment_options
+           in
+           let bnd = "experiment_options", arg in
            bnd :: bnds
        in
        let bnds =
@@ -629,6 +682,10 @@ let action ?description ?start_after ?(target = []) ~action_id ~name
     ~parameter () : action =
   { action_id; description; name; start_after; parameter; target }
 
+let experiment_options ?account_targeting
+    ?empty_target_resolution_mode () : experiment_options =
+  { account_targeting; empty_target_resolution_mode }
+
 let log_configuration__cloudwatch_logs_configuration ~log_group_arn
     () : log_configuration__cloudwatch_logs_configuration =
   { log_group_arn }
@@ -671,9 +728,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_fis_experiment_template ?id ?tags ?tags_all
-    ?(log_configuration = []) ?timeouts ~description ~role_arn
-    ~action ~stop_condition ~target () : aws_fis_experiment_template
-    =
+    ?(experiment_options = []) ?(log_configuration = []) ?timeouts
+    ~description ~role_arn ~action ~stop_condition ~target () :
+    aws_fis_experiment_template =
   {
     description;
     id;
@@ -681,6 +738,7 @@ let aws_fis_experiment_template ?id ?tags ?tags_all
     tags;
     tags_all;
     action;
+    experiment_options;
     log_configuration;
     stop_condition;
     target;
@@ -696,8 +754,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?(log_configuration = []) ?timeouts
-    ~description ~role_arn ~action ~stop_condition ~target __id =
+let make ?id ?tags ?tags_all ?(experiment_options = [])
+    ?(log_configuration = []) ?timeouts ~description ~role_arn
+    ~action ~stop_condition ~target __id =
   let __type = "aws_fis_experiment_template" in
   let __attrs =
     ({
@@ -716,17 +775,18 @@ let make ?id ?tags ?tags_all ?(log_configuration = []) ?timeouts
     json =
       yojson_of_aws_fis_experiment_template
         (aws_fis_experiment_template ?id ?tags ?tags_all
-           ~log_configuration ?timeouts ~description ~role_arn
-           ~action ~stop_condition ~target ());
+           ~experiment_options ~log_configuration ?timeouts
+           ~description ~role_arn ~action ~stop_condition ~target ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?(log_configuration = [])
-    ?timeouts ~description ~role_arn ~action ~stop_condition ~target
-    __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(experiment_options = []) ?(log_configuration = []) ?timeouts
+    ~description ~role_arn ~action ~stop_condition ~target __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~log_configuration ?timeouts
-      ~description ~role_arn ~action ~stop_condition ~target __id
+    make ?id ?tags ?tags_all ~experiment_options ~log_configuration
+      ?timeouts ~description ~role_arn ~action ~stop_condition
+      ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

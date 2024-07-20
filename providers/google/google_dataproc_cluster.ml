@@ -72,6 +72,7 @@ let _ =
 type cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
   boot_disk_type : string prop option; [@option]
+  local_ssd_interface : string prop option; [@option]
   num_local_ssds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -87,6 +88,7 @@ let yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_conf
    | {
        boot_disk_size_gb = v_boot_disk_size_gb;
        boot_disk_type = v_boot_disk_type;
+       local_ssd_interface = v_local_ssd_interface;
        num_local_ssds = v_num_local_ssds;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -98,6 +100,14 @@ let yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_conf
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_ssd_interface", arg in
              bnd :: bnds
        in
        let bnds =
@@ -846,6 +856,7 @@ let _ = yojson_of_cluster_config__master_config__accelerators
 type cluster_config__master_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
   boot_disk_type : string prop option; [@option]
+  local_ssd_interface : string prop option; [@option]
   num_local_ssds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -857,6 +868,7 @@ let yojson_of_cluster_config__master_config__disk_config =
    | {
        boot_disk_size_gb = v_boot_disk_size_gb;
        boot_disk_type = v_boot_disk_type;
+       local_ssd_interface = v_local_ssd_interface;
        num_local_ssds = v_num_local_ssds;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -868,6 +880,14 @@ let yojson_of_cluster_config__master_config__disk_config =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_ssd_interface", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1014,6 +1034,7 @@ let _ = yojson_of_cluster_config__metastore_config
 type cluster_config__preemptible_worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
   boot_disk_type : string prop option; [@option]
+  local_ssd_interface : string prop option; [@option]
   num_local_ssds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -1028,6 +1049,7 @@ let yojson_of_cluster_config__preemptible_worker_config__disk_config
    | {
        boot_disk_size_gb = v_boot_disk_size_gb;
        boot_disk_type = v_boot_disk_type;
+       local_ssd_interface = v_local_ssd_interface;
        num_local_ssds = v_num_local_ssds;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -1039,6 +1061,14 @@ let yojson_of_cluster_config__preemptible_worker_config__disk_config
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_ssd_interface", arg in
              bnd :: bnds
        in
        let bnds =
@@ -1565,6 +1595,7 @@ let _ = yojson_of_cluster_config__worker_config__accelerators
 type cluster_config__worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
   boot_disk_type : string prop option; [@option]
+  local_ssd_interface : string prop option; [@option]
   num_local_ssds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -1576,6 +1607,7 @@ let yojson_of_cluster_config__worker_config__disk_config =
    | {
        boot_disk_size_gb = v_boot_disk_size_gb;
        boot_disk_type = v_boot_disk_type;
+       local_ssd_interface = v_local_ssd_interface;
        num_local_ssds = v_num_local_ssds;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -1587,6 +1619,14 @@ let yojson_of_cluster_config__worker_config__disk_config =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_ssd_interface", arg in
              bnd :: bnds
        in
        let bnds =
@@ -2732,10 +2772,16 @@ let cluster_config__auxiliary_node_groups__node_group__node_group_config__accele
   { accelerator_count; accelerator_type }
 
 let cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
-    ?boot_disk_size_gb ?boot_disk_type ?num_local_ssds () :
+    ?boot_disk_size_gb ?boot_disk_type ?local_ssd_interface
+    ?num_local_ssds () :
     cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
     =
-  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+  {
+    boot_disk_size_gb;
+    boot_disk_type;
+    local_ssd_interface;
+    num_local_ssds;
+  }
 
 let cluster_config__auxiliary_node_groups__node_group__node_group_config
     ?machine_type ?min_cpu_platform ?num_instances
@@ -2824,9 +2870,14 @@ let cluster_config__master_config__accelerators ~accelerator_count
   { accelerator_count; accelerator_type }
 
 let cluster_config__master_config__disk_config ?boot_disk_size_gb
-    ?boot_disk_type ?num_local_ssds () :
+    ?boot_disk_type ?local_ssd_interface ?num_local_ssds () :
     cluster_config__master_config__disk_config =
-  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+  {
+    boot_disk_size_gb;
+    boot_disk_type;
+    local_ssd_interface;
+    num_local_ssds;
+  }
 
 let cluster_config__master_config ?image_uri ?machine_type
     ?min_cpu_platform ?num_instances ?(disk_config = [])
@@ -2845,9 +2896,15 @@ let cluster_config__metastore_config ~dataproc_metastore_service () :
   { dataproc_metastore_service }
 
 let cluster_config__preemptible_worker_config__disk_config
-    ?boot_disk_size_gb ?boot_disk_type ?num_local_ssds () :
+    ?boot_disk_size_gb ?boot_disk_type ?local_ssd_interface
+    ?num_local_ssds () :
     cluster_config__preemptible_worker_config__disk_config =
-  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+  {
+    boot_disk_size_gb;
+    boot_disk_type;
+    local_ssd_interface;
+    num_local_ssds;
+  }
 
 let cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
     ?machine_types ?rank () :
@@ -2913,9 +2970,14 @@ let cluster_config__worker_config__accelerators ~accelerator_count
   { accelerator_count; accelerator_type }
 
 let cluster_config__worker_config__disk_config ?boot_disk_size_gb
-    ?boot_disk_type ?num_local_ssds () :
+    ?boot_disk_type ?local_ssd_interface ?num_local_ssds () :
     cluster_config__worker_config__disk_config =
-  { boot_disk_size_gb; boot_disk_type; num_local_ssds }
+  {
+    boot_disk_size_gb;
+    boot_disk_type;
+    local_ssd_interface;
+    num_local_ssds;
+  }
 
 let cluster_config__worker_config ?image_uri ?machine_type
     ?min_cpu_platform ?min_num_instances ?num_instances

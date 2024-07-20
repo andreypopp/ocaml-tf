@@ -59,6 +59,7 @@ type t = {
   body : string prop;
   id : string prop;
   server_id : string prop;
+  ssh_key_id : string prop;
   user_name : string prop;
 }
 
@@ -70,6 +71,7 @@ let make ?id ~body ~server_id ~user_name __id =
        body = Prop.computed __type __id "body";
        id = Prop.computed __type __id "id";
        server_id = Prop.computed __type __id "server_id";
+       ssh_key_id = Prop.computed __type __id "ssh_key_id";
        user_name = Prop.computed __type __id "user_name";
      }
       : t)

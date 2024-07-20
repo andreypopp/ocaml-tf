@@ -159,6 +159,8 @@ type aws_mskconnect_connector
 val aws_mskconnect_connector :
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->
@@ -190,6 +192,8 @@ type t = private {
   kafkaconnect_version : string prop;
   name : string prop;
   service_execution_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   version : string prop;
 }
 
@@ -197,6 +201,8 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->
@@ -217,6 +223,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->

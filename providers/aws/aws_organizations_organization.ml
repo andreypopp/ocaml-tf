@@ -269,6 +269,7 @@ type t = {
   master_account_arn : string prop;
   master_account_email : string prop;
   master_account_id : string prop;
+  master_account_name : string prop;
   non_master_accounts : non_master_accounts list prop;
   roots : roots list prop;
 }
@@ -293,6 +294,8 @@ let make ?aws_service_access_principals ?enabled_policy_types
          Prop.computed __type __id "master_account_email";
        master_account_id =
          Prop.computed __type __id "master_account_id";
+       master_account_name =
+         Prop.computed __type __id "master_account_name";
        non_master_accounts =
          Prop.computed __type __id "non_master_accounts";
        roots = Prop.computed __type __id "roots";

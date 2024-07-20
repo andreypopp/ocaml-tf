@@ -25,11 +25,13 @@ val input :
   ?infected:bool prop ->
   ?is_active:bool prop ->
   ?issue_count:string prop ->
+  ?last_seen:string prop ->
   ?network_status:string prop ->
   ?operator:string prop ->
   ?os:string prop ->
   ?os_distro_name:string prop ->
   ?os_distro_revision:string prop ->
+  ?os_version_extra:string prop ->
   ?overall:string prop ->
   ?path:string prop ->
   ?require_all:bool prop ->
@@ -37,6 +39,7 @@ val input :
   ?running:bool prop ->
   ?sensor_config:string prop ->
   ?sha256:string prop ->
+  ?state:string prop ->
   ?thumbprint:string prop ->
   ?total_score:float prop ->
   ?version:string prop ->

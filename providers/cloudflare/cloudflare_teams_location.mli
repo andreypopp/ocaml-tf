@@ -16,6 +16,7 @@ type cloudflare_teams_location
 
 val cloudflare_teams_location :
   ?client_default:bool prop ->
+  ?ecs_support:bool prop ->
   ?id:string prop ->
   account_id:string prop ->
   name:string prop ->
@@ -34,6 +35,7 @@ type t = private {
   anonymized_logs_enabled : bool prop;
   client_default : bool prop;
   doh_subdomain : string prop;
+  ecs_support : bool prop;
   id : string prop;
   ip : string prop;
   ipv4_destination : string prop;
@@ -44,6 +46,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?client_default:bool prop ->
+  ?ecs_support:bool prop ->
   ?id:string prop ->
   account_id:string prop ->
   name:string prop ->
@@ -53,6 +56,7 @@ val register :
 
 val make :
   ?client_default:bool prop ->
+  ?ecs_support:bool prop ->
   ?id:string prop ->
   account_id:string prop ->
   name:string prop ->

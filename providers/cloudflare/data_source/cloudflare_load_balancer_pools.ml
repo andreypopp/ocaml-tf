@@ -122,6 +122,7 @@ type pools__origins = {
   header : pools__origins__header list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
+  virtual_network_id : string prop;
   weight : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -135,6 +136,7 @@ let yojson_of_pools__origins =
        enabled = v_enabled;
        header = v_header;
        name = v_name;
+       virtual_network_id = v_virtual_network_id;
        weight = v_weight;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -143,6 +145,12 @@ let yojson_of_pools__origins =
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
          ("weight", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_network_id
+         in
+         ("virtual_network_id", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

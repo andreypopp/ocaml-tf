@@ -107,6 +107,7 @@ type azurerm_bastion_host = {
   file_copy_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   ip_connect_enabled : bool prop option; [@option]
+  kerberos_enabled : bool prop option; [@option]
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -115,6 +116,7 @@ type azurerm_bastion_host = {
   sku : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tunneling_enabled : bool prop option; [@option]
+  virtual_network_id : string prop option; [@option]
   ip_configuration : ip_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -130,6 +132,7 @@ let yojson_of_azurerm_bastion_host =
        file_copy_enabled = v_file_copy_enabled;
        id = v_id;
        ip_connect_enabled = v_ip_connect_enabled;
+       kerberos_enabled = v_kerberos_enabled;
        location = v_location;
        name = v_name;
        resource_group_name = v_resource_group_name;
@@ -138,6 +141,7 @@ let yojson_of_azurerm_bastion_host =
        sku = v_sku;
        tags = v_tags;
        tunneling_enabled = v_tunneling_enabled;
+       virtual_network_id = v_virtual_network_id;
        ip_configuration = v_ip_configuration;
        timeouts = v_timeouts;
      } ->
@@ -157,6 +161,14 @@ let yojson_of_azurerm_bastion_host =
            in
            let bnd = "ip_configuration", arg in
            bnd :: bnds
+       in
+       let bnds =
+         match v_virtual_network_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_network_id", arg in
+             bnd :: bnds
        in
        let bnds =
          match v_tunneling_enabled with
@@ -221,6 +233,14 @@ let yojson_of_azurerm_bastion_host =
          ("location", arg) :: bnds
        in
        let bnds =
+         match v_kerberos_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_ip_connect_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -267,15 +287,16 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
-    ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
-    ?tags ?tunneling_enabled ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration () : azurerm_bastion_host
-    =
+    ?ip_connect_enabled ?kerberos_enabled ?scale_units
+    ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
+    ?virtual_network_id ?(ip_configuration = []) ?timeouts ~location
+    ~name ~resource_group_name () : azurerm_bastion_host =
   {
     copy_paste_enabled;
     file_copy_enabled;
     id;
     ip_connect_enabled;
+    kerberos_enabled;
     location;
     name;
     resource_group_name;
@@ -284,6 +305,7 @@ let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
     sku;
     tags;
     tunneling_enabled;
+    virtual_network_id;
     ip_configuration;
     timeouts;
   }
@@ -295,6 +317,7 @@ type t = {
   file_copy_enabled : bool prop;
   id : string prop;
   ip_connect_enabled : bool prop;
+  kerberos_enabled : bool prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -303,12 +326,14 @@ type t = {
   sku : string prop;
   tags : (string * string) list prop;
   tunneling_enabled : bool prop;
+  virtual_network_id : string prop;
 }
 
 let make ?copy_paste_enabled ?file_copy_enabled ?id
-    ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
-    ?tags ?tunneling_enabled ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __id =
+    ?ip_connect_enabled ?kerberos_enabled ?scale_units
+    ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
+    ?virtual_network_id ?(ip_configuration = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_bastion_host" in
   let __attrs =
     ({
@@ -321,6 +346,8 @@ let make ?copy_paste_enabled ?file_copy_enabled ?id
        id = Prop.computed __type __id "id";
        ip_connect_enabled =
          Prop.computed __type __id "ip_connect_enabled";
+       kerberos_enabled =
+         Prop.computed __type __id "kerberos_enabled";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";
        resource_group_name =
@@ -332,6 +359,8 @@ let make ?copy_paste_enabled ?file_copy_enabled ?id
        tags = Prop.computed __type __id "tags";
        tunneling_enabled =
          Prop.computed __type __id "tunneling_enabled";
+       virtual_network_id =
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
@@ -341,22 +370,24 @@ let make ?copy_paste_enabled ?file_copy_enabled ?id
     json =
       yojson_of_azurerm_bastion_host
         (azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled
-           ?id ?ip_connect_enabled ?scale_units
+           ?id ?ip_connect_enabled ?kerberos_enabled ?scale_units
            ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
-           ?timeouts ~location ~name ~resource_group_name
-           ~ip_configuration ());
+           ?virtual_network_id ~ip_configuration ?timeouts ~location
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?copy_paste_enabled ?file_copy_enabled ?id
-    ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
-    ?tags ?tunneling_enabled ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __id =
+    ?ip_connect_enabled ?kerberos_enabled ?scale_units
+    ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
+    ?virtual_network_id ?(ip_configuration = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?copy_paste_enabled ?file_copy_enabled ?id
-      ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
-      ?tags ?tunneling_enabled ?timeouts ~location ~name
-      ~resource_group_name ~ip_configuration __id
+      ?ip_connect_enabled ?kerberos_enabled ?scale_units
+      ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
+      ?virtual_network_id ~ip_configuration ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

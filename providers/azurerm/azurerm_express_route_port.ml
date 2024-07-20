@@ -3,8 +3,7 @@
 open! Tf_core
 
 type identity = {
-  identity_ids : string prop list;
-      [@default []] [@yojson_drop_default Stdlib.( = )]
+  identity_ids : string prop list option; [@option]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -22,14 +21,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         if Stdlib.( = ) [] v_identity_ids then bnds
-         else
-           let arg =
-             (yojson_of_list (yojson_of_prop yojson_of_string))
-               v_identity_ids
-           in
-           let bnd = "identity_ids", arg in
-           bnd :: bnds
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -380,7 +379,7 @@ let _ = yojson_of_azurerm_express_route_port
 
 [@@@deriving.end]
 
-let identity ~identity_ids ~type_ () : identity =
+let identity ?identity_ids ~type_ () : identity =
   { identity_ids; type_ }
 
 let link1 ?admin_enabled ?macsec_cak_keyvault_secret_id

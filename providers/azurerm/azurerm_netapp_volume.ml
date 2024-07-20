@@ -88,6 +88,12 @@ let _ = yojson_of_data_protection_snapshot_policy
 type export_policy_rule = {
   allowed_clients : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  kerberos_5_read_only_enabled : bool prop option; [@option]
+  kerberos_5_read_write_enabled : bool prop option; [@option]
+  kerberos_5i_read_only_enabled : bool prop option; [@option]
+  kerberos_5i_read_write_enabled : bool prop option; [@option]
+  kerberos_5p_read_only_enabled : bool prop option; [@option]
+  kerberos_5p_read_write_enabled : bool prop option; [@option]
   protocols_enabled : string prop list option; [@option]
   root_access_enabled : bool prop option; [@option]
   rule_index : float prop;
@@ -102,6 +108,17 @@ let yojson_of_export_policy_rule =
   (function
    | {
        allowed_clients = v_allowed_clients;
+       kerberos_5_read_only_enabled = v_kerberos_5_read_only_enabled;
+       kerberos_5_read_write_enabled =
+         v_kerberos_5_read_write_enabled;
+       kerberos_5i_read_only_enabled =
+         v_kerberos_5i_read_only_enabled;
+       kerberos_5i_read_write_enabled =
+         v_kerberos_5i_read_write_enabled;
+       kerberos_5p_read_only_enabled =
+         v_kerberos_5p_read_only_enabled;
+       kerberos_5p_read_write_enabled =
+         v_kerberos_5p_read_write_enabled;
        protocols_enabled = v_protocols_enabled;
        root_access_enabled = v_root_access_enabled;
        rule_index = v_rule_index;
@@ -147,6 +164,54 @@ let yojson_of_export_policy_rule =
                yojson_of_list (yojson_of_prop yojson_of_string) v
              in
              let bnd = "protocols_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5p_read_write_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5p_read_write_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5p_read_only_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5p_read_only_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5i_read_write_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5i_read_write_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5i_read_only_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5i_read_only_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5_read_write_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5_read_write_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_5_read_only_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_5_read_only_enabled", arg in
              bnd :: bnds
        in
        let bnds =
@@ -232,6 +297,7 @@ type azurerm_netapp_volume = {
   create_from_snapshot_resource_id : string prop option; [@option]
   encryption_key_source : string prop option; [@option]
   id : string prop option; [@option]
+  kerberos_enabled : bool prop option; [@option]
   key_vault_private_endpoint_id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -242,6 +308,7 @@ type azurerm_netapp_volume = {
   security_style : string prop option; [@option]
   service_level : string prop;
   smb_access_based_enumeration_enabled : bool prop option; [@option]
+  smb_continuous_availability_enabled : bool prop option; [@option]
   smb_non_browsable_enabled : bool prop option; [@option]
   snapshot_directory_visible : bool prop option; [@option]
   storage_quota_in_gb : float prop;
@@ -273,6 +340,7 @@ let yojson_of_azurerm_netapp_volume =
          v_create_from_snapshot_resource_id;
        encryption_key_source = v_encryption_key_source;
        id = v_id;
+       kerberos_enabled = v_kerberos_enabled;
        key_vault_private_endpoint_id =
          v_key_vault_private_endpoint_id;
        location = v_location;
@@ -285,6 +353,8 @@ let yojson_of_azurerm_netapp_volume =
        service_level = v_service_level;
        smb_access_based_enumeration_enabled =
          v_smb_access_based_enumeration_enabled;
+       smb_continuous_availability_enabled =
+         v_smb_continuous_availability_enabled;
        smb_non_browsable_enabled = v_smb_non_browsable_enabled;
        snapshot_directory_visible = v_snapshot_directory_visible;
        storage_quota_in_gb = v_storage_quota_in_gb;
@@ -401,6 +471,14 @@ let yojson_of_azurerm_netapp_volume =
              bnd :: bnds
        in
        let bnds =
+         match v_smb_continuous_availability_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smb_continuous_availability_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_smb_access_based_enumeration_enabled with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -465,6 +543,14 @@ let yojson_of_azurerm_netapp_volume =
              bnd :: bnds
        in
        let bnds =
+         match v_kerberos_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_id with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -521,11 +607,20 @@ let data_protection_snapshot_policy ~snapshot_policy_id () :
     data_protection_snapshot_policy =
   { snapshot_policy_id }
 
-let export_policy_rule ?protocols_enabled ?root_access_enabled
-    ?unix_read_only ?unix_read_write ~allowed_clients ~rule_index ()
-    : export_policy_rule =
+let export_policy_rule ?kerberos_5_read_only_enabled
+    ?kerberos_5_read_write_enabled ?kerberos_5i_read_only_enabled
+    ?kerberos_5i_read_write_enabled ?kerberos_5p_read_only_enabled
+    ?kerberos_5p_read_write_enabled ?protocols_enabled
+    ?root_access_enabled ?unix_read_only ?unix_read_write
+    ~allowed_clients ~rule_index () : export_policy_rule =
   {
     allowed_clients;
+    kerberos_5_read_only_enabled;
+    kerberos_5_read_write_enabled;
+    kerberos_5i_read_only_enabled;
+    kerberos_5i_read_write_enabled;
+    kerberos_5p_read_only_enabled;
+    kerberos_5p_read_write_enabled;
     protocols_enabled;
     root_access_enabled;
     rule_index;
@@ -538,10 +633,12 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_netapp_volume ?azure_vmware_data_store_enabled
     ?create_from_snapshot_resource_id ?encryption_key_source ?id
-    ?key_vault_private_endpoint_id ?network_features ?protocols
-    ?security_style ?smb_access_based_enumeration_enabled
-    ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?kerberos_enabled ?key_vault_private_endpoint_id
+    ?network_features ?protocols ?security_style
+    ?smb_access_based_enumeration_enabled
+    ?smb_continuous_availability_enabled ?smb_non_browsable_enabled
+    ?snapshot_directory_visible ?tags ?throughput_in_mibps ?zone
+    ?(data_protection_replication = [])
     ?(data_protection_snapshot_policy = [])
     ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
@@ -553,6 +650,7 @@ let azurerm_netapp_volume ?azure_vmware_data_store_enabled
     create_from_snapshot_resource_id;
     encryption_key_source;
     id;
+    kerberos_enabled;
     key_vault_private_endpoint_id;
     location;
     name;
@@ -563,6 +661,7 @@ let azurerm_netapp_volume ?azure_vmware_data_store_enabled
     security_style;
     service_level;
     smb_access_based_enumeration_enabled;
+    smb_continuous_availability_enabled;
     smb_non_browsable_enabled;
     snapshot_directory_visible;
     storage_quota_in_gb;
@@ -584,6 +683,7 @@ type t = {
   create_from_snapshot_resource_id : string prop;
   encryption_key_source : string prop;
   id : string prop;
+  kerberos_enabled : bool prop;
   key_vault_private_endpoint_id : string prop;
   location : string prop;
   mount_ip_addresses : string list prop;
@@ -595,6 +695,7 @@ type t = {
   security_style : string prop;
   service_level : string prop;
   smb_access_based_enumeration_enabled : bool prop;
+  smb_continuous_availability_enabled : bool prop;
   smb_non_browsable_enabled : bool prop;
   snapshot_directory_visible : bool prop;
   storage_quota_in_gb : float prop;
@@ -607,10 +708,12 @@ type t = {
 
 let make ?azure_vmware_data_store_enabled
     ?create_from_snapshot_resource_id ?encryption_key_source ?id
-    ?key_vault_private_endpoint_id ?network_features ?protocols
-    ?security_style ?smb_access_based_enumeration_enabled
-    ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?kerberos_enabled ?key_vault_private_endpoint_id
+    ?network_features ?protocols ?security_style
+    ?smb_access_based_enumeration_enabled
+    ?smb_continuous_availability_enabled ?smb_non_browsable_enabled
+    ?snapshot_directory_visible ?tags ?throughput_in_mibps ?zone
+    ?(data_protection_replication = [])
     ?(data_protection_snapshot_policy = [])
     ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
@@ -627,6 +730,8 @@ let make ?azure_vmware_data_store_enabled
        encryption_key_source =
          Prop.computed __type __id "encryption_key_source";
        id = Prop.computed __type __id "id";
+       kerberos_enabled =
+         Prop.computed __type __id "kerberos_enabled";
        key_vault_private_endpoint_id =
          Prop.computed __type __id "key_vault_private_endpoint_id";
        location = Prop.computed __type __id "location";
@@ -644,6 +749,9 @@ let make ?azure_vmware_data_store_enabled
        smb_access_based_enumeration_enabled =
          Prop.computed __type __id
            "smb_access_based_enumeration_enabled";
+       smb_continuous_availability_enabled =
+         Prop.computed __type __id
+           "smb_continuous_availability_enabled";
        smb_non_browsable_enabled =
          Prop.computed __type __id "smb_non_browsable_enabled";
        snapshot_directory_visible =
@@ -666,9 +774,10 @@ let make ?azure_vmware_data_store_enabled
       yojson_of_azurerm_netapp_volume
         (azurerm_netapp_volume ?azure_vmware_data_store_enabled
            ?create_from_snapshot_resource_id ?encryption_key_source
-           ?id ?key_vault_private_endpoint_id ?network_features
-           ?protocols ?security_style
+           ?id ?kerberos_enabled ?key_vault_private_endpoint_id
+           ?network_features ?protocols ?security_style
            ?smb_access_based_enumeration_enabled
+           ?smb_continuous_availability_enabled
            ?smb_non_browsable_enabled ?snapshot_directory_visible
            ?tags ?throughput_in_mibps ?zone
            ~data_protection_replication
@@ -681,10 +790,12 @@ let make ?azure_vmware_data_store_enabled
 
 let register ?tf_module ?azure_vmware_data_store_enabled
     ?create_from_snapshot_resource_id ?encryption_key_source ?id
-    ?key_vault_private_endpoint_id ?network_features ?protocols
-    ?security_style ?smb_access_based_enumeration_enabled
-    ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?kerberos_enabled ?key_vault_private_endpoint_id
+    ?network_features ?protocols ?security_style
+    ?smb_access_based_enumeration_enabled
+    ?smb_continuous_availability_enabled ?smb_non_browsable_enabled
+    ?snapshot_directory_visible ?tags ?throughput_in_mibps ?zone
+    ?(data_protection_replication = [])
     ?(data_protection_snapshot_policy = [])
     ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
@@ -692,14 +803,15 @@ let register ?tf_module ?azure_vmware_data_store_enabled
   let (r : _ Tf_core.resource) =
     make ?azure_vmware_data_store_enabled
       ?create_from_snapshot_resource_id ?encryption_key_source ?id
-      ?key_vault_private_endpoint_id ?network_features ?protocols
-      ?security_style ?smb_access_based_enumeration_enabled
-      ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-      ?throughput_in_mibps ?zone ~data_protection_replication
-      ~data_protection_snapshot_policy ~export_policy_rule ?timeouts
-      ~account_name ~location ~name ~pool_name ~resource_group_name
-      ~service_level ~storage_quota_in_gb ~subnet_id ~volume_path
-      __id
+      ?kerberos_enabled ?key_vault_private_endpoint_id
+      ?network_features ?protocols ?security_style
+      ?smb_access_based_enumeration_enabled
+      ?smb_continuous_availability_enabled ?smb_non_browsable_enabled
+      ?snapshot_directory_visible ?tags ?throughput_in_mibps ?zone
+      ~data_protection_replication ~data_protection_snapshot_policy
+      ~export_policy_rule ?timeouts ~account_name ~location ~name
+      ~pool_name ~resource_group_name ~service_level
+      ~storage_quota_in_gb ~subnet_id ~volume_path __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

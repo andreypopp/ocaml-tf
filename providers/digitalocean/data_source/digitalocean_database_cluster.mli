@@ -42,6 +42,12 @@ type t = private {
   size : string prop;
   storage_size_mib : string prop;
   tags : string list prop;
+  ui_database : string prop;
+  ui_host : string prop;
+  ui_password : string prop;
+  ui_port : float prop;
+  ui_uri : string prop;
+  ui_user : string prop;
   uri : string prop;
   urn : string prop;
   user : string prop;

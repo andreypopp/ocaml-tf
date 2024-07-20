@@ -42,6 +42,13 @@ type http_check__ping_config
 val http_check__ping_config :
   pings_count:float prop -> unit -> http_check__ping_config
 
+type http_check__service_agent_authentication
+
+val http_check__service_agent_authentication :
+  ?type_:string prop ->
+  unit ->
+  http_check__service_agent_authentication
+
 type http_check
 
 val http_check :
@@ -59,6 +66,8 @@ val http_check :
     http_check__accepted_response_status_codes list ->
   ?auth_info:http_check__auth_info list ->
   ?ping_config:http_check__ping_config list ->
+  ?service_agent_authentication:
+    http_check__service_agent_authentication list ->
   unit ->
   http_check
 

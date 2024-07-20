@@ -236,6 +236,7 @@ let azurerm_network_interface ?id ?timeouts ~name
 
 type t = {
   tf_name : string;
+  accelerated_networking_enabled : bool prop;
   applied_dns_servers : string list prop;
   dns_servers : string list prop;
   enable_accelerated_networking : bool prop;
@@ -243,6 +244,7 @@ type t = {
   id : string prop;
   internal_dns_name_label : string prop;
   ip_configuration : ip_configuration list prop;
+  ip_forwarding_enabled : bool prop;
   location : string prop;
   mac_address : string prop;
   name : string prop;
@@ -259,6 +261,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __attrs =
     ({
        tf_name = __id;
+       accelerated_networking_enabled =
+         Prop.computed __type __id "accelerated_networking_enabled";
        applied_dns_servers =
          Prop.computed __type __id "applied_dns_servers";
        dns_servers = Prop.computed __type __id "dns_servers";
@@ -271,6 +275,8 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
          Prop.computed __type __id "internal_dns_name_label";
        ip_configuration =
          Prop.computed __type __id "ip_configuration";
+       ip_forwarding_enabled =
+         Prop.computed __type __id "ip_forwarding_enabled";
        location = Prop.computed __type __id "location";
        mac_address = Prop.computed __type __id "mac_address";
        name = Prop.computed __type __id "name";

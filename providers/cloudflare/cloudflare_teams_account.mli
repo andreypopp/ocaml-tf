@@ -46,6 +46,11 @@ type body_scanning
 val body_scanning :
   inspection_mode:string prop -> unit -> body_scanning
 
+type custom_certificate
+
+val custom_certificate :
+  ?id:string prop -> enabled:bool prop -> unit -> custom_certificate
+
 type extended_email_matching
 
 val extended_email_matching :
@@ -106,6 +111,7 @@ val proxy :
   root_ca:bool prop ->
   tcp:bool prop ->
   udp:bool prop ->
+  virtual_ip:bool prop ->
   unit ->
   proxy
 
@@ -126,6 +132,7 @@ val cloudflare_teams_account :
   ?antivirus:antivirus list ->
   ?block_page:block_page list ->
   ?body_scanning:body_scanning list ->
+  ?custom_certificate:custom_certificate list ->
   ?extended_email_matching:extended_email_matching list ->
   ?fips:fips list ->
   ?logging:logging list ->
@@ -163,6 +170,7 @@ val register :
   ?antivirus:antivirus list ->
   ?block_page:block_page list ->
   ?body_scanning:body_scanning list ->
+  ?custom_certificate:custom_certificate list ->
   ?extended_email_matching:extended_email_matching list ->
   ?fips:fips list ->
   ?logging:logging list ->
@@ -183,6 +191,7 @@ val make :
   ?antivirus:antivirus list ->
   ?block_page:block_page list ->
   ?body_scanning:body_scanning list ->
+  ?custom_certificate:custom_certificate list ->
   ?extended_email_matching:extended_email_matching list ->
   ?fips:fips list ->
   ?logging:logging list ->

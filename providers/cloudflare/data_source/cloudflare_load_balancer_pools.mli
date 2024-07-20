@@ -31,6 +31,7 @@ type pools__origins = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** header *)
   name : string prop;  (** name *)
+  virtual_network_id : string prop;  (** virtual_network_id *)
   weight : float prop;  (** weight *)
 }
 

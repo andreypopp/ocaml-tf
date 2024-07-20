@@ -57,6 +57,7 @@ type aws_vpc_ipam_pool = {
       [@option]
   auto_import : bool prop option; [@option]
   aws_service : string prop option; [@option]
+  cascade : bool prop option; [@option]
   description : string prop option; [@option]
   id : string prop option; [@option]
   ipam_scope_id : string prop;
@@ -85,6 +86,7 @@ let yojson_of_aws_vpc_ipam_pool =
        allocation_resource_tags = v_allocation_resource_tags;
        auto_import = v_auto_import;
        aws_service = v_aws_service;
+       cascade = v_cascade;
        description = v_description;
        id = v_id;
        ipam_scope_id = v_ipam_scope_id;
@@ -188,6 +190,14 @@ let yojson_of_aws_vpc_ipam_pool =
              bnd :: bnds
        in
        let bnds =
+         match v_cascade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cascade", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_aws_service with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -261,8 +271,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_vpc_ipam_pool ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
-    ?allocation_resource_tags ?auto_import ?aws_service ?description
-    ?id ?locale ?public_ip_source ?publicly_advertisable
+    ?allocation_resource_tags ?auto_import ?aws_service ?cascade
+    ?description ?id ?locale ?public_ip_source ?publicly_advertisable
     ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
     ~ipam_scope_id () : aws_vpc_ipam_pool =
   {
@@ -273,6 +283,7 @@ let aws_vpc_ipam_pool ?allocation_default_netmask_length
     allocation_resource_tags;
     auto_import;
     aws_service;
+    cascade;
     description;
     id;
     ipam_scope_id;
@@ -295,6 +306,7 @@ type t = {
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
+  cascade : bool prop;
   description : string prop;
   id : string prop;
   ipam_scope_id : string prop;
@@ -311,8 +323,8 @@ type t = {
 
 let make ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
-    ?allocation_resource_tags ?auto_import ?aws_service ?description
-    ?id ?locale ?public_ip_source ?publicly_advertisable
+    ?allocation_resource_tags ?auto_import ?aws_service ?cascade
+    ?description ?id ?locale ?public_ip_source ?publicly_advertisable
     ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
     ~ipam_scope_id __id =
   let __type = "aws_vpc_ipam_pool" in
@@ -332,6 +344,7 @@ let make ?allocation_default_netmask_length
        arn = Prop.computed __type __id "arn";
        auto_import = Prop.computed __type __id "auto_import";
        aws_service = Prop.computed __type __id "aws_service";
+       cascade = Prop.computed __type __id "cascade";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        ipam_scope_id = Prop.computed __type __id "ipam_scope_id";
@@ -358,8 +371,8 @@ let make ?allocation_default_netmask_length
         (aws_vpc_ipam_pool ?allocation_default_netmask_length
            ?allocation_max_netmask_length
            ?allocation_min_netmask_length ?allocation_resource_tags
-           ?auto_import ?aws_service ?description ?id ?locale
-           ?public_ip_source ?publicly_advertisable
+           ?auto_import ?aws_service ?cascade ?description ?id
+           ?locale ?public_ip_source ?publicly_advertisable
            ?source_ipam_pool_id ?tags ?tags_all ?timeouts
            ~address_family ~ipam_scope_id ());
     attrs = __attrs;
@@ -367,14 +380,14 @@ let make ?allocation_default_netmask_length
 
 let register ?tf_module ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
-    ?allocation_resource_tags ?auto_import ?aws_service ?description
-    ?id ?locale ?public_ip_source ?publicly_advertisable
+    ?allocation_resource_tags ?auto_import ?aws_service ?cascade
+    ?description ?id ?locale ?public_ip_source ?publicly_advertisable
     ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
     ~ipam_scope_id __id =
   let (r : _ Tf_core.resource) =
     make ?allocation_default_netmask_length
       ?allocation_max_netmask_length ?allocation_min_netmask_length
-      ?allocation_resource_tags ?auto_import ?aws_service
+      ?allocation_resource_tags ?auto_import ?aws_service ?cascade
       ?description ?id ?locale ?public_ip_source
       ?publicly_advertisable ?source_ipam_pool_id ?tags ?tags_all
       ?timeouts ~address_family ~ipam_scope_id __id

@@ -73,19 +73,54 @@ type remote_repository_config__upstream_credentials = {
       (** username_password_credentials *)
 }
 
+type remote_repository_config__python_repository__custom_repository = {
+  uri : string prop;  (** uri *)
+}
+
 type remote_repository_config__python_repository = {
+  custom_repository :
+    remote_repository_config__python_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** custom_repository *)
   public_repository : string prop;  (** public_repository *)
+}
+
+type remote_repository_config__npm_repository__custom_repository = {
+  uri : string prop;  (** uri *)
 }
 
 type remote_repository_config__npm_repository = {
+  custom_repository :
+    remote_repository_config__npm_repository__custom_repository list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** custom_repository *)
   public_repository : string prop;  (** public_repository *)
+}
+
+type remote_repository_config__maven_repository__custom_repository = {
+  uri : string prop;  (** uri *)
 }
 
 type remote_repository_config__maven_repository = {
+  custom_repository :
+    remote_repository_config__maven_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** custom_repository *)
   public_repository : string prop;  (** public_repository *)
 }
 
+type remote_repository_config__docker_repository__custom_repository = {
+  uri : string prop;  (** uri *)
+}
+
 type remote_repository_config__docker_repository = {
+  custom_repository :
+    remote_repository_config__docker_repository__custom_repository
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** custom_repository *)
   public_repository : string prop;  (** public_repository *)
 }
 
@@ -106,6 +141,8 @@ type remote_repository_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** apt_repository *)
   description : string prop;  (** description *)
+  disable_upstream_validation : bool prop;
+      (** disable_upstream_validation *)
   docker_repository :
     remote_repository_config__docker_repository list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

@@ -855,6 +855,8 @@ type instance_requirements = {
   local_storage : string prop;
   local_storage_types : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop;
   memory_gib_per_vcpu :
     instance_requirements__memory_gib_per_vcpu list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -896,6 +898,8 @@ let yojson_of_instance_requirements =
        instance_generations = v_instance_generations;
        local_storage = v_local_storage;
        local_storage_types = v_local_storage_types;
+       max_spot_price_as_percentage_of_optimal_on_demand_price =
+         v_max_spot_price_as_percentage_of_optimal_on_demand_price;
        memory_gib_per_vcpu = v_memory_gib_per_vcpu;
        memory_mib = v_memory_mib;
        network_bandwidth_gbps = v_network_bandwidth_gbps;
@@ -997,6 +1001,15 @@ let yojson_of_instance_requirements =
            in
            let bnd = "memory_gib_per_vcpu", arg in
            bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_max_spot_price_as_percentage_of_optimal_on_demand_price
+         in
+         ( "max_spot_price_as_percentage_of_optimal_on_demand_price",
+           arg )
+         :: bnds
        in
        let bnds =
          if Stdlib.( = ) [] v_local_storage_types then bnds
@@ -1281,6 +1294,7 @@ type network_interfaces = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   network_card_index : float prop;
   network_interface_id : string prop;
+  primary_ipv6 : string prop;
   private_ip_address : string prop;
   security_groups : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1309,6 +1323,7 @@ let yojson_of_network_interfaces =
        ipv6_prefixes = v_ipv6_prefixes;
        network_card_index = v_network_card_index;
        network_interface_id = v_network_interface_id;
+       primary_ipv6 = v_primary_ipv6;
        private_ip_address = v_private_ip_address;
        security_groups = v_security_groups;
        subnet_id = v_subnet_id;
@@ -1335,6 +1350,10 @@ let yojson_of_network_interfaces =
            yojson_of_prop yojson_of_string v_private_ip_address
          in
          ("private_ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_primary_ipv6 in
+         ("primary_ipv6", arg) :: bnds
        in
        let bnds =
          let arg =

@@ -45,24 +45,54 @@ let _ = yojson_of_metadata
 
 [@@@deriving.end]
 
-type secret = { name : string prop; value : string prop }
+type secret = {
+  identity : string prop option; [@option]
+  key_vault_secret_id : string prop option; [@option]
+  name : string prop;
+  value : string prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : secret) -> ()
 
 let yojson_of_secret =
   (function
-   | { name = v_name; value = v_value } ->
+   | {
+       identity = v_identity;
+       key_vault_secret_id = v_key_vault_secret_id;
+       name = v_name;
+       value = v_value;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_value in
-         ("value", arg) :: bnds
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_key_vault_secret_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_secret_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -255,7 +285,8 @@ let _ = yojson_of_azurerm_container_app_environment_dapr_component
 let metadata ?secret_name ?value ~name () : metadata =
   { name; secret_name; value }
 
-let secret ~name ~value () : secret = { name; value }
+let secret ?identity ?key_vault_secret_id ?value ~name () : secret =
+  { identity; key_vault_secret_id; name; value }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

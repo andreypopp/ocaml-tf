@@ -57,12 +57,31 @@ type timeouts
 
 val timeouts : ?create:string prop -> unit -> timeouts
 
+type workflow__parameter
+
+val workflow__parameter :
+  name:string prop ->
+  value:string prop ->
+  unit ->
+  workflow__parameter
+
+type workflow
+
+val workflow :
+  ?on_failure:string prop ->
+  ?parallel_group:string prop ->
+  workflow_arn:string prop ->
+  parameter:workflow__parameter list ->
+  unit ->
+  workflow
+
 type aws_imagebuilder_image
 
 val aws_imagebuilder_image :
   ?container_recipe_arn:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
@@ -71,6 +90,7 @@ val aws_imagebuilder_image :
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
+  workflow:workflow list ->
   unit ->
   aws_imagebuilder_image
 
@@ -85,6 +105,7 @@ type t = private {
   date_created : string prop;
   distribution_configuration_arn : string prop;
   enhanced_image_metadata_enabled : bool prop;
+  execution_role : string prop;
   id : string prop;
   image_recipe_arn : string prop;
   infrastructure_configuration_arn : string prop;
@@ -102,6 +123,7 @@ val register :
   ?container_recipe_arn:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
@@ -110,6 +132,7 @@ val register :
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
+  workflow:workflow list ->
   string ->
   t
 
@@ -117,6 +140,7 @@ val make :
   ?container_recipe_arn:string prop ->
   ?distribution_configuration_arn:string prop ->
   ?enhanced_image_metadata_enabled:bool prop ->
+  ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
@@ -125,5 +149,6 @@ val make :
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
+  workflow:workflow list ->
   string ->
   t Tf_core.resource

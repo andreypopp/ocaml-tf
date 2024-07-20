@@ -2,22 +2,38 @@
 
 open! Tf_core
 
-type compute_capacity = { desired_instances : float prop }
+type compute_capacity = {
+  desired_instances : float prop option; [@option]
+  desired_sessions : float prop option; [@option]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : compute_capacity) -> ()
 
 let yojson_of_compute_capacity =
   (function
-   | { desired_instances = v_desired_instances } ->
+   | {
+       desired_instances = v_desired_instances;
+       desired_sessions = v_desired_sessions;
+     } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_float v_desired_instances
-         in
-         ("desired_instances", arg) :: bnds
+         match v_desired_sessions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "desired_sessions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_desired_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "desired_instances", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : compute_capacity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -126,6 +142,7 @@ type aws_appstream_fleet = {
   image_arn : string prop option; [@option]
   image_name : string prop option; [@option]
   instance_type : string prop;
+  max_sessions_per_instance : float prop option; [@option]
   max_user_duration_in_seconds : float prop option; [@option]
   name : string prop;
   stream_view : string prop option; [@option]
@@ -159,6 +176,7 @@ let yojson_of_aws_appstream_fleet =
        image_arn = v_image_arn;
        image_name = v_image_name;
        instance_type = v_instance_type;
+       max_sessions_per_instance = v_max_sessions_per_instance;
        max_user_duration_in_seconds = v_max_user_duration_in_seconds;
        name = v_name;
        stream_view = v_stream_view;
@@ -253,6 +271,14 @@ let yojson_of_aws_appstream_fleet =
              bnd :: bnds
        in
        let bnds =
+         match v_max_sessions_per_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_sessions_per_instance", arg in
+             bnd :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_instance_type in
          ("instance_type", arg) :: bnds
        in
@@ -343,8 +369,9 @@ let _ = yojson_of_aws_appstream_fleet
 
 [@@@deriving.end]
 
-let compute_capacity ~desired_instances () : compute_capacity =
-  { desired_instances }
+let compute_capacity ?desired_instances ?desired_sessions () :
+    compute_capacity =
+  { desired_instances; desired_sessions }
 
 let domain_join_info ?directory_name
     ?organizational_unit_distinguished_name () : domain_join_info =
@@ -356,9 +383,10 @@ let vpc_config ?security_group_ids ?subnet_ids () : vpc_config =
 let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
-    ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
-    ?tags_all ?(domain_join_info = []) ?(vpc_config = [])
-    ~instance_type ~name ~compute_capacity () : aws_appstream_fleet =
+    ?image_name ?max_sessions_per_instance
+    ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
+    ?(domain_join_info = []) ?(vpc_config = []) ~instance_type ~name
+    ~compute_capacity () : aws_appstream_fleet =
   {
     description;
     disconnect_timeout_in_seconds;
@@ -371,6 +399,7 @@ let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     image_arn;
     image_name;
     instance_type;
+    max_sessions_per_instance;
     max_user_duration_in_seconds;
     name;
     stream_view;
@@ -396,6 +425,7 @@ type t = {
   image_arn : string prop;
   image_name : string prop;
   instance_type : string prop;
+  max_sessions_per_instance : float prop;
   max_user_duration_in_seconds : float prop;
   name : string prop;
   state : string prop;
@@ -407,9 +437,9 @@ type t = {
 let make ?description ?disconnect_timeout_in_seconds ?display_name
     ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
     ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
-    ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
-    ?(domain_join_info = []) ?(vpc_config = []) ~instance_type ~name
-    ~compute_capacity __id =
+    ?max_sessions_per_instance ?max_user_duration_in_seconds
+    ?stream_view ?tags ?tags_all ?(domain_join_info = [])
+    ?(vpc_config = []) ~instance_type ~name ~compute_capacity __id =
   let __type = "aws_appstream_fleet" in
   let __attrs =
     ({
@@ -431,6 +461,8 @@ let make ?description ?disconnect_timeout_in_seconds ?display_name
        image_arn = Prop.computed __type __id "image_arn";
        image_name = Prop.computed __type __id "image_name";
        instance_type = Prop.computed __type __id "instance_type";
+       max_sessions_per_instance =
+         Prop.computed __type __id "max_sessions_per_instance";
        max_user_duration_in_seconds =
          Prop.computed __type __id "max_user_duration_in_seconds";
        name = Prop.computed __type __id "name";
@@ -450,25 +482,27 @@ let make ?description ?disconnect_timeout_in_seconds ?display_name
            ?disconnect_timeout_in_seconds ?display_name
            ?enable_default_internet_access ?fleet_type ?iam_role_arn
            ?id ?idle_disconnect_timeout_in_seconds ?image_arn
-           ?image_name ?max_user_duration_in_seconds ?stream_view
-           ?tags ?tags_all ~domain_join_info ~vpc_config
-           ~instance_type ~name ~compute_capacity ());
+           ?image_name ?max_sessions_per_instance
+           ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
+           ~domain_join_info ~vpc_config ~instance_type ~name
+           ~compute_capacity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
-    ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
-    ?tags_all ?(domain_join_info = []) ?(vpc_config = [])
-    ~instance_type ~name ~compute_capacity __id =
+    ?image_name ?max_sessions_per_instance
+    ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
+    ?(domain_join_info = []) ?(vpc_config = []) ~instance_type ~name
+    ~compute_capacity __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disconnect_timeout_in_seconds ?display_name
       ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
       ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
-      ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
-      ~domain_join_info ~vpc_config ~instance_type ~name
-      ~compute_capacity __id
+      ?max_sessions_per_instance ?max_user_duration_in_seconds
+      ?stream_view ?tags ?tags_all ~domain_join_info ~vpc_config
+      ~instance_type ~name ~compute_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

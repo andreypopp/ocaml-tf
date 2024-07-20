@@ -32,6 +32,7 @@ val stage__action :
   ?region:string prop ->
   ?role_arn:string prop ->
   ?run_order:float prop ->
+  ?timeout_in_minutes:float prop ->
   category:string prop ->
   name:string prop ->
   owner:string prop ->

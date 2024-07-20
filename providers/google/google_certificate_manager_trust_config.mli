@@ -4,6 +4,11 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
+type allowlisted_certificates
+
+val allowlisted_certificates :
+  pem_certificate:string prop -> unit -> allowlisted_certificates
+
 type timeouts
 
 val timeouts :
@@ -40,6 +45,7 @@ val google_certificate_manager_trust_config :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?allowlisted_certificates:allowlisted_certificates list ->
   ?timeouts:timeouts ->
   ?trust_stores:trust_stores list ->
   location:string prop ->
@@ -72,6 +78,7 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?allowlisted_certificates:allowlisted_certificates list ->
   ?timeouts:timeouts ->
   ?trust_stores:trust_stores list ->
   location:string prop ->
@@ -84,6 +91,7 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?allowlisted_certificates:allowlisted_certificates list ->
   ?timeouts:timeouts ->
   ?trust_stores:trust_stores list ->
   location:string prop ->

@@ -3,7 +3,8 @@
 open! Tf_core
 
 type attachment_policies__action = {
-  association_method : string prop;
+  add_to_network_function_group : string prop option; [@option]
+  association_method : string prop option; [@option]
   require_acceptance : bool prop option; [@option]
   segment : string prop option; [@option]
   tag_value_of_key : string prop option; [@option]
@@ -15,6 +16,8 @@ let _ = fun (_ : attachment_policies__action) -> ()
 let yojson_of_attachment_policies__action =
   (function
    | {
+       add_to_network_function_group =
+         v_add_to_network_function_group;
        association_method = v_association_method;
        require_acceptance = v_require_acceptance;
        segment = v_segment;
@@ -48,10 +51,20 @@ let yojson_of_attachment_policies__action =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_prop yojson_of_string v_association_method
-         in
-         ("association_method", arg) :: bnds
+         match v_association_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "association_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add_to_network_function_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "add_to_network_function_group", arg in
+             bnd :: bnds
        in
        `Assoc bnds
     : attachment_policies__action ->
@@ -309,6 +322,169 @@ let _ = yojson_of_core_network_configuration
 
 [@@@deriving.end]
 
+type network_function_groups = {
+  description : string prop option; [@option]
+  name : string prop;
+  require_attachment_acceptance : bool prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_function_groups) -> ()
+
+let yojson_of_network_function_groups =
+  (function
+   | {
+       description = v_description;
+       name = v_name;
+       require_attachment_acceptance =
+         v_require_attachment_acceptance;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_require_attachment_acceptance
+         in
+         ("require_attachment_acceptance", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_function_groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_function_groups
+
+[@@@deriving.end]
+
+type segment_actions__via__with_edge_override = {
+  edge_sets : string prop list option; [@option]
+  use_edge : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : segment_actions__via__with_edge_override) -> ()
+
+let yojson_of_segment_actions__via__with_edge_override =
+  (function
+   | { edge_sets = v_edge_sets; use_edge = v_use_edge } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_edge with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "use_edge", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edge_sets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "edge_sets", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : segment_actions__via__with_edge_override ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_segment_actions__via__with_edge_override
+
+[@@@deriving.end]
+
+type segment_actions__via = {
+  network_function_groups : string prop list option; [@option]
+  with_edge_override : segment_actions__via__with_edge_override list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : segment_actions__via) -> ()
+
+let yojson_of_segment_actions__via =
+  (function
+   | {
+       network_function_groups = v_network_function_groups;
+       with_edge_override = v_with_edge_override;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_with_edge_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_segment_actions__via__with_edge_override)
+               v_with_edge_override
+           in
+           let bnd = "with_edge_override", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         match v_network_function_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_function_groups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : segment_actions__via -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_segment_actions__via
+
+[@@@deriving.end]
+
+type segment_actions__when_sent_to = {
+  segments : string prop list option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : segment_actions__when_sent_to) -> ()
+
+let yojson_of_segment_actions__when_sent_to =
+  (function
+   | { segments = v_segments } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_segments with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "segments", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : segment_actions__when_sent_to ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_segment_actions__when_sent_to
+
+[@@@deriving.end]
+
 type segment_actions = {
   action : string prop;
   description : string prop option; [@option]
@@ -318,6 +494,10 @@ type segment_actions = {
   segment : string prop;
   share_with : string prop list option; [@option]
   share_with_except : string prop list option; [@option]
+  via : segment_actions__via list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  when_sent_to : segment_actions__when_sent_to list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,9 +514,30 @@ let yojson_of_segment_actions =
        segment = v_segment;
        share_with = v_share_with;
        share_with_except = v_share_with_except;
+       via = v_via;
+       when_sent_to = v_when_sent_to;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_when_sent_to then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_segment_actions__when_sent_to)
+               v_when_sent_to
+           in
+           let bnd = "when_sent_to", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_via then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_segment_actions__via) v_via
+           in
+           let bnd = "via", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_share_with_except with
@@ -509,6 +710,8 @@ type aws_networkmanager_core_network_policy_document = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   core_network_configuration : core_network_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  network_function_groups : network_function_groups list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   segment_actions : segment_actions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   segments : segments list;
@@ -526,6 +729,7 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
        version = v_version;
        attachment_policies = v_attachment_policies;
        core_network_configuration = v_core_network_configuration;
+       network_function_groups = v_network_function_groups;
        segment_actions = v_segment_actions;
        segments = v_segments;
      } ->
@@ -549,6 +753,16 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
                v_segment_actions
            in
            let bnd = "segment_actions", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_network_function_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_function_groups)
+               v_network_function_groups
+           in
+           let bnd = "network_function_groups", arg in
            bnd :: bnds
        in
        let bnds =
@@ -595,10 +809,11 @@ let _ = yojson_of_aws_networkmanager_core_network_policy_document
 
 [@@@deriving.end]
 
-let attachment_policies__action ?require_acceptance ?segment
-    ?tag_value_of_key ~association_method () :
-    attachment_policies__action =
+let attachment_policies__action ?add_to_network_function_group
+    ?association_method ?require_acceptance ?segment
+    ?tag_value_of_key () : attachment_policies__action =
   {
+    add_to_network_function_group;
     association_method;
     require_acceptance;
     segment;
@@ -627,9 +842,25 @@ let core_network_configuration ?inside_cidr_blocks ?vpn_ecmp_support
     edge_locations;
   }
 
+let network_function_groups ?description ~name
+    ~require_attachment_acceptance () : network_function_groups =
+  { description; name; require_attachment_acceptance }
+
+let segment_actions__via__with_edge_override ?edge_sets ?use_edge ()
+    : segment_actions__via__with_edge_override =
+  { edge_sets; use_edge }
+
+let segment_actions__via ?network_function_groups
+    ?(with_edge_override = []) () : segment_actions__via =
+  { network_function_groups; with_edge_override }
+
+let segment_actions__when_sent_to ?segments () :
+    segment_actions__when_sent_to =
+  { segments }
+
 let segment_actions ?description ?destination_cidr_blocks
-    ?destinations ?mode ?share_with ?share_with_except ~action
-    ~segment () : segment_actions =
+    ?destinations ?mode ?share_with ?share_with_except ?(via = [])
+    ?(when_sent_to = []) ~action ~segment () : segment_actions =
   {
     action;
     description;
@@ -639,6 +870,8 @@ let segment_actions ?description ?destination_cidr_blocks
     segment;
     share_with;
     share_with_except;
+    via;
+    when_sent_to;
   }
 
 let segments ?allow_filter ?deny_filter ?description ?edge_locations
@@ -655,14 +888,15 @@ let segments ?allow_filter ?deny_filter ?description ?edge_locations
   }
 
 let aws_networkmanager_core_network_policy_document ?id ?version
-    ?(attachment_policies = []) ?(segment_actions = [])
-    ~core_network_configuration ~segments () :
-    aws_networkmanager_core_network_policy_document =
+    ?(attachment_policies = []) ?(network_function_groups = [])
+    ?(segment_actions = []) ~core_network_configuration ~segments ()
+    : aws_networkmanager_core_network_policy_document =
   {
     id;
     version;
     attachment_policies;
     core_network_configuration;
+    network_function_groups;
     segment_actions;
     segments;
   }
@@ -675,8 +909,8 @@ type t = {
 }
 
 let make ?id ?version ?(attachment_policies = [])
-    ?(segment_actions = []) ~core_network_configuration ~segments
-    __id =
+    ?(network_function_groups = []) ?(segment_actions = [])
+    ~core_network_configuration ~segments __id =
   let __type = "aws_networkmanager_core_network_policy_document" in
   let __attrs =
     ({
@@ -693,17 +927,17 @@ let make ?id ?version ?(attachment_policies = [])
     json =
       yojson_of_aws_networkmanager_core_network_policy_document
         (aws_networkmanager_core_network_policy_document ?id ?version
-           ~attachment_policies ~segment_actions
-           ~core_network_configuration ~segments ());
+           ~attachment_policies ~network_function_groups
+           ~segment_actions ~core_network_configuration ~segments ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?version ?(attachment_policies = [])
-    ?(segment_actions = []) ~core_network_configuration ~segments
-    __id =
+    ?(network_function_groups = []) ?(segment_actions = [])
+    ~core_network_configuration ~segments __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?version ~attachment_policies ~segment_actions
-      ~core_network_configuration ~segments __id
+    make ?id ?version ~attachment_policies ~network_function_groups
+      ~segment_actions ~core_network_configuration ~segments __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

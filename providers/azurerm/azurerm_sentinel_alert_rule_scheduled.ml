@@ -197,6 +197,142 @@ let _ = yojson_of_event_grouping
 
 [@@@deriving.end]
 
+type incident__grouping = {
+  by_alert_details : string prop list option; [@option]
+  by_custom_details : string prop list option; [@option]
+  by_entities : string prop list option; [@option]
+  enabled : bool prop option; [@option]
+  entity_matching_method : string prop option; [@option]
+  lookback_duration : string prop option; [@option]
+  reopen_closed_incidents : bool prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : incident__grouping) -> ()
+
+let yojson_of_incident__grouping =
+  (function
+   | {
+       by_alert_details = v_by_alert_details;
+       by_custom_details = v_by_custom_details;
+       by_entities = v_by_entities;
+       enabled = v_enabled;
+       entity_matching_method = v_entity_matching_method;
+       lookback_duration = v_lookback_duration;
+       reopen_closed_incidents = v_reopen_closed_incidents;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_reopen_closed_incidents with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reopen_closed_incidents", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lookback_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lookback_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_entity_matching_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "entity_matching_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_by_entities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "by_entities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_by_custom_details with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "by_custom_details", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_by_alert_details with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "by_alert_details", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : incident__grouping -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_incident__grouping
+
+[@@@deriving.end]
+
+type incident = {
+  create_incident_enabled : bool prop;
+  grouping : incident__grouping list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : incident) -> ()
+
+let yojson_of_incident =
+  (function
+   | {
+       create_incident_enabled = v_create_incident_enabled;
+       grouping = v_grouping;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_grouping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_incident__grouping) v_grouping
+           in
+           let bnd = "grouping", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_create_incident_enabled
+         in
+         ("create_incident_enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : incident -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_incident
+
+[@@@deriving.end]
+
 type incident_configuration__grouping = {
   enabled : bool prop option; [@option]
   entity_matching_method : string prop option; [@option]
@@ -440,6 +576,8 @@ type azurerm_sentinel_alert_rule_scheduled = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   event_grouping : event_grouping list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  incident : incident list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   incident_configuration : incident_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   sentinel_entity_mapping : sentinel_entity_mapping list;
@@ -475,6 +613,7 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
        alert_details_override = v_alert_details_override;
        entity_mapping = v_entity_mapping;
        event_grouping = v_event_grouping;
+       incident = v_incident;
        incident_configuration = v_incident_configuration;
        sentinel_entity_mapping = v_sentinel_entity_mapping;
        timeouts = v_timeouts;
@@ -504,6 +643,15 @@ let yojson_of_azurerm_sentinel_alert_rule_scheduled =
                v_incident_configuration
            in
            let bnd = "incident_configuration", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_incident then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_incident) v_incident
+           in
+           let bnd = "incident", arg in
            bnd :: bnds
        in
        let bnds =
@@ -716,6 +864,22 @@ let entity_mapping ~entity_type ~field_mapping () : entity_mapping =
 let event_grouping ~aggregation_method () : event_grouping =
   { aggregation_method }
 
+let incident__grouping ?by_alert_details ?by_custom_details
+    ?by_entities ?enabled ?entity_matching_method ?lookback_duration
+    ?reopen_closed_incidents () : incident__grouping =
+  {
+    by_alert_details;
+    by_custom_details;
+    by_entities;
+    enabled;
+    entity_matching_method;
+    lookback_duration;
+    reopen_closed_incidents;
+  }
+
+let incident ~create_incident_enabled ~grouping () : incident =
+  { create_incident_enabled; grouping }
+
 let incident_configuration__grouping ?enabled ?entity_matching_method
     ?group_by_alert_details ?group_by_custom_details
     ?group_by_entities ?lookback_duration ?reopen_closed_incidents ()
@@ -746,7 +910,7 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     ?enabled ?id ?query_frequency ?query_period ?suppression_duration
     ?suppression_enabled ?tactics ?techniques ?trigger_operator
     ?trigger_threshold ?(alert_details_override = [])
-    ?(entity_mapping = []) ?(event_grouping = [])
+    ?(entity_mapping = []) ?(event_grouping = []) ?(incident = [])
     ?(incident_configuration = []) ?(sentinel_entity_mapping = [])
     ?timeouts ~display_name ~log_analytics_workspace_id ~name ~query
     ~severity () : azurerm_sentinel_alert_rule_scheduled =
@@ -773,6 +937,7 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     alert_details_override;
     entity_mapping;
     event_grouping;
+    incident;
     incident_configuration;
     sentinel_entity_mapping;
     timeouts;
@@ -806,9 +971,10 @@ let make ?alert_rule_template_guid ?alert_rule_template_version
     ?query_period ?suppression_duration ?suppression_enabled ?tactics
     ?techniques ?trigger_operator ?trigger_threshold
     ?(alert_details_override = []) ?(entity_mapping = [])
-    ?(event_grouping = []) ?(incident_configuration = [])
-    ?(sentinel_entity_mapping = []) ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~query ~severity __id =
+    ?(event_grouping = []) ?(incident = [])
+    ?(incident_configuration = []) ?(sentinel_entity_mapping = [])
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name ~query
+    ~severity __id =
   let __type = "azurerm_sentinel_alert_rule_scheduled" in
   let __attrs =
     ({
@@ -853,9 +1019,9 @@ let make ?alert_rule_template_guid ?alert_rule_template_version
            ?query_period ?suppression_duration ?suppression_enabled
            ?tactics ?techniques ?trigger_operator ?trigger_threshold
            ~alert_details_override ~entity_mapping ~event_grouping
-           ~incident_configuration ~sentinel_entity_mapping ?timeouts
-           ~display_name ~log_analytics_workspace_id ~name ~query
-           ~severity ());
+           ~incident ~incident_configuration ~sentinel_entity_mapping
+           ?timeouts ~display_name ~log_analytics_workspace_id ~name
+           ~query ~severity ());
     attrs = __attrs;
   }
 
@@ -864,7 +1030,7 @@ let register ?tf_module ?alert_rule_template_guid
     ?enabled ?id ?query_frequency ?query_period ?suppression_duration
     ?suppression_enabled ?tactics ?techniques ?trigger_operator
     ?trigger_threshold ?(alert_details_override = [])
-    ?(entity_mapping = []) ?(event_grouping = [])
+    ?(entity_mapping = []) ?(event_grouping = []) ?(incident = [])
     ?(incident_configuration = []) ?(sentinel_entity_mapping = [])
     ?timeouts ~display_name ~log_analytics_workspace_id ~name ~query
     ~severity __id =
@@ -874,9 +1040,9 @@ let register ?tf_module ?alert_rule_template_guid
       ?query_period ?suppression_duration ?suppression_enabled
       ?tactics ?techniques ?trigger_operator ?trigger_threshold
       ~alert_details_override ~entity_mapping ~event_grouping
-      ~incident_configuration ~sentinel_entity_mapping ?timeouts
-      ~display_name ~log_analytics_workspace_id ~name ~query
-      ~severity __id
+      ~incident ~incident_configuration ~sentinel_entity_mapping
+      ?timeouts ~display_name ~log_analytics_workspace_id ~name
+      ~query ~severity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

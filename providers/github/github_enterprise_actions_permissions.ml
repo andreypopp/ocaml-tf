@@ -87,7 +87,7 @@ let _ = yojson_of_enabled_organizations_config
 type github_enterprise_actions_permissions = {
   allowed_actions : string prop option; [@option]
   enabled_organizations : string prop;
-  enterprise_id : string prop;
+  enterprise_slug : string prop;
   id : string prop option; [@option]
   allowed_actions_config : allowed_actions_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -103,7 +103,7 @@ let yojson_of_github_enterprise_actions_permissions =
    | {
        allowed_actions = v_allowed_actions;
        enabled_organizations = v_enabled_organizations;
-       enterprise_id = v_enterprise_id;
+       enterprise_slug = v_enterprise_slug;
        id = v_id;
        allowed_actions_config = v_allowed_actions_config;
        enabled_organizations_config = v_enabled_organizations_config;
@@ -140,8 +140,10 @@ let yojson_of_github_enterprise_actions_permissions =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_prop yojson_of_string v_enterprise_id in
-         ("enterprise_id", arg) :: bnds
+         let arg =
+           yojson_of_prop yojson_of_string v_enterprise_slug
+         in
+         ("enterprise_slug", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -176,11 +178,11 @@ let enabled_organizations_config ~organization_ids () :
 let github_enterprise_actions_permissions ?allowed_actions ?id
     ?(allowed_actions_config = [])
     ?(enabled_organizations_config = []) ~enabled_organizations
-    ~enterprise_id () : github_enterprise_actions_permissions =
+    ~enterprise_slug () : github_enterprise_actions_permissions =
   {
     allowed_actions;
     enabled_organizations;
-    enterprise_id;
+    enterprise_slug;
     id;
     allowed_actions_config;
     enabled_organizations_config;
@@ -190,13 +192,13 @@ type t = {
   tf_name : string;
   allowed_actions : string prop;
   enabled_organizations : string prop;
-  enterprise_id : string prop;
+  enterprise_slug : string prop;
   id : string prop;
 }
 
 let make ?allowed_actions ?id ?(allowed_actions_config = [])
     ?(enabled_organizations_config = []) ~enabled_organizations
-    ~enterprise_id __id =
+    ~enterprise_slug __id =
   let __type = "github_enterprise_actions_permissions" in
   let __attrs =
     ({
@@ -204,7 +206,7 @@ let make ?allowed_actions ?id ?(allowed_actions_config = [])
        allowed_actions = Prop.computed __type __id "allowed_actions";
        enabled_organizations =
          Prop.computed __type __id "enabled_organizations";
-       enterprise_id = Prop.computed __type __id "enterprise_id";
+       enterprise_slug = Prop.computed __type __id "enterprise_slug";
        id = Prop.computed __type __id "id";
      }
       : t)
@@ -216,18 +218,18 @@ let make ?allowed_actions ?id ?(allowed_actions_config = [])
       yojson_of_github_enterprise_actions_permissions
         (github_enterprise_actions_permissions ?allowed_actions ?id
            ~allowed_actions_config ~enabled_organizations_config
-           ~enabled_organizations ~enterprise_id ());
+           ~enabled_organizations ~enterprise_slug ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allowed_actions ?id
     ?(allowed_actions_config = [])
     ?(enabled_organizations_config = []) ~enabled_organizations
-    ~enterprise_id __id =
+    ~enterprise_slug __id =
   let (r : _ Tf_core.resource) =
     make ?allowed_actions ?id ~allowed_actions_config
       ~enabled_organizations_config ~enabled_organizations
-      ~enterprise_id __id
+      ~enterprise_slug __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

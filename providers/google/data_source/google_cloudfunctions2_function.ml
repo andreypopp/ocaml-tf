@@ -152,12 +152,60 @@ let _ = yojson_of_build_config__source
 
 [@@@deriving.end]
 
+type build_config__on_deploy_update_policy = {
+  runtime_version : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__on_deploy_update_policy) -> ()
+
+let yojson_of_build_config__on_deploy_update_policy =
+  (function
+   | { runtime_version = v_runtime_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_runtime_version
+         in
+         ("runtime_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : build_config__on_deploy_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__on_deploy_update_policy
+
+[@@@deriving.end]
+
+type build_config__automatic_update_policy = unit
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__automatic_update_policy) -> ()
+
+let yojson_of_build_config__automatic_update_policy =
+  (yojson_of_unit
+    : build_config__automatic_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__automatic_update_policy
+
+[@@@deriving.end]
+
 type build_config = {
+  automatic_update_policy :
+    build_config__automatic_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   build : string prop;
   docker_repository : string prop;
   entry_point : string prop;
   environment_variables : (string * string prop) list;
+  on_deploy_update_policy :
+    build_config__on_deploy_update_policy list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   runtime : string prop;
+  service_account : string prop;
   source : build_config__source list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   worker_pool : string prop;
@@ -169,11 +217,14 @@ let _ = fun (_ : build_config) -> ()
 let yojson_of_build_config =
   (function
    | {
+       automatic_update_policy = v_automatic_update_policy;
        build = v_build;
        docker_repository = v_docker_repository;
        entry_point = v_entry_point;
        environment_variables = v_environment_variables;
+       on_deploy_update_policy = v_on_deploy_update_policy;
        runtime = v_runtime;
+       service_account = v_service_account;
        source = v_source;
        worker_pool = v_worker_pool;
      } ->
@@ -194,8 +245,25 @@ let yojson_of_build_config =
            bnd :: bnds
        in
        let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       let bnds =
          let arg = yojson_of_prop yojson_of_string v_runtime in
          ("runtime", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_on_deploy_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__on_deploy_update_policy)
+               v_on_deploy_update_policy
+           in
+           let bnd = "on_deploy_update_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -222,6 +290,17 @@ let yojson_of_build_config =
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_build in
          ("build", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_automatic_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__automatic_update_policy)
+               v_automatic_update_policy
+           in
+           let bnd = "automatic_update_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

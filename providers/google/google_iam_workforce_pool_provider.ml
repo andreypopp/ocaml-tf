@@ -2,6 +2,166 @@
 
 open! Tf_core
 
+type extra_attributes_oauth2_client__client_secret__value = {
+  plain_text : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : extra_attributes_oauth2_client__client_secret__value) -> ()
+
+let yojson_of_extra_attributes_oauth2_client__client_secret__value =
+  (function
+   | { plain_text = v_plain_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plain_text in
+         ("plain_text", arg) :: bnds
+       in
+       `Assoc bnds
+    : extra_attributes_oauth2_client__client_secret__value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_extra_attributes_oauth2_client__client_secret__value
+
+[@@@deriving.end]
+
+type extra_attributes_oauth2_client__client_secret = {
+  value : extra_attributes_oauth2_client__client_secret__value list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : extra_attributes_oauth2_client__client_secret) -> ()
+
+let yojson_of_extra_attributes_oauth2_client__client_secret =
+  (function
+   | { value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_extra_attributes_oauth2_client__client_secret__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
+       in
+       `Assoc bnds
+    : extra_attributes_oauth2_client__client_secret ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_extra_attributes_oauth2_client__client_secret
+
+[@@@deriving.end]
+
+type extra_attributes_oauth2_client__query_parameters = {
+  filter : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : extra_attributes_oauth2_client__query_parameters) -> ()
+
+let yojson_of_extra_attributes_oauth2_client__query_parameters =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : extra_attributes_oauth2_client__query_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_extra_attributes_oauth2_client__query_parameters
+
+[@@@deriving.end]
+
+type extra_attributes_oauth2_client = {
+  attributes_type : string prop;
+  client_id : string prop;
+  issuer_uri : string prop;
+  client_secret : extra_attributes_oauth2_client__client_secret list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  query_parameters :
+    extra_attributes_oauth2_client__query_parameters list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : extra_attributes_oauth2_client) -> ()
+
+let yojson_of_extra_attributes_oauth2_client =
+  (function
+   | {
+       attributes_type = v_attributes_type;
+       client_id = v_client_id;
+       issuer_uri = v_issuer_uri;
+       client_secret = v_client_secret;
+       query_parameters = v_query_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_query_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_extra_attributes_oauth2_client__query_parameters)
+               v_query_parameters
+           in
+           let bnd = "query_parameters", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_client_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_extra_attributes_oauth2_client__client_secret)
+               v_client_secret
+           in
+           let bnd = "client_secret", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer_uri in
+         ("issuer_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_attributes_type
+         in
+         ("attributes_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : extra_attributes_oauth2_client ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_extra_attributes_oauth2_client
+
+[@@@deriving.end]
+
 type oidc__client_secret__value = { plain_text : string prop }
 [@@deriving_inline yojson_of]
 
@@ -250,6 +410,9 @@ type google_iam_workforce_pool_provider = {
   location : string prop;
   provider_id : string prop;
   workforce_pool_id : string prop;
+  extra_attributes_oauth2_client :
+    extra_attributes_oauth2_client list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   oidc : oidc list; [@default []] [@yojson_drop_default Stdlib.( = )]
   saml : saml list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -270,6 +433,8 @@ let yojson_of_google_iam_workforce_pool_provider =
        location = v_location;
        provider_id = v_provider_id;
        workforce_pool_id = v_workforce_pool_id;
+       extra_attributes_oauth2_client =
+         v_extra_attributes_oauth2_client;
        oidc = v_oidc;
        saml = v_saml;
        timeouts = v_timeouts;
@@ -293,6 +458,17 @@ let yojson_of_google_iam_workforce_pool_provider =
          else
            let arg = (yojson_of_list yojson_of_oidc) v_oidc in
            let bnd = "oidc", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_extra_attributes_oauth2_client then
+           bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extra_attributes_oauth2_client)
+               v_extra_attributes_oauth2_client
+           in
+           let bnd = "extra_attributes_oauth2_client", arg in
            bnd :: bnds
        in
        let bnds =
@@ -373,6 +549,29 @@ let _ = yojson_of_google_iam_workforce_pool_provider
 
 [@@@deriving.end]
 
+let extra_attributes_oauth2_client__client_secret__value ~plain_text
+    () : extra_attributes_oauth2_client__client_secret__value =
+  { plain_text }
+
+let extra_attributes_oauth2_client__client_secret ?(value = []) () :
+    extra_attributes_oauth2_client__client_secret =
+  { value }
+
+let extra_attributes_oauth2_client__query_parameters ?filter () :
+    extra_attributes_oauth2_client__query_parameters =
+  { filter }
+
+let extra_attributes_oauth2_client ?(query_parameters = [])
+    ~attributes_type ~client_id ~issuer_uri ~client_secret () :
+    extra_attributes_oauth2_client =
+  {
+    attributes_type;
+    client_id;
+    issuer_uri;
+    client_secret;
+    query_parameters;
+  }
+
 let oidc__client_secret__value ~plain_text () :
     oidc__client_secret__value =
   { plain_text }
@@ -396,8 +595,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_iam_workforce_pool_provider ?attribute_condition
     ?attribute_mapping ?description ?disabled ?display_name ?id
-    ?(oidc = []) ?(saml = []) ?timeouts ~location ~provider_id
-    ~workforce_pool_id () : google_iam_workforce_pool_provider =
+    ?(extra_attributes_oauth2_client = []) ?(oidc = []) ?(saml = [])
+    ?timeouts ~location ~provider_id ~workforce_pool_id () :
+    google_iam_workforce_pool_provider =
   {
     attribute_condition;
     attribute_mapping;
@@ -408,6 +608,7 @@ let google_iam_workforce_pool_provider ?attribute_condition
     location;
     provider_id;
     workforce_pool_id;
+    extra_attributes_oauth2_client;
     oidc;
     saml;
     timeouts;
@@ -429,8 +630,9 @@ type t = {
 }
 
 let make ?attribute_condition ?attribute_mapping ?description
-    ?disabled ?display_name ?id ?(oidc = []) ?(saml = []) ?timeouts
-    ~location ~provider_id ~workforce_pool_id __id =
+    ?disabled ?display_name ?id
+    ?(extra_attributes_oauth2_client = []) ?(oidc = []) ?(saml = [])
+    ?timeouts ~location ~provider_id ~workforce_pool_id __id =
   let __type = "google_iam_workforce_pool_provider" in
   let __attrs =
     ({
@@ -459,19 +661,20 @@ let make ?attribute_condition ?attribute_mapping ?description
       yojson_of_google_iam_workforce_pool_provider
         (google_iam_workforce_pool_provider ?attribute_condition
            ?attribute_mapping ?description ?disabled ?display_name
-           ?id ~oidc ~saml ?timeouts ~location ~provider_id
-           ~workforce_pool_id ());
+           ?id ~extra_attributes_oauth2_client ~oidc ~saml ?timeouts
+           ~location ~provider_id ~workforce_pool_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?attribute_condition ?attribute_mapping
-    ?description ?disabled ?display_name ?id ?(oidc = [])
-    ?(saml = []) ?timeouts ~location ~provider_id ~workforce_pool_id
-    __id =
+    ?description ?disabled ?display_name ?id
+    ?(extra_attributes_oauth2_client = []) ?(oidc = []) ?(saml = [])
+    ?timeouts ~location ~provider_id ~workforce_pool_id __id =
   let (r : _ Tf_core.resource) =
     make ?attribute_condition ?attribute_mapping ?description
-      ?disabled ?display_name ?id ~oidc ~saml ?timeouts ~location
-      ~provider_id ~workforce_pool_id __id
+      ?disabled ?display_name ?id ~extra_attributes_oauth2_client
+      ~oidc ~saml ?timeouts ~location ~provider_id ~workforce_pool_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

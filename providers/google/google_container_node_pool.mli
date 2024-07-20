@@ -85,6 +85,7 @@ type node_config__guest_accelerator = {
 type node_config__advanced_machine_features
 
 val node_config__advanced_machine_features :
+  ?enable_nested_virtualization:bool prop ->
   threads_per_core:float prop ->
   unit ->
   node_config__advanced_machine_features
@@ -93,6 +94,42 @@ type node_config__confidential_nodes
 
 val node_config__confidential_nodes :
   enabled:bool prop -> unit -> node_config__confidential_nodes
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+val node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config :
+  secret_uri:string prop ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+
+type node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+val node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config :
+  fqdns:string prop list ->
+  gcp_secret_manager_certificate_config:
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config__gcp_secret_manager_certificate_config
+    list ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+
+type node_config__containerd_config__private_registry_access_config
+
+val node_config__containerd_config__private_registry_access_config :
+  ?certificate_authority_domain_config:
+    node_config__containerd_config__private_registry_access_config__certificate_authority_domain_config
+    list ->
+  enabled:bool prop ->
+  unit ->
+  node_config__containerd_config__private_registry_access_config
+
+type node_config__containerd_config
+
+val node_config__containerd_config :
+  ?private_registry_access_config:
+    node_config__containerd_config__private_registry_access_config
+    list ->
+  unit ->
+  node_config__containerd_config
 
 type node_config__ephemeral_storage_local_ssd_config
 
@@ -156,6 +193,14 @@ val node_config__reservation_affinity :
   consume_reservation_type:string prop ->
   unit ->
   node_config__reservation_affinity
+
+type node_config__secondary_boot_disks
+
+val node_config__secondary_boot_disks :
+  ?mode:string prop ->
+  disk_image:string prop ->
+  unit ->
+  node_config__secondary_boot_disks
 
 type node_config__shielded_instance_config
 
@@ -221,6 +266,7 @@ val node_config :
   ?advanced_machine_features:
     node_config__advanced_machine_features list ->
   ?confidential_nodes:node_config__confidential_nodes list ->
+  ?containerd_config:node_config__containerd_config list ->
   ?ephemeral_storage_local_ssd_config:
     node_config__ephemeral_storage_local_ssd_config list ->
   ?fast_socket:node_config__fast_socket list ->
@@ -232,6 +278,7 @@ val node_config :
   ?local_nvme_ssd_block_config:
     node_config__local_nvme_ssd_block_config list ->
   ?reservation_affinity:node_config__reservation_affinity list ->
+  ?secondary_boot_disks:node_config__secondary_boot_disks list ->
   ?shielded_instance_config:
     node_config__shielded_instance_config list ->
   ?sole_tenant_config:node_config__sole_tenant_config list ->
@@ -249,6 +296,11 @@ val placement_policy :
   type_:string prop ->
   unit ->
   placement_policy
+
+type queued_provisioning
+
+val queued_provisioning :
+  enabled:bool prop -> unit -> queued_provisioning
 
 type timeouts
 
@@ -306,6 +358,7 @@ val google_container_node_pool :
   ?network_config:network_config list ->
   ?node_config:node_config list ->
   ?placement_policy:placement_policy list ->
+  ?queued_provisioning:queued_provisioning list ->
   ?timeouts:timeouts ->
   ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->
@@ -352,6 +405,7 @@ val register :
   ?network_config:network_config list ->
   ?node_config:node_config list ->
   ?placement_policy:placement_policy list ->
+  ?queued_provisioning:queued_provisioning list ->
   ?timeouts:timeouts ->
   ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->
@@ -374,6 +428,7 @@ val make :
   ?network_config:network_config list ->
   ?node_config:node_config list ->
   ?placement_policy:placement_policy list ->
+  ?queued_provisioning:queued_provisioning list ->
   ?timeouts:timeouts ->
   ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->

@@ -459,7 +459,9 @@ type aws_mwaa_environment = {
   execution_role_arn : string prop;
   id : string prop option; [@option]
   kms_key : string prop option; [@option]
+  max_webservers : float prop option; [@option]
   max_workers : float prop option; [@option]
+  min_webservers : float prop option; [@option]
   min_workers : float prop option; [@option]
   name : string prop;
   plugins_s3_object_version : string prop option; [@option]
@@ -496,7 +498,9 @@ let yojson_of_aws_mwaa_environment =
        execution_role_arn = v_execution_role_arn;
        id = v_id;
        kms_key = v_kms_key;
+       max_webservers = v_max_webservers;
        max_workers = v_max_workers;
+       min_webservers = v_min_webservers;
        min_workers = v_min_workers;
        name = v_name;
        plugins_s3_object_version = v_plugins_s3_object_version;
@@ -668,11 +672,27 @@ let yojson_of_aws_mwaa_environment =
              bnd :: bnds
        in
        let bnds =
+         match v_min_webservers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_webservers", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_max_workers with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_float v in
              let bnd = "max_workers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_webservers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_webservers", arg in
              bnd :: bnds
        in
        let bnds =
@@ -788,9 +808,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_mwaa_environment ?airflow_configuration_options
     ?airflow_version ?endpoint_management ?environment_class ?id
-    ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
-    ?plugins_s3_path ?requirements_s3_object_version
-    ?requirements_s3_path ?schedulers
+    ?kms_key ?max_webservers ?max_workers ?min_webservers
+    ?min_workers ?plugins_s3_object_version ?plugins_s3_path
+    ?requirements_s3_object_version ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
     ?(logging_configuration = []) ?timeouts ~dag_s3_path
@@ -805,7 +825,9 @@ let aws_mwaa_environment ?airflow_configuration_options
     execution_role_arn;
     id;
     kms_key;
+    max_webservers;
     max_workers;
+    min_webservers;
     min_workers;
     name;
     plugins_s3_object_version;
@@ -832,13 +854,16 @@ type t = {
   arn : string prop;
   created_at : string prop;
   dag_s3_path : string prop;
+  database_vpc_endpoint_service : string prop;
   endpoint_management : string prop;
   environment_class : string prop;
   execution_role_arn : string prop;
   id : string prop;
   kms_key : string prop;
   last_updated : last_updated list prop;
+  max_webservers : float prop;
   max_workers : float prop;
+  min_webservers : float prop;
   min_workers : float prop;
   name : string prop;
   plugins_s3_object_version : string prop;
@@ -855,12 +880,14 @@ type t = {
   tags_all : (string * string) list prop;
   webserver_access_mode : string prop;
   webserver_url : string prop;
+  webserver_vpc_endpoint_service : string prop;
   weekly_maintenance_window_start : string prop;
 }
 
 let make ?airflow_configuration_options ?airflow_version
-    ?endpoint_management ?environment_class ?id ?kms_key ?max_workers
-    ?min_workers ?plugins_s3_object_version ?plugins_s3_path
+    ?endpoint_management ?environment_class ?id ?kms_key
+    ?max_webservers ?max_workers ?min_webservers ?min_workers
+    ?plugins_s3_object_version ?plugins_s3_path
     ?requirements_s3_object_version ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
@@ -877,6 +904,8 @@ let make ?airflow_configuration_options ?airflow_version
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        dag_s3_path = Prop.computed __type __id "dag_s3_path";
+       database_vpc_endpoint_service =
+         Prop.computed __type __id "database_vpc_endpoint_service";
        endpoint_management =
          Prop.computed __type __id "endpoint_management";
        environment_class =
@@ -886,7 +915,9 @@ let make ?airflow_configuration_options ?airflow_version
        id = Prop.computed __type __id "id";
        kms_key = Prop.computed __type __id "kms_key";
        last_updated = Prop.computed __type __id "last_updated";
+       max_webservers = Prop.computed __type __id "max_webservers";
        max_workers = Prop.computed __type __id "max_workers";
+       min_webservers = Prop.computed __type __id "min_webservers";
        min_workers = Prop.computed __type __id "min_workers";
        name = Prop.computed __type __id "name";
        plugins_s3_object_version =
@@ -911,6 +942,8 @@ let make ?airflow_configuration_options ?airflow_version
        webserver_access_mode =
          Prop.computed __type __id "webserver_access_mode";
        webserver_url = Prop.computed __type __id "webserver_url";
+       webserver_vpc_endpoint_service =
+         Prop.computed __type __id "webserver_vpc_endpoint_service";
        weekly_maintenance_window_start =
          Prop.computed __type __id "weekly_maintenance_window_start";
      }
@@ -923,8 +956,8 @@ let make ?airflow_configuration_options ?airflow_version
       yojson_of_aws_mwaa_environment
         (aws_mwaa_environment ?airflow_configuration_options
            ?airflow_version ?endpoint_management ?environment_class
-           ?id ?kms_key ?max_workers ?min_workers
-           ?plugins_s3_object_version ?plugins_s3_path
+           ?id ?kms_key ?max_webservers ?max_workers ?min_webservers
+           ?min_workers ?plugins_s3_object_version ?plugins_s3_path
            ?requirements_s3_object_version ?requirements_s3_path
            ?schedulers ?startup_script_s3_object_version
            ?startup_script_s3_path ?tags ?tags_all
@@ -937,9 +970,9 @@ let make ?airflow_configuration_options ?airflow_version
 
 let register ?tf_module ?airflow_configuration_options
     ?airflow_version ?endpoint_management ?environment_class ?id
-    ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
-    ?plugins_s3_path ?requirements_s3_object_version
-    ?requirements_s3_path ?schedulers
+    ?kms_key ?max_webservers ?max_workers ?min_webservers
+    ?min_workers ?plugins_s3_object_version ?plugins_s3_path
+    ?requirements_s3_object_version ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
     ?(logging_configuration = []) ?timeouts ~dag_s3_path
@@ -948,11 +981,11 @@ let register ?tf_module ?airflow_configuration_options
   let (r : _ Tf_core.resource) =
     make ?airflow_configuration_options ?airflow_version
       ?endpoint_management ?environment_class ?id ?kms_key
-      ?max_workers ?min_workers ?plugins_s3_object_version
-      ?plugins_s3_path ?requirements_s3_object_version
-      ?requirements_s3_path ?schedulers
-      ?startup_script_s3_object_version ?startup_script_s3_path ?tags
-      ?tags_all ?webserver_access_mode
+      ?max_webservers ?max_workers ?min_webservers ?min_workers
+      ?plugins_s3_object_version ?plugins_s3_path
+      ?requirements_s3_object_version ?requirements_s3_path
+      ?schedulers ?startup_script_s3_object_version
+      ?startup_script_s3_path ?tags ?tags_all ?webserver_access_mode
       ?weekly_maintenance_window_start ~logging_configuration
       ?timeouts ~dag_s3_path ~execution_role_arn ~name
       ~source_bucket_arn ~network_configuration __id

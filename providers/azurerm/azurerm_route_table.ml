@@ -111,6 +111,7 @@ let _ = yojson_of_route
 [@@@deriving.end]
 
 type azurerm_route_table = {
+  bgp_route_propagation_enabled : bool prop option; [@option]
   disable_bgp_route_propagation : bool prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -127,6 +128,8 @@ let _ = fun (_ : azurerm_route_table) -> ()
 let yojson_of_azurerm_route_table =
   (function
    | {
+       bgp_route_propagation_enabled =
+         v_bgp_route_propagation_enabled;
        disable_bgp_route_propagation =
          v_disable_bgp_route_propagation;
        id = v_id;
@@ -198,6 +201,14 @@ let yojson_of_azurerm_route_table =
              let bnd = "disable_bgp_route_propagation", arg in
              bnd :: bnds
        in
+       let bnds =
+         match v_bgp_route_propagation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bgp_route_propagation_enabled", arg in
+             bnd :: bnds
+       in
        `Assoc bnds
     : azurerm_route_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
@@ -208,10 +219,11 @@ let _ = yojson_of_azurerm_route_table
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_route_table ?disable_bgp_route_propagation ?id ?route
-    ?tags ?timeouts ~location ~name ~resource_group_name () :
-    azurerm_route_table =
+let azurerm_route_table ?bgp_route_propagation_enabled
+    ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
+    ~location ~name ~resource_group_name () : azurerm_route_table =
   {
+    bgp_route_propagation_enabled;
     disable_bgp_route_propagation;
     id;
     location;
@@ -224,6 +236,7 @@ let azurerm_route_table ?disable_bgp_route_propagation ?id ?route
 
 type t = {
   tf_name : string;
+  bgp_route_propagation_enabled : bool prop;
   disable_bgp_route_propagation : bool prop;
   id : string prop;
   location : string prop;
@@ -234,12 +247,15 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
+let make ?bgp_route_propagation_enabled
+    ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
     ~location ~name ~resource_group_name __id =
   let __type = "azurerm_route_table" in
   let __attrs =
     ({
        tf_name = __id;
+       bgp_route_propagation_enabled =
+         Prop.computed __type __id "bgp_route_propagation_enabled";
        disable_bgp_route_propagation =
          Prop.computed __type __id "disable_bgp_route_propagation";
        id = Prop.computed __type __id "id";
@@ -258,16 +274,18 @@ let make ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
     type_ = __type;
     json =
       yojson_of_azurerm_route_table
-        (azurerm_route_table ?disable_bgp_route_propagation ?id
-           ?route ?tags ?timeouts ~location ~name
-           ~resource_group_name ());
+        (azurerm_route_table ?bgp_route_propagation_enabled
+           ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?disable_bgp_route_propagation ?id ?route
-    ?tags ?timeouts ~location ~name ~resource_group_name __id =
+let register ?tf_module ?bgp_route_propagation_enabled
+    ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
+    make ?bgp_route_propagation_enabled
+      ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
       ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

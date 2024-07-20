@@ -177,6 +177,7 @@ type t = {
   job_schedule_id : string prop;
   parameters : (string * string) list prop;
   resource_group_name : string prop;
+  resource_manager_id : string prop;
   run_on : string prop;
   runbook_name : string prop;
   schedule_name : string prop;
@@ -196,6 +197,8 @@ let make ?id ?job_schedule_id ?parameters ?run_on ?timeouts
        parameters = Prop.computed __type __id "parameters";
        resource_group_name =
          Prop.computed __type __id "resource_group_name";
+       resource_manager_id =
+         Prop.computed __type __id "resource_manager_id";
        run_on = Prop.computed __type __id "run_on";
        runbook_name = Prop.computed __type __id "runbook_name";
        schedule_name = Prop.computed __type __id "schedule_name";

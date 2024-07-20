@@ -269,6 +269,40 @@ let _ = yojson_of_default_encryption_configuration
 
 [@@@deriving.end]
 
+type external_dataset_reference = {
+  connection : string prop;
+  external_source : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_dataset_reference) -> ()
+
+let yojson_of_external_dataset_reference =
+  (function
+   | {
+       connection = v_connection;
+       external_source = v_external_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_external_source
+         in
+         ("external_source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection in
+         ("connection", arg) :: bnds
+       in
+       `Assoc bnds
+    : external_dataset_reference -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_dataset_reference
+
+[@@@deriving.end]
+
 type google_bigquery_dataset = {
   dataset_id : string prop;
   id : string prop option; [@option]
@@ -329,6 +363,7 @@ type t = {
   description : string prop;
   effective_labels : (string * string) list prop;
   etag : string prop;
+  external_dataset_reference : external_dataset_reference list prop;
   friendly_name : string prop;
   id : string prop;
   is_case_insensitive : bool prop;
@@ -364,6 +399,8 @@ let make ?id ?project ~dataset_id __id =
        effective_labels =
          Prop.computed __type __id "effective_labels";
        etag = Prop.computed __type __id "etag";
+       external_dataset_reference =
+         Prop.computed __type __id "external_dataset_reference";
        friendly_name = Prop.computed __type __id "friendly_name";
        id = Prop.computed __type __id "id";
        is_case_insensitive =

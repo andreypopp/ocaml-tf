@@ -37,6 +37,7 @@ type t = private {
   incoming_traffic_policy : string prop;
   location : string prop;
   name : string prop;
+  registered_servers : string list prop;
   resource_group_name : string prop;
   tags : (string * string) list prop;
 }

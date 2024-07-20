@@ -505,6 +505,9 @@ type launch_template_config__override__instance_requirements = {
   instance_generations : string prop list option; [@option]
   local_storage : string prop option; [@option]
   local_storage_types : string prop list option; [@option]
+  max_spot_price_as_percentage_of_optimal_on_demand_price :
+    float prop option;
+      [@option]
   on_demand_max_price_percentage_over_lowest_price :
     float prop option;
       [@option]
@@ -569,6 +572,8 @@ let yojson_of_launch_template_config__override__instance_requirements
        instance_generations = v_instance_generations;
        local_storage = v_local_storage;
        local_storage_types = v_local_storage_types;
+       max_spot_price_as_percentage_of_optimal_on_demand_price =
+         v_max_spot_price_as_percentage_of_optimal_on_demand_price;
        on_demand_max_price_percentage_over_lowest_price =
          v_on_demand_max_price_percentage_over_lowest_price;
        require_hibernate_support = v_require_hibernate_support;
@@ -713,6 +718,19 @@ let yojson_of_launch_template_config__override__instance_requirements
              let arg = yojson_of_prop yojson_of_float v in
              let bnd =
                ( "on_demand_max_price_percentage_over_lowest_price",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_max_spot_price_as_percentage_of_optimal_on_demand_price
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "max_spot_price_as_percentage_of_optimal_on_demand_price",
                  arg )
              in
              bnd :: bnds
@@ -976,12 +994,45 @@ let _ = yojson_of_launch_template_config
 
 [@@@deriving.end]
 
+type on_demand_options__capacity_reservation_options = {
+  usage_strategy : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : on_demand_options__capacity_reservation_options) -> ()
+
+let yojson_of_on_demand_options__capacity_reservation_options =
+  (function
+   | { usage_strategy = v_usage_strategy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_usage_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "usage_strategy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : on_demand_options__capacity_reservation_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_on_demand_options__capacity_reservation_options
+
+[@@@deriving.end]
+
 type on_demand_options = {
   allocation_strategy : string prop option; [@option]
   max_total_price : string prop option; [@option]
   min_target_capacity : float prop option; [@option]
   single_availability_zone : bool prop option; [@option]
   single_instance_type : bool prop option; [@option]
+  capacity_reservation_options :
+    on_demand_options__capacity_reservation_options list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -995,9 +1046,21 @@ let yojson_of_on_demand_options =
        min_target_capacity = v_min_target_capacity;
        single_availability_zone = v_single_availability_zone;
        single_instance_type = v_single_instance_type;
+       capacity_reservation_options = v_capacity_reservation_options;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_capacity_reservation_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_demand_options__capacity_reservation_options)
+               v_capacity_reservation_options
+           in
+           let bnd = "capacity_reservation_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_single_instance_type with
@@ -1621,6 +1684,7 @@ let launch_template_config__override__instance_requirements
     ?allowed_instance_types ?bare_metal ?burstable_performance
     ?cpu_manufacturers ?excluded_instance_types ?instance_generations
     ?local_storage ?local_storage_types
+    ?max_spot_price_as_percentage_of_optimal_on_demand_price
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
     ?spot_max_price_percentage_over_lowest_price
@@ -1641,6 +1705,7 @@ let launch_template_config__override__instance_requirements
     instance_generations;
     local_storage;
     local_storage_types;
+    max_spot_price_as_percentage_of_optimal_on_demand_price;
     on_demand_max_price_percentage_over_lowest_price;
     require_hibernate_support;
     spot_max_price_percentage_over_lowest_price;
@@ -1673,15 +1738,21 @@ let launch_template_config ?(launch_template_specification = [])
     ?(override = []) () : launch_template_config =
   { launch_template_specification; override }
 
+let on_demand_options__capacity_reservation_options ?usage_strategy
+    () : on_demand_options__capacity_reservation_options =
+  { usage_strategy }
+
 let on_demand_options ?allocation_strategy ?max_total_price
     ?min_target_capacity ?single_availability_zone
-    ?single_instance_type () : on_demand_options =
+    ?single_instance_type ?(capacity_reservation_options = []) () :
+    on_demand_options =
   {
     allocation_strategy;
     max_total_price;
     min_target_capacity;
     single_availability_zone;
     single_instance_type;
+    capacity_reservation_options;
   }
 
 let spot_options__maintenance_strategies__capacity_rebalance

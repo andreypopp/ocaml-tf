@@ -105,6 +105,13 @@ val data_quality_spec__rules__set_expectation :
   unit ->
   data_quality_spec__rules__set_expectation
 
+type data_quality_spec__rules__sql_assertion
+
+val data_quality_spec__rules__sql_assertion :
+  sql_statement:string prop ->
+  unit ->
+  data_quality_spec__rules__sql_assertion
+
 type data_quality_spec__rules__statistic_range_expectation
 
 val data_quality_spec__rules__statistic_range_expectation :
@@ -143,6 +150,7 @@ val data_quality_spec__rules :
   ?row_condition_expectation:
     data_quality_spec__rules__row_condition_expectation list ->
   ?set_expectation:data_quality_spec__rules__set_expectation list ->
+  ?sql_assertion:data_quality_spec__rules__sql_assertion list ->
   ?statistic_range_expectation:
     data_quality_spec__rules__statistic_range_expectation list ->
   ?table_condition_expectation:

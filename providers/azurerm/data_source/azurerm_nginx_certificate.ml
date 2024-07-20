@@ -87,11 +87,16 @@ let azurerm_nginx_certificate ?id ?timeouts ~name
 type t = {
   tf_name : string;
   certificate_virtual_path : string prop;
+  error_code : string prop;
+  error_message : string prop;
   id : string prop;
+  key_vault_secret_creation_date : string prop;
   key_vault_secret_id : string prop;
+  key_vault_secret_version : string prop;
   key_virtual_path : string prop;
   name : string prop;
   nginx_deployment_id : string prop;
+  sha1_thumbprint : string prop;
 }
 
 let make ?id ?timeouts ~name ~nginx_deployment_id __id =
@@ -101,14 +106,21 @@ let make ?id ?timeouts ~name ~nginx_deployment_id __id =
        tf_name = __id;
        certificate_virtual_path =
          Prop.computed __type __id "certificate_virtual_path";
+       error_code = Prop.computed __type __id "error_code";
+       error_message = Prop.computed __type __id "error_message";
        id = Prop.computed __type __id "id";
+       key_vault_secret_creation_date =
+         Prop.computed __type __id "key_vault_secret_creation_date";
        key_vault_secret_id =
          Prop.computed __type __id "key_vault_secret_id";
+       key_vault_secret_version =
+         Prop.computed __type __id "key_vault_secret_version";
        key_virtual_path =
          Prop.computed __type __id "key_virtual_path";
        name = Prop.computed __type __id "name";
        nginx_deployment_id =
          Prop.computed __type __id "nginx_deployment_id";
+       sha1_thumbprint = Prop.computed __type __id "sha1_thumbprint";
      }
       : t)
   in

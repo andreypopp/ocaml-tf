@@ -67,6 +67,8 @@ type registry = {
 }
 
 type secret = {
+  identity : string prop;  (** identity *)
+  key_vault_secret_id : string prop;  (** key_vault_secret_id *)
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }

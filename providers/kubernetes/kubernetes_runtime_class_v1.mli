@@ -1,3 +1,5 @@
+(** A runtime class is used to determine which container runtime is used to run all containers in a pod. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -24,6 +24,7 @@ type azurerm_data_factory_integration_runtime_self_hosted
 val azurerm_data_factory_integration_runtime_self_hosted :
   ?description:string prop ->
   ?id:string prop ->
+  ?self_contained_interactive_authoring_enabled:bool prop ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
@@ -44,12 +45,14 @@ type t = private {
   name : string prop;
   primary_authorization_key : string prop;
   secondary_authorization_key : string prop;
+  self_contained_interactive_authoring_enabled : bool prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?self_contained_interactive_authoring_enabled:bool prop ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
@@ -60,6 +63,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?self_contained_interactive_authoring_enabled:bool prop ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->

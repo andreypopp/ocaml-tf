@@ -215,6 +215,7 @@ type t = private {
   security_policy : string prop;
   security_settings : security_settings list prop;
   self_link : string prop;
+  service_lb_policy : string prop;
   session_affinity : string prop;
   timeout_sec : float prop;
 }

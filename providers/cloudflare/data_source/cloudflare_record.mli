@@ -28,7 +28,6 @@ type t = private {
   content : string prop;
   hostname : string prop;
   id : string prop;
-  locked : bool prop;
   priority : float prop;
   proxiable : bool prop;
   proxied : bool prop;

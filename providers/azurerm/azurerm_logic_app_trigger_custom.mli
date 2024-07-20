@@ -33,6 +33,7 @@ val yojson_of_azurerm_logic_app_trigger_custom :
 type t = private {
   tf_name : string;
   body : string prop;
+  callback_url : string prop;
   id : string prop;
   logic_app_id : string prop;
   name : string prop;

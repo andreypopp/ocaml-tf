@@ -37,6 +37,30 @@ val notification_configuration :
   unit ->
   notification_configuration
 
+type worker_access_configuration__s3_presign__iam_policy_constraints
+
+val worker_access_configuration__s3_presign__iam_policy_constraints :
+  ?source_ip:string prop ->
+  ?vpc_source_ip:string prop ->
+  unit ->
+  worker_access_configuration__s3_presign__iam_policy_constraints
+
+type worker_access_configuration__s3_presign
+
+val worker_access_configuration__s3_presign :
+  ?iam_policy_constraints:
+    worker_access_configuration__s3_presign__iam_policy_constraints
+    list ->
+  unit ->
+  worker_access_configuration__s3_presign
+
+type worker_access_configuration
+
+val worker_access_configuration :
+  ?s3_presign:worker_access_configuration__s3_presign list ->
+  unit ->
+  worker_access_configuration
+
 type aws_sagemaker_workteam
 
 val aws_sagemaker_workteam :
@@ -44,6 +68,7 @@ val aws_sagemaker_workteam :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?notification_configuration:notification_configuration list ->
+  ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->
@@ -73,6 +98,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?notification_configuration:notification_configuration list ->
+  ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->
@@ -85,6 +111,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?notification_configuration:notification_configuration list ->
+  ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->

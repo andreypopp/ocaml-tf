@@ -132,6 +132,7 @@ type aws_transfer_connector = {
   access_role : string prop;
   id : string prop option; [@option]
   logging_role : string prop option; [@option]
+  security_policy_name : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   url : string prop;
@@ -150,6 +151,7 @@ let yojson_of_aws_transfer_connector =
        access_role = v_access_role;
        id = v_id;
        logging_role = v_logging_role;
+       security_policy_name = v_security_policy_name;
        tags = v_tags;
        tags_all = v_tags_all;
        url = v_url;
@@ -214,6 +216,14 @@ let yojson_of_aws_transfer_connector =
              bnd :: bnds
        in
        let bnds =
+         match v_security_policy_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_policy_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
          match v_logging_role with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -257,13 +267,14 @@ let as2_config ?mdn_signing_algorithm ?message_subject ~compression
 let sftp_config ?trusted_host_keys ?user_secret_id () : sftp_config =
   { trusted_host_keys; user_secret_id }
 
-let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
-    ?(as2_config = []) ?(sftp_config = []) ~access_role ~url () :
-    aws_transfer_connector =
+let aws_transfer_connector ?id ?logging_role ?security_policy_name
+    ?tags ?tags_all ?(as2_config = []) ?(sftp_config = [])
+    ~access_role ~url () : aws_transfer_connector =
   {
     access_role;
     id;
     logging_role;
+    security_policy_name;
     tags;
     tags_all;
     url;
@@ -278,13 +289,14 @@ type t = {
   connector_id : string prop;
   id : string prop;
   logging_role : string prop;
+  security_policy_name : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
   url : string prop;
 }
 
-let make ?id ?logging_role ?tags ?tags_all ?(as2_config = [])
-    ?(sftp_config = []) ~access_role ~url __id =
+let make ?id ?logging_role ?security_policy_name ?tags ?tags_all
+    ?(as2_config = []) ?(sftp_config = []) ~access_role ~url __id =
   let __type = "aws_transfer_connector" in
   let __attrs =
     ({
@@ -294,6 +306,8 @@ let make ?id ?logging_role ?tags ?tags_all ?(as2_config = [])
        connector_id = Prop.computed __type __id "connector_id";
        id = Prop.computed __type __id "id";
        logging_role = Prop.computed __type __id "logging_role";
+       security_policy_name =
+         Prop.computed __type __id "security_policy_name";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";
        url = Prop.computed __type __id "url";
@@ -305,16 +319,18 @@ let make ?id ?logging_role ?tags ?tags_all ?(as2_config = [])
     type_ = __type;
     json =
       yojson_of_aws_transfer_connector
-        (aws_transfer_connector ?id ?logging_role ?tags ?tags_all
-           ~as2_config ~sftp_config ~access_role ~url ());
+        (aws_transfer_connector ?id ?logging_role
+           ?security_policy_name ?tags ?tags_all ~as2_config
+           ~sftp_config ~access_role ~url ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?logging_role ?tags ?tags_all
-    ?(as2_config = []) ?(sftp_config = []) ~access_role ~url __id =
+let register ?tf_module ?id ?logging_role ?security_policy_name ?tags
+    ?tags_all ?(as2_config = []) ?(sftp_config = []) ~access_role
+    ~url __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?logging_role ?tags ?tags_all ~as2_config ~sftp_config
-      ~access_role ~url __id
+    make ?id ?logging_role ?security_policy_name ?tags ?tags_all
+      ~as2_config ~sftp_config ~access_role ~url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

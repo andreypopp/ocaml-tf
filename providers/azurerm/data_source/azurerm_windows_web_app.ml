@@ -2365,6 +2365,47 @@ let _ = yojson_of_site_config__ip_restriction
 
 [@@@deriving.end]
 
+type site_config__handler_mapping = {
+  arguments : string prop;
+  extension : string prop;
+  script_processor_path : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : site_config__handler_mapping) -> ()
+
+let yojson_of_site_config__handler_mapping =
+  (function
+   | {
+       arguments = v_arguments;
+       extension = v_extension;
+       script_processor_path = v_script_processor_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_script_processor_path
+         in
+         ("script_processor_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_extension in
+         ("extension", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_arguments in
+         ("arguments", arg) :: bnds
+       in
+       `Assoc bnds
+    : site_config__handler_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_site_config__handler_mapping
+
+[@@@deriving.end]
+
 type site_config__cors = {
   allowed_origins : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -2469,6 +2510,56 @@ let _ =
 
 [@@@deriving.end]
 
+type site_config__auto_heal_setting__trigger__slow_request_with_path = {
+  count : float prop;
+  interval : string prop;
+  path : string prop;
+  time_taken : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       site_config__auto_heal_setting__trigger__slow_request_with_path) ->
+  ()
+
+let yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path
+    =
+  (function
+   | {
+       count = v_count;
+       interval = v_interval;
+       path = v_path;
+       time_taken = v_time_taken;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_taken in
+         ("time_taken", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_interval in
+         ("interval", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : site_config__auto_heal_setting__trigger__slow_request_with_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path
+
+[@@@deriving.end]
+
 type site_config__auto_heal_setting__trigger__slow_request = {
   count : float prop;
   interval : string prop;
@@ -2555,6 +2646,10 @@ type site_config__auto_heal_setting__trigger = {
   slow_request :
     site_config__auto_heal_setting__trigger__slow_request list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
+  slow_request_with_path :
+    site_config__auto_heal_setting__trigger__slow_request_with_path
+    list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   status_code :
     site_config__auto_heal_setting__trigger__status_code list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -2569,6 +2664,7 @@ let yojson_of_site_config__auto_heal_setting__trigger =
        private_memory_kb = v_private_memory_kb;
        requests = v_requests;
        slow_request = v_slow_request;
+       slow_request_with_path = v_slow_request_with_path;
        status_code = v_status_code;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -2583,6 +2679,17 @@ let yojson_of_site_config__auto_heal_setting__trigger =
                v_status_code
            in
            let bnd = "status_code", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_slow_request_with_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger__slow_request_with_path)
+               v_slow_request_with_path
+           in
+           let bnd = "slow_request_with_path", arg in
            bnd :: bnds
        in
        let bnds =
@@ -2935,6 +3042,8 @@ type site_config = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   detailed_error_logging_enabled : bool prop;
   ftps_state : string prop;
+  handler_mapping : site_config__handler_mapping list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check_eviction_time_in_min : float prop;
   health_check_path : string prop;
   http2_enabled : bool prop;
@@ -2984,6 +3093,7 @@ let yojson_of_site_config =
        detailed_error_logging_enabled =
          v_detailed_error_logging_enabled;
        ftps_state = v_ftps_state;
+       handler_mapping = v_handler_mapping;
        health_check_eviction_time_in_min =
          v_health_check_eviction_time_in_min;
        health_check_path = v_health_check_path;
@@ -3156,6 +3266,16 @@ let yojson_of_site_config =
              v_health_check_eviction_time_in_min
          in
          ("health_check_eviction_time_in_min", arg) :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_handler_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__handler_mapping)
+               v_handler_mapping
+           in
+           let bnd = "handler_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_ftps_state in

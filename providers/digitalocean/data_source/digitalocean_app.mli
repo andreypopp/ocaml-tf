@@ -39,6 +39,7 @@ type spec__worker__image = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
+  registry_credentials : string prop;  (** registry_credentials *)
   registry_type : string prop;  (** registry_type *)
   repository : string prop;  (** repository *)
   tag : string prop;  (** tag *)
@@ -230,6 +231,7 @@ type spec__service__image = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
+  registry_credentials : string prop;  (** registry_credentials *)
   registry_type : string prop;  (** registry_type *)
   repository : string prop;  (** repository *)
   tag : string prop;  (** tag *)
@@ -380,6 +382,7 @@ type spec__job__image = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
+  registry_credentials : string prop;  (** registry_credentials *)
   registry_type : string prop;  (** registry_type *)
   repository : string prop;  (** repository *)
   tag : string prop;  (** tag *)
@@ -642,6 +645,10 @@ type spec__env = {
   value : string prop;  (** value *)
 }
 
+type spec__egress = {
+  type_ : string prop; [@key "type"]  (** type *)
+}
+
 type spec__domain = {
   name : string prop;  (** name *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -677,6 +684,9 @@ type spec = {
   domains : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** domains *)
+  egress : spec__egress list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+      (** egress *)
   env : spec__env list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** env *)
@@ -707,10 +717,23 @@ type spec = {
       (** worker *)
 }
 
+type dedicated_ips
+
+val dedicated_ips :
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?status:string prop ->
+  unit ->
+  dedicated_ips
+
 type digitalocean_app
 
 val digitalocean_app :
-  ?id:string prop -> app_id:string prop -> unit -> digitalocean_app
+  ?id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
+  app_id:string prop ->
+  unit ->
+  digitalocean_app
 
 val yojson_of_digitalocean_app : digitalocean_app -> json
 
@@ -733,12 +756,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
   app_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?dedicated_ips:dedicated_ips list ->
   app_id:string prop ->
   string ->
   t Tf_core.resource

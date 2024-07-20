@@ -115,11 +115,13 @@ type azurerm_cosmosdb_account
 val azurerm_cosmosdb_account :
   ?access_key_metadata_writes_enabled:bool prop ->
   ?analytical_storage_enabled:bool prop ->
+  ?automatic_failover_enabled:bool prop ->
   ?create_mode:string prop ->
   ?default_identity_type:string prop ->
   ?enable_automatic_failover:bool prop ->
   ?enable_free_tier:bool prop ->
   ?enable_multiple_write_locations:bool prop ->
+  ?free_tier_enabled:bool prop ->
   ?id:string prop ->
   ?ip_range_filter:string prop ->
   ?is_virtual_network_filter_enabled:bool prop ->
@@ -128,6 +130,7 @@ val azurerm_cosmosdb_account :
   ?local_authentication_disabled:bool prop ->
   ?minimal_tls_version:string prop ->
   ?mongo_server_version:string prop ->
+  ?multiple_write_locations_enabled:bool prop ->
   ?network_acl_bypass_for_azure_services:bool prop ->
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->
@@ -160,6 +163,7 @@ type t = private {
   tf_name : string;
   access_key_metadata_writes_enabled : bool prop;
   analytical_storage_enabled : bool prop;
+  automatic_failover_enabled : bool prop;
   connection_strings : string list prop;
   create_mode : string prop;
   default_identity_type : string prop;
@@ -167,6 +171,7 @@ type t = private {
   enable_free_tier : bool prop;
   enable_multiple_write_locations : bool prop;
   endpoint : string prop;
+  free_tier_enabled : bool prop;
   id : string prop;
   ip_range_filter : string prop;
   is_virtual_network_filter_enabled : bool prop;
@@ -176,6 +181,7 @@ type t = private {
   location : string prop;
   minimal_tls_version : string prop;
   mongo_server_version : string prop;
+  multiple_write_locations_enabled : bool prop;
   name : string prop;
   network_acl_bypass_for_azure_services : bool prop;
   network_acl_bypass_ids : string list prop;
@@ -204,11 +210,13 @@ val register :
   ?tf_module:tf_module ->
   ?access_key_metadata_writes_enabled:bool prop ->
   ?analytical_storage_enabled:bool prop ->
+  ?automatic_failover_enabled:bool prop ->
   ?create_mode:string prop ->
   ?default_identity_type:string prop ->
   ?enable_automatic_failover:bool prop ->
   ?enable_free_tier:bool prop ->
   ?enable_multiple_write_locations:bool prop ->
+  ?free_tier_enabled:bool prop ->
   ?id:string prop ->
   ?ip_range_filter:string prop ->
   ?is_virtual_network_filter_enabled:bool prop ->
@@ -217,6 +225,7 @@ val register :
   ?local_authentication_disabled:bool prop ->
   ?minimal_tls_version:string prop ->
   ?mongo_server_version:string prop ->
+  ?multiple_write_locations_enabled:bool prop ->
   ?network_acl_bypass_for_azure_services:bool prop ->
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->
@@ -243,11 +252,13 @@ val register :
 val make :
   ?access_key_metadata_writes_enabled:bool prop ->
   ?analytical_storage_enabled:bool prop ->
+  ?automatic_failover_enabled:bool prop ->
   ?create_mode:string prop ->
   ?default_identity_type:string prop ->
   ?enable_automatic_failover:bool prop ->
   ?enable_free_tier:bool prop ->
   ?enable_multiple_write_locations:bool prop ->
+  ?free_tier_enabled:bool prop ->
   ?id:string prop ->
   ?ip_range_filter:string prop ->
   ?is_virtual_network_filter_enabled:bool prop ->
@@ -256,6 +267,7 @@ val make :
   ?local_authentication_disabled:bool prop ->
   ?minimal_tls_version:string prop ->
   ?mongo_server_version:string prop ->
+  ?multiple_write_locations_enabled:bool prop ->
   ?network_acl_bypass_for_azure_services:bool prop ->
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->

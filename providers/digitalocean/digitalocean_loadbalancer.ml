@@ -2,6 +2,52 @@
 
 open! Tf_core
 
+type domains = {
+  certificate_name : string prop option; [@option]
+  is_managed : bool prop option; [@option]
+  name : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : domains) -> ()
+
+let yojson_of_domains =
+  (function
+   | {
+       certificate_name = v_certificate_name;
+       is_managed = v_is_managed;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_is_managed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_managed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : domains -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_domains
+
+[@@@deriving.end]
+
 type firewall = {
   allow : string prop list option; [@option]
   deny : string prop list option; [@option]
@@ -118,6 +164,106 @@ let yojson_of_forwarding_rule =
     : forwarding_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
 let _ = yojson_of_forwarding_rule
+
+[@@@deriving.end]
+
+type glb_settings__cdn = { is_enabled : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : glb_settings__cdn) -> ()
+
+let yojson_of_glb_settings__cdn =
+  (function
+   | { is_enabled = v_is_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_is_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : glb_settings__cdn -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_glb_settings__cdn
+
+[@@@deriving.end]
+
+type glb_settings = {
+  failover_threshold : float prop option; [@option]
+  region_priorities : (string * float prop) list option; [@option]
+  target_port : float prop;
+  target_protocol : string prop;
+  cdn : glb_settings__cdn list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : glb_settings) -> ()
+
+let yojson_of_glb_settings =
+  (function
+   | {
+       failover_threshold = v_failover_threshold;
+       region_priorities = v_region_priorities;
+       target_port = v_target_port;
+       target_protocol = v_target_protocol;
+       cdn = v_cdn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_cdn then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_glb_settings__cdn) v_cdn
+           in
+           let bnd = "cdn", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_protocol
+         in
+         ("target_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_target_port in
+         ("target_port", arg) :: bnds
+       in
+       let bnds =
+         match v_region_priorities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_float v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "region_priorities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failover_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failover_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : glb_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_glb_settings
 
 [@@@deriving.end]
 
@@ -268,11 +414,16 @@ type digitalocean_loadbalancer = {
   region : string prop option; [@option]
   size : string prop option; [@option]
   size_unit : float prop option; [@option]
+  target_load_balancer_ids : string prop list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   vpc_uuid : string prop option; [@option]
+  domains : domains list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   firewall : firewall list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   forwarding_rule : forwarding_rule list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
+  glb_settings : glb_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   healthcheck : healthcheck list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -301,10 +452,13 @@ let yojson_of_digitalocean_loadbalancer =
        region = v_region;
        size = v_size;
        size_unit = v_size_unit;
+       target_load_balancer_ids = v_target_load_balancer_ids;
        type_ = v_type_;
        vpc_uuid = v_vpc_uuid;
+       domains = v_domains;
        firewall = v_firewall;
        forwarding_rule = v_forwarding_rule;
+       glb_settings = v_glb_settings;
        healthcheck = v_healthcheck;
        sticky_sessions = v_sticky_sessions;
      } ->
@@ -331,6 +485,15 @@ let yojson_of_digitalocean_loadbalancer =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_glb_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_glb_settings) v_glb_settings
+           in
+           let bnd = "glb_settings", arg in
+           bnd :: bnds
+       in
+       let bnds =
          if Stdlib.( = ) [] v_forwarding_rule then bnds
          else
            let arg =
@@ -350,6 +513,13 @@ let yojson_of_digitalocean_loadbalancer =
            bnd :: bnds
        in
        let bnds =
+         if Stdlib.( = ) [] v_domains then bnds
+         else
+           let arg = (yojson_of_list yojson_of_domains) v_domains in
+           let bnd = "domains", arg in
+           bnd :: bnds
+       in
+       let bnds =
          match v_vpc_uuid with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
@@ -363,6 +533,16 @@ let yojson_of_digitalocean_loadbalancer =
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
              let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_load_balancer_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_load_balancer_ids", arg in
              bnd :: bnds
        in
        let bnds =
@@ -482,6 +662,9 @@ let _ = yojson_of_digitalocean_loadbalancer
 
 [@@@deriving.end]
 
+let domains ?certificate_name ?is_managed ~name () : domains =
+  { certificate_name; is_managed; name }
+
 let firewall ?allow ?deny () : firewall = { allow; deny }
 
 let forwarding_rule ?certificate_id ?certificate_name
@@ -495,6 +678,19 @@ let forwarding_rule ?certificate_id ?certificate_name
     target_port;
     target_protocol;
     tls_passthrough;
+  }
+
+let glb_settings__cdn ?is_enabled () : glb_settings__cdn =
+  { is_enabled }
+
+let glb_settings ?failover_threshold ?region_priorities ?(cdn = [])
+    ~target_port ~target_protocol () : glb_settings =
+  {
+    failover_threshold;
+    region_priorities;
+    target_port;
+    target_protocol;
+    cdn;
   }
 
 let healthcheck ?check_interval_seconds ?healthy_threshold ?path
@@ -518,9 +714,10 @@ let digitalocean_loadbalancer ?algorithm
     ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
     ?enable_backend_keepalive ?enable_proxy_protocol
     ?http_idle_timeout_seconds ?id ?project_id
-    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
-    ~forwarding_rule () : digitalocean_loadbalancer =
+    ?redirect_http_to_https ?region ?size ?size_unit
+    ?target_load_balancer_ids ?type_ ?vpc_uuid ?(glb_settings = [])
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~domains
+    ~firewall ~forwarding_rule () : digitalocean_loadbalancer =
   {
     algorithm;
     disable_lets_encrypt_dns_records;
@@ -536,10 +733,13 @@ let digitalocean_loadbalancer ?algorithm
     region;
     size;
     size_unit;
+    target_load_balancer_ids;
     type_;
     vpc_uuid;
+    domains;
     firewall;
     forwarding_rule;
+    glb_settings;
     healthcheck;
     sticky_sessions;
   }
@@ -562,6 +762,7 @@ type t = {
   size : string prop;
   size_unit : float prop;
   status : string prop;
+  target_load_balancer_ids : string list prop;
   type_ : string prop;
   urn : string prop;
   vpc_uuid : string prop;
@@ -570,9 +771,10 @@ type t = {
 let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
     ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
     ?http_idle_timeout_seconds ?id ?project_id
-    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
-    ~forwarding_rule __id =
+    ?redirect_http_to_https ?region ?size ?size_unit
+    ?target_load_balancer_ids ?type_ ?vpc_uuid ?(glb_settings = [])
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~domains
+    ~firewall ~forwarding_rule __id =
   let __type = "digitalocean_loadbalancer" in
   let __attrs =
     ({
@@ -598,6 +800,8 @@ let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
        size = Prop.computed __type __id "size";
        size_unit = Prop.computed __type __id "size_unit";
        status = Prop.computed __type __id "status";
+       target_load_balancer_ids =
+         Prop.computed __type __id "target_load_balancer_ids";
        type_ = Prop.computed __type __id "type";
        urn = Prop.computed __type __id "urn";
        vpc_uuid = Prop.computed __type __id "vpc_uuid";
@@ -614,23 +818,26 @@ let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
            ?droplet_tag ?enable_backend_keepalive
            ?enable_proxy_protocol ?http_idle_timeout_seconds ?id
            ?project_id ?redirect_http_to_https ?region ?size
-           ?size_unit ?type_ ?vpc_uuid ~healthcheck ~sticky_sessions
-           ~name ~firewall ~forwarding_rule ());
+           ?size_unit ?target_load_balancer_ids ?type_ ?vpc_uuid
+           ~glb_settings ~healthcheck ~sticky_sessions ~name ~domains
+           ~firewall ~forwarding_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?algorithm ?disable_lets_encrypt_dns_records
     ?droplet_ids ?droplet_tag ?enable_backend_keepalive
     ?enable_proxy_protocol ?http_idle_timeout_seconds ?id ?project_id
-    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
-    ~forwarding_rule __id =
+    ?redirect_http_to_https ?region ?size ?size_unit
+    ?target_load_balancer_ids ?type_ ?vpc_uuid ?(glb_settings = [])
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~domains
+    ~firewall ~forwarding_rule __id =
   let (r : _ Tf_core.resource) =
     make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
       ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
       ?http_idle_timeout_seconds ?id ?project_id
-      ?redirect_http_to_https ?region ?size ?size_unit ?type_
-      ?vpc_uuid ~healthcheck ~sticky_sessions ~name ~firewall
+      ?redirect_http_to_https ?region ?size ?size_unit
+      ?target_load_balancer_ids ?type_ ?vpc_uuid ~glb_settings
+      ~healthcheck ~sticky_sessions ~name ~domains ~firewall
       ~forwarding_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

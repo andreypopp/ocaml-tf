@@ -25,6 +25,7 @@ val yojson_of_aws_iam_policy : aws_iam_policy -> json
 type t = private {
   tf_name : string;
   arn : string prop;
+  attachment_count : float prop;
   description : string prop;
   id : string prop;
   name : string prop;

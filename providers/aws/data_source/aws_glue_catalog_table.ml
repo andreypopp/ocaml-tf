@@ -367,6 +367,8 @@ let _ = yojson_of_storage_descriptor__columns
 [@@@deriving.end]
 
 type storage_descriptor = {
+  additional_locations : string prop list;
+      [@default []] [@yojson_drop_default Stdlib.( = )]
   bucket_columns : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   columns : storage_descriptor__columns list;
@@ -394,6 +396,7 @@ let _ = fun (_ : storage_descriptor) -> ()
 let yojson_of_storage_descriptor =
   (function
    | {
+       additional_locations = v_additional_locations;
        bucket_columns = v_bucket_columns;
        columns = v_columns;
        compressed = v_compressed;
@@ -513,6 +516,16 @@ let yojson_of_storage_descriptor =
                v_bucket_columns
            in
            let bnd = "bucket_columns", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if Stdlib.( = ) [] v_additional_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_additional_locations
+           in
+           let bnd = "additional_locations", arg in
            bnd :: bnds
        in
        `Assoc bnds

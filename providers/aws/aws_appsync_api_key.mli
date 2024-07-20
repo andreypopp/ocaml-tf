@@ -21,6 +21,7 @@ val yojson_of_aws_appsync_api_key : aws_appsync_api_key -> json
 type t = private {
   tf_name : string;
   api_id : string prop;
+  api_key_id : string prop;
   description : string prop;
   expires : string prop;
   id : string prop;

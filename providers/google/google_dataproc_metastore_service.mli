@@ -85,6 +85,16 @@ val scaling_config :
   unit ->
   scaling_config
 
+type scheduled_backup
+
+val scheduled_backup :
+  ?cron_schedule:string prop ->
+  ?enabled:bool prop ->
+  ?time_zone:string prop ->
+  backup_location:string prop ->
+  unit ->
+  scheduled_backup
+
 type telemetry_config
 
 val telemetry_config :
@@ -117,6 +127,7 @@ val google_dataproc_metastore_service :
   ?metadata_integration:metadata_integration list ->
   ?network_config:network_config list ->
   ?scaling_config:scaling_config list ->
+  ?scheduled_backup:scheduled_backup list ->
   ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
@@ -167,6 +178,7 @@ val register :
   ?metadata_integration:metadata_integration list ->
   ?network_config:network_config list ->
   ?scaling_config:scaling_config list ->
+  ?scheduled_backup:scheduled_backup list ->
   ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
@@ -189,6 +201,7 @@ val make :
   ?metadata_integration:metadata_integration list ->
   ?network_config:network_config list ->
   ?scaling_config:scaling_config list ->
+  ?scheduled_backup:scheduled_backup list ->
   ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->

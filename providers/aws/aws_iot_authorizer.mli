@@ -11,6 +11,8 @@ val aws_iot_authorizer :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?token_key_name:string prop ->
   ?token_signing_public_keys:(string * string prop) list ->
   authorizer_function_arn:string prop ->
@@ -31,6 +33,8 @@ type t = private {
   name : string prop;
   signing_disabled : bool prop;
   status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
   token_key_name : string prop;
   token_signing_public_keys : (string * string) list prop;
 }
@@ -41,6 +45,8 @@ val register :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?token_key_name:string prop ->
   ?token_signing_public_keys:(string * string prop) list ->
   authorizer_function_arn:string prop ->
@@ -53,6 +59,8 @@ val make :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?token_key_name:string prop ->
   ?token_signing_public_keys:(string * string prop) list ->
   authorizer_function_arn:string prop ->
