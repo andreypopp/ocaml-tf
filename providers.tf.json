@@ -7,8 +7,7 @@
       },
       "azurerm": {
         "source": "registry.terraform.io/hashicorp/azurerm",
-        "version": "3.113.0"
-      },
+        "version": "3.113.0" },
       "cloudflare": {
         "source": "registry.terraform.io/cloudflare/cloudflare",
         "version": "4.37.0"
@@ -36,6 +35,10 @@
       "okta": {
         "source": "registry.terraform.io/okta/okta",
         "version": "4.9.1"
+      },
+      "dnsimple": {
+        "source": "registry.terraform.io/dnsimple/dnsimple",
+        "version": "1.7.0"
       }
     }
   }

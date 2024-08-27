@@ -26,7 +26,8 @@ gen0: \
 	gen_cloudflare_provider \
 	gen_kubernetes_provider \
 	gen_hcloud_provider \
-	gen_github_provider
+	gen_github_provider \
+	gen_dnsimple_provider
 gen_digitialocean_provider:
 	rm -f ./providers/digitalocean/*.{ml,mli}
 	rm -f ./providers/digitalocean/data_source/*.{ml,mli}
@@ -63,6 +64,10 @@ gen_okta_provider:
 	rm -f ./providers/okta/*.{ml,mli}
 	rm -f ./providers/okta/data_source/*.{ml,mli}
 	$(GEN) "registry.terraform.io/okta/okta" ./providers/okta
+gen_dnsimple_provider:
+	rm -f ./providers/dnsimple/*.{ml,mli}
+	rm -f ./providers/dnsimple/data_source/*.{ml,mli}
+	$(GEN) "registry.terraform.io/dnsimple/dnsimple" ./providers/dnsimple
 
 providers.json: .terraform.lock.hcl
 	terraform providers schema -json | jq -S . > $(@)
