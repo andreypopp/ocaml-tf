@@ -69,7 +69,7 @@ val diagnostics_config :
 type fabric_settings
 
 val fabric_settings :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   fabric_settings
@@ -93,11 +93,11 @@ val node_type__ephemeral_ports :
 type node_type
 
 val node_type :
-  ?capacities:(string * string prop) list ->
+  ?capacities:string prop Tf_core.assoc ->
   ?durability_level:string prop ->
   ?is_stateless:bool prop ->
   ?multiple_availability_zones:bool prop ->
-  ?placement_properties:(string * string prop) list ->
+  ?placement_properties:string prop Tf_core.assoc ->
   ?reverse_proxy_endpoint_port:float prop ->
   ?application_ports:node_type__application_ports list ->
   ?ephemeral_ports:node_type__ephemeral_ports list ->
@@ -184,7 +184,7 @@ val azurerm_service_fabric_cluster :
   ?cluster_code_version:string prop ->
   ?id:string prop ->
   ?service_fabric_zonal_upgrade_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vmss_zonal_upgrade_mode:string prop ->
   ?azure_active_directory:azure_active_directory list ->
   ?certificate:certificate list ->
@@ -226,7 +226,7 @@ type t = private {
   reliability_level : string prop;
   resource_group_name : string prop;
   service_fabric_zonal_upgrade_mode : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_mode : string prop;
   vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop;
@@ -238,7 +238,7 @@ val register :
   ?cluster_code_version:string prop ->
   ?id:string prop ->
   ?service_fabric_zonal_upgrade_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vmss_zonal_upgrade_mode:string prop ->
   ?azure_active_directory:azure_active_directory list ->
   ?certificate:certificate list ->
@@ -268,7 +268,7 @@ val make :
   ?cluster_code_version:string prop ->
   ?id:string prop ->
   ?service_fabric_zonal_upgrade_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vmss_zonal_upgrade_mode:string prop ->
   ?azure_active_directory:azure_active_directory list ->
   ?certificate:certificate list ->

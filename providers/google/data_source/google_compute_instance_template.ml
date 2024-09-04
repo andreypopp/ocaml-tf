@@ -194,10 +194,10 @@ type disk = {
   disk_size_gb : float prop;
   disk_type : string prop;
   interface : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   mode : string prop;
   provisioned_iops : float prop;
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
   resource_policies : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   source : string prop;
@@ -295,12 +295,8 @@ let yojson_of_disk =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_manager_tags
          in
          ("resource_manager_tags", arg) :: bnds
@@ -317,12 +313,8 @@ let yojson_of_disk =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -1196,14 +1188,14 @@ type t = {
     confidential_instance_config list prop;
   description : string prop;
   disk : disk list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   filter : string prop;
   guest_accelerator : guest_accelerator list prop;
   id : string prop;
   instance_description : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -1215,7 +1207,7 @@ type t = {
   project : string prop;
   region : string prop;
   reservation_affinity : reservation_affinity list prop;
-  resource_manager_tags : (string * string) list prop;
+  resource_manager_tags : string Tf_core.assoc prop;
   resource_policies : string list prop;
   scheduling : scheduling list prop;
   self_link : string prop;
@@ -1224,7 +1216,7 @@ type t = {
   shielded_instance_config : shielded_instance_config list prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?filter ?id ?most_recent ?name ?project ?self_link_unique

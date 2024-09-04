@@ -14,8 +14,8 @@ val aws_backup_vault :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   unit ->
@@ -33,8 +33,8 @@ type t = private {
   kms_key_arn : string prop;
   name : string prop;
   recovery_points : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -42,8 +42,8 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->
@@ -53,8 +53,8 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->

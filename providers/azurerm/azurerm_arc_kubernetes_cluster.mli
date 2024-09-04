@@ -22,7 +22,7 @@ type azurerm_arc_kubernetes_cluster
 
 val azurerm_arc_kubernetes_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_public_key_certificate:string prop ->
   location:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   name : string prop;
   offering : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_core_count : float prop;
   total_node_count : float prop;
 }
@@ -57,7 +57,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_public_key_certificate:string prop ->
   location:string prop ->
@@ -69,7 +69,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_public_key_certificate:string prop ->
   location:string prop ->

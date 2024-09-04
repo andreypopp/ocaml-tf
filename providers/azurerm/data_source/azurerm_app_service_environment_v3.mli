@@ -58,7 +58,7 @@ type t = private {
   remote_debugging_enabled : bool prop;
   resource_group_name : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   windows_outbound_ip_addresses : string list prop;
   zone_redundant : bool prop;
 }

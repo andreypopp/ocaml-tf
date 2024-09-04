@@ -6,7 +6,7 @@ open! Tf_core
 
 type error = {
   code : float prop;  (** code *)
-  details : (string * string prop) list list;
+  details : string prop Tf_core.assoc list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** details *)
   message : string prop;  (** message *)
@@ -30,8 +30,8 @@ val alloydb__settings__primary_instance_settings__machine_config :
 type alloydb__settings__primary_instance_settings
 
 val alloydb__settings__primary_instance_settings :
-  ?database_flags:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?database_flags:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   id:string prop ->
   machine_config:
     alloydb__settings__primary_instance_settings__machine_config list ->
@@ -41,7 +41,7 @@ val alloydb__settings__primary_instance_settings :
 type alloydb__settings
 
 val alloydb__settings :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?primary_instance_settings:
     alloydb__settings__primary_instance_settings list ->
   vpc_network:string prop ->
@@ -87,13 +87,13 @@ val cloudsql__settings :
   ?collation:string prop ->
   ?data_disk_size_gb:string prop ->
   ?data_disk_type:string prop ->
-  ?database_flags:(string * string prop) list ->
+  ?database_flags:string prop Tf_core.assoc ->
   ?database_version:string prop ->
   ?edition:string prop ->
   ?root_password:string prop ->
   ?storage_auto_resize_limit:string prop ->
   ?tier:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?ip_config:cloudsql__settings__ip_config list ->
   source_id:string prop ->
@@ -208,7 +208,7 @@ type google_database_migration_service_connection_profile
 val google_database_migration_service_connection_profile :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?alloydb:alloydb list ->
@@ -232,22 +232,22 @@ type t = private {
   create_time : string prop;
   dbprovider : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   error : error list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?alloydb:alloydb list ->
@@ -263,7 +263,7 @@ val register :
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?alloydb:alloydb list ->

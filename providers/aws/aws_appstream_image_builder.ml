@@ -134,8 +134,8 @@ type aws_appstream_image_builder = {
   image_name : string prop option; [@option]
   instance_type : string prop;
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   access_endpoint : access_endpoint list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   domain_join_info : domain_join_info list;
@@ -204,12 +204,8 @@ let yojson_of_aws_appstream_image_builder =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -220,12 +216,8 @@ let yojson_of_aws_appstream_image_builder =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -359,8 +351,8 @@ type t = {
   instance_type : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?appstream_agent_version ?description ?display_name

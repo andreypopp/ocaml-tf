@@ -11,7 +11,7 @@ val aws_acm_certificate :
   ?key_types:string prop list ->
   ?most_recent:bool prop ->
   ?statuses:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?types:string prop list ->
   domain:string prop ->
   unit ->
@@ -32,7 +32,7 @@ type t = private {
   most_recent : bool prop;
   status : string prop;
   statuses : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   types : string list prop;
 }
 
@@ -42,7 +42,7 @@ val register :
   ?key_types:string prop list ->
   ?most_recent:bool prop ->
   ?statuses:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?types:string prop list ->
   domain:string prop ->
   string ->
@@ -53,7 +53,7 @@ val make :
   ?key_types:string prop list ->
   ?most_recent:bool prop ->
   ?statuses:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?types:string prop list ->
   domain:string prop ->
   string ->

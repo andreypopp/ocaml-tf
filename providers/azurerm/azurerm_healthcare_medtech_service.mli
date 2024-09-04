@@ -26,7 +26,7 @@ type azurerm_healthcare_medtech_service
 
 val azurerm_healthcare_medtech_service :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->
@@ -53,14 +53,14 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->
@@ -75,7 +75,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->

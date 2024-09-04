@@ -36,7 +36,7 @@ type google_edgecontainer_vpn_connection
 val google_edgecontainer_vpn_connection :
   ?enable_high_availability:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?nat_gateway_ip:string prop ->
   ?project:string prop ->
   ?router:string prop ->
@@ -59,16 +59,16 @@ type t = private {
   cluster : string prop;
   create_time : string prop;
   details : details list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_high_availability : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   nat_gateway_ip : string prop;
   project : string prop;
   router : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   vpc : string prop;
 }
@@ -77,7 +77,7 @@ val register :
   ?tf_module:tf_module ->
   ?enable_high_availability:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?nat_gateway_ip:string prop ->
   ?project:string prop ->
   ?router:string prop ->
@@ -93,7 +93,7 @@ val register :
 val make :
   ?enable_high_availability:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?nat_gateway_ip:string prop ->
   ?project:string prop ->
   ?router:string prop ->

@@ -93,7 +93,7 @@ type control_plane
 val control_plane :
   ?instance_type:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?main_volume:control_plane__main_volume list ->
   ?proxy_config:control_plane__proxy_config list ->
   ?root_volume:control_plane__root_volume list ->
@@ -134,7 +134,7 @@ val timeouts :
 type google_container_aws_cluster
 
 val google_container_aws_cluster :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -157,11 +157,11 @@ val yojson_of_google_container_aws_cluster :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   aws_region : string prop;
   create_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   endpoint : string prop;
   etag : string prop;
   id : string prop;
@@ -177,7 +177,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -194,7 +194,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->

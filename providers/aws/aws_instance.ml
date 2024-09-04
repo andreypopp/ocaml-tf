@@ -185,8 +185,8 @@ type ebs_block_device = {
   iops : float prop option; [@option]
   kms_key_id : string prop option; [@option]
   snapshot_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   throughput : float prop option; [@option]
   volume_size : float prop option; [@option]
   volume_type : string prop option; [@option]
@@ -242,12 +242,8 @@ let yojson_of_ebs_block_device =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -258,12 +254,8 @@ let yojson_of_ebs_block_device =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -751,8 +743,8 @@ type root_block_device = {
   encrypted : bool prop option; [@option]
   iops : float prop option; [@option]
   kms_key_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   throughput : float prop option; [@option]
   volume_size : float prop option; [@option]
   volume_type : string prop option; [@option]
@@ -806,12 +798,8 @@ let yojson_of_root_block_device =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -822,12 +810,8 @@ let yojson_of_root_block_device =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -961,13 +945,13 @@ type aws_instance = {
   security_groups : string prop list option; [@option]
   source_dest_check : bool prop option; [@option]
   subnet_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   tenancy : string prop option; [@option]
   user_data : string prop option; [@option]
   user_data_base64 : string prop option; [@option]
   user_data_replace_on_change : bool prop option; [@option]
-  volume_tags : (string * string prop) list option; [@option]
+  volume_tags : string prop Tf_core.assoc option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   capacity_reservation_specification :
     capacity_reservation_specification list;
@@ -1210,12 +1194,8 @@ let yojson_of_aws_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "volume_tags", arg in
@@ -1258,12 +1238,8 @@ let yojson_of_aws_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1274,12 +1250,8 @@ let yojson_of_aws_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1735,13 +1707,13 @@ type t = {
   source_dest_check : bool prop;
   spot_instance_request_id : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenancy : string prop;
   user_data : string prop;
   user_data_base64 : string prop;
   user_data_replace_on_change : bool prop;
-  volume_tags : (string * string) list prop;
+  volume_tags : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 

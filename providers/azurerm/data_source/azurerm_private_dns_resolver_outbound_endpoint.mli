@@ -30,7 +30,7 @@ type t = private {
   name : string prop;
   private_dns_resolver_id : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

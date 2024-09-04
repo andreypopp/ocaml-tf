@@ -21,8 +21,8 @@ val timeouts :
 type azurerm_arc_kubernetes_cluster_extension
 
 val azurerm_arc_kubernetes_cluster_extension :
-  ?configuration_protected_settings:(string * string prop) list ->
-  ?configuration_settings:(string * string prop) list ->
+  ?configuration_protected_settings:string prop Tf_core.assoc ->
+  ?configuration_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?release_namespace:string prop ->
   ?release_train:string prop ->
@@ -44,8 +44,8 @@ val yojson_of_azurerm_arc_kubernetes_cluster_extension :
 type t = private {
   tf_name : string;
   cluster_id : string prop;
-  configuration_protected_settings : (string * string) list prop;
-  configuration_settings : (string * string) list prop;
+  configuration_protected_settings : string Tf_core.assoc prop;
+  configuration_settings : string Tf_core.assoc prop;
   current_version : string prop;
   extension_type : string prop;
   id : string prop;
@@ -58,8 +58,8 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?configuration_protected_settings:(string * string prop) list ->
-  ?configuration_settings:(string * string prop) list ->
+  ?configuration_protected_settings:string prop Tf_core.assoc ->
+  ?configuration_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?release_namespace:string prop ->
   ?release_train:string prop ->
@@ -74,8 +74,8 @@ val register :
   t
 
 val make :
-  ?configuration_protected_settings:(string * string prop) list ->
-  ?configuration_settings:(string * string prop) list ->
+  ?configuration_protected_settings:string prop Tf_core.assoc ->
+  ?configuration_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?release_namespace:string prop ->
   ?release_train:string prop ->

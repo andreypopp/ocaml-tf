@@ -24,8 +24,8 @@ val aws_sqs_queue :
   ?redrive_allow_policy:string prop ->
   ?redrive_policy:string prop ->
   ?sqs_managed_sse_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility_timeout_seconds:float prop ->
   unit ->
   aws_sqs_queue
@@ -54,8 +54,8 @@ type t = private {
   redrive_allow_policy : string prop;
   redrive_policy : string prop;
   sqs_managed_sse_enabled : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
   visibility_timeout_seconds : float prop;
 }
@@ -79,8 +79,8 @@ val register :
   ?redrive_allow_policy:string prop ->
   ?redrive_policy:string prop ->
   ?sqs_managed_sse_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility_timeout_seconds:float prop ->
   string ->
   t
@@ -103,8 +103,8 @@ val make :
   ?redrive_allow_policy:string prop ->
   ?redrive_policy:string prop ->
   ?sqs_managed_sse_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility_timeout_seconds:float prop ->
   string ->
   t Tf_core.resource

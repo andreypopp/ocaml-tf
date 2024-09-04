@@ -421,7 +421,7 @@ val google_privateca_certificate :
   ?certificate_authority:string prop ->
   ?certificate_template:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_csr:string prop ->
   ?project:string prop ->
@@ -444,10 +444,10 @@ type t = private {
   certificate_description : certificate_description list prop;
   certificate_template : string prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   issuer_certificate_authority : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lifetime : string prop;
   location : string prop;
   name : string prop;
@@ -457,7 +457,7 @@ type t = private {
   pool : string prop;
   project : string prop;
   revocation_details : revocation_details list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -466,7 +466,7 @@ val register :
   ?certificate_authority:string prop ->
   ?certificate_template:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_csr:string prop ->
   ?project:string prop ->
@@ -482,7 +482,7 @@ val make :
   ?certificate_authority:string prop ->
   ?certificate_template:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_csr:string prop ->
   ?project:string prop ->

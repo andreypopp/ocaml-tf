@@ -125,7 +125,7 @@ type t = private {
   agent_version : string prop;
   client_public_key : string prop;
   cloud_metadata : cloud_metadata list prop;
-  detected_properties : (string * string) list prop;
+  detected_properties : string Tf_core.assoc prop;
   display_name : string prop;
   dns_fqdn : string prop;
   domain_name : string prop;
@@ -147,7 +147,7 @@ type t = private {
   resource_group_name : string prop;
   service_status : service_status list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vm_id : string prop;
   vm_uuid : string prop;
 }

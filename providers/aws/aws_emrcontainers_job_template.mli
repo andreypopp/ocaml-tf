@@ -8,14 +8,14 @@ type job_template_data__configuration_overrides__application_configuration__conf
 
 val job_template_data__configuration_overrides__application_configuration__configurations :
   ?classification:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   unit ->
   job_template_data__configuration_overrides__application_configuration__configurations
 
 type job_template_data__configuration_overrides__application_configuration
 
 val job_template_data__configuration_overrides__application_configuration :
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?configurations:
     job_template_data__configuration_overrides__application_configuration__configurations
     list ->
@@ -93,7 +93,7 @@ val job_template_data__job_driver :
 type job_template_data
 
 val job_template_data :
-  ?job_tags:(string * string prop) list ->
+  ?job_tags:string prop Tf_core.assoc ->
   ?configuration_overrides:
     job_template_data__configuration_overrides list ->
   execution_role_arn:string prop ->
@@ -111,8 +111,8 @@ type aws_emrcontainers_job_template
 val aws_emrcontainers_job_template :
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   job_template_data:job_template_data list ->
@@ -130,16 +130,16 @@ type t = private {
   id : string prop;
   kms_key_arn : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   job_template_data:job_template_data list ->
@@ -149,8 +149,8 @@ val register :
 val make :
   ?id:string prop ->
   ?kms_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   job_template_data:job_template_data list ->

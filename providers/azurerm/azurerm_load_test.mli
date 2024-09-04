@@ -43,7 +43,7 @@ type azurerm_load_test
 val azurerm_load_test :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -65,14 +65,14 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -85,7 +85,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

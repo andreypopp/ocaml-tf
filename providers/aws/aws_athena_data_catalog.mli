@@ -8,11 +8,11 @@ type aws_athena_data_catalog
 
 val aws_athena_data_catalog :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   name:string prop ->
-  parameters:(string * string prop) list ->
+  parameters:string prop Tf_core.assoc ->
   type_:string prop ->
   unit ->
   aws_athena_data_catalog
@@ -28,31 +28,31 @@ type t = private {
   description : string prop;
   id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   name:string prop ->
-  parameters:(string * string prop) list ->
+  parameters:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   name:string prop ->
-  parameters:(string * string prop) list ->
+  parameters:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t Tf_core.resource

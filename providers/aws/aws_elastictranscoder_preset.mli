@@ -81,7 +81,7 @@ val aws_elastictranscoder_preset :
   ?id:string prop ->
   ?name:string prop ->
   ?type_:string prop ->
-  ?video_codec_options:(string * string prop) list ->
+  ?video_codec_options:string prop Tf_core.assoc ->
   ?audio:audio list ->
   ?audio_codec_options:audio_codec_options list ->
   ?thumbnails:thumbnails list ->
@@ -104,7 +104,7 @@ type t = private {
   id : string prop;
   name : string prop;
   type_ : string prop;
-  video_codec_options : (string * string) list prop;
+  video_codec_options : string Tf_core.assoc prop;
 }
 
 val register :
@@ -113,7 +113,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?type_:string prop ->
-  ?video_codec_options:(string * string prop) list ->
+  ?video_codec_options:string prop Tf_core.assoc ->
   ?audio:audio list ->
   ?audio_codec_options:audio_codec_options list ->
   ?thumbnails:thumbnails list ->
@@ -128,7 +128,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?type_:string prop ->
-  ?video_codec_options:(string * string prop) list ->
+  ?video_codec_options:string prop Tf_core.assoc ->
   ?audio:audio list ->
   ?audio_codec_options:audio_codec_options list ->
   ?thumbnails:thumbnails list ->

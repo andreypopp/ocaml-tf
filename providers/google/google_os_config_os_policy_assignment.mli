@@ -7,14 +7,14 @@ open! Tf_core
 type instance_filter__exclusion_labels
 
 val instance_filter__exclusion_labels :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   unit ->
   instance_filter__exclusion_labels
 
 type instance_filter__inclusion_labels
 
 val instance_filter__inclusion_labels :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   unit ->
   instance_filter__inclusion_labels
 

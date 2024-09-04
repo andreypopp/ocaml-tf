@@ -49,7 +49,7 @@ type azurerm_express_route_port
 val azurerm_express_route_port :
   ?billing_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?link1:link1 list ->
   ?link2:link2 list ->
@@ -81,14 +81,14 @@ type t = private {
   name : string prop;
   peering_location : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?billing_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?link1:link1 list ->
   ?link2:link2 list ->
@@ -105,7 +105,7 @@ val register :
 val make :
   ?billing_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?link1:link1 list ->
   ?link2:link2 list ->

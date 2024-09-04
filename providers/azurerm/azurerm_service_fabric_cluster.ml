@@ -304,7 +304,7 @@ let _ = yojson_of_diagnostics_config
 
 type fabric_settings = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -321,12 +321,8 @@ let yojson_of_fabric_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -403,7 +399,7 @@ let _ = yojson_of_node_type__ephemeral_ports
 [@@@deriving.end]
 
 type node_type = {
-  capacities : (string * string prop) list option; [@option]
+  capacities : string prop Tf_core.assoc option; [@option]
   client_endpoint_port : float prop;
   durability_level : string prop option; [@option]
   http_endpoint_port : float prop;
@@ -412,8 +408,7 @@ type node_type = {
   is_stateless : bool prop option; [@option]
   multiple_availability_zones : bool prop option; [@option]
   name : string prop;
-  placement_properties : (string * string prop) list option;
-      [@option]
+  placement_properties : string prop Tf_core.assoc option; [@option]
   reverse_proxy_endpoint_port : float prop option; [@option]
   application_ports : node_type__application_ports list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -477,12 +472,8 @@ let yojson_of_node_type =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "placement_properties", arg in
@@ -541,12 +532,8 @@ let yojson_of_node_type =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "capacities", arg in
@@ -983,7 +970,7 @@ type azurerm_service_fabric_cluster = {
   reliability_level : string prop;
   resource_group_name : string prop;
   service_fabric_zonal_upgrade_mode : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   upgrade_mode : string prop;
   vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop option; [@option]
@@ -1189,12 +1176,8 @@ let yojson_of_azurerm_service_fabric_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1435,7 +1418,7 @@ type t = {
   reliability_level : string prop;
   resource_group_name : string prop;
   service_fabric_zonal_upgrade_mode : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_mode : string prop;
   vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop;

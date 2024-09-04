@@ -6,9 +6,9 @@ open! Tf_core
 
 type locations = {
   display_name : string prop;  (** display_name *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   location_id : string prop;  (** location_id *)
-  metadata : (string * string prop) list;  (** metadata *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
   name : string prop;  (** name *)
 }
 

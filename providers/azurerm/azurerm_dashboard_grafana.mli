@@ -53,7 +53,7 @@ val azurerm_dashboard_grafana :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?azure_monitor_workspace_integrations:
     azure_monitor_workspace_integrations list ->
@@ -86,7 +86,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundancy_enabled : bool prop;
 }
 
@@ -99,7 +99,7 @@ val register :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?azure_monitor_workspace_integrations:
     azure_monitor_workspace_integrations list ->
@@ -120,7 +120,7 @@ val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?azure_monitor_workspace_integrations:
     azure_monitor_workspace_integrations list ->

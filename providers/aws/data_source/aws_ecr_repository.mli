@@ -18,7 +18,7 @@ type aws_ecr_repository
 val aws_ecr_repository :
   ?id:string prop ->
   ?registry_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_ecr_repository
@@ -39,14 +39,14 @@ type t = private {
   name : string prop;
   registry_id : string prop;
   repository_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?registry_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
@@ -54,7 +54,7 @@ val register :
 val make :
   ?id:string prop ->
   ?registry_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

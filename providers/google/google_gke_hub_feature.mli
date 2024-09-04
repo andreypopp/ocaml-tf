@@ -306,7 +306,7 @@ type google_gke_hub_feature
 
 val google_gke_hub_feature :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?fleet_default_member_config:fleet_default_member_config list ->
@@ -324,22 +324,22 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   delete_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   resource_state : resource_state list prop;
   state : state list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?fleet_default_member_config:fleet_default_member_config list ->
@@ -351,7 +351,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?fleet_default_member_config:fleet_default_member_config list ->

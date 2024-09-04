@@ -12,7 +12,7 @@ type azurerm_app_service_certificate
 
 val azurerm_app_service_certificate :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -36,14 +36,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   subject_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -52,7 +52,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

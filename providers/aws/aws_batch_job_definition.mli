@@ -15,8 +15,8 @@ val eks_properties__pod_properties__containers__env :
 type eks_properties__pod_properties__containers__resources
 
 val eks_properties__pod_properties__containers__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   eks_properties__pod_properties__containers__resources
 
@@ -61,7 +61,7 @@ val eks_properties__pod_properties__containers :
 type eks_properties__pod_properties__metadata
 
 val eks_properties__pod_properties__metadata :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   unit ->
   eks_properties__pod_properties__metadata
 
@@ -146,12 +146,12 @@ val aws_batch_job_definition :
   ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?platform_capabilities:string prop list ->
   ?propagate_tags:bool prop ->
   ?scheduling_priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?eks_properties:eks_properties list ->
   ?retry_strategy:retry_strategy list ->
   ?timeout:timeout list ->
@@ -174,13 +174,13 @@ type t = private {
   id : string prop;
   name : string prop;
   node_properties : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   platform_capabilities : string list prop;
   propagate_tags : bool prop;
   revision : float prop;
   scheduling_priority : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -190,12 +190,12 @@ val register :
   ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?platform_capabilities:string prop list ->
   ?propagate_tags:bool prop ->
   ?scheduling_priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?eks_properties:eks_properties list ->
   ?retry_strategy:retry_strategy list ->
   ?timeout:timeout list ->
@@ -209,12 +209,12 @@ val make :
   ?deregister_on_new_revision:bool prop ->
   ?id:string prop ->
   ?node_properties:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?platform_capabilities:string prop list ->
   ?propagate_tags:bool prop ->
   ?scheduling_priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?eks_properties:eks_properties list ->
   ?retry_strategy:retry_strategy list ->
   ?timeout:timeout list ->

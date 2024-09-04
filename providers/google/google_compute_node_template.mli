@@ -28,7 +28,7 @@ val google_compute_node_template :
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?node_affinity_labels:(string * string prop) list ->
+  ?node_affinity_labels:string prop Tf_core.assoc ->
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -50,7 +50,7 @@ type t = private {
   description : string prop;
   id : string prop;
   name : string prop;
-  node_affinity_labels : (string * string) list prop;
+  node_affinity_labels : string Tf_core.assoc prop;
   node_type : string prop;
   project : string prop;
   region : string prop;
@@ -63,7 +63,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?node_affinity_labels:(string * string prop) list ->
+  ?node_affinity_labels:string prop Tf_core.assoc ->
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -78,7 +78,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?node_affinity_labels:(string * string prop) list ->
+  ?node_affinity_labels:string prop Tf_core.assoc ->
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->

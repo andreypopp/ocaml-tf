@@ -100,7 +100,7 @@ type t = {
   resource_group_name : string prop;
   service_name : string prop;
   source_platform : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_platform : string prop;
 }
 

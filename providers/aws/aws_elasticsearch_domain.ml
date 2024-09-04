@@ -842,12 +842,12 @@ let _ = yojson_of_vpc_options
 
 type aws_elasticsearch_domain = {
   access_policies : string prop option; [@option]
-  advanced_options : (string * string prop) list option; [@option]
+  advanced_options : string prop Tf_core.assoc option; [@option]
   domain_name : string prop;
   elasticsearch_version : string prop option; [@option]
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   advanced_security_options : advanced_security_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   auto_tune_options : auto_tune_options list;
@@ -1019,12 +1019,8 @@ let yojson_of_aws_elasticsearch_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1035,12 +1031,8 @@ let yojson_of_aws_elasticsearch_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1071,12 +1063,8 @@ let yojson_of_aws_elasticsearch_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "advanced_options", arg in
@@ -1221,7 +1209,7 @@ let aws_elasticsearch_domain ?access_policies ?advanced_options
 type t = {
   tf_name : string;
   access_policies : string prop;
-  advanced_options : (string * string) list prop;
+  advanced_options : string Tf_core.assoc prop;
   arn : string prop;
   domain_id : string prop;
   domain_name : string prop;
@@ -1229,8 +1217,8 @@ type t = {
   endpoint : string prop;
   id : string prop;
   kibana_endpoint : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?access_policies ?advanced_options ?elasticsearch_version

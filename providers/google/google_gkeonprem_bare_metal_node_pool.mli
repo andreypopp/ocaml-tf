@@ -22,7 +22,7 @@ type status = {
 type node_pool_config__node_configs
 
 val node_pool_config__node_configs :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_ip:string prop ->
   unit ->
   node_pool_config__node_configs
@@ -39,7 +39,7 @@ val node_pool_config__taints :
 type node_pool_config
 
 val node_pool_config :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?operating_system:string prop ->
   ?taints:node_pool_config__taints list ->
   node_configs:node_pool_config__node_configs list ->
@@ -58,7 +58,7 @@ val timeouts :
 type google_gkeonprem_bare_metal_node_pool
 
 val google_gkeonprem_bare_metal_node_pool :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -77,12 +77,12 @@ val yojson_of_google_gkeonprem_bare_metal_node_pool :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   bare_metal_cluster : string prop;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -97,7 +97,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -110,7 +110,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->

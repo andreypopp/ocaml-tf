@@ -269,10 +269,10 @@ type google_notebooks_instance = {
   install_gpu_driver : bool prop option; [@option]
   instance_owners : string prop list option; [@option]
   kms_key : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   machine_type : string prop;
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   name : string prop;
   network : string prop option; [@option]
   nic_type : string prop option; [@option]
@@ -506,12 +506,8 @@ let yojson_of_google_notebooks_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -530,12 +526,8 @@ let yojson_of_google_notebooks_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -725,15 +717,15 @@ type t = {
   data_disk_type : string prop;
   desired_state : string prop;
   disk_encryption : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   install_gpu_driver : bool prop;
   instance_owners : string list prop;
   kms_key : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   nic_type : string prop;
@@ -748,7 +740,7 @@ type t = {
   state : string prop;
   subnet : string prop;
   tags : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 

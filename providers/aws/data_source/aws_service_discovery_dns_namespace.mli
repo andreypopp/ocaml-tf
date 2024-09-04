@@ -8,7 +8,7 @@ type aws_service_discovery_dns_namespace
 
 val aws_service_discovery_dns_namespace :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   unit ->
@@ -26,14 +26,14 @@ type t = private {
   hosted_zone : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   string ->
@@ -41,7 +41,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   string ->

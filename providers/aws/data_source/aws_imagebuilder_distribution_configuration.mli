@@ -69,7 +69,7 @@ type distribution__ami_distribution_configuration__launch_permission = {
 }
 
 type distribution__ami_distribution_configuration = {
-  ami_tags : (string * string prop) list;  (** ami_tags *)
+  ami_tags : string prop Tf_core.assoc;  (** ami_tags *)
   description : string prop;  (** description *)
   kms_key_id : string prop;  (** kms_key_id *)
   launch_permission :
@@ -110,7 +110,7 @@ type aws_imagebuilder_distribution_configuration
 
 val aws_imagebuilder_distribution_configuration :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_imagebuilder_distribution_configuration
@@ -129,20 +129,20 @@ type t = private {
   distribution : distribution list prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

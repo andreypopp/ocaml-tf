@@ -179,8 +179,8 @@ val aws_codedeploy_deployment_group :
   ?deployment_config_name:string prop ->
   ?id:string prop ->
   ?outdated_instances_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?alarm_configuration:alarm_configuration list ->
   ?auto_rollback_configuration:auto_rollback_configuration list ->
   ?blue_green_deployment_config:blue_green_deployment_config list ->
@@ -215,8 +215,8 @@ type t = private {
   id : string prop;
   outdated_instances_strategy : string prop;
   service_role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -225,8 +225,8 @@ val register :
   ?deployment_config_name:string prop ->
   ?id:string prop ->
   ?outdated_instances_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?alarm_configuration:alarm_configuration list ->
   ?auto_rollback_configuration:auto_rollback_configuration list ->
   ?blue_green_deployment_config:blue_green_deployment_config list ->
@@ -249,8 +249,8 @@ val make :
   ?deployment_config_name:string prop ->
   ?id:string prop ->
   ?outdated_instances_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?alarm_configuration:alarm_configuration list ->
   ?auto_rollback_configuration:auto_rollback_configuration list ->
   ?blue_green_deployment_config:blue_green_deployment_config list ->

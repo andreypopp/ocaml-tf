@@ -8,7 +8,7 @@ type aws_appconfig_extension_association
 
 val aws_appconfig_extension_association :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   extension_arn:string prop ->
   resource_arn:string prop ->
   unit ->
@@ -25,14 +25,14 @@ type t = private {
   extension_arn : string prop;
   extension_version : float prop;
   id : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_arn : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   extension_arn:string prop ->
   resource_arn:string prop ->
   string ->
@@ -40,7 +40,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   extension_arn:string prop ->
   resource_arn:string prop ->
   string ->

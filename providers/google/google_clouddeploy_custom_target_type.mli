@@ -66,10 +66,10 @@ val timeouts :
 type google_clouddeploy_custom_target_type
 
 val google_clouddeploy_custom_target_type :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->
@@ -85,29 +85,29 @@ val yojson_of_google_clouddeploy_custom_target_type :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   custom_target_type_id : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->
@@ -117,10 +117,10 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->

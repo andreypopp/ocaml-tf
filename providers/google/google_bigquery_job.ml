@@ -1386,7 +1386,7 @@ type google_bigquery_job = {
   id : string prop option; [@option]
   job_id : string prop;
   job_timeout_ms : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
   copy : copy list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1472,12 +1472,8 @@ let yojson_of_google_bigquery_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1677,16 +1673,16 @@ let google_bigquery_job ?id ?job_timeout_ms ?labels ?location
 
 type t = {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   job_id : string prop;
   job_timeout_ms : string prop;
   job_type : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   project : string prop;
   status : status list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   user_email : string prop;
 }
 

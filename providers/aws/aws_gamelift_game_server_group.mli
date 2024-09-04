@@ -48,8 +48,8 @@ val aws_gamelift_game_server_group :
   ?balancing_strategy:string prop ->
   ?game_server_protection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_subnets:string prop list ->
   ?auto_scaling_policy:auto_scaling_policy list ->
   ?timeouts:timeouts ->
@@ -78,8 +78,8 @@ type t = private {
   max_size : float prop;
   min_size : float prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_subnets : string list prop;
 }
 
@@ -88,8 +88,8 @@ val register :
   ?balancing_strategy:string prop ->
   ?game_server_protection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_subnets:string prop list ->
   ?auto_scaling_policy:auto_scaling_policy list ->
   ?timeouts:timeouts ->
@@ -106,8 +106,8 @@ val make :
   ?balancing_strategy:string prop ->
   ?game_server_protection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_subnets:string prop list ->
   ?auto_scaling_policy:auto_scaling_policy list ->
   ?timeouts:timeouts ->

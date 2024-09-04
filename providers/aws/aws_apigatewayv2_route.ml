@@ -45,7 +45,7 @@ type aws_apigatewayv2_route = {
   id : string prop option; [@option]
   model_selection_expression : string prop option; [@option]
   operation_name : string prop option; [@option]
-  request_models : (string * string prop) list option; [@option]
+  request_models : string prop Tf_core.assoc option; [@option]
   route_key : string prop;
   route_response_selection_expression : string prop option; [@option]
   target : string prop option; [@option]
@@ -112,12 +112,8 @@ let yojson_of_aws_apigatewayv2_route =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "request_models", arg in
@@ -227,7 +223,7 @@ type t = {
   id : string prop;
   model_selection_expression : string prop;
   operation_name : string prop;
-  request_models : (string * string) list prop;
+  request_models : string Tf_core.assoc prop;
   route_key : string prop;
   route_response_selection_expression : string prop;
   target : string prop;

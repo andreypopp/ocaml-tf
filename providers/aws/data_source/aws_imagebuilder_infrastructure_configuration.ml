@@ -104,8 +104,8 @@ let _ = yojson_of_logging
 type aws_imagebuilder_infrastructure_configuration = {
   arn : string prop;
   id : string prop option; [@option]
-  resource_tags : (string * string prop) list option; [@option]
-  tags : (string * string prop) list option; [@option]
+  resource_tags : string prop Tf_core.assoc option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,12 +127,8 @@ let yojson_of_aws_imagebuilder_infrastructure_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -143,12 +139,8 @@ let yojson_of_aws_imagebuilder_infrastructure_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_tags", arg in
@@ -191,11 +183,11 @@ type t = {
   key_pair : string prop;
   logging : logging list prop;
   name : string prop;
-  resource_tags : (string * string) list prop;
+  resource_tags : string Tf_core.assoc prop;
   security_group_ids : string list prop;
   sns_topic_arn : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   terminate_instance_on_failure : bool prop;
 }
 

@@ -126,7 +126,7 @@ type aws_networkfirewall_tls_inspection_configuration
 val aws_networkfirewall_tls_inspection_configuration :
   ?description:string prop ->
   ?encryption_configuration:encryption_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?tls_inspection_configuration:tls_inspection_configuration list ->
   name:string prop ->
@@ -148,8 +148,8 @@ type t = private {
   id : string prop;
   name : string prop;
   number_of_associations : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tls_inspection_configuration_id : string prop;
   update_token : string prop;
 }
@@ -158,7 +158,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?encryption_configuration:encryption_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?tls_inspection_configuration:tls_inspection_configuration list ->
   name:string prop ->
@@ -168,7 +168,7 @@ val register :
 val make :
   ?description:string prop ->
   ?encryption_configuration:encryption_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?tls_inspection_configuration:tls_inspection_configuration list ->
   name:string prop ->

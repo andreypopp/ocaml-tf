@@ -18,7 +18,7 @@ type azurerm_application_load_balancer_frontend
 
 val azurerm_application_load_balancer_frontend :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_load_balancer_id:string prop ->
   name:string prop ->
@@ -36,13 +36,13 @@ type t = private {
   fully_qualified_domain_name : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_load_balancer_id:string prop ->
   name:string prop ->
@@ -51,7 +51,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_load_balancer_id:string prop ->
   name:string prop ->

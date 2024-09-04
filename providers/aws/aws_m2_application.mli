@@ -27,7 +27,7 @@ val aws_m2_application :
   ?description:string prop ->
   ?kms_key_id:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?definition:definition list ->
   ?timeouts:timeouts ->
   engine_type:string prop ->
@@ -50,8 +50,8 @@ type t = private {
   kms_key_id : string prop;
   name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?description:string prop ->
   ?kms_key_id:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?definition:definition list ->
   ?timeouts:timeouts ->
   engine_type:string prop ->
@@ -71,7 +71,7 @@ val make :
   ?description:string prop ->
   ?kms_key_id:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?definition:definition list ->
   ?timeouts:timeouts ->
   engine_type:string prop ->

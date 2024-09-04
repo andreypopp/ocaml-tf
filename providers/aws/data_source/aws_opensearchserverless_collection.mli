@@ -29,7 +29,7 @@ type t = private {
   last_modified_date : string prop;
   name : string prop;
   standby_replicas : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

@@ -19,7 +19,7 @@ type azurerm_communication_service
 val azurerm_communication_service :
   ?data_location:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -41,14 +41,14 @@ type t = private {
   resource_group_name : string prop;
   secondary_connection_string : string prop;
   secondary_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?data_location:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -58,7 +58,7 @@ val register :
 val make :
   ?data_location:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

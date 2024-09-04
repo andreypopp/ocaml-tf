@@ -93,7 +93,7 @@ type t = {
   name : string prop;
   platform_fault_domain_count : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

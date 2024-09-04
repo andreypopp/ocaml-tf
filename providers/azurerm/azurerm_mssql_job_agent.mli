@@ -18,7 +18,7 @@ type azurerm_mssql_job_agent
 
 val azurerm_mssql_job_agent :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   database_id:string prop ->
   location:string prop ->
@@ -37,13 +37,13 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   database_id:string prop ->
   location:string prop ->
@@ -53,7 +53,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   database_id:string prop ->
   location:string prop ->

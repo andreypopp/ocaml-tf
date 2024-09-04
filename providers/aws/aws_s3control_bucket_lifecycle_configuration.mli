@@ -24,7 +24,7 @@ type rule__filter
 
 val rule__filter :
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   rule__filter
 

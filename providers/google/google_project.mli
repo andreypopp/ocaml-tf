@@ -21,7 +21,7 @@ val google_project :
   ?billing_account:string prop ->
   ?folder_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?org_id:string prop ->
   ?skip_delete:bool prop ->
   ?timeouts:timeouts ->
@@ -38,16 +38,16 @@ type t = private {
   tf_name : string;
   auto_create_network : bool prop;
   billing_account : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   folder_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   number : string prop;
   org_id : string prop;
   project_id : string prop;
   skip_delete : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -56,7 +56,7 @@ val register :
   ?billing_account:string prop ->
   ?folder_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?org_id:string prop ->
   ?skip_delete:bool prop ->
   ?timeouts:timeouts ->
@@ -70,7 +70,7 @@ val make :
   ?billing_account:string prop ->
   ?folder_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?org_id:string prop ->
   ?skip_delete:bool prop ->
   ?timeouts:timeouts ->

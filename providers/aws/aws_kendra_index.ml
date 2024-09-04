@@ -47,7 +47,7 @@ type document_metadata_configuration_updates__relevance = {
   freshness : bool prop option; [@option]
   importance : float prop option; [@option]
   rank_order : string prop option; [@option]
-  values_importance_map : (string * float prop) list option; [@option]
+  values_importance_map : float prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,12 +71,8 @@ let yojson_of_document_metadata_configuration_updates__relevance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_float v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_float)
                  v
              in
              let bnd = "values_importance_map", arg in
@@ -657,8 +653,8 @@ type aws_kendra_index = {
   id : string prop option; [@option]
   name : string prop;
   role_arn : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   user_context_policy : string prop option; [@option]
   capacity_units : capacity_units list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -778,12 +774,8 @@ let yojson_of_aws_kendra_index =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -794,12 +786,8 @@ let yojson_of_aws_kendra_index =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -939,8 +927,8 @@ type t = {
   name : string prop;
   role_arn : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   updated_at : string prop;
   user_context_policy : string prop;
 }

@@ -47,7 +47,7 @@ val azurerm_postgresql_server :
   ?restore_point_in_time:string prop ->
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
@@ -86,7 +86,7 @@ type t = private {
   ssl_enforcement_enabled : bool prop;
   ssl_minimal_tls_version_enforced : string prop;
   storage_mb : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -105,7 +105,7 @@ val register :
   ?restore_point_in_time:string prop ->
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
@@ -132,7 +132,7 @@ val make :
   ?restore_point_in_time:string prop ->
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->

@@ -65,8 +65,8 @@ type aws_sagemaker_workteam
 
 val aws_sagemaker_workteam :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification_configuration:notification_configuration list ->
   ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->
@@ -86,8 +86,8 @@ type t = private {
   description : string prop;
   id : string prop;
   subdomain : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   workforce_name : string prop;
   workteam_name : string prop;
 }
@@ -95,8 +95,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification_configuration:notification_configuration list ->
   ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->
@@ -108,8 +108,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification_configuration:notification_configuration list ->
   ?worker_access_configuration:worker_access_configuration list ->
   description:string prop ->

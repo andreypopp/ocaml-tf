@@ -201,11 +201,11 @@ type t = private {
   create_time : string prop;
   description : string prop;
   docker_config : docker_config list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   format : string prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   maven_config : maven_config list prop;
   mode : string prop;
@@ -213,7 +213,7 @@ type t = private {
   project : string prop;
   remote_repository_config : remote_repository_config list prop;
   repository_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   virtual_repository_config : virtual_repository_config list prop;
 }

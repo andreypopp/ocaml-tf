@@ -158,15 +158,14 @@ type deployment_configs__preview = {
   always_use_latest_compatibility_date : bool prop option; [@option]
   compatibility_date : string prop option; [@option]
   compatibility_flags : string prop list option; [@option]
-  d1_databases : (string * string prop) list option; [@option]
-  durable_object_namespaces : (string * string prop) list option;
+  d1_databases : string prop Tf_core.assoc option; [@option]
+  durable_object_namespaces : string prop Tf_core.assoc option;
       [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   fail_open : bool prop option; [@option]
-  kv_namespaces : (string * string prop) list option; [@option]
-  r2_buckets : (string * string prop) list option; [@option]
-  secrets : (string * string prop) list option; [@option]
+  kv_namespaces : string prop Tf_core.assoc option; [@option]
+  r2_buckets : string prop Tf_core.assoc option; [@option]
+  secrets : string prop Tf_core.assoc option; [@option]
   usage_model : string prop option; [@option]
   placement : deployment_configs__preview__placement list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -233,12 +232,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secrets", arg in
@@ -249,12 +244,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "r2_buckets", arg in
@@ -265,12 +256,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "kv_namespaces", arg in
@@ -289,12 +276,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -305,12 +288,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "durable_object_namespaces", arg in
@@ -321,12 +300,8 @@ let yojson_of_deployment_configs__preview =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "d1_databases", arg in
@@ -443,15 +418,14 @@ type deployment_configs__production = {
   always_use_latest_compatibility_date : bool prop option; [@option]
   compatibility_date : string prop option; [@option]
   compatibility_flags : string prop list option; [@option]
-  d1_databases : (string * string prop) list option; [@option]
-  durable_object_namespaces : (string * string prop) list option;
+  d1_databases : string prop Tf_core.assoc option; [@option]
+  durable_object_namespaces : string prop Tf_core.assoc option;
       [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   fail_open : bool prop option; [@option]
-  kv_namespaces : (string * string prop) list option; [@option]
-  r2_buckets : (string * string prop) list option; [@option]
-  secrets : (string * string prop) list option; [@option]
+  kv_namespaces : string prop Tf_core.assoc option; [@option]
+  r2_buckets : string prop Tf_core.assoc option; [@option]
+  secrets : string prop Tf_core.assoc option; [@option]
   usage_model : string prop option; [@option]
   placement : deployment_configs__production__placement list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -519,12 +493,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secrets", arg in
@@ -535,12 +505,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "r2_buckets", arg in
@@ -551,12 +517,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "kv_namespaces", arg in
@@ -575,12 +537,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -591,12 +549,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "durable_object_namespaces", arg in
@@ -607,12 +561,8 @@ let yojson_of_deployment_configs__production =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "d1_databases", arg in

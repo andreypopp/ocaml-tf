@@ -206,7 +206,7 @@ val azurerm_api_management :
   ?policy:policy list ->
   ?public_ip_address_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
   ?additional_location:additional_location list ->
@@ -258,7 +258,7 @@ type t = private {
   resource_group_name : string prop;
   scm_url : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_type : string prop;
   zones : string list prop;
 }
@@ -273,7 +273,7 @@ val register :
   ?policy:policy list ->
   ?public_ip_address_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
   ?additional_location:additional_location list ->
@@ -306,7 +306,7 @@ val make :
   ?policy:policy list ->
   ?public_ip_address_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
   ?additional_location:additional_location list ->

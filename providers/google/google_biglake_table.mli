@@ -16,7 +16,7 @@ val hive_options__storage_descriptor :
 type hive_options
 
 val hive_options :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?table_type:string prop ->
   ?storage_descriptor:hive_options__storage_descriptor list ->
   unit ->

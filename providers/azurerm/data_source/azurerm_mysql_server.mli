@@ -62,7 +62,7 @@ type t = private {
   ssl_enforcement_enabled : bool prop;
   ssl_minimal_tls_version_enforced : string prop;
   storage_mb : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   threat_detection_policy : threat_detection_policy list prop;
   version : string prop;
 }

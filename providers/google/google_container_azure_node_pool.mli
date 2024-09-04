@@ -33,8 +33,8 @@ val config__ssh_config :
 type config
 
 val config :
-  ?labels:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?vm_size:string prop ->
   ?proxy_config:config__proxy_config list ->
   ?root_volume:config__root_volume list ->
@@ -63,7 +63,7 @@ val timeouts :
 type google_container_azure_node_pool
 
 val google_container_azure_node_pool :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -87,11 +87,11 @@ val yojson_of_google_container_azure_node_pool :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   azure_availability_zone : string prop;
   cluster : string prop;
   create_time : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -107,7 +107,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -125,7 +125,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->

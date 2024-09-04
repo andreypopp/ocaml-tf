@@ -45,10 +45,10 @@ type disk = {
   disk_size_gb : float prop;  (** disk_size_gb *)
   disk_type : string prop;  (** disk_type *)
   interface : string prop;  (** interface *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   mode : string prop;  (** mode *)
   provisioned_iops : float prop;  (** provisioned_iops *)
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
   resource_policies : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -220,14 +220,14 @@ type t = private {
     confidential_instance_config list prop;
   description : string prop;
   disk : disk list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   filter : string prop;
   guest_accelerator : guest_accelerator list prop;
   id : string prop;
   instance_description : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -239,7 +239,7 @@ type t = private {
   project : string prop;
   region : string prop;
   reservation_affinity : reservation_affinity list prop;
-  resource_manager_tags : (string * string) list prop;
+  resource_manager_tags : string Tf_core.assoc prop;
   resource_policies : string list prop;
   scheduling : scheduling list prop;
   self_link : string prop;
@@ -247,7 +247,7 @@ type t = private {
   shielded_instance_config : shielded_instance_config list prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :

@@ -16,7 +16,7 @@ type digitalocean_spaces_bucket_object = {
   force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
   key : string prop;
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   region : string prop;
   source : string prop option; [@option]
   website_redirect : string prop option; [@option]
@@ -74,12 +74,8 @@ let yojson_of_digitalocean_spaces_bucket_object =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -229,7 +225,7 @@ type t = {
   force_destroy : bool prop;
   id : string prop;
   key : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   region : string prop;
   source : string prop;
   version_id : string prop;

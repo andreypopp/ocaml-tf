@@ -57,8 +57,8 @@ type aws_connect_user_hierarchy_group
 val aws_connect_user_hierarchy_group :
   ?id:string prop ->
   ?parent_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_id:string prop ->
   name:string prop ->
   unit ->
@@ -79,16 +79,16 @@ type t = private {
   level_id : string prop;
   name : string prop;
   parent_group_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?parent_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_id:string prop ->
   name:string prop ->
   string ->
@@ -97,8 +97,8 @@ val register :
 val make :
   ?id:string prop ->
   ?parent_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_id:string prop ->
   name:string prop ->
   string ->

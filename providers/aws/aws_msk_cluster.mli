@@ -217,8 +217,8 @@ val aws_msk_cluster :
   ?enhanced_monitoring:string prop ->
   ?id:string prop ->
   ?storage_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?client_authentication:client_authentication list ->
   ?configuration_info:configuration_info list ->
   ?encryption_info:encryption_info list ->
@@ -257,8 +257,8 @@ type t = private {
   kafka_version : string prop;
   number_of_broker_nodes : float prop;
   storage_mode : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   zookeeper_connect_string : string prop;
   zookeeper_connect_string_tls : string prop;
 }
@@ -268,8 +268,8 @@ val register :
   ?enhanced_monitoring:string prop ->
   ?id:string prop ->
   ?storage_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?client_authentication:client_authentication list ->
   ?configuration_info:configuration_info list ->
   ?encryption_info:encryption_info list ->
@@ -287,8 +287,8 @@ val make :
   ?enhanced_monitoring:string prop ->
   ?id:string prop ->
   ?storage_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?client_authentication:client_authentication list ->
   ?configuration_info:configuration_info list ->
   ?encryption_info:encryption_info list ->

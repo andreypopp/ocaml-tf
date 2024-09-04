@@ -80,8 +80,8 @@ type aws_codegurureviewer_repository_association
 
 val aws_codegurureviewer_repository_association :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
   repository:repository list ->
@@ -105,15 +105,15 @@ type t = private {
   s3_repository_details : s3_repository_details list prop;
   state : string prop;
   state_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
   repository:repository list ->
@@ -122,8 +122,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
   repository:repository list ->

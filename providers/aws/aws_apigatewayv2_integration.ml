@@ -3,7 +3,7 @@
 open! Tf_core
 
 type response_parameters = {
-  mappings : (string * string prop) list;
+  mappings : string prop Tf_core.assoc;
   status_code : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -22,12 +22,8 @@ let yojson_of_response_parameters =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_mappings
          in
          ("mappings", arg) :: bnds
@@ -81,8 +77,8 @@ type aws_apigatewayv2_integration = {
   integration_uri : string prop option; [@option]
   passthrough_behavior : string prop option; [@option]
   payload_format_version : string prop option; [@option]
-  request_parameters : (string * string prop) list option; [@option]
-  request_templates : (string * string prop) list option; [@option]
+  request_parameters : string prop Tf_core.assoc option; [@option]
+  request_templates : string prop Tf_core.assoc option; [@option]
   template_selection_expression : string prop option; [@option]
   timeout_milliseconds : float prop option; [@option]
   response_parameters : response_parameters list;
@@ -161,12 +157,8 @@ let yojson_of_aws_apigatewayv2_integration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "request_templates", arg in
@@ -177,12 +169,8 @@ let yojson_of_aws_apigatewayv2_integration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "request_parameters", arg in
@@ -347,8 +335,8 @@ type t = {
   integration_uri : string prop;
   passthrough_behavior : string prop;
   payload_format_version : string prop;
-  request_parameters : (string * string) list prop;
-  request_templates : (string * string) list prop;
+  request_parameters : string Tf_core.assoc prop;
+  request_templates : string Tf_core.assoc prop;
   template_selection_expression : string prop;
   timeout_milliseconds : float prop;
 }

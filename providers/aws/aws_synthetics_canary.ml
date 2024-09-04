@@ -76,8 +76,7 @@ let _ = yojson_of_artifact_config
 
 type run_config = {
   active_tracing : bool prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   memory_in_mb : float prop option; [@option]
   timeout_in_seconds : float prop option; [@option]
 }
@@ -117,12 +116,8 @@ let yojson_of_run_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -281,8 +276,8 @@ type aws_synthetics_canary = {
   s3_version : string prop option; [@option]
   start_canary : bool prop option; [@option]
   success_retention_period : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   zip_file : string prop option; [@option]
   artifact_config : artifact_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -374,12 +369,8 @@ let yojson_of_aws_synthetics_canary =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -390,12 +381,8 @@ let yojson_of_aws_synthetics_canary =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -568,8 +555,8 @@ type t = {
   start_canary : bool prop;
   status : string prop;
   success_retention_period : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeline : timeline list prop;
   zip_file : string prop;
 }

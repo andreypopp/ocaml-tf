@@ -36,7 +36,7 @@ val azurerm_search_service :
   ?public_network_access_enabled:bool prop ->
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -69,7 +69,7 @@ type t = private {
   secondary_key : string prop;
   semantic_search_sku : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -84,7 +84,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -105,7 +105,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

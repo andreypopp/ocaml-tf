@@ -19,7 +19,7 @@ val google_network_connectivity_regional_endpoint :
   ?address:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?subnetwork:string prop ->
@@ -42,9 +42,9 @@ type t = private {
   address : string prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   network : string prop;
@@ -52,7 +52,7 @@ type t = private {
   psc_forwarding_rule : string prop;
   subnetwork : string prop;
   target_google_api : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -61,7 +61,7 @@ val register :
   ?address:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?subnetwork:string prop ->
@@ -77,7 +77,7 @@ val make :
   ?address:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?subnetwork:string prop ->

@@ -59,7 +59,7 @@ val aws_elasticache_serverless_cache :
   ?snapshot_arns_to_restore:string prop list ->
   ?snapshot_retention_limit:float prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_group_id:string prop ->
   ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->
@@ -92,8 +92,8 @@ type t = private {
   snapshot_retention_limit : float prop;
   status : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_group_id : string prop;
 }
 
@@ -107,7 +107,7 @@ val register :
   ?snapshot_arns_to_restore:string prop list ->
   ?snapshot_retention_limit:float prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_group_id:string prop ->
   ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->
@@ -125,7 +125,7 @@ val make :
   ?snapshot_arns_to_restore:string prop list ->
   ?snapshot_retention_limit:float prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_group_id:string prop ->
   ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->

@@ -64,7 +64,7 @@ val timeouts :
 type aws_securitylake_data_lake
 
 val aws_securitylake_data_lake :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
@@ -82,13 +82,13 @@ type t = private {
   id : string prop;
   meta_store_manager_role_arn : string prop;
   s3_bucket_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
@@ -96,7 +96,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->

@@ -8,7 +8,7 @@ type aws_iam_user
 
 val aws_iam_user :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   unit ->
   aws_iam_user
@@ -23,7 +23,7 @@ type t = private {
   id : string prop;
   path : string prop;
   permissions_boundary : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_id : string prop;
   user_name : string prop;
 }
@@ -31,14 +31,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   string ->
   t Tf_core.resource

@@ -21,7 +21,7 @@ val azurerm_virtual_desktop_workspace :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -43,7 +43,7 @@ type t = private {
   name : string prop;
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -52,7 +52,7 @@ val register :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -65,7 +65,7 @@ val make :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

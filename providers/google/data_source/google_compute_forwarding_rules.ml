@@ -40,13 +40,13 @@ type rules = {
   base_forwarding_rule : string prop;
   creation_timestamp : string prop;
   description : string prop;
-  effective_labels : (string * string prop) list;
+  effective_labels : string prop Tf_core.assoc;
   ip_address : string prop;
   ip_protocol : string prop;
   ip_version : string prop;
   is_mirroring_collector : bool prop;
   label_fingerprint : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   load_balancing_scheme : string prop;
   name : string prop;
   network : string prop;
@@ -70,7 +70,7 @@ type rules = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   subnetwork : string prop;
   target : string prop;
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -120,12 +120,8 @@ let yojson_of_rules =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_terraform_labels
          in
          ("terraform_labels", arg) :: bnds
@@ -238,12 +234,8 @@ let yojson_of_rules =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -274,12 +266,8 @@ let yojson_of_rules =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_effective_labels
          in
          ("effective_labels", arg) :: bnds

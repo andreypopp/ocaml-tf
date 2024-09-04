@@ -211,7 +211,7 @@ val settings :
   ?enable_google_ml_integration:bool prop ->
   ?pricing_plan:string prop ->
   ?time_zone:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?active_directory_config:settings__active_directory_config list ->
   ?advanced_machine_features:settings__advanced_machine_features list ->
   ?backup_configuration:settings__backup_configuration list ->

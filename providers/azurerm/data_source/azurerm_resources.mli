@@ -9,7 +9,7 @@ type resources = {
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
@@ -22,7 +22,7 @@ type azurerm_resources
 val azurerm_resources :
   ?id:string prop ->
   ?name:string prop ->
-  ?required_tags:(string * string prop) list ->
+  ?required_tags:string prop Tf_core.assoc ->
   ?resource_group_name:string prop ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
@@ -37,7 +37,7 @@ type t = private {
   tf_name : string;
   id : string prop;
   name : string prop;
-  required_tags : (string * string) list prop;
+  required_tags : string Tf_core.assoc prop;
   resource_group_name : string prop;
   resources : resources list prop;
   type_ : string prop;
@@ -47,7 +47,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?required_tags:(string * string prop) list ->
+  ?required_tags:string prop Tf_core.assoc ->
   ?resource_group_name:string prop ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
@@ -57,7 +57,7 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?required_tags:(string * string prop) list ->
+  ?required_tags:string prop Tf_core.assoc ->
   ?resource_group_name:string prop ->
   ?type_:string prop ->
   ?timeouts:timeouts ->

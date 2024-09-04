@@ -6,8 +6,8 @@ open! Tf_core
 
 type identities = {
   login : string prop;  (** login *)
-  saml_identity : (string * string prop) list;  (** saml_identity *)
-  scim_identity : (string * string prop) list;  (** scim_identity *)
+  saml_identity : string prop Tf_core.assoc;  (** saml_identity *)
+  scim_identity : string prop Tf_core.assoc;  (** scim_identity *)
 }
 
 type github_organization_external_identities

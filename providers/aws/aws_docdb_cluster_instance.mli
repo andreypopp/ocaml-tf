@@ -29,8 +29,8 @@ val aws_docdb_cluster_instance :
   ?performance_insights_kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->
@@ -69,8 +69,8 @@ type t = private {
   promotion_tier : float prop;
   publicly_accessible : bool prop;
   storage_encrypted : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   writer : bool prop;
 }
 
@@ -89,8 +89,8 @@ val register :
   ?performance_insights_kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->
@@ -111,8 +111,8 @@ val make :
   ?performance_insights_kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->

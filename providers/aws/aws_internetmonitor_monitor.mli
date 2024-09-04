@@ -35,8 +35,8 @@ val aws_internetmonitor_monitor :
   ?max_city_networks_to_monitor:float prop ->
   ?resources:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_percentage_to_monitor:float prop ->
   ?health_events_config:health_events_config list ->
   ?internet_measurements_log_delivery:
@@ -58,8 +58,8 @@ type t = private {
   monitor_name : string prop;
   resources : string list prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   traffic_percentage_to_monitor : float prop;
 }
 
@@ -69,8 +69,8 @@ val register :
   ?max_city_networks_to_monitor:float prop ->
   ?resources:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_percentage_to_monitor:float prop ->
   ?health_events_config:health_events_config list ->
   ?internet_measurements_log_delivery:
@@ -84,8 +84,8 @@ val make :
   ?max_city_networks_to_monitor:float prop ->
   ?resources:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_percentage_to_monitor:float prop ->
   ?health_events_config:health_events_config list ->
   ?internet_measurements_log_delivery:

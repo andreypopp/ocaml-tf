@@ -81,7 +81,7 @@ val service_connect_configuration__log_configuration__secret_option :
 type service_connect_configuration__log_configuration
 
 val service_connect_configuration__log_configuration :
-  ?options:(string * string prop) list ->
+  ?options:string prop Tf_core.assoc ->
   ?secret_option:
     service_connect_configuration__log_configuration__secret_option
     list ->
@@ -206,10 +206,10 @@ val aws_ecs_service :
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
   ?scheduling_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_definition:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?wait_for_steady_state:bool prop ->
   ?alarms:alarms list ->
   ?deployment_circuit_breaker:deployment_circuit_breaker list ->
@@ -248,10 +248,10 @@ type t = private {
   platform_version : string prop;
   propagate_tags : string prop;
   scheduling_strategy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   task_definition : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
   wait_for_steady_state : bool prop;
 }
 
@@ -271,10 +271,10 @@ val register :
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
   ?scheduling_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_definition:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?wait_for_steady_state:bool prop ->
   ?alarms:alarms list ->
   ?deployment_circuit_breaker:deployment_circuit_breaker list ->
@@ -307,10 +307,10 @@ val make :
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
   ?scheduling_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_definition:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?wait_for_steady_state:bool prop ->
   ?alarms:alarms list ->
   ?deployment_circuit_breaker:deployment_circuit_breaker list ->

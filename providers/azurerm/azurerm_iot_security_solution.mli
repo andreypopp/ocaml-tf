@@ -55,7 +55,7 @@ val azurerm_iot_security_solution :
   ?log_unmasked_ips_enabled:bool prop ->
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
@@ -87,7 +87,7 @@ type t = private {
   query_for_resources : string prop;
   query_subscription_ids : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -100,7 +100,7 @@ val register :
   ?log_unmasked_ips_enabled:bool prop ->
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
@@ -121,7 +121,7 @@ val make :
   ?log_unmasked_ips_enabled:bool prop ->
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->

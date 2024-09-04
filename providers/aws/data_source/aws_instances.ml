@@ -67,7 +67,7 @@ let _ = yojson_of_timeouts
 type aws_instances = {
   id : string prop option; [@option]
   instance_state_names : string prop list option; [@option]
-  instance_tags : (string * string prop) list option; [@option]
+  instance_tags : string prop Tf_core.assoc option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -104,12 +104,8 @@ let yojson_of_aws_instances =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "instance_tags", arg in
@@ -152,7 +148,7 @@ type t = {
   id : string prop;
   ids : string list prop;
   instance_state_names : string list prop;
-  instance_tags : (string * string) list prop;
+  instance_tags : string Tf_core.assoc prop;
   ipv6_addresses : string list prop;
   private_ips : string list prop;
   public_ips : string list prop;

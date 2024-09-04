@@ -91,7 +91,7 @@ type azurerm_vpn_server_configuration
 
 val azurerm_vpn_server_configuration :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpn_protocols:string prop list ->
   ?azure_active_directory_authentication:
     azure_active_directory_authentication list ->
@@ -118,7 +118,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpn_authentication_types : string list prop;
   vpn_protocols : string list prop;
 }
@@ -126,7 +126,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpn_protocols:string prop list ->
   ?azure_active_directory_authentication:
     azure_active_directory_authentication list ->
@@ -144,7 +144,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpn_protocols:string prop list ->
   ?azure_active_directory_authentication:
     azure_active_directory_authentication list ->

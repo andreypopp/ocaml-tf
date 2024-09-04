@@ -127,7 +127,7 @@ val sign_in__email :
 type sign_in__phone_number
 
 val sign_in__phone_number :
-  ?test_phone_numbers:(string * string prop) list ->
+  ?test_phone_numbers:string prop Tf_core.assoc ->
   enabled:bool prop ->
   unit ->
   sign_in__phone_number

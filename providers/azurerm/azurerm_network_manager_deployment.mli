@@ -18,7 +18,7 @@ type azurerm_network_manager_deployment
 
 val azurerm_network_manager_deployment :
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   configuration_ids:string prop list ->
   location:string prop ->
@@ -39,13 +39,13 @@ type t = private {
   location : string prop;
   network_manager_id : string prop;
   scope_access : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   configuration_ids:string prop list ->
   location:string prop ->
@@ -56,7 +56,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   configuration_ids:string prop list ->
   location:string prop ->

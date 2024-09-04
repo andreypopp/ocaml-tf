@@ -48,7 +48,7 @@ val aws_cloudformation_stack_set_instance :
   ?account_id:string prop ->
   ?call_as:string prop ->
   ?id:string prop ->
-  ?parameter_overrides:(string * string prop) list ->
+  ?parameter_overrides:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
   ?deployment_targets:deployment_targets list ->
@@ -69,7 +69,7 @@ type t = private {
   call_as : string prop;
   id : string prop;
   organizational_unit_id : string prop;
-  parameter_overrides : (string * string) list prop;
+  parameter_overrides : string Tf_core.assoc prop;
   region : string prop;
   retain_stack : bool prop;
   stack_id : string prop;
@@ -82,7 +82,7 @@ val register :
   ?account_id:string prop ->
   ?call_as:string prop ->
   ?id:string prop ->
-  ?parameter_overrides:(string * string prop) list ->
+  ?parameter_overrides:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
   ?deployment_targets:deployment_targets list ->
@@ -96,7 +96,7 @@ val make :
   ?account_id:string prop ->
   ?call_as:string prop ->
   ?id:string prop ->
-  ?parameter_overrides:(string * string prop) list ->
+  ?parameter_overrides:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
   ?deployment_targets:deployment_targets list ->

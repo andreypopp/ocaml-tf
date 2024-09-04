@@ -14,8 +14,8 @@ type aws_fsx_backup
 val aws_fsx_backup :
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_id:string prop ->
   ?timeouts:timeouts ->
   unit ->
@@ -32,8 +32,8 @@ type t = private {
   id : string prop;
   kms_key_id : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   volume_id : string prop;
 }
@@ -42,8 +42,8 @@ val register :
   ?tf_module:tf_module ->
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_id:string prop ->
   ?timeouts:timeouts ->
   string ->
@@ -52,8 +52,8 @@ val register :
 val make :
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_id:string prop ->
   ?timeouts:timeouts ->
   string ->

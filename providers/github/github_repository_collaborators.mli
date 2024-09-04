@@ -32,7 +32,7 @@ val yojson_of_github_repository_collaborators :
 type t = private {
   tf_name : string;
   id : string prop;
-  invitation_ids : (string * string) list prop;
+  invitation_ids : string Tf_core.assoc prop;
   repository : string prop;
 }
 

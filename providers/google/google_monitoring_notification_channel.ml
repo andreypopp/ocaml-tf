@@ -104,10 +104,10 @@ type google_monitoring_notification_channel = {
   enabled : bool prop option; [@option]
   force_delete : bool prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   project : string prop option; [@option]
   type_ : string prop; [@key "type"]
-  user_labels : (string * string prop) list option; [@option]
+  user_labels : string prop Tf_core.assoc option; [@option]
   sensitive_labels : sensitive_labels list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -153,12 +153,8 @@ let yojson_of_google_monitoring_notification_channel =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "user_labels", arg in
@@ -181,12 +177,8 @@ let yojson_of_google_monitoring_notification_channel =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -272,11 +264,11 @@ type t = {
   enabled : bool prop;
   force_delete : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   type_ : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
   verification_status : string prop;
 }
 

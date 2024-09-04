@@ -93,7 +93,7 @@ val google_dns_managed_zone :
   ?description:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?visibility:string prop ->
   ?cloud_logging_config:cloud_logging_config list ->
@@ -117,15 +117,15 @@ type t = private {
   creation_time : string prop;
   description : string prop;
   dns_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   managed_zone_id : float prop;
   name : string prop;
   name_servers : string list prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   visibility : string prop;
 }
 
@@ -134,7 +134,7 @@ val register :
   ?description:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?visibility:string prop ->
   ?cloud_logging_config:cloud_logging_config list ->
@@ -152,7 +152,7 @@ val make :
   ?description:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?visibility:string prop ->
   ?cloud_logging_config:cloud_logging_config list ->

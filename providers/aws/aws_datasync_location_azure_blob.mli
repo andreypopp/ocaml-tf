@@ -16,8 +16,8 @@ val aws_datasync_location_azure_blob :
   ?blob_type:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->
@@ -40,8 +40,8 @@ type t = private {
   container_url : string prop;
   id : string prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -51,8 +51,8 @@ val register :
   ?blob_type:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->
@@ -65,8 +65,8 @@ val make :
   ?blob_type:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->

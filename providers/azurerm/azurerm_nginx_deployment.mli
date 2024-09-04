@@ -93,7 +93,7 @@ val azurerm_nginx_deployment :
   ?email:string prop ->
   ?id:string prop ->
   ?managed_resource_group:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_scale_profile:auto_scale_profile list ->
   ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->
@@ -128,7 +128,7 @@ type t = private {
   nginx_version : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -139,7 +139,7 @@ val register :
   ?email:string prop ->
   ?id:string prop ->
   ?managed_resource_group:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_scale_profile:auto_scale_profile list ->
   ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->
@@ -162,7 +162,7 @@ val make :
   ?email:string prop ->
   ?id:string prop ->
   ?managed_resource_group:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_scale_profile:auto_scale_profile list ->
   ?configuration:configuration list ->
   ?frontend_private:frontend_private list ->

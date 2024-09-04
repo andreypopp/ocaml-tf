@@ -228,7 +228,7 @@ type t = {
   resource_guid : string prop;
   routing_weight : float prop;
   shared_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   traffic_selector_policy : traffic_selector_policy list prop;
   type_ : string prop;
   use_policy_based_traffic_selectors : bool prop;

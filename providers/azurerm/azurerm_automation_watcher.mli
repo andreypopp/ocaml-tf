@@ -20,8 +20,8 @@ val azurerm_automation_watcher :
   ?description:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?script_parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?script_parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_id:string prop ->
   execution_frequency_in_seconds:float prop ->
@@ -47,10 +47,10 @@ type t = private {
   location : string prop;
   name : string prop;
   script_name : string prop;
-  script_parameters : (string * string) list prop;
+  script_parameters : string Tf_core.assoc prop;
   script_run_on : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -58,8 +58,8 @@ val register :
   ?description:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?script_parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?script_parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_id:string prop ->
   execution_frequency_in_seconds:float prop ->
@@ -74,8 +74,8 @@ val make :
   ?description:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?script_parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?script_parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_id:string prop ->
   execution_frequency_in_seconds:float prop ->

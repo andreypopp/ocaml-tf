@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -20,8 +20,8 @@ val metadata :
 type spec__resources
 
 val spec__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   spec__resources
 
@@ -37,7 +37,7 @@ val spec__selector__match_expressions :
 type spec__selector
 
 val spec__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector

@@ -9,7 +9,7 @@ type aws_datazone_environment_blueprint_configuration
 val aws_datazone_environment_blueprint_configuration :
   ?manage_access_role_arn:string prop ->
   ?provisioning_role_arn:string prop ->
-  ?regional_parameters:(string * (string * string prop) list) list ->
+  ?regional_parameters:string prop Tf_core.assoc Tf_core.assoc ->
   domain_id:string prop ->
   enabled_regions:string prop list ->
   environment_blueprint_id:string prop ->
@@ -28,14 +28,14 @@ type t = private {
   environment_blueprint_id : string prop;
   manage_access_role_arn : string prop;
   provisioning_role_arn : string prop;
-  regional_parameters : (string * (string * string) list) list prop;
+  regional_parameters : string Tf_core.assoc Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?manage_access_role_arn:string prop ->
   ?provisioning_role_arn:string prop ->
-  ?regional_parameters:(string * (string * string prop) list) list ->
+  ?regional_parameters:string prop Tf_core.assoc Tf_core.assoc ->
   domain_id:string prop ->
   enabled_regions:string prop list ->
   environment_blueprint_id:string prop ->
@@ -45,7 +45,7 @@ val register :
 val make :
   ?manage_access_role_arn:string prop ->
   ?provisioning_role_arn:string prop ->
-  ?regional_parameters:(string * (string * string prop) list) list ->
+  ?regional_parameters:string prop Tf_core.assoc Tf_core.assoc ->
   domain_id:string prop ->
   enabled_regions:string prop list ->
   environment_blueprint_id:string prop ->

@@ -39,7 +39,7 @@ val azurerm_key_vault_key :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
@@ -70,7 +70,7 @@ type t = private {
   public_key_pem : string prop;
   resource_id : string prop;
   resource_versionless_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   versionless_id : string prop;
   x : string prop;
@@ -84,7 +84,7 @@ val register :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
@@ -100,7 +100,7 @@ val make :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->

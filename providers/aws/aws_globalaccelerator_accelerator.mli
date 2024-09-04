@@ -32,8 +32,8 @@ val aws_globalaccelerator_accelerator :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -56,8 +56,8 @@ type t = private {
   ip_addresses : string list prop;
   ip_sets : ip_sets list prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -66,8 +66,8 @@ val register :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -79,8 +79,8 @@ val make :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->

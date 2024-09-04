@@ -7,7 +7,7 @@ open! Tf_core
 type aws_glue_dev_endpoint
 
 val aws_glue_dev_endpoint :
-  ?arguments:(string * string prop) list ->
+  ?arguments:string prop Tf_core.assoc ->
   ?extra_jars_s3_path:string prop ->
   ?extra_python_libs_s3_path:string prop ->
   ?glue_version:string prop ->
@@ -19,8 +19,8 @@ val aws_glue_dev_endpoint :
   ?security_configuration:string prop ->
   ?security_group_ids:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?worker_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
@@ -33,7 +33,7 @@ val yojson_of_aws_glue_dev_endpoint : aws_glue_dev_endpoint -> json
 
 type t = private {
   tf_name : string;
-  arguments : (string * string) list prop;
+  arguments : string Tf_core.assoc prop;
   arn : string prop;
   availability_zone : string prop;
   extra_jars_s3_path : string prop;
@@ -53,8 +53,8 @@ type t = private {
   security_group_ids : string list prop;
   status : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
   worker_type : string prop;
   yarn_endpoint_address : string prop;
@@ -63,7 +63,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?arguments:(string * string prop) list ->
+  ?arguments:string prop Tf_core.assoc ->
   ?extra_jars_s3_path:string prop ->
   ?extra_python_libs_s3_path:string prop ->
   ?glue_version:string prop ->
@@ -75,8 +75,8 @@ val register :
   ?security_configuration:string prop ->
   ?security_group_ids:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?worker_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
@@ -84,7 +84,7 @@ val register :
   t
 
 val make :
-  ?arguments:(string * string prop) list ->
+  ?arguments:string prop Tf_core.assoc ->
   ?extra_jars_s3_path:string prop ->
   ?extra_python_libs_s3_path:string prop ->
   ?glue_version:string prop ->
@@ -96,8 +96,8 @@ val make :
   ?security_configuration:string prop ->
   ?security_group_ids:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?worker_type:string prop ->
   name:string prop ->
   role_arn:string prop ->

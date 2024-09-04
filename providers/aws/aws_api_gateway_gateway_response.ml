@@ -4,8 +4,8 @@ open! Tf_core
 
 type aws_api_gateway_gateway_response = {
   id : string prop option; [@option]
-  response_parameters : (string * string prop) list option; [@option]
-  response_templates : (string * string prop) list option; [@option]
+  response_parameters : string prop Tf_core.assoc option; [@option]
+  response_templates : string prop Tf_core.assoc option; [@option]
   response_type : string prop;
   rest_api_id : string prop;
   status_code : string prop option; [@option]
@@ -48,12 +48,8 @@ let yojson_of_aws_api_gateway_gateway_response =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "response_templates", arg in
@@ -64,12 +60,8 @@ let yojson_of_aws_api_gateway_gateway_response =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "response_parameters", arg in
@@ -106,8 +98,8 @@ let aws_api_gateway_gateway_response ?id ?response_parameters
 type t = {
   tf_name : string;
   id : string prop;
-  response_parameters : (string * string) list prop;
-  response_templates : (string * string) list prop;
+  response_parameters : string Tf_core.assoc prop;
+  response_templates : string Tf_core.assoc prop;
   response_type : string prop;
   rest_api_id : string prop;
   status_code : string prop;

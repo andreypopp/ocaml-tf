@@ -8,7 +8,7 @@ type aws_dms_certificate
 
 val aws_dms_certificate :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   unit ->
   aws_dms_certificate
@@ -28,7 +28,7 @@ type t = private {
   id : string prop;
   key_length : float prop;
   signing_algorithm : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   valid_from_date : string prop;
   valid_to_date : string prop;
 }
@@ -36,14 +36,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   string ->
   t Tf_core.resource

@@ -67,7 +67,7 @@ type azurerm_dns_aaaa_record = {
   name : string prop;
   records : string prop list option; [@option]
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   target_resource_id : string prop option; [@option]
   ttl : float prop;
   zone_name : string prop;
@@ -118,12 +118,8 @@ let yojson_of_azurerm_dns_aaaa_record =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -189,7 +185,7 @@ type t = {
   name : string prop;
   records : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_id : string prop;
   ttl : float prop;
   zone_name : string prop;

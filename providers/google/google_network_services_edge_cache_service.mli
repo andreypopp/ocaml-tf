@@ -144,7 +144,7 @@ val routing__path_matcher__route_rule__route_action__cdn_policy :
   ?default_ttl:string prop ->
   ?max_ttl:string prop ->
   ?negative_caching:bool prop ->
-  ?negative_caching_policy:(string * string prop) list ->
+  ?negative_caching_policy:string prop Tf_core.assoc ->
   ?signed_request_keyset:string prop ->
   ?signed_request_maximum_expiration_ttl:string prop ->
   ?signed_request_mode:string prop ->
@@ -255,7 +255,7 @@ val google_network_services_edge_cache_service :
   ?edge_security_policy:string prop ->
   ?edge_ssl_certificates:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->
@@ -278,16 +278,16 @@ type t = private {
   disable_quic : bool prop;
   edge_security_policy : string prop;
   edge_ssl_certificates : string list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ipv4_addresses : string list prop;
   ipv6_addresses : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   require_tls : bool prop;
   ssl_policy : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -298,7 +298,7 @@ val register :
   ?edge_security_policy:string prop ->
   ?edge_ssl_certificates:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->
@@ -316,7 +316,7 @@ val make :
   ?edge_security_policy:string prop ->
   ?edge_ssl_certificates:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->

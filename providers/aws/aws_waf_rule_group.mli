@@ -23,8 +23,8 @@ type aws_waf_rule_group
 
 val aws_waf_rule_group :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   metric_name:string prop ->
   name:string prop ->
   activated_rule:activated_rule list ->
@@ -41,15 +41,15 @@ type t = private {
   id : string prop;
   metric_name : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   metric_name:string prop ->
   name:string prop ->
   activated_rule:activated_rule list ->
@@ -58,8 +58,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   metric_name:string prop ->
   name:string prop ->
   activated_rule:activated_rule list ->

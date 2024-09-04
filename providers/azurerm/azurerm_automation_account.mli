@@ -42,7 +42,7 @@ val azurerm_automation_account :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -81,7 +81,7 @@ val register :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -96,7 +96,7 @@ val make :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

@@ -3,7 +3,7 @@
 open! Tf_core
 
 type jobs__hadoop_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,12 +20,8 @@ let yojson_of_jobs__hadoop_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -46,7 +42,7 @@ type jobs__hadoop_job = {
   jar_file_uris : string prop list option; [@option]
   main_class : string prop option; [@option]
   main_jar_file_uri : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   logging_config : jobs__hadoop_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -85,12 +81,8 @@ let yojson_of_jobs__hadoop_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -193,9 +185,9 @@ let _ = yojson_of_jobs__hive_job__query_list
 type jobs__hive_job = {
   continue_on_failure : bool prop option; [@option]
   jar_file_uris : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   query_file_uri : string prop option; [@option]
-  script_variables : (string * string prop) list option; [@option]
+  script_variables : string prop Tf_core.assoc option; [@option]
   query_list : jobs__hive_job__query_list list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -231,12 +223,8 @@ let yojson_of_jobs__hive_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "script_variables", arg in
@@ -255,12 +243,8 @@ let yojson_of_jobs__hive_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -292,7 +276,7 @@ let _ = yojson_of_jobs__hive_job
 [@@@deriving.end]
 
 type jobs__pig_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,12 +293,8 @@ let yojson_of_jobs__pig_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -362,9 +342,9 @@ let _ = yojson_of_jobs__pig_job__query_list
 type jobs__pig_job = {
   continue_on_failure : bool prop option; [@option]
   jar_file_uris : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   query_file_uri : string prop option; [@option]
-  script_variables : (string * string prop) list option; [@option]
+  script_variables : string prop Tf_core.assoc option; [@option]
   logging_config : jobs__pig_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   query_list : jobs__pig_job__query_list list;
@@ -413,12 +393,8 @@ let yojson_of_jobs__pig_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "script_variables", arg in
@@ -437,12 +413,8 @@ let yojson_of_jobs__pig_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -474,7 +446,7 @@ let _ = yojson_of_jobs__pig_job
 [@@@deriving.end]
 
 type jobs__presto_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,12 +463,8 @@ let yojson_of_jobs__presto_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -546,7 +514,7 @@ type jobs__presto_job = {
   client_tags : string prop list option; [@option]
   continue_on_failure : bool prop option; [@option]
   output_format : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   query_file_uri : string prop option; [@option]
   logging_config : jobs__presto_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -605,12 +573,8 @@ let yojson_of_jobs__presto_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -650,7 +614,7 @@ let _ = yojson_of_jobs__presto_job
 [@@@deriving.end]
 
 type jobs__pyspark_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -667,12 +631,8 @@ let yojson_of_jobs__pyspark_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -692,7 +652,7 @@ type jobs__pyspark_job = {
   file_uris : string prop list option; [@option]
   jar_file_uris : string prop list option; [@option]
   main_python_file_uri : string prop;
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   python_file_uris : string prop list option; [@option]
   logging_config : jobs__pyspark_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -742,12 +702,8 @@ let yojson_of_jobs__pyspark_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -847,7 +803,7 @@ let _ = yojson_of_jobs__scheduling
 [@@@deriving.end]
 
 type jobs__spark_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -864,12 +820,8 @@ let yojson_of_jobs__spark_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -890,7 +842,7 @@ type jobs__spark_job = {
   jar_file_uris : string prop list option; [@option]
   main_class : string prop option; [@option]
   main_jar_file_uri : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   logging_config : jobs__spark_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -929,12 +881,8 @@ let yojson_of_jobs__spark_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -1004,7 +952,7 @@ let _ = yojson_of_jobs__spark_job
 [@@@deriving.end]
 
 type jobs__spark_r_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -1021,12 +969,8 @@ let yojson_of_jobs__spark_r_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -1045,7 +989,7 @@ type jobs__spark_r_job = {
   args : string prop list option; [@option]
   file_uris : string prop list option; [@option]
   main_r_file_uri : string prop;
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   logging_config : jobs__spark_r_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -1082,12 +1026,8 @@ let yojson_of_jobs__spark_r_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -1137,7 +1077,7 @@ let _ = yojson_of_jobs__spark_r_job
 [@@@deriving.end]
 
 type jobs__spark_sql_job__logging_config = {
-  driver_log_levels : (string * string prop) list option; [@option]
+  driver_log_levels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -1154,12 +1094,8 @@ let yojson_of_jobs__spark_sql_job__logging_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_log_levels", arg in
@@ -1207,9 +1143,9 @@ let _ = yojson_of_jobs__spark_sql_job__query_list
 
 type jobs__spark_sql_job = {
   jar_file_uris : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   query_file_uri : string prop option; [@option]
-  script_variables : (string * string prop) list option; [@option]
+  script_variables : string prop Tf_core.assoc option; [@option]
   logging_config : jobs__spark_sql_job__logging_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   query_list : jobs__spark_sql_job__query_list list;
@@ -1259,12 +1195,8 @@ let yojson_of_jobs__spark_sql_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "script_variables", arg in
@@ -1283,12 +1215,8 @@ let yojson_of_jobs__spark_sql_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -1312,7 +1240,7 @@ let _ = yojson_of_jobs__spark_sql_job
 [@@@deriving.end]
 
 type jobs = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   prerequisite_step_ids : string prop list option; [@option]
   step_id : string prop;
   hadoop_job : jobs__hadoop_job list;
@@ -1460,12 +1388,8 @@ let yojson_of_jobs =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1648,7 +1572,7 @@ let _ = yojson_of_parameters
 [@@@deriving.end]
 
 type placement__cluster_selector = {
-  cluster_labels : (string * string prop) list;
+  cluster_labels : string prop Tf_core.assoc;
   zone : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -1671,12 +1595,8 @@ let yojson_of_placement__cluster_selector =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_cluster_labels
          in
          ("cluster_labels", arg) :: bnds
@@ -1930,7 +1850,7 @@ let _ =
 
 type placement__managed_cluster__config__gce_cluster_config = {
   internal_ip_only : bool prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   network : string prop option; [@option]
   private_ipv6_google_access : string prop option; [@option]
   service_account : string prop option; [@option]
@@ -2075,12 +1995,8 @@ let yojson_of_placement__managed_cluster__config__gce_cluster_config
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -2920,7 +2836,7 @@ let _ = yojson_of_placement__managed_cluster__config__security_config
 type placement__managed_cluster__config__software_config = {
   image_version : string prop option; [@option]
   optional_components : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -2942,12 +2858,8 @@ let yojson_of_placement__managed_cluster__config__software_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -3436,7 +3348,7 @@ let _ = yojson_of_placement__managed_cluster__config
 
 type placement__managed_cluster = {
   cluster_name : string prop;
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   config : placement__managed_cluster__config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -3470,12 +3382,8 @@ let yojson_of_placement__managed_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -3587,7 +3495,7 @@ let _ = yojson_of_timeouts
 type google_dataproc_workflow_template = {
   dag_timeout : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   name : string prop;
   project : string prop option; [@option]
@@ -3679,12 +3587,8 @@ let yojson_of_google_dataproc_workflow_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -4133,13 +4037,13 @@ type t = {
   tf_name : string;
   create_time : string prop;
   dag_timeout : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   version : float prop;
 }

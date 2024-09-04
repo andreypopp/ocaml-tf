@@ -45,7 +45,7 @@ val timeouts :
 type aws_appfabric_app_authorization
 
 val aws_appfabric_app_authorization :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?credential:credential list ->
   ?tenant:tenant list ->
   ?timeouts:timeouts ->
@@ -70,14 +70,14 @@ type t = private {
   created_at : string prop;
   id : string prop;
   persona : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?credential:credential list ->
   ?tenant:tenant list ->
   ?timeouts:timeouts ->
@@ -88,7 +88,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?credential:credential list ->
   ?tenant:tenant list ->
   ?timeouts:timeouts ->

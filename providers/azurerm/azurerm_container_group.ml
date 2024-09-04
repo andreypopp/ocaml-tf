@@ -77,7 +77,7 @@ let _ = yojson_of_container__gpu_limit
 [@@@deriving.end]
 
 type container__liveness_probe__http_get = {
-  http_headers : (string * string prop) list option; [@option]
+  http_headers : string prop Tf_core.assoc option; [@option]
   path : string prop option; [@option]
   port : float prop option; [@option]
   scheme : string prop option; [@option]
@@ -126,12 +126,8 @@ let yojson_of_container__liveness_probe__http_get =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "http_headers", arg in
@@ -279,7 +275,7 @@ let _ = yojson_of_container__ports
 [@@@deriving.end]
 
 type container__readiness_probe__http_get = {
-  http_headers : (string * string prop) list option; [@option]
+  http_headers : string prop Tf_core.assoc option; [@option]
   path : string prop option; [@option]
   port : float prop option; [@option]
   scheme : string prop option; [@option]
@@ -328,12 +324,8 @@ let yojson_of_container__readiness_probe__http_get =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "http_headers", arg in
@@ -516,7 +508,7 @@ type container__volume = {
   mount_path : string prop;
   name : string prop;
   read_only : bool prop option; [@option]
-  secret : (string * string prop) list option; [@option]
+  secret : string prop Tf_core.assoc option; [@option]
   share_name : string prop option; [@option]
   storage_account_key : string prop option; [@option]
   storage_account_name : string prop option; [@option]
@@ -582,12 +574,8 @@ let yojson_of_container__volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret", arg in
@@ -628,13 +616,12 @@ type container = {
   commands : string prop list option; [@option]
   cpu : float prop;
   cpu_limit : float prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   image : string prop;
   memory : float prop;
   memory_limit : float prop option; [@option]
   name : string prop;
-  secure_environment_variables : (string * string prop) list option;
+  secure_environment_variables : string prop Tf_core.assoc option;
       [@option]
   gpu : container__gpu list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -750,12 +737,8 @@ let yojson_of_container =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secure_environment_variables", arg in
@@ -786,12 +769,8 @@ let yojson_of_container =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -828,7 +807,7 @@ let _ = yojson_of_container
 
 type diagnostics__log_analytics = {
   log_type : string prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   workspace_id : string prop;
   workspace_key : string prop;
 }
@@ -860,12 +839,8 @@ let yojson_of_diagnostics__log_analytics =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -1138,7 +1113,7 @@ type init_container__volume = {
   mount_path : string prop;
   name : string prop;
   read_only : bool prop option; [@option]
-  secret : (string * string prop) list option; [@option]
+  secret : string prop Tf_core.assoc option; [@option]
   share_name : string prop option; [@option]
   storage_account_key : string prop option; [@option]
   storage_account_name : string prop option; [@option]
@@ -1205,12 +1180,8 @@ let yojson_of_init_container__volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret", arg in
@@ -1249,11 +1220,10 @@ let _ = yojson_of_init_container__volume
 
 type init_container = {
   commands : string prop list option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   image : string prop;
   name : string prop;
-  secure_environment_variables : (string * string prop) list option;
+  secure_environment_variables : string prop Tf_core.assoc option;
       [@option]
   security : init_container__security list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1303,12 +1273,8 @@ let yojson_of_init_container =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secure_environment_variables", arg in
@@ -1327,12 +1293,8 @@ let yojson_of_init_container =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -1458,7 +1420,7 @@ type azurerm_container_group = {
   restart_policy : string prop option; [@option]
   sku : string prop option; [@option]
   subnet_ids : string prop list option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   zones : string prop list option; [@option]
   container : container list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1586,12 +1548,8 @@ let yojson_of_azurerm_container_group =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1922,7 +1880,7 @@ type t = {
   restart_policy : string prop;
   sku : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

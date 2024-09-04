@@ -7,7 +7,7 @@ open! Tf_core
 type jobs__hadoop_job__logging_config
 
 val jobs__hadoop_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__hadoop_job__logging_config
 
@@ -20,7 +20,7 @@ val jobs__hadoop_job :
   ?jar_file_uris:string prop list ->
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?logging_config:jobs__hadoop_job__logging_config list ->
   unit ->
   jobs__hadoop_job
@@ -35,9 +35,9 @@ type jobs__hive_job
 val jobs__hive_job :
   ?continue_on_failure:bool prop ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   ?query_list:jobs__hive_job__query_list list ->
   unit ->
   jobs__hive_job
@@ -45,7 +45,7 @@ val jobs__hive_job :
 type jobs__pig_job__logging_config
 
 val jobs__pig_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__pig_job__logging_config
 
@@ -59,9 +59,9 @@ type jobs__pig_job
 val jobs__pig_job :
   ?continue_on_failure:bool prop ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   ?logging_config:jobs__pig_job__logging_config list ->
   ?query_list:jobs__pig_job__query_list list ->
   unit ->
@@ -70,7 +70,7 @@ val jobs__pig_job :
 type jobs__presto_job__logging_config
 
 val jobs__presto_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__presto_job__logging_config
 
@@ -85,7 +85,7 @@ val jobs__presto_job :
   ?client_tags:string prop list ->
   ?continue_on_failure:bool prop ->
   ?output_format:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
   ?logging_config:jobs__presto_job__logging_config list ->
   ?query_list:jobs__presto_job__query_list list ->
@@ -95,7 +95,7 @@ val jobs__presto_job :
 type jobs__pyspark_job__logging_config
 
 val jobs__pyspark_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__pyspark_job__logging_config
 
@@ -106,7 +106,7 @@ val jobs__pyspark_job :
   ?args:string prop list ->
   ?file_uris:string prop list ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?python_file_uris:string prop list ->
   ?logging_config:jobs__pyspark_job__logging_config list ->
   main_python_file_uri:string prop ->
@@ -124,7 +124,7 @@ val jobs__scheduling :
 type jobs__spark_job__logging_config
 
 val jobs__spark_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__spark_job__logging_config
 
@@ -137,7 +137,7 @@ val jobs__spark_job :
   ?jar_file_uris:string prop list ->
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?logging_config:jobs__spark_job__logging_config list ->
   unit ->
   jobs__spark_job
@@ -145,7 +145,7 @@ val jobs__spark_job :
 type jobs__spark_r_job__logging_config
 
 val jobs__spark_r_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__spark_r_job__logging_config
 
@@ -155,7 +155,7 @@ val jobs__spark_r_job :
   ?archive_uris:string prop list ->
   ?args:string prop list ->
   ?file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?logging_config:jobs__spark_r_job__logging_config list ->
   main_r_file_uri:string prop ->
   unit ->
@@ -164,7 +164,7 @@ val jobs__spark_r_job :
 type jobs__spark_sql_job__logging_config
 
 val jobs__spark_sql_job__logging_config :
-  ?driver_log_levels:(string * string prop) list ->
+  ?driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   jobs__spark_sql_job__logging_config
 
@@ -177,9 +177,9 @@ type jobs__spark_sql_job
 
 val jobs__spark_sql_job :
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   ?logging_config:jobs__spark_sql_job__logging_config list ->
   ?query_list:jobs__spark_sql_job__query_list list ->
   unit ->
@@ -188,7 +188,7 @@ val jobs__spark_sql_job :
 type jobs
 
 val jobs :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?prerequisite_step_ids:string prop list ->
   ?hadoop_job:jobs__hadoop_job list ->
   ?hive_job:jobs__hive_job list ->
@@ -235,7 +235,7 @@ type placement__cluster_selector
 
 val placement__cluster_selector :
   ?zone:string prop ->
-  cluster_labels:(string * string prop) list ->
+  cluster_labels:string prop Tf_core.assoc ->
   unit ->
   placement__cluster_selector
 
@@ -289,7 +289,7 @@ type placement__managed_cluster__config__gce_cluster_config
 
 val placement__managed_cluster__config__gce_cluster_config :
   ?internal_ip_only:bool prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?private_ipv6_google_access:string prop ->
   ?service_account:string prop ->
@@ -441,7 +441,7 @@ type placement__managed_cluster__config__software_config
 val placement__managed_cluster__config__software_config :
   ?image_version:string prop ->
   ?optional_components:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   unit ->
   placement__managed_cluster__config__software_config
 
@@ -518,7 +518,7 @@ val placement__managed_cluster__config :
 type placement__managed_cluster
 
 val placement__managed_cluster :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   config:placement__managed_cluster__config list ->
   unit ->
@@ -546,7 +546,7 @@ type google_dataproc_workflow_template
 val google_dataproc_workflow_template :
   ?dag_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?version:float prop ->
   ?parameters:parameters list ->
@@ -567,13 +567,13 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   dag_timeout : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   version : float prop;
 }
@@ -582,7 +582,7 @@ val register :
   ?tf_module:tf_module ->
   ?dag_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?version:float prop ->
   ?parameters:parameters list ->
@@ -597,7 +597,7 @@ val register :
 val make :
   ?dag_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?version:float prop ->
   ?parameters:parameters list ->

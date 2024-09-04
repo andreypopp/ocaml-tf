@@ -9,8 +9,8 @@ type aws_schemas_schema
 val aws_schemas_schema :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   content:string prop ->
   name:string prop ->
   registry_name:string prop ->
@@ -31,8 +31,8 @@ type t = private {
   last_modified : string prop;
   name : string prop;
   registry_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   version : string prop;
   version_created_date : string prop;
@@ -42,8 +42,8 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   content:string prop ->
   name:string prop ->
   registry_name:string prop ->
@@ -54,8 +54,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   content:string prop ->
   name:string prop ->
   registry_name:string prop ->

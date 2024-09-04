@@ -14,7 +14,7 @@ type action__ssm_automation__parameter = {
 type action__ssm_automation = {
   document_name : string prop;  (** document_name *)
   document_version : string prop;  (** document_version *)
-  dynamic_parameters : (string * string prop) list;
+  dynamic_parameters : string prop Tf_core.assoc;
       (** dynamic_parameters *)
   parameter : action__ssm_automation__parameter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -36,7 +36,7 @@ type incident_template__notification_target = {
 type incident_template = {
   dedupe_string : string prop;  (** dedupe_string *)
   impact : float prop;  (** impact *)
-  incident_tags : (string * string prop) list;  (** incident_tags *)
+  incident_tags : string prop Tf_core.assoc;  (** incident_tags *)
   notification_target : incident_template__notification_target list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** notification_target *)
@@ -60,7 +60,7 @@ type aws_ssmincidents_response_plan
 
 val aws_ssmincidents_response_plan :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_ssmincidents_response_plan
@@ -81,20 +81,20 @@ type t = private {
   incident_template : incident_template list prop;
   integration : integration list prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

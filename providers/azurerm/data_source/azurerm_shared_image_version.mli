@@ -19,7 +19,7 @@ type azurerm_shared_image_version
 val azurerm_shared_image_version :
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   os_disk_snapshot_id : string prop;
   resource_group_name : string prop;
   sort_versions_by_semver : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_region : target_region list prop;
 }
 
@@ -54,7 +54,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -66,7 +66,7 @@ val register :
 val make :
   ?id:string prop ->
   ?sort_versions_by_semver:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->

@@ -46,8 +46,8 @@ val aws_vpc_endpoint :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_type:string prop ->
   ?dns_options:dns_options list ->
   ?timeouts:timeouts ->
@@ -80,8 +80,8 @@ type t = private {
   service_name : string prop;
   state : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_endpoint_type : string prop;
   vpc_id : string prop;
 }
@@ -96,8 +96,8 @@ val register :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_type:string prop ->
   ?dns_options:dns_options list ->
   ?timeouts:timeouts ->
@@ -116,8 +116,8 @@ val make :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_type:string prop ->
   ?dns_options:dns_options list ->
   ?timeouts:timeouts ->

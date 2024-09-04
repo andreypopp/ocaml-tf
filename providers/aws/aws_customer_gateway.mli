@@ -13,8 +13,8 @@ val aws_customer_gateway :
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   unit ->
   aws_customer_gateway
@@ -32,8 +32,8 @@ type t = private {
   device_name : string prop;
   id : string prop;
   ip_address : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -45,8 +45,8 @@ val register :
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t
@@ -58,8 +58,8 @@ val make :
   ?device_name:string prop ->
   ?id:string prop ->
   ?ip_address:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t Tf_core.resource

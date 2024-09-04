@@ -23,7 +23,7 @@ type aws_bedrockagent_agent_alias
 val aws_bedrockagent_agent_alias :
   ?description:string prop ->
   ?routing_configuration:routing_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_alias_name:string prop ->
   agent_id:string prop ->
@@ -44,15 +44,15 @@ type t = private {
   description : string prop;
   id : string prop;
   routing_configuration : routing_configuration list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?routing_configuration:routing_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_alias_name:string prop ->
   agent_id:string prop ->
@@ -62,7 +62,7 @@ val register :
 val make :
   ?description:string prop ->
   ?routing_configuration:routing_configuration list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_alias_name:string prop ->
   agent_id:string prop ->

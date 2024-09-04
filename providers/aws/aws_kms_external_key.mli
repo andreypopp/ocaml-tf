@@ -15,8 +15,8 @@ val aws_kms_external_key :
   ?key_material_base64:string prop ->
   ?multi_region:bool prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   unit ->
   aws_kms_external_key
@@ -39,8 +39,8 @@ type t = private {
   key_usage : string prop;
   multi_region : bool prop;
   policy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   valid_to : string prop;
 }
 
@@ -54,8 +54,8 @@ val register :
   ?key_material_base64:string prop ->
   ?multi_region:bool prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   string ->
   t
@@ -69,8 +69,8 @@ val make :
   ?key_material_base64:string prop ->
   ?multi_region:bool prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   string ->
   t Tf_core.resource

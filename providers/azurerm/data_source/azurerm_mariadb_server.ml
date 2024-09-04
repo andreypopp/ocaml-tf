@@ -143,7 +143,7 @@ type t = {
   sku_name : string prop;
   ssl_enforcement : string prop;
   storage_profile : storage_profile list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 

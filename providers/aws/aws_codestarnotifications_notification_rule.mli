@@ -14,8 +14,8 @@ type aws_codestarnotifications_notification_rule
 val aws_codestarnotifications_notification_rule :
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   detail_type:string prop ->
   event_type_ids:string prop list ->
   name:string prop ->
@@ -38,16 +38,16 @@ type t = private {
   name : string prop;
   resource : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   detail_type:string prop ->
   event_type_ids:string prop list ->
   name:string prop ->
@@ -59,8 +59,8 @@ val register :
 val make :
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   detail_type:string prop ->
   event_type_ids:string prop list ->
   name:string prop ->

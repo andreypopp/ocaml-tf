@@ -9,7 +9,7 @@ type aws_route53_resolver_rule = {
   resolver_endpoint_id : string prop option; [@option]
   resolver_rule_id : string prop option; [@option]
   rule_type : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -34,12 +34,8 @@ let yojson_of_aws_route53_resolver_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -124,7 +120,7 @@ type t = {
   resolver_rule_id : string prop;
   rule_type : string prop;
   share_status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?domain_name ?id ?name ?resolver_endpoint_id

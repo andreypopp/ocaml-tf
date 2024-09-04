@@ -85,7 +85,7 @@ val azurerm_synapse_workspace :
   ?sql_administrator_login:string prop ->
   ?sql_administrator_login_password:string prop ->
   ?sql_identity_control_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_devops_repo:azure_devops_repo list ->
   ?customer_managed_key:customer_managed_key list ->
   ?github_repo:github_repo list ->
@@ -108,7 +108,7 @@ type t = private {
   aad_admin : aad_admin list prop;
   azuread_authentication_only : bool prop;
   compute_subnet_id : string prop;
-  connectivity_endpoints : (string * string) list prop;
+  connectivity_endpoints : string Tf_core.assoc prop;
   data_exfiltration_protection_enabled : bool prop;
   id : string prop;
   linking_allowed_for_aad_tenant_ids : string list prop;
@@ -124,7 +124,7 @@ type t = private {
   sql_administrator_login_password : string prop;
   sql_identity_control_enabled : bool prop;
   storage_data_lake_gen2_filesystem_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -143,7 +143,7 @@ val register :
   ?sql_administrator_login:string prop ->
   ?sql_administrator_login_password:string prop ->
   ?sql_identity_control_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_devops_repo:azure_devops_repo list ->
   ?customer_managed_key:customer_managed_key list ->
   ?github_repo:github_repo list ->
@@ -171,7 +171,7 @@ val make :
   ?sql_administrator_login:string prop ->
   ?sql_administrator_login_password:string prop ->
   ?sql_identity_control_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_devops_repo:azure_devops_repo list ->
   ?customer_managed_key:customer_managed_key list ->
   ?github_repo:github_repo list ->

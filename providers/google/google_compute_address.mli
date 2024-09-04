@@ -22,7 +22,7 @@ val google_compute_address :
   ?id:string prop ->
   ?ip_version:string prop ->
   ?ipv6_endpoint_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?network_tier:string prop ->
   ?prefix_length:float prop ->
@@ -45,12 +45,12 @@ type t = private {
   address_type : string prop;
   creation_timestamp : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ip_version : string prop;
   ipv6_endpoint_type : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   network_tier : string prop;
@@ -60,7 +60,7 @@ type t = private {
   region : string prop;
   self_link : string prop;
   subnetwork : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   users : string list prop;
 }
 
@@ -72,7 +72,7 @@ val register :
   ?id:string prop ->
   ?ip_version:string prop ->
   ?ipv6_endpoint_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?network_tier:string prop ->
   ?prefix_length:float prop ->
@@ -92,7 +92,7 @@ val make :
   ?id:string prop ->
   ?ip_version:string prop ->
   ?ipv6_endpoint_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?network_tier:string prop ->
   ?prefix_length:float prop ->

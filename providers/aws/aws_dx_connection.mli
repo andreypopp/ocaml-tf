@@ -12,8 +12,8 @@ val aws_dx_connection :
   ?provider_name:string prop ->
   ?request_macsec:bool prop ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bandwidth:string prop ->
   location:string prop ->
   name:string prop ->
@@ -42,8 +42,8 @@ type t = private {
   provider_name : string prop;
   request_macsec : bool prop;
   skip_destroy : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vlan_id : float prop;
 }
 
@@ -54,8 +54,8 @@ val register :
   ?provider_name:string prop ->
   ?request_macsec:bool prop ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bandwidth:string prop ->
   location:string prop ->
   name:string prop ->
@@ -68,8 +68,8 @@ val make :
   ?provider_name:string prop ->
   ?request_macsec:bool prop ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bandwidth:string prop ->
   location:string prop ->
   name:string prop ->

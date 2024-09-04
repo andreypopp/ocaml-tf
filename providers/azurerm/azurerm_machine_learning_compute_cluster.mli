@@ -49,7 +49,7 @@ val azurerm_machine_learning_compute_cluster :
   ?node_public_ip_enabled:bool prop ->
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->
@@ -78,7 +78,7 @@ type t = private {
   node_public_ip_enabled : bool prop;
   ssh_public_access_enabled : bool prop;
   subnet_resource_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vm_priority : string prop;
   vm_size : string prop;
 }
@@ -91,7 +91,7 @@ val register :
   ?node_public_ip_enabled:bool prop ->
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->
@@ -111,7 +111,7 @@ val make :
   ?node_public_ip_enabled:bool prop ->
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssh:ssh list ->
   ?timeouts:timeouts ->

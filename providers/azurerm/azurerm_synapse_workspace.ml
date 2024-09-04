@@ -379,7 +379,7 @@ type azurerm_synapse_workspace = {
   sql_administrator_login_password : string prop option; [@option]
   sql_identity_control_enabled : bool prop option; [@option]
   storage_data_lake_gen2_filesystem_id : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   azure_devops_repo : azure_devops_repo list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   customer_managed_key : customer_managed_key list;
@@ -478,12 +478,8 @@ let yojson_of_azurerm_synapse_workspace =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -707,7 +703,7 @@ type t = {
   aad_admin : aad_admin list prop;
   azuread_authentication_only : bool prop;
   compute_subnet_id : string prop;
-  connectivity_endpoints : (string * string) list prop;
+  connectivity_endpoints : string Tf_core.assoc prop;
   data_exfiltration_protection_enabled : bool prop;
   id : string prop;
   linking_allowed_for_aad_tenant_ids : string list prop;
@@ -723,7 +719,7 @@ type t = {
   sql_administrator_login_password : string prop;
   sql_identity_control_enabled : bool prop;
   storage_data_lake_gen2_filesystem_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?aad_admin ?azuread_authentication_only ?compute_subnet_id

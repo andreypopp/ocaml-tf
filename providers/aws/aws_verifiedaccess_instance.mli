@@ -21,8 +21,8 @@ val aws_verifiedaccess_instance :
   ?description:string prop ->
   ?fips_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   unit ->
   aws_verifiedaccess_instance
 
@@ -38,8 +38,8 @@ type t = private {
   fips_enabled : bool prop;
   id : string prop;
   last_updated_time : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   verified_access_trust_providers :
     verified_access_trust_providers list prop;
 }
@@ -49,8 +49,8 @@ val register :
   ?description:string prop ->
   ?fips_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -58,7 +58,7 @@ val make :
   ?description:string prop ->
   ?fips_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

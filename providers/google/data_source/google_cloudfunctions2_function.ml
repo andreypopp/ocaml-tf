@@ -200,7 +200,7 @@ type build_config = {
   build : string prop;
   docker_repository : string prop;
   entry_point : string prop;
-  environment_variables : (string * string prop) list;
+  environment_variables : string prop Tf_core.assoc;
   on_deploy_update_policy :
     build_config__on_deploy_update_policy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -267,12 +267,8 @@ let yojson_of_build_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_environment_variables
          in
          ("environment_variables", arg) :: bnds
@@ -553,7 +549,7 @@ type service_config = {
   all_traffic_on_latest_revision : bool prop;
   available_cpu : string prop;
   available_memory : string prop;
-  environment_variables : (string * string prop) list;
+  environment_variables : string prop Tf_core.assoc;
   gcf_uri : string prop;
   ingress_settings : string prop;
   max_instance_count : float prop;
@@ -685,12 +681,8 @@ let yojson_of_service_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_environment_variables
          in
          ("environment_variables", arg) :: bnds
@@ -780,18 +772,18 @@ type t = {
   tf_name : string;
   build_config : build_config list prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   environment : string prop;
   event_trigger : event_trigger list prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   service_config : service_config list prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   url : string prop;
 }

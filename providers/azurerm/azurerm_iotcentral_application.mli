@@ -25,7 +25,7 @@ val azurerm_iotcentral_application :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -51,7 +51,7 @@ type t = private {
   resource_group_name : string prop;
   sku : string prop;
   sub_domain : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template : string prop;
 }
 
@@ -61,7 +61,7 @@ val register :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -77,7 +77,7 @@ val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

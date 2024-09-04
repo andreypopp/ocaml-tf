@@ -9,7 +9,7 @@ type output__audio_analyzer_preset
 val output__audio_analyzer_preset :
   ?audio_analysis_mode:string prop ->
   ?audio_language:string prop ->
-  ?experimental_options:(string * string prop) list ->
+  ?experimental_options:string prop Tf_core.assoc ->
   unit ->
   output__audio_analyzer_preset
 
@@ -366,7 +366,7 @@ val output__custom_preset__format :
 type output__custom_preset
 
 val output__custom_preset :
-  ?experimental_options:(string * string prop) list ->
+  ?experimental_options:string prop Tf_core.assoc ->
   ?filter:output__custom_preset__filter list ->
   codec:output__custom_preset__codec list ->
   format:output__custom_preset__format list ->
@@ -378,7 +378,7 @@ type output__face_detector_preset
 val output__face_detector_preset :
   ?analysis_resolution:string prop ->
   ?blur_type:string prop ->
-  ?experimental_options:(string * string prop) list ->
+  ?experimental_options:string prop Tf_core.assoc ->
   ?face_redactor_mode:string prop ->
   unit ->
   output__face_detector_preset
@@ -388,7 +388,7 @@ type output__video_analyzer_preset
 val output__video_analyzer_preset :
   ?audio_analysis_mode:string prop ->
   ?audio_language:string prop ->
-  ?experimental_options:(string * string prop) list ->
+  ?experimental_options:string prop Tf_core.assoc ->
   ?insights_type:string prop ->
   unit ->
   output__video_analyzer_preset

@@ -4,7 +4,7 @@ open! Tf_core
 
 type hcloud_placement_group = {
   id : float prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   most_recent : bool prop option; [@option]
   name : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
@@ -64,12 +64,8 @@ let yojson_of_hcloud_placement_group =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -97,7 +93,7 @@ let hcloud_placement_group ?id ?labels ?most_recent ?name ?type_
 type t = {
   tf_name : string;
   id : float prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   most_recent : bool prop;
   name : string prop;
   servers : float list prop;

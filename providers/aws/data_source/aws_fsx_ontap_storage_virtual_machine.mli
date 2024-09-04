@@ -81,7 +81,7 @@ type aws_fsx_ontap_storage_virtual_machine
 
 val aws_fsx_ontap_storage_virtual_machine :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   unit ->
   aws_fsx_ontap_storage_virtual_machine
@@ -105,21 +105,21 @@ type t = private {
     lifecycle_transition_reason list prop;
   name : string prop;
   subtype : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   uuid : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t Tf_core.resource

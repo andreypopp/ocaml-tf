@@ -10,8 +10,8 @@ val aws_shield_protection_group :
   ?id:string prop ->
   ?members:string prop list ->
   ?resource_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aggregation:string prop ->
   pattern:string prop ->
   protection_group_id:string prop ->
@@ -32,8 +32,8 @@ type t = private {
   protection_group_arn : string prop;
   protection_group_id : string prop;
   resource_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -41,8 +41,8 @@ val register :
   ?id:string prop ->
   ?members:string prop list ->
   ?resource_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aggregation:string prop ->
   pattern:string prop ->
   protection_group_id:string prop ->
@@ -53,8 +53,8 @@ val make :
   ?id:string prop ->
   ?members:string prop list ->
   ?resource_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aggregation:string prop ->
   pattern:string prop ->
   protection_group_id:string prop ->

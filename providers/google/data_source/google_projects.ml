@@ -4,11 +4,11 @@ open! Tf_core
 
 type projects = {
   create_time : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   lifecycle_state : string prop;
   name : string prop;
   number : string prop;
-  parent : (string * string prop) list;
+  parent : string prop Tf_core.assoc;
   project_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -35,12 +35,8 @@ let yojson_of_projects =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parent
          in
          ("parent", arg) :: bnds
@@ -61,12 +57,8 @@ let yojson_of_projects =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds

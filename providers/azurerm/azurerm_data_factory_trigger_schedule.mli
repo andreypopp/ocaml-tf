@@ -7,7 +7,7 @@ open! Tf_core
 type pipeline
 
 val pipeline :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   pipeline
@@ -52,7 +52,7 @@ val azurerm_data_factory_trigger_schedule :
   ?id:string prop ->
   ?interval:float prop ->
   ?pipeline_name:string prop ->
-  ?pipeline_parameters:(string * string prop) list ->
+  ?pipeline_parameters:string prop Tf_core.assoc ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
   ?pipeline:pipeline list ->
@@ -80,7 +80,7 @@ type t = private {
   interval : float prop;
   name : string prop;
   pipeline_name : string prop;
-  pipeline_parameters : (string * string) list prop;
+  pipeline_parameters : string Tf_core.assoc prop;
   start_time : string prop;
   time_zone : string prop;
 }
@@ -95,7 +95,7 @@ val register :
   ?id:string prop ->
   ?interval:float prop ->
   ?pipeline_name:string prop ->
-  ?pipeline_parameters:(string * string prop) list ->
+  ?pipeline_parameters:string prop Tf_core.assoc ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
   ?pipeline:pipeline list ->
@@ -115,7 +115,7 @@ val make :
   ?id:string prop ->
   ?interval:float prop ->
   ?pipeline_name:string prop ->
-  ?pipeline_parameters:(string * string prop) list ->
+  ?pipeline_parameters:string prop Tf_core.assoc ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
   ?pipeline:pipeline list ->

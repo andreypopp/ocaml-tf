@@ -121,11 +121,10 @@ let _ = yojson_of_attached_disk
 type boot_disk__initialize_params = {
   enable_confidential_compute : bool prop option; [@option]
   image : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   provisioned_iops : float prop option; [@option]
   provisioned_throughput : float prop option; [@option]
-  resource_manager_tags : (string * string prop) list option;
-      [@option]
+  resource_manager_tags : string prop Tf_core.assoc option; [@option]
   size : float prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
 }
@@ -169,12 +168,8 @@ let yojson_of_boot_disk__initialize_params =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_manager_tags", arg in
@@ -201,12 +196,8 @@ let yojson_of_boot_disk__initialize_params =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -706,8 +697,7 @@ let _ = yojson_of_network_performance_config
 [@@@deriving.end]
 
 type params = {
-  resource_manager_tags : (string * string prop) list option;
-      [@option]
+  resource_manager_tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -724,12 +714,8 @@ let yojson_of_params =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_manager_tags", arg in
@@ -1315,9 +1301,9 @@ type google_compute_instance = {
   guest_accelerator : guest_accelerator list option; [@option]
   hostname : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   machine_type : string prop;
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   metadata_startup_script : string prop option; [@option]
   min_cpu_platform : string prop option; [@option]
   name : string prop;
@@ -1572,12 +1558,8 @@ let yojson_of_google_compute_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -1592,12 +1574,8 @@ let yojson_of_google_compute_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1891,16 +1869,16 @@ type t = {
   deletion_protection : bool prop;
   description : string prop;
   desired_status : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_display : bool prop;
   guest_accelerator : guest_accelerator list prop;
   hostname : string prop;
   id : string prop;
   instance_id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -1910,7 +1888,7 @@ type t = {
   self_link : string prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   zone : string prop;
 }
 

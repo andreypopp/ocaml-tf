@@ -7,7 +7,7 @@ open! Tf_core
 type selector
 
 val selector :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   namespace:string prop ->
   unit ->
   selector
@@ -22,8 +22,8 @@ type aws_eks_fargate_profile
 val aws_eks_fargate_profile :
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   fargate_profile_name:string prop ->
@@ -46,16 +46,16 @@ type t = private {
   pod_execution_role_arn : string prop;
   status : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   fargate_profile_name:string prop ->
@@ -67,8 +67,8 @@ val register :
 val make :
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   fargate_profile_name:string prop ->

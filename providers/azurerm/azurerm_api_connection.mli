@@ -19,8 +19,8 @@ type azurerm_api_connection
 val azurerm_api_connection :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?parameter_values:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameter_values:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_api_id:string prop ->
   name:string prop ->
@@ -38,17 +38,17 @@ type t = private {
   id : string prop;
   managed_api_id : string prop;
   name : string prop;
-  parameter_values : (string * string) list prop;
+  parameter_values : string Tf_core.assoc prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?parameter_values:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameter_values:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_api_id:string prop ->
   name:string prop ->
@@ -59,8 +59,8 @@ val register :
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?parameter_values:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameter_values:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_api_id:string prop ->
   name:string prop ->

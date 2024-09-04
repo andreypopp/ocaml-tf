@@ -33,7 +33,7 @@ type webhook__object_selector = {
     webhook__object_selector__match_expressions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type webhook__namespace_selector__match_expressions = {
@@ -49,7 +49,7 @@ type webhook__namespace_selector = {
     webhook__namespace_selector__match_expressions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type webhook__client_config__service = {
@@ -94,8 +94,8 @@ type webhook = {
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   unit ->
   metadata

@@ -47,8 +47,8 @@ val aws_ebs_snapshot_import :
   ?permanent_restore:bool prop ->
   ?role_name:string prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?client_data:client_data list ->
   ?timeouts:timeouts ->
@@ -75,8 +75,8 @@ type t = private {
   permanent_restore : bool prop;
   role_name : string prop;
   storage_tier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   temporary_restore_days : float prop;
   volume_id : string prop;
   volume_size : float prop;
@@ -91,8 +91,8 @@ val register :
   ?permanent_restore:bool prop ->
   ?role_name:string prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?client_data:client_data list ->
   ?timeouts:timeouts ->
@@ -108,8 +108,8 @@ val make :
   ?permanent_restore:bool prop ->
   ?role_name:string prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?client_data:client_data list ->
   ?timeouts:timeouts ->

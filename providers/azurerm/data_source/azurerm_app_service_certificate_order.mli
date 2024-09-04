@@ -50,7 +50,7 @@ type t = private {
   root_thumbprint : string prop;
   signed_certificate_thumbprint : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   validity_in_years : float prop;
 }
 

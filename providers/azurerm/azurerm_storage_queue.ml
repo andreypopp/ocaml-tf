@@ -64,7 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_storage_queue = {
   id : string prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   name : string prop;
   storage_account_name : string prop;
   timeouts : timeouts option;
@@ -104,12 +104,8 @@ let yojson_of_azurerm_storage_queue =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -140,7 +136,7 @@ let azurerm_storage_queue ?id ?metadata ?timeouts ~name
 type t = {
   tf_name : string;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   resource_manager_id : string prop;
   storage_account_name : string prop;

@@ -31,8 +31,8 @@ val azurerm_managed_application :
   ?application_definition_id:string prop ->
   ?id:string prop ->
   ?parameter_values:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->
@@ -56,11 +56,11 @@ type t = private {
   location : string prop;
   managed_resource_group_name : string prop;
   name : string prop;
-  outputs : (string * string) list prop;
+  outputs : string Tf_core.assoc prop;
   parameter_values : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -68,8 +68,8 @@ val register :
   ?application_definition_id:string prop ->
   ?id:string prop ->
   ?parameter_values:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->
@@ -84,8 +84,8 @@ val make :
   ?application_definition_id:string prop ->
   ?id:string prop ->
   ?parameter_values:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->

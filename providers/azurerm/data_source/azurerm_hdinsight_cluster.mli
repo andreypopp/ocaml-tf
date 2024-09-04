@@ -33,7 +33,7 @@ type t = private {
   tf_name : string;
   cluster_id : string prop;
   cluster_version : string prop;
-  component_versions : (string * string) list prop;
+  component_versions : string Tf_core.assoc prop;
   edge_ssh_endpoint : string prop;
   gateway : gateway list prop;
   https_endpoint : string prop;
@@ -44,7 +44,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   ssh_endpoint : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tier : string prop;
   tls_min_version : string prop;
 }

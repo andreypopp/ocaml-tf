@@ -147,7 +147,7 @@ type t = {
   resource_group_name : string prop;
   secondary_access_key : string prop;
   storage_account_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

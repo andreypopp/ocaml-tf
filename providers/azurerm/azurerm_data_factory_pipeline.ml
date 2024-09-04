@@ -72,8 +72,8 @@ type azurerm_data_factory_pipeline = {
   id : string prop option; [@option]
   moniter_metrics_after_duration : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
-  variables : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
+  variables : string prop Tf_core.assoc option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -109,12 +109,8 @@ let yojson_of_azurerm_data_factory_pipeline =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "variables", arg in
@@ -125,12 +121,8 @@ let yojson_of_azurerm_data_factory_pipeline =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -245,8 +237,8 @@ type t = {
   id : string prop;
   moniter_metrics_after_duration : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
-  variables : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
+  variables : string Tf_core.assoc prop;
 }
 
 let make ?activities_json ?annotations ?concurrency ?description

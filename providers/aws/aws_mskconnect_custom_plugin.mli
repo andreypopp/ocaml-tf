@@ -27,8 +27,8 @@ type aws_mskconnect_custom_plugin
 val aws_mskconnect_custom_plugin :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content_type:string prop ->
   name:string prop ->
@@ -50,16 +50,16 @@ type t = private {
   latest_revision : float prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content_type:string prop ->
   name:string prop ->
@@ -70,8 +70,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content_type:string prop ->
   name:string prop ->

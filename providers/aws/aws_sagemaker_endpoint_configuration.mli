@@ -163,8 +163,8 @@ val aws_sagemaker_endpoint_configuration :
   ?kms_key_arn:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?async_inference_config:async_inference_config list ->
   ?data_capture_config:data_capture_config list ->
   ?shadow_production_variants:shadow_production_variants list ->
@@ -184,8 +184,8 @@ type t = private {
   kms_key_arn : string prop;
   name : string prop;
   name_prefix : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -194,8 +194,8 @@ val register :
   ?kms_key_arn:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?async_inference_config:async_inference_config list ->
   ?data_capture_config:data_capture_config list ->
   ?shadow_production_variants:shadow_production_variants list ->
@@ -208,8 +208,8 @@ val make :
   ?kms_key_arn:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?async_inference_config:async_inference_config list ->
   ?data_capture_config:data_capture_config list ->
   ?shadow_production_variants:shadow_production_variants list ->

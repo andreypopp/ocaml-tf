@@ -52,10 +52,10 @@ val disk :
   ?disk_size_gb:float prop ->
   ?disk_type:string prop ->
   ?interface:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?mode:string prop ->
   ?provisioned_iops:float prop ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?resource_policies:string prop list ->
   ?source:string prop ->
   ?source_image:string prop ->
@@ -216,15 +216,15 @@ val google_compute_region_instance_template :
   ?description:string prop ->
   ?id:string prop ->
   ?instance_description:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_startup_script:string prop ->
   ?min_cpu_platform:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?advanced_machine_features:advanced_machine_features list ->
@@ -251,12 +251,12 @@ type t = private {
   tf_name : string;
   can_ip_forward : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   instance_description : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -264,12 +264,12 @@ type t = private {
   name_prefix : string prop;
   project : string prop;
   region : string prop;
-  resource_manager_tags : (string * string) list prop;
+  resource_manager_tags : string Tf_core.assoc prop;
   resource_policies : string list prop;
   self_link : string prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -278,15 +278,15 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?instance_description:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_startup_script:string prop ->
   ?min_cpu_platform:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?advanced_machine_features:advanced_machine_features list ->
@@ -309,15 +309,15 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?instance_description:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_startup_script:string prop ->
   ?min_cpu_platform:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?advanced_machine_features:advanced_machine_features list ->

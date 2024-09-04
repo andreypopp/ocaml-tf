@@ -236,7 +236,7 @@ type google_bigquery_job
 val google_bigquery_job :
   ?id:string prop ->
   ?job_timeout_ms:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?copy:copy list ->
@@ -254,16 +254,16 @@ val yojson_of_google_bigquery_job : google_bigquery_job -> json
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   job_id : string prop;
   job_timeout_ms : string prop;
   job_type : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   project : string prop;
   status : status list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   user_email : string prop;
 }
 
@@ -271,7 +271,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?job_timeout_ms:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?copy:copy list ->
@@ -286,7 +286,7 @@ val register :
 val make :
   ?id:string prop ->
   ?job_timeout_ms:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?copy:copy list ->

@@ -37,7 +37,7 @@ val google_dataplex_lake :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?metastore:metastore list ->
   ?timeouts:timeouts ->
@@ -56,16 +56,16 @@ type t = private {
   create_time : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   metastore_status : metastore_status list prop;
   name : string prop;
   project : string prop;
   service_account : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
@@ -75,7 +75,7 @@ val register :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?metastore:metastore list ->
   ?timeouts:timeouts ->
@@ -88,7 +88,7 @@ val make :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?metastore:metastore list ->
   ?timeouts:timeouts ->

@@ -43,9 +43,9 @@ val aws_glue_catalog_database :
   ?description:string prop ->
   ?id:string prop ->
   ?location_uri:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?create_table_default_permission:
     create_table_default_permission list ->
   ?federated_database:federated_database list ->
@@ -67,9 +67,9 @@ type t = private {
   id : string prop;
   location_uri : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -78,9 +78,9 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?location_uri:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?create_table_default_permission:
     create_table_default_permission list ->
   ?federated_database:federated_database list ->
@@ -94,9 +94,9 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?location_uri:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?create_table_default_permission:
     create_table_default_permission list ->
   ?federated_database:federated_database list ->

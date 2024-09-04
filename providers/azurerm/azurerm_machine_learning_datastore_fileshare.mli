@@ -22,7 +22,7 @@ val azurerm_machine_learning_datastore_fileshare :
   ?id:string prop ->
   ?service_data_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_fileshare_id:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   service_data_identity : string prop;
   shared_access_signature : string prop;
   storage_fileshare_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -56,7 +56,7 @@ val register :
   ?id:string prop ->
   ?service_data_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_fileshare_id:string prop ->
@@ -70,7 +70,7 @@ val make :
   ?id:string prop ->
   ?service_data_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_fileshare_id:string prop ->

@@ -30,9 +30,9 @@ val google_monitoring_notification_channel :
   ?enabled:bool prop ->
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->
@@ -51,11 +51,11 @@ type t = private {
   enabled : bool prop;
   force_delete : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   type_ : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
   verification_status : string prop;
 }
 
@@ -66,9 +66,9 @@ val register :
   ?enabled:bool prop ->
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->
@@ -81,9 +81,9 @@ val make :
   ?enabled:bool prop ->
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->

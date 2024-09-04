@@ -7,8 +7,8 @@ open! Tf_core
 type launch
 
 val launch :
-  ?properties:(string * string prop) list ->
-  ?secrets:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
+  ?secrets:string prop Tf_core.assoc ->
   unit ->
   launch
 

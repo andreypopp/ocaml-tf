@@ -94,7 +94,7 @@ val gce_setup :
     ?disable_public_ip:bool prop ->
     ?enable_ip_forwarding:bool prop ->
     ?machine_type:string prop ->
-    ?metadata:(string * string  prop) list ->
+    ?metadata:string  prop Tf_core.assoc ->
     ?tags:string  prop list ->
     ?accelerator_configs:gce_setup__accelerator_configs list ->
     ?boot_disk:gce_setup__boot_disk list ->
@@ -124,7 +124,7 @@ val google_workbench_instance :
     ?id:string prop ->
     ?instance_id:string prop ->
     ?instance_owners:string  prop list ->
-    ?labels:(string * string  prop) list ->
+    ?labels:string  prop Tf_core.assoc ->
     ?project:string prop ->
     ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->
@@ -143,19 +143,19 @@ type t = private {
   creator: string prop;
   desired_state: string prop;
   disable_proxy_access: bool prop;
-  effective_labels: (string * string) list prop;
+  effective_labels: string Tf_core.assoc prop;
   health_info: health_info list prop;
   health_state: string prop;
   id: string prop;
   instance_id: string prop;
   instance_owners: string list prop;
-  labels: (string * string) list prop;
+  labels: string Tf_core.assoc prop;
   location: string prop;
   name: string prop;
   project: string prop;
   proxy_uri: string prop;
   state: string prop;
-  terraform_labels: (string * string) list prop;
+  terraform_labels: string Tf_core.assoc prop;
   update_time: string prop;
   upgrade_history: upgrade_history list prop;
 }
@@ -167,7 +167,7 @@ val register :
     ?id:string prop ->
     ?instance_id:string prop ->
     ?instance_owners:string  prop list ->
-    ?labels:(string * string  prop) list ->
+    ?labels:string  prop Tf_core.assoc ->
     ?project:string prop ->
     ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->
@@ -182,7 +182,7 @@ val make :
     ?id:string prop ->
     ?instance_id:string prop ->
     ?instance_owners:string  prop list ->
-    ?labels:(string * string  prop) list ->
+    ?labels:string  prop Tf_core.assoc ->
     ?project:string prop ->
     ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->

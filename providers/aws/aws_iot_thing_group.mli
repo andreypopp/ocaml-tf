@@ -20,7 +20,7 @@ type metadata = {
 type properties__attribute_payload
 
 val properties__attribute_payload :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   unit ->
   properties__attribute_payload
 
@@ -37,8 +37,8 @@ type aws_iot_thing_group
 val aws_iot_thing_group :
   ?id:string prop ->
   ?parent_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?properties:properties list ->
   name:string prop ->
   unit ->
@@ -55,8 +55,8 @@ type t = private {
   metadata : metadata list prop;
   name : string prop;
   parent_group_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : float prop;
 }
 
@@ -64,8 +64,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?parent_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?properties:properties list ->
   name:string prop ->
   string ->
@@ -74,8 +74,8 @@ val register :
 val make :
   ?id:string prop ->
   ?parent_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?properties:properties list ->
   name:string prop ->
   string ->

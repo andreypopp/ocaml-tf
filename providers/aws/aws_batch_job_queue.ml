@@ -86,7 +86,7 @@ type aws_batch_job_queue = {
   priority : float prop;
   scheduling_policy_arn : string prop option; [@option]
   state : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   compute_environment_order : compute_environment_order list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -129,12 +129,8 @@ let yojson_of_aws_batch_job_queue =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -207,8 +203,8 @@ type t = {
   priority : float prop;
   scheduling_policy_arn : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?compute_environments ?scheduling_policy_arn ?tags

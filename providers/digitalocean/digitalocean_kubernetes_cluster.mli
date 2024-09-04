@@ -45,7 +45,7 @@ type node_pool
 
 val node_pool :
   ?auto_scale:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_nodes:float prop ->
   ?min_nodes:float prop ->
   ?node_count:float prop ->

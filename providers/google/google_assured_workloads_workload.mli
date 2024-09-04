@@ -74,7 +74,7 @@ val google_assured_workloads_workload :
   ?billing_account:string prop ->
   ?enable_sovereign_controls:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->
@@ -102,12 +102,12 @@ type t = private {
   compliant_but_disallowed_services : string list prop;
   create_time : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   ekm_provisioning_response : ekm_provisioning_response list prop;
   enable_sovereign_controls : bool prop;
   id : string prop;
   kaj_enrollment_state : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   organization : string prop;
@@ -115,7 +115,7 @@ type t = private {
   provisioned_resources_parent : string prop;
   resources : resources list prop;
   saa_enrollment_response : saa_enrollment_response list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   violation_notifications_enabled : bool prop;
 }
 
@@ -124,7 +124,7 @@ val register :
   ?billing_account:string prop ->
   ?enable_sovereign_controls:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->
@@ -143,7 +143,7 @@ val make :
   ?billing_account:string prop ->
   ?enable_sovereign_controls:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->

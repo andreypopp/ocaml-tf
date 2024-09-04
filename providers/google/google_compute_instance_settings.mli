@@ -6,7 +6,7 @@ open! Tf_core
 
 type metadata
 
-val metadata : ?items:(string * string prop) list -> unit -> metadata
+val metadata : ?items:string prop Tf_core.assoc -> unit -> metadata
 
 type timeouts
 

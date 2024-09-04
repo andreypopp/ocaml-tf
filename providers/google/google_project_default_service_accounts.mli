@@ -35,7 +35,7 @@ type t = private {
   id : string prop;
   project : string prop;
   restore_policy : string prop;
-  service_accounts : (string * string) list prop;
+  service_accounts : string Tf_core.assoc prop;
 }
 
 val register :

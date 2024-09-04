@@ -156,7 +156,7 @@ let _ = yojson_of_custom_setup_script
 
 type express_custom_setup__command_key__key_vault_password = {
   linked_service_name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   secret_name : string prop;
   secret_version : string prop option; [@option]
 }
@@ -194,12 +194,8 @@ let yojson_of_express_custom_setup__command_key__key_vault_password =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -280,7 +276,7 @@ let _ = yojson_of_express_custom_setup__command_key
 
 type express_custom_setup__component__key_vault_license = {
   linked_service_name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   secret_name : string prop;
   secret_version : string prop option; [@option]
 }
@@ -317,12 +313,8 @@ let yojson_of_express_custom_setup__component__key_vault_license =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -395,7 +387,7 @@ let _ = yojson_of_express_custom_setup__component
 [@@@deriving.end]
 
 type express_custom_setup = {
-  environment : (string * string prop) list option; [@option]
+  environment : string prop Tf_core.assoc option; [@option]
   powershell_version : string prop option; [@option]
   command_key : express_custom_setup__command_key list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -452,12 +444,8 @@ let yojson_of_express_custom_setup =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment", arg in

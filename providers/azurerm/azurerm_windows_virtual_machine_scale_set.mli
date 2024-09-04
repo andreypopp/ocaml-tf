@@ -300,7 +300,7 @@ val azurerm_windows_virtual_machine_scale_set :
   ?secure_boot_enabled:bool prop ->
   ?single_placement_group:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?upgrade_mode:string prop ->
   ?user_data:string prop ->
@@ -377,7 +377,7 @@ type t = private {
   single_placement_group : bool prop;
   sku : string prop;
   source_image_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone : string prop;
   unique_id : string prop;
   upgrade_mode : string prop;
@@ -413,7 +413,7 @@ val register :
   ?secure_boot_enabled:bool prop ->
   ?single_placement_group:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?upgrade_mode:string prop ->
   ?user_data:string prop ->
@@ -477,7 +477,7 @@ val make :
   ?secure_boot_enabled:bool prop ->
   ?single_placement_group:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?upgrade_mode:string prop ->
   ?user_data:string prop ->

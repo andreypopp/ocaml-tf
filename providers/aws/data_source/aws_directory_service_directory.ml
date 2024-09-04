@@ -216,7 +216,7 @@ let _ = yojson_of_vpc_settings
 type aws_directory_service_directory = {
   directory_id : string prop;
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,12 +233,8 @@ let yojson_of_aws_directory_service_directory =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -284,7 +280,7 @@ type t = {
   security_group_id : string prop;
   short_name : string prop;
   size : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   vpc_settings : vpc_settings list prop;
 }

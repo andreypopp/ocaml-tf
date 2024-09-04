@@ -4,7 +4,7 @@ open! Tf_core
 
 type sink__dataset = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -21,12 +21,8 @@ let yojson_of_sink__dataset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -46,7 +42,7 @@ let _ = yojson_of_sink__dataset
 type sink__flowlet = {
   dataset_parameters : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,12 +63,8 @@ let yojson_of_sink__flowlet =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -99,7 +91,7 @@ let _ = yojson_of_sink__flowlet
 
 type sink__linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,12 +108,8 @@ let yojson_of_sink__linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -140,7 +128,7 @@ let _ = yojson_of_sink__linked_service
 
 type sink__rejected_linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,12 +145,8 @@ let yojson_of_sink__rejected_linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -182,7 +166,7 @@ let _ = yojson_of_sink__rejected_linked_service
 
 type sink__schema_linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,12 +183,8 @@ let yojson_of_sink__schema_linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -323,7 +303,7 @@ let _ = yojson_of_sink
 
 type source__dataset = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,12 +320,8 @@ let yojson_of_source__dataset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -365,7 +341,7 @@ let _ = yojson_of_source__dataset
 type source__flowlet = {
   dataset_parameters : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -386,12 +362,8 @@ let yojson_of_source__flowlet =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -418,7 +390,7 @@ let _ = yojson_of_source__flowlet
 
 type source__linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -435,12 +407,8 @@ let yojson_of_source__linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -459,7 +427,7 @@ let _ = yojson_of_source__linked_service
 
 type source__rejected_linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -476,12 +444,8 @@ let yojson_of_source__rejected_linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -501,7 +465,7 @@ let _ = yojson_of_source__rejected_linked_service
 
 type source__schema_linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -518,12 +482,8 @@ let yojson_of_source__schema_linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -703,7 +663,7 @@ let _ = yojson_of_timeouts
 
 type transformation__dataset = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -720,12 +680,8 @@ let yojson_of_transformation__dataset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -745,7 +701,7 @@ let _ = yojson_of_transformation__dataset
 type transformation__flowlet = {
   dataset_parameters : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -766,12 +722,8 @@ let yojson_of_transformation__flowlet =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -798,7 +750,7 @@ let _ = yojson_of_transformation__flowlet
 
 type transformation__linked_service = {
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -815,12 +767,8 @@ let yojson_of_transformation__linked_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in

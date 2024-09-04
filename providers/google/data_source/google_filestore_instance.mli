@@ -54,17 +54,17 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   file_shares : file_shares list prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   networks : networks list prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   zone : string prop;
 }

@@ -86,7 +86,7 @@ type google_iam_workforce_pool_provider
 
 val google_iam_workforce_pool_provider :
   ?attribute_condition:string prop ->
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?display_name:string prop ->
@@ -109,7 +109,7 @@ val yojson_of_google_iam_workforce_pool_provider :
 type t = private {
   tf_name : string;
   attribute_condition : string prop;
-  attribute_mapping : (string * string) list prop;
+  attribute_mapping : string Tf_core.assoc prop;
   description : string prop;
   disabled : bool prop;
   display_name : string prop;
@@ -124,7 +124,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?attribute_condition:string prop ->
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?display_name:string prop ->
@@ -141,7 +141,7 @@ val register :
 
 val make :
   ?attribute_condition:string prop ->
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disabled:bool prop ->
   ?display_name:string prop ->

@@ -42,7 +42,7 @@ let _ = yojson_of_action__ssm_automation__parameter
 type action__ssm_automation = {
   document_name : string prop;
   document_version : string prop;
-  dynamic_parameters : (string * string prop) list;
+  dynamic_parameters : string prop Tf_core.assoc;
   parameter : action__ssm_automation__parameter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   role_arn : string prop;
@@ -88,12 +88,8 @@ let yojson_of_action__ssm_automation =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_dynamic_parameters
          in
          ("dynamic_parameters", arg) :: bnds
@@ -174,7 +170,7 @@ let _ = yojson_of_incident_template__notification_target
 type incident_template = {
   dedupe_string : string prop;
   impact : float prop;
-  incident_tags : (string * string prop) list;
+  incident_tags : string prop Tf_core.assoc;
   notification_target : incident_template__notification_target list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   summary : string prop;
@@ -218,12 +214,8 @@ let yojson_of_incident_template =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_incident_tags
          in
          ("incident_tags", arg) :: bnds
@@ -315,7 +307,7 @@ let _ = yojson_of_integration
 type aws_ssmincidents_response_plan = {
   arn : string prop;
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -332,12 +324,8 @@ let yojson_of_aws_ssmincidents_response_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -378,7 +366,7 @@ type t = {
   incident_template : incident_template list prop;
   integration : integration list prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?tags ~arn __id =

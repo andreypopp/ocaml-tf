@@ -177,8 +177,8 @@ val aws_dms_endpoint :
   ?server_name:string prop ->
   ?service_access_role:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?username:string prop ->
   ?elasticsearch_settings:elasticsearch_settings list ->
   ?kafka_settings:kafka_settings list ->
@@ -218,8 +218,8 @@ type t = private {
   server_name : string prop;
   service_access_role : string prop;
   ssl_mode : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   username : string prop;
 }
 
@@ -238,8 +238,8 @@ val register :
   ?server_name:string prop ->
   ?service_access_role:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?username:string prop ->
   ?elasticsearch_settings:elasticsearch_settings list ->
   ?kafka_settings:kafka_settings list ->
@@ -270,8 +270,8 @@ val make :
   ?server_name:string prop ->
   ?service_access_role:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?username:string prop ->
   ?elasticsearch_settings:elasticsearch_settings list ->
   ?kafka_settings:kafka_settings list ->

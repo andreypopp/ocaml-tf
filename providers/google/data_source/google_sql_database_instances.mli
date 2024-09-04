@@ -178,7 +178,7 @@ type instances__settings = {
       (** sql_server_audit_config *)
   tier : string prop;  (** tier *)
   time_zone : string prop;  (** time_zone *)
-  user_labels : (string * string prop) list;  (** user_labels *)
+  user_labels : string prop Tf_core.assoc;  (** user_labels *)
   version : float prop;  (** version *)
 }
 

@@ -33,7 +33,7 @@ val worker_config :
 type google_cloudbuild_worker_pool
 
 val google_cloudbuild_worker_pool :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -52,11 +52,11 @@ val yojson_of_google_cloudbuild_worker_pool :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -68,7 +68,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -81,7 +81,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->

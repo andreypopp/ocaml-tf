@@ -890,7 +890,7 @@ type azurerm_monitor_alert_processing_rule_suppression = {
   resource_group_name : string prop;
   scopes : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   condition : condition list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   schedule : schedule list;
@@ -946,12 +946,8 @@ let yojson_of_azurerm_monitor_alert_processing_rule_suppression =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1120,7 +1116,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   scopes : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?description ?enabled ?id ?tags ?(condition = [])

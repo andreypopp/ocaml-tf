@@ -230,7 +230,7 @@ type t = {
   mobile_network_packet_core_data_plane_id : string prop;
   network_address_port_translation :
     network_address_port_translation list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_equipment_address_pool_prefixes : string list prop;
   user_equipment_static_address_pool_prefixes : string list prop;
   user_plane_access_ipv4_address : string prop;

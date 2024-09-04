@@ -52,7 +52,7 @@ val google_compute_interconnect :
   ?admin_enabled:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?macsec_enabled:bool prop ->
   ?noc_contact_email:string prop ->
   ?project:string prop ->
@@ -82,7 +82,7 @@ type t = private {
   creation_timestamp : string prop;
   customer_name : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   expected_outages : expected_outages list prop;
   google_ip_address : string prop;
   google_reference_id : string prop;
@@ -90,7 +90,7 @@ type t = private {
   interconnect_attachments : string list prop;
   interconnect_type : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   link_type : string prop;
   location : string prop;
   macsec_enabled : bool prop;
@@ -105,7 +105,7 @@ type t = private {
   requested_link_count : float prop;
   satisfies_pzs : bool prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -113,7 +113,7 @@ val register :
   ?admin_enabled:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?macsec_enabled:bool prop ->
   ?noc_contact_email:string prop ->
   ?project:string prop ->
@@ -134,7 +134,7 @@ val make :
   ?admin_enabled:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?macsec_enabled:bool prop ->
   ?noc_contact_email:string prop ->
   ?project:string prop ->

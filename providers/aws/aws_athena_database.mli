@@ -25,7 +25,7 @@ val aws_athena_database :
   ?expected_bucket_owner:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?acl_configuration:acl_configuration list ->
   ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
@@ -44,7 +44,7 @@ type t = private {
   force_destroy : bool prop;
   id : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
 }
 
 val register :
@@ -54,7 +54,7 @@ val register :
   ?expected_bucket_owner:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?acl_configuration:acl_configuration list ->
   ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
@@ -67,7 +67,7 @@ val make :
   ?expected_bucket_owner:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?acl_configuration:acl_configuration list ->
   ?encryption_configuration:encryption_configuration list ->
   name:string prop ->

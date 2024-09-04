@@ -94,7 +94,7 @@ type t = private {
   name : string prop;
   recurrence : recurrence list prop;
   start_time : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_zone_id : string prop;
 }
 

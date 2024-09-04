@@ -29,8 +29,8 @@ val aws_ivschat_room :
   ?maximum_message_length:float prop ->
   ?maximum_message_rate_per_second:float prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
   unit ->
@@ -48,8 +48,8 @@ type t = private {
   maximum_message_length : float prop;
   maximum_message_rate_per_second : float prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,8 +59,8 @@ val register :
   ?maximum_message_length:float prop ->
   ?maximum_message_rate_per_second:float prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
   string ->
@@ -72,8 +72,8 @@ val make :
   ?maximum_message_length:float prop ->
   ?maximum_message_rate_per_second:float prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
   string ->

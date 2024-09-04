@@ -29,7 +29,7 @@ val azurerm_express_route_circuit :
   ?id:string prop ->
   ?peering_location:string prop ->
   ?service_provider_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   service_key : string prop;
   service_provider_name : string prop;
   service_provider_provisioning_state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,7 +71,7 @@ val register :
   ?id:string prop ->
   ?peering_location:string prop ->
   ?service_provider_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -89,7 +89,7 @@ val make :
   ?id:string prop ->
   ?peering_location:string prop ->
   ?service_provider_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

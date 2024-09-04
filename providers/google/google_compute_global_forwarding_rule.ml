@@ -167,7 +167,7 @@ type google_compute_global_forwarding_rule = {
   ip_address : string prop option; [@option]
   ip_protocol : string prop option; [@option]
   ip_version : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   load_balancing_scheme : string prop option; [@option]
   name : string prop;
   network : string prop option; [@option]
@@ -311,12 +311,8 @@ let yojson_of_google_compute_global_forwarding_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -416,13 +412,13 @@ type t = {
   tf_name : string;
   base_forwarding_rule : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ip_address : string prop;
   ip_protocol : string prop;
   ip_version : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   load_balancing_scheme : string prop;
   name : string prop;
   network : string prop;
@@ -435,7 +431,7 @@ type t = {
   source_ip_ranges : string list prop;
   subnetwork : string prop;
   target : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?ip_address ?ip_protocol ?ip_version

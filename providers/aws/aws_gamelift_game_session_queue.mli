@@ -19,8 +19,8 @@ val aws_gamelift_game_session_queue :
   ?destinations:string prop list ->
   ?id:string prop ->
   ?notification_target:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?player_latency_policy:player_latency_policy list ->
   name:string prop ->
@@ -40,8 +40,8 @@ type t = private {
   id : string prop;
   name : string prop;
   notification_target : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeout_in_seconds : float prop;
 }
 
@@ -51,8 +51,8 @@ val register :
   ?destinations:string prop list ->
   ?id:string prop ->
   ?notification_target:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?player_latency_policy:player_latency_policy list ->
   name:string prop ->
@@ -64,8 +64,8 @@ val make :
   ?destinations:string prop list ->
   ?id:string prop ->
   ?notification_target:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?player_latency_policy:player_latency_policy list ->
   name:string prop ->

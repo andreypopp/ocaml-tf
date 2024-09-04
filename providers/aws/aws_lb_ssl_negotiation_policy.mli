@@ -13,7 +13,7 @@ type aws_lb_ssl_negotiation_policy
 
 val aws_lb_ssl_negotiation_policy :
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   lb_port:float prop ->
   load_balancer:string prop ->
   name:string prop ->
@@ -32,13 +32,13 @@ type t = private {
   lb_port : float prop;
   load_balancer : string prop;
   name : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   lb_port:float prop ->
   load_balancer:string prop ->
   name:string prop ->
@@ -48,7 +48,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   lb_port:float prop ->
   load_balancer:string prop ->
   name:string prop ->

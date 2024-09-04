@@ -58,7 +58,7 @@ val google_compute_disk :
   ?enable_confidential_compute:bool prop ->
   ?id:string prop ->
   ?image:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?physical_block_size_bytes:float prop ->
   ?project:string prop ->
@@ -89,12 +89,12 @@ type t = private {
   creation_timestamp : string prop;
   description : string prop;
   disk_id : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_confidential_compute : bool prop;
   id : string prop;
   image : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_attach_timestamp : string prop;
   last_detach_timestamp : string prop;
   licenses : string list prop;
@@ -111,7 +111,7 @@ type t = private {
   source_image_id : string prop;
   source_snapshot_id : string prop;
   storage_pool : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   users : string list prop;
   zone : string prop;
@@ -123,7 +123,7 @@ val register :
   ?enable_confidential_compute:bool prop ->
   ?id:string prop ->
   ?image:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?physical_block_size_bytes:float prop ->
   ?project:string prop ->
@@ -150,7 +150,7 @@ val make :
   ?enable_confidential_compute:bool prop ->
   ?id:string prop ->
   ?image:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?physical_block_size_bytes:float prop ->
   ?project:string prop ->

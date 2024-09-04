@@ -560,7 +560,7 @@ let _ = yojson_of_node_network_profile__allowed_host_ports
 
 type node_network_profile = {
   application_security_group_ids : string prop list option; [@option]
-  node_public_ip_tags : (string * string prop) list option; [@option]
+  node_public_ip_tags : string prop Tf_core.assoc option; [@option]
   allowed_host_ports : node_network_profile__allowed_host_ports list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -595,12 +595,8 @@ let yojson_of_node_network_profile =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "node_public_ip_tags", arg in
@@ -778,7 +774,7 @@ type azurerm_kubernetes_cluster_node_pool = {
   mode : string prop option; [@option]
   name : string prop;
   node_count : float prop option; [@option]
-  node_labels : (string * string prop) list option; [@option]
+  node_labels : string prop Tf_core.assoc option; [@option]
   node_public_ip_prefix_id : string prop option; [@option]
   node_taints : string prop list option; [@option]
   orchestrator_version : string prop option; [@option]
@@ -792,7 +788,7 @@ type azurerm_kubernetes_cluster_node_pool = {
   scale_down_mode : string prop option; [@option]
   snapshot_id : string prop option; [@option]
   spot_max_price : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   ultra_ssd_enabled : bool prop option; [@option]
   vm_size : string prop;
   vnet_subnet_id : string prop option; [@option]
@@ -964,12 +960,8 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1086,12 +1078,8 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "node_labels", arg in
@@ -1438,7 +1426,7 @@ type t = {
   mode : string prop;
   name : string prop;
   node_count : float prop;
-  node_labels : (string * string) list prop;
+  node_labels : string Tf_core.assoc prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string list prop;
   orchestrator_version : string prop;
@@ -1452,7 +1440,7 @@ type t = {
   scale_down_mode : string prop;
   snapshot_id : string prop;
   spot_max_price : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ultra_ssd_enabled : bool prop;
   vm_size : string prop;
   vnet_subnet_id : string prop;

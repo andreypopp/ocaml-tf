@@ -215,7 +215,7 @@ type glb_settings = {
   cdn : glb_settings__cdn list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   failover_threshold : float prop;
-  region_priorities : (string * float prop) list;
+  region_priorities : float prop Tf_core.assoc;
   target_port : float prop;
   target_protocol : string prop;
 }
@@ -247,12 +247,8 @@ let yojson_of_glb_settings =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_float v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_float)
              v_region_priorities
          in
          ("region_priorities", arg) :: bnds

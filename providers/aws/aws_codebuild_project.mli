@@ -220,8 +220,8 @@ val aws_codebuild_project :
   ?queued_timeout:float prop ->
   ?resource_access_role:string prop ->
   ?source_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?build_batch_config:build_batch_config list ->
   ?cache:cache list ->
   ?logs_config:logs_config list ->
@@ -259,8 +259,8 @@ type t = private {
   resource_access_role : string prop;
   service_role : string prop;
   source_version : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -275,8 +275,8 @@ val register :
   ?queued_timeout:float prop ->
   ?resource_access_role:string prop ->
   ?source_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?build_batch_config:build_batch_config list ->
   ?cache:cache list ->
   ?logs_config:logs_config list ->
@@ -304,8 +304,8 @@ val make :
   ?queued_timeout:float prop ->
   ?resource_access_role:string prop ->
   ?source_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?build_batch_config:build_batch_config list ->
   ?cache:cache list ->
   ?logs_config:logs_config list ->

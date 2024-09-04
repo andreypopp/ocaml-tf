@@ -32,14 +32,14 @@ type t = private {
   id : string prop;
   idle_timeout_in_minutes : float prop;
   ip_address : string prop;
-  ip_tags : (string * string) list prop;
+  ip_tags : string Tf_core.assoc prop;
   ip_version : string prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
   reverse_fqdn : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

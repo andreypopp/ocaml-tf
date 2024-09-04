@@ -7,7 +7,7 @@ open! Tf_core
 type extension
 
 val extension :
-  ?additional_extension_properties:(string * string prop) list ->
+  ?additional_extension_properties:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   extension

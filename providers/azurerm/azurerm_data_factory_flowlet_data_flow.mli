@@ -7,7 +7,7 @@ open! Tf_core
 type sink__dataset
 
 val sink__dataset :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   sink__dataset
@@ -16,7 +16,7 @@ type sink__flowlet
 
 val sink__flowlet :
   ?dataset_parameters:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   sink__flowlet
@@ -24,7 +24,7 @@ val sink__flowlet :
 type sink__linked_service
 
 val sink__linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   sink__linked_service
@@ -32,7 +32,7 @@ val sink__linked_service :
 type sink__rejected_linked_service
 
 val sink__rejected_linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   sink__rejected_linked_service
@@ -40,7 +40,7 @@ val sink__rejected_linked_service :
 type sink__schema_linked_service
 
 val sink__schema_linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   sink__schema_linked_service
@@ -61,7 +61,7 @@ val sink :
 type source__dataset
 
 val source__dataset :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   source__dataset
@@ -70,7 +70,7 @@ type source__flowlet
 
 val source__flowlet :
   ?dataset_parameters:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   source__flowlet
@@ -78,7 +78,7 @@ val source__flowlet :
 type source__linked_service
 
 val source__linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   source__linked_service
@@ -86,7 +86,7 @@ val source__linked_service :
 type source__rejected_linked_service
 
 val source__rejected_linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   source__rejected_linked_service
@@ -94,7 +94,7 @@ val source__rejected_linked_service :
 type source__schema_linked_service
 
 val source__schema_linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   source__schema_linked_service
@@ -125,7 +125,7 @@ val timeouts :
 type transformation__dataset
 
 val transformation__dataset :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   transformation__dataset
@@ -134,7 +134,7 @@ type transformation__flowlet
 
 val transformation__flowlet :
   ?dataset_parameters:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   transformation__flowlet
@@ -142,7 +142,7 @@ val transformation__flowlet :
 type transformation__linked_service
 
 val transformation__linked_service :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   transformation__linked_service

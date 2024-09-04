@@ -33,7 +33,7 @@ type resources = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -59,12 +59,8 @@ let yojson_of_resources =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -97,7 +93,7 @@ let _ = yojson_of_resources
 type azurerm_resources = {
   id : string prop option; [@option]
   name : string prop option; [@option]
-  required_tags : (string * string prop) list option; [@option]
+  required_tags : string prop Tf_core.assoc option; [@option]
   resource_group_name : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   timeouts : timeouts option;
@@ -144,12 +140,8 @@ let yojson_of_azurerm_resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "required_tags", arg in
@@ -188,7 +180,7 @@ type t = {
   tf_name : string;
   id : string prop;
   name : string prop;
-  required_tags : (string * string) list prop;
+  required_tags : string Tf_core.assoc prop;
   resource_group_name : string prop;
   resources : resources list prop;
   type_ : string prop;

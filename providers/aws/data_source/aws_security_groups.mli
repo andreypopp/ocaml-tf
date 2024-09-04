@@ -17,7 +17,7 @@ type aws_security_groups
 
 val aws_security_groups :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -32,14 +32,14 @@ type t = private {
   arns : string list prop;
   id : string prop;
   ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_ids : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -47,7 +47,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

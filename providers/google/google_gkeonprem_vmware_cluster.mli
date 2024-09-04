@@ -262,7 +262,7 @@ val vcenter :
 type google_gkeonprem_vmware_cluster
 
 val google_gkeonprem_vmware_cluster :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->
@@ -295,12 +295,12 @@ val yojson_of_google_gkeonprem_vmware_cluster :
 type t = private {
   tf_name : string;
   admin_cluster_membership : string prop;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
   disable_bundled_ingress : bool prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   enable_control_plane_v2 : bool prop;
   endpoint : string prop;
   etag : string prop;
@@ -322,7 +322,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->
@@ -348,7 +348,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?disable_bundled_ingress:bool prop ->
   ?enable_control_plane_v2:bool prop ->

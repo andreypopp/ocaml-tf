@@ -8,7 +8,7 @@ type aws_backup_global_settings
 
 val aws_backup_global_settings :
   ?id:string prop ->
-  global_settings:(string * string prop) list ->
+  global_settings:string prop Tf_core.assoc ->
   unit ->
   aws_backup_global_settings
 
@@ -19,19 +19,19 @@ val yojson_of_aws_backup_global_settings :
 
 type t = private {
   tf_name : string;
-  global_settings : (string * string) list prop;
+  global_settings : string Tf_core.assoc prop;
   id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  global_settings:(string * string prop) list ->
+  global_settings:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  global_settings:(string * string prop) list ->
+  global_settings:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

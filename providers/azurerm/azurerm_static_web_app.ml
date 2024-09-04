@@ -127,7 +127,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_static_web_app = {
-  app_settings : (string * string prop) list option; [@option]
+  app_settings : string prop Tf_core.assoc option; [@option]
   configuration_file_changes_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -136,7 +136,7 @@ type azurerm_static_web_app = {
   resource_group_name : string prop;
   sku_size : string prop option; [@option]
   sku_tier : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   basic_auth : basic_auth list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   identity : identity list;
@@ -195,12 +195,8 @@ let yojson_of_azurerm_static_web_app =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -265,12 +261,8 @@ let yojson_of_azurerm_static_web_app =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "app_settings", arg in
@@ -316,7 +308,7 @@ let azurerm_static_web_app ?app_settings
 type t = {
   tf_name : string;
   api_key : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   configuration_file_changes_enabled : bool prop;
   default_host_name : string prop;
   id : string prop;
@@ -326,7 +318,7 @@ type t = {
   resource_group_name : string prop;
   sku_size : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?app_settings ?configuration_file_changes_enabled ?id

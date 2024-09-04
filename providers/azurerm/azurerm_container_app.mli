@@ -218,7 +218,7 @@ type template__custom_scale_rule
 val template__custom_scale_rule :
   ?authentication:template__custom_scale_rule__authentication list ->
   custom_rule_type:string prop ->
-  metadata:(string * string prop) list ->
+  metadata:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   template__custom_scale_rule
@@ -327,7 +327,7 @@ type azurerm_container_app
 
 val azurerm_container_app :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?dapr:dapr list ->
   ?identity:identity list ->
@@ -359,14 +359,14 @@ type t = private {
   outbound_ip_addresses : string list prop;
   resource_group_name : string prop;
   revision_mode : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workload_profile_name : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?dapr:dapr list ->
   ?identity:identity list ->
@@ -384,7 +384,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?dapr:dapr list ->
   ?identity:identity list ->

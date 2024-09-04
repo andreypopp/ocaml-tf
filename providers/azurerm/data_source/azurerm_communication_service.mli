@@ -33,7 +33,7 @@ type t = private {
   resource_group_name : string prop;
   secondary_connection_string : string prop;
   secondary_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

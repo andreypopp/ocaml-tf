@@ -1155,12 +1155,12 @@ type t = {
   create_time : string prop;
   deletion_protection : bool prop;
   desired_state : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   gcs_bucket : string prop;
   id : string prop;
   ignore_active_certificates_on_deletion : bool prop;
   key_spec : key_spec list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lifetime : string prop;
   location : string prop;
   name : string prop;
@@ -1172,7 +1172,7 @@ type t = {
   skip_grace_period : bool prop;
   state : string prop;
   subordinate_config : subordinate_config list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
 }

@@ -192,7 +192,7 @@ type t = {
   resource_group_name : string prop;
   scope : scope list prop;
   scope_accesses : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

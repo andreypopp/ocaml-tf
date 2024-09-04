@@ -19,7 +19,7 @@ val google_network_security_address_group :
   ?description:string prop ->
   ?id:string prop ->
   ?items:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?parent:string prop ->
   ?timeouts:timeouts ->
   capacity:float prop ->
@@ -39,14 +39,14 @@ type t = private {
   capacity : float prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   items : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   parent : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
 }
@@ -56,7 +56,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?items:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?parent:string prop ->
   ?timeouts:timeouts ->
   capacity:float prop ->
@@ -70,7 +70,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?items:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?parent:string prop ->
   ?timeouts:timeouts ->
   capacity:float prop ->

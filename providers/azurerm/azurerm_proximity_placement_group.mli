@@ -19,7 +19,7 @@ type azurerm_proximity_placement_group
 val azurerm_proximity_placement_group :
   ?allowed_vm_sizes:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -40,7 +40,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone : string prop;
 }
 
@@ -48,7 +48,7 @@ val register :
   ?tf_module:tf_module ->
   ?allowed_vm_sizes:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -60,7 +60,7 @@ val register :
 val make :
   ?allowed_vm_sizes:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

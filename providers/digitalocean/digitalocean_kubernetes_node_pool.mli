@@ -32,7 +32,7 @@ type digitalocean_kubernetes_node_pool
 val digitalocean_kubernetes_node_pool :
   ?auto_scale:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_nodes:float prop ->
   ?min_nodes:float prop ->
   ?node_count:float prop ->
@@ -56,7 +56,7 @@ type t = private {
   auto_scale : bool prop;
   cluster_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   max_nodes : float prop;
   min_nodes : float prop;
   name : string prop;
@@ -70,7 +70,7 @@ val register :
   ?tf_module:tf_module ->
   ?auto_scale:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_nodes:float prop ->
   ?min_nodes:float prop ->
   ?node_count:float prop ->
@@ -86,7 +86,7 @@ val register :
 val make :
   ?auto_scale:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_nodes:float prop ->
   ?min_nodes:float prop ->
   ?node_count:float prop ->

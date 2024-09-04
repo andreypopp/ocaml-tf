@@ -54,7 +54,7 @@ val azurerm_vpn_site :
   ?device_model:string prop ->
   ?device_vendor:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?link:link list ->
   ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->
@@ -78,7 +78,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_wan_id : string prop;
 }
 
@@ -88,7 +88,7 @@ val register :
   ?device_model:string prop ->
   ?device_vendor:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?link:link list ->
   ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->
@@ -104,7 +104,7 @@ val make :
   ?device_model:string prop ->
   ?device_vendor:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?link:link list ->
   ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->

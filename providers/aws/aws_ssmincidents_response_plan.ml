@@ -42,7 +42,7 @@ let _ = yojson_of_action__ssm_automation__parameter
 type action__ssm_automation = {
   document_name : string prop;
   document_version : string prop option; [@option]
-  dynamic_parameters : (string * string prop) list option; [@option]
+  dynamic_parameters : string prop Tf_core.assoc option; [@option]
   role_arn : string prop;
   target_account : string prop option; [@option]
   parameter : action__ssm_automation__parameter list;
@@ -93,12 +93,8 @@ let yojson_of_action__ssm_automation =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dynamic_parameters", arg in
@@ -182,7 +178,7 @@ let _ = yojson_of_incident_template__notification_target
 type incident_template = {
   dedupe_string : string prop option; [@option]
   impact : float prop;
-  incident_tags : (string * string prop) list option; [@option]
+  incident_tags : string prop Tf_core.assoc option; [@option]
   summary : string prop option; [@option]
   title : string prop;
   notification_target : incident_template__notification_target list;
@@ -233,12 +229,8 @@ let yojson_of_incident_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "incident_tags", arg in
@@ -338,8 +330,8 @@ type aws_ssmincidents_response_plan = {
   engagements : string prop list option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   action : action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   incident_template : incident_template list;
@@ -399,12 +391,8 @@ let yojson_of_aws_ssmincidents_response_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -415,12 +403,8 @@ let yojson_of_aws_ssmincidents_response_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -538,8 +522,8 @@ type t = {
   engagements : string list prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all

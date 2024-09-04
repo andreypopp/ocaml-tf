@@ -77,8 +77,8 @@ type source_configuration__code_repository__code_configuration__code_configurati
 val source_configuration__code_repository__code_configuration__code_configuration_values :
   ?build_command:string prop ->
   ?port:string prop ->
-  ?runtime_environment_secrets:(string * string prop) list ->
-  ?runtime_environment_variables:(string * string prop) list ->
+  ?runtime_environment_secrets:string prop Tf_core.assoc ->
+  ?runtime_environment_variables:string prop Tf_core.assoc ->
   ?start_command:string prop ->
   runtime:string prop ->
   unit ->
@@ -118,8 +118,8 @@ type source_configuration__image_repository__image_configuration
 
 val source_configuration__image_repository__image_configuration :
   ?port:string prop ->
-  ?runtime_environment_secrets:(string * string prop) list ->
-  ?runtime_environment_variables:(string * string prop) list ->
+  ?runtime_environment_secrets:string prop Tf_core.assoc ->
+  ?runtime_environment_variables:string prop Tf_core.assoc ->
   ?start_command:string prop ->
   unit ->
   source_configuration__image_repository__image_configuration
@@ -150,8 +150,8 @@ type aws_apprunner_service
 val aws_apprunner_service :
   ?auto_scaling_configuration_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?health_check_configuration:health_check_configuration list ->
   ?instance_configuration:instance_configuration list ->
@@ -175,16 +175,16 @@ type t = private {
   service_name : string prop;
   service_url : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?auto_scaling_configuration_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?health_check_configuration:health_check_configuration list ->
   ?instance_configuration:instance_configuration list ->
@@ -198,8 +198,8 @@ val register :
 val make :
   ?auto_scaling_configuration_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?health_check_configuration:health_check_configuration list ->
   ?instance_configuration:instance_configuration list ->

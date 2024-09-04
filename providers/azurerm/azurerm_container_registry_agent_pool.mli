@@ -19,7 +19,7 @@ type azurerm_container_registry_agent_pool
 val azurerm_container_registry_agent_pool :
   ?id:string prop ->
   ?instance_count:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?virtual_network_subnet_id:string prop ->
   ?timeouts:timeouts ->
@@ -43,7 +43,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tier : string prop;
   virtual_network_subnet_id : string prop;
 }
@@ -52,7 +52,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?instance_count:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?virtual_network_subnet_id:string prop ->
   ?timeouts:timeouts ->
@@ -66,7 +66,7 @@ val register :
 val make :
   ?id:string prop ->
   ?instance_count:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?virtual_network_subnet_id:string prop ->
   ?timeouts:timeouts ->

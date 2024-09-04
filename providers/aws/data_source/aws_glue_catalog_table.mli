@@ -27,7 +27,7 @@ type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** skewed_column_names *)
-  skewed_column_value_location_maps : (string * string prop) list;
+  skewed_column_value_location_maps : string prop Tf_core.assoc;
       (** skewed_column_value_location_maps *)
   skewed_column_values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -36,7 +36,7 @@ type storage_descriptor__skewed_info = {
 
 type storage_descriptor__ser_de_info = {
   name : string prop;  (** name *)
-  parameters : (string * string prop) list;  (** parameters *)
+  parameters : string prop Tf_core.assoc;  (** parameters *)
   serialization_library : string prop;  (** serialization_library *)
 }
 
@@ -57,7 +57,7 @@ type storage_descriptor__schema_reference = {
 type storage_descriptor__columns = {
   comment : string prop;  (** comment *)
   name : string prop;  (** name *)
-  parameters : (string * string prop) list;  (** parameters *)
+  parameters : string prop Tf_core.assoc;  (** parameters *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
@@ -76,7 +76,7 @@ type storage_descriptor = {
   location : string prop;  (** location *)
   number_of_buckets : float prop;  (** number_of_buckets *)
   output_format : string prop;  (** output_format *)
-  parameters : (string * string prop) list;  (** parameters *)
+  parameters : string prop Tf_core.assoc;  (** parameters *)
   schema_reference : storage_descriptor__schema_reference list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** schema_reference *)
@@ -125,7 +125,7 @@ type t = private {
   id : string prop;
   name : string prop;
   owner : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   partition_index : partition_index list prop;
   partition_keys : partition_keys list prop;
   query_as_of_time : string prop;

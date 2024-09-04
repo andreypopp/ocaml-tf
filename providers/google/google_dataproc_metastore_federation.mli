@@ -26,7 +26,7 @@ type google_dataproc_metastore_federation
 
 val google_dataproc_metastore_federation :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -43,17 +43,17 @@ val yojson_of_google_dataproc_metastore_federation :
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   endpoint_uri : string prop;
   federation_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   state_message : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   version : string prop;
 }
@@ -61,7 +61,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

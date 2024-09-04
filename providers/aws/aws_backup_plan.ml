@@ -3,7 +3,7 @@
 open! Tf_core
 
 type advanced_backup_setting = {
-  backup_options : (string * string prop) list;
+  backup_options : string prop Tf_core.assoc;
   resource_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -25,12 +25,8 @@ let yojson_of_advanced_backup_setting =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_backup_options
          in
          ("backup_options", arg) :: bnds
@@ -195,7 +191,7 @@ let _ = yojson_of_rule__lifecycle
 type rule = {
   completion_window : float prop option; [@option]
   enable_continuous_backup : bool prop option; [@option]
-  recovery_point_tags : (string * string prop) list option; [@option]
+  recovery_point_tags : string prop Tf_core.assoc option; [@option]
   rule_name : string prop;
   schedule : string prop option; [@option]
   start_window : float prop option; [@option]
@@ -275,12 +271,8 @@ let yojson_of_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "recovery_point_tags", arg in
@@ -312,8 +304,8 @@ let _ = yojson_of_rule
 type aws_backup_plan = {
   id : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   advanced_backup_setting : advanced_backup_setting list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   rule : rule list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -357,12 +349,8 @@ let yojson_of_aws_backup_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -373,12 +361,8 @@ let yojson_of_aws_backup_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -452,8 +436,8 @@ type t = {
   arn : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 

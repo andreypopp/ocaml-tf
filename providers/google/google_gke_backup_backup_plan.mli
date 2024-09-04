@@ -130,7 +130,7 @@ val google_gke_backup_backup_plan :
   ?deactivated:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backup_config:backup_config list ->
   ?backup_schedule:backup_schedule list ->
@@ -152,17 +152,17 @@ type t = private {
   cluster : string prop;
   deactivated : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   protected_pod_count : float prop;
   state : string prop;
   state_reason : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
 }
 
@@ -171,7 +171,7 @@ val register :
   ?deactivated:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backup_config:backup_config list ->
   ?backup_schedule:backup_schedule list ->
@@ -187,7 +187,7 @@ val make :
   ?deactivated:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backup_config:backup_config list ->
   ?backup_schedule:backup_schedule list ->

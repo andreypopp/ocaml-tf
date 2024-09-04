@@ -20,7 +20,7 @@ val azurerm_iot_time_series_insights_standard_environment :
   ?id:string prop ->
   ?partition_key:string prop ->
   ?storage_limit_exceeded_behavior:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_retention_time:string prop ->
   location:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   storage_limit_exceeded_behavior : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -53,7 +53,7 @@ val register :
   ?id:string prop ->
   ?partition_key:string prop ->
   ?storage_limit_exceeded_behavior:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_retention_time:string prop ->
   location:string prop ->
@@ -67,7 +67,7 @@ val make :
   ?id:string prop ->
   ?partition_key:string prop ->
   ?storage_limit_exceeded_behavior:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_retention_time:string prop ->
   location:string prop ->

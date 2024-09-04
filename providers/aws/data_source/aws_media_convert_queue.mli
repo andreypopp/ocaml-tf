@@ -7,7 +7,7 @@ open! Tf_core
 type aws_media_convert_queue
 
 val aws_media_convert_queue :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   unit ->
   aws_media_convert_queue
@@ -23,18 +23,18 @@ type t = private {
   id : string prop;
   name : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t Tf_core.resource

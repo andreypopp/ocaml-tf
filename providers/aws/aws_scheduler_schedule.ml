@@ -242,7 +242,7 @@ type target__ecs_parameters = {
   platform_version : string prop option; [@option]
   propagate_tags : string prop option; [@option]
   reference_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   task_count : float prop option; [@option]
   task_definition_arn : string prop;
   capacity_provider_strategy :
@@ -346,12 +346,8 @@ let yojson_of_target__ecs_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in

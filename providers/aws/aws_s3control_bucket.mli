@@ -8,8 +8,8 @@ type aws_s3control_bucket
 
 val aws_s3control_bucket :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bucket:string prop ->
   outpost_id:string prop ->
   unit ->
@@ -27,15 +27,15 @@ type t = private {
   id : string prop;
   outpost_id : string prop;
   public_access_block_enabled : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bucket:string prop ->
   outpost_id:string prop ->
   string ->
@@ -43,8 +43,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   bucket:string prop ->
   outpost_id:string prop ->
   string ->

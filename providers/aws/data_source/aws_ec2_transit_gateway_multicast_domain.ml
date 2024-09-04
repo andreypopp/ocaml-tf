@@ -174,7 +174,7 @@ let _ = yojson_of_sources
 
 type aws_ec2_transit_gateway_multicast_domain = {
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   transit_gateway_multicast_domain_id : string prop option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -221,12 +221,8 @@ let yojson_of_aws_ec2_transit_gateway_multicast_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -268,7 +264,7 @@ type t = {
   sources : sources list prop;
   state : string prop;
   static_sources_support : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transit_gateway_attachment_id : string prop;
   transit_gateway_id : string prop;
   transit_gateway_multicast_domain_id : string prop;

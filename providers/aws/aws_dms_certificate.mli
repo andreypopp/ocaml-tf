@@ -10,8 +10,8 @@ val aws_dms_certificate :
   ?certificate_pem:string prop ->
   ?certificate_wallet:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   unit ->
   aws_dms_certificate
@@ -27,8 +27,8 @@ type t = private {
   certificate_pem : string prop;
   certificate_wallet : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -36,8 +36,8 @@ val register :
   ?certificate_pem:string prop ->
   ?certificate_wallet:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   string ->
   t
@@ -46,8 +46,8 @@ val make :
   ?certificate_pem:string prop ->
   ?certificate_wallet:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   certificate_id:string prop ->
   string ->
   t Tf_core.resource

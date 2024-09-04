@@ -25,8 +25,8 @@ val aws_eip :
   ?network_border_group:string prop ->
   ?network_interface:string prop ->
   ?public_ipv4_pool:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc:bool prop ->
   ?timeouts:timeouts ->
   unit ->
@@ -57,8 +57,8 @@ type t = private {
   public_dns : string prop;
   public_ip : string prop;
   public_ipv4_pool : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc : bool prop;
 }
 
@@ -73,8 +73,8 @@ val register :
   ?network_border_group:string prop ->
   ?network_interface:string prop ->
   ?public_ipv4_pool:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc:bool prop ->
   ?timeouts:timeouts ->
   string ->
@@ -90,8 +90,8 @@ val make :
   ?network_border_group:string prop ->
   ?network_interface:string prop ->
   ?public_ipv4_pool:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc:bool prop ->
   ?timeouts:timeouts ->
   string ->

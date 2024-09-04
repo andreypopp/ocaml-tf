@@ -10,8 +10,8 @@ val aws_memorydb_acl :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_names:string prop list ->
   unit ->
   aws_memorydb_acl
@@ -27,8 +27,8 @@ type t = private {
   minimum_engine_version : string prop;
   name : string prop;
   name_prefix : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_names : string list prop;
 }
 
@@ -37,8 +37,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_names:string prop list ->
   string ->
   t
@@ -47,8 +47,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_names:string prop list ->
   string ->
   t Tf_core.resource

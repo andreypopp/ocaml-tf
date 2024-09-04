@@ -8,8 +8,8 @@ type aws_eks_access_entry
 
 val aws_eks_access_entry :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   principal_arn:string prop ->
   unit ->
@@ -28,8 +28,8 @@ type t = private {
   kubernetes_groups : string list prop;
   modified_at : string prop;
   principal_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   user_name : string prop;
 }
@@ -37,8 +37,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   principal_arn:string prop ->
   string ->
@@ -46,8 +46,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   principal_arn:string prop ->
   string ->

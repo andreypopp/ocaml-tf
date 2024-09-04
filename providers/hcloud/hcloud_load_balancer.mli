@@ -22,7 +22,7 @@ type hcloud_load_balancer
 val hcloud_load_balancer :
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network_zone:string prop ->
   ?algorithm:algorithm list ->
@@ -42,7 +42,7 @@ type t = private {
   id : string prop;
   ipv4 : string prop;
   ipv6 : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   load_balancer_type : string prop;
   location : string prop;
   name : string prop;
@@ -55,7 +55,7 @@ val register :
   ?tf_module:tf_module ->
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network_zone:string prop ->
   ?algorithm:algorithm list ->
@@ -68,7 +68,7 @@ val register :
 val make :
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network_zone:string prop ->
   ?algorithm:algorithm list ->

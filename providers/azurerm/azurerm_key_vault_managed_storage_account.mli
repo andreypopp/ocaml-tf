@@ -20,7 +20,7 @@ val azurerm_key_vault_managed_storage_account :
   ?id:string prop ->
   ?regenerate_key_automatically:bool prop ->
   ?regeneration_period:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
@@ -43,7 +43,7 @@ type t = private {
   regeneration_period : string prop;
   storage_account_id : string prop;
   storage_account_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -51,7 +51,7 @@ val register :
   ?id:string prop ->
   ?regenerate_key_automatically:bool prop ->
   ?regeneration_period:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
@@ -64,7 +64,7 @@ val make :
   ?id:string prop ->
   ?regenerate_key_automatically:bool prop ->
   ?regeneration_period:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->

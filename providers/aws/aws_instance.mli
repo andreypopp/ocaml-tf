@@ -44,8 +44,8 @@ val ebs_block_device :
   ?iops:float prop ->
   ?kms_key_id:string prop ->
   ?snapshot_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput:float prop ->
   ?volume_size:float prop ->
   ?volume_type:string prop ->
@@ -135,8 +135,8 @@ val root_block_device :
   ?encrypted:bool prop ->
   ?iops:float prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput:float prop ->
   ?volume_size:float prop ->
   ?volume_type:string prop ->
@@ -183,13 +183,13 @@ val aws_instance :
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?capacity_reservation_specification:
     capacity_reservation_specification list ->
@@ -252,13 +252,13 @@ type t = private {
   source_dest_check : bool prop;
   spot_instance_request_id : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenancy : string prop;
   user_data : string prop;
   user_data_base64 : string prop;
   user_data_replace_on_change : bool prop;
-  volume_tags : (string * string) list prop;
+  volume_tags : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
@@ -291,13 +291,13 @@ val register :
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?capacity_reservation_specification:
     capacity_reservation_specification list ->
@@ -345,13 +345,13 @@ val make :
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?capacity_reservation_specification:
     capacity_reservation_specification list ->

@@ -7,7 +7,7 @@ open! Tf_core
 type advanced_backup_setting
 
 val advanced_backup_setting :
-  backup_options:(string * string prop) list ->
+  backup_options:string prop Tf_core.assoc ->
   resource_type:string prop ->
   unit ->
   advanced_backup_setting
@@ -43,7 +43,7 @@ type rule
 val rule :
   ?completion_window:float prop ->
   ?enable_continuous_backup:bool prop ->
-  ?recovery_point_tags:(string * string prop) list ->
+  ?recovery_point_tags:string prop Tf_core.assoc ->
   ?schedule:string prop ->
   ?start_window:float prop ->
   ?lifecycle:rule__lifecycle list ->
@@ -57,8 +57,8 @@ type aws_backup_plan
 
 val aws_backup_plan :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   advanced_backup_setting:advanced_backup_setting list ->
   rule:rule list ->
@@ -74,16 +74,16 @@ type t = private {
   arn : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   advanced_backup_setting:advanced_backup_setting list ->
   rule:rule list ->
@@ -92,8 +92,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   advanced_backup_setting:advanced_backup_setting list ->
   rule:rule list ->

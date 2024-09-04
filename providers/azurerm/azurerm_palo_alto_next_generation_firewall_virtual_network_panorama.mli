@@ -82,7 +82,7 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama
 
 val azurerm_palo_alto_next_generation_firewall_virtual_network_panorama :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_nat:destination_nat list ->
   ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
@@ -108,13 +108,13 @@ type t = private {
   panorama : panorama list prop;
   panorama_base64_config : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_nat:destination_nat list ->
   ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
@@ -128,7 +128,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_nat:destination_nat list ->
   ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->

@@ -53,7 +53,7 @@ val azurerm_synapse_spark_pool :
   ?spark_events_folder:string prop ->
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_pause:auto_pause list ->
   ?auto_scale:auto_scale list ->
   ?library_requirement:library_requirement list ->
@@ -88,7 +88,7 @@ type t = private {
   spark_log_folder : string prop;
   spark_version : string prop;
   synapse_workspace_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -104,7 +104,7 @@ val register :
   ?spark_events_folder:string prop ->
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_pause:auto_pause list ->
   ?auto_scale:auto_scale list ->
   ?library_requirement:library_requirement list ->
@@ -129,7 +129,7 @@ val make :
   ?spark_events_folder:string prop ->
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_pause:auto_pause list ->
   ?auto_scale:auto_scale list ->
   ?library_requirement:library_requirement list ->

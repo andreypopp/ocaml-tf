@@ -16,8 +16,8 @@ val aws_lightsail_database :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   master_database_name:string prop ->
@@ -60,8 +60,8 @@ type t = private {
   secondary_availability_zone : string prop;
   skip_final_snapshot : bool prop;
   support_code : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -75,8 +75,8 @@ val register :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   master_database_name:string prop ->
@@ -96,8 +96,8 @@ val make :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   master_database_name:string prop ->

@@ -33,8 +33,8 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   subnets : string list prop;
-  tags : (string * string) list prop;
-  vnet_peerings : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  vnet_peerings : string Tf_core.assoc prop;
   vnet_peerings_addresses : string list prop;
 }
 

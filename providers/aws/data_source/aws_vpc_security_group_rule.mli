@@ -36,7 +36,7 @@ type t = private {
   referenced_security_group_id : string prop;
   security_group_id : string prop;
   security_group_rule_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   to_port : float prop;
 }
 

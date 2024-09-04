@@ -1935,8 +1935,8 @@ val aws_medialive_channel :
   ?log_level:string prop ->
   ?role_arn:string prop ->
   ?start_channel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cdi_input_specification:cdi_input_specification list ->
   ?maintenance:maintenance list ->
   ?timeouts:timeouts ->
@@ -1964,8 +1964,8 @@ type t = private {
   name : string prop;
   role_arn : string prop;
   start_channel : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -1974,8 +1974,8 @@ val register :
   ?log_level:string prop ->
   ?role_arn:string prop ->
   ?start_channel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cdi_input_specification:cdi_input_specification list ->
   ?maintenance:maintenance list ->
   ?timeouts:timeouts ->
@@ -1994,8 +1994,8 @@ val make :
   ?log_level:string prop ->
   ?role_arn:string prop ->
   ?start_channel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cdi_input_specification:cdi_input_specification list ->
   ?maintenance:maintenance list ->
   ?timeouts:timeouts ->

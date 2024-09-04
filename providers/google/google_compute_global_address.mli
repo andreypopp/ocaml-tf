@@ -21,7 +21,7 @@ val google_compute_global_address :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_version:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?prefix_length:float prop ->
   ?project:string prop ->
@@ -42,17 +42,17 @@ type t = private {
   address_type : string prop;
   creation_timestamp : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ip_version : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   prefix_length : float prop;
   project : string prop;
   purpose : string prop;
   self_link : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -62,7 +62,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_version:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?prefix_length:float prop ->
   ?project:string prop ->
@@ -78,7 +78,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_version:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?prefix_length:float prop ->
   ?project:string prop ->

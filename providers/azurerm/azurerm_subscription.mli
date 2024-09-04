@@ -21,7 +21,7 @@ val azurerm_subscription :
   ?billing_scope_id:string prop ->
   ?id:string prop ->
   ?subscription_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload:string prop ->
   ?timeouts:timeouts ->
   subscription_name:string prop ->
@@ -39,7 +39,7 @@ type t = private {
   id : string prop;
   subscription_id : string prop;
   subscription_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
   workload : string prop;
 }
@@ -50,7 +50,7 @@ val register :
   ?billing_scope_id:string prop ->
   ?id:string prop ->
   ?subscription_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload:string prop ->
   ?timeouts:timeouts ->
   subscription_name:string prop ->
@@ -62,7 +62,7 @@ val make :
   ?billing_scope_id:string prop ->
   ?id:string prop ->
   ?subscription_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload:string prop ->
   ?timeouts:timeouts ->
   subscription_name:string prop ->

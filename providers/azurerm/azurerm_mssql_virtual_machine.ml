@@ -822,7 +822,7 @@ type azurerm_mssql_virtual_machine = {
   sql_connectivity_update_username : string prop option; [@option]
   sql_license_type : string prop option; [@option]
   sql_virtual_machine_group_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   virtual_machine_id : string prop;
   assessment : assessment list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -952,12 +952,8 @@ let yojson_of_azurerm_mssql_virtual_machine =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1189,7 +1185,7 @@ type t = {
   sql_connectivity_update_username : string prop;
   sql_license_type : string prop;
   sql_virtual_machine_group_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_id : string prop;
 }
 

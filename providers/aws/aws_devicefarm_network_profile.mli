@@ -13,8 +13,8 @@ val aws_devicefarm_network_profile :
   ?downlink_jitter_ms:float prop ->
   ?downlink_loss_percent:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?uplink_bandwidth_bits:float prop ->
   ?uplink_delay_ms:float prop ->
@@ -41,8 +41,8 @@ type t = private {
   id : string prop;
   name : string prop;
   project_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   uplink_bandwidth_bits : float prop;
   uplink_delay_ms : float prop;
@@ -58,8 +58,8 @@ val register :
   ?downlink_jitter_ms:float prop ->
   ?downlink_loss_percent:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?uplink_bandwidth_bits:float prop ->
   ?uplink_delay_ms:float prop ->
@@ -77,8 +77,8 @@ val make :
   ?downlink_jitter_ms:float prop ->
   ?downlink_loss_percent:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?uplink_bandwidth_bits:float prop ->
   ?uplink_delay_ms:float prop ->

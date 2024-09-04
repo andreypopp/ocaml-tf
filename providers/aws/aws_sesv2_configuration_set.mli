@@ -58,8 +58,8 @@ type aws_sesv2_configuration_set
 
 val aws_sesv2_configuration_set :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?delivery_options:delivery_options list ->
   ?reputation_options:reputation_options list ->
   ?sending_options:sending_options list ->
@@ -80,15 +80,15 @@ type t = private {
   arn : string prop;
   configuration_set_name : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?delivery_options:delivery_options list ->
   ?reputation_options:reputation_options list ->
   ?sending_options:sending_options list ->
@@ -101,8 +101,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?delivery_options:delivery_options list ->
   ?reputation_options:reputation_options list ->
   ?sending_options:sending_options list ->

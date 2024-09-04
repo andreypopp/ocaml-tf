@@ -330,7 +330,7 @@ let _ = yojson_of_push_config__oidc_token
 [@@@deriving.end]
 
 type push_config = {
-  attributes : (string * string prop) list option; [@option]
+  attributes : string prop Tf_core.assoc option; [@option]
   push_endpoint : string prop;
   no_wrapper : push_config__no_wrapper list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -381,12 +381,8 @@ let yojson_of_push_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attributes", arg in
@@ -491,7 +487,7 @@ type google_pubsub_subscription = {
   enable_message_ordering : bool prop option; [@option]
   filter : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   message_retention_duration : string prop option; [@option]
   name : string prop;
   project : string prop option; [@option]
@@ -639,12 +635,8 @@ let yojson_of_google_pubsub_subscription =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -784,17 +776,17 @@ let google_pubsub_subscription ?ack_deadline_seconds
 type t = {
   tf_name : string;
   ack_deadline_seconds : float prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_exactly_once_delivery : bool prop;
   enable_message_ordering : bool prop;
   filter : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   name : string prop;
   project : string prop;
   retain_acked_messages : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   topic : string prop;
 }
 

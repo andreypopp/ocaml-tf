@@ -52,7 +52,7 @@ val azurerm_shared_image :
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
   ?specialized:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
   ?purchase_plan:purchase_plan list ->
@@ -94,7 +94,7 @@ type t = private {
   release_note_uri : string prop;
   resource_group_name : string prop;
   specialized : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trusted_launch_enabled : bool prop;
   trusted_launch_supported : bool prop;
 }
@@ -118,7 +118,7 @@ val register :
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
   ?specialized:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
   ?purchase_plan:purchase_plan list ->
@@ -150,7 +150,7 @@ val make :
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
   ?specialized:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
   ?purchase_plan:purchase_plan list ->

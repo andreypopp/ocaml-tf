@@ -12,8 +12,8 @@ type aws_wafv2_regex_pattern_set = {
   id: string  prop option; [@option]
   name: string prop; 
   scope: string prop; 
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
   regular_expression: regular_expression list; [@default []] [@yojson_drop_default Stdlib.( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -42,8 +42,8 @@ type t = {
   lock_token: string prop;
   name: string prop;
   scope: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?tags ?tags_all ~name ~scope ~regular_expression __id =

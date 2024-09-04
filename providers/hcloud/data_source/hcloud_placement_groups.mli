@@ -6,7 +6,7 @@ open! Tf_core
 
 type placement_groups = {
   id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   servers : float prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

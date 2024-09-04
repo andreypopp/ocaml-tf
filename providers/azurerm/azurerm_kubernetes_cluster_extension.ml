@@ -161,9 +161,9 @@ let _ = yojson_of_aks_assigned_identity
 type azurerm_kubernetes_cluster_extension = {
   cluster_id : string prop;
   configuration_protected_settings :
-    (string * string prop) list option;
+    string prop Tf_core.assoc option;
       [@option]
-  configuration_settings : (string * string prop) list option;
+  configuration_settings : string prop Tf_core.assoc option;
       [@option]
   extension_type : string prop;
   id : string prop option; [@option]
@@ -265,12 +265,8 @@ let yojson_of_azurerm_kubernetes_cluster_extension =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "configuration_settings", arg in
@@ -281,12 +277,8 @@ let yojson_of_azurerm_kubernetes_cluster_extension =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "configuration_protected_settings", arg in
@@ -335,8 +327,8 @@ type t = {
   tf_name : string;
   aks_assigned_identity : aks_assigned_identity list prop;
   cluster_id : string prop;
-  configuration_protected_settings : (string * string) list prop;
-  configuration_settings : (string * string) list prop;
+  configuration_protected_settings : string Tf_core.assoc prop;
+  configuration_settings : string Tf_core.assoc prop;
   current_version : string prop;
   extension_type : string prop;
   id : string prop;

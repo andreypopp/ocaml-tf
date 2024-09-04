@@ -21,8 +21,8 @@ type t = private {
   tf_name : string;
   id : string prop;
   login : string prop;
-  saml_identity : (string * string) list prop;
-  scim_identity : (string * string) list prop;
+  saml_identity : string Tf_core.assoc prop;
+  scim_identity : string Tf_core.assoc prop;
   username : string prop;
 }
 

@@ -13,7 +13,7 @@ type results = {
   action_name : string prop;  (** action_name *)
   allowed : bool prop;  (** allowed *)
   decision : string prop;  (** decision *)
-  decision_details : (string * string prop) list;
+  decision_details : string prop Tf_core.assoc;
       (** decision_details *)
   matched_statements : results__matched_statements list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

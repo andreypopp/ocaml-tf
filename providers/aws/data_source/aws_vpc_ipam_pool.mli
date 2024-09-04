@@ -16,10 +16,10 @@ val timeouts : ?read:string prop -> unit -> timeouts
 type aws_vpc_ipam_pool
 
 val aws_vpc_ipam_pool :
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -35,7 +35,7 @@ type t = private {
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;
   allocation_min_netmask_length : float prop;
-  allocation_resource_tags : (string * string) list prop;
+  allocation_resource_tags : string Tf_core.assoc prop;
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
@@ -49,25 +49,25 @@ type t = private {
   publicly_advertisable : bool prop;
   source_ipam_pool_id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
   t
 
 val make :
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

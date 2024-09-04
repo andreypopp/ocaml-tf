@@ -56,18 +56,18 @@ type t = private {
   deployed_indexes: deployed_indexes list prop;
   description: string prop;
   display_name: string prop;
-  effective_labels: (string * string) list prop;
+  effective_labels: string Tf_core.assoc prop;
   etag: string prop;
   id: string prop;
   index_stats: index_stats list prop;
   index_update_method: string prop;
-  labels: (string * string) list prop;
+  labels: string Tf_core.assoc prop;
   metadata: metadata list prop;
   metadata_schema_uri: string prop;
   name: string prop;
   project: string prop;
   region: string prop;
-  terraform_labels: (string * string) list prop;
+  terraform_labels: string Tf_core.assoc prop;
   update_time: string prop;
 }
 

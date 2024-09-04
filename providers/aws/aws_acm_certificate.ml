@@ -172,8 +172,8 @@ type aws_acm_certificate = {
   key_algorithm : string prop option; [@option]
   private_key : string prop option; [@option]
   subject_alternative_names : string prop list option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   validation_method : string prop option; [@option]
   options : options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -235,12 +235,8 @@ let yojson_of_aws_acm_certificate =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -251,12 +247,8 @@ let yojson_of_aws_acm_certificate =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -392,8 +384,8 @@ type t = {
   renewal_summary : renewal_summary list prop;
   status : string prop;
   subject_alternative_names : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   validation_emails : string list prop;
   validation_method : string prop;

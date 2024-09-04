@@ -56,8 +56,8 @@ val aws_fsx_openzfs_volume :
   ?record_size_kib:float prop ->
   ?storage_capacity_quota_gib:float prop ->
   ?storage_capacity_reservation_gib:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_type:string prop ->
   ?nfs_exports:nfs_exports list ->
   ?origin_snapshot:origin_snapshot list ->
@@ -85,8 +85,8 @@ type t = private {
   record_size_kib : float prop;
   storage_capacity_quota_gib : float prop;
   storage_capacity_reservation_gib : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   volume_type : string prop;
 }
 
@@ -100,8 +100,8 @@ val register :
   ?record_size_kib:float prop ->
   ?storage_capacity_quota_gib:float prop ->
   ?storage_capacity_reservation_gib:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_type:string prop ->
   ?nfs_exports:nfs_exports list ->
   ?origin_snapshot:origin_snapshot list ->
@@ -121,8 +121,8 @@ val make :
   ?record_size_kib:float prop ->
   ?storage_capacity_quota_gib:float prop ->
   ?storage_capacity_reservation_gib:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_type:string prop ->
   ?nfs_exports:nfs_exports list ->
   ?origin_snapshot:origin_snapshot list ->

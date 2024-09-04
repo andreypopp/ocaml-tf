@@ -16,8 +16,8 @@ val aws_dx_public_virtual_interface :
   ?bgp_auth_key:string prop ->
   ?customer_address:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
@@ -47,8 +47,8 @@ type t = private {
   id : string prop;
   name : string prop;
   route_filter_prefixes : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vlan : float prop;
 }
 
@@ -58,8 +58,8 @@ val register :
   ?bgp_auth_key:string prop ->
   ?customer_address:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
@@ -75,8 +75,8 @@ val make :
   ?bgp_auth_key:string prop ->
   ?customer_address:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->

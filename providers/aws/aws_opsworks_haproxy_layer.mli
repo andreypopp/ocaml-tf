@@ -103,8 +103,8 @@ val aws_opsworks_haproxy_layer :
   ?stats_url:string prop ->
   ?stats_user:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_ebs_optimized_instances:bool prop ->
   ?cloudwatch_configuration:cloudwatch_configuration list ->
   ?load_based_auto_scaling:load_based_auto_scaling list ->
@@ -147,8 +147,8 @@ type t = private {
   stats_url : string prop;
   stats_user : string prop;
   system_packages : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   use_ebs_optimized_instances : bool prop;
 }
 
@@ -177,8 +177,8 @@ val register :
   ?stats_url:string prop ->
   ?stats_user:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_ebs_optimized_instances:bool prop ->
   ?cloudwatch_configuration:cloudwatch_configuration list ->
   ?load_based_auto_scaling:load_based_auto_scaling list ->
@@ -212,8 +212,8 @@ val make :
   ?stats_url:string prop ->
   ?stats_user:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_ebs_optimized_instances:bool prop ->
   ?cloudwatch_configuration:cloudwatch_configuration list ->
   ?load_based_auto_scaling:load_based_auto_scaling list ->

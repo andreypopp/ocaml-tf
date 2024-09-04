@@ -18,7 +18,7 @@ type servers = {
   ipv6_address : string prop;  (** ipv6_address *)
   ipv6_network : string prop;  (** ipv6_network *)
   iso : string prop;  (** iso *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   placement_group_id : float prop;  (** placement_group_id *)

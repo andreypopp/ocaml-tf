@@ -3,14 +3,14 @@
 open! Tf_core
 
 type aws_glue_workflow = {
-  default_run_properties : (string * string prop) list option;
+  default_run_properties : string prop Tf_core.assoc option;
       [@option]
   description : string prop option; [@option]
   id : string prop option; [@option]
   max_concurrent_runs : float prop option; [@option]
   name : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -35,12 +35,8 @@ let yojson_of_aws_glue_workflow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -51,12 +47,8 @@ let yojson_of_aws_glue_workflow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -99,12 +91,8 @@ let yojson_of_aws_glue_workflow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "default_run_properties", arg in
@@ -133,13 +121,13 @@ let aws_glue_workflow ?default_run_properties ?description ?id
 type t = {
   tf_name : string;
   arn : string prop;
-  default_run_properties : (string * string) list prop;
+  default_run_properties : string Tf_core.assoc prop;
   description : string prop;
   id : string prop;
   max_concurrent_runs : float prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?default_run_properties ?description ?id

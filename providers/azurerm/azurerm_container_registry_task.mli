@@ -22,11 +22,11 @@ val base_image_trigger :
 type docker_step
 
 val docker_step :
-  ?arguments:(string * string prop) list ->
+  ?arguments:string prop Tf_core.assoc ->
   ?cache_enabled:bool prop ->
   ?image_names:string prop list ->
   ?push_enabled:bool prop ->
-  ?secret_arguments:(string * string prop) list ->
+  ?secret_arguments:string prop Tf_core.assoc ->
   ?target:string prop ->
   context_access_token:string prop ->
   context_path:string prop ->
@@ -39,9 +39,9 @@ type encoded_step
 val encoded_step :
   ?context_access_token:string prop ->
   ?context_path:string prop ->
-  ?secret_values:(string * string prop) list ->
+  ?secret_values:string prop Tf_core.assoc ->
   ?value_content:string prop ->
-  ?values:(string * string prop) list ->
+  ?values:string prop Tf_core.assoc ->
   task_content:string prop ->
   unit ->
   encoded_step
@@ -51,9 +51,9 @@ type file_step
 val file_step :
   ?context_access_token:string prop ->
   ?context_path:string prop ->
-  ?secret_values:(string * string prop) list ->
+  ?secret_values:string prop Tf_core.assoc ->
   ?value_file_path:string prop ->
-  ?values:(string * string prop) list ->
+  ?values:string prop Tf_core.assoc ->
   task_file_path:string prop ->
   unit ->
   file_step
@@ -149,7 +149,7 @@ val azurerm_container_registry_task :
   ?id:string prop ->
   ?is_system_task:bool prop ->
   ?log_template:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?agent_setting:agent_setting list ->
   ?base_image_trigger:base_image_trigger list ->
@@ -181,7 +181,7 @@ type t = private {
   is_system_task : bool prop;
   log_template : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout_in_seconds : float prop;
 }
 
@@ -192,7 +192,7 @@ val register :
   ?id:string prop ->
   ?is_system_task:bool prop ->
   ?log_template:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?agent_setting:agent_setting list ->
   ?base_image_trigger:base_image_trigger list ->
@@ -216,7 +216,7 @@ val make :
   ?id:string prop ->
   ?is_system_task:bool prop ->
   ?log_template:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout_in_seconds:float prop ->
   ?agent_setting:agent_setting list ->
   ?base_image_trigger:base_image_trigger list ->

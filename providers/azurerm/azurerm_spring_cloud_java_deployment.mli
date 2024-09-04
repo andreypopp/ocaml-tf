@@ -21,7 +21,7 @@ val timeouts :
 type azurerm_spring_cloud_java_deployment
 
 val azurerm_spring_cloud_java_deployment :
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?jvm_options:string prop ->
@@ -40,7 +40,7 @@ val yojson_of_azurerm_spring_cloud_java_deployment :
 
 type t = private {
   tf_name : string;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   id : string prop;
   instance_count : float prop;
   jvm_options : string prop;
@@ -51,7 +51,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?jvm_options:string prop ->
@@ -64,7 +64,7 @@ val register :
   t
 
 val make :
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?jvm_options:string prop ->

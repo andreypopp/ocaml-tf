@@ -87,7 +87,7 @@ let _ = yojson_of_timeouts
 
 type workload__dataflow_flex_template_request__launch_parameter__environment = {
   additional_experiments : string prop list option; [@option]
-  additional_user_labels : (string * string prop) list option;
+  additional_user_labels : string prop Tf_core.assoc option;
       [@option]
   enable_streaming_engine : bool prop option; [@option]
   flexrs_goal : string prop option; [@option]
@@ -252,12 +252,8 @@ let yojson_of_workload__dataflow_flex_template_request__launch_parameter__enviro
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_user_labels", arg in
@@ -285,9 +281,9 @@ let _ =
 type workload__dataflow_flex_template_request__launch_parameter = {
   container_spec_gcs_path : string prop option; [@option]
   job_name : string prop;
-  launch_options : (string * string prop) list option; [@option]
-  parameters : (string * string prop) list option; [@option]
-  transform_name_mappings : (string * string prop) list option;
+  launch_options : string prop Tf_core.assoc option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
+  transform_name_mappings : string prop Tf_core.assoc option;
       [@option]
   update : bool prop option; [@option]
   environment :
@@ -340,12 +336,8 @@ let yojson_of_workload__dataflow_flex_template_request__launch_parameter
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "transform_name_mappings", arg in
@@ -356,12 +348,8 @@ let yojson_of_workload__dataflow_flex_template_request__launch_parameter
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -372,12 +360,8 @@ let yojson_of_workload__dataflow_flex_template_request__launch_parameter
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "launch_options", arg in
@@ -464,7 +448,7 @@ let _ = yojson_of_workload__dataflow_flex_template_request
 
 type workload__dataflow_launch_template_request__launch_parameters__environment = {
   additional_experiments : string prop list option; [@option]
-  additional_user_labels : (string * string prop) list option;
+  additional_user_labels : string prop Tf_core.assoc option;
       [@option]
   bypass_temp_dir_validation : bool prop option; [@option]
   enable_streaming_engine : bool prop option; [@option]
@@ -629,12 +613,8 @@ let yojson_of_workload__dataflow_launch_template_request__launch_parameters__env
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_user_labels", arg in
@@ -661,8 +641,8 @@ let _ =
 
 type workload__dataflow_launch_template_request__launch_parameters = {
   job_name : string prop;
-  parameters : (string * string prop) list option; [@option]
-  transform_name_mapping : (string * string prop) list option;
+  parameters : string prop Tf_core.assoc option; [@option]
+  transform_name_mapping : string prop Tf_core.assoc option;
       [@option]
   update : bool prop option; [@option]
   environment :
@@ -714,12 +694,8 @@ let yojson_of_workload__dataflow_launch_template_request__launch_parameters
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "transform_name_mapping", arg in
@@ -730,12 +706,8 @@ let yojson_of_workload__dataflow_launch_template_request__launch_parameters
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -885,7 +857,7 @@ type google_data_pipeline_pipeline = {
   display_name : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  pipeline_sources : (string * string prop) list option; [@option]
+  pipeline_sources : string prop Tf_core.assoc option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
   scheduler_service_account_email : string prop option; [@option]
@@ -980,12 +952,8 @@ let yojson_of_google_data_pipeline_pipeline =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "pipeline_sources", arg in
@@ -1155,7 +1123,7 @@ type t = {
   job_count : float prop;
   last_update_time : string prop;
   name : string prop;
-  pipeline_sources : (string * string) list prop;
+  pipeline_sources : string Tf_core.assoc prop;
   project : string prop;
   region : string prop;
   scheduler_service_account_email : string prop;

@@ -7,7 +7,7 @@ open! Tf_core
 type instance_filter__group_labels
 
 val instance_filter__group_labels :
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   unit ->
   instance_filter__group_labels
 

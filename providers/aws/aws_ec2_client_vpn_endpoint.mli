@@ -50,8 +50,8 @@ val aws_ec2_client_vpn_endpoint :
   ?self_service_portal:string prop ->
   ?session_timeout_hours:float prop ->
   ?split_tunnel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->
@@ -83,8 +83,8 @@ type t = private {
   server_certificate_arn : string prop;
   session_timeout_hours : float prop;
   split_tunnel : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transport_protocol : string prop;
   vpc_id : string prop;
   vpn_port : float prop;
@@ -99,8 +99,8 @@ val register :
   ?self_service_portal:string prop ->
   ?session_timeout_hours:float prop ->
   ?split_tunnel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->
@@ -121,8 +121,8 @@ val make :
   ?self_service_portal:string prop ->
   ?session_timeout_hours:float prop ->
   ?split_tunnel:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->

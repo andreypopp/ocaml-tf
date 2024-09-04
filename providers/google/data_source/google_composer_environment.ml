@@ -340,10 +340,10 @@ let _ = yojson_of_config__web_server_config
 [@@@deriving.end]
 
 type config__software_config = {
-  airflow_config_overrides : (string * string prop) list;
-  env_variables : (string * string prop) list;
+  airflow_config_overrides : string prop Tf_core.assoc;
+  env_variables : string prop Tf_core.assoc;
   image_version : string prop;
-  pypi_packages : (string * string prop) list;
+  pypi_packages : string prop Tf_core.assoc;
   python_version : string prop;
   scheduler_count : float prop;
 }
@@ -378,12 +378,8 @@ let yojson_of_config__software_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_pypi_packages
          in
          ("pypi_packages", arg) :: bnds
@@ -394,24 +390,16 @@ let yojson_of_config__software_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_env_variables
          in
          ("env_variables", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_airflow_config_overrides
          in
          ("airflow_config_overrides", arg) :: bnds
@@ -1308,14 +1296,14 @@ let google_composer_environment ?id ?project ?region ~name () :
 type t = {
   tf_name : string;
   config : config list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
   storage_config : storage_config list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ?region ~name __id =

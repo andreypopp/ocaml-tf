@@ -72,10 +72,10 @@ type t = private {
   install_patches : install_patches list prop;
   location : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
   resource_group_name : string prop;
   scope : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   visibility : string prop;
   window : window list prop;
 }

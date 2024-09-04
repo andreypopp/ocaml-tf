@@ -18,8 +18,8 @@ type aws_gamelift_build
 
 val aws_gamelift_build :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   name:string prop ->
   operating_system:string prop ->
@@ -37,16 +37,16 @@ type t = private {
   id : string prop;
   name : string prop;
   operating_system : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   name:string prop ->
   operating_system:string prop ->
@@ -56,8 +56,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   name:string prop ->
   operating_system:string prop ->

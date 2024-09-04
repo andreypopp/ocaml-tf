@@ -61,7 +61,7 @@ val target__ecs_parameters :
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
   ?reference_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?task_count:float prop ->
   ?network_configuration:
     target__ecs_parameters__network_configuration list ->

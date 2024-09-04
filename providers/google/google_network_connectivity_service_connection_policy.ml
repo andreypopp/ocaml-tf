@@ -90,7 +90,7 @@ let _ = yojson_of_timeouts
 
 type psc_connections__error_info = {
   domain : string prop;
-  metadata : (string * string prop) list;
+  metadata : string prop Tf_core.assoc;
   reason : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -110,12 +110,8 @@ let yojson_of_psc_connections__error_info =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_metadata
          in
          ("metadata", arg) :: bnds
@@ -134,7 +130,7 @@ let _ = yojson_of_psc_connections__error_info
 
 type psc_connections__error = {
   code : float prop;
-  details : (string * string prop) list list;
+  details : string prop Tf_core.assoc list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   message : string prop;
 }
@@ -157,10 +153,8 @@ let yojson_of_psc_connections__error =
          else
            let arg =
              (yojson_of_list
-                (yojson_of_list (function v0, v1 ->
-                     let v0 = yojson_of_string v0
-                     and v1 = yojson_of_prop yojson_of_string v1 in
-                     `List [ v0; v1 ])))
+                (Tf_core.yojson_of_assoc
+                   (yojson_of_prop yojson_of_string)))
                v_details
            in
            let bnd = "details", arg in
@@ -276,7 +270,7 @@ let _ = yojson_of_psc_connections
 type google_network_connectivity_service_connection_policy = {
   description : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   name : string prop;
   network : string prop;
@@ -351,12 +345,8 @@ let yojson_of_google_network_connectivity_service_connection_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -414,18 +404,18 @@ type t = {
   tf_name : string;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   infrastructure : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   network : string prop;
   project : string prop;
   psc_connections : psc_connections list prop;
   service_class : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 

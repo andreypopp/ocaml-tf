@@ -14,8 +14,8 @@ val aws_datasync_location_object_storage :
   ?server_port:float prop ->
   ?server_protocol:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   agent_arns:string prop list ->
   bucket_name:string prop ->
   server_hostname:string prop ->
@@ -40,8 +40,8 @@ type t = private {
   server_port : float prop;
   server_protocol : string prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -54,8 +54,8 @@ val register :
   ?server_port:float prop ->
   ?server_protocol:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   agent_arns:string prop list ->
   bucket_name:string prop ->
   server_hostname:string prop ->
@@ -70,8 +70,8 @@ val make :
   ?server_port:float prop ->
   ?server_protocol:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   agent_arns:string prop list ->
   bucket_name:string prop ->
   server_hostname:string prop ->

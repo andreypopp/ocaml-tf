@@ -22,7 +22,7 @@ val azurerm_arc_machine_extension :
   ?id:string prop ->
   ?protected_settings:string prop ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_handler_version:string prop ->
   ?timeouts:timeouts ->
   arc_machine_id:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   protected_settings : string prop;
   publisher : string prop;
   settings : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   type_handler_version : string prop;
 }
@@ -61,7 +61,7 @@ val register :
   ?id:string prop ->
   ?protected_settings:string prop ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_handler_version:string prop ->
   ?timeouts:timeouts ->
   arc_machine_id:string prop ->
@@ -78,7 +78,7 @@ val make :
   ?id:string prop ->
   ?protected_settings:string prop ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_handler_version:string prop ->
   ?timeouts:timeouts ->
   arc_machine_id:string prop ->

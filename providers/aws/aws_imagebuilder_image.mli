@@ -84,8 +84,8 @@ val aws_imagebuilder_image :
   ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
@@ -113,8 +113,8 @@ type t = private {
   os_version : string prop;
   output_resources : output_resources list prop;
   platform : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -126,8 +126,8 @@ val register :
   ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
@@ -143,8 +143,8 @@ val make :
   ?execution_role:string prop ->
   ?id:string prop ->
   ?image_recipe_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?image_scanning_configuration:image_scanning_configuration list ->
   ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->

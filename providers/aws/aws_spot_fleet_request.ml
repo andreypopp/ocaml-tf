@@ -245,7 +245,7 @@ type launch_specification = {
   placement_tenancy : string prop option; [@option]
   spot_price : string prop option; [@option]
   subnet_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   user_data : string prop option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   weighted_capacity : string prop option; [@option]
@@ -352,12 +352,8 @@ let yojson_of_launch_specification =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1511,8 +1507,8 @@ type aws_spot_fleet_request = {
   on_demand_target_capacity : float prop option; [@option]
   replace_unhealthy_instances : bool prop option; [@option]
   spot_price : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   target_capacity : float prop;
   target_capacity_unit_type : string prop option; [@option]
   target_group_arns : string prop list option; [@option]
@@ -1676,12 +1672,8 @@ let yojson_of_aws_spot_fleet_request =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1692,12 +1684,8 @@ let yojson_of_aws_spot_fleet_request =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2075,8 +2063,8 @@ type t = {
   replace_unhealthy_instances : bool prop;
   spot_price : string prop;
   spot_request_state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_capacity : float prop;
   target_capacity_unit_type : string prop;
   target_group_arns : string list prop;

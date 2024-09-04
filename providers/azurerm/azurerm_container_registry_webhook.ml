@@ -65,7 +65,7 @@ let _ = yojson_of_timeouts
 type azurerm_container_registry_webhook = {
   actions : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  custom_headers : (string * string prop) list option; [@option]
+  custom_headers : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -74,7 +74,7 @@ type azurerm_container_registry_webhook = {
   scope : string prop option; [@option]
   service_uri : string prop;
   status : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -109,12 +109,8 @@ let yojson_of_azurerm_container_registry_webhook =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -171,12 +167,8 @@ let yojson_of_azurerm_container_registry_webhook =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_headers", arg in
@@ -225,7 +217,7 @@ let azurerm_container_registry_webhook ?custom_headers ?id ?scope
 type t = {
   tf_name : string;
   actions : string list prop;
-  custom_headers : (string * string) list prop;
+  custom_headers : string Tf_core.assoc prop;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -234,7 +226,7 @@ type t = {
   scope : string prop;
   service_uri : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?custom_headers ?id ?scope ?status ?tags ?timeouts ~actions

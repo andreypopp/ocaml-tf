@@ -52,7 +52,7 @@ val azurerm_mobile_network_packet_core_control_plane :
   ?id:string prop ->
   ?interoperability_settings_json:string prop ->
   ?software_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_equipment_mtu_in_bytes:float prop ->
   ?identity:identity list ->
   ?platform:platform list ->
@@ -86,7 +86,7 @@ type t = private {
   site_ids : string list prop;
   sku : string prop;
   software_version : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_equipment_mtu_in_bytes : float prop;
 }
 
@@ -100,7 +100,7 @@ val register :
   ?id:string prop ->
   ?interoperability_settings_json:string prop ->
   ?software_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_equipment_mtu_in_bytes:float prop ->
   ?identity:identity list ->
   ?platform:platform list ->
@@ -123,7 +123,7 @@ val make :
   ?id:string prop ->
   ?interoperability_settings_json:string prop ->
   ?software_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_equipment_mtu_in_bytes:float prop ->
   ?identity:identity list ->
   ?platform:platform list ->

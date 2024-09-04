@@ -10,8 +10,8 @@ val aws_key_pair :
   ?id:string prop ->
   ?key_name:string prop ->
   ?key_name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   public_key:string prop ->
   unit ->
   aws_key_pair
@@ -30,8 +30,8 @@ type t = private {
   key_pair_id : string prop;
   key_type : string prop;
   public_key : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -39,8 +39,8 @@ val register :
   ?id:string prop ->
   ?key_name:string prop ->
   ?key_name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   public_key:string prop ->
   string ->
   t
@@ -49,8 +49,8 @@ val make :
   ?id:string prop ->
   ?key_name:string prop ->
   ?key_name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   public_key:string prop ->
   string ->
   t Tf_core.resource

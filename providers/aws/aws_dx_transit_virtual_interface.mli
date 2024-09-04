@@ -22,8 +22,8 @@ val aws_dx_transit_virtual_interface :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
@@ -56,8 +56,8 @@ type t = private {
   mtu : float prop;
   name : string prop;
   sitelink_enabled : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vlan : float prop;
 }
 
@@ -69,8 +69,8 @@ val register :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->
@@ -88,8 +88,8 @@ val make :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   bgp_asn:float prop ->

@@ -27,7 +27,7 @@ val yojson_of_azurerm_storage_table_entity :
 
 type t = private {
   tf_name : string;
-  entity : (string * string) list prop;
+  entity : string Tf_core.assoc prop;
   id : string prop;
   partition_key : string prop;
   row_key : string prop;

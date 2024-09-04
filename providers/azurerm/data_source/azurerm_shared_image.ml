@@ -176,7 +176,7 @@ type t = {
   release_note_uri : string prop;
   resource_group_name : string prop;
   specialized : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~gallery_name ~name ~resource_group_name __id

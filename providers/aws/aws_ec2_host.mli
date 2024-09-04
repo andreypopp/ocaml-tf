@@ -23,8 +23,8 @@ val aws_ec2_host :
   ?instance_family:string prop ->
   ?instance_type:string prop ->
   ?outpost_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   unit ->
@@ -46,8 +46,8 @@ type t = private {
   instance_type : string prop;
   outpost_arn : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,8 +59,8 @@ val register :
   ?instance_family:string prop ->
   ?instance_type:string prop ->
   ?outpost_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->
@@ -74,8 +74,8 @@ val make :
   ?instance_family:string prop ->
   ?instance_type:string prop ->
   ?outpost_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->

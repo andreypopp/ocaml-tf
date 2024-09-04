@@ -65,11 +65,11 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type aws_vpc_ipam_pool = {
-  allocation_resource_tags : (string * string prop) list option;
+  allocation_resource_tags : string prop Tf_core.assoc option;
       [@option]
   id : string prop option; [@option]
   ipam_pool_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -107,12 +107,8 @@ let yojson_of_aws_vpc_ipam_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -139,12 +135,8 @@ let yojson_of_aws_vpc_ipam_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "allocation_resource_tags", arg in
@@ -177,7 +169,7 @@ type t = {
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;
   allocation_min_netmask_length : float prop;
-  allocation_resource_tags : (string * string) list prop;
+  allocation_resource_tags : string Tf_core.assoc prop;
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
@@ -191,7 +183,7 @@ type t = {
   publicly_advertisable : bool prop;
   source_ipam_pool_id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?allocation_resource_tags ?id ?ipam_pool_id ?tags ?timeouts

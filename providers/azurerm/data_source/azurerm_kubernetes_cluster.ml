@@ -104,7 +104,7 @@ type agent_pool_profile = {
   max_pods : float prop;
   min_count : float prop;
   name : string prop;
-  node_labels : (string * string prop) list;
+  node_labels : string prop Tf_core.assoc;
   node_public_ip_enabled : bool prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string prop list;
@@ -112,7 +112,7 @@ type agent_pool_profile = {
   orchestrator_version : string prop;
   os_disk_size_gb : float prop;
   os_type : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
   type_ : string prop; [@key "type"]
   upgrade_settings : agent_pool_profile__upgrade_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -190,12 +190,8 @@ let yojson_of_agent_pool_profile =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -240,12 +236,8 @@ let yojson_of_agent_pool_profile =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_node_labels
          in
          ("node_labels", arg) :: bnds
@@ -1401,7 +1393,7 @@ type t = {
   service_mesh_profile : service_mesh_profile list prop;
   service_principal : service_principal list prop;
   storage_profile : storage_profile list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   windows_profile : windows_profile list prop;
 }
 

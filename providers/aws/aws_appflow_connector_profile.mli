@@ -31,7 +31,7 @@ val connector_profile_config__connector_profile_credentials__custom_connector__b
 type connector_profile_config__connector_profile_credentials__custom_connector__custom
 
 val connector_profile_config__connector_profile_credentials__custom_connector__custom :
-  ?credentials_map:(string * string prop) list ->
+  ?credentials_map:string prop Tf_core.assoc ->
   custom_authentication_type:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__custom_connector__custom
@@ -379,7 +379,7 @@ val connector_profile_config__connector_profile_properties__amplitude :
 type connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
 
 val connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties :
-  ?token_url_custom_properties:(string * string prop) list ->
+  ?token_url_custom_properties:string prop Tf_core.assoc ->
   oauth2_grant_type:string prop ->
   token_url:string prop ->
   unit ->
@@ -388,7 +388,7 @@ val connector_profile_config__connector_profile_properties__custom_connector__oa
 type connector_profile_config__connector_profile_properties__custom_connector
 
 val connector_profile_config__connector_profile_properties__custom_connector :
-  ?profile_properties:(string * string prop) list ->
+  ?profile_properties:string prop Tf_core.assoc ->
   ?oauth2_properties:
     connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
     list ->

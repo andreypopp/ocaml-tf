@@ -26,7 +26,7 @@ type aws_batch_job_queue
 val aws_batch_job_queue :
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -48,15 +48,15 @@ type t = private {
   priority : float prop;
   scheduling_policy_arn : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -68,7 +68,7 @@ val register :
 val make :
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->

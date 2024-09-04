@@ -167,7 +167,7 @@ let rec gen_attribute_type_name' ctor path ppf =
         (gen_attribute_type_name' ctor path)
         ty
   | Map ty ->
-      Format.fprintf ppf "(string * %a) list"
+      Format.fprintf ppf "%a Tf_core.assoc"
         (gen_attribute_type_name' ctor path)
         ty
   | List ty ->
@@ -302,7 +302,7 @@ let gen_block_type_name ~kind basename
         " list", " [@default []] [@yojson_drop_default Stdlib.( = )]"
     | _, Set, _ ->
         " list", " [@default []] [@yojson_drop_default Stdlib.( = )]"
-    | _, Map, _ -> " assoc", ""
+    | _, Map, _ -> " Tf_core.assoc", ""
   in
   Printf.sprintf "%s%s" ty_name ty_mod, yojson_attrs
 

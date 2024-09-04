@@ -29,7 +29,7 @@ type sign_in__phone_number
 
 val sign_in__phone_number :
   ?enabled:bool prop ->
-  ?test_phone_numbers:(string * string prop) list ->
+  ?test_phone_numbers:string prop Tf_core.assoc ->
   unit ->
   sign_in__phone_number
 

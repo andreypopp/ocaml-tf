@@ -47,7 +47,7 @@ val mysql_profile :
 type oracle_profile
 
 val oracle_profile :
-  ?connection_attributes:(string * string prop) list ->
+  ?connection_attributes:string prop Tf_core.assoc ->
   ?port:float prop ->
   database_service:string prop ->
   hostname:string prop ->
@@ -86,7 +86,7 @@ type google_datastream_connection_profile
 val google_datastream_connection_profile :
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?bigquery_profile:bigquery_profile list ->
   ?forward_ssh_connectivity:forward_ssh_connectivity list ->
@@ -112,20 +112,20 @@ type t = private {
   connection_profile_id : string prop;
   create_without_validation : bool prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?bigquery_profile:bigquery_profile list ->
   ?forward_ssh_connectivity:forward_ssh_connectivity list ->
@@ -144,7 +144,7 @@ val register :
 val make :
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?bigquery_profile:bigquery_profile list ->
   ?forward_ssh_connectivity:forward_ssh_connectivity list ->

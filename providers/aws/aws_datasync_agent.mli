@@ -18,8 +18,8 @@ val aws_datasync_agent :
   ?private_link_endpoint:string prop ->
   ?security_group_arns:string prop list ->
   ?subnet_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_id:string prop ->
   ?timeouts:timeouts ->
   unit ->
@@ -39,8 +39,8 @@ type t = private {
   private_link_endpoint : string prop;
   security_group_arns : string list prop;
   subnet_arns : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_endpoint_id : string prop;
 }
 
@@ -53,8 +53,8 @@ val register :
   ?private_link_endpoint:string prop ->
   ?security_group_arns:string prop list ->
   ?subnet_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_id:string prop ->
   ?timeouts:timeouts ->
   string ->
@@ -68,8 +68,8 @@ val make :
   ?private_link_endpoint:string prop ->
   ?security_group_arns:string prop list ->
   ?subnet_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_id:string prop ->
   ?timeouts:timeouts ->
   string ->

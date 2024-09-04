@@ -8,7 +8,7 @@ type action
 
 val action :
   ?action_groups:string prop list ->
-  ?custom_properties:(string * string prop) list ->
+  ?custom_properties:string prop Tf_core.assoc ->
   unit ->
   action
 
@@ -73,7 +73,7 @@ val azurerm_monitor_scheduled_query_rules_alert_v2 :
   ?mute_actions_after_alert_duration:string prop ->
   ?query_time_range_override:string prop ->
   ?skip_query_validation:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->
@@ -113,7 +113,7 @@ type t = private {
   scopes : string list prop;
   severity : float prop;
   skip_query_validation : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_types : string list prop;
   window_duration : string prop;
   workspace_alerts_storage_enabled : bool prop;
@@ -130,7 +130,7 @@ val register :
   ?mute_actions_after_alert_duration:string prop ->
   ?query_time_range_override:string prop ->
   ?skip_query_validation:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->
@@ -156,7 +156,7 @@ val make :
   ?mute_actions_after_alert_duration:string prop ->
   ?query_time_range_override:string prop ->
   ?skip_query_validation:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
   ?action:action list ->

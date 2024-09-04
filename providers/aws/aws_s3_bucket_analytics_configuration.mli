@@ -8,7 +8,7 @@ type filter
 
 val filter :
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   filter
 

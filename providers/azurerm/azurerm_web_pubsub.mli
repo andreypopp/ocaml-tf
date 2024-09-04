@@ -40,7 +40,7 @@ val azurerm_web_pubsub :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?identity:identity list ->
   ?live_trace:live_trace list ->
@@ -75,7 +75,7 @@ type t = private {
   secondary_connection_string : string prop;
   server_port : float prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tls_client_cert_enabled : bool prop;
   version : string prop;
 }
@@ -87,7 +87,7 @@ val register :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?identity:identity list ->
   ?live_trace:live_trace list ->
@@ -105,7 +105,7 @@ val make :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?identity:identity list ->
   ?live_trace:live_trace list ->

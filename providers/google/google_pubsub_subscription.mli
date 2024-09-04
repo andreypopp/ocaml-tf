@@ -65,7 +65,7 @@ val push_config__oidc_token :
 type push_config
 
 val push_config :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?no_wrapper:push_config__no_wrapper list ->
   ?oidc_token:push_config__oidc_token list ->
   push_endpoint:string prop ->
@@ -97,7 +97,7 @@ val google_pubsub_subscription :
   ?enable_message_ordering:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->
@@ -121,17 +121,17 @@ val yojson_of_google_pubsub_subscription :
 type t = private {
   tf_name : string;
   ack_deadline_seconds : float prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_exactly_once_delivery : bool prop;
   enable_message_ordering : bool prop;
   filter : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   name : string prop;
   project : string prop;
   retain_acked_messages : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   topic : string prop;
 }
 
@@ -142,7 +142,7 @@ val register :
   ?enable_message_ordering:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->
@@ -164,7 +164,7 @@ val make :
   ?enable_message_ordering:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->

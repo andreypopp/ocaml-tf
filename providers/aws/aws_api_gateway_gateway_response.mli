@@ -8,8 +8,8 @@ type aws_api_gateway_gateway_response
 
 val aws_api_gateway_gateway_response :
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?status_code:string prop ->
   response_type:string prop ->
   rest_api_id:string prop ->
@@ -24,8 +24,8 @@ val yojson_of_aws_api_gateway_gateway_response :
 type t = private {
   tf_name : string;
   id : string prop;
-  response_parameters : (string * string) list prop;
-  response_templates : (string * string) list prop;
+  response_parameters : string Tf_core.assoc prop;
+  response_templates : string Tf_core.assoc prop;
   response_type : string prop;
   rest_api_id : string prop;
   status_code : string prop;
@@ -34,8 +34,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?status_code:string prop ->
   response_type:string prop ->
   rest_api_id:string prop ->
@@ -44,8 +44,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?status_code:string prop ->
   response_type:string prop ->
   rest_api_id:string prop ->

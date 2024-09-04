@@ -122,7 +122,7 @@ type t = {
   domain_name : string prop;
   enabled : bool prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   target_dns_servers : target_dns_servers list prop;
 }

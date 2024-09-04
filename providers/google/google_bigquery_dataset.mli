@@ -88,7 +88,7 @@ val google_bigquery_dataset :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?is_case_insensitive:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->
@@ -116,19 +116,19 @@ type t = private {
   default_table_expiration_ms : float prop;
   delete_contents_on_destroy : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   friendly_name : string prop;
   id : string prop;
   is_case_insensitive : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modified_time : float prop;
   location : string prop;
   max_time_travel_hours : string prop;
   project : string prop;
   self_link : string prop;
   storage_billing_model : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -141,7 +141,7 @@ val register :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?is_case_insensitive:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->
@@ -164,7 +164,7 @@ val make :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?is_case_insensitive:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->

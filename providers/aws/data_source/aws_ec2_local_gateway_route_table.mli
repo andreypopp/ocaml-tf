@@ -21,7 +21,7 @@ val aws_ec2_local_gateway_route_table :
   ?local_gateway_route_table_id:string prop ->
   ?outpost_arn:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -39,7 +39,7 @@ type t = private {
   local_gateway_route_table_id : string prop;
   outpost_arn : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -49,7 +49,7 @@ val register :
   ?local_gateway_route_table_id:string prop ->
   ?outpost_arn:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -61,7 +61,7 @@ val make :
   ?local_gateway_route_table_id:string prop ->
   ?outpost_arn:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

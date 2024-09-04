@@ -17,7 +17,7 @@ val timeouts :
 type azurerm_batch_job
 
 val azurerm_batch_job :
-  ?common_environment_properties:(string * string prop) list ->
+  ?common_environment_properties:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?priority:float prop ->
@@ -35,7 +35,7 @@ val yojson_of_azurerm_batch_job : azurerm_batch_job -> json
 type t = private {
   tf_name : string;
   batch_pool_id : string prop;
-  common_environment_properties : (string * string) list prop;
+  common_environment_properties : string Tf_core.assoc prop;
   display_name : string prop;
   id : string prop;
   name : string prop;
@@ -45,7 +45,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?common_environment_properties:(string * string prop) list ->
+  ?common_environment_properties:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?priority:float prop ->
@@ -57,7 +57,7 @@ val register :
   t
 
 val make :
-  ?common_environment_properties:(string * string prop) list ->
+  ?common_environment_properties:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?id:string prop ->
   ?priority:float prop ->

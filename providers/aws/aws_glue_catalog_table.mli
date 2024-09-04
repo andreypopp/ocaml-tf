@@ -40,7 +40,7 @@ type storage_descriptor__columns
 
 val storage_descriptor__columns :
   ?comment:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?type_:string prop ->
   name:string prop ->
   unit ->
@@ -68,7 +68,7 @@ type storage_descriptor__ser_de_info
 
 val storage_descriptor__ser_de_info :
   ?name:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?serialization_library:string prop ->
   unit ->
   storage_descriptor__ser_de_info
@@ -77,7 +77,7 @@ type storage_descriptor__skewed_info
 
 val storage_descriptor__skewed_info :
   ?skewed_column_names:string prop list ->
-  ?skewed_column_value_location_maps:(string * string prop) list ->
+  ?skewed_column_value_location_maps:string prop Tf_core.assoc ->
   ?skewed_column_values:string prop list ->
   unit ->
   storage_descriptor__skewed_info
@@ -100,7 +100,7 @@ val storage_descriptor :
   ?location:string prop ->
   ?number_of_buckets:float prop ->
   ?output_format:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?stored_as_sub_directories:bool prop ->
   ?columns:storage_descriptor__columns list ->
   ?schema_reference:storage_descriptor__schema_reference list ->
@@ -127,7 +127,7 @@ val aws_glue_catalog_table :
   ?description:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?retention:float prop ->
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->
@@ -155,7 +155,7 @@ type t = private {
   id : string prop;
   name : string prop;
   owner : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   retention : float prop;
   table_type : string prop;
   view_expanded_text : string prop;
@@ -168,7 +168,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?retention:float prop ->
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->
@@ -188,7 +188,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?retention:float prop ->
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->

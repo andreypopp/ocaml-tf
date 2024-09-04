@@ -17,8 +17,8 @@ type aws_sagemaker_code_repository
 
 val aws_sagemaker_code_repository :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   code_repository_name:string prop ->
   git_config:git_config list ->
   unit ->
@@ -34,15 +34,15 @@ type t = private {
   arn : string prop;
   code_repository_name : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   code_repository_name:string prop ->
   git_config:git_config list ->
   string ->
@@ -50,8 +50,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   code_repository_name:string prop ->
   git_config:git_config list ->
   string ->

@@ -107,7 +107,7 @@ type t = {
   resource_group_name : string prop;
   retry_time : float prop;
   serial_number : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ttl : float prop;
   zone_name : string prop;
 }

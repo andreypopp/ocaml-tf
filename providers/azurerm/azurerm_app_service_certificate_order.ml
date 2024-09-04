@@ -122,7 +122,7 @@ type azurerm_app_service_certificate_order = {
   name : string prop;
   product_type : string prop option; [@option]
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   validity_in_years : float prop option; [@option]
   timeouts : timeouts option;
 }
@@ -166,12 +166,8 @@ let yojson_of_azurerm_app_service_certificate_order =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -289,7 +285,7 @@ type t = {
   root_thumbprint : string prop;
   signed_certificate_thumbprint : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   validity_in_years : float prop;
 }
 

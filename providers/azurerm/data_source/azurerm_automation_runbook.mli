@@ -37,7 +37,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   runbook_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

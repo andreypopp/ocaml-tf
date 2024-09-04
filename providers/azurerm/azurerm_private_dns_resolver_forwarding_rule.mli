@@ -27,7 +27,7 @@ type azurerm_private_dns_resolver_forwarding_rule
 val azurerm_private_dns_resolver_forwarding_rule :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dns_forwarding_ruleset_id:string prop ->
   domain_name:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   domain_name : string prop;
   enabled : bool prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
 }
 
@@ -55,7 +55,7 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dns_forwarding_ruleset_id:string prop ->
   domain_name:string prop ->
@@ -67,7 +67,7 @@ val register :
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dns_forwarding_ruleset_id:string prop ->
   domain_name:string prop ->

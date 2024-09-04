@@ -4,7 +4,7 @@ open! Tf_core
 
 type action = {
   action_group_id : string prop;
-  webhook_properties : (string * string prop) list option; [@option]
+  webhook_properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -24,12 +24,8 @@ let yojson_of_action =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "webhook_properties", arg in
@@ -430,7 +426,7 @@ type azurerm_monitor_metric_alert = {
   scopes : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   severity : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   target_resource_location : string prop option; [@option]
   target_resource_type : string prop option; [@option]
   window_size : string prop option; [@option]
@@ -551,12 +547,8 @@ let yojson_of_azurerm_monitor_metric_alert =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -727,7 +719,7 @@ type t = {
   resource_group_name : string prop;
   scopes : string list prop;
   severity : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_location : string prop;
   target_resource_type : string prop;
   window_size : string prop;

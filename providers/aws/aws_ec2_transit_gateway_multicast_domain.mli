@@ -16,8 +16,8 @@ val aws_ec2_transit_gateway_multicast_domain :
   ?id:string prop ->
   ?igmpv2_support:string prop ->
   ?static_sources_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   transit_gateway_id:string prop ->
   unit ->
@@ -36,8 +36,8 @@ type t = private {
   igmpv2_support : string prop;
   owner_id : string prop;
   static_sources_support : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_id : string prop;
 }
 
@@ -47,8 +47,8 @@ val register :
   ?id:string prop ->
   ?igmpv2_support:string prop ->
   ?static_sources_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   transit_gateway_id:string prop ->
   string ->
@@ -59,8 +59,8 @@ val make :
   ?id:string prop ->
   ?igmpv2_support:string prop ->
   ?static_sources_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   transit_gateway_id:string prop ->
   string ->

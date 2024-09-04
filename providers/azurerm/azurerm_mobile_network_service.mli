@@ -88,7 +88,7 @@ type azurerm_mobile_network_service
 
 val azurerm_mobile_network_service :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -111,13 +111,13 @@ type t = private {
   mobile_network_id : string prop;
   name : string prop;
   service_precedence : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -130,7 +130,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->

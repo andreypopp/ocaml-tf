@@ -34,7 +34,7 @@ val aws_alb_target_group :
   ?id:string prop ->
   ?load_balancing_anomaly_mitigation:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   unit ->
   aws_alb_target_group
@@ -64,7 +64,7 @@ type t = private {
   proxy_protocol_v2 : bool prop;
   slow_start : float prop;
   stickiness : stickiness list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_type : string prop;
   vpc_id : string prop;
 }
@@ -75,7 +75,7 @@ val register :
   ?id:string prop ->
   ?load_balancing_anomaly_mitigation:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -85,7 +85,7 @@ val make :
   ?id:string prop ->
   ?load_balancing_anomaly_mitigation:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

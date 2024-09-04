@@ -23,8 +23,8 @@ type aws_quicksight_folder = {
   id: string  prop option; [@option]
   name: string  prop option; [@option]
   parent_folder_arn: string  prop option; [@option]
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
   permissions: permissions list; [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
@@ -70,8 +70,8 @@ type t = {
   last_updated_time: string prop;
   name: string prop;
   parent_folder_arn: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 let make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?(permissions=[]) ?timeouts ~folder_id __id =

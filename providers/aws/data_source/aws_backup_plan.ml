@@ -139,7 +139,7 @@ type rule = {
   enable_continuous_backup : bool prop;
   lifecycle : rule__lifecycle list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  recovery_point_tags : (string * string prop) list;
+  recovery_point_tags : string prop Tf_core.assoc;
   rule_name : string prop;
   schedule : string prop;
   start_window : float prop;
@@ -185,12 +185,8 @@ let yojson_of_rule =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_recovery_point_tags
          in
          ("recovery_point_tags", arg) :: bnds
@@ -236,7 +232,7 @@ let _ = yojson_of_rule
 type aws_backup_plan = {
   id : string prop option; [@option]
   plan_id : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,12 +249,8 @@ let yojson_of_aws_backup_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -293,7 +285,7 @@ type t = {
   name : string prop;
   plan_id : string prop;
   rule : rule list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 

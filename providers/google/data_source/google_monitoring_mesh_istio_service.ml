@@ -101,7 +101,7 @@ type t = {
   service_name : string prop;
   service_namespace : string prop;
   telemetry : telemetry list prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ~mesh_uid ~service_name ~service_namespace __id

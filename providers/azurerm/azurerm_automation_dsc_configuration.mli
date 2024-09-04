@@ -20,7 +20,7 @@ val azurerm_automation_dsc_configuration :
   ?description:string prop ->
   ?id:string prop ->
   ?log_verbose:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_embedded:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -54,7 +54,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?log_verbose:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_embedded:string prop ->
@@ -68,7 +68,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?log_verbose:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_embedded:string prop ->

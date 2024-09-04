@@ -8,7 +8,7 @@ type google_service_account_key
 
 val google_service_account_key :
   ?id:string prop ->
-  ?keepers:(string * string prop) list ->
+  ?keepers:string prop Tf_core.assoc ->
   ?key_algorithm:string prop ->
   ?private_key_type:string prop ->
   ?public_key_data:string prop ->
@@ -25,7 +25,7 @@ val yojson_of_google_service_account_key :
 type t = private {
   tf_name : string;
   id : string prop;
-  keepers : (string * string) list prop;
+  keepers : string Tf_core.assoc prop;
   key_algorithm : string prop;
   name : string prop;
   private_key : string prop;
@@ -41,7 +41,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?keepers:(string * string prop) list ->
+  ?keepers:string prop Tf_core.assoc ->
   ?key_algorithm:string prop ->
   ?private_key_type:string prop ->
   ?public_key_data:string prop ->
@@ -52,7 +52,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?keepers:(string * string prop) list ->
+  ?keepers:string prop Tf_core.assoc ->
   ?key_algorithm:string prop ->
   ?private_key_type:string prop ->
   ?public_key_data:string prop ->

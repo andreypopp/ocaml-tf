@@ -66,7 +66,7 @@ type load_balancers = {
   id : float prop;  (** id *)
   ipv4 : string prop;  (** ipv4 *)
   ipv6 : string prop;  (** ipv6 *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   load_balancer_type : string prop;  (** load_balancer_type *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)

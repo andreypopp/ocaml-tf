@@ -287,8 +287,8 @@ val aws_cloudfront_distribution :
   ?price_class:string prop ->
   ?retain_on_delete:bool prop ->
   ?staging:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
   ?logging_config:logging_config list ->
@@ -329,8 +329,8 @@ type t = private {
   retain_on_delete : bool prop;
   staging : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   trusted_key_groups : trusted_key_groups list prop;
   trusted_signers : trusted_signers list prop;
   wait_for_deployment : bool prop;
@@ -349,8 +349,8 @@ val register :
   ?price_class:string prop ->
   ?retain_on_delete:bool prop ->
   ?staging:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
   ?logging_config:logging_config list ->
@@ -376,8 +376,8 @@ val make :
   ?price_class:string prop ->
   ?retain_on_delete:bool prop ->
   ?staging:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
   ?logging_config:logging_config list ->

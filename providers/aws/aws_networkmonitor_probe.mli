@@ -9,7 +9,7 @@ type aws_networkmonitor_probe
 val aws_networkmonitor_probe :
   ?destination_port:float prop ->
   ?packet_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   destination:string prop ->
   monitor_name:string prop ->
   protocol:string prop ->
@@ -34,8 +34,8 @@ type t = private {
   probe_id : string prop;
   protocol : string prop;
   source_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -43,7 +43,7 @@ val register :
   ?tf_module:tf_module ->
   ?destination_port:float prop ->
   ?packet_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   destination:string prop ->
   monitor_name:string prop ->
   protocol:string prop ->
@@ -54,7 +54,7 @@ val register :
 val make :
   ?destination_port:float prop ->
   ?packet_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   destination:string prop ->
   monitor_name:string prop ->
   protocol:string prop ->

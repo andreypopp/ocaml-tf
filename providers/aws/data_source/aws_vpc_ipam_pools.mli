@@ -12,7 +12,7 @@ type ipam_pools = {
       (** allocation_max_netmask_length *)
   allocation_min_netmask_length : float prop;
       (** allocation_min_netmask_length *)
-  allocation_resource_tags : (string * string prop) list;
+  allocation_resource_tags : string prop Tf_core.assoc;
       (** allocation_resource_tags *)
   arn : string prop;  (** arn *)
   auto_import : bool prop;  (** auto_import *)
@@ -26,7 +26,7 @@ type ipam_pools = {
   publicly_advertisable : bool prop;  (** publicly_advertisable *)
   source_ipam_pool_id : string prop;  (** source_ipam_pool_id *)
   state : string prop;  (** state *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
 }
 
 type filter

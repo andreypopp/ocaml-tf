@@ -37,8 +37,8 @@ type status = {
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?namespace:string prop ->
   unit ->
   metadata
@@ -46,8 +46,8 @@ val metadata :
 type template__metadata
 
 val template__metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -173,8 +173,8 @@ val template__spec__containers__ports :
 type template__spec__containers__resources
 
 val template__spec__containers__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   template__spec__containers__resources
 

@@ -96,7 +96,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   retention_in_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 

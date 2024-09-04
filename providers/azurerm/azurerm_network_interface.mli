@@ -41,7 +41,7 @@ val azurerm_network_interface :
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
   ?ip_forwarding_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -75,7 +75,7 @@ type t = private {
   private_ip_address : string prop;
   private_ip_addresses : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_id : string prop;
 }
 
@@ -91,7 +91,7 @@ val register :
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
   ?ip_forwarding_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -111,7 +111,7 @@ val make :
   ?id:string prop ->
   ?internal_dns_name_label:string prop ->
   ?ip_forwarding_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

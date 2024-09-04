@@ -55,7 +55,7 @@ let _ = yojson_of_app_engine_http_target__app_engine_routing
 
 type app_engine_http_target = {
   body : string prop option; [@option]
-  headers : (string * string prop) list option; [@option]
+  headers : string prop Tf_core.assoc option; [@option]
   http_method : string prop option; [@option]
   relative_uri : string prop;
   app_engine_routing :
@@ -106,12 +106,8 @@ let yojson_of_app_engine_http_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "headers", arg in
@@ -210,7 +206,7 @@ let _ = yojson_of_http_target__oidc_token
 
 type http_target = {
   body : string prop option; [@option]
-  headers : (string * string prop) list option; [@option]
+  headers : string prop Tf_core.assoc option; [@option]
   http_method : string prop option; [@option]
   uri : string prop;
   oauth_token : http_target__oauth_token list;
@@ -272,12 +268,8 @@ let yojson_of_http_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "headers", arg in
@@ -299,7 +291,7 @@ let _ = yojson_of_http_target
 [@@@deriving.end]
 
 type pubsub_target = {
-  attributes : (string * string prop) list option; [@option]
+  attributes : string prop Tf_core.assoc option; [@option]
   data : string prop option; [@option]
   topic_name : string prop;
 }
@@ -334,12 +326,8 @@ let yojson_of_pubsub_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attributes", arg in

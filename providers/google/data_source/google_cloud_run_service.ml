@@ -3,15 +3,15 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list;
-  effective_annotations : (string * string prop) list;
-  effective_labels : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
+  effective_annotations : string prop Tf_core.assoc;
+  effective_labels : string prop Tf_core.assoc;
   generation : float prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   namespace : string prop;
   resource_version : string prop;
   self_link : string prop;
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
   uid : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -41,12 +41,8 @@ let yojson_of_metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_terraform_labels
          in
          ("terraform_labels", arg) :: bnds
@@ -67,12 +63,8 @@ let yojson_of_metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -83,36 +75,24 @@ let yojson_of_metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_effective_labels
          in
          ("effective_labels", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_effective_annotations
          in
          ("effective_annotations", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds
@@ -681,8 +661,8 @@ let _ = yojson_of_template__spec__containers__startup_probe
 [@@@deriving.end]
 
 type template__spec__containers__resources = {
-  limits : (string * string prop) list;
-  requests : (string * string prop) list;
+  limits : string prop Tf_core.assoc;
+  requests : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -696,24 +676,16 @@ let yojson_of_template__spec__containers__resources =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_requests
          in
          ("requests", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_limits
          in
          ("limits", arg) :: bnds
@@ -1515,9 +1487,9 @@ let _ = yojson_of_template__spec
 [@@@deriving.end]
 
 type template__metadata = {
-  annotations : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
   generation : float prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   name : string prop;
   namespace : string prop;
   resource_version : string prop;
@@ -1567,12 +1539,8 @@ let yojson_of_template__metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -1583,12 +1551,8 @@ let yojson_of_template__metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds

@@ -12,7 +12,7 @@ type aws_servicecatalog_product
 
 val aws_servicecatalog_product :
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   unit ->
@@ -38,14 +38,14 @@ type t = private {
   support_description : string prop;
   support_email : string prop;
   support_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   string ->
@@ -53,7 +53,7 @@ val register :
 
 val make :
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   string ->

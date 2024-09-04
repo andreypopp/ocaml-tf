@@ -49,7 +49,7 @@ val preserved_state__internal_ip :
 type preserved_state
 
 val preserved_state :
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   disk:preserved_state__disk list ->
   external_ip:preserved_state__external_ip list ->
   internal_ip:preserved_state__internal_ip list ->

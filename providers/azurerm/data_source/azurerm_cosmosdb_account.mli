@@ -74,7 +74,7 @@ type t = private {
   secondary_readonly_mongodb_connection_string : string prop;
   secondary_readonly_sql_connection_string : string prop;
   secondary_sql_connection_string : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_rule : virtual_network_rule list prop;
   write_endpoints : string list prop;
 }

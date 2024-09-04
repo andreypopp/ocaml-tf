@@ -40,8 +40,8 @@ val aws_networkmanager_core_network :
   ?create_base_policy:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
   unit ->
@@ -66,8 +66,8 @@ type t = private {
   id : string prop;
   segments : segments list prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -78,8 +78,8 @@ val register :
   ?create_base_policy:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
   string ->
@@ -92,8 +92,8 @@ val make :
   ?create_base_policy:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
   string ->

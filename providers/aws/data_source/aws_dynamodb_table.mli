@@ -50,7 +50,7 @@ type aws_dynamodb_table
 
 val aws_dynamodb_table :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
   unit ->
@@ -80,7 +80,7 @@ type t = private {
   stream_label : string prop;
   stream_view_type : string prop;
   table_class : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ttl : ttl list prop;
   write_capacity : float prop;
 }
@@ -88,7 +88,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
   string ->
@@ -96,7 +96,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
   string ->

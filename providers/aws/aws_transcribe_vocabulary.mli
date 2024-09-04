@@ -18,8 +18,8 @@ type aws_transcribe_vocabulary
 val aws_transcribe_vocabulary :
   ?id:string prop ->
   ?phrases:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_file_uri:string prop ->
   ?timeouts:timeouts ->
   language_code:string prop ->
@@ -39,8 +39,8 @@ type t = private {
   id : string prop;
   language_code : string prop;
   phrases : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vocabulary_file_uri : string prop;
   vocabulary_name : string prop;
 }
@@ -49,8 +49,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?phrases:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_file_uri:string prop ->
   ?timeouts:timeouts ->
   language_code:string prop ->
@@ -61,8 +61,8 @@ val register :
 val make :
   ?id:string prop ->
   ?phrases:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_file_uri:string prop ->
   ?timeouts:timeouts ->
   language_code:string prop ->

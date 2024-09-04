@@ -104,8 +104,7 @@ type azurerm_spring_cloud_build_deployment = {
   application_performance_monitoring_ids : string prop list option;
       [@option]
   build_result_id : string prop;
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   instance_count : float prop option; [@option]
   name : string prop;
@@ -178,12 +177,8 @@ let yojson_of_azurerm_spring_cloud_build_deployment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -251,7 +246,7 @@ type t = {
   addon_json : string prop;
   application_performance_monitoring_ids : string list prop;
   build_result_id : string prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   id : string prop;
   instance_count : float prop;
   name : string prop;

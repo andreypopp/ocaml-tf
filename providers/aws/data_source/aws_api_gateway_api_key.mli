@@ -7,7 +7,7 @@ open! Tf_core
 type aws_api_gateway_api_key
 
 val aws_api_gateway_api_key :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   unit ->
   aws_api_gateway_api_key
@@ -26,19 +26,19 @@ type t = private {
   id : string prop;
   last_updated_date : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   value : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t Tf_core.resource

@@ -190,18 +190,18 @@ let google_pubsub_topic ?id ?project ~name () : google_pubsub_topic =
 
 type t = {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ingestion_data_source_settings :
     ingestion_data_source_settings list prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   message_storage_policy : message_storage_policy list prop;
   name : string prop;
   project : string prop;
   schema_settings : schema_settings list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ~name __id =

@@ -80,7 +80,7 @@ type t = {
   project : string prop;
   service_id : string prop;
   telemetry : telemetry list prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ~module_id __id =

@@ -16,7 +16,7 @@ type canary_settings
 
 val canary_settings :
   ?percent_traffic:float prop ->
-  ?stage_variable_overrides:(string * string prop) list ->
+  ?stage_variable_overrides:string prop Tf_core.assoc ->
   ?use_stage_cache:bool prop ->
   unit ->
   canary_settings
@@ -30,9 +30,9 @@ val aws_api_gateway_stage :
   ?description:string prop ->
   ?documentation_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?xray_tracing_enabled:bool prop ->
   ?access_log_settings:access_log_settings list ->
   ?canary_settings:canary_settings list ->
@@ -60,9 +60,9 @@ type t = private {
   invoke_url : string prop;
   rest_api_id : string prop;
   stage_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
-  variables : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
+  variables : string Tf_core.assoc prop;
   web_acl_arn : string prop;
   xray_tracing_enabled : bool prop;
 }
@@ -75,9 +75,9 @@ val register :
   ?description:string prop ->
   ?documentation_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?xray_tracing_enabled:bool prop ->
   ?access_log_settings:access_log_settings list ->
   ?canary_settings:canary_settings list ->
@@ -94,9 +94,9 @@ val make :
   ?description:string prop ->
   ?documentation_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?xray_tracing_enabled:bool prop ->
   ?access_log_settings:access_log_settings list ->
   ?canary_settings:canary_settings list ->

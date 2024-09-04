@@ -40,7 +40,7 @@ val document_metadata_configuration_updates__relevance :
   ?freshness:bool prop ->
   ?importance:float prop ->
   ?rank_order:string prop ->
-  ?values_importance_map:(string * float prop) list ->
+  ?values_importance_map:float prop Tf_core.assoc ->
   unit ->
   document_metadata_configuration_updates__relevance
 
@@ -124,8 +124,8 @@ val aws_kendra_index :
   ?description:string prop ->
   ?edition:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_context_policy:string prop ->
   ?capacity_units:capacity_units list ->
   ?server_side_encryption_configuration:
@@ -157,8 +157,8 @@ type t = private {
   name : string prop;
   role_arn : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   updated_at : string prop;
   user_context_policy : string prop;
 }
@@ -168,8 +168,8 @@ val register :
   ?description:string prop ->
   ?edition:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_context_policy:string prop ->
   ?capacity_units:capacity_units list ->
   ?server_side_encryption_configuration:
@@ -189,8 +189,8 @@ val make :
   ?description:string prop ->
   ?edition:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_context_policy:string prop ->
   ?capacity_units:capacity_units list ->
   ?server_side_encryption_configuration:

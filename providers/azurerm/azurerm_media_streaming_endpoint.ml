@@ -301,7 +301,7 @@ type azurerm_media_streaming_endpoint = {
   name : string prop;
   resource_group_name : string prop;
   scale_units : float prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   access_control : access_control list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cross_site_access_policy : cross_site_access_policy list;
@@ -365,12 +365,8 @@ let yojson_of_azurerm_media_streaming_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -538,7 +534,7 @@ type t = {
   resource_group_name : string prop;
   scale_units : float prop;
   sku : sku list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider

@@ -8,7 +8,7 @@ type aws_ecs_service
 
 val aws_ecs_service :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_arn:string prop ->
   service_name:string prop ->
   unit ->
@@ -27,14 +27,14 @@ type t = private {
   launch_type : string prop;
   scheduling_strategy : string prop;
   service_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   task_definition : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_arn:string prop ->
   service_name:string prop ->
   string ->
@@ -42,7 +42,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_arn:string prop ->
   service_name:string prop ->
   string ->

@@ -340,7 +340,7 @@ let _ = yojson_of_auth_settings__twitter
 [@@@deriving.end]
 
 type auth_settings = {
-  additional_login_parameters : (string * string prop) list option;
+  additional_login_parameters : string prop Tf_core.assoc option;
       [@option]
   allowed_external_redirect_urls : string prop list option; [@option]
   default_provider : string prop option; [@option]
@@ -520,12 +520,8 @@ let yojson_of_auth_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_login_parameters", arg in
@@ -550,7 +546,7 @@ type auth_settings_v2__active_directory_v2 = {
   jwt_allowed_client_applications : string prop list option;
       [@option]
   jwt_allowed_groups : string prop list option; [@option]
-  login_parameters : (string * string prop) list option; [@option]
+  login_parameters : string prop Tf_core.assoc option; [@option]
   tenant_auth_endpoint : string prop;
   www_authentication_disabled : bool prop option; [@option]
 }
@@ -598,12 +594,8 @@ let yojson_of_auth_settings_v2__active_directory_v2 =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "login_parameters", arg in
@@ -2778,7 +2770,7 @@ let _ = yojson_of_site_credential
 [@@@deriving.end]
 
 type azurerm_windows_function_app = {
-  app_settings : (string * string prop) list option; [@option]
+  app_settings : string prop Tf_core.assoc option; [@option]
   builtin_logging_enabled : bool prop option; [@option]
   client_certificate_enabled : bool prop option; [@option]
   client_certificate_exclusion_paths : string prop option; [@option]
@@ -2801,7 +2793,7 @@ type azurerm_windows_function_app = {
   storage_account_name : string prop option; [@option]
   storage_key_vault_secret_id : string prop option; [@option]
   storage_uses_managed_identity : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   virtual_network_subnet_id : string prop option; [@option]
   webdeploy_publish_basic_authentication_enabled : bool prop option;
       [@option]
@@ -2985,12 +2977,8 @@ let yojson_of_azurerm_windows_function_app =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -3159,12 +3147,8 @@ let yojson_of_azurerm_windows_function_app =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "app_settings", arg in
@@ -3572,7 +3556,7 @@ let azurerm_windows_function_app ?app_settings
 
 type t = {
   tf_name : string;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   builtin_logging_enabled : bool prop;
   client_certificate_enabled : bool prop;
   client_certificate_exclusion_paths : string prop;
@@ -3603,7 +3587,7 @@ type t = {
   storage_account_name : string prop;
   storage_key_vault_secret_id : string prop;
   storage_uses_managed_identity : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_subnet_id : string prop;
   webdeploy_publish_basic_authentication_enabled : bool prop;
   zip_deploy_file : string prop;

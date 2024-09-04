@@ -32,8 +32,8 @@ val aws_db_proxy :
   ?id:string prop ->
   ?idle_client_timeout:float prop ->
   ?require_tls:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   engine_family:string prop ->
@@ -59,8 +59,8 @@ type t = private {
   name : string prop;
   require_tls : bool prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
   vpc_subnet_ids : string list prop;
 }
@@ -71,8 +71,8 @@ val register :
   ?id:string prop ->
   ?idle_client_timeout:float prop ->
   ?require_tls:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   engine_family:string prop ->
@@ -88,8 +88,8 @@ val make :
   ?id:string prop ->
   ?idle_client_timeout:float prop ->
   ?require_tls:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   engine_family:string prop ->

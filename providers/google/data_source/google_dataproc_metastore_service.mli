@@ -19,7 +19,7 @@ type hive_metastore_config__kerberos_config = {
 }
 
 type hive_metastore_config__auxiliary_versions = {
-  config_overrides : (string * string prop) list;
+  config_overrides : string prop Tf_core.assoc;
       (** config_overrides *)
   key : string prop;  (** key *)
   version : string prop;  (** version *)
@@ -30,7 +30,7 @@ type hive_metastore_config = {
     hive_metastore_config__auxiliary_versions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** auxiliary_versions *)
-  config_overrides : (string * string prop) list;
+  config_overrides : string prop Tf_core.assoc;
       (** config_overrides *)
   endpoint_protocol : string prop;  (** endpoint_protocol *)
   kerberos_config : hive_metastore_config__kerberos_config list;
@@ -101,12 +101,12 @@ type t = private {
   tf_name : string;
   artifact_gcs_uri : string prop;
   database_type : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_config : encryption_config list prop;
   endpoint_uri : string prop;
   hive_metastore_config : hive_metastore_config list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   maintenance_window : maintenance_window list prop;
   metadata_integration : metadata_integration list prop;
@@ -122,7 +122,7 @@ type t = private {
   state : string prop;
   state_message : string prop;
   telemetry_config : telemetry_config list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   uid : string prop;
 }

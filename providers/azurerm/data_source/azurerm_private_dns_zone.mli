@@ -13,7 +13,7 @@ type azurerm_private_dns_zone
 val azurerm_private_dns_zone :
   ?id:string prop ->
   ?resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   unit ->
@@ -33,14 +33,14 @@ type t = private {
   name : string prop;
   number_of_record_sets : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->
@@ -49,7 +49,7 @@ val register :
 val make :
   ?id:string prop ->
   ?resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->

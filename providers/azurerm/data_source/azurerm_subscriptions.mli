@@ -12,7 +12,7 @@ type subscriptions = {
   spending_limit : string prop;  (** spending_limit *)
   state : string prop;  (** state *)
   subscription_id : string prop;  (** subscription_id *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   tenant_id : string prop;  (** tenant_id *)
 }
 

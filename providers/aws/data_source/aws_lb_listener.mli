@@ -39,7 +39,7 @@ type default_action__fixed_response = {
 }
 
 type default_action__authenticate_oidc = {
-  authentication_request_extra_params : (string * string prop) list;
+  authentication_request_extra_params : string prop Tf_core.assoc;
       (** authentication_request_extra_params *)
   authorization_endpoint : string prop;
       (** authorization_endpoint *)
@@ -56,7 +56,7 @@ type default_action__authenticate_oidc = {
 }
 
 type default_action__authenticate_cognito = {
-  authentication_request_extra_params : (string * string prop) list;
+  authentication_request_extra_params : string prop Tf_core.assoc;
       (** authentication_request_extra_params *)
   on_unauthenticated_request : string prop;
       (** on_unauthenticated_request *)
@@ -107,7 +107,7 @@ val aws_lb_listener :
   ?id:string prop ->
   ?load_balancer_arn:string prop ->
   ?port:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   unit ->
   aws_lb_listener
@@ -128,7 +128,7 @@ type t = private {
   port : float prop;
   protocol : string prop;
   ssl_policy : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -137,7 +137,7 @@ val register :
   ?id:string prop ->
   ?load_balancer_arn:string prop ->
   ?port:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -147,7 +147,7 @@ val make :
   ?id:string prop ->
   ?load_balancer_arn:string prop ->
   ?port:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

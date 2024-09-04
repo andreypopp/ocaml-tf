@@ -15,7 +15,7 @@ type summaries = {
       (** constraint_summaries *)
   name : string prop;  (** name *)
   path_id : string prop;  (** path_id *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
 }
 
 type timeouts

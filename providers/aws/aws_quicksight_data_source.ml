@@ -191,8 +191,8 @@ type aws_quicksight_data_source = {
   data_source_id: string prop; 
   id: string  prop option; [@option]
   name: string prop; 
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
   type_: string prop; [@key "type"]
   credentials: credentials list; [@default []] [@yojson_drop_default Stdlib.( = )]
   parameters: parameters list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -409,8 +409,8 @@ type t = {
   data_source_id: string prop;
   id: string prop;
   name: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
   type_: string prop;
 }
 

@@ -27,7 +27,7 @@ type azurerm_dns_caa_record
 
 val azurerm_dns_caa_record :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ttl : float prop;
   zone_name : string prop;
 }
@@ -55,7 +55,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -67,7 +67,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

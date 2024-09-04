@@ -12,7 +12,7 @@ type aws_quicksight_namespace = {
   aws_account_id: string  prop option; [@option]
   identity_store: string  prop option; [@option]
   namespace: string prop; 
-  tags: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -41,8 +41,8 @@ type t = {
   id: string prop;
   identity_store: string prop;
   namespace: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 let make ?aws_account_id ?identity_store ?tags ?timeouts ~namespace __id =

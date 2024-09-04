@@ -44,7 +44,7 @@ type aws_ec2_client_vpn_endpoint
 val aws_ec2_client_vpn_endpoint :
   ?client_vpn_endpoint_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -75,7 +75,7 @@ type t = private {
   server_certificate_arn : string prop;
   session_timeout_hours : float prop;
   split_tunnel : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transport_protocol : string prop;
   vpc_id : string prop;
   vpn_port : float prop;
@@ -85,7 +85,7 @@ val register :
   ?tf_module:tf_module ->
   ?client_vpn_endpoint_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -94,7 +94,7 @@ val register :
 val make :
   ?client_vpn_endpoint_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

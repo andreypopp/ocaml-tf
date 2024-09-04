@@ -39,7 +39,7 @@ val azurerm_virtual_network :
   ?flow_timeout_in_minutes:float prop ->
   ?id:string prop ->
   ?subnet:subnet list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ddos_protection_plan:ddos_protection_plan list ->
   ?encryption:encryption list ->
   ?timeouts:timeouts ->
@@ -68,7 +68,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   subnet : subnet list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -79,7 +79,7 @@ val register :
   ?flow_timeout_in_minutes:float prop ->
   ?id:string prop ->
   ?subnet:subnet list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ddos_protection_plan:ddos_protection_plan list ->
   ?encryption:encryption list ->
   ?timeouts:timeouts ->
@@ -97,7 +97,7 @@ val make :
   ?flow_timeout_in_minutes:float prop ->
   ?id:string prop ->
   ?subnet:subnet list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ddos_protection_plan:ddos_protection_plan list ->
   ?encryption:encryption list ->
   ?timeouts:timeouts ->

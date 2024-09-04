@@ -29,8 +29,8 @@ type aws_ecs_capacity_provider
 
 val aws_ecs_capacity_provider :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   auto_scaling_group_provider:auto_scaling_group_provider list ->
   unit ->
@@ -46,15 +46,15 @@ type t = private {
   arn : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   auto_scaling_group_provider:auto_scaling_group_provider list ->
   string ->
@@ -62,8 +62,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   auto_scaling_group_provider:auto_scaling_group_provider list ->
   string ->

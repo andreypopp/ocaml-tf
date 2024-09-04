@@ -351,7 +351,7 @@ type google_assured_workloads_workload = {
   display_name : string prop;
   enable_sovereign_controls : bool prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   organization : string prop;
   partner : string prop option; [@option]
@@ -462,12 +462,8 @@ let yojson_of_google_assured_workloads_workload =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -568,12 +564,12 @@ type t = {
   compliant_but_disallowed_services : string list prop;
   create_time : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   ekm_provisioning_response : ekm_provisioning_response list prop;
   enable_sovereign_controls : bool prop;
   id : string prop;
   kaj_enrollment_state : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   organization : string prop;
@@ -581,7 +577,7 @@ type t = {
   provisioned_resources_parent : string prop;
   resources : resources list prop;
   saa_enrollment_response : saa_enrollment_response list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   violation_notifications_enabled : bool prop;
 }
 

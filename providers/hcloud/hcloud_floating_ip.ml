@@ -7,7 +7,7 @@ type hcloud_floating_ip = {
   description : string prop option; [@option]
   home_location : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   server_id : float prop option; [@option]
   type_ : string prop; [@key "type"]
@@ -56,12 +56,8 @@ let yojson_of_hcloud_floating_ip =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -127,7 +123,7 @@ type t = {
   id : string prop;
   ip_address : string prop;
   ip_network : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   server_id : float prop;
   type_ : string prop;

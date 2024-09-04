@@ -40,7 +40,7 @@ type t = private {
   pricing_tier : string prop;
   resource_group_name : string prop;
   service_ip_address : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

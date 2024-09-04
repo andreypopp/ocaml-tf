@@ -25,7 +25,7 @@ type applications = {
       (** instance_families *)
   launch_parameters : string prop;  (** launch_parameters *)
   launch_path : string prop;  (** launch_path *)
-  metadata : (string * string prop) list;  (** metadata *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
   name : string prop;  (** name *)
   platforms : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

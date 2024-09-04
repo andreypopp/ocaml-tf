@@ -47,8 +47,8 @@ val aws_verifiedaccess_endpoint :
   ?id:string prop ->
   ?policy_document:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?load_balancer_options:load_balancer_options list ->
   ?network_interface_options:network_interface_options list ->
   ?sse_specification:sse_specification list ->
@@ -80,8 +80,8 @@ type t = private {
   id : string prop;
   policy_document : string prop;
   security_group_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   verified_access_group_id : string prop;
   verified_access_instance_id : string prop;
 }
@@ -92,8 +92,8 @@ val register :
   ?id:string prop ->
   ?policy_document:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?load_balancer_options:load_balancer_options list ->
   ?network_interface_options:network_interface_options list ->
   ?sse_specification:sse_specification list ->
@@ -112,8 +112,8 @@ val make :
   ?id:string prop ->
   ?policy_document:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?load_balancer_options:load_balancer_options list ->
   ?network_interface_options:network_interface_options list ->
   ?sse_specification:sse_specification list ->

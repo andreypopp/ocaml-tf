@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -20,11 +20,11 @@ val metadata :
 type spec__limit
 
 val spec__limit :
-  ?default:(string * string prop) list ->
-  ?default_request:(string * string prop) list ->
-  ?max:(string * string prop) list ->
-  ?max_limit_request_ratio:(string * string prop) list ->
-  ?min:(string * string prop) list ->
+  ?default:string prop Tf_core.assoc ->
+  ?default_request:string prop Tf_core.assoc ->
+  ?max:string prop Tf_core.assoc ->
+  ?max_limit_request_ratio:string prop Tf_core.assoc ->
+  ?min:string prop Tf_core.assoc ->
   ?type_:string prop ->
   unit ->
   spec__limit

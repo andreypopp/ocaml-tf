@@ -129,7 +129,7 @@ type azurerm_stream_analytics_output_servicebus_queue = {
   shared_access_policy_key : string prop option; [@option]
   shared_access_policy_name : string prop option; [@option]
   stream_analytics_job_name : string prop;
-  system_property_columns : (string * string prop) list option;
+  system_property_columns : string prop Tf_core.assoc option;
       [@option]
   serialization : serialization list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -178,12 +178,8 @@ let yojson_of_azurerm_stream_analytics_output_servicebus_queue =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "system_property_columns", arg in
@@ -308,7 +304,7 @@ type t = {
   shared_access_policy_key : string prop;
   shared_access_policy_name : string prop;
   stream_analytics_job_name : string prop;
-  system_property_columns : (string * string) list prop;
+  system_property_columns : string Tf_core.assoc prop;
 }
 
 let make ?authentication_mode ?id ?property_columns

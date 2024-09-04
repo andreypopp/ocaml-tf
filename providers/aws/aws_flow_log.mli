@@ -26,8 +26,8 @@ val aws_flow_log :
   ?log_group_name:string prop ->
   ?max_aggregation_interval:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_type:string prop ->
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->
@@ -53,8 +53,8 @@ type t = private {
   log_group_name : string prop;
   max_aggregation_interval : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   traffic_type : string prop;
   transit_gateway_attachment_id : string prop;
   transit_gateway_id : string prop;
@@ -73,8 +73,8 @@ val register :
   ?log_group_name:string prop ->
   ?max_aggregation_interval:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_type:string prop ->
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->
@@ -94,8 +94,8 @@ val make :
   ?log_group_name:string prop ->
   ?max_aggregation_interval:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?traffic_type:string prop ->
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->

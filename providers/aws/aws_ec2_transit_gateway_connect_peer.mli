@@ -14,8 +14,8 @@ type aws_ec2_transit_gateway_connect_peer
 val aws_ec2_transit_gateway_connect_peer :
   ?bgp_asn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_address:string prop ->
   ?timeouts:timeouts ->
   inside_cidr_blocks:string prop list ->
@@ -38,8 +38,8 @@ type t = private {
   id : string prop;
   inside_cidr_blocks : string list prop;
   peer_address : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_address : string prop;
   transit_gateway_attachment_id : string prop;
 }
@@ -48,8 +48,8 @@ val register :
   ?tf_module:tf_module ->
   ?bgp_asn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_address:string prop ->
   ?timeouts:timeouts ->
   inside_cidr_blocks:string prop list ->
@@ -61,8 +61,8 @@ val register :
 val make :
   ?bgp_asn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_address:string prop ->
   ?timeouts:timeouts ->
   inside_cidr_blocks:string prop list ->

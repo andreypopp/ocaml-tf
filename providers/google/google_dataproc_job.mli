@@ -14,7 +14,7 @@ type status = {
 type hadoop_config__logging_config
 
 val hadoop_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   hadoop_config__logging_config
 
@@ -27,7 +27,7 @@ val hadoop_config :
   ?jar_file_uris:string prop list ->
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?logging_config:hadoop_config__logging_config list ->
   unit ->
   hadoop_config
@@ -37,17 +37,17 @@ type hive_config
 val hive_config :
   ?continue_on_failure:bool prop ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   unit ->
   hive_config
 
 type pig_config__logging_config
 
 val pig_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   pig_config__logging_config
 
@@ -56,10 +56,10 @@ type pig_config
 val pig_config :
   ?continue_on_failure:bool prop ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   ?logging_config:pig_config__logging_config list ->
   unit ->
   pig_config
@@ -71,7 +71,7 @@ val placement : cluster_name:string prop -> unit -> placement
 type presto_config__logging_config
 
 val presto_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   presto_config__logging_config
 
@@ -81,7 +81,7 @@ val presto_config :
   ?client_tags:string prop list ->
   ?continue_on_failure:bool prop ->
   ?output_format:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
   ?logging_config:presto_config__logging_config list ->
@@ -91,7 +91,7 @@ val presto_config :
 type pyspark_config__logging_config
 
 val pyspark_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   pyspark_config__logging_config
 
@@ -102,7 +102,7 @@ val pyspark_config :
   ?args:string prop list ->
   ?file_uris:string prop list ->
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?python_file_uris:string prop list ->
   ?logging_config:pyspark_config__logging_config list ->
   main_python_file_uri:string prop ->
@@ -124,7 +124,7 @@ val scheduling :
 type spark_config__logging_config
 
 val spark_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   spark_config__logging_config
 
@@ -137,7 +137,7 @@ val spark_config :
   ?jar_file_uris:string prop list ->
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?logging_config:spark_config__logging_config list ->
   unit ->
   spark_config
@@ -145,7 +145,7 @@ val spark_config :
 type sparksql_config__logging_config
 
 val sparksql_config__logging_config :
-  driver_log_levels:(string * string prop) list ->
+  driver_log_levels:string prop Tf_core.assoc ->
   unit ->
   sparksql_config__logging_config
 
@@ -153,10 +153,10 @@ type sparksql_config
 
 val sparksql_config :
   ?jar_file_uris:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
-  ?script_variables:(string * string prop) list ->
+  ?script_variables:string prop Tf_core.assoc ->
   ?logging_config:sparksql_config__logging_config list ->
   unit ->
   sparksql_config
@@ -171,7 +171,7 @@ type google_dataproc_job
 val google_dataproc_job :
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?hadoop_config:hadoop_config list ->
@@ -196,21 +196,21 @@ type t = private {
   tf_name : string;
   driver_controls_files_uri : string prop;
   driver_output_resource_uri : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_delete : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   project : string prop;
   region : string prop;
   status : status list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?hadoop_config:hadoop_config list ->
@@ -230,7 +230,7 @@ val register :
 val make :
   ?force_delete:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?hadoop_config:hadoop_config list ->

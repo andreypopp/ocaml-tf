@@ -41,7 +41,7 @@ type random_steering
 
 val random_steering :
   ?default_weight:float prop ->
-  ?pool_weights:(string * float prop) list ->
+  ?pool_weights:float prop Tf_core.assoc ->
   unit ->
   random_steering
 
@@ -98,7 +98,7 @@ type rules__overrides__random_steering
 
 val rules__overrides__random_steering :
   ?default_weight:float prop ->
-  ?pool_weights:(string * float prop) list ->
+  ?pool_weights:float prop Tf_core.assoc ->
   unit ->
   rules__overrides__random_steering
 

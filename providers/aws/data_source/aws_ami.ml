@@ -66,7 +66,7 @@ let _ = yojson_of_timeouts
 
 type block_device_mappings = {
   device_name : string prop;
-  ebs : (string * string prop) list;
+  ebs : string prop Tf_core.assoc;
   no_device : string prop;
   virtual_name : string prop;
 }
@@ -95,12 +95,8 @@ let yojson_of_block_device_mappings =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_ebs
          in
          ("ebs", arg) :: bnds
@@ -159,7 +155,7 @@ type aws_ami = {
   most_recent : bool prop option; [@option]
   name_regex : string prop option; [@option]
   owners : string prop list option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -200,12 +196,8 @@ let yojson_of_aws_ami =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -322,8 +314,8 @@ type t = {
   root_snapshot_id : string prop;
   sriov_net_support : string prop;
   state : string prop;
-  state_reason : (string * string) list prop;
-  tags : (string * string) list prop;
+  state_reason : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
   tpm_support : string prop;
   usage_operation : string prop;
   virtualization_type : string prop;

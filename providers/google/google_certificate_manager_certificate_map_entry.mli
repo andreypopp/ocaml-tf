@@ -19,7 +19,7 @@ val google_certificate_manager_certificate_map_entry :
   ?description:string prop ->
   ?hostname:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?matcher:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -39,16 +39,16 @@ type t = private {
   certificates : string list prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   hostname : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   map : string prop;
   matcher : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -57,7 +57,7 @@ val register :
   ?description:string prop ->
   ?hostname:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?matcher:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -71,7 +71,7 @@ val make :
   ?description:string prop ->
   ?hostname:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?matcher:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

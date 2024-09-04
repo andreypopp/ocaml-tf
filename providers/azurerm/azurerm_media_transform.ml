@@ -5,7 +5,7 @@ open! Tf_core
 type output__audio_analyzer_preset = {
   audio_analysis_mode : string prop option; [@option]
   audio_language : string prop option; [@option]
-  experimental_options : (string * string prop) list option; [@option]
+  experimental_options : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -26,12 +26,8 @@ let yojson_of_output__audio_analyzer_preset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "experimental_options", arg in
@@ -2327,8 +2323,7 @@ let _ = yojson_of_output__custom_preset__format
 [@@@deriving.end]
 
 type output__custom_preset = {
-  experimental_options : (string * string prop) list option;
-      [@option]
+  experimental_options : string prop Tf_core.assoc option; [@option]
   codec : output__custom_preset__codec list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   filter : output__custom_preset__filter list;
@@ -2386,12 +2381,8 @@ let yojson_of_output__custom_preset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "experimental_options", arg in
@@ -2407,8 +2398,7 @@ let _ = yojson_of_output__custom_preset
 type output__face_detector_preset = {
   analysis_resolution : string prop option; [@option]
   blur_type : string prop option; [@option]
-  experimental_options : (string * string prop) list option;
-      [@option]
+  experimental_options : string prop Tf_core.assoc option; [@option]
   face_redactor_mode : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -2439,12 +2429,8 @@ let yojson_of_output__face_detector_preset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "experimental_options", arg in
@@ -2477,8 +2463,7 @@ let _ = yojson_of_output__face_detector_preset
 type output__video_analyzer_preset = {
   audio_analysis_mode : string prop option; [@option]
   audio_language : string prop option; [@option]
-  experimental_options : (string * string prop) list option;
-      [@option]
+  experimental_options : string prop Tf_core.assoc option; [@option]
   insights_type : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -2509,12 +2494,8 @@ let yojson_of_output__video_analyzer_preset =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "experimental_options", arg in

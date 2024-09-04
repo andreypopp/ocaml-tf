@@ -27,7 +27,7 @@ type firewalls = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** apply_to *)
   id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   rule : firewalls__rule list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

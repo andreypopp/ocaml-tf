@@ -7,7 +7,7 @@ open! Tf_core
 type aws_appfabric_ingestion
 
 val aws_appfabric_ingestion :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   app:string prop ->
   app_bundle_arn:string prop ->
   ingestion_type:string prop ->
@@ -27,14 +27,14 @@ type t = private {
   arn : string prop;
   id : string prop;
   ingestion_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   app:string prop ->
   app_bundle_arn:string prop ->
   ingestion_type:string prop ->
@@ -43,7 +43,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   app:string prop ->
   app_bundle_arn:string prop ->
   ingestion_type:string prop ->

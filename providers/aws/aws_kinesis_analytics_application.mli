@@ -237,8 +237,8 @@ val aws_kinesis_analytics_application :
   ?description:string prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?inputs:inputs list ->
   ?reference_data_sources:reference_data_sources list ->
@@ -263,8 +263,8 @@ type t = private {
   name : string prop;
   start_application : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : float prop;
 }
 
@@ -274,8 +274,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?inputs:inputs list ->
   ?reference_data_sources:reference_data_sources list ->
@@ -289,8 +289,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?inputs:inputs list ->
   ?reference_data_sources:reference_data_sources list ->

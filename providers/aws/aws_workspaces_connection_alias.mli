@@ -16,7 +16,7 @@ val timeouts :
 type aws_workspaces_connection_alias
 
 val aws_workspaces_connection_alias :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   unit ->
@@ -33,20 +33,20 @@ type t = private {
   id : string prop;
   owner_account_id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   string ->

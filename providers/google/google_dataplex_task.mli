@@ -26,7 +26,7 @@ type execution_status = {
 type execution_spec
 
 val execution_spec :
-  ?args:(string * string prop) list ->
+  ?args:string prop Tf_core.assoc ->
   ?kms_key:string prop ->
   ?max_job_execution_lifetime:string prop ->
   ?project:string prop ->
@@ -47,7 +47,7 @@ type notebook__infrastructure_spec__container_image
 val notebook__infrastructure_spec__container_image :
   ?image:string prop ->
   ?java_jars:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?python_packages:string prop list ->
   unit ->
   notebook__infrastructure_spec__container_image
@@ -94,7 +94,7 @@ type spark__infrastructure_spec__container_image
 val spark__infrastructure_spec__container_image :
   ?image:string prop ->
   ?java_jars:string prop list ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?python_packages:string prop list ->
   unit ->
   spark__infrastructure_spec__container_image
@@ -157,7 +157,7 @@ val google_dataplex_task :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lake:string prop ->
   ?location:string prop ->
   ?project:string prop ->
@@ -179,17 +179,17 @@ type t = private {
   create_time : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   execution_status : execution_status list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lake : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   task_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
@@ -199,7 +199,7 @@ val register :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lake:string prop ->
   ?location:string prop ->
   ?project:string prop ->
@@ -216,7 +216,7 @@ val make :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lake:string prop ->
   ?location:string prop ->
   ?project:string prop ->

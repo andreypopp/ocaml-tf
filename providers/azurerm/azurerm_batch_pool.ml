@@ -1313,7 +1313,7 @@ let _ = yojson_of_start_task__user_identity
 
 type start_task = {
   command_line : string prop;
-  common_environment_properties : (string * string prop) list option;
+  common_environment_properties : string prop Tf_core.assoc option;
       [@option]
   task_retry_maximum : float prop option; [@option]
   wait_for_success : bool prop option; [@option]
@@ -1394,12 +1394,8 @@ let yojson_of_start_task =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "common_environment_properties", arg in
@@ -1755,7 +1751,7 @@ type azurerm_batch_pool = {
   inter_node_communication : string prop option; [@option]
   license_type : string prop option; [@option]
   max_tasks_per_node : float prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   name : string prop;
   node_agent_sku_id : string prop;
   os_disk_placement : string prop option; [@option]
@@ -2040,12 +2036,8 @@ let yojson_of_azurerm_batch_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -2348,7 +2340,7 @@ type t = {
   inter_node_communication : string prop;
   license_type : string prop;
   max_tasks_per_node : float prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   node_agent_sku_id : string prop;
   os_disk_placement : string prop;

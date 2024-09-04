@@ -7,7 +7,7 @@ open! Tf_core
 type default_action__authenticate_cognito
 
 val default_action__authenticate_cognito :
-  ?authentication_request_extra_params:(string * string prop) list ->
+  ?authentication_request_extra_params:string prop Tf_core.assoc ->
   ?on_unauthenticated_request:string prop ->
   ?scope:string prop ->
   ?session_cookie_name:string prop ->
@@ -21,7 +21,7 @@ val default_action__authenticate_cognito :
 type default_action__authenticate_oidc
 
 val default_action__authenticate_oidc :
-  ?authentication_request_extra_params:(string * string prop) list ->
+  ?authentication_request_extra_params:string prop Tf_core.assoc ->
   ?on_unauthenticated_request:string prop ->
   ?scope:string prop ->
   ?session_cookie_name:string prop ->
@@ -117,8 +117,8 @@ val aws_alb_listener :
   ?port:float prop ->
   ?protocol:string prop ->
   ?ssl_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?mutual_authentication:mutual_authentication list ->
   ?timeouts:timeouts ->
   load_balancer_arn:string prop ->
@@ -140,8 +140,8 @@ type t = private {
   port : float prop;
   protocol : string prop;
   ssl_policy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -152,8 +152,8 @@ val register :
   ?port:float prop ->
   ?protocol:string prop ->
   ?ssl_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?mutual_authentication:mutual_authentication list ->
   ?timeouts:timeouts ->
   load_balancer_arn:string prop ->
@@ -168,8 +168,8 @@ val make :
   ?port:float prop ->
   ?protocol:string prop ->
   ?ssl_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?mutual_authentication:mutual_authentication list ->
   ?timeouts:timeouts ->
   load_balancer_arn:string prop ->

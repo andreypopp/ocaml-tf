@@ -106,7 +106,7 @@ val azurerm_lab_service_lab :
   ?description:string prop ->
   ?id:string prop ->
   ?lab_plan_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_shutdown:auto_shutdown list ->
   ?network:network list ->
   ?roster:roster list ->
@@ -134,7 +134,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   title : string prop;
 }
 
@@ -143,7 +143,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?lab_plan_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_shutdown:auto_shutdown list ->
   ?network:network list ->
   ?roster:roster list ->
@@ -162,7 +162,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?lab_plan_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auto_shutdown:auto_shutdown list ->
   ?network:network list ->
   ?roster:roster list ->

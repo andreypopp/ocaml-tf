@@ -28,7 +28,7 @@ type aws_glue_job
 
 val aws_glue_job :
   ?connections:string prop list ->
-  ?default_arguments:(string * string prop) list ->
+  ?default_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_class:string prop ->
   ?glue_version:string prop ->
@@ -36,11 +36,11 @@ val aws_glue_job :
   ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
-  ?non_overridable_arguments:(string * string prop) list ->
+  ?non_overridable_arguments:string prop Tf_core.assoc ->
   ?number_of_workers:float prop ->
   ?security_configuration:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   ?execution_property:execution_property list ->
@@ -59,7 +59,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   connections : string list prop;
-  default_arguments : (string * string) list prop;
+  default_arguments : string Tf_core.assoc prop;
   description : string prop;
   execution_class : string prop;
   glue_version : string prop;
@@ -68,12 +68,12 @@ type t = private {
   max_capacity : float prop;
   max_retries : float prop;
   name : string prop;
-  non_overridable_arguments : (string * string) list prop;
+  non_overridable_arguments : string Tf_core.assoc prop;
   number_of_workers : float prop;
   role_arn : string prop;
   security_configuration : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeout : float prop;
   worker_type : string prop;
 }
@@ -81,7 +81,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?connections:string prop list ->
-  ?default_arguments:(string * string prop) list ->
+  ?default_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_class:string prop ->
   ?glue_version:string prop ->
@@ -89,11 +89,11 @@ val register :
   ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
-  ?non_overridable_arguments:(string * string prop) list ->
+  ?non_overridable_arguments:string prop Tf_core.assoc ->
   ?number_of_workers:float prop ->
   ?security_configuration:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   ?execution_property:execution_property list ->
@@ -106,7 +106,7 @@ val register :
 
 val make :
   ?connections:string prop list ->
-  ?default_arguments:(string * string prop) list ->
+  ?default_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_class:string prop ->
   ?glue_version:string prop ->
@@ -114,11 +114,11 @@ val make :
   ?maintenance_window:string prop ->
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
-  ?non_overridable_arguments:(string * string prop) list ->
+  ?non_overridable_arguments:string prop Tf_core.assoc ->
   ?number_of_workers:float prop ->
   ?security_configuration:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   ?execution_property:execution_property list ->

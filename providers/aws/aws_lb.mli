@@ -67,8 +67,8 @@ val aws_lb :
   ?preserve_host_header:bool prop ->
   ?security_groups:string prop list ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xff_header_processing_mode:string prop ->
   ?access_logs:access_logs list ->
   ?connection_logs:connection_logs list ->
@@ -109,8 +109,8 @@ type t = private {
   preserve_host_header : bool prop;
   security_groups : string list prop;
   subnets : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
   xff_header_processing_mode : string prop;
   zone_id : string prop;
@@ -141,8 +141,8 @@ val register :
   ?preserve_host_header:bool prop ->
   ?security_groups:string prop list ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xff_header_processing_mode:string prop ->
   ?access_logs:access_logs list ->
   ?connection_logs:connection_logs list ->
@@ -175,8 +175,8 @@ val make :
   ?preserve_host_header:bool prop ->
   ?security_groups:string prop list ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xff_header_processing_mode:string prop ->
   ?access_logs:access_logs list ->
   ?connection_logs:connection_logs list ->

@@ -20,7 +20,7 @@ val azurerm_dev_test_policy :
   ?description:string prop ->
   ?fact_data:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   evaluator_type:string prop ->
   lab_name:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   name : string prop;
   policy_set_name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   threshold : string prop;
 }
 
@@ -55,7 +55,7 @@ val register :
   ?description:string prop ->
   ?fact_data:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   evaluator_type:string prop ->
   lab_name:string prop ->
@@ -70,7 +70,7 @@ val make :
   ?description:string prop ->
   ?fact_data:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   evaluator_type:string prop ->
   lab_name:string prop ->

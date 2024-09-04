@@ -75,13 +75,13 @@ val topics : name:string prop -> unit -> topics
 type google_secret_manager_secret
 
 val google_secret_manager_secret :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?expire_time:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ttl:string prop ->
-  ?version_aliases:(string * string prop) list ->
+  ?version_aliases:string prop Tf_core.assoc ->
   ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->
@@ -98,31 +98,31 @@ val yojson_of_google_secret_manager_secret :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   expire_time : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   secret_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   ttl : string prop;
-  version_aliases : (string * string) list prop;
+  version_aliases : string Tf_core.assoc prop;
   version_destroy_ttl : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?expire_time:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ttl:string prop ->
-  ?version_aliases:(string * string prop) list ->
+  ?version_aliases:string prop Tf_core.assoc ->
   ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->
@@ -133,13 +133,13 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?expire_time:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ttl:string prop ->
-  ?version_aliases:(string * string prop) list ->
+  ?version_aliases:string prop Tf_core.assoc ->
   ?version_destroy_ttl:string prop ->
   ?rotation:rotation list ->
   ?timeouts:timeouts ->

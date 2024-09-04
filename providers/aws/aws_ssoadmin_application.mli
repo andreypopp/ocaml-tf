@@ -26,7 +26,7 @@ val aws_ssoadmin_application :
   ?client_token:string prop ->
   ?description:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->
@@ -50,8 +50,8 @@ type t = private {
   instance_arn : string prop;
   name : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?client_token:string prop ->
   ?description:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->
@@ -71,7 +71,7 @@ val make :
   ?client_token:string prop ->
   ?description:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->

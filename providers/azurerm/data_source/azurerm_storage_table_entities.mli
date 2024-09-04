@@ -6,7 +6,7 @@ open! Tf_core
 
 type items = {
   partition_key : string prop;  (** partition_key *)
-  properties : (string * string prop) list;  (** properties *)
+  properties : string prop Tf_core.assoc;  (** properties *)
   row_key : string prop;  (** row_key *)
 }
 

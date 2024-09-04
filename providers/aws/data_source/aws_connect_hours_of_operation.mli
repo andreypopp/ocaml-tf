@@ -30,7 +30,7 @@ val aws_connect_hours_of_operation :
   ?hours_of_operation_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   unit ->
   aws_connect_hours_of_operation
@@ -49,7 +49,7 @@ type t = private {
   id : string prop;
   instance_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_zone : string prop;
 }
 
@@ -58,7 +58,7 @@ val register :
   ?hours_of_operation_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t
@@ -67,7 +67,7 @@ val make :
   ?hours_of_operation_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t Tf_core.resource

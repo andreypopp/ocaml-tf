@@ -99,7 +99,7 @@ type t = {
   name : string prop;
   records : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ttl : float prop;
   zone_name : string prop;
 }

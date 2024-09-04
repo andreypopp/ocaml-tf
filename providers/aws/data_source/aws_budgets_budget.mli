@@ -82,7 +82,7 @@ val aws_budgets_budget :
   ?account_id:string prop ->
   ?id:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_budgets_budget
@@ -107,7 +107,7 @@ type t = private {
   name_prefix : string prop;
   notification : notification list prop;
   planned_limit : planned_limit list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_period_end : string prop;
   time_period_start : string prop;
   time_unit : string prop;
@@ -118,7 +118,7 @@ val register :
   ?account_id:string prop ->
   ?id:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
@@ -127,7 +127,7 @@ val make :
   ?account_id:string prop ->
   ?id:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

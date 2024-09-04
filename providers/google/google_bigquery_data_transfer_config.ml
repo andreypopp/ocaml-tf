@@ -155,7 +155,7 @@ type google_bigquery_data_transfer_config = {
   id : string prop option; [@option]
   location : string prop option; [@option]
   notification_pubsub_topic : string prop option; [@option]
-  params : (string * string prop) list;
+  params : string prop Tf_core.assoc;
   project : string prop option; [@option]
   schedule : string prop option; [@option]
   service_account_name : string prop option; [@option]
@@ -254,12 +254,8 @@ let yojson_of_google_bigquery_data_transfer_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_params
          in
          ("params", arg) :: bnds
@@ -380,7 +376,7 @@ type t = {
   location : string prop;
   name : string prop;
   notification_pubsub_topic : string prop;
-  params : (string * string) list prop;
+  params : string Tf_core.assoc prop;
   project : string prop;
   schedule : string prop;
   service_account_name : string prop;

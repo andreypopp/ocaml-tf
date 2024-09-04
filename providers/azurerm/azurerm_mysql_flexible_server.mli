@@ -74,7 +74,7 @@ val azurerm_mysql_flexible_server :
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?customer_managed_key:customer_managed_key list ->
@@ -114,7 +114,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   source_server_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   zone : string prop;
 }
@@ -133,7 +133,7 @@ val register :
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?customer_managed_key:customer_managed_key list ->
@@ -161,7 +161,7 @@ val make :
   ?replication_role:string prop ->
   ?sku_name:string prop ->
   ?source_server_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?customer_managed_key:customer_managed_key list ->

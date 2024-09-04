@@ -181,8 +181,8 @@ val timeouts :
 type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 
 val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -203,14 +203,14 @@ type t = private {
   id : string prop;
   name : string prop;
   resource_access_role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -220,8 +220,8 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->

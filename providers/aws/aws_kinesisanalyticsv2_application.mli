@@ -44,7 +44,7 @@ type application_configuration__environment_properties__property_group
 
 val application_configuration__environment_properties__property_group :
   property_group_id:string prop ->
-  property_map:(string * string prop) list ->
+  property_map:string prop Tf_core.assoc ->
   unit ->
   application_configuration__environment_properties__property_group
 
@@ -449,8 +449,8 @@ val aws_kinesisanalyticsv2_application :
   ?force_stop:bool prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_configuration:application_configuration list ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->
@@ -479,8 +479,8 @@ type t = private {
   service_execution_role : string prop;
   start_application : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : float prop;
 }
 
@@ -491,8 +491,8 @@ val register :
   ?force_stop:bool prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_configuration:application_configuration list ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->
@@ -508,8 +508,8 @@ val make :
   ?force_stop:bool prop ->
   ?id:string prop ->
   ?start_application:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_configuration:application_configuration list ->
   ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->

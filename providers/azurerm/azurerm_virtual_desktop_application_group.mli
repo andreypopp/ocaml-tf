@@ -21,7 +21,7 @@ val azurerm_virtual_desktop_application_group :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   host_pool_id:string prop ->
   location:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -56,7 +56,7 @@ val register :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   host_pool_id:string prop ->
   location:string prop ->
@@ -71,7 +71,7 @@ val make :
   ?description:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   host_pool_id:string prop ->
   location:string prop ->

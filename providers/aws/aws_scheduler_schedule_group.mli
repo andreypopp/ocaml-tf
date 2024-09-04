@@ -15,8 +15,8 @@ val aws_scheduler_schedule_group :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   unit ->
   aws_scheduler_schedule_group
@@ -35,8 +35,8 @@ type t = private {
   name : string prop;
   name_prefix : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -44,8 +44,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -54,8 +54,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

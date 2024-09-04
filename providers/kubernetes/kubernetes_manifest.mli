@@ -4,10 +4,7 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
-type wait_for = {
-  fields : (string * string prop) list;  (** fields *)
-}
-
+type wait_for = { fields : string prop Tf_core.assoc  (** fields *) }
 type field_manager
 
 val field_manager :
@@ -36,7 +33,7 @@ val wait__condition :
 type wait
 
 val wait :
-  ?fields:(string * string prop) list ->
+  ?fields:string prop Tf_core.assoc ->
   ?rollout:bool prop ->
   ?condition:wait__condition list ->
   unit ->

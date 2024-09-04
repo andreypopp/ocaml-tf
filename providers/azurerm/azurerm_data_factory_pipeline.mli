@@ -24,8 +24,8 @@ val azurerm_data_factory_pipeline :
   ?folder:string prop ->
   ?id:string prop ->
   ?moniter_metrics_after_duration:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
@@ -48,8 +48,8 @@ type t = private {
   id : string prop;
   moniter_metrics_after_duration : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
-  variables : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
+  variables : string Tf_core.assoc prop;
 }
 
 val register :
@@ -61,8 +61,8 @@ val register :
   ?folder:string prop ->
   ?id:string prop ->
   ?moniter_metrics_after_duration:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
@@ -77,8 +77,8 @@ val make :
   ?folder:string prop ->
   ?id:string prop ->
   ?moniter_metrics_after_duration:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->

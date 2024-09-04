@@ -13,7 +13,7 @@ val admin_contact :
   ?contact_type:string prop ->
   ?country_code:string prop ->
   ?email:string prop ->
-  ?extra_params:(string * string prop) list ->
+  ?extra_params:string prop Tf_core.assoc ->
   ?fax:string prop ->
   ?first_name:string prop ->
   ?last_name:string prop ->
@@ -33,7 +33,7 @@ val billing_contact :
   ?contact_type:string prop ->
   ?country_code:string prop ->
   ?email:string prop ->
-  ?extra_params:(string * string prop) list ->
+  ?extra_params:string prop Tf_core.assoc ->
   ?fax:string prop ->
   ?first_name:string prop ->
   ?last_name:string prop ->
@@ -61,7 +61,7 @@ val registrant_contact :
   ?contact_type:string prop ->
   ?country_code:string prop ->
   ?email:string prop ->
-  ?extra_params:(string * string prop) list ->
+  ?extra_params:string prop Tf_core.assoc ->
   ?fax:string prop ->
   ?first_name:string prop ->
   ?last_name:string prop ->
@@ -81,7 +81,7 @@ val tech_contact :
   ?contact_type:string prop ->
   ?country_code:string prop ->
   ?email:string prop ->
-  ?extra_params:(string * string prop) list ->
+  ?extra_params:string prop Tf_core.assoc ->
   ?fax:string prop ->
   ?first_name:string prop ->
   ?last_name:string prop ->
@@ -105,8 +105,8 @@ val aws_route53domains_registered_domain :
   ?billing_privacy:bool prop ->
   ?id:string prop ->
   ?registrant_privacy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
   ?admin_contact:admin_contact list ->
@@ -140,8 +140,8 @@ type t = private {
   registrar_url : string prop;
   reseller : string prop;
   status_list : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tech_privacy : bool prop;
   transfer_lock : bool prop;
   updated_date : string prop;
@@ -155,8 +155,8 @@ val register :
   ?billing_privacy:bool prop ->
   ?id:string prop ->
   ?registrant_privacy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
   ?admin_contact:admin_contact list ->
@@ -175,8 +175,8 @@ val make :
   ?billing_privacy:bool prop ->
   ?id:string prop ->
   ?registrant_privacy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
   ?admin_contact:admin_contact list ->

@@ -3,9 +3,9 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -46,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -70,12 +66,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -241,7 +233,7 @@ type spec = {
   load_balancer_ip : string prop option; [@option]
   load_balancer_source_ranges : string prop list option; [@option]
   publish_not_ready_addresses : bool prop option; [@option]
-  selector : (string * string prop) list option; [@option]
+  selector : string prop Tf_core.assoc option; [@option]
   session_affinity : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   port : spec__port list;
@@ -318,12 +310,8 @@ let yojson_of_spec =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "selector", arg in

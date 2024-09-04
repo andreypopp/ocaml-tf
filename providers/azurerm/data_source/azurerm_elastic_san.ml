@@ -119,7 +119,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   sku : sku list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_iops : float prop;
   total_mbps : float prop;
   total_size_in_tib : float prop;

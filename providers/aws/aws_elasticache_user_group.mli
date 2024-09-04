@@ -8,8 +8,8 @@ type aws_elasticache_user_group
 
 val aws_elasticache_user_group :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_ids:string prop list ->
   engine:string prop ->
   user_group_id:string prop ->
@@ -26,8 +26,8 @@ type t = private {
   arn : string prop;
   engine : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_group_id : string prop;
   user_ids : string list prop;
 }
@@ -35,8 +35,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_ids:string prop list ->
   engine:string prop ->
   user_group_id:string prop ->
@@ -45,8 +45,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_ids:string prop list ->
   engine:string prop ->
   user_group_id:string prop ->

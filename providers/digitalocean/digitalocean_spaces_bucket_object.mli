@@ -18,7 +18,7 @@ val digitalocean_spaces_bucket_object :
   ?etag:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?source:string prop ->
   ?website_redirect:string prop ->
   bucket:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   force_destroy : bool prop;
   id : string prop;
   key : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   region : string prop;
   source : string prop;
   version_id : string prop;
@@ -67,7 +67,7 @@ val register :
   ?etag:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?source:string prop ->
   ?website_redirect:string prop ->
   bucket:string prop ->
@@ -88,7 +88,7 @@ val make :
   ?etag:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?source:string prop ->
   ?website_redirect:string prop ->
   bucket:string prop ->

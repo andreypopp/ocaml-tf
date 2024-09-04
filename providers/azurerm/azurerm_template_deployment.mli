@@ -18,7 +18,7 @@ type azurerm_template_deployment
 
 val azurerm_template_deployment :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?parameters_body:string prop ->
   ?template_body:string prop ->
   ?timeouts:timeouts ->
@@ -38,8 +38,8 @@ type t = private {
   deployment_mode : string prop;
   id : string prop;
   name : string prop;
-  outputs : (string * string) list prop;
-  parameters : (string * string) list prop;
+  outputs : string Tf_core.assoc prop;
+  parameters : string Tf_core.assoc prop;
   parameters_body : string prop;
   resource_group_name : string prop;
   template_body : string prop;
@@ -48,7 +48,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?parameters_body:string prop ->
   ?template_body:string prop ->
   ?timeouts:timeouts ->
@@ -60,7 +60,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?parameters_body:string prop ->
   ?template_body:string prop ->
   ?timeouts:timeouts ->

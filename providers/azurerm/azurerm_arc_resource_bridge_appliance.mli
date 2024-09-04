@@ -23,7 +23,7 @@ type azurerm_arc_resource_bridge_appliance
 val azurerm_arc_resource_bridge_appliance :
   ?id:string prop ->
   ?public_key_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   distro:string prop ->
   infrastructure_provider:string prop ->
@@ -48,14 +48,14 @@ type t = private {
   name : string prop;
   public_key_base64 : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?public_key_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   distro:string prop ->
   infrastructure_provider:string prop ->
@@ -69,7 +69,7 @@ val register :
 val make :
   ?id:string prop ->
   ?public_key_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   distro:string prop ->
   infrastructure_provider:string prop ->

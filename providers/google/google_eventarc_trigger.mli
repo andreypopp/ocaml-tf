@@ -80,7 +80,7 @@ val google_eventarc_trigger :
   ?channel:string prop ->
   ?event_data_content_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->
@@ -100,18 +100,18 @@ val yojson_of_google_eventarc_trigger :
 type t = private {
   tf_name : string;
   channel : string prop;
-  conditions : (string * string) list prop;
+  conditions : string Tf_core.assoc prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   event_data_content_type : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   service_account : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
@@ -121,7 +121,7 @@ val register :
   ?channel:string prop ->
   ?event_data_content_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->
@@ -137,7 +137,7 @@ val make :
   ?channel:string prop ->
   ?event_data_content_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->

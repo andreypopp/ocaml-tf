@@ -32,8 +32,8 @@ val aws_quicksight_folder :
     ?id:string prop ->
     ?name:string prop ->
     ?parent_folder_arn:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->
@@ -56,8 +56,8 @@ type t = private {
   last_updated_time: string prop;
   name: string prop;
   parent_folder_arn: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 val register :
@@ -67,8 +67,8 @@ val register :
     ?id:string prop ->
     ?name:string prop ->
     ?parent_folder_arn:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->
@@ -81,8 +81,8 @@ val make :
     ?id:string prop ->
     ?name:string prop ->
     ?parent_folder_arn:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->

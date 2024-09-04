@@ -25,7 +25,7 @@ val azurerm_spring_cloud_new_relic_application_performance_monitoring :
   ?custom_tracing_enabled:bool prop ->
   ?globally_enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   app_name:string prop ->
   license_key:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   custom_tracing_enabled : bool prop;
   globally_enabled : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   license_key : string prop;
   name : string prop;
   spring_cloud_service_id : string prop;
@@ -67,7 +67,7 @@ val register :
   ?custom_tracing_enabled:bool prop ->
   ?globally_enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   app_name:string prop ->
   license_key:string prop ->
@@ -85,7 +85,7 @@ val make :
   ?custom_tracing_enabled:bool prop ->
   ?globally_enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   app_name:string prop ->
   license_key:string prop ->

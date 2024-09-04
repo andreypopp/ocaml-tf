@@ -14,8 +14,8 @@ val aws_imagebuilder_component :
   ?kms_key_id:string prop ->
   ?skip_destroy:bool prop ->
   ?supported_os_versions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?uri:string prop ->
   name:string prop ->
   platform:string prop ->
@@ -43,8 +43,8 @@ type t = private {
   platform : string prop;
   skip_destroy : bool prop;
   supported_os_versions : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   uri : string prop;
   version : string prop;
@@ -59,8 +59,8 @@ val register :
   ?kms_key_id:string prop ->
   ?skip_destroy:bool prop ->
   ?supported_os_versions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?uri:string prop ->
   name:string prop ->
   platform:string prop ->
@@ -76,8 +76,8 @@ val make :
   ?kms_key_id:string prop ->
   ?skip_destroy:bool prop ->
   ?supported_os_versions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?uri:string prop ->
   name:string prop ->
   platform:string prop ->

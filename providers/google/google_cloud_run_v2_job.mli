@@ -78,7 +78,7 @@ val template__template__containers__ports :
 type template__template__containers__resources
 
 val template__template__containers__resources :
-  ?limits:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
   unit ->
   template__template__containers__resources
 
@@ -176,8 +176,8 @@ val template__template :
 type template
 
 val template :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?parallelism:float prop ->
   ?task_count:float prop ->
   template:template__template list ->
@@ -196,11 +196,11 @@ val timeouts :
 type google_cloud_run_v2_job
 
 val google_cloud_run_v2_job :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?client:string prop ->
   ?client_version:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?binary_authorization:binary_authorization list ->
@@ -218,21 +218,21 @@ val yojson_of_google_cloud_run_v2_job :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   client : string prop;
   client_version : string prop;
   conditions : conditions list prop;
   create_time : string prop;
   creator : string prop;
   delete_time : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   execution_count : float prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_execution : latest_created_execution list prop;
   launch_stage : string prop;
@@ -242,18 +242,18 @@ type t = private {
   project : string prop;
   reconciling : bool prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?client:string prop ->
   ?client_version:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?binary_authorization:binary_authorization list ->
@@ -265,11 +265,11 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?client:string prop ->
   ?client_version:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?binary_authorization:binary_authorization list ->

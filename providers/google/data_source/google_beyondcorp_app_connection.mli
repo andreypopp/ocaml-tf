@@ -36,14 +36,14 @@ type t = private {
   application_endpoint : application_endpoint list prop;
   connectors : string list prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   gateway : gateway list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

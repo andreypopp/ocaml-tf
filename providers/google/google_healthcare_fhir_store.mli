@@ -73,7 +73,7 @@ val google_healthcare_fhir_store :
   ?enable_history_import:bool prop ->
   ?enable_update_create:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->
@@ -96,14 +96,14 @@ type t = private {
   default_search_handling_strict : bool prop;
   disable_referential_integrity : bool prop;
   disable_resource_versioning : bool prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_history_import : bool prop;
   enable_update_create : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   self_link : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -116,7 +116,7 @@ val register :
   ?enable_history_import:bool prop ->
   ?enable_update_create:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->
@@ -135,7 +135,7 @@ val make :
   ?enable_history_import:bool prop ->
   ?enable_update_create:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->
   ?stream_configs:stream_configs list ->

@@ -471,7 +471,7 @@ type t = {
   pcc_rule : pcc_rule list prop;
   service_precedence : float prop;
   service_qos_policy : service_qos_policy list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~mobile_network_id ~name __id =

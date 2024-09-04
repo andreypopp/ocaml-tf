@@ -72,7 +72,7 @@ let _ = yojson_of_bootstrap_action
 
 type core_instance_fleet__instance_type_configs__configurations = {
   classification : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,12 +93,8 @@ let yojson_of_core_instance_fleet__instance_type_configs__configurations
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -820,7 +816,7 @@ let _ = yojson_of_kerberos_attributes
 
 type master_instance_fleet__instance_type_configs__configurations = {
   classification : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -842,12 +838,8 @@ let yojson_of_master_instance_fleet__instance_type_configs__configurations
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -1415,7 +1407,7 @@ type step__hadoop_jar_step = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   jar : string prop;
   main_class : string prop;
-  properties : (string * string prop) list;
+  properties : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -1434,12 +1426,8 @@ let yojson_of_step__hadoop_jar_step =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_properties
          in
          ("properties", arg) :: bnds
@@ -1538,8 +1526,8 @@ type aws_emr_cluster = {
   service_role : string prop;
   step : step list option; [@option]
   step_concurrency_level : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   termination_protection : bool prop option; [@option]
   unhealthy_node_replacement : bool prop option; [@option]
   visible_to_all_users : bool prop option; [@option]
@@ -1714,12 +1702,8 @@ let yojson_of_aws_emr_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1730,12 +1714,8 @@ let yojson_of_aws_emr_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2151,8 +2131,8 @@ type t = {
   service_role : string prop;
   step : step list prop;
   step_concurrency_level : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   termination_protection : bool prop;
   unhealthy_node_replacement : bool prop;
   visible_to_all_users : bool prop;

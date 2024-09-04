@@ -20,7 +20,7 @@ val remote_function_options :
   ?connection:string prop ->
   ?endpoint:string prop ->
   ?max_batching_rows:string prop ->
-  ?user_defined_context:(string * string prop) list ->
+  ?user_defined_context:string prop Tf_core.assoc ->
   unit ->
   remote_function_options
 
@@ -34,7 +34,7 @@ val spark_options :
   ?jar_uris:string prop list ->
   ?main_class:string prop ->
   ?main_file_uri:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?py_file_uris:string prop list ->
   ?runtime_version:string prop ->
   unit ->

@@ -38,7 +38,7 @@ val azurerm_machine_learning_inference_cluster :
   ?cluster_purpose:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssl:ssl list ->
   ?timeouts:timeouts ->
@@ -63,7 +63,7 @@ type t = private {
   location : string prop;
   machine_learning_workspace_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,7 +71,7 @@ val register :
   ?cluster_purpose:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssl:ssl list ->
   ?timeouts:timeouts ->
@@ -86,7 +86,7 @@ val make :
   ?cluster_purpose:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?ssl:ssl list ->
   ?timeouts:timeouts ->

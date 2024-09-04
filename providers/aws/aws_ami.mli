@@ -51,8 +51,8 @@ val aws_ami :
   ?ramdisk_id:string prop ->
   ?root_device_name:string prop ->
   ?sriov_net_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tpm_support:string prop ->
   ?virtualization_type:string prop ->
   ?timeouts:timeouts ->
@@ -91,8 +91,8 @@ type t = private {
   root_device_name : string prop;
   root_snapshot_id : string prop;
   sriov_net_support : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tpm_support : string prop;
   usage_operation : string prop;
   virtualization_type : string prop;
@@ -112,8 +112,8 @@ val register :
   ?ramdisk_id:string prop ->
   ?root_device_name:string prop ->
   ?sriov_net_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tpm_support:string prop ->
   ?virtualization_type:string prop ->
   ?timeouts:timeouts ->
@@ -136,8 +136,8 @@ val make :
   ?ramdisk_id:string prop ->
   ?root_device_name:string prop ->
   ?sriov_net_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tpm_support:string prop ->
   ?virtualization_type:string prop ->
   ?timeouts:timeouts ->

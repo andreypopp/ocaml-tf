@@ -21,7 +21,7 @@ val azurerm_public_ip_prefix :
   ?ip_version:string prop ->
   ?prefix_length:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   prefix_length : float prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -55,7 +55,7 @@ val register :
   ?ip_version:string prop ->
   ?prefix_length:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -69,7 +69,7 @@ val make :
   ?ip_version:string prop ->
   ?prefix_length:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->

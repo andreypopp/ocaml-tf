@@ -91,8 +91,8 @@ val aws_appsync_graphql_api :
   ?query_depth_limit:float prop ->
   ?resolver_count_limit:float prop ->
   ?schema:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
   ?additional_authentication_provider:
@@ -121,9 +121,9 @@ type t = private {
   query_depth_limit : float prop;
   resolver_count_limit : float prop;
   schema : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
-  uris : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
+  uris : string Tf_core.assoc prop;
   visibility : string prop;
   xray_enabled : bool prop;
 }
@@ -135,8 +135,8 @@ val register :
   ?query_depth_limit:float prop ->
   ?resolver_count_limit:float prop ->
   ?schema:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
   ?additional_authentication_provider:
@@ -156,8 +156,8 @@ val make :
   ?query_depth_limit:float prop ->
   ?resolver_count_limit:float prop ->
   ?schema:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
   ?additional_authentication_provider:

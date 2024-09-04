@@ -66,8 +66,8 @@ val azurerm_redis_cache :
   ?replicas_per_primary:float prop ->
   ?shard_count:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tenant_settings:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tenant_settings:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?identity:identity list ->
   ?patch_schedule:patch_schedule list ->
@@ -111,8 +111,8 @@ type t = private {
   sku_name : string prop;
   ssl_port : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tenant_settings : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tenant_settings : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -128,8 +128,8 @@ val register :
   ?replicas_per_primary:float prop ->
   ?shard_count:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tenant_settings:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tenant_settings:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?identity:identity list ->
   ?patch_schedule:patch_schedule list ->
@@ -155,8 +155,8 @@ val make :
   ?replicas_per_primary:float prop ->
   ?shard_count:float prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tenant_settings:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tenant_settings:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?identity:identity list ->
   ?patch_schedule:patch_schedule list ->

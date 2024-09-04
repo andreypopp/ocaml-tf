@@ -239,7 +239,7 @@ type t = {
   query_type : string prop;
   resource_group_name : string prop;
   severity : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throttling : float prop;
   time_window : float prop;
   trigger : trigger list prop;

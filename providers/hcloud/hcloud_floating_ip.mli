@@ -11,7 +11,7 @@ val hcloud_floating_ip :
   ?description:string prop ->
   ?home_location:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?server_id:float prop ->
   type_:string prop ->
@@ -30,7 +30,7 @@ type t = private {
   id : string prop;
   ip_address : string prop;
   ip_network : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   server_id : float prop;
   type_ : string prop;
@@ -42,7 +42,7 @@ val register :
   ?description:string prop ->
   ?home_location:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?server_id:float prop ->
   type_:string prop ->
@@ -54,7 +54,7 @@ val make :
   ?description:string prop ->
   ?home_location:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?server_id:float prop ->
   type_:string prop ->

@@ -108,17 +108,17 @@ type t = {
   tf_name : string;
   crypto_key_backend : string prop;
   destroy_scheduled_duration : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   import_only : bool prop;
   key_ring : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   primary : primary list prop;
   purpose : string prop;
   rotation_period : string prop;
   skip_initial_version_creation : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   version_template : version_template list prop;
 }
 

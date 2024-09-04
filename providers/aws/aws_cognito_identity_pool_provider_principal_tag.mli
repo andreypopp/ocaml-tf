@@ -8,7 +8,7 @@ type aws_cognito_identity_pool_provider_principal_tag
 
 val aws_cognito_identity_pool_provider_principal_tag :
   ?id:string prop ->
-  ?principal_tags:(string * string prop) list ->
+  ?principal_tags:string prop Tf_core.assoc ->
   ?use_defaults:bool prop ->
   identity_pool_id:string prop ->
   identity_provider_name:string prop ->
@@ -25,14 +25,14 @@ type t = private {
   id : string prop;
   identity_pool_id : string prop;
   identity_provider_name : string prop;
-  principal_tags : (string * string) list prop;
+  principal_tags : string Tf_core.assoc prop;
   use_defaults : bool prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?principal_tags:(string * string prop) list ->
+  ?principal_tags:string prop Tf_core.assoc ->
   ?use_defaults:bool prop ->
   identity_pool_id:string prop ->
   identity_provider_name:string prop ->
@@ -41,7 +41,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?principal_tags:(string * string prop) list ->
+  ?principal_tags:string prop Tf_core.assoc ->
   ?use_defaults:bool prop ->
   identity_pool_id:string prop ->
   identity_provider_name:string prop ->

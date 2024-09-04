@@ -32,7 +32,7 @@ type aws_appmesh_virtual_service
 val aws_appmesh_virtual_service :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   unit ->
@@ -54,14 +54,14 @@ type t = private {
   name : string prop;
   resource_owner : string prop;
   spec : spec list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   string ->
@@ -70,7 +70,7 @@ val register :
 val make :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   string ->

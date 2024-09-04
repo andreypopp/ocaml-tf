@@ -15,7 +15,7 @@ type aws_batch_compute_environment
 
 val aws_batch_compute_environment :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   compute_environment_name:string prop ->
   unit ->
   aws_batch_compute_environment
@@ -35,7 +35,7 @@ type t = private {
   state : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   update_policy : update_policy list prop;
 }
@@ -43,14 +43,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   compute_environment_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   compute_environment_name:string prop ->
   string ->
   t Tf_core.resource

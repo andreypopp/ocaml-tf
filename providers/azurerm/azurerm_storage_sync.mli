@@ -19,7 +19,7 @@ type azurerm_storage_sync
 val azurerm_storage_sync :
   ?id:string prop ->
   ?incoming_traffic_policy:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -39,14 +39,14 @@ type t = private {
   name : string prop;
   registered_servers : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?incoming_traffic_policy:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -57,7 +57,7 @@ val register :
 val make :
   ?id:string prop ->
   ?incoming_traffic_policy:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

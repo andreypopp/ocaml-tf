@@ -29,7 +29,7 @@ type aws_cognito_identity_pool_roles_attachment
 val aws_cognito_identity_pool_roles_attachment :
   ?id:string prop ->
   identity_pool_id:string prop ->
-  roles:(string * string prop) list ->
+  roles:string prop Tf_core.assoc ->
   role_mapping:role_mapping list ->
   unit ->
   aws_cognito_identity_pool_roles_attachment
@@ -43,14 +43,14 @@ type t = private {
   tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
-  roles : (string * string) list prop;
+  roles : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   identity_pool_id:string prop ->
-  roles:(string * string prop) list ->
+  roles:string prop Tf_core.assoc ->
   role_mapping:role_mapping list ->
   string ->
   t
@@ -58,7 +58,7 @@ val register :
 val make :
   ?id:string prop ->
   identity_pool_id:string prop ->
-  roles:(string * string prop) list ->
+  roles:string prop Tf_core.assoc ->
   role_mapping:role_mapping list ->
   string ->
   t Tf_core.resource

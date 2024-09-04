@@ -41,7 +41,7 @@ val azurerm_logz_monitor :
   ?enabled:bool prop ->
   ?enterprise_app_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -66,7 +66,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   single_sign_on_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -75,7 +75,7 @@ val register :
   ?enabled:bool prop ->
   ?enterprise_app_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -90,7 +90,7 @@ val make :
   ?enabled:bool prop ->
   ?enterprise_app_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

@@ -25,7 +25,7 @@ type workload__dataflow_flex_template_request__launch_parameter__environment
 
 val workload__dataflow_flex_template_request__launch_parameter__environment :
   ?additional_experiments:string prop list ->
-  ?additional_user_labels:(string * string prop) list ->
+  ?additional_user_labels:string prop Tf_core.assoc ->
   ?enable_streaming_engine:bool prop ->
   ?flexrs_goal:string prop ->
   ?ip_configuration:string prop ->
@@ -47,9 +47,9 @@ type workload__dataflow_flex_template_request__launch_parameter
 
 val workload__dataflow_flex_template_request__launch_parameter :
   ?container_spec_gcs_path:string prop ->
-  ?launch_options:(string * string prop) list ->
-  ?parameters:(string * string prop) list ->
-  ?transform_name_mappings:(string * string prop) list ->
+  ?launch_options:string prop Tf_core.assoc ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?transform_name_mappings:string prop Tf_core.assoc ->
   ?update:bool prop ->
   ?environment:
     workload__dataflow_flex_template_request__launch_parameter__environment
@@ -73,7 +73,7 @@ type workload__dataflow_launch_template_request__launch_parameters__environment
 
 val workload__dataflow_launch_template_request__launch_parameters__environment :
   ?additional_experiments:string prop list ->
-  ?additional_user_labels:(string * string prop) list ->
+  ?additional_user_labels:string prop Tf_core.assoc ->
   ?bypass_temp_dir_validation:bool prop ->
   ?enable_streaming_engine:bool prop ->
   ?ip_configuration:string prop ->
@@ -94,8 +94,8 @@ val workload__dataflow_launch_template_request__launch_parameters__environment :
 type workload__dataflow_launch_template_request__launch_parameters
 
 val workload__dataflow_launch_template_request__launch_parameters :
-  ?parameters:(string * string prop) list ->
-  ?transform_name_mapping:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?transform_name_mapping:string prop Tf_core.assoc ->
   ?update:bool prop ->
   ?environment:
     workload__dataflow_launch_template_request__launch_parameters__environment
@@ -132,7 +132,7 @@ type google_data_pipeline_pipeline
 val google_data_pipeline_pipeline :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?pipeline_sources:(string * string prop) list ->
+  ?pipeline_sources:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->
@@ -158,7 +158,7 @@ type t = private {
   job_count : float prop;
   last_update_time : string prop;
   name : string prop;
-  pipeline_sources : (string * string) list prop;
+  pipeline_sources : string Tf_core.assoc prop;
   project : string prop;
   region : string prop;
   scheduler_service_account_email : string prop;
@@ -170,7 +170,7 @@ val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?pipeline_sources:(string * string prop) list ->
+  ?pipeline_sources:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->
@@ -186,7 +186,7 @@ val register :
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?pipeline_sources:(string * string prop) list ->
+  ?pipeline_sources:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->

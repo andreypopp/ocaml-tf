@@ -4,7 +4,7 @@ open! Tf_core
 
 type aws_inspector_resource_group = {
   id : string prop option; [@option]
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -18,12 +18,8 @@ let yojson_of_aws_inspector_resource_group =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -52,7 +48,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ~tags __id =

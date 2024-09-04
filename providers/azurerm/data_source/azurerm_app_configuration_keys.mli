@@ -10,7 +10,7 @@ type items = {
   key : string prop;  (** key *)
   label : string prop;  (** label *)
   locked : bool prop;  (** locked *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
   value : string prop;  (** value *)
   vault_key_reference : string prop;  (** vault_key_reference *)

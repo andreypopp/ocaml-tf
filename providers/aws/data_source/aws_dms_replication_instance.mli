@@ -8,7 +8,7 @@ type aws_dms_replication_instance
 
 val aws_dms_replication_instance :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_instance_id:string prop ->
   unit ->
   aws_dms_replication_instance
@@ -36,21 +36,21 @@ type t = private {
   replication_instance_private_ips : string list prop;
   replication_instance_public_ips : string list prop;
   replication_subnet_group_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_instance_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_instance_id:string prop ->
   string ->
   t Tf_core.resource

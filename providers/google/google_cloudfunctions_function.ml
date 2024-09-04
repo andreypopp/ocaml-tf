@@ -287,21 +287,20 @@ let _ = yojson_of_timeouts
 
 type google_cloudfunctions_function = {
   available_memory_mb : float prop option; [@option]
-  build_environment_variables : (string * string prop) list option;
+  build_environment_variables : string prop Tf_core.assoc option;
       [@option]
   build_worker_pool : string prop option; [@option]
   description : string prop option; [@option]
   docker_registry : string prop option; [@option]
   docker_repository : string prop option; [@option]
   entry_point : string prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   https_trigger_security_level : string prop option; [@option]
   https_trigger_url : string prop option; [@option]
   id : string prop option; [@option]
   ingress_settings : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   max_instances : float prop option; [@option]
   min_instances : float prop option; [@option]
   name : string prop;
@@ -513,12 +512,8 @@ let yojson_of_google_cloudfunctions_function =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -569,12 +564,8 @@ let yojson_of_google_cloudfunctions_function =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -625,12 +616,8 @@ let yojson_of_google_cloudfunctions_function =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "build_environment_variables", arg in
@@ -727,20 +714,20 @@ let google_cloudfunctions_function ?available_memory_mb
 type t = {
   tf_name : string;
   available_memory_mb : float prop;
-  build_environment_variables : (string * string) list prop;
+  build_environment_variables : string Tf_core.assoc prop;
   build_worker_pool : string prop;
   description : string prop;
   docker_registry : string prop;
   docker_repository : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   entry_point : string prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   https_trigger_security_level : string prop;
   https_trigger_url : string prop;
   id : string prop;
   ingress_settings : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   max_instances : float prop;
   min_instances : float prop;
   name : string prop;
@@ -751,7 +738,7 @@ type t = {
   source_archive_bucket : string prop;
   source_archive_object : string prop;
   status : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   timeout : float prop;
   trigger_http : bool prop;
   version_id : string prop;

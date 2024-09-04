@@ -34,13 +34,13 @@ type google_dataflow_job = {
   id : string prop option; [@option]
   ip_configuration : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   machine_type : string prop option; [@option]
   max_workers : float prop option; [@option]
   name : string prop;
   network : string prop option; [@option]
   on_delete : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
   service_account_email : string prop option; [@option]
@@ -48,7 +48,7 @@ type google_dataflow_job = {
   subnetwork : string prop option; [@option]
   temp_gcs_location : string prop;
   template_gcs_path : string prop;
-  transform_name_mapping : (string * string prop) list option;
+  transform_name_mapping : string prop Tf_core.assoc option;
       [@option]
   zone : string prop option; [@option]
   timeouts : timeouts option;
@@ -103,12 +103,8 @@ let yojson_of_google_dataflow_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "transform_name_mapping", arg in
@@ -171,12 +167,8 @@ let yojson_of_google_dataflow_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -223,12 +215,8 @@ let yojson_of_google_dataflow_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -320,19 +308,19 @@ let google_dataflow_job ?additional_experiments
 type t = {
   tf_name : string;
   additional_experiments : string list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_streaming_engine : bool prop;
   id : string prop;
   ip_configuration : string prop;
   job_id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
   max_workers : float prop;
   name : string prop;
   network : string prop;
   on_delete : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   project : string prop;
   region : string prop;
   service_account_email : string prop;
@@ -341,8 +329,8 @@ type t = {
   subnetwork : string prop;
   temp_gcs_location : string prop;
   template_gcs_path : string prop;
-  terraform_labels : (string * string) list prop;
-  transform_name_mapping : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
+  transform_name_mapping : string Tf_core.assoc prop;
   type_ : string prop;
   zone : string prop;
 }

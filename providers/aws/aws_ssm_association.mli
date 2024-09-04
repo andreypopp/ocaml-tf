@@ -30,11 +30,11 @@ val aws_ssm_association :
   ?instance_id:string prop ->
   ?max_concurrency:string prop ->
   ?max_errors:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->
@@ -60,11 +60,11 @@ type t = private {
   max_concurrency : string prop;
   max_errors : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   schedule_expression : string prop;
   sync_compliance : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   wait_for_success_timeout_seconds : float prop;
 }
 
@@ -79,11 +79,11 @@ val register :
   ?instance_id:string prop ->
   ?max_concurrency:string prop ->
   ?max_errors:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->
@@ -101,11 +101,11 @@ val make :
   ?instance_id:string prop ->
   ?max_concurrency:string prop ->
   ?max_errors:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_success_timeout_seconds:float prop ->
   ?output_location:output_location list ->
   ?targets:targets list ->

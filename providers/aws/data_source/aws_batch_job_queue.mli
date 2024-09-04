@@ -13,7 +13,7 @@ type aws_batch_job_queue
 
 val aws_batch_job_queue :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_batch_job_queue
@@ -33,20 +33,20 @@ type t = private {
   state : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

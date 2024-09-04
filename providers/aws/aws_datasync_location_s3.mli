@@ -15,8 +15,8 @@ val aws_datasync_location_s3 :
   ?agent_arns:string prop list ->
   ?id:string prop ->
   ?s3_storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   s3_bucket_arn:string prop ->
   subdirectory:string prop ->
   s3_config:s3_config list ->
@@ -36,8 +36,8 @@ type t = private {
   s3_bucket_arn : string prop;
   s3_storage_class : string prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -46,8 +46,8 @@ val register :
   ?agent_arns:string prop list ->
   ?id:string prop ->
   ?s3_storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   s3_bucket_arn:string prop ->
   subdirectory:string prop ->
   s3_config:s3_config list ->
@@ -58,8 +58,8 @@ val make :
   ?agent_arns:string prop list ->
   ?id:string prop ->
   ?s3_storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   s3_bucket_arn:string prop ->
   subdirectory:string prop ->
   s3_config:s3_config list ->

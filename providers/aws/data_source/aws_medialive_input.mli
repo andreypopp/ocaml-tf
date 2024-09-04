@@ -55,7 +55,7 @@ type t = private {
   security_groups : string list prop;
   sources : sources list prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

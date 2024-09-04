@@ -15,7 +15,7 @@ type dimensions_infos = {
   details : dimensions_infos__details list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** details *)
-  dimensions : (string * string prop) list;  (** dimensions *)
+  dimensions : string prop Tf_core.assoc;  (** dimensions *)
 }
 
 type quota_increase_eligibility = {

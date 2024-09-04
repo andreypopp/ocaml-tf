@@ -7,7 +7,7 @@ open! Tf_core
 type action
 
 val action :
-  ?webhook_properties:(string * string prop) list ->
+  ?webhook_properties:string prop Tf_core.assoc ->
   action_group_id:string prop ->
   unit ->
   action
@@ -75,7 +75,7 @@ val azurerm_monitor_activity_log_alert :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -99,7 +99,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   scopes : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -108,7 +108,7 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -123,7 +123,7 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->

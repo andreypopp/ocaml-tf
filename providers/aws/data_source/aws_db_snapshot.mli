@@ -14,7 +14,7 @@ val aws_db_snapshot :
   ?include_shared:bool prop ->
   ?most_recent:bool prop ->
   ?snapshot_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_db_snapshot
 
@@ -48,7 +48,7 @@ type t = private {
   source_region : string prop;
   status : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -61,7 +61,7 @@ val register :
   ?include_shared:bool prop ->
   ?most_recent:bool prop ->
   ?snapshot_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -73,6 +73,6 @@ val make :
   ?include_shared:bool prop ->
   ?most_recent:bool prop ->
   ?snapshot_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

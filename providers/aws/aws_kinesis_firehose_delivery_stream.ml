@@ -673,7 +673,7 @@ let _ =
 
 type extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__open_x_json_ser_de = {
   case_insensitive : bool prop option; [@option]
-  column_to_json_key_mappings : (string * string prop) list option;
+  column_to_json_key_mappings : string prop Tf_core.assoc option;
       [@option]
   convert_dots_in_json_keys_to_underscores : bool prop option;
       [@option]
@@ -712,12 +712,8 @@ let yojson_of_extended_s3_configuration__data_format_conversion_configuration__i
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "column_to_json_key_mappings", arg in
@@ -5904,8 +5900,8 @@ type aws_kinesis_firehose_delivery_stream = {
   destination_id : string prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   version_id : string prop option; [@option]
   elasticsearch_configuration : elasticsearch_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -6093,12 +6089,8 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -6109,12 +6101,8 @@ let yojson_of_aws_kinesis_firehose_delivery_stream =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -6959,8 +6947,8 @@ type t = {
   destination_id : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : string prop;
 }
 

@@ -7,7 +7,7 @@ open! Tf_core
 type volumes = {
   delete_protection : bool prop;  (** delete_protection *)
   id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   linux_device : string prop;  (** linux_device *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)

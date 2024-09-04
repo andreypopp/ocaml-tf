@@ -15,10 +15,10 @@ type google_monitoring_notification_channel
 val google_monitoring_notification_channel :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   unit ->
   google_monitoring_notification_channel
 
@@ -34,12 +34,12 @@ type t = private {
   enabled : bool prop;
   force_delete : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   sensitive_labels : sensitive_labels list prop;
   type_ : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
   verification_status : string prop;
 }
 
@@ -47,19 +47,19 @@ val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

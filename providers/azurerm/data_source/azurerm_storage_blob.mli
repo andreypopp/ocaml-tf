@@ -12,7 +12,7 @@ type azurerm_storage_blob
 
 val azurerm_storage_blob :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
@@ -31,7 +31,7 @@ type t = private {
   content_type : string prop;
   encryption_scope : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   storage_account_name : string prop;
   storage_container_name : string prop;
@@ -42,7 +42,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
@@ -52,7 +52,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->

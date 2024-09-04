@@ -17,7 +17,7 @@ type aws_ec2_transit_gateway
 
 val aws_ec2_transit_gateway :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -42,7 +42,7 @@ type t = private {
   multicast_support : string prop;
   owner_id : string prop;
   propagation_default_route_table_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transit_gateway_cidr_blocks : string list prop;
   vpn_ecmp_support : string prop;
 }
@@ -50,7 +50,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -58,7 +58,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

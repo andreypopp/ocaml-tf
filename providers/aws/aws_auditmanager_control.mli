@@ -31,7 +31,7 @@ val aws_auditmanager_control :
   ?action_plan_instructions:string prop ->
   ?action_plan_title:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?testing_information:string prop ->
   name:string prop ->
   control_mapping_sources:control_mapping_sources list ->
@@ -51,8 +51,8 @@ type t = private {
   description : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   testing_information : string prop;
   type_ : string prop;
 }
@@ -62,7 +62,7 @@ val register :
   ?action_plan_instructions:string prop ->
   ?action_plan_title:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?testing_information:string prop ->
   name:string prop ->
   control_mapping_sources:control_mapping_sources list ->
@@ -73,7 +73,7 @@ val make :
   ?action_plan_instructions:string prop ->
   ?action_plan_title:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?testing_information:string prop ->
   name:string prop ->
   control_mapping_sources:control_mapping_sources list ->

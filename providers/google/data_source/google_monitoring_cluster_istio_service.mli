@@ -37,7 +37,7 @@ type t = private {
   service_name : string prop;
   service_namespace : string prop;
   telemetry : telemetry list prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 val register :

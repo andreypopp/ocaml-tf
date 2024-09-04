@@ -27,7 +27,7 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

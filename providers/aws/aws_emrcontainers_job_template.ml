@@ -4,7 +4,7 @@ open! Tf_core
 
 type job_template_data__configuration_overrides__application_configuration__configurations = {
   classification : string prop option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -26,12 +26,8 @@ let yojson_of_job_template_data__configuration_overrides__application_configurat
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -56,7 +52,7 @@ let _ =
 
 type job_template_data__configuration_overrides__application_configuration = {
   classification : string prop;
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   configurations :
     job_template_data__configuration_overrides__application_configuration__configurations
     list;
@@ -96,12 +92,8 @@ let yojson_of_job_template_data__configuration_overrides__application_configurat
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -467,7 +459,7 @@ let _ = yojson_of_job_template_data__job_driver
 
 type job_template_data = {
   execution_role_arn : string prop;
-  job_tags : (string * string prop) list option; [@option]
+  job_tags : string prop Tf_core.assoc option; [@option]
   release_label : string prop;
   configuration_overrides :
     job_template_data__configuration_overrides list;
@@ -521,12 +513,8 @@ let yojson_of_job_template_data =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "job_tags", arg in
@@ -575,8 +563,8 @@ type aws_emrcontainers_job_template = {
   id : string prop option; [@option]
   kms_key_arn : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   job_template_data : job_template_data list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -618,12 +606,8 @@ let yojson_of_aws_emrcontainers_job_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -634,12 +618,8 @@ let yojson_of_aws_emrcontainers_job_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -761,8 +741,8 @@ type t = {
   id : string prop;
   kms_key_arn : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?id ?kms_key_arn ?tags ?tags_all ?timeouts ~name

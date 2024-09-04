@@ -20,7 +20,7 @@ val google_netapp_storage_pool :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_config:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_enabled:bool prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -42,18 +42,18 @@ type t = private {
   active_directory : string prop;
   capacity_gib : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_type : string prop;
   id : string prop;
   kms_config : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   ldap_enabled : bool prop;
   location : string prop;
   name : string prop;
   network : string prop;
   project : string prop;
   service_level : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   volume_capacity_gib : string prop;
   volume_count : float prop;
 }
@@ -64,7 +64,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_config:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_enabled:bool prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -81,7 +81,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_config:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_enabled:bool prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

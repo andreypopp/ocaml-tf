@@ -34,8 +34,8 @@ val aws_sfn_state_machine :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?publish:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
@@ -63,8 +63,8 @@ type t = private {
   role_arn : string prop;
   state_machine_version_arn : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   version_description : string prop;
 }
@@ -75,8 +75,8 @@ val register :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?publish:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
@@ -91,8 +91,8 @@ val make :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?publish:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->

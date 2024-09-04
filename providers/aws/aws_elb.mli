@@ -58,8 +58,8 @@ val aws_elb :
   ?security_groups:string prop list ->
   ?source_security_group:string prop ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_logs:access_logs list ->
   ?health_check:health_check list ->
   ?timeouts:timeouts ->
@@ -90,8 +90,8 @@ type t = private {
   source_security_group : string prop;
   source_security_group_id : string prop;
   subnets : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   zone_id : string prop;
 }
 
@@ -111,8 +111,8 @@ val register :
   ?security_groups:string prop list ->
   ?source_security_group:string prop ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_logs:access_logs list ->
   ?health_check:health_check list ->
   ?timeouts:timeouts ->
@@ -135,8 +135,8 @@ val make :
   ?security_groups:string prop list ->
   ?source_security_group:string prop ->
   ?subnets:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_logs:access_logs list ->
   ?health_check:health_check list ->
   ?timeouts:timeouts ->

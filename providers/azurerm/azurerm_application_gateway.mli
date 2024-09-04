@@ -419,7 +419,7 @@ val azurerm_application_gateway :
   ?firewall_policy_id:string prop ->
   ?force_firewall_policy_association:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?authentication_certificate:authentication_certificate list ->
   ?autoscale_configuration:autoscale_configuration list ->
@@ -469,7 +469,7 @@ type t = private {
   private_endpoint_connection :
     private_endpoint_connection list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -480,7 +480,7 @@ val register :
   ?firewall_policy_id:string prop ->
   ?force_firewall_policy_association:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?authentication_certificate:authentication_certificate list ->
   ?autoscale_configuration:autoscale_configuration list ->
@@ -519,7 +519,7 @@ val make :
   ?firewall_policy_id:string prop ->
   ?force_firewall_policy_association:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?authentication_certificate:authentication_certificate list ->
   ?autoscale_configuration:autoscale_configuration list ->

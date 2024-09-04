@@ -20,14 +20,14 @@ val google_workflows_workflow :
   ?crypto_key_name:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account:string prop ->
   ?source_contents:string prop ->
-  ?user_env_vars:(string * string prop) list ->
+  ?user_env_vars:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   unit ->
   google_workflows_workflow
@@ -43,9 +43,9 @@ type t = private {
   create_time : string prop;
   crypto_key_name : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   name_prefix : string prop;
   project : string prop;
@@ -54,9 +54,9 @@ type t = private {
   service_account : string prop;
   source_contents : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
-  user_env_vars : (string * string) list prop;
+  user_env_vars : string Tf_core.assoc prop;
 }
 
 val register :
@@ -65,14 +65,14 @@ val register :
   ?crypto_key_name:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account:string prop ->
   ?source_contents:string prop ->
-  ?user_env_vars:(string * string prop) list ->
+  ?user_env_vars:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -82,14 +82,14 @@ val make :
   ?crypto_key_name:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account:string prop ->
   ?source_contents:string prop ->
-  ?user_env_vars:(string * string prop) list ->
+  ?user_env_vars:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

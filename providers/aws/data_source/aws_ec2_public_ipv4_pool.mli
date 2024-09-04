@@ -16,7 +16,7 @@ type aws_ec2_public_ipv4_pool
 
 val aws_ec2_public_ipv4_pool :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   pool_id:string prop ->
   unit ->
   aws_ec2_public_ipv4_pool
@@ -33,7 +33,7 @@ type t = private {
   network_border_group : string prop;
   pool_address_ranges : pool_address_ranges list prop;
   pool_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_address_count : float prop;
   total_available_address_count : float prop;
 }
@@ -41,14 +41,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   pool_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   pool_id:string prop ->
   string ->
   t Tf_core.resource

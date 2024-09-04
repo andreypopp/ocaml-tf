@@ -125,7 +125,7 @@ type google_secure_source_manager_instance = {
   id : string prop option; [@option]
   instance_id : string prop;
   kms_key : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   project : string prop option; [@option]
   private_config : private_config list;
@@ -182,12 +182,8 @@ let yojson_of_google_secure_source_manager_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -244,18 +240,18 @@ let google_secure_source_manager_instance ?id ?kms_key ?labels
 type t = {
   tf_name : string;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   host_config : host_config list prop;
   id : string prop;
   instance_id : string prop;
   kms_key : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   state_note : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 

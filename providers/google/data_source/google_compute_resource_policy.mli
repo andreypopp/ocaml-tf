@@ -39,7 +39,7 @@ type instance_schedule_policy = {
 type snapshot_schedule_policy__snapshot_properties = {
   chain_name : string prop;  (** chain_name *)
   guest_flush : bool prop;  (** guest_flush *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   storage_locations : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** storage_locations *)

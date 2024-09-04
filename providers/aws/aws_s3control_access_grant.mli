@@ -24,7 +24,7 @@ type aws_s3control_access_grant
 val aws_s3control_access_grant :
   ?account_id:string prop ->
   ?s3_prefix_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_grants_location_configuration:
     access_grants_location_configuration list ->
   ?grantee:grantee list ->
@@ -48,15 +48,15 @@ type t = private {
   id : string prop;
   permission : string prop;
   s3_prefix_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?s3_prefix_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_grants_location_configuration:
     access_grants_location_configuration list ->
   ?grantee:grantee list ->
@@ -68,7 +68,7 @@ val register :
 val make :
   ?account_id:string prop ->
   ?s3_prefix_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_grants_location_configuration:
     access_grants_location_configuration list ->
   ?grantee:grantee list ->

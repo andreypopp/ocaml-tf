@@ -53,7 +53,7 @@ type t = private {
   resource_group_name : string prop;
   scheduled_agent_updates : scheduled_agent_updates list prop;
   start_vm_on_connect : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   validate_environment : bool prop;
 }

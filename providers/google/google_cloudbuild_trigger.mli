@@ -133,7 +133,7 @@ val build__options :
 type build__secret
 
 val build__secret :
-  ?secret_env:(string * string prop) list ->
+  ?secret_env:string prop Tf_core.assoc ->
   kms_key_name:string prop ->
   unit ->
   build__secret
@@ -146,7 +146,7 @@ val build__source__repo_source :
   ?dir:string prop ->
   ?invert_regex:bool prop ->
   ?project_id:string prop ->
-  ?substitutions:(string * string prop) list ->
+  ?substitutions:string prop Tf_core.assoc ->
   ?tag_name:string prop ->
   repo_name:string prop ->
   unit ->
@@ -203,7 +203,7 @@ val build :
   ?images:string prop list ->
   ?logs_bucket:string prop ->
   ?queue_ttl:string prop ->
-  ?substitutions:(string * string prop) list ->
+  ?substitutions:string prop Tf_core.assoc ->
   ?tags:string prop list ->
   ?timeout:string prop ->
   ?artifacts:build__artifacts list ->
@@ -345,7 +345,7 @@ val google_cloudbuild_trigger :
   ?name:string prop ->
   ?project:string prop ->
   ?service_account:string prop ->
-  ?substitutions:(string * string prop) list ->
+  ?substitutions:string prop Tf_core.assoc ->
   ?tags:string prop list ->
   ?approval_config:approval_config list ->
   ?bitbucket_server_trigger_config:
@@ -382,7 +382,7 @@ type t = private {
   name : string prop;
   project : string prop;
   service_account : string prop;
-  substitutions : (string * string) list prop;
+  substitutions : string Tf_core.assoc prop;
   tags : string list prop;
   trigger_id : string prop;
 }
@@ -401,7 +401,7 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?service_account:string prop ->
-  ?substitutions:(string * string prop) list ->
+  ?substitutions:string prop Tf_core.assoc ->
   ?tags:string prop list ->
   ?approval_config:approval_config list ->
   ?bitbucket_server_trigger_config:
@@ -431,7 +431,7 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?service_account:string prop ->
-  ?substitutions:(string * string prop) list ->
+  ?substitutions:string prop Tf_core.assoc ->
   ?tags:string prop list ->
   ?approval_config:approval_config list ->
   ?bitbucket_server_trigger_config:

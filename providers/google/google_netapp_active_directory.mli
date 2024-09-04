@@ -24,7 +24,7 @@ val google_netapp_active_directory :
   ?id:string prop ->
   ?kdc_hostname:string prop ->
   ?kdc_ip:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_signing:bool prop ->
   ?nfs_users_with_ldap:bool prop ->
   ?organizational_unit:string prop ->
@@ -56,12 +56,12 @@ type t = private {
   description : string prop;
   dns : string prop;
   domain : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   encrypt_dc_connections : bool prop;
   id : string prop;
   kdc_hostname : string prop;
   kdc_ip : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   ldap_signing : bool prop;
   location : string prop;
   name : string prop;
@@ -74,7 +74,7 @@ type t = private {
   site : string prop;
   state : string prop;
   state_details : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   username : string prop;
 }
 
@@ -88,7 +88,7 @@ val register :
   ?id:string prop ->
   ?kdc_hostname:string prop ->
   ?kdc_ip:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_signing:bool prop ->
   ?nfs_users_with_ldap:bool prop ->
   ?organizational_unit:string prop ->
@@ -115,7 +115,7 @@ val make :
   ?id:string prop ->
   ?kdc_hostname:string prop ->
   ?kdc_ip:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?ldap_signing:bool prop ->
   ?nfs_users_with_ldap:bool prop ->
   ?organizational_unit:string prop ->

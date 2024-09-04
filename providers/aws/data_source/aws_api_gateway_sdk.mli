@@ -8,7 +8,7 @@ type aws_api_gateway_sdk
 
 val aws_api_gateway_sdk :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   rest_api_id:string prop ->
   sdk_type:string prop ->
   stage_name:string prop ->
@@ -25,7 +25,7 @@ type t = private {
   content_disposition : string prop;
   content_type : string prop;
   id : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   rest_api_id : string prop;
   sdk_type : string prop;
   stage_name : string prop;
@@ -34,7 +34,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   rest_api_id:string prop ->
   sdk_type:string prop ->
   stage_name:string prop ->
@@ -43,7 +43,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   rest_api_id:string prop ->
   sdk_type:string prop ->
   stage_name:string prop ->

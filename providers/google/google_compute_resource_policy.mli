@@ -101,7 +101,7 @@ type snapshot_schedule_policy__snapshot_properties
 val snapshot_schedule_policy__snapshot_properties :
   ?chain_name:string prop ->
   ?guest_flush:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?storage_locations:string prop list ->
   unit ->
   snapshot_schedule_policy__snapshot_properties

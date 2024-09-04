@@ -739,7 +739,7 @@ let _ = yojson_of_site_credential
 
 type azurerm_logic_app_standard = {
   app_service_plan_id : string prop;
-  app_settings : (string * string prop) list option; [@option]
+  app_settings : string prop Tf_core.assoc option; [@option]
   bundle_version : string prop option; [@option]
   client_affinity_enabled : bool prop option; [@option]
   client_certificate_mode : string prop option; [@option]
@@ -752,7 +752,7 @@ type azurerm_logic_app_standard = {
   storage_account_access_key : string prop;
   storage_account_name : string prop;
   storage_account_share_name : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   use_extension_bundle : bool prop option; [@option]
   version : string prop option; [@option]
   virtual_network_subnet_id : string prop option; [@option]
@@ -858,12 +858,8 @@ let yojson_of_azurerm_logic_app_standard =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -957,12 +953,8 @@ let yojson_of_azurerm_logic_app_standard =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "app_settings", arg in
@@ -1062,7 +1054,7 @@ let azurerm_logic_app_standard ?app_settings ?bundle_version
 type t = {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   bundle_version : string prop;
   client_affinity_enabled : bool prop;
   client_certificate_mode : string prop;
@@ -1081,7 +1073,7 @@ type t = {
   storage_account_access_key : string prop;
   storage_account_name : string prop;
   storage_account_share_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   use_extension_bundle : bool prop;
   version : string prop;
   virtual_network_subnet_id : string prop;

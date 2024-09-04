@@ -29,7 +29,7 @@ val azurerm_monitor_smart_detector_alert_rule :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling_duration:string prop ->
   ?timeouts:timeouts ->
   detector_type:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   resource_group_name : string prop;
   scope_resource_ids : string list prop;
   severity : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throttling_duration : string prop;
 }
 
@@ -67,7 +67,7 @@ val register :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling_duration:string prop ->
   ?timeouts:timeouts ->
   detector_type:string prop ->
@@ -84,7 +84,7 @@ val make :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling_duration:string prop ->
   ?timeouts:timeouts ->
   detector_type:string prop ->

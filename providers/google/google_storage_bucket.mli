@@ -120,7 +120,7 @@ val google_storage_bucket :
   ?enable_object_retention:bool prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_access_prevention:string prop ->
   ?requester_pays:bool prop ->
@@ -150,11 +150,11 @@ val yojson_of_google_storage_bucket : google_storage_bucket -> json
 type t = private {
   tf_name : string;
   default_event_based_hold : bool prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_object_retention : bool prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
@@ -164,7 +164,7 @@ type t = private {
   rpo : string prop;
   self_link : string prop;
   storage_class : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uniform_bucket_level_access : bool prop;
   url : string prop;
 }
@@ -175,7 +175,7 @@ val register :
   ?enable_object_retention:bool prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_access_prevention:string prop ->
   ?requester_pays:bool prop ->
@@ -203,7 +203,7 @@ val make :
   ?enable_object_retention:bool prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_access_prevention:string prop ->
   ?requester_pays:bool prop ->

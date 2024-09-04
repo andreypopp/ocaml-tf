@@ -55,8 +55,8 @@ val aws_networkfirewall_firewall :
   ?firewall_policy_change_protection:bool prop ->
   ?id:string prop ->
   ?subnet_change_protection:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->
@@ -82,8 +82,8 @@ type t = private {
   id : string prop;
   name : string prop;
   subnet_change_protection : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   update_token : string prop;
   vpc_id : string prop;
 }
@@ -95,8 +95,8 @@ val register :
   ?firewall_policy_change_protection:bool prop ->
   ?id:string prop ->
   ?subnet_change_protection:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->
@@ -112,8 +112,8 @@ val make :
   ?firewall_policy_change_protection:bool prop ->
   ?id:string prop ->
   ?subnet_change_protection:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->

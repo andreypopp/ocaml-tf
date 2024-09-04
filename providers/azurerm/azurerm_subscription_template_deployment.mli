@@ -20,7 +20,7 @@ val azurerm_subscription_template_deployment :
   ?debug_level:string prop ->
   ?id:string prop ->
   ?parameters_content:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template_content:string prop ->
   ?template_spec_version_id:string prop ->
   ?timeouts:timeouts ->
@@ -42,7 +42,7 @@ type t = private {
   name : string prop;
   output_content : string prop;
   parameters_content : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template_content : string prop;
   template_spec_version_id : string prop;
 }
@@ -52,7 +52,7 @@ val register :
   ?debug_level:string prop ->
   ?id:string prop ->
   ?parameters_content:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template_content:string prop ->
   ?template_spec_version_id:string prop ->
   ?timeouts:timeouts ->
@@ -65,7 +65,7 @@ val make :
   ?debug_level:string prop ->
   ?id:string prop ->
   ?parameters_content:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?template_content:string prop ->
   ?template_spec_version_id:string prop ->
   ?timeouts:timeouts ->

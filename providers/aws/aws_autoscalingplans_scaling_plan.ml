@@ -82,7 +82,7 @@ let _ = yojson_of_application_source
 [@@@deriving.end]
 
 type scaling_instruction__customized_load_metric_specification = {
-  dimensions : (string * string prop) list option; [@option]
+  dimensions : string prop Tf_core.assoc option; [@option]
   metric_name : string prop;
   namespace : string prop;
   statistic : string prop;
@@ -132,12 +132,8 @@ let yojson_of_scaling_instruction__customized_load_metric_specification
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dimensions", arg in
@@ -197,7 +193,7 @@ let _ =
 [@@@deriving.end]
 
 type scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification = {
-  dimensions : (string * string prop) list option; [@option]
+  dimensions : string prop Tf_core.assoc option; [@option]
   metric_name : string prop;
   namespace : string prop;
   statistic : string prop;
@@ -248,12 +244,8 @@ let yojson_of_scaling_instruction__target_tracking_configuration__customized_sca
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dimensions", arg in

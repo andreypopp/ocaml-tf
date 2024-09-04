@@ -13,7 +13,7 @@ type aws_memorydb_user
 
 val aws_memorydb_user :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   unit ->
   aws_memorydb_user
@@ -29,21 +29,21 @@ type t = private {
   authentication_mode : authentication_mode list prop;
   id : string prop;
   minimum_engine_version : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_name : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   user_name:string prop ->
   string ->
   t Tf_core.resource

@@ -815,7 +815,7 @@ type azurerm_frontdoor = {
   load_balancer_enabled : bool prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   backend_pool : backend_pool list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   backend_pool_health_probe : backend_pool_health_probe list;
@@ -921,12 +921,8 @@ let yojson_of_azurerm_frontdoor =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1097,20 +1093,20 @@ let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
 
 type t = {
   tf_name : string;
-  backend_pool_health_probes : (string * string) list prop;
-  backend_pool_load_balancing_settings : (string * string) list prop;
-  backend_pools : (string * string) list prop;
+  backend_pool_health_probes : string Tf_core.assoc prop;
+  backend_pool_load_balancing_settings : string Tf_core.assoc prop;
+  backend_pools : string Tf_core.assoc prop;
   cname : string prop;
   explicit_resource_order : explicit_resource_order list prop;
   friendly_name : string prop;
-  frontend_endpoints : (string * string) list prop;
+  frontend_endpoints : string Tf_core.assoc prop;
   header_frontdoor_id : string prop;
   id : string prop;
   load_balancer_enabled : bool prop;
   name : string prop;
   resource_group_name : string prop;
-  routing_rules : (string * string) list prop;
-  tags : (string * string) list prop;
+  routing_rules : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?friendly_name ?id ?load_balancer_enabled ?tags

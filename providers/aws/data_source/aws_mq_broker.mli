@@ -66,7 +66,7 @@ val aws_mq_broker :
   ?broker_id:string prop ->
   ?broker_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_mq_broker
 
@@ -97,7 +97,7 @@ type t = private {
   security_groups : string list prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user : user list prop;
 }
 
@@ -106,7 +106,7 @@ val register :
   ?broker_id:string prop ->
   ?broker_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -114,6 +114,6 @@ val make :
   ?broker_id:string prop ->
   ?broker_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

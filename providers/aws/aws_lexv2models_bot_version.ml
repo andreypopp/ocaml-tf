@@ -67,7 +67,7 @@ type aws_lexv2models_bot_version = {
   bot_id : string prop;
   bot_version : string prop option; [@option]
   description : string prop option; [@option]
-  locale_specification : (string * locale_specification) list;
+  locale_specification : locale_specification Tf_core.assoc;
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -92,12 +92,7 @@ let yojson_of_aws_lexv2models_bot_version =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_locale_specification v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc yojson_of_locale_specification
              v_locale_specification
          in
          ("locale_specification", arg) :: bnds
@@ -148,7 +143,7 @@ type t = {
   bot_version : string prop;
   description : string prop;
   id : string prop;
-  locale_specification : (string * locale_specification) list prop;
+  locale_specification : locale_specification Tf_core.assoc prop;
 }
 
 let make ?bot_version ?description ?timeouts ~bot_id

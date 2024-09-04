@@ -8,7 +8,7 @@ type aws_networkmanager_global_networks
 
 val aws_networkmanager_global_networks :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_networkmanager_global_networks
 
@@ -21,18 +21,18 @@ type t = private {
   tf_name : string;
   id : string prop;
   ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

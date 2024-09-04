@@ -120,7 +120,7 @@ type azurerm_logic_app_standard
 
 val azurerm_logic_app_standard :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -136,7 +136,7 @@ val yojson_of_azurerm_logic_app_standard :
 type t = private {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   bundle_version : string prop;
   client_affinity_enabled : bool prop;
   client_certificate_mode : string prop;
@@ -157,7 +157,7 @@ type t = private {
   storage_account_access_key : string prop;
   storage_account_name : string prop;
   storage_account_share_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   use_extension_bundle : bool prop;
   version : string prop;
   virtual_network_subnet_id : string prop;
@@ -166,7 +166,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -176,7 +176,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->

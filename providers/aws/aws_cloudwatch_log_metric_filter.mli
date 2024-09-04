@@ -8,7 +8,7 @@ type metric_transformation
 
 val metric_transformation :
   ?default_value:string prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?unit:string prop ->
   name:string prop ->
   namespace:string prop ->

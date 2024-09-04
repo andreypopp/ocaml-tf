@@ -9,7 +9,7 @@ type teams = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   name : string prop;
   node_id : string prop;
-  parent : (string * string prop) list;
+  parent : string prop Tf_core.assoc;
   privacy : string prop;
   repositories : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -55,12 +55,8 @@ let yojson_of_teams =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parent
          in
          ("parent", arg) :: bnds

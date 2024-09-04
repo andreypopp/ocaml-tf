@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -29,7 +29,7 @@ val spec__selector__match_expressions :
 type spec__selector
 
 val spec__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector
@@ -52,9 +52,9 @@ val spec__strategy :
 type spec__template__metadata
 
 val spec__template__metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -163,7 +163,7 @@ val spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ig
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
 
 val spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list ->
@@ -203,7 +203,7 @@ val spec__template__spec__affinity__pod_affinity__required_during_scheduling_ign
 type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
 
 val spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list ->
@@ -245,7 +245,7 @@ val spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduli
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
 
 val spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list ->
@@ -285,7 +285,7 @@ val spec__template__spec__affinity__pod_anti_affinity__required_during_schedulin
 type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
 
 val spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list ->
@@ -654,8 +654,8 @@ val spec__template__spec__container__readiness_probe :
 type spec__template__spec__container__resources
 
 val spec__template__spec__container__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   spec__template__spec__container__resources
 
@@ -1182,8 +1182,8 @@ val spec__template__spec__init_container__readiness_probe :
 type spec__template__spec__init_container__resources
 
 val spec__template__spec__init_container__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   spec__template__spec__init_container__resources
 
@@ -1431,7 +1431,7 @@ val spec__template__spec__topology_spread_constraint__label_selector__match_expr
 type spec__template__spec__topology_spread_constraint__label_selector
 
 val spec__template__spec__topology_spread_constraint__label_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list ->
@@ -1546,7 +1546,7 @@ type spec__template__spec__volume__csi
 val spec__template__spec__volume__csi :
   ?fs_type:string prop ->
   ?read_only:bool prop ->
-  ?volume_attributes:(string * string prop) list ->
+  ?volume_attributes:string prop Tf_core.assoc ->
   ?node_publish_secret_ref:
     spec__template__spec__volume__csi__node_publish_secret_ref list ->
   driver:string prop ->
@@ -1602,16 +1602,16 @@ val spec__template__spec__volume__empty_dir :
 type spec__template__spec__volume__ephemeral__volume_claim_template__metadata
 
 val spec__template__spec__volume__ephemeral__volume_claim_template__metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   unit ->
   spec__template__spec__volume__ephemeral__volume_claim_template__metadata
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
 
 val spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources :
-  ?limits:(string * string prop) list ->
-  ?requests:(string * string prop) list ->
+  ?limits:string prop Tf_core.assoc ->
+  ?requests:string prop Tf_core.assoc ->
   unit ->
   spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
 
@@ -1627,7 +1627,7 @@ val spec__template__spec__volume__ephemeral__volume_claim_template__spec__select
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
 
 val spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list ->
@@ -1693,7 +1693,7 @@ type spec__template__spec__volume__flex_volume
 
 val spec__template__spec__volume__flex_volume :
   ?fs_type:string prop ->
-  ?options:(string * string prop) list ->
+  ?options:string prop Tf_core.assoc ->
   ?read_only:bool prop ->
   ?secret_ref:
     spec__template__spec__volume__flex_volume__secret_ref list ->
@@ -2010,7 +2010,7 @@ val spec__template__spec :
   ?host_pid:bool prop ->
   ?hostname:string prop ->
   ?node_name:string prop ->
-  ?node_selector:(string * string prop) list ->
+  ?node_selector:string prop Tf_core.assoc ->
   ?priority_class_name:string prop ->
   ?restart_policy:string prop ->
   ?runtime_class_name:string prop ->

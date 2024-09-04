@@ -45,7 +45,7 @@ type azurerm_dev_test_schedule
 val azurerm_dev_test_schedule :
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_recurrence:daily_recurrence list ->
   ?hourly_recurrence:hourly_recurrence list ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   task_type : string prop;
   time_zone_id : string prop;
 }
@@ -82,7 +82,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_recurrence:daily_recurrence list ->
   ?hourly_recurrence:hourly_recurrence list ->
   ?timeouts:timeouts ->
@@ -100,7 +100,7 @@ val register :
 val make :
   ?id:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_recurrence:daily_recurrence list ->
   ?hourly_recurrence:hourly_recurrence list ->
   ?timeouts:timeouts ->

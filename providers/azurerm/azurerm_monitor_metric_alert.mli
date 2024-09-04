@@ -7,7 +7,7 @@ open! Tf_core
 type action
 
 val action :
-  ?webhook_properties:(string * string prop) list ->
+  ?webhook_properties:string prop Tf_core.assoc ->
   action_group_id:string prop ->
   unit ->
   action
@@ -87,7 +87,7 @@ val azurerm_monitor_metric_alert :
   ?frequency:string prop ->
   ?id:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->
@@ -119,7 +119,7 @@ type t = private {
   resource_group_name : string prop;
   scopes : string list prop;
   severity : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_location : string prop;
   target_resource_type : string prop;
   window_size : string prop;
@@ -133,7 +133,7 @@ val register :
   ?frequency:string prop ->
   ?id:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->
@@ -156,7 +156,7 @@ val make :
   ?frequency:string prop ->
   ?id:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->

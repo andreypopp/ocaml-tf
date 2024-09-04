@@ -34,8 +34,8 @@ let _ = yojson_of_eks_properties__pod_properties__containers__env
 [@@@deriving.end]
 
 type eks_properties__pod_properties__containers__resources = {
-  limits : (string * string prop) list option; [@option]
-  requests : (string * string prop) list option; [@option]
+  limits : string prop Tf_core.assoc option; [@option]
+  requests : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,12 +54,8 @@ let yojson_of_eks_properties__pod_properties__containers__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "requests", arg in
@@ -70,12 +66,8 @@ let yojson_of_eks_properties__pod_properties__containers__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "limits", arg in
@@ -344,7 +336,7 @@ let _ = yojson_of_eks_properties__pod_properties__containers
 [@@@deriving.end]
 
 type eks_properties__pod_properties__metadata = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -361,12 +353,8 @@ let yojson_of_eks_properties__pod_properties__metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -808,12 +796,12 @@ type aws_batch_job_definition = {
   id : string prop option; [@option]
   name : string prop;
   node_properties : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   platform_capabilities : string prop list option; [@option]
   propagate_tags : bool prop option; [@option]
   scheduling_priority : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   type_ : string prop; [@key "type"]
   eks_properties : eks_properties list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -884,12 +872,8 @@ let yojson_of_aws_batch_job_definition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -900,12 +884,8 @@ let yojson_of_aws_batch_job_definition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -942,12 +922,8 @@ let yojson_of_aws_batch_job_definition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -1119,13 +1095,13 @@ type t = {
   id : string prop;
   name : string prop;
   node_properties : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   platform_capabilities : string list prop;
   propagate_tags : bool prop;
   revision : float prop;
   scheduling_priority : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

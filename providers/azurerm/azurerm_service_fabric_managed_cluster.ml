@@ -298,14 +298,13 @@ let _ = yojson_of_node_type__vm_secrets
 
 type node_type = {
   application_port_range : string prop;
-  capacities : (string * string prop) list option; [@option]
+  capacities : string prop Tf_core.assoc option; [@option]
   data_disk_size_gb : float prop;
   data_disk_type : string prop option; [@option]
   ephemeral_port_range : string prop;
   multiple_placement_groups_enabled : bool prop option; [@option]
   name : string prop;
-  placement_properties : (string * string prop) list option;
-      [@option]
+  placement_properties : string prop Tf_core.assoc option; [@option]
   primary : bool prop option; [@option]
   stateless : bool prop option; [@option]
   vm_image_offer : string prop;
@@ -409,12 +408,8 @@ let yojson_of_node_type =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "placement_properties", arg in
@@ -457,12 +452,8 @@ let yojson_of_node_type =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "capacities", arg in
@@ -553,7 +544,7 @@ type azurerm_service_fabric_managed_cluster = {
   password : string prop option; [@option]
   resource_group_name : string prop;
   sku : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   upgrade_wave : string prop option; [@option]
   username : string prop option; [@option]
   authentication : authentication list;
@@ -657,12 +648,8 @@ let yojson_of_azurerm_service_fabric_managed_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -856,7 +843,7 @@ type t = {
   password : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_wave : string prop;
   username : string prop;
 }

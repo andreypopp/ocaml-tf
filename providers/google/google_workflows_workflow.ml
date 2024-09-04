@@ -53,14 +53,14 @@ type google_workflows_workflow = {
   crypto_key_name : string prop option; [@option]
   description : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   name_prefix : string prop option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
   service_account : string prop option; [@option]
   source_contents : string prop option; [@option]
-  user_env_vars : (string * string prop) list option; [@option]
+  user_env_vars : string prop Tf_core.assoc option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -96,12 +96,8 @@ let yojson_of_google_workflows_workflow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "user_env_vars", arg in
@@ -160,12 +156,8 @@ let yojson_of_google_workflows_workflow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -239,9 +231,9 @@ type t = {
   create_time : string prop;
   crypto_key_name : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   name_prefix : string prop;
   project : string prop;
@@ -250,9 +242,9 @@ type t = {
   service_account : string prop;
   source_contents : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
-  user_env_vars : (string * string) list prop;
+  user_env_vars : string Tf_core.assoc prop;
 }
 
 let make ?call_log_level ?crypto_key_name ?description ?id ?labels

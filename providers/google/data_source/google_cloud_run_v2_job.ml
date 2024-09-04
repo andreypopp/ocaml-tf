@@ -447,7 +447,7 @@ let _ = yojson_of_template__template__containers__volume_mounts
 [@@@deriving.end]
 
 type template__template__containers__resources = {
-  limits : (string * string prop) list;
+  limits : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -461,12 +461,8 @@ let yojson_of_template__template__containers__resources =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_limits
          in
          ("limits", arg) :: bnds
@@ -845,8 +841,8 @@ let _ = yojson_of_template__template
 [@@@deriving.end]
 
 type template = {
-  annotations : (string * string prop) list;
-  labels : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
+  labels : string prop Tf_core.assoc;
   parallelism : float prop;
   task_count : float prop;
   template : template__template list;
@@ -887,24 +883,16 @@ let yojson_of_template =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds
@@ -1052,7 +1040,7 @@ let google_cloud_run_v2_job ?id ?location ?project ~name () :
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   binary_authorization : binary_authorization list prop;
   client : string prop;
   client_version : string prop;
@@ -1060,14 +1048,14 @@ type t = {
   create_time : string prop;
   creator : string prop;
   delete_time : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   execution_count : float prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_execution : latest_created_execution list prop;
   launch_stage : string prop;
@@ -1078,7 +1066,7 @@ type t = {
   reconciling : bool prop;
   template : template list prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }

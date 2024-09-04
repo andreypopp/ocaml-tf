@@ -28,8 +28,8 @@ type aws_medialive_multiplex
 val aws_medialive_multiplex :
   ?id:string prop ->
   ?start_multiplex:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
@@ -49,16 +49,16 @@ type t = private {
   id : string prop;
   name : string prop;
   start_multiplex : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?start_multiplex:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
@@ -69,8 +69,8 @@ val register :
 val make :
   ?id:string prop ->
   ?start_multiplex:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->

@@ -29,8 +29,8 @@ val aws_dms_replication_instance :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?replication_subnet_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   replication_instance_class:string prop ->
@@ -63,8 +63,8 @@ type t = private {
   replication_instance_private_ips : string list prop;
   replication_instance_public_ips : string list prop;
   replication_subnet_group_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
@@ -83,8 +83,8 @@ val register :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?replication_subnet_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   replication_instance_class:string prop ->
@@ -106,8 +106,8 @@ val make :
   ?preferred_maintenance_window:string prop ->
   ?publicly_accessible:bool prop ->
   ?replication_subnet_group_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   replication_instance_class:string prop ->

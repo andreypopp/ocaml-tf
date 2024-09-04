@@ -32,7 +32,7 @@ val azurerm_virtual_machine_extension :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?protected_settings_from_key_vault:
     protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->
@@ -60,7 +60,7 @@ type t = private {
   provision_after_extensions : string list prop;
   publisher : string prop;
   settings : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   type_handler_version : string prop;
   virtual_machine_id : string prop;
@@ -75,7 +75,7 @@ val register :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?protected_settings_from_key_vault:
     protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->
@@ -95,7 +95,7 @@ val make :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?protected_settings_from_key_vault:
     protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->

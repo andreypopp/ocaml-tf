@@ -303,7 +303,7 @@ type google_redis_cluster = {
   name : string prop option; [@option]
   node_type : string prop option; [@option]
   project : string prop option; [@option]
-  redis_configs : (string * string prop) list option; [@option]
+  redis_configs : string prop Tf_core.assoc option; [@option]
   region : string prop option; [@option]
   replica_count : float prop option; [@option]
   shard_count : float prop;
@@ -394,12 +394,8 @@ let yojson_of_google_redis_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "redis_configs", arg in
@@ -493,7 +489,7 @@ type t = {
   precise_size_gb : float prop;
   project : string prop;
   psc_connections : psc_connections list prop;
-  redis_configs : (string * string) list prop;
+  redis_configs : string Tf_core.assoc prop;
   region : string prop;
   replica_count : float prop;
   shard_count : float prop;

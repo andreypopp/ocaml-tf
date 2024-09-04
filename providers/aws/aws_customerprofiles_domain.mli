@@ -125,8 +125,8 @@ val aws_customerprofiles_domain :
   ?dead_letter_queue_url:string prop ->
   ?default_encryption_key:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?matching:matching list ->
   ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->
@@ -147,8 +147,8 @@ type t = private {
   default_expiration_days : float prop;
   domain_name : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -156,8 +156,8 @@ val register :
   ?dead_letter_queue_url:string prop ->
   ?default_encryption_key:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?matching:matching list ->
   ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->
@@ -169,8 +169,8 @@ val make :
   ?dead_letter_queue_url:string prop ->
   ?default_encryption_key:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?matching:matching list ->
   ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->

@@ -11,8 +11,8 @@ val aws_db_subnet_group :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_ids:string prop list ->
   unit ->
   aws_db_subnet_group
@@ -30,8 +30,8 @@ type t = private {
   name_prefix : string prop;
   subnet_ids : string list prop;
   supported_network_types : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -41,8 +41,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_ids:string prop list ->
   string ->
   t
@@ -52,8 +52,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_ids:string prop list ->
   string ->
   t Tf_core.resource

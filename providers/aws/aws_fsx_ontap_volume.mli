@@ -90,7 +90,7 @@ type aws_fsx_ontap_volume
 val aws_fsx_ontap_volume :
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
@@ -100,8 +100,8 @@ val aws_fsx_ontap_volume :
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_style:string prop ->
   ?volume_type:string prop ->
   ?aggregate_configuration:aggregate_configuration list ->
@@ -123,7 +123,7 @@ type t = private {
   bypass_snaplock_enterprise_retention : bool prop;
   copy_tags_to_backups : bool prop;
   file_system_id : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   flexcache_endpoint_type : string prop;
   id : string prop;
   junction_path : string prop;
@@ -136,8 +136,8 @@ type t = private {
   snapshot_policy : string prop;
   storage_efficiency_enabled : bool prop;
   storage_virtual_machine_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uuid : string prop;
   volume_style : string prop;
   volume_type : string prop;
@@ -147,7 +147,7 @@ val register :
   ?tf_module:tf_module ->
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
@@ -157,8 +157,8 @@ val register :
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_style:string prop ->
   ?volume_type:string prop ->
   ?aggregate_configuration:aggregate_configuration list ->
@@ -173,7 +173,7 @@ val register :
 val make :
   ?bypass_snaplock_enterprise_retention:bool prop ->
   ?copy_tags_to_backups:bool prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?junction_path:string prop ->
   ?ontap_volume_type:string prop ->
@@ -183,8 +183,8 @@ val make :
   ?skip_final_backup:bool prop ->
   ?snapshot_policy:string prop ->
   ?storage_efficiency_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_style:string prop ->
   ?volume_type:string prop ->
   ?aggregate_configuration:aggregate_configuration list ->

@@ -13,7 +13,7 @@ val aws_route53_resolver_rule :
   ?resolver_endpoint_id:string prop ->
   ?resolver_rule_id:string prop ->
   ?rule_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_route53_resolver_rule
 
@@ -33,7 +33,7 @@ type t = private {
   resolver_rule_id : string prop;
   rule_type : string prop;
   share_status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -44,7 +44,7 @@ val register :
   ?resolver_endpoint_id:string prop ->
   ?resolver_rule_id:string prop ->
   ?rule_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -55,6 +55,6 @@ val make :
   ?resolver_endpoint_id:string prop ->
   ?resolver_rule_id:string prop ->
   ?rule_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

@@ -12,7 +12,7 @@ val local_disk_encryption :
 type node_config
 
 val node_config :
-  ?labels:(string * string prop) list -> unit -> node_config
+  ?labels:string prop Tf_core.assoc -> unit -> node_config
 
 type timeouts
 
@@ -27,7 +27,7 @@ type google_edgecontainer_node_pool
 
 val google_edgecontainer_node_pool :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_filter:string prop ->
   ?project:string prop ->
   ?local_disk_encryption:local_disk_encryption list ->
@@ -50,9 +50,9 @@ type t = private {
   tf_name : string;
   cluster : string prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   machine_filter : string prop;
   name : string prop;
@@ -60,14 +60,14 @@ type t = private {
   node_location : string prop;
   node_version : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_filter:string prop ->
   ?project:string prop ->
   ?local_disk_encryption:local_disk_encryption list ->
@@ -83,7 +83,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_filter:string prop ->
   ?project:string prop ->
   ?local_disk_encryption:local_disk_encryption list ->

@@ -15,7 +15,7 @@ type aws_db_instance
 val aws_db_instance :
   ?db_instance_identifier:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_db_instance
 
@@ -65,7 +65,7 @@ type t = private {
   storage_encrypted : bool prop;
   storage_throughput : float prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone : string prop;
   vpc_security_groups : string list prop;
 }
@@ -74,13 +74,13 @@ val register :
   ?tf_module:tf_module ->
   ?db_instance_identifier:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?db_instance_identifier:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

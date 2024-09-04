@@ -20,7 +20,7 @@ type resource_tag_mapping_list = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** compliance_details *)
   resource_arn : string prop;  (** resource_arn *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
 }
 
 type tag_filter

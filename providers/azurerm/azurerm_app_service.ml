@@ -218,7 +218,7 @@ let _ = yojson_of_auth_settings__twitter
 [@@@deriving.end]
 
 type auth_settings = {
-  additional_login_params : (string * string prop) list option;
+  additional_login_params : string prop Tf_core.assoc option;
       [@option]
   allowed_external_redirect_urls : string prop list option; [@option]
   default_provider : string prop option; [@option]
@@ -385,12 +385,8 @@ let yojson_of_auth_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_login_params", arg in
@@ -1764,7 +1760,7 @@ let _ = yojson_of_site_credential
 
 type azurerm_app_service = {
   app_service_plan_id : string prop;
-  app_settings : (string * string prop) list option; [@option]
+  app_settings : string prop Tf_core.assoc option; [@option]
   client_affinity_enabled : bool prop option; [@option]
   client_cert_enabled : bool prop option; [@option]
   client_cert_mode : string prop option; [@option]
@@ -1775,7 +1771,7 @@ type azurerm_app_service = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   auth_settings : auth_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   backup : backup list;
@@ -1907,12 +1903,8 @@ let yojson_of_azurerm_app_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1993,12 +1985,8 @@ let yojson_of_azurerm_app_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "app_settings", arg in
@@ -2214,7 +2202,7 @@ let azurerm_app_service ?app_settings ?client_affinity_enabled
 type t = {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   client_affinity_enabled : bool prop;
   client_cert_enabled : bool prop;
   client_cert_mode : string prop;
@@ -2232,7 +2220,7 @@ type t = {
   possible_outbound_ip_addresses : string prop;
   resource_group_name : string prop;
   site_credential : site_credential list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?app_settings ?client_affinity_enabled ?client_cert_enabled

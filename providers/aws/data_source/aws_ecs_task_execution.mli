@@ -103,7 +103,7 @@ val aws_ecs_task_execution :
   ?propagate_tags:string prop ->
   ?reference_id:string prop ->
   ?started_by:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_configuration:network_configuration list ->
   ?overrides:overrides list ->
   ?placement_strategy:placement_strategy list ->
@@ -132,7 +132,7 @@ type t = private {
   propagate_tags : string prop;
   reference_id : string prop;
   started_by : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   task_arns : string list prop;
   task_definition : string prop;
 }
@@ -150,7 +150,7 @@ val register :
   ?propagate_tags:string prop ->
   ?reference_id:string prop ->
   ?started_by:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_configuration:network_configuration list ->
   ?overrides:overrides list ->
   ?placement_strategy:placement_strategy list ->
@@ -173,7 +173,7 @@ val make :
   ?propagate_tags:string prop ->
   ?reference_id:string prop ->
   ?started_by:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_configuration:network_configuration list ->
   ?overrides:overrides list ->
   ?placement_strategy:placement_strategy list ->

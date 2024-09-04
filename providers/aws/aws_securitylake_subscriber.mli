@@ -62,7 +62,7 @@ val aws_securitylake_subscriber :
   ?access_type:string prop ->
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
   source:source list ->
@@ -87,8 +87,8 @@ type t = private {
   subscriber_endpoint : string prop;
   subscriber_name : string prop;
   subscriber_status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -96,7 +96,7 @@ val register :
   ?access_type:string prop ->
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
   source:source list ->
@@ -107,7 +107,7 @@ val make :
   ?access_type:string prop ->
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
   source:source list ->

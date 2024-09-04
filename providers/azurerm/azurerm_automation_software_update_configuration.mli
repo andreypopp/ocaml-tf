@@ -18,7 +18,7 @@ val linux :
 type post_task
 
 val post_task :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?source:string prop ->
   unit ->
   post_task
@@ -26,7 +26,7 @@ val post_task :
 type pre_task
 
 val pre_task :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?source:string prop ->
   unit ->
   pre_task

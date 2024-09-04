@@ -33,7 +33,7 @@ type t = private {
   key : string prop;
   label : string prop;
   locked : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   value : string prop;
   vault_key_reference : string prop;

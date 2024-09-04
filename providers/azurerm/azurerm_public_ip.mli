@@ -23,13 +23,13 @@ val azurerm_public_ip :
   ?edge_zone:string prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
-  ?ip_tags:(string * string prop) list ->
+  ?ip_tags:string prop Tf_core.assoc ->
   ?ip_version:string prop ->
   ?public_ip_prefix_id:string prop ->
   ?reverse_fqdn:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   allocation_method:string prop ->
@@ -54,7 +54,7 @@ type t = private {
   id : string prop;
   idle_timeout_in_minutes : float prop;
   ip_address : string prop;
-  ip_tags : (string * string) list prop;
+  ip_tags : string Tf_core.assoc prop;
   ip_version : string prop;
   location : string prop;
   name : string prop;
@@ -63,7 +63,7 @@ type t = private {
   reverse_fqdn : string prop;
   sku : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -75,13 +75,13 @@ val register :
   ?edge_zone:string prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
-  ?ip_tags:(string * string prop) list ->
+  ?ip_tags:string prop Tf_core.assoc ->
   ?ip_version:string prop ->
   ?public_ip_prefix_id:string prop ->
   ?reverse_fqdn:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   allocation_method:string prop ->
@@ -98,13 +98,13 @@ val make :
   ?edge_zone:string prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
-  ?ip_tags:(string * string prop) list ->
+  ?ip_tags:string prop Tf_core.assoc ->
   ?ip_version:string prop ->
   ?public_ip_prefix_id:string prop ->
   ?reverse_fqdn:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   allocation_method:string prop ->

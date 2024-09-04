@@ -126,7 +126,7 @@ type t = {
   description : string prop;
   id : float prop;
   include_deprecated : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   most_recent : bool prop;
   name : string prop;
   os_flavor : string prop;

@@ -9,7 +9,7 @@ type hcloud_network
 val hcloud_network :
   ?id:float prop ->
   ?ip_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?with_selector:string prop ->
@@ -26,7 +26,7 @@ type t = private {
   expose_routes_to_vswitch : bool prop;
   id : float prop;
   ip_range : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   most_recent : bool prop;
   name : string prop;
   with_selector : string prop;
@@ -36,7 +36,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:float prop ->
   ?ip_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?with_selector:string prop ->
@@ -46,7 +46,7 @@ val register :
 val make :
   ?id:float prop ->
   ?ip_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?with_selector:string prop ->

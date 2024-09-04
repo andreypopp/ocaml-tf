@@ -39,13 +39,13 @@ val deployment_configs__preview :
   ?always_use_latest_compatibility_date:bool prop ->
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
-  ?d1_databases:(string * string prop) list ->
-  ?durable_object_namespaces:(string * string prop) list ->
-  ?environment_variables:(string * string prop) list ->
+  ?d1_databases:string prop Tf_core.assoc ->
+  ?durable_object_namespaces:string prop Tf_core.assoc ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?fail_open:bool prop ->
-  ?kv_namespaces:(string * string prop) list ->
-  ?r2_buckets:(string * string prop) list ->
-  ?secrets:(string * string prop) list ->
+  ?kv_namespaces:string prop Tf_core.assoc ->
+  ?r2_buckets:string prop Tf_core.assoc ->
+  ?secrets:string prop Tf_core.assoc ->
   ?usage_model:string prop ->
   ?placement:deployment_configs__preview__placement list ->
   service_binding:deployment_configs__preview__service_binding list ->
@@ -74,13 +74,13 @@ val deployment_configs__production :
   ?always_use_latest_compatibility_date:bool prop ->
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
-  ?d1_databases:(string * string prop) list ->
-  ?durable_object_namespaces:(string * string prop) list ->
-  ?environment_variables:(string * string prop) list ->
+  ?d1_databases:string prop Tf_core.assoc ->
+  ?durable_object_namespaces:string prop Tf_core.assoc ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?fail_open:bool prop ->
-  ?kv_namespaces:(string * string prop) list ->
-  ?r2_buckets:(string * string prop) list ->
-  ?secrets:(string * string prop) list ->
+  ?kv_namespaces:string prop Tf_core.assoc ->
+  ?r2_buckets:string prop Tf_core.assoc ->
+  ?secrets:string prop Tf_core.assoc ->
   ?usage_model:string prop ->
   ?placement:deployment_configs__production__placement list ->
   service_binding:

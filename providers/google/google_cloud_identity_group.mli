@@ -31,7 +31,7 @@ val google_cloud_identity_group :
   ?id:string prop ->
   ?initial_group_config:string prop ->
   ?timeouts:timeouts ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   parent:string prop ->
   group_key:group_key list ->
   unit ->
@@ -50,7 +50,7 @@ type t = private {
   display_name : string prop;
   id : string prop;
   initial_group_config : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   parent : string prop;
   update_time : string prop;
@@ -63,7 +63,7 @@ val register :
   ?id:string prop ->
   ?initial_group_config:string prop ->
   ?timeouts:timeouts ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   parent:string prop ->
   group_key:group_key list ->
   string ->
@@ -75,7 +75,7 @@ val make :
   ?id:string prop ->
   ?initial_group_config:string prop ->
   ?timeouts:timeouts ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   parent:string prop ->
   group_key:group_key list ->
   string ->

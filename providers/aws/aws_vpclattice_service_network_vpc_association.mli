@@ -18,8 +18,8 @@ type aws_vpclattice_service_network_vpc_association
 val aws_vpclattice_service_network_vpc_association :
   ?id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   service_network_identifier:string prop ->
   vpc_identifier:string prop ->
@@ -39,8 +39,8 @@ type t = private {
   security_group_ids : string list prop;
   service_network_identifier : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_identifier : string prop;
 }
 
@@ -48,8 +48,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   service_network_identifier:string prop ->
   vpc_identifier:string prop ->
@@ -59,8 +59,8 @@ val register :
 val make :
   ?id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   service_network_identifier:string prop ->
   vpc_identifier:string prop ->

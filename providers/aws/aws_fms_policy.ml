@@ -265,11 +265,11 @@ type aws_fms_policy = {
   name : string prop;
   remediation_enabled : bool prop option; [@option]
   resource_set_ids : string prop list option; [@option]
-  resource_tags : (string * string prop) list option; [@option]
+  resource_tags : string prop Tf_core.assoc option; [@option]
   resource_type : string prop option; [@option]
   resource_type_list : string prop list option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   exclude_map : exclude_map list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   include_map : include_map list;
@@ -338,12 +338,8 @@ let yojson_of_aws_fms_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -354,12 +350,8 @@ let yojson_of_aws_fms_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -388,12 +380,8 @@ let yojson_of_aws_fms_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_tags", arg in
@@ -531,11 +519,11 @@ type t = {
   policy_update_token : string prop;
   remediation_enabled : bool prop;
   resource_set_ids : string list prop;
-  resource_tags : (string * string) list prop;
+  resource_tags : string Tf_core.assoc prop;
   resource_type : string prop;
   resource_type_list : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?delete_all_policy_resources

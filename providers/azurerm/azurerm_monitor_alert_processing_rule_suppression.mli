@@ -170,7 +170,7 @@ val azurerm_monitor_alert_processing_rule_suppression :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?schedule:schedule list ->
   ?timeouts:timeouts ->
@@ -193,7 +193,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   scopes : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -201,7 +201,7 @@ val register :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?schedule:schedule list ->
   ?timeouts:timeouts ->
@@ -215,7 +215,7 @@ val make :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?schedule:schedule list ->
   ?timeouts:timeouts ->

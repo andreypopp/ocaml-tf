@@ -52,8 +52,8 @@ val aws_cloudwatch_metric_stream :
   ?include_linked_accounts_metrics:bool prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   firehose_arn:string prop ->
   output_format:string prop ->
@@ -82,8 +82,8 @@ type t = private {
   output_format : string prop;
   role_arn : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -92,8 +92,8 @@ val register :
   ?include_linked_accounts_metrics:bool prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   firehose_arn:string prop ->
   output_format:string prop ->
@@ -109,8 +109,8 @@ val make :
   ?include_linked_accounts_metrics:bool prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   firehose_arn:string prop ->
   output_format:string prop ->

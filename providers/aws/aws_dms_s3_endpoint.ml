@@ -86,8 +86,8 @@ type aws_dms_s3_endpoint = {
   server_side_encryption_kms_key_id : string prop option; [@option]
   service_access_role_arn : string prop;
   ssl_mode : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   timestamp_column_name : string prop option; [@option]
   use_csv_no_sup_value : bool prop option; [@option]
   use_task_start_time_for_full_load_timestamp : bool prop option;
@@ -196,12 +196,8 @@ let yojson_of_aws_dms_s3_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -212,12 +208,8 @@ let yojson_of_aws_dms_s3_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -705,8 +697,8 @@ type t = {
   service_access_role_arn : string prop;
   ssl_mode : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timestamp_column_name : string prop;
   use_csv_no_sup_value : bool prop;
   use_task_start_time_for_full_load_timestamp : bool prop;

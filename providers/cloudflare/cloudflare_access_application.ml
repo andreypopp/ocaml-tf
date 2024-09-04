@@ -217,7 +217,7 @@ let _ = yojson_of_landing_page_design
 
 type saas_app__custom_attribute__source = {
   name : string prop;
-  name_by_idp : (string * string prop) list option; [@option]
+  name_by_idp : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,12 +234,8 @@ let yojson_of_saas_app__custom_attribute__source =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "name_by_idp", arg in
@@ -333,7 +329,7 @@ let _ = yojson_of_saas_app__custom_attribute
 
 type saas_app__custom_claim__source = {
   name : string prop;
-  name_by_idp : (string * string prop) list option; [@option]
+  name_by_idp : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -350,12 +346,8 @@ let yojson_of_saas_app__custom_claim__source =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "name_by_idp", arg in

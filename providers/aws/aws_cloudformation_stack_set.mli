@@ -42,10 +42,10 @@ val aws_cloudformation_stack_set :
   ?description:string prop ->
   ?execution_role_name:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?permission_model:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?auto_deployment:auto_deployment list ->
@@ -71,11 +71,11 @@ type t = private {
   execution_role_name : string prop;
   id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   permission_model : string prop;
   stack_set_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   template_body : string prop;
   template_url : string prop;
 }
@@ -88,10 +88,10 @@ val register :
   ?description:string prop ->
   ?execution_role_name:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?permission_model:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?auto_deployment:auto_deployment list ->
@@ -109,10 +109,10 @@ val make :
   ?description:string prop ->
   ?execution_role_name:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?permission_model:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?auto_deployment:auto_deployment list ->

@@ -9,7 +9,7 @@ type aws_connect_vocabulary
 val aws_connect_vocabulary :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vocabulary_id:string prop ->
   instance_id:string prop ->
   unit ->
@@ -30,7 +30,7 @@ type t = private {
   last_modified_time : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vocabulary_id : string prop;
 }
 
@@ -38,7 +38,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vocabulary_id:string prop ->
   instance_id:string prop ->
   string ->
@@ -47,7 +47,7 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vocabulary_id:string prop ->
   instance_id:string prop ->
   string ->

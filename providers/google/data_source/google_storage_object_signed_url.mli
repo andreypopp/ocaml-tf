@@ -11,7 +11,7 @@ val google_storage_object_signed_url :
   ?content_type:string prop ->
   ?credentials:string prop ->
   ?duration:string prop ->
-  ?extension_headers:(string * string prop) list ->
+  ?extension_headers:string prop Tf_core.assoc ->
   ?http_method:string prop ->
   ?id:string prop ->
   bucket:string prop ->
@@ -31,7 +31,7 @@ type t = private {
   content_type : string prop;
   credentials : string prop;
   duration : string prop;
-  extension_headers : (string * string) list prop;
+  extension_headers : string Tf_core.assoc prop;
   http_method : string prop;
   id : string prop;
   path : string prop;
@@ -44,7 +44,7 @@ val register :
   ?content_type:string prop ->
   ?credentials:string prop ->
   ?duration:string prop ->
-  ?extension_headers:(string * string prop) list ->
+  ?extension_headers:string prop Tf_core.assoc ->
   ?http_method:string prop ->
   ?id:string prop ->
   bucket:string prop ->
@@ -57,7 +57,7 @@ val make :
   ?content_type:string prop ->
   ?credentials:string prop ->
   ?duration:string prop ->
-  ?extension_headers:(string * string prop) list ->
+  ?extension_headers:string prop Tf_core.assoc ->
   ?http_method:string prop ->
   ?id:string prop ->
   bucket:string prop ->

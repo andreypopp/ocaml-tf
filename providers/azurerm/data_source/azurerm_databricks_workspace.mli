@@ -24,7 +24,7 @@ type azurerm_databricks_workspace
 
 val azurerm_databricks_workspace :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   resource_group_name : string prop;
   sku : string prop;
   storage_account_identity : storage_account_identity list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
   workspace_url : string prop;
 }
@@ -53,7 +53,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -62,7 +62,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

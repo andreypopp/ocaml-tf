@@ -48,7 +48,7 @@ val azurerm_healthcare_service :
   ?id:string prop ->
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
   ?identity:identity list ->
@@ -76,7 +76,7 @@ type t = private {
   name : string prop;
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -88,7 +88,7 @@ val register :
   ?id:string prop ->
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
   ?identity:identity list ->
@@ -107,7 +107,7 @@ val make :
   ?id:string prop ->
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?authentication_configuration:authentication_configuration list ->
   ?cors_configuration:cors_configuration list ->
   ?identity:identity list ->

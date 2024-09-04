@@ -30,7 +30,7 @@ type t = private {
   location : string prop;
   mobile_network_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

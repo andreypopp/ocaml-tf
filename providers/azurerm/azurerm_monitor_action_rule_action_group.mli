@@ -94,7 +94,7 @@ val azurerm_monitor_action_rule_action_group :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?scope:scope list ->
   ?timeouts:timeouts ->
@@ -117,7 +117,7 @@ type t = private {
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -125,7 +125,7 @@ val register :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?scope:scope list ->
   ?timeouts:timeouts ->
@@ -139,7 +139,7 @@ val make :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?condition:condition list ->
   ?scope:scope list ->
   ?timeouts:timeouts ->

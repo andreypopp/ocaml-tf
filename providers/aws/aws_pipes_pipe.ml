@@ -3,9 +3,9 @@
 open! Tf_core
 
 type enrichment_parameters__http_parameters = {
-  header_parameters : (string * string prop) list option; [@option]
+  header_parameters : string prop Tf_core.assoc option; [@option]
   path_parameter_values : string prop list option; [@option]
-  query_string_parameters : (string * string prop) list option;
+  query_string_parameters : string prop Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -27,12 +27,8 @@ let yojson_of_enrichment_parameters__http_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "query_string_parameters", arg in
@@ -53,12 +49,8 @@ let yojson_of_enrichment_parameters__http_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "header_parameters", arg in
@@ -1654,7 +1646,7 @@ let _ =
 type target_parameters__batch_job_parameters = {
   job_definition : string prop;
   job_name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   array_properties :
     target_parameters__batch_job_parameters__array_properties list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1735,12 +1727,8 @@ let yojson_of_target_parameters__batch_job_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -2474,7 +2462,7 @@ type target_parameters__ecs_task_parameters = {
   platform_version : string prop option; [@option]
   propagate_tags : string prop option; [@option]
   reference_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   task_count : float prop option; [@option]
   task_definition_arn : string prop;
   capacity_provider_strategy :
@@ -2594,12 +2582,8 @@ let yojson_of_target_parameters__ecs_task_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2744,9 +2728,9 @@ let _ = yojson_of_target_parameters__eventbridge_event_bus_parameters
 [@@@deriving.end]
 
 type target_parameters__http_parameters = {
-  header_parameters : (string * string prop) list option; [@option]
+  header_parameters : string prop Tf_core.assoc option; [@option]
   path_parameter_values : string prop list option; [@option]
-  query_string_parameters : (string * string prop) list option;
+  query_string_parameters : string prop Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -2768,12 +2752,8 @@ let yojson_of_target_parameters__http_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "query_string_parameters", arg in
@@ -2794,12 +2774,8 @@ let yojson_of_target_parameters__http_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "header_parameters", arg in
@@ -3341,8 +3317,8 @@ type aws_pipes_pipe = {
   name_prefix : string prop option; [@option]
   role_arn : string prop;
   source : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   target : string prop;
   enrichment_parameters : enrichment_parameters list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -3434,12 +3410,8 @@ let yojson_of_aws_pipes_pipe =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -3450,12 +3422,8 @@ let yojson_of_aws_pipes_pipe =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -4001,8 +3969,8 @@ type t = {
   name_prefix : string prop;
   role_arn : string prop;
   source : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target : string prop;
 }
 

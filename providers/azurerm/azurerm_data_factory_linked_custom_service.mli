@@ -7,7 +7,7 @@ open! Tf_core
 type integration_runtime
 
 val integration_runtime :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   integration_runtime
@@ -25,11 +25,11 @@ val timeouts :
 type azurerm_data_factory_linked_custom_service
 
 val azurerm_data_factory_linked_custom_service :
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
@@ -46,24 +46,24 @@ val yojson_of_azurerm_data_factory_linked_custom_service :
 
 type t = private {
   tf_name : string;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
   id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   type_ : string prop;
   type_properties_json : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
@@ -74,11 +74,11 @@ val register :
   t
 
 val make :
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->

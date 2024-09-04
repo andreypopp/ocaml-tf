@@ -28,7 +28,7 @@ val azurerm_workloads_sap_discovery_virtual_instance :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?managed_storage_account_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   central_server_virtual_machine_id:string prop ->
@@ -56,7 +56,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sap_product : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -64,7 +64,7 @@ val register :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?managed_storage_account_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   central_server_virtual_machine_id:string prop ->
@@ -80,7 +80,7 @@ val make :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?managed_storage_account_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   central_server_virtual_machine_id:string prop ->

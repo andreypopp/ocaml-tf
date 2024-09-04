@@ -17,7 +17,7 @@ type google_network_security_firewall_endpoint
 
 val google_network_security_firewall_endpoint :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   billing_project_id:string prop ->
   location:string prop ->
@@ -36,23 +36,23 @@ type t = private {
   associated_networks : string list prop;
   billing_project_id : string prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   parent : string prop;
   reconciling : bool prop;
   self_link : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   billing_project_id:string prop ->
   location:string prop ->
@@ -63,7 +63,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   billing_project_id:string prop ->
   location:string prop ->

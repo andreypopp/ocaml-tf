@@ -106,7 +106,7 @@ type azurerm_sentinel_alert_rule_scheduled
 val azurerm_sentinel_alert_rule_scheduled :
   ?alert_rule_template_guid:string prop ->
   ?alert_rule_template_version:string prop ->
-  ?custom_details:(string * string prop) list ->
+  ?custom_details:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -142,7 +142,7 @@ type t = private {
   tf_name : string;
   alert_rule_template_guid : string prop;
   alert_rule_template_version : string prop;
-  custom_details : (string * string) list prop;
+  custom_details : string Tf_core.assoc prop;
   description : string prop;
   display_name : string prop;
   enabled : bool prop;
@@ -165,7 +165,7 @@ val register :
   ?tf_module:tf_module ->
   ?alert_rule_template_guid:string prop ->
   ?alert_rule_template_version:string prop ->
-  ?custom_details:(string * string prop) list ->
+  ?custom_details:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -195,7 +195,7 @@ val register :
 val make :
   ?alert_rule_template_guid:string prop ->
   ?alert_rule_template_version:string prop ->
-  ?custom_details:(string * string prop) list ->
+  ?custom_details:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->

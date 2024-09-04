@@ -61,7 +61,7 @@ val azurerm_databricks_workspace :
   ?managed_services_cmk_key_vault_key_id:string prop ->
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -100,7 +100,7 @@ type t = private {
   resource_group_name : string prop;
   sku : string prop;
   storage_account_identity : storage_account_identity list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
   workspace_url : string prop;
 }
@@ -121,7 +121,7 @@ val register :
   ?managed_services_cmk_key_vault_key_id:string prop ->
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -146,7 +146,7 @@ val make :
   ?managed_services_cmk_key_vault_key_id:string prop ->
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->

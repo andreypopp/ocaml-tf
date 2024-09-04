@@ -8,7 +8,7 @@ type aws_s3control_access_grants_location
 
 val aws_s3control_access_grants_location :
   ?account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   iam_role_arn:string prop ->
   location_scope:string prop ->
   unit ->
@@ -27,14 +27,14 @@ type t = private {
   iam_role_arn : string prop;
   id : string prop;
   location_scope : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   iam_role_arn:string prop ->
   location_scope:string prop ->
   string ->
@@ -42,7 +42,7 @@ val register :
 
 val make :
   ?account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   iam_role_arn:string prop ->
   location_scope:string prop ->
   string ->

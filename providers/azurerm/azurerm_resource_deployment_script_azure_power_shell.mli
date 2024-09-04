@@ -51,7 +51,7 @@ val azurerm_resource_deployment_script_azure_power_shell :
   ?primary_script_uri:string prop ->
   ?script_content:string prop ->
   ?supporting_script_uris:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:string prop ->
   ?container:container list ->
   ?identity:identity list ->
@@ -85,7 +85,7 @@ type t = private {
   retention_interval : string prop;
   script_content : string prop;
   supporting_script_uris : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : string prop;
   version : string prop;
 }
@@ -99,7 +99,7 @@ val register :
   ?primary_script_uri:string prop ->
   ?script_content:string prop ->
   ?supporting_script_uris:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:string prop ->
   ?container:container list ->
   ?identity:identity list ->
@@ -122,7 +122,7 @@ val make :
   ?primary_script_uri:string prop ->
   ?script_content:string prop ->
   ?supporting_script_uris:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:string prop ->
   ?container:container list ->
   ?identity:identity list ->

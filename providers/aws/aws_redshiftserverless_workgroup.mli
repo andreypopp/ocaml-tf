@@ -55,8 +55,8 @@ val aws_redshiftserverless_workgroup :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   namespace_name:string prop ->
   workgroup_name:string prop ->
@@ -82,8 +82,8 @@ type t = private {
   publicly_accessible : bool prop;
   security_group_ids : string list prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   workgroup_id : string prop;
   workgroup_name : string prop;
 }
@@ -98,8 +98,8 @@ val register :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   namespace_name:string prop ->
   workgroup_name:string prop ->
@@ -116,8 +116,8 @@ val make :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   namespace_name:string prop ->
   workgroup_name:string prop ->

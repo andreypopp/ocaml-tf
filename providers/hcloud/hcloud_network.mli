@@ -10,7 +10,7 @@ val hcloud_network :
   ?delete_protection:bool prop ->
   ?expose_routes_to_vswitch:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ip_range:string prop ->
   name:string prop ->
   unit ->
@@ -26,7 +26,7 @@ type t = private {
   expose_routes_to_vswitch : bool prop;
   id : string prop;
   ip_range : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
 }
 
@@ -35,7 +35,7 @@ val register :
   ?delete_protection:bool prop ->
   ?expose_routes_to_vswitch:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ip_range:string prop ->
   name:string prop ->
   string ->
@@ -45,7 +45,7 @@ val make :
   ?delete_protection:bool prop ->
   ?expose_routes_to_vswitch:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ip_range:string prop ->
   name:string prop ->
   string ->

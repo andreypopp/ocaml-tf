@@ -59,7 +59,7 @@ val azurerm_servicebus_namespace :
   ?minimum_tls_version:string prop ->
   ?premium_messaging_partitions:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->
@@ -94,7 +94,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 
@@ -106,7 +106,7 @@ val register :
   ?minimum_tls_version:string prop ->
   ?premium_messaging_partitions:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->
@@ -126,7 +126,7 @@ val make :
   ?minimum_tls_version:string prop ->
   ?premium_messaging_partitions:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->

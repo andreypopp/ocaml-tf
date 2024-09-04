@@ -19,8 +19,8 @@ val aws_lightsail_instance :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?key_pair_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?add_on:add_on list ->
   availability_zone:string prop ->
@@ -51,8 +51,8 @@ type t = private {
   private_ip_address : string prop;
   public_ip_address : string prop;
   ram_size : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_data : string prop;
   username : string prop;
 }
@@ -62,8 +62,8 @@ val register :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?key_pair_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?add_on:add_on list ->
   availability_zone:string prop ->
@@ -77,8 +77,8 @@ val make :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?key_pair_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?add_on:add_on list ->
   availability_zone:string prop ->

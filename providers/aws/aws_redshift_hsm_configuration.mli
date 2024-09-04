@@ -8,8 +8,8 @@ type aws_redshift_hsm_configuration
 
 val aws_redshift_hsm_configuration :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   hsm_configuration_identifier:string prop ->
   hsm_ip_address:string prop ->
@@ -34,15 +34,15 @@ type t = private {
   hsm_partition_password : string prop;
   hsm_server_public_certificate : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   hsm_configuration_identifier:string prop ->
   hsm_ip_address:string prop ->
@@ -54,8 +54,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   hsm_configuration_identifier:string prop ->
   hsm_ip_address:string prop ->

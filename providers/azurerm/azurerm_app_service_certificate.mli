@@ -23,7 +23,7 @@ val azurerm_app_service_certificate :
   ?key_vault_secret_id:string prop ->
   ?password:string prop ->
   ?pfx_blob:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -54,7 +54,7 @@ type t = private {
   pfx_blob : string prop;
   resource_group_name : string prop;
   subject_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
 }
 
@@ -66,7 +66,7 @@ val register :
   ?key_vault_secret_id:string prop ->
   ?password:string prop ->
   ?pfx_blob:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -81,7 +81,7 @@ val make :
   ?key_vault_secret_id:string prop ->
   ?password:string prop ->
   ?pfx_blob:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

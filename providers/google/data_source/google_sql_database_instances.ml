@@ -751,7 +751,7 @@ type instances__settings = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   tier : string prop;
   time_zone : string prop;
-  user_labels : (string * string prop) list;
+  user_labels : string prop Tf_core.assoc;
   version : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -799,12 +799,8 @@ let yojson_of_instances__settings =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_user_labels
          in
          ("user_labels", arg) :: bnds

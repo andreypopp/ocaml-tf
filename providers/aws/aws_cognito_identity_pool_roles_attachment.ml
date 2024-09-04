@@ -106,7 +106,7 @@ let _ = yojson_of_role_mapping
 type aws_cognito_identity_pool_roles_attachment = {
   id : string prop option; [@option]
   identity_pool_id : string prop;
-  roles : (string * string prop) list;
+  roles : string prop Tf_core.assoc;
   role_mapping : role_mapping list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -136,12 +136,8 @@ let yojson_of_aws_cognito_identity_pool_roles_attachment =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_roles
          in
          ("roles", arg) :: bnds
@@ -190,7 +186,7 @@ type t = {
   tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
-  roles : (string * string) list prop;
+  roles : string Tf_core.assoc prop;
 }
 
 let make ?id ~identity_pool_id ~roles ~role_mapping __id =

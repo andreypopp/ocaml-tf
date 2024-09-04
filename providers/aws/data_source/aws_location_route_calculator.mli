@@ -8,7 +8,7 @@ type aws_location_route_calculator
 
 val aws_location_route_calculator :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   calculator_name:string prop ->
   unit ->
   aws_location_route_calculator
@@ -26,21 +26,21 @@ type t = private {
   data_source : string prop;
   description : string prop;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   calculator_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   calculator_name:string prop ->
   string ->
   t Tf_core.resource

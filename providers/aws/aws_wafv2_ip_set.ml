@@ -9,8 +9,8 @@ type aws_wafv2_ip_set = {
   ip_address_version: string prop; 
   name: string prop; 
   scope: string prop; 
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -36,8 +36,8 @@ type t = {
   lock_token: string prop;
   name: string prop;
   scope: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 let make ?addresses ?description ?id ?tags ?tags_all ~ip_address_version ~name ~scope __id =

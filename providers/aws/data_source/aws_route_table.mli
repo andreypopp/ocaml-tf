@@ -49,7 +49,7 @@ val aws_route_table :
   ?id:string prop ->
   ?route_table_id:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -70,7 +70,7 @@ type t = private {
   route_table_id : string prop;
   routes : routes list prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -80,7 +80,7 @@ val register :
   ?id:string prop ->
   ?route_table_id:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -92,7 +92,7 @@ val make :
   ?id:string prop ->
   ?route_table_id:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

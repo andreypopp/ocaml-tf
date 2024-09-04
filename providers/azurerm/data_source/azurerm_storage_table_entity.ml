@@ -107,7 +107,7 @@ let azurerm_storage_table_entity ?id ?timeouts ~partition_key
 
 type t = {
   tf_name : string;
-  entity : (string * string) list prop;
+  entity : string Tf_core.assoc prop;
   id : string prop;
   partition_key : string prop;
   row_key : string prop;

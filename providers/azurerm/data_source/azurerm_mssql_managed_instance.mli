@@ -53,7 +53,7 @@ type t = private {
   storage_account_type : string prop;
   storage_size_in_gb : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone_id : string prop;
   vcores : float prop;
 }

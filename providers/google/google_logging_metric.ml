@@ -340,7 +340,7 @@ type google_logging_metric = {
   disabled : bool prop option; [@option]
   filter : string prop;
   id : string prop option; [@option]
-  label_extractors : (string * string prop) list option; [@option]
+  label_extractors : string prop Tf_core.assoc option; [@option]
   name : string prop;
   project : string prop option; [@option]
   value_extractor : string prop option; [@option]
@@ -422,12 +422,8 @@ let yojson_of_google_logging_metric =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "label_extractors", arg in
@@ -531,7 +527,7 @@ type t = {
   disabled : bool prop;
   filter : string prop;
   id : string prop;
-  label_extractors : (string * string) list prop;
+  label_extractors : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   value_extractor : string prop;

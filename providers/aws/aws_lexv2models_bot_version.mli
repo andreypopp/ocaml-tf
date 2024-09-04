@@ -20,7 +20,7 @@ val aws_lexv2models_bot_version :
   ?description:string prop ->
   ?timeouts:timeouts ->
   bot_id:string prop ->
-  locale_specification:(string * locale_specification) list ->
+  locale_specification:locale_specification Tf_core.assoc ->
   unit ->
   aws_lexv2models_bot_version
 
@@ -35,7 +35,7 @@ type t = private {
   bot_version : string prop;
   description : string prop;
   id : string prop;
-  locale_specification : (string * locale_specification) list prop;
+  locale_specification : locale_specification Tf_core.assoc prop;
 }
 
 val register :
@@ -44,7 +44,7 @@ val register :
   ?description:string prop ->
   ?timeouts:timeouts ->
   bot_id:string prop ->
-  locale_specification:(string * locale_specification) list ->
+  locale_specification:locale_specification Tf_core.assoc ->
   string ->
   t
 
@@ -53,6 +53,6 @@ val make :
   ?description:string prop ->
   ?timeouts:timeouts ->
   bot_id:string prop ->
-  locale_specification:(string * locale_specification) list ->
+  locale_specification:locale_specification Tf_core.assoc ->
   string ->
   t Tf_core.resource

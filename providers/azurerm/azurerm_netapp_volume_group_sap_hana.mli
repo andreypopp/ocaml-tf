@@ -48,7 +48,7 @@ type volume
 
 val volume :
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_protection_replication:
     volume__data_protection_replication list ->
   ?data_protection_snapshot_policy:

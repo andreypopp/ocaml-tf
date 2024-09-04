@@ -149,8 +149,8 @@ type policy_details__schedule
 
 val policy_details__schedule :
   ?copy_tags:bool prop ->
-  ?tags_to_add:(string * string prop) list ->
-  ?variable_tags:(string * string prop) list ->
+  ?tags_to_add:string prop Tf_core.assoc ->
+  ?variable_tags:string prop Tf_core.assoc ->
   ?deprecate_rule:policy_details__schedule__deprecate_rule list ->
   ?fast_restore_rule:policy_details__schedule__fast_restore_rule list ->
   ?share_rule:policy_details__schedule__share_rule list ->
@@ -168,7 +168,7 @@ val policy_details :
   ?policy_type:string prop ->
   ?resource_locations:string prop list ->
   ?resource_types:string prop list ->
-  ?target_tags:(string * string prop) list ->
+  ?target_tags:string prop Tf_core.assoc ->
   ?action:policy_details__action list ->
   ?event_source:policy_details__event_source list ->
   ?parameters:policy_details__parameters list ->
@@ -181,8 +181,8 @@ type aws_dlm_lifecycle_policy
 val aws_dlm_lifecycle_policy :
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   execution_role_arn:string prop ->
   policy_details:policy_details list ->
@@ -201,16 +201,16 @@ type t = private {
   execution_role_arn : string prop;
   id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   execution_role_arn:string prop ->
   policy_details:policy_details list ->
@@ -220,8 +220,8 @@ val register :
 val make :
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   description:string prop ->
   execution_role_arn:string prop ->
   policy_details:policy_details list ->

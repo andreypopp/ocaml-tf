@@ -397,7 +397,7 @@ type azurerm_vpn_server_configuration = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   vpn_authentication_types : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   vpn_protocols : string prop list option; [@option]
@@ -516,12 +516,8 @@ let yojson_of_azurerm_vpn_server_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -629,7 +625,7 @@ type t = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpn_authentication_types : string list prop;
   vpn_protocols : string list prop;
 }

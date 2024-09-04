@@ -8,8 +8,8 @@ type container
 
 val container :
   ?command:string prop list ->
-  ?environment:(string * string prop) list ->
-  ?ports:(string * string prop) list ->
+  ?environment:string prop Tf_core.assoc ->
+  ?ports:string prop Tf_core.assoc ->
   container_name:string prop ->
   image:string prop ->
   unit ->

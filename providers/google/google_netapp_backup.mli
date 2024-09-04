@@ -18,7 +18,7 @@ type google_netapp_backup
 val google_netapp_backup :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?source_snapshot:string prop ->
   ?source_volume:string prop ->
@@ -39,16 +39,16 @@ type t = private {
   chain_storage_bytes : string prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   source_snapshot : string prop;
   source_volume : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   vault_name : string prop;
   volume_usage_bytes : string prop;
 }
@@ -57,7 +57,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?source_snapshot:string prop ->
   ?source_volume:string prop ->
@@ -71,7 +71,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?source_snapshot:string prop ->
   ?source_volume:string prop ->

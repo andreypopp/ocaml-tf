@@ -15,7 +15,7 @@ val cognito_config :
 type oidc_config
 
 val oidc_config :
-  ?authentication_request_extra_params:(string * string prop) list ->
+  ?authentication_request_extra_params:string prop Tf_core.assoc ->
   ?scope:string prop ->
   authorization_endpoint:string prop ->
   client_id:string prop ->

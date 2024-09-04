@@ -16,8 +16,8 @@ val aws_route53_zone :
   ?delegation_set_id:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   vpc:vpc list ->
   unit ->
@@ -37,8 +37,8 @@ type t = private {
   name : string prop;
   name_servers : string list prop;
   primary_name_server : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   zone_id : string prop;
 }
 
@@ -48,8 +48,8 @@ val register :
   ?delegation_set_id:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   vpc:vpc list ->
   string ->
@@ -60,8 +60,8 @@ val make :
   ?delegation_set_id:string prop ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   vpc:vpc list ->
   string ->

@@ -111,8 +111,8 @@ val aws_rds_cluster :
   ?source_region:string prop ->
   ?storage_encrypted:bool prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?s3_import:s3_import list ->
@@ -188,8 +188,8 @@ type t = private {
   source_region : string prop;
   storage_encrypted : bool prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
@@ -244,8 +244,8 @@ val register :
   ?source_region:string prop ->
   ?storage_encrypted:bool prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?s3_import:s3_import list ->
@@ -307,8 +307,8 @@ val make :
   ?source_region:string prop ->
   ?storage_encrypted:bool prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?restore_to_point_in_time:restore_to_point_in_time list ->
   ?s3_import:s3_import list ->

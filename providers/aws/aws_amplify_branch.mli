@@ -16,13 +16,13 @@ val aws_amplify_branch :
   ?enable_notification:bool prop ->
   ?enable_performance_mode:bool prop ->
   ?enable_pull_request_preview:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?framework:string prop ->
   ?id:string prop ->
   ?pull_request_environment_name:string prop ->
   ?stage:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ttl:string prop ->
   app_id:string prop ->
   branch_name:string prop ->
@@ -50,14 +50,14 @@ type t = private {
   enable_notification : bool prop;
   enable_performance_mode : bool prop;
   enable_pull_request_preview : bool prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   framework : string prop;
   id : string prop;
   pull_request_environment_name : string prop;
   source_branch : string prop;
   stage : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   ttl : string prop;
 }
 
@@ -72,13 +72,13 @@ val register :
   ?enable_notification:bool prop ->
   ?enable_performance_mode:bool prop ->
   ?enable_pull_request_preview:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?framework:string prop ->
   ?id:string prop ->
   ?pull_request_environment_name:string prop ->
   ?stage:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ttl:string prop ->
   app_id:string prop ->
   branch_name:string prop ->
@@ -95,13 +95,13 @@ val make :
   ?enable_notification:bool prop ->
   ?enable_performance_mode:bool prop ->
   ?enable_pull_request_preview:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?framework:string prop ->
   ?id:string prop ->
   ?pull_request_environment_name:string prop ->
   ?stage:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ttl:string prop ->
   app_id:string prop ->
   branch_name:string prop ->

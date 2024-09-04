@@ -11,7 +11,7 @@ type keys = {
   namespaced_name : string prop;  (** namespaced_name *)
   parent : string prop;  (** parent *)
   purpose : string prop;  (** purpose *)
-  purpose_data : (string * string prop) list;  (** purpose_data *)
+  purpose_data : string prop Tf_core.assoc;  (** purpose_data *)
   short_name : string prop;  (** short_name *)
   update_time : string prop;  (** update_time *)
 }

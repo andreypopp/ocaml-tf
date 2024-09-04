@@ -63,7 +63,7 @@ type t = private {
   site_ids : string list prop;
   sku : string prop;
   software_version : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_equipment_mtu_in_bytes : float prop;
 }
 

@@ -18,7 +18,7 @@ type azurerm_iot_time_series_insights_event_source_eventhub
 
 val azurerm_iot_time_series_insights_event_source_eventhub :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timestamp_property_name:string prop ->
   ?timeouts:timeouts ->
   consumer_group_name:string prop ->
@@ -50,14 +50,14 @@ type t = private {
   namespace_name : string prop;
   shared_access_key : string prop;
   shared_access_key_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timestamp_property_name : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timestamp_property_name:string prop ->
   ?timeouts:timeouts ->
   consumer_group_name:string prop ->
@@ -74,7 +74,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timestamp_property_name:string prop ->
   ?timeouts:timeouts ->
   consumer_group_name:string prop ->

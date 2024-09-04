@@ -146,7 +146,7 @@ type template__custom_scale_rule = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** authentication *)
   custom_rule_type : string prop;  (** custom_rule_type *)
-  metadata : (string * string prop) list;  (** metadata *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
   name : string prop;  (** name *)
 }
 
@@ -331,7 +331,7 @@ type t = private {
   resource_group_name : string prop;
   revision_mode : string prop;
   secret : secret list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template : template list prop;
   workload_profile_name : string prop;
 }

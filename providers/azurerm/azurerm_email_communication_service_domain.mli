@@ -71,7 +71,7 @@ type azurerm_email_communication_service_domain
 
 val azurerm_email_communication_service_domain :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_engagement_tracking_enabled:bool prop ->
   ?timeouts:timeouts ->
   domain_management:string prop ->
@@ -93,7 +93,7 @@ type t = private {
   id : string prop;
   mail_from_sender_domain : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_engagement_tracking_enabled : bool prop;
   verification_records : verification_records list prop;
 }
@@ -101,7 +101,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_engagement_tracking_enabled:bool prop ->
   ?timeouts:timeouts ->
   domain_management:string prop ->
@@ -112,7 +112,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_engagement_tracking_enabled:bool prop ->
   ?timeouts:timeouts ->
   domain_management:string prop ->

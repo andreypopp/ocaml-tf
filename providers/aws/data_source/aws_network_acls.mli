@@ -17,7 +17,7 @@ type aws_network_acls
 
 val aws_network_acls :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -32,14 +32,14 @@ type t = private {
   tf_name : string;
   id : string prop;
   ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -48,7 +48,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

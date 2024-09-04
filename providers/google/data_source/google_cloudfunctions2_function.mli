@@ -43,7 +43,7 @@ type build_config = {
   build : string prop;  (** build *)
   docker_repository : string prop;  (** docker_repository *)
   entry_point : string prop;  (** entry_point *)
-  environment_variables : (string * string prop) list;
+  environment_variables : string prop Tf_core.assoc;
       (** environment_variables *)
   on_deploy_update_policy :
     build_config__on_deploy_update_policy list;
@@ -101,7 +101,7 @@ type service_config = {
       (** all_traffic_on_latest_revision *)
   available_cpu : string prop;  (** available_cpu *)
   available_memory : string prop;  (** available_memory *)
-  environment_variables : (string * string prop) list;
+  environment_variables : string prop Tf_core.assoc;
       (** environment_variables *)
   gcf_uri : string prop;  (** gcf_uri *)
   ingress_settings : string prop;  (** ingress_settings *)
@@ -144,18 +144,18 @@ type t = private {
   tf_name : string;
   build_config : build_config list prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   environment : string prop;
   event_trigger : event_trigger list prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   service_config : service_config list prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   url : string prop;
 }

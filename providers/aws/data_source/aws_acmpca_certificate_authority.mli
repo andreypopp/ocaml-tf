@@ -32,7 +32,7 @@ type aws_acmpca_certificate_authority
 
 val aws_acmpca_certificate_authority :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_acmpca_certificate_authority
@@ -55,7 +55,7 @@ type t = private {
   revocation_configuration : revocation_configuration list prop;
   serial : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   usage_mode : string prop;
 }
@@ -63,14 +63,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

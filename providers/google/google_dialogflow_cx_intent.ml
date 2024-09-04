@@ -180,7 +180,7 @@ type google_dialogflow_cx_intent = {
   is_default_negative_intent : bool prop option; [@option]
   is_default_welcome_intent : bool prop option; [@option]
   is_fallback : bool prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   language_code : string prop option; [@option]
   parent : string prop option; [@option]
   priority : float prop option; [@option]
@@ -266,12 +266,8 @@ let yojson_of_google_dialogflow_cx_intent =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -367,17 +363,17 @@ type t = {
   tf_name : string;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   is_default_negative_intent : bool prop;
   is_default_welcome_intent : bool prop;
   is_fallback : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   language_code : string prop;
   name : string prop;
   parent : string prop;
   priority : float prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?is_default_negative_intent

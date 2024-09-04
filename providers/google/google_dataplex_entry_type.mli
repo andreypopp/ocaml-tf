@@ -24,7 +24,7 @@ val google_dataplex_entry_type :
   ?display_name:string prop ->
   ?entry_type_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?platform:string prop ->
   ?project:string prop ->
@@ -45,16 +45,16 @@ type t = private {
   create_time : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   entry_type_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   platform : string prop;
   project : string prop;
   system : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_aliases : string list prop;
   uid : string prop;
   update_time : string prop;
@@ -66,7 +66,7 @@ val register :
   ?display_name:string prop ->
   ?entry_type_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?platform:string prop ->
   ?project:string prop ->
@@ -82,7 +82,7 @@ val make :
   ?display_name:string prop ->
   ?entry_type_id:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?platform:string prop ->
   ?project:string prop ->

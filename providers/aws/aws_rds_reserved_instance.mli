@@ -26,8 +26,8 @@ val aws_rds_reserved_instance :
   ?id:string prop ->
   ?instance_count:float prop ->
   ?reservation_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   offering_id:string prop ->
   unit ->
@@ -56,8 +56,8 @@ type t = private {
   reservation_id : string prop;
   start_time : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   usage_price : float prop;
 }
 
@@ -66,8 +66,8 @@ val register :
   ?id:string prop ->
   ?instance_count:float prop ->
   ?reservation_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   offering_id:string prop ->
   string ->
@@ -77,8 +77,8 @@ val make :
   ?id:string prop ->
   ?instance_count:float prop ->
   ?reservation_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   offering_id:string prop ->
   string ->

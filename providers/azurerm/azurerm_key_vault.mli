@@ -63,7 +63,7 @@ val azurerm_key_vault :
   ?public_network_access_enabled:bool prop ->
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -94,7 +94,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   soft_delete_retention_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
   vault_uri : string prop;
 }
@@ -110,7 +110,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -132,7 +132,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->

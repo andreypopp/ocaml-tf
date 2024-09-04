@@ -21,8 +21,8 @@ val aws_ivs_channel :
   ?latency_mode:string prop ->
   ?name:string prop ->
   ?recording_configuration_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   unit ->
@@ -42,8 +42,8 @@ type t = private {
   name : string prop;
   playback_url : string prop;
   recording_configuration_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -54,8 +54,8 @@ val register :
   ?latency_mode:string prop ->
   ?name:string prop ->
   ?recording_configuration_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   string ->
@@ -67,8 +67,8 @@ val make :
   ?latency_mode:string prop ->
   ?name:string prop ->
   ?recording_configuration_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   string ->

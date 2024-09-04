@@ -19,7 +19,7 @@ type azurerm_dev_test_lab
 val azurerm_dev_test_lab :
   ?id:string prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -43,7 +43,7 @@ type t = private {
   premium_data_disk_storage_account_id : string prop;
   resource_group_name : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_identifier : string prop;
 }
 
@@ -51,7 +51,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -62,7 +62,7 @@ val register :
 val make :
   ?id:string prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

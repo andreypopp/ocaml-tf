@@ -3,9 +3,9 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -46,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -70,12 +66,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -89,12 +81,12 @@ let _ = yojson_of_metadata
 [@@@deriving.end]
 
 type spec__limit = {
-  default : (string * string prop) list option; [@option]
-  default_request : (string * string prop) list option; [@option]
-  max : (string * string prop) list option; [@option]
-  max_limit_request_ratio : (string * string prop) list option;
+  default : string prop Tf_core.assoc option; [@option]
+  default_request : string prop Tf_core.assoc option; [@option]
+  max : string prop Tf_core.assoc option; [@option]
+  max_limit_request_ratio : string prop Tf_core.assoc option;
       [@option]
-  min : (string * string prop) list option; [@option]
+  min : string prop Tf_core.assoc option; [@option]
   type_ : string prop option; [@option] [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -127,12 +119,8 @@ let yojson_of_spec__limit =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "min", arg in
@@ -143,12 +131,8 @@ let yojson_of_spec__limit =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "max_limit_request_ratio", arg in
@@ -159,12 +143,8 @@ let yojson_of_spec__limit =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "max", arg in
@@ -175,12 +155,8 @@ let yojson_of_spec__limit =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "default_request", arg in
@@ -191,12 +167,8 @@ let yojson_of_spec__limit =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "default", arg in

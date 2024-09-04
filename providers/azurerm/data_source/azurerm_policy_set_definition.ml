@@ -84,7 +84,7 @@ let _ = yojson_of_policy_definition_group
 
 type policy_definition_reference = {
   parameter_values : string prop;
-  parameters : (string * string prop) list;
+  parameters : string prop Tf_core.assoc;
   policy_definition_id : string prop;
   policy_group_names : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -128,12 +128,8 @@ let yojson_of_policy_definition_reference =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parameters
          in
          ("parameters", arg) :: bnds

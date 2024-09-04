@@ -16,7 +16,7 @@ val destination_flow_config__destination_connector_properties__custom_connector_
 type destination_flow_config__destination_connector_properties__custom_connector
 
 val destination_flow_config__destination_connector_properties__custom_connector :
-  ?custom_properties:(string * string prop) list ->
+  ?custom_properties:string prop Tf_core.assoc ->
   ?id_field_names:string prop list ->
   ?write_operation_type:string prop ->
   ?error_handling_config:
@@ -366,7 +366,7 @@ val source_flow_config__source_connector_properties__amplitude :
 type source_flow_config__source_connector_properties__custom_connector
 
 val source_flow_config__source_connector_properties__custom_connector :
-  ?custom_properties:(string * string prop) list ->
+  ?custom_properties:string prop Tf_core.assoc ->
   entity_name:string prop ->
   unit ->
   source_flow_config__source_connector_properties__custom_connector
@@ -563,7 +563,7 @@ type task
 val task :
   ?destination_field:string prop ->
   ?source_fields:string prop list ->
-  ?task_properties:(string * string prop) list ->
+  ?task_properties:string prop Tf_core.assoc ->
   ?connector_operator:task__connector_operator list ->
   task_type:string prop ->
   unit ->
@@ -603,8 +603,8 @@ val aws_appflow_flow :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   destination_flow_config:destination_flow_config list ->
   source_flow_config:source_flow_config list ->
@@ -625,8 +625,8 @@ type t = private {
   id : string prop;
   kms_arn : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -634,8 +634,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   destination_flow_config:destination_flow_config list ->
   source_flow_config:source_flow_config list ->
@@ -648,8 +648,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   destination_flow_config:destination_flow_config list ->
   source_flow_config:source_flow_config list ->

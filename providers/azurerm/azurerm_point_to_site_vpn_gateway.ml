@@ -279,7 +279,7 @@ type azurerm_point_to_site_vpn_gateway = {
   resource_group_name : string prop;
   routing_preference_internet_enabled : bool prop option; [@option]
   scale_unit : float prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   virtual_hub_id : string prop;
   vpn_server_configuration_id : string prop;
   connection_configuration : connection_configuration list;
@@ -342,12 +342,8 @@ let yojson_of_azurerm_point_to_site_vpn_gateway =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -461,7 +457,7 @@ type t = {
   resource_group_name : string prop;
   routing_preference_internet_enabled : bool prop;
   scale_unit : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_id : string prop;
   vpn_server_configuration_id : string prop;
 }

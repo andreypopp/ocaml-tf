@@ -58,8 +58,8 @@ type aws_ecs_cluster
 
 val aws_ecs_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->
@@ -76,15 +76,15 @@ type t = private {
   arn : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->
@@ -94,8 +94,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->

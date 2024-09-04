@@ -3,8 +3,8 @@
 open! Tf_core
 
 type aws_cognito_user = {
-  attributes : (string * string prop) list option; [@option]
-  client_metadata : (string * string prop) list option; [@option]
+  attributes : string prop Tf_core.assoc option; [@option]
+  client_metadata : string prop Tf_core.assoc option; [@option]
   desired_delivery_mediums : string prop list option; [@option]
   enabled : bool prop option; [@option]
   force_alias_creation : bool prop option; [@option]
@@ -14,7 +14,7 @@ type aws_cognito_user = {
   temporary_password : string prop option; [@option]
   user_pool_id : string prop;
   username : string prop;
-  validation_data : (string * string prop) list option; [@option]
+  validation_data : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,12 +44,8 @@ let yojson_of_aws_cognito_user =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "validation_data", arg in
@@ -126,12 +122,8 @@ let yojson_of_aws_cognito_user =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "client_metadata", arg in
@@ -142,12 +134,8 @@ let yojson_of_aws_cognito_user =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attributes", arg in
@@ -181,8 +169,8 @@ let aws_cognito_user ?attributes ?client_metadata
 
 type t = {
   tf_name : string;
-  attributes : (string * string) list prop;
-  client_metadata : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
+  client_metadata : string Tf_core.assoc prop;
   creation_date : string prop;
   desired_delivery_mediums : string list prop;
   enabled : bool prop;
@@ -198,7 +186,7 @@ type t = {
   temporary_password : string prop;
   user_pool_id : string prop;
   username : string prop;
-  validation_data : (string * string) list prop;
+  validation_data : string Tf_core.assoc prop;
 }
 
 let make ?attributes ?client_metadata ?desired_delivery_mediums

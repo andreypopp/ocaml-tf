@@ -57,7 +57,7 @@ val azurerm_active_directory_domain_service :
   ?domain_configuration_type:string prop ->
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notifications:notifications list ->
   ?secure_ldap:secure_ldap list ->
   ?security:security list ->
@@ -89,7 +89,7 @@ type t = private {
   resource_id : string prop;
   sku : string prop;
   sync_owner : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
   version : float prop;
 }
@@ -99,7 +99,7 @@ val register :
   ?domain_configuration_type:string prop ->
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notifications:notifications list ->
   ?secure_ldap:secure_ldap list ->
   ?security:security list ->
@@ -117,7 +117,7 @@ val make :
   ?domain_configuration_type:string prop ->
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notifications:notifications list ->
   ?secure_ldap:secure_ldap list ->
   ?security:security list ->

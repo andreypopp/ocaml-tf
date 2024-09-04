@@ -43,7 +43,7 @@ type ipam_pools = {
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;
   allocation_min_netmask_length : float prop;
-  allocation_resource_tags : (string * string prop) list;
+  allocation_resource_tags : string prop Tf_core.assoc;
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
@@ -56,7 +56,7 @@ type ipam_pools = {
   publicly_advertisable : bool prop;
   source_ipam_pool_id : string prop;
   state : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -92,12 +92,8 @@ let yojson_of_ipam_pools =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -158,12 +154,8 @@ let yojson_of_ipam_pools =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_allocation_resource_tags
          in
          ("allocation_resource_tags", arg) :: bnds

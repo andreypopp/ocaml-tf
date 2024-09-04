@@ -3,7 +3,7 @@
 open! Tf_core
 
 type execution_spec = {
-  args : (string * string prop) list option; [@option]
+  args : string prop Tf_core.assoc option; [@option]
   kms_key : string prop option; [@option]
   max_job_execution_lifetime : string prop option; [@option]
   project : string prop option; [@option]
@@ -60,12 +60,8 @@ let yojson_of_execution_spec =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "args", arg in
@@ -122,7 +118,7 @@ let _ = yojson_of_notebook__infrastructure_spec__batch
 type notebook__infrastructure_spec__container_image = {
   image : string prop option; [@option]
   java_jars : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   python_packages : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -156,12 +152,8 @@ let yojson_of_notebook__infrastructure_spec__container_image =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -417,7 +409,7 @@ let _ = yojson_of_spark__infrastructure_spec__batch
 type spark__infrastructure_spec__container_image = {
   image : string prop option; [@option]
   java_jars : string prop list option; [@option]
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   python_packages : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -450,12 +442,8 @@ let yojson_of_spark__infrastructure_spec__container_image =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -936,7 +924,7 @@ type google_dataplex_task = {
   description : string prop option; [@option]
   display_name : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   lake : string prop option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
@@ -1051,12 +1039,8 @@ let yojson_of_google_dataplex_task =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1188,17 +1172,17 @@ type t = {
   create_time : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   execution_status : execution_status list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lake : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   task_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }

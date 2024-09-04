@@ -16,7 +16,7 @@ val timeouts :
 type aws_resourceexplorer2_index
 
 val aws_resourceexplorer2_index :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   type_:string prop ->
   unit ->
@@ -31,21 +31,21 @@ type t = private {
   tf_name : string;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   type_:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   type_:string prop ->
   string ->

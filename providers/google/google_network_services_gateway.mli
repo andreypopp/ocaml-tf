@@ -22,7 +22,7 @@ val google_network_services_gateway :
   ?description:string prop ->
   ?gateway_security_policy:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?project:string prop ->
@@ -48,10 +48,10 @@ type t = private {
   create_time : string prop;
   delete_swg_autogen_router_on_destroy : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   gateway_security_policy : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   network : string prop;
@@ -61,7 +61,7 @@ type t = private {
   self_link : string prop;
   server_tls_policy : string prop;
   subnetwork : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
 }
@@ -74,7 +74,7 @@ val register :
   ?description:string prop ->
   ?gateway_security_policy:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?project:string prop ->
@@ -95,7 +95,7 @@ val make :
   ?description:string prop ->
   ?gateway_security_policy:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?project:string prop ->

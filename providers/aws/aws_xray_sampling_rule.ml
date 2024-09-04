@@ -3,7 +3,7 @@
 open! Tf_core
 
 type aws_xray_sampling_rule = {
-  attributes : (string * string prop) list option; [@option]
+  attributes : string prop Tf_core.assoc option; [@option]
   fixed_rate : float prop;
   host : string prop;
   http_method : string prop;
@@ -14,8 +14,8 @@ type aws_xray_sampling_rule = {
   rule_name : string prop option; [@option]
   service_name : string prop;
   service_type : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   url_path : string prop;
   version : float prop;
 }
@@ -58,12 +58,8 @@ let yojson_of_aws_xray_sampling_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -74,12 +70,8 @@ let yojson_of_aws_xray_sampling_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -138,12 +130,8 @@ let yojson_of_aws_xray_sampling_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attributes", arg in
@@ -181,7 +169,7 @@ let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
 type t = {
   tf_name : string;
   arn : string prop;
-  attributes : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
   fixed_rate : float prop;
   host : string prop;
   http_method : string prop;
@@ -192,8 +180,8 @@ type t = {
   rule_name : string prop;
   service_name : string prop;
   service_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url_path : string prop;
   version : float prop;
 }

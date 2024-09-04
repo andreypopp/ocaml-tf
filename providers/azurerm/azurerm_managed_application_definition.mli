@@ -31,7 +31,7 @@ val azurerm_managed_application_definition :
   ?main_template:string prop ->
   ?package_enabled:bool prop ->
   ?package_file_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
@@ -60,7 +60,7 @@ type t = private {
   package_enabled : bool prop;
   package_file_uri : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,7 +71,7 @@ val register :
   ?main_template:string prop ->
   ?package_enabled:bool prop ->
   ?package_file_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
@@ -89,7 +89,7 @@ val make :
   ?main_template:string prop ->
   ?package_enabled:bool prop ->
   ?package_file_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->

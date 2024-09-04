@@ -6,7 +6,7 @@ type dnsimple_registered_domain = {
   auto_renew_enabled : bool prop option; [@option]
   contact_id : float prop;
   dnssec_enabled : bool prop option; [@option]
-  extended_attributes : (string * string prop) list option; [@option]
+  extended_attributes : string prop Tf_core.assoc option; [@option]
   name : string prop;
   premium_price : string prop option; [@option]
   timeouts : json prop option; [@option]
@@ -74,12 +74,8 @@ let yojson_of_dnsimple_registered_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "extended_attributes", arg in
@@ -136,7 +132,7 @@ type t = {
   dnssec_enabled : bool prop;
   domain_registration : json prop;
   expires_at : string prop;
-  extended_attributes : (string * string) list prop;
+  extended_attributes : string Tf_core.assoc prop;
   id : float prop;
   name : string prop;
   premium_price : string prop;

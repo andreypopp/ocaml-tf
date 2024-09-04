@@ -35,7 +35,7 @@ type t = private {
   reserved : bool prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   worker_count : float prop;
   zone_balancing_enabled : bool prop;
 }

@@ -32,8 +32,8 @@ type aws_lexv2models_bot
 
 val aws_lexv2models_bot :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?test_bot_alias_tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?test_bot_alias_tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?data_privacy:data_privacy list ->
   ?members:members list ->
@@ -56,17 +56,17 @@ type t = private {
   idle_session_ttl_in_seconds : float prop;
   name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
-  test_bot_alias_tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
+  test_bot_alias_tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?test_bot_alias_tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?test_bot_alias_tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?data_privacy:data_privacy list ->
   ?members:members list ->
@@ -79,8 +79,8 @@ val register :
 
 val make :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?test_bot_alias_tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?test_bot_alias_tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?data_privacy:data_privacy list ->
   ?members:members list ->

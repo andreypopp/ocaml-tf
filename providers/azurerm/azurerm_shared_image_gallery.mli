@@ -37,7 +37,7 @@ type azurerm_shared_image_gallery
 val azurerm_shared_image_gallery :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_name : string prop;
 }
 
@@ -66,7 +66,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -78,7 +78,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->

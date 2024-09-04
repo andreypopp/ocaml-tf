@@ -52,7 +52,7 @@ val azurerm_orbital_contact_profile :
   ?event_hub_uri:string prop ->
   ?id:string prop ->
   ?minimum_elevation_degrees:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   auto_tracking:string prop ->
   location:string prop ->
@@ -80,7 +80,7 @@ type t = private {
   name : string prop;
   network_configuration_subnet_id : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -88,7 +88,7 @@ val register :
   ?event_hub_uri:string prop ->
   ?id:string prop ->
   ?minimum_elevation_degrees:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   auto_tracking:string prop ->
   location:string prop ->
@@ -104,7 +104,7 @@ val make :
   ?event_hub_uri:string prop ->
   ?id:string prop ->
   ?minimum_elevation_degrees:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   auto_tracking:string prop ->
   location:string prop ->

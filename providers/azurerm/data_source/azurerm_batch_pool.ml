@@ -1173,7 +1173,7 @@ let _ = yojson_of_start_task__container
 
 type start_task = {
   command_line : string prop;
-  common_environment_properties : (string * string prop) list;
+  common_environment_properties : string prop Tf_core.assoc;
   container : start_task__container list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   resource_file : start_task__resource_file list;
@@ -1246,12 +1246,8 @@ let yojson_of_start_task =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_common_environment_properties
          in
          ("common_environment_properties", arg) :: bnds
@@ -1578,7 +1574,7 @@ type t = {
   inter_node_communication : string prop;
   license_type : string prop;
   max_tasks_per_node : float prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   mount : mount list prop;
   name : string prop;
   network_configuration : network_configuration list prop;

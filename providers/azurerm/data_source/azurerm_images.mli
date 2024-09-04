@@ -32,7 +32,7 @@ type images = {
   os_disk : images__os_disk list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** os_disk *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   zone_resilient : bool prop;  (** zone_resilient *)
 }
 
@@ -44,7 +44,7 @@ type azurerm_images
 
 val azurerm_images :
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   resource_group_name:string prop ->
   unit ->
@@ -59,13 +59,13 @@ type t = private {
   id : string prop;
   images : images list prop;
   resource_group_name : string prop;
-  tags_filter : (string * string) list prop;
+  tags_filter : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   resource_group_name:string prop ->
   string ->
@@ -73,7 +73,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   resource_group_name:string prop ->
   string ->

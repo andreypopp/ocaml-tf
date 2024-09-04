@@ -10,8 +10,8 @@ val aws_sagemaker_image :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_name:string prop ->
   role_arn:string prop ->
   unit ->
@@ -29,8 +29,8 @@ type t = private {
   id : string prop;
   image_name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -38,8 +38,8 @@ val register :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_name:string prop ->
   role_arn:string prop ->
   string ->
@@ -49,8 +49,8 @@ val make :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_name:string prop ->
   role_arn:string prop ->
   string ->

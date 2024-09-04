@@ -30,8 +30,8 @@ val aws_connect_user :
   ?hierarchy_group_id:string prop ->
   ?id:string prop ->
   ?password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->
@@ -56,8 +56,8 @@ type t = private {
   password : string prop;
   routing_profile_id : string prop;
   security_profile_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_id : string prop;
 }
 
@@ -67,8 +67,8 @@ val register :
   ?hierarchy_group_id:string prop ->
   ?id:string prop ->
   ?password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->
@@ -83,8 +83,8 @@ val make :
   ?hierarchy_group_id:string prop ->
   ?id:string prop ->
   ?password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->

@@ -78,7 +78,7 @@ val google :
   ?dataproc_metastore_custom_endpoint:string prop ->
   ?datastore_custom_endpoint:string prop ->
   ?datastream_custom_endpoint:string prop ->
-  ?default_labels:(string * string prop) list ->
+  ?default_labels:string prop Tf_core.assoc ->
   ?deployment_manager_custom_endpoint:string prop ->
   ?dialogflow_custom_endpoint:string prop ->
   ?dialogflow_cx_custom_endpoint:string prop ->
@@ -242,7 +242,7 @@ val register :
   ?dataproc_metastore_custom_endpoint:string prop ->
   ?datastore_custom_endpoint:string prop ->
   ?datastream_custom_endpoint:string prop ->
-  ?default_labels:(string * string prop) list ->
+  ?default_labels:string prop Tf_core.assoc ->
   ?deployment_manager_custom_endpoint:string prop ->
   ?dialogflow_custom_endpoint:string prop ->
   ?dialogflow_cx_custom_endpoint:string prop ->
@@ -402,7 +402,7 @@ val make :
   ?dataproc_metastore_custom_endpoint:string prop ->
   ?datastore_custom_endpoint:string prop ->
   ?datastream_custom_endpoint:string prop ->
-  ?default_labels:(string * string prop) list ->
+  ?default_labels:string prop Tf_core.assoc ->
   ?deployment_manager_custom_endpoint:string prop ->
   ?dialogflow_custom_endpoint:string prop ->
   ?dialogflow_cx_custom_endpoint:string prop ->

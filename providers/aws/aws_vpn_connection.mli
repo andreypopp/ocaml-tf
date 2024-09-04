@@ -65,8 +65,8 @@ val aws_vpn_connection :
   ?remote_ipv4_network_cidr:string prop ->
   ?remote_ipv6_network_cidr:string prop ->
   ?static_routes_only:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_id:string prop ->
   ?transport_transit_gateway_attachment_id:string prop ->
   ?tunnel1_dpd_timeout_action:string prop ->
@@ -136,8 +136,8 @@ type t = private {
   remote_ipv6_network_cidr : string prop;
   routes : routes list prop;
   static_routes_only : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_attachment_id : string prop;
   transit_gateway_id : string prop;
   transport_transit_gateway_attachment_id : string prop;
@@ -205,8 +205,8 @@ val register :
   ?remote_ipv4_network_cidr:string prop ->
   ?remote_ipv6_network_cidr:string prop ->
   ?static_routes_only:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_id:string prop ->
   ?transport_transit_gateway_attachment_id:string prop ->
   ?tunnel1_dpd_timeout_action:string prop ->
@@ -265,8 +265,8 @@ val make :
   ?remote_ipv4_network_cidr:string prop ->
   ?remote_ipv6_network_cidr:string prop ->
   ?static_routes_only:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_id:string prop ->
   ?transport_transit_gateway_attachment_id:string prop ->
   ?tunnel1_dpd_timeout_action:string prop ->

@@ -18,7 +18,7 @@ type azurerm_container_app_environment_certificate
 
 val azurerm_container_app_environment_certificate :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   certificate_blob_base64:string prop ->
   certificate_password:string prop ->
@@ -43,14 +43,14 @@ type t = private {
   issuer : string prop;
   name : string prop;
   subject_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   certificate_blob_base64:string prop ->
   certificate_password:string prop ->
@@ -61,7 +61,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   certificate_blob_base64:string prop ->
   certificate_password:string prop ->

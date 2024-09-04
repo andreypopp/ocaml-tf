@@ -44,7 +44,7 @@ val google_netapp_volume_replication :
   ?description:string prop ->
   ?force_stopping:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
@@ -68,11 +68,11 @@ type t = private {
   delete_destination_volume : bool prop;
   description : string prop;
   destination_volume : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_stopping : bool prop;
   healthy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   mirror_state : string prop;
   name : string prop;
@@ -83,7 +83,7 @@ type t = private {
   source_volume : string prop;
   state : string prop;
   state_details : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   transfer_stats : transfer_stats list prop;
   volume_name : string prop;
   wait_for_mirror : bool prop;
@@ -95,7 +95,7 @@ val register :
   ?description:string prop ->
   ?force_stopping:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
@@ -113,7 +113,7 @@ val make :
   ?description:string prop ->
   ?force_stopping:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->

@@ -121,7 +121,7 @@ type t = {
   id : string prop;
   project : string prop;
   restore_policy : string prop;
-  service_accounts : (string * string) list prop;
+  service_accounts : string Tf_core.assoc prop;
 }
 
 let make ?id ?restore_policy ?timeouts ~action ~project __id =

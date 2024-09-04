@@ -12,7 +12,7 @@ type teams = {
       (** members *)
   name : string prop;  (** name *)
   node_id : string prop;  (** node_id *)
-  parent : (string * string prop) list;  (** parent *)
+  parent : string prop Tf_core.assoc;  (** parent *)
   privacy : string prop;  (** privacy *)
   repositories : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

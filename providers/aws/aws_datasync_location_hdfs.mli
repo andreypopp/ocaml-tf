@@ -32,8 +32,8 @@ val aws_datasync_location_hdfs :
   ?replication_factor:float prop ->
   ?simple_user:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->
@@ -61,8 +61,8 @@ type t = private {
   replication_factor : float prop;
   simple_user : string prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -80,8 +80,8 @@ val register :
   ?replication_factor:float prop ->
   ?simple_user:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->
@@ -101,8 +101,8 @@ val make :
   ?replication_factor:float prop ->
   ?simple_user:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->

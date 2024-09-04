@@ -5,8 +5,8 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type all_instances_config = {
-  labels : (string * string prop) list;  (** labels *)
-  metadata : (string * string prop) list;  (** metadata *)
+  labels : string prop Tf_core.assoc;  (** labels *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
 }
 
 type auto_healing_policies = {

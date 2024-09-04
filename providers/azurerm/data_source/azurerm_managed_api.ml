@@ -87,7 +87,7 @@ type t = {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~location ~name __id =

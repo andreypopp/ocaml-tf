@@ -80,7 +80,7 @@ type build__source__repo_source = {
   invert_regex : bool prop;  (** invert_regex *)
   project_id : string prop;  (** project_id *)
   repo_name : string prop;  (** repo_name *)
-  substitutions : (string * string prop) list;  (** substitutions *)
+  substitutions : string prop Tf_core.assoc;  (** substitutions *)
   tag_name : string prop;  (** tag_name *)
 }
 
@@ -95,7 +95,7 @@ type build__source = {
 
 type build__secret = {
   kms_key_name : string prop;  (** kms_key_name *)
-  secret_env : (string * string prop) list;  (** secret_env *)
+  secret_env : string prop Tf_core.assoc;  (** secret_env *)
 }
 
 type build__options__volumes = {
@@ -215,7 +215,7 @@ type build = {
   step : build__step list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** step *)
-  substitutions : (string * string prop) list;  (** substitutions *)
+  substitutions : string prop Tf_core.assoc;  (** substitutions *)
   tags : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** tags *)
@@ -353,7 +353,7 @@ type t = private {
   repository_event_config : repository_event_config list prop;
   service_account : string prop;
   source_to_build : source_to_build list prop;
-  substitutions : (string * string) list prop;
+  substitutions : string Tf_core.assoc prop;
   tags : string list prop;
   trigger_id : string prop;
   trigger_template : trigger_template list prop;

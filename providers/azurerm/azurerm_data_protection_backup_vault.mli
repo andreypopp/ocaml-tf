@@ -24,7 +24,7 @@ val azurerm_data_protection_backup_vault :
   ?id:string prop ->
   ?retention_duration_in_days:float prop ->
   ?soft_delete:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   datastore_type:string prop ->
@@ -50,7 +50,7 @@ type t = private {
   resource_group_name : string prop;
   retention_duration_in_days : float prop;
   soft_delete : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -58,7 +58,7 @@ val register :
   ?id:string prop ->
   ?retention_duration_in_days:float prop ->
   ?soft_delete:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   datastore_type:string prop ->
@@ -73,7 +73,7 @@ val make :
   ?id:string prop ->
   ?retention_duration_in_days:float prop ->
   ?soft_delete:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   datastore_type:string prop ->

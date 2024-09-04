@@ -21,7 +21,7 @@ val aws_ebs_snapshot :
   ?owners:string prop list ->
   ?restorable_by_user_ids:string prop list ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -49,7 +49,7 @@ type t = private {
   snapshot_ids : string list prop;
   state : string prop;
   storage_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   volume_id : string prop;
   volume_size : float prop;
 }
@@ -61,7 +61,7 @@ val register :
   ?owners:string prop list ->
   ?restorable_by_user_ids:string prop list ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -73,7 +73,7 @@ val make :
   ?owners:string prop list ->
   ?restorable_by_user_ids:string prop list ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

@@ -196,8 +196,8 @@ type aws_ebs_snapshot_import = {
   permanent_restore : bool prop option; [@option]
   role_name : string prop option; [@option]
   storage_tier : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   temporary_restore_days : float prop option; [@option]
   client_data : client_data list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -265,12 +265,8 @@ let yojson_of_aws_ebs_snapshot_import =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -281,12 +277,8 @@ let yojson_of_aws_ebs_snapshot_import =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -403,8 +395,8 @@ type t = {
   permanent_restore : bool prop;
   role_name : string prop;
   storage_tier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   temporary_restore_days : float prop;
   volume_id : string prop;
   volume_size : float prop;

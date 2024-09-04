@@ -32,7 +32,7 @@ type t = private {
   platform_fault_domain_count : float prop;
   platform_update_domain_count : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

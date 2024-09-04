@@ -19,7 +19,7 @@ type azurerm_powerbi_embedded
 val azurerm_powerbi_embedded :
   ?id:string prop ->
   ?mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   administrators:string prop list ->
   location:string prop ->
@@ -43,14 +43,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   administrators:string prop list ->
   location:string prop ->
@@ -63,7 +63,7 @@ val register :
 val make :
   ?id:string prop ->
   ?mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   administrators:string prop list ->
   location:string prop ->

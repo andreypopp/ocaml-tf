@@ -16,7 +16,7 @@ type aws_quicksight_vpc_connection = {
   role_arn: string prop; 
   security_group_ids: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
   subnet_ids: string  prop list; [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
   vpc_connection_id: string prop; 
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
@@ -53,8 +53,8 @@ type t = {
   role_arn: string prop;
   security_group_ids: string list prop;
   subnet_ids: string list prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
   vpc_connection_id: string prop;
 }
 

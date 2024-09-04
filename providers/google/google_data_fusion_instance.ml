@@ -247,9 +247,9 @@ type google_data_fusion_instance = {
   enable_stackdriver_logging : bool prop option; [@option]
   enable_stackdriver_monitoring : bool prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop;
-  options : (string * string prop) list option; [@option]
+  options : string prop Tf_core.assoc option; [@option]
   private_instance : bool prop option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
@@ -391,12 +391,8 @@ let yojson_of_google_data_fusion_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "options", arg in
@@ -411,12 +407,8 @@ let yojson_of_google_data_fusion_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -550,15 +542,15 @@ type t = {
   dataproc_service_account : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_rbac : bool prop;
   enable_stackdriver_logging : bool prop;
   enable_stackdriver_monitoring : bool prop;
   gcs_bucket : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
-  options : (string * string) list prop;
+  options : string Tf_core.assoc prop;
   p4_service_account : string prop;
   private_instance : bool prop;
   project : string prop;
@@ -567,7 +559,7 @@ type t = {
   state : string prop;
   state_message : string prop;
   tenant_project_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
   version : string prop;

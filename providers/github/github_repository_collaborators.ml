@@ -133,7 +133,7 @@ let github_repository_collaborators ?id ~repository ~team ~user () :
 type t = {
   tf_name : string;
   id : string prop;
-  invitation_ids : (string * string) list prop;
+  invitation_ids : string Tf_core.assoc prop;
   repository : string prop;
 }
 

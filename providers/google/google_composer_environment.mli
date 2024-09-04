@@ -122,10 +122,10 @@ val config__recovery_config :
 type config__software_config
 
 val config__software_config :
-  ?airflow_config_overrides:(string * string prop) list ->
-  ?env_variables:(string * string prop) list ->
+  ?airflow_config_overrides:string prop Tf_core.assoc ->
+  ?env_variables:string prop Tf_core.assoc ->
   ?image_version:string prop ->
-  ?pypi_packages:(string * string prop) list ->
+  ?pypi_packages:string prop Tf_core.assoc ->
   ?python_version:string prop ->
   ?scheduler_count:float prop ->
   unit ->
@@ -241,7 +241,7 @@ type google_composer_environment
 
 val google_composer_environment :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?config:config list ->
@@ -258,19 +258,19 @@ val yojson_of_google_composer_environment :
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?config:config list ->
@@ -282,7 +282,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?config:config list ->

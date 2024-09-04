@@ -43,9 +43,9 @@ val aws_apigatewayv2_stage :
   ?deployment_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?stage_variables:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?stage_variables:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_log_settings:access_log_settings list ->
   ?default_route_settings:default_route_settings list ->
   api_id:string prop ->
@@ -70,9 +70,9 @@ type t = private {
   id : string prop;
   invoke_url : string prop;
   name : string prop;
-  stage_variables : (string * string) list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  stage_variables : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -82,9 +82,9 @@ val register :
   ?deployment_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?stage_variables:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?stage_variables:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_log_settings:access_log_settings list ->
   ?default_route_settings:default_route_settings list ->
   api_id:string prop ->
@@ -99,9 +99,9 @@ val make :
   ?deployment_id:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?stage_variables:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?stage_variables:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?access_log_settings:access_log_settings list ->
   ?default_route_settings:default_route_settings list ->
   api_id:string prop ->

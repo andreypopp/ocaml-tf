@@ -19,7 +19,7 @@ val google_integration_connectors_endpoint_attachment :
   ?description:string prop ->
   ?endpoint_global_access:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -37,16 +37,16 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   endpoint_global_access : bool prop;
   endpoint_ip : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   service_attachment : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -55,7 +55,7 @@ val register :
   ?description:string prop ->
   ?endpoint_global_access:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -68,7 +68,7 @@ val make :
   ?description:string prop ->
   ?endpoint_global_access:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

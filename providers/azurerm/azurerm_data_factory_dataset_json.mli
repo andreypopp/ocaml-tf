@@ -49,13 +49,13 @@ val timeouts :
 type azurerm_data_factory_dataset_json
 
 val azurerm_data_factory_dataset_json :
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?encoding:string prop ->
   ?folder:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?azure_blob_storage_location:azure_blob_storage_location list ->
   ?http_server_location:http_server_location list ->
   ?schema_column:schema_column list ->
@@ -73,7 +73,7 @@ val yojson_of_azurerm_data_factory_dataset_json :
 
 type t = private {
   tf_name : string;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -82,18 +82,18 @@ type t = private {
   id : string prop;
   linked_service_name : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?encoding:string prop ->
   ?folder:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?azure_blob_storage_location:azure_blob_storage_location list ->
   ?http_server_location:http_server_location list ->
   ?schema_column:schema_column list ->
@@ -105,13 +105,13 @@ val register :
   t
 
 val make :
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?encoding:string prop ->
   ?folder:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?azure_blob_storage_location:azure_blob_storage_location list ->
   ?http_server_location:http_server_location list ->
   ?schema_column:schema_column list ->

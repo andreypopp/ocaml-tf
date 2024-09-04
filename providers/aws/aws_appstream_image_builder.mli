@@ -39,8 +39,8 @@ val aws_appstream_image_builder :
   ?id:string prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->
@@ -69,8 +69,8 @@ type t = private {
   instance_type : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -83,8 +83,8 @@ val register :
   ?id:string prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->
@@ -102,8 +102,8 @@ val make :
   ?id:string prop ->
   ?image_arn:string prop ->
   ?image_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->

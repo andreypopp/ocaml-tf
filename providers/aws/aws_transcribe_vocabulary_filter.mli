@@ -8,8 +8,8 @@ type aws_transcribe_vocabulary_filter
 
 val aws_transcribe_vocabulary_filter :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_filter_file_uri:string prop ->
   ?words:string prop list ->
   language_code:string prop ->
@@ -28,8 +28,8 @@ type t = private {
   download_uri : string prop;
   id : string prop;
   language_code : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vocabulary_filter_file_uri : string prop;
   vocabulary_filter_name : string prop;
   words : string list prop;
@@ -38,8 +38,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_filter_file_uri:string prop ->
   ?words:string prop list ->
   language_code:string prop ->
@@ -49,8 +49,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vocabulary_filter_file_uri:string prop ->
   ?words:string prop list ->
   language_code:string prop ->

@@ -89,7 +89,7 @@ let _ = yojson_of_artifact_store
 
 type stage__action = {
   category : string prop;
-  configuration : (string * string prop) list option; [@option]
+  configuration : string prop Tf_core.assoc option; [@option]
   input_artifacts : string prop list option; [@option]
   name : string prop;
   namespace : string prop option; [@option]
@@ -207,12 +207,8 @@ let yojson_of_stage__action =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "configuration", arg in
@@ -749,8 +745,8 @@ type aws_codepipeline = {
   name : string prop;
   pipeline_type : string prop option; [@option]
   role_arn : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   artifact_store : artifact_store list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   stage : stage list;
@@ -820,12 +816,8 @@ let yojson_of_aws_codepipeline =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -836,12 +828,8 @@ let yojson_of_aws_codepipeline =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -983,8 +971,8 @@ type t = {
   name : string prop;
   pipeline_type : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all

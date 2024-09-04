@@ -14,11 +14,11 @@ val metadata :
 type kubernetes_annotations
 
 val kubernetes_annotations :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  ?template_annotations:(string * string prop) list ->
+  ?template_annotations:string prop Tf_core.assoc ->
   api_version:string prop ->
   kind:string prop ->
   metadata:metadata list ->
@@ -31,22 +31,22 @@ val yojson_of_kubernetes_annotations : kubernetes_annotations -> json
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   api_version : string prop;
   field_manager : string prop;
   force : bool prop;
   id : string prop;
   kind : string prop;
-  template_annotations : (string * string) list prop;
+  template_annotations : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  ?template_annotations:(string * string prop) list ->
+  ?template_annotations:string prop Tf_core.assoc ->
   api_version:string prop ->
   kind:string prop ->
   metadata:metadata list ->
@@ -54,11 +54,11 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  ?template_annotations:(string * string prop) list ->
+  ?template_annotations:string prop Tf_core.assoc ->
   api_version:string prop ->
   kind:string prop ->
   metadata:metadata list ->

@@ -73,7 +73,7 @@ type azurerm_key_vault_managed_hardware_security_module_key = {
   managed_hsm_id : string prop;
   name : string prop;
   not_before_date : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -110,12 +110,8 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module_key
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -226,7 +222,7 @@ type t = {
   managed_hsm_id : string prop;
   name : string prop;
   not_before_date : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   versioned_id : string prop;
 }
 

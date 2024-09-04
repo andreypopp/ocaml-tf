@@ -25,7 +25,7 @@ type t = private {
   tf_name : string;
   delete_protection : bool prop;
   id : float prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   linux_device : string prop;
   location : string prop;
   name : string prop;

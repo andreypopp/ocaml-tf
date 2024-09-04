@@ -45,7 +45,7 @@ type t = private {
   resource_group_name : string prop;
   server_name : string prop;
   sku : sku list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 

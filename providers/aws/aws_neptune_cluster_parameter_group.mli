@@ -20,8 +20,8 @@ val aws_neptune_cluster_parameter_group :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   family:string prop ->
   parameter:parameter list ->
   unit ->
@@ -40,8 +40,8 @@ type t = private {
   id : string prop;
   name : string prop;
   name_prefix : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -50,8 +50,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   family:string prop ->
   parameter:parameter list ->
   string ->
@@ -62,8 +62,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   family:string prop ->
   parameter:parameter list ->
   string ->

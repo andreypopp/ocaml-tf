@@ -8,8 +8,8 @@ type aws_ec2_transit_gateway_vpc_attachment_accepter
 
 val aws_ec2_transit_gateway_vpc_attachment_accepter :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_default_route_table_association:bool prop ->
   ?transit_gateway_default_route_table_propagation:bool prop ->
   transit_gateway_attachment_id:string prop ->
@@ -28,8 +28,8 @@ type t = private {
   id : string prop;
   ipv6_support : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_attachment_id : string prop;
   transit_gateway_default_route_table_association : bool prop;
   transit_gateway_default_route_table_propagation : bool prop;
@@ -41,8 +41,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_default_route_table_association:bool prop ->
   ?transit_gateway_default_route_table_propagation:bool prop ->
   transit_gateway_attachment_id:string prop ->
@@ -51,8 +51,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_default_route_table_association:bool prop ->
   ?transit_gateway_default_route_table_propagation:bool prop ->
   transit_gateway_attachment_id:string prop ->

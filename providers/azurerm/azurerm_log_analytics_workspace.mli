@@ -37,7 +37,7 @@ val azurerm_log_analytics_workspace :
   ?reservation_capacity_in_gb_per_day:float prop ->
   ?retention_in_days:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -70,7 +70,7 @@ type t = private {
   retention_in_days : float prop;
   secondary_shared_key : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -88,7 +88,7 @@ val register :
   ?reservation_capacity_in_gb_per_day:float prop ->
   ?retention_in_days:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -110,7 +110,7 @@ val make :
   ?reservation_capacity_in_gb_per_day:float prop ->
   ?retention_in_days:float prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

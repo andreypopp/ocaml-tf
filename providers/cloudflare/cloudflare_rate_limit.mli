@@ -42,7 +42,7 @@ val match__request :
 type match__response
 
 val match__response :
-  ?headers:(string * string prop) list list ->
+  ?headers:string prop Tf_core.assoc list ->
   ?origin_traffic:bool prop ->
   ?statuses:float prop list ->
   unit ->

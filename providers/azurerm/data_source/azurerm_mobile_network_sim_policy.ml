@@ -327,7 +327,7 @@ type t = {
   rat_frequency_selection_priority_index : float prop;
   registration_timer_in_seconds : float prop;
   slice : slice list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_equipment_aggregate_maximum_bit_rate :
     user_equipment_aggregate_maximum_bit_rate list prop;
 }

@@ -23,7 +23,7 @@ type aws_elasticache_cluster
 
 val aws_elasticache_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_id:string prop ->
   unit ->
   aws_elasticache_cluster
@@ -59,20 +59,20 @@ type t = private {
   snapshot_retention_limit : float prop;
   snapshot_window : string prop;
   subnet_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_id:string prop ->
   string ->
   t Tf_core.resource

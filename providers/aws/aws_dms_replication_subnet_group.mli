@@ -8,8 +8,8 @@ type aws_dms_replication_subnet_group
 
 val aws_dms_replication_subnet_group :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   replication_subnet_group_description:string prop ->
   replication_subnet_group_id:string prop ->
   subnet_ids:string prop list ->
@@ -28,16 +28,16 @@ type t = private {
   replication_subnet_group_description : string prop;
   replication_subnet_group_id : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   replication_subnet_group_description:string prop ->
   replication_subnet_group_id:string prop ->
   subnet_ids:string prop list ->
@@ -46,8 +46,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   replication_subnet_group_description:string prop ->
   replication_subnet_group_id:string prop ->
   subnet_ids:string prop list ->

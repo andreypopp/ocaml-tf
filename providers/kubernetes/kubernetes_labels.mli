@@ -19,7 +19,7 @@ val kubernetes_labels :
   ?id:string prop ->
   api_version:string prop ->
   kind:string prop ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   metadata:metadata list ->
   unit ->
   kubernetes_labels
@@ -35,7 +35,7 @@ type t = private {
   force : bool prop;
   id : string prop;
   kind : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -45,7 +45,7 @@ val register :
   ?id:string prop ->
   api_version:string prop ->
   kind:string prop ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   metadata:metadata list ->
   string ->
   t
@@ -56,7 +56,7 @@ val make :
   ?id:string prop ->
   api_version:string prop ->
   kind:string prop ->
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   metadata:metadata list ->
   string ->
   t Tf_core.resource

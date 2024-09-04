@@ -73,8 +73,8 @@ type aws_sagemaker_flow_definition
 
 val aws_sagemaker_flow_definition :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?human_loop_activation_config:human_loop_activation_config list ->
   ?human_loop_request_source:human_loop_request_source list ->
   flow_definition_name:string prop ->
@@ -95,15 +95,15 @@ type t = private {
   flow_definition_name : string prop;
   id : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?human_loop_activation_config:human_loop_activation_config list ->
   ?human_loop_request_source:human_loop_request_source list ->
   flow_definition_name:string prop ->
@@ -115,8 +115,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?human_loop_activation_config:human_loop_activation_config list ->
   ?human_loop_request_source:human_loop_request_source list ->
   flow_definition_name:string prop ->

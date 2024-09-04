@@ -17,8 +17,8 @@ val aws_macie2_member :
   ?invitation_message:string prop ->
   ?invite:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   email:string prop ->
@@ -43,8 +43,8 @@ type t = private {
   master_account_id : string prop;
   relationship_status : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 
@@ -55,8 +55,8 @@ val register :
   ?invitation_message:string prop ->
   ?invite:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   email:string prop ->
@@ -69,8 +69,8 @@ val make :
   ?invitation_message:string prop ->
   ?invite:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   email:string prop ->

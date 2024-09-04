@@ -50,7 +50,7 @@ type google_pubsub_topic
 val google_pubsub_topic :
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?ingestion_data_source_settings:ingestion_data_source_settings list ->
@@ -67,21 +67,21 @@ val yojson_of_google_pubsub_topic : google_pubsub_topic -> json
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?ingestion_data_source_settings:ingestion_data_source_settings list ->
@@ -95,7 +95,7 @@ val register :
 val make :
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?ingestion_data_source_settings:ingestion_data_source_settings list ->

@@ -7,8 +7,8 @@ open! Tf_core
 type aws_cognito_user
 
 val aws_cognito_user :
-  ?attributes:(string * string prop) list ->
-  ?client_metadata:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
+  ?client_metadata:string prop Tf_core.assoc ->
   ?desired_delivery_mediums:string prop list ->
   ?enabled:bool prop ->
   ?force_alias_creation:bool prop ->
@@ -16,7 +16,7 @@ val aws_cognito_user :
   ?message_action:string prop ->
   ?password:string prop ->
   ?temporary_password:string prop ->
-  ?validation_data:(string * string prop) list ->
+  ?validation_data:string prop Tf_core.assoc ->
   user_pool_id:string prop ->
   username:string prop ->
   unit ->
@@ -28,8 +28,8 @@ val yojson_of_aws_cognito_user : aws_cognito_user -> json
 
 type t = private {
   tf_name : string;
-  attributes : (string * string) list prop;
-  client_metadata : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
+  client_metadata : string Tf_core.assoc prop;
   creation_date : string prop;
   desired_delivery_mediums : string list prop;
   enabled : bool prop;
@@ -45,13 +45,13 @@ type t = private {
   temporary_password : string prop;
   user_pool_id : string prop;
   username : string prop;
-  validation_data : (string * string) list prop;
+  validation_data : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?attributes:(string * string prop) list ->
-  ?client_metadata:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
+  ?client_metadata:string prop Tf_core.assoc ->
   ?desired_delivery_mediums:string prop list ->
   ?enabled:bool prop ->
   ?force_alias_creation:bool prop ->
@@ -59,15 +59,15 @@ val register :
   ?message_action:string prop ->
   ?password:string prop ->
   ?temporary_password:string prop ->
-  ?validation_data:(string * string prop) list ->
+  ?validation_data:string prop Tf_core.assoc ->
   user_pool_id:string prop ->
   username:string prop ->
   string ->
   t
 
 val make :
-  ?attributes:(string * string prop) list ->
-  ?client_metadata:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
+  ?client_metadata:string prop Tf_core.assoc ->
   ?desired_delivery_mediums:string prop list ->
   ?enabled:bool prop ->
   ?force_alias_creation:bool prop ->
@@ -75,7 +75,7 @@ val make :
   ?message_action:string prop ->
   ?password:string prop ->
   ?temporary_password:string prop ->
-  ?validation_data:(string * string prop) list ->
+  ?validation_data:string prop Tf_core.assoc ->
   user_pool_id:string prop ->
   username:string prop ->
   string ->

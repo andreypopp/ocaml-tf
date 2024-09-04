@@ -91,7 +91,7 @@ type t = private {
   private_ip_address_enabled : bool prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   vpn_client_configuration : vpn_client_configuration list prop;
   vpn_type : string prop;

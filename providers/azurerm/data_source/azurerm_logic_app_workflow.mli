@@ -42,9 +42,9 @@ type t = private {
   location : string prop;
   logic_app_integration_account_id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workflow_endpoint_ip_addresses : string list prop;
   workflow_outbound_ip_addresses : string list prop;
   workflow_schema : string prop;

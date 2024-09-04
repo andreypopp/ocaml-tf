@@ -6,7 +6,7 @@ open! Tf_core
 
 type block_device_mappings = {
   device_name : string prop;  (** device_name *)
-  ebs : (string * string prop) list;  (** ebs *)
+  ebs : string prop Tf_core.assoc;  (** ebs *)
   no_device : string prop;  (** no_device *)
   virtual_name : string prop;  (** virtual_name *)
 }
@@ -34,7 +34,7 @@ val aws_ami :
   ?most_recent:bool prop ->
   ?name_regex:string prop ->
   ?owners:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -79,8 +79,8 @@ type t = private {
   root_snapshot_id : string prop;
   sriov_net_support : string prop;
   state : string prop;
-  state_reason : (string * string) list prop;
-  tags : (string * string) list prop;
+  state_reason : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
   tpm_support : string prop;
   usage_operation : string prop;
   virtualization_type : string prop;
@@ -94,7 +94,7 @@ val register :
   ?most_recent:bool prop ->
   ?name_regex:string prop ->
   ?owners:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -107,7 +107,7 @@ val make :
   ?most_recent:bool prop ->
   ?name_regex:string prop ->
   ?owners:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

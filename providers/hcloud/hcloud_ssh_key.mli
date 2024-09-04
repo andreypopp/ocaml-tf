@@ -20,7 +20,7 @@ open! Tf_core
 type hcloud_ssh_key
 
 val hcloud_ssh_key :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   public_key:string prop ->
   unit ->
@@ -34,21 +34,21 @@ type t = private {
   tf_name : string;
   fingerprint : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   public_key : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   public_key:string prop ->
   string ->
   t
 
 val make :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   public_key:string prop ->
   string ->

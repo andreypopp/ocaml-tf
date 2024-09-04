@@ -21,7 +21,7 @@ val azurerm_logic_app_integration_account_assembly :
   ?content:string prop ->
   ?content_link_uri:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   assembly_name:string prop ->
   integration_account_name:string prop ->
@@ -43,7 +43,7 @@ type t = private {
   content_link_uri : string prop;
   id : string prop;
   integration_account_name : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   resource_group_name : string prop;
 }
@@ -54,7 +54,7 @@ val register :
   ?content:string prop ->
   ?content_link_uri:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   assembly_name:string prop ->
   integration_account_name:string prop ->
@@ -68,7 +68,7 @@ val make :
   ?content:string prop ->
   ?content_link_uri:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   assembly_name:string prop ->
   integration_account_name:string prop ->

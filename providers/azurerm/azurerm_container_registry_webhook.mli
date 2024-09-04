@@ -17,11 +17,11 @@ val timeouts :
 type azurerm_container_registry_webhook
 
 val azurerm_container_registry_webhook :
-  ?custom_headers:(string * string prop) list ->
+  ?custom_headers:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?scope:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   actions:string prop list ->
   location:string prop ->
@@ -40,7 +40,7 @@ val yojson_of_azurerm_container_registry_webhook :
 type t = private {
   tf_name : string;
   actions : string list prop;
-  custom_headers : (string * string) list prop;
+  custom_headers : string Tf_core.assoc prop;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -49,16 +49,16 @@ type t = private {
   scope : string prop;
   service_uri : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?custom_headers:(string * string prop) list ->
+  ?custom_headers:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?scope:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   actions:string prop list ->
   location:string prop ->
@@ -70,11 +70,11 @@ val register :
   t
 
 val make :
-  ?custom_headers:(string * string prop) list ->
+  ?custom_headers:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?scope:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   actions:string prop list ->
   location:string prop ->

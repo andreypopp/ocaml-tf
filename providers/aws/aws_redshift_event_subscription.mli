@@ -22,8 +22,8 @@ val aws_redshift_event_subscription :
   ?severity:string prop ->
   ?source_ids:string prop list ->
   ?source_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   sns_topic_arn:string prop ->
@@ -48,8 +48,8 @@ type t = private {
   source_ids : string list prop;
   source_type : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,8 +60,8 @@ val register :
   ?severity:string prop ->
   ?source_ids:string prop list ->
   ?source_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   sns_topic_arn:string prop ->
@@ -75,8 +75,8 @@ val make :
   ?severity:string prop ->
   ?source_ids:string prop list ->
   ?source_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   sns_topic_arn:string prop ->

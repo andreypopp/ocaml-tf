@@ -77,7 +77,7 @@ val azurerm_postgresql_flexible_server :
   ?source_server_id:string prop ->
   ?storage_mb:float prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?authentication:authentication list ->
@@ -119,7 +119,7 @@ type t = private {
   source_server_id : string prop;
   storage_mb : float prop;
   storage_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   zone : string prop;
 }
@@ -142,7 +142,7 @@ val register :
   ?source_server_id:string prop ->
   ?storage_mb:float prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?authentication:authentication list ->
@@ -174,7 +174,7 @@ val make :
   ?source_server_id:string prop ->
   ?storage_mb:float prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?zone:string prop ->
   ?authentication:authentication list ->

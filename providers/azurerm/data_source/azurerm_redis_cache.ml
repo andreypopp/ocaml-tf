@@ -317,7 +317,7 @@ type t = {
   sku_name : string prop;
   ssl_port : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

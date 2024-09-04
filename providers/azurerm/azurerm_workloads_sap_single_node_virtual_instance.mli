@@ -106,7 +106,7 @@ type azurerm_workloads_sap_single_node_virtual_instance
 val azurerm_workloads_sap_single_node_virtual_instance :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
@@ -136,14 +136,14 @@ type t = private {
   resource_group_name : string prop;
   sap_fqdn : string prop;
   sap_product : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
@@ -160,7 +160,7 @@ val register :
 val make :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->

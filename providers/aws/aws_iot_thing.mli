@@ -7,7 +7,7 @@ open! Tf_core
 type aws_iot_thing
 
 val aws_iot_thing :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?thing_type_name:string prop ->
   name:string prop ->
@@ -21,7 +21,7 @@ val yojson_of_aws_iot_thing : aws_iot_thing -> json
 type t = private {
   tf_name : string;
   arn : string prop;
-  attributes : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
   default_client_id : string prop;
   id : string prop;
   name : string prop;
@@ -31,7 +31,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?thing_type_name:string prop ->
   name:string prop ->
@@ -39,7 +39,7 @@ val register :
   t
 
 val make :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?thing_type_name:string prop ->
   name:string prop ->

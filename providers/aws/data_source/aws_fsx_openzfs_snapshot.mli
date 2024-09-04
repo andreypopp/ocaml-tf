@@ -16,7 +16,7 @@ val aws_fsx_openzfs_snapshot :
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   unit ->
   aws_fsx_openzfs_snapshot
@@ -35,7 +35,7 @@ type t = private {
   name : string prop;
   snapshot_id : string prop;
   snapshot_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   volume_id : string prop;
 }
 
@@ -45,7 +45,7 @@ val register :
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t
@@ -55,7 +55,7 @@ val make :
   ?most_recent:bool prop ->
   ?name:string prop ->
   ?snapshot_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t Tf_core.resource

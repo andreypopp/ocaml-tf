@@ -7,8 +7,8 @@ open! Tf_core
 type constraints
 
 val constraints :
-  ?encryption_context_equals:(string * string prop) list ->
-  ?encryption_context_subset:(string * string prop) list ->
+  ?encryption_context_equals:string prop Tf_core.assoc ->
+  ?encryption_context_subset:string prop Tf_core.assoc ->
   unit ->
   constraints
 

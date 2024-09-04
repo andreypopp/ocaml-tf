@@ -28,8 +28,8 @@ type aws_sagemaker_project
 val aws_sagemaker_project :
   ?id:string prop ->
   ?project_description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   project_name:string prop ->
   service_catalog_provisioning_details:
     service_catalog_provisioning_details list ->
@@ -47,16 +47,16 @@ type t = private {
   project_description : string prop;
   project_id : string prop;
   project_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project_description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   project_name:string prop ->
   service_catalog_provisioning_details:
     service_catalog_provisioning_details list ->
@@ -66,8 +66,8 @@ val register :
 val make :
   ?id:string prop ->
   ?project_description:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   project_name:string prop ->
   service_catalog_provisioning_details:
     service_catalog_provisioning_details list ->

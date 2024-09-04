@@ -27,7 +27,7 @@ type aws_oam_link
 
 val aws_oam_link :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   link_identifier:string prop ->
   unit ->
   aws_oam_link
@@ -47,20 +47,20 @@ type t = private {
   link_identifier : string prop;
   resource_types : string list prop;
   sink_arn : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   link_identifier:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   link_identifier:string prop ->
   string ->
   t Tf_core.resource

@@ -53,7 +53,7 @@ type spec = {
       (** port *)
   publish_not_ready_addresses : bool prop;
       (** publish_not_ready_addresses *)
-  selector : (string * string prop) list;  (** selector *)
+  selector : string prop Tf_core.assoc;  (** selector *)
   session_affinity : string prop;  (** session_affinity *)
   session_affinity_config : spec__session_affinity_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -81,8 +81,8 @@ type status = {
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->

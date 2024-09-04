@@ -14,7 +14,7 @@ type aws_redshift_cluster
 
 val aws_redshift_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   unit ->
   aws_redshift_cluster
@@ -63,7 +63,7 @@ type t = private {
   preferred_maintenance_window : string prop;
   publicly_accessible : bool prop;
   s3_key_prefix : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
   vpc_security_group_ids : string list prop;
 }
@@ -71,14 +71,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   string ->
   t Tf_core.resource

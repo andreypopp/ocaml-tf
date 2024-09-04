@@ -37,7 +37,7 @@ val aws_connect_quick_connect :
   ?id:string prop ->
   ?name:string prop ->
   ?quick_connect_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   unit ->
   aws_connect_quick_connect
@@ -56,7 +56,7 @@ type t = private {
   name : string prop;
   quick_connect_config : quick_connect_config list prop;
   quick_connect_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -64,7 +64,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?quick_connect_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t
@@ -73,7 +73,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?quick_connect_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t Tf_core.resource

@@ -67,7 +67,7 @@ val azurerm_managed_disk :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->
@@ -118,7 +118,7 @@ type t = private {
   source_uri : string prop;
   storage_account_id : string prop;
   storage_account_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tier : string prop;
   trusted_launch_enabled : bool prop;
   upload_size_bytes : float prop;
@@ -152,7 +152,7 @@ val register :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->
@@ -193,7 +193,7 @@ val make :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->

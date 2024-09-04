@@ -14,14 +14,13 @@ type aws_amplify_branch = {
   enable_notification : bool prop option; [@option]
   enable_performance_mode : bool prop option; [@option]
   enable_pull_request_preview : bool prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   framework : string prop option; [@option]
   id : string prop option; [@option]
   pull_request_environment_name : string prop option; [@option]
   stage : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   ttl : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -68,12 +67,8 @@ let yojson_of_aws_amplify_branch =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -84,12 +79,8 @@ let yojson_of_aws_amplify_branch =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -132,12 +123,8 @@ let yojson_of_aws_amplify_branch =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -276,14 +263,14 @@ type t = {
   enable_notification : bool prop;
   enable_performance_mode : bool prop;
   enable_pull_request_preview : bool prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   framework : string prop;
   id : string prop;
   pull_request_environment_name : string prop;
   source_branch : string prop;
   stage : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   ttl : string prop;
 }
 

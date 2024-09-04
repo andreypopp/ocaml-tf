@@ -675,7 +675,7 @@ let _ = yojson_of_node_config__kubelet_config
 
 type node_config__linux_node_config = {
   cgroup_mode : string prop option; [@option]
-  sysctls : (string * string prop) list option; [@option]
+  sysctls : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -692,12 +692,8 @@ let yojson_of_node_config__linux_node_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "sysctls", arg in
@@ -1193,18 +1189,17 @@ type node_config = {
   guest_accelerator : node_config__guest_accelerator list option;
       [@option]
   image_type : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   local_ssd_count : float prop option; [@option]
   logging_variant : string prop option; [@option]
   machine_type : string prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   min_cpu_platform : string prop option; [@option]
   node_group : string prop option; [@option]
   oauth_scopes : string prop list option; [@option]
   preemptible : bool prop option; [@option]
-  resource_labels : (string * string prop) list option; [@option]
-  resource_manager_tags : (string * string prop) list option;
-      [@option]
+  resource_labels : string prop Tf_core.assoc option; [@option]
+  resource_manager_tags : string prop Tf_core.assoc option; [@option]
   service_account : string prop option; [@option]
   spot : bool prop option; [@option]
   tags : string prop list option; [@option]
@@ -1508,12 +1503,8 @@ let yojson_of_node_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_manager_tags", arg in
@@ -1524,12 +1515,8 @@ let yojson_of_node_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_labels", arg in
@@ -1574,12 +1561,8 @@ let yojson_of_node_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -1614,12 +1597,8 @@ let yojson_of_node_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in

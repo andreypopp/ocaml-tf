@@ -46,8 +46,8 @@ type aws_ivschat_logging_configuration
 val aws_ivschat_logging_configuration :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
   unit ->
@@ -64,16 +64,16 @@ type t = private {
   id : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
   string ->
@@ -82,8 +82,8 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
   string ->

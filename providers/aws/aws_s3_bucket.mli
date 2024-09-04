@@ -64,7 +64,7 @@ val lifecycle_rule :
   ?abort_incomplete_multipart_upload_days:float prop ->
   ?id:string prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?expiration:lifecycle_rule__expiration list ->
   ?noncurrent_version_expiration:
     lifecycle_rule__noncurrent_version_expiration list ->
@@ -153,7 +153,7 @@ type replication_configuration__rules__filter
 
 val replication_configuration__rules__filter :
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   replication_configuration__rules__filter
 
@@ -258,8 +258,8 @@ val aws_s3_bucket :
   ?object_lock_enabled:bool prop ->
   ?policy:string prop ->
   ?request_payer:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cors_rule:cors_rule list ->
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->
@@ -294,8 +294,8 @@ type t = private {
   policy : string prop;
   region : string prop;
   request_payer : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   website_domain : string prop;
   website_endpoint : string prop;
 }
@@ -311,8 +311,8 @@ val register :
   ?object_lock_enabled:bool prop ->
   ?policy:string prop ->
   ?request_payer:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cors_rule:cors_rule list ->
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->
@@ -337,8 +337,8 @@ val make :
   ?object_lock_enabled:bool prop ->
   ?policy:string prop ->
   ?request_payer:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cors_rule:cors_rule list ->
   ?lifecycle_rule:lifecycle_rule list ->
   ?logging:logging list ->

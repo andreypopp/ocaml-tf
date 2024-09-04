@@ -203,11 +203,10 @@ type disk = {
   disk_size_gb : float prop option; [@option]
   disk_type : string prop option; [@option]
   interface : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   mode : string prop option; [@option]
   provisioned_iops : float prop option; [@option]
-  resource_manager_tags : (string * string prop) list option;
-      [@option]
+  resource_manager_tags : string prop Tf_core.assoc option; [@option]
   resource_policies : string prop list option; [@option]
   source : string prop option; [@option]
   source_image : string prop option; [@option]
@@ -333,12 +332,8 @@ let yojson_of_disk =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_manager_tags", arg in
@@ -365,12 +360,8 @@ let yojson_of_disk =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1232,17 +1223,16 @@ type google_compute_region_instance_template = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   instance_description : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   machine_type : string prop;
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   metadata_startup_script : string prop option; [@option]
   min_cpu_platform : string prop option; [@option]
   name : string prop option; [@option]
   name_prefix : string prop option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
-  resource_manager_tags : (string * string prop) list option;
-      [@option]
+  resource_manager_tags : string prop Tf_core.assoc option; [@option]
   resource_policies : string prop list option; [@option]
   tags : string prop list option; [@option]
   advanced_machine_features : advanced_machine_features list;
@@ -1429,12 +1419,8 @@ let yojson_of_google_compute_region_instance_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "resource_manager_tags", arg in
@@ -1493,12 +1479,8 @@ let yojson_of_google_compute_region_instance_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -1513,12 +1495,8 @@ let yojson_of_google_compute_region_instance_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1752,12 +1730,12 @@ type t = {
   tf_name : string;
   can_ip_forward : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   instance_description : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -1765,12 +1743,12 @@ type t = {
   name_prefix : string prop;
   project : string prop;
   region : string prop;
-  resource_manager_tags : (string * string) list prop;
+  resource_manager_tags : string Tf_core.assoc prop;
   resource_policies : string list prop;
   self_link : string prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?can_ip_forward ?description ?id ?instance_description

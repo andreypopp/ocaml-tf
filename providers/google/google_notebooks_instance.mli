@@ -71,8 +71,8 @@ val google_notebooks_instance :
   ?install_gpu_driver:bool prop ->
   ?instance_owners:string prop list ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?nic_type:string prop ->
   ?no_proxy_access:bool prop ->
@@ -112,15 +112,15 @@ type t = private {
   data_disk_type : string prop;
   desired_state : string prop;
   disk_encryption : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   install_gpu_driver : bool prop;
   instance_owners : string list prop;
   kms_key : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   nic_type : string prop;
@@ -135,7 +135,7 @@ type t = private {
   state : string prop;
   subnet : string prop;
   tags : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -153,8 +153,8 @@ val register :
   ?install_gpu_driver:bool prop ->
   ?instance_owners:string prop list ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?nic_type:string prop ->
   ?no_proxy_access:bool prop ->
@@ -192,8 +192,8 @@ val make :
   ?install_gpu_driver:bool prop ->
   ?instance_owners:string prop list ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?nic_type:string prop ->
   ?no_proxy_access:bool prop ->

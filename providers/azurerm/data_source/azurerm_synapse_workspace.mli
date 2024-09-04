@@ -34,13 +34,13 @@ val yojson_of_azurerm_synapse_workspace :
 
 type t = private {
   tf_name : string;
-  connectivity_endpoints : (string * string) list prop;
+  connectivity_endpoints : string Tf_core.assoc prop;
   id : string prop;
   identity : identity list prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

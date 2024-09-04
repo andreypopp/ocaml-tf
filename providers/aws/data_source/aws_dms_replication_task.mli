@@ -8,7 +8,7 @@ type aws_dms_replication_task
 
 val aws_dms_replication_task :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_task_id:string prop ->
   unit ->
   aws_dms_replication_task
@@ -32,21 +32,21 @@ type t = private {
   start_replication_task : bool prop;
   status : string prop;
   table_mappings : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_endpoint_arn : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_task_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   replication_task_id:string prop ->
   string ->
   t Tf_core.resource

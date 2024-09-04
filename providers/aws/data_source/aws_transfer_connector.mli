@@ -42,7 +42,7 @@ type t = private {
   security_policy_name : string prop;
   service_managed_egress_ip_addresses : string list prop;
   sftp_config : sftp_config list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   url : string prop;
 }
 

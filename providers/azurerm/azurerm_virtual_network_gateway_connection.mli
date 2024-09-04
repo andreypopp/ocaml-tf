@@ -63,7 +63,7 @@ val azurerm_virtual_network_gateway_connection :
   ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?use_policy_based_traffic_selectors:bool prop ->
   ?custom_bgp_addresses:custom_bgp_addresses list ->
   ?ipsec_policy:ipsec_policy list ->
@@ -103,7 +103,7 @@ type t = private {
   resource_group_name : string prop;
   routing_weight : float prop;
   shared_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   use_policy_based_traffic_selectors : bool prop;
   virtual_network_gateway_id : string prop;
@@ -127,7 +127,7 @@ val register :
   ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?use_policy_based_traffic_selectors:bool prop ->
   ?custom_bgp_addresses:custom_bgp_addresses list ->
   ?ipsec_policy:ipsec_policy list ->
@@ -158,7 +158,7 @@ val make :
   ?private_link_fast_path_enabled:bool prop ->
   ?routing_weight:float prop ->
   ?shared_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?use_policy_based_traffic_selectors:bool prop ->
   ?custom_bgp_addresses:custom_bgp_addresses list ->
   ?ipsec_policy:ipsec_policy list ->

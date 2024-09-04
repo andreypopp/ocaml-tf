@@ -20,7 +20,7 @@ type quota_infos__dimensions_infos = {
   details : quota_infos__dimensions_infos__details list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** details *)
-  dimensions : (string * string prop) list;  (** dimensions *)
+  dimensions : string prop Tf_core.assoc;  (** dimensions *)
 }
 
 type quota_infos = {

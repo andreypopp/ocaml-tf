@@ -35,7 +35,7 @@ type t = private {
   available_server_type_ids : float list prop;
   description : string prop;
   id : float prop;
-  location : (string * string) list prop;
+  location : string Tf_core.assoc prop;
   name : string prop;
   supported_server_type_ids : float list prop;
 }

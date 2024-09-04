@@ -18,7 +18,7 @@ type aws_ec2_local_gateway_virtual_interface_group
 val aws_ec2_local_gateway_virtual_interface_group :
   ?id:string prop ->
   ?local_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -34,14 +34,14 @@ type t = private {
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_virtual_interface_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?local_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -50,7 +50,7 @@ val register :
 val make :
   ?id:string prop ->
   ?local_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

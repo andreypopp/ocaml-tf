@@ -100,7 +100,7 @@ val azurerm_hpc_cache :
   ?key_vault_key_id:string prop ->
   ?mtu:float prop ->
   ?ntp_server:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_access_policy:default_access_policy list ->
   ?directory_active_directory:directory_active_directory list ->
   ?directory_flat_file:directory_flat_file list ->
@@ -135,7 +135,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -145,7 +145,7 @@ val register :
   ?key_vault_key_id:string prop ->
   ?mtu:float prop ->
   ?ntp_server:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_access_policy:default_access_policy list ->
   ?directory_active_directory:directory_active_directory list ->
   ?directory_flat_file:directory_flat_file list ->
@@ -168,7 +168,7 @@ val make :
   ?key_vault_key_id:string prop ->
   ?mtu:float prop ->
   ?ntp_server:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_access_policy:default_access_policy list ->
   ?directory_active_directory:directory_active_directory list ->
   ?directory_flat_file:directory_flat_file list ->

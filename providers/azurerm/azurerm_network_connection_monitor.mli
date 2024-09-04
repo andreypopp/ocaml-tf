@@ -120,7 +120,7 @@ val azurerm_network_connection_monitor :
   ?id:string prop ->
   ?notes:string prop ->
   ?output_workspace_resource_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -144,7 +144,7 @@ type t = private {
   network_watcher_id : string prop;
   notes : string prop;
   output_workspace_resource_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -152,7 +152,7 @@ val register :
   ?id:string prop ->
   ?notes:string prop ->
   ?output_workspace_resource_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -167,7 +167,7 @@ val make :
   ?id:string prop ->
   ?notes:string prop ->
   ?output_workspace_resource_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

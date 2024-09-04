@@ -43,7 +43,7 @@ type glb_settings
 
 val glb_settings :
   ?failover_threshold:float prop ->
-  ?region_priorities:(string * float prop) list ->
+  ?region_priorities:float prop Tf_core.assoc ->
   ?cdn:glb_settings__cdn list ->
   target_port:float prop ->
   target_protocol:string prop ->

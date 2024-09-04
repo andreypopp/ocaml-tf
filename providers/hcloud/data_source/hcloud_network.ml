@@ -5,7 +5,7 @@ open! Tf_core
 type hcloud_network = {
   id : float prop option; [@option]
   ip_range : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   most_recent : bool prop option; [@option]
   name : string prop option; [@option]
   with_selector : string prop option; [@option]
@@ -56,12 +56,8 @@ let yojson_of_hcloud_network =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -100,7 +96,7 @@ type t = {
   expose_routes_to_vswitch : bool prop;
   id : float prop;
   ip_range : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   most_recent : bool prop;
   name : string prop;
   with_selector : string prop;

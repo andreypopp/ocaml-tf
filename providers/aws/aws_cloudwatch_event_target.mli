@@ -62,7 +62,7 @@ val ecs_target :
   ?launch_type:string prop ->
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?task_count:float prop ->
   ?network_configuration:ecs_target__network_configuration list ->
   ?ordered_placement_strategy:
@@ -77,16 +77,16 @@ val ecs_target :
 type http_target
 
 val http_target :
-  ?header_parameters:(string * string prop) list ->
+  ?header_parameters:string prop Tf_core.assoc ->
   ?path_parameter_values:string prop list ->
-  ?query_string_parameters:(string * string prop) list ->
+  ?query_string_parameters:string prop Tf_core.assoc ->
   unit ->
   http_target
 
 type input_transformer
 
 val input_transformer :
-  ?input_paths:(string * string prop) list ->
+  ?input_paths:string prop Tf_core.assoc ->
   input_template:string prop ->
   unit ->
   input_transformer

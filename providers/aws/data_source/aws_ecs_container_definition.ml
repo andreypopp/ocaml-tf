@@ -58,8 +58,8 @@ type t = {
   container_name : string prop;
   cpu : float prop;
   disable_networking : bool prop;
-  docker_labels : (string * string) list prop;
-  environment : (string * string) list prop;
+  docker_labels : string Tf_core.assoc prop;
+  environment : string Tf_core.assoc prop;
   id : string prop;
   image : string prop;
   image_digest : string prop;

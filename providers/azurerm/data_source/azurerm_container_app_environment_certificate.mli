@@ -32,7 +32,7 @@ type t = private {
   issuer : string prop;
   name : string prop;
   subject_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
 }
 

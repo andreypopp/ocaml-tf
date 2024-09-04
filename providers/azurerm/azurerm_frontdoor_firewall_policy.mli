@@ -105,7 +105,7 @@ val azurerm_frontdoor_firewall_policy :
   ?id:string prop ->
   ?mode:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rule:custom_rule list ->
   ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->
@@ -131,7 +131,7 @@ type t = private {
   name : string prop;
   redirect_url : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -142,7 +142,7 @@ val register :
   ?id:string prop ->
   ?mode:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rule:custom_rule list ->
   ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->
@@ -158,7 +158,7 @@ val make :
   ?id:string prop ->
   ?mode:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rule:custom_rule list ->
   ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->

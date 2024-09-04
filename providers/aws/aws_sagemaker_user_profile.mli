@@ -360,8 +360,8 @@ val aws_sagemaker_user_profile :
   ?id:string prop ->
   ?single_sign_on_user_identifier:string prop ->
   ?single_sign_on_user_value:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_settings:user_settings list ->
   domain_id:string prop ->
   user_profile_name:string prop ->
@@ -381,8 +381,8 @@ type t = private {
   id : string prop;
   single_sign_on_user_identifier : string prop;
   single_sign_on_user_value : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_profile_name : string prop;
 }
 
@@ -391,8 +391,8 @@ val register :
   ?id:string prop ->
   ?single_sign_on_user_identifier:string prop ->
   ?single_sign_on_user_value:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_settings:user_settings list ->
   domain_id:string prop ->
   user_profile_name:string prop ->
@@ -403,8 +403,8 @@ val make :
   ?id:string prop ->
   ?single_sign_on_user_identifier:string prop ->
   ?single_sign_on_user_value:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_settings:user_settings list ->
   domain_id:string prop ->
   user_profile_name:string prop ->

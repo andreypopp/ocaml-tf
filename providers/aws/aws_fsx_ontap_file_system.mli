@@ -57,8 +57,8 @@ val aws_fsx_ontap_file_system :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->
@@ -97,8 +97,8 @@ type t = private {
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   throughput_capacity : float prop;
   throughput_capacity_per_ha_pair : float prop;
   vpc_id : string prop;
@@ -117,8 +117,8 @@ val register :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->
@@ -142,8 +142,8 @@ val make :
   ?route_table_ids:string prop list ->
   ?security_group_ids:string prop list ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->

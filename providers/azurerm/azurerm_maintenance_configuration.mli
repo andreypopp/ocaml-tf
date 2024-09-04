@@ -57,8 +57,8 @@ type azurerm_maintenance_configuration
 val azurerm_maintenance_configuration :
   ?id:string prop ->
   ?in_guest_user_patch_mode:string prop ->
-  ?properties:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?install_patches:install_patches list ->
   ?timeouts:timeouts ->
@@ -81,10 +81,10 @@ type t = private {
   in_guest_user_patch_mode : string prop;
   location : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
   resource_group_name : string prop;
   scope : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   visibility : string prop;
 }
 
@@ -92,8 +92,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?in_guest_user_patch_mode:string prop ->
-  ?properties:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?install_patches:install_patches list ->
   ?timeouts:timeouts ->
@@ -108,8 +108,8 @@ val register :
 val make :
   ?id:string prop ->
   ?in_guest_user_patch_mode:string prop ->
-  ?properties:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility:string prop ->
   ?install_patches:install_patches list ->
   ?timeouts:timeouts ->

@@ -120,7 +120,7 @@ type cluster_config__gce_cluster_config
 
 val cluster_config__gce_cluster_config :
   ?internal_ip_only:bool prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?service_account:string prop ->
   ?service_account_scopes:string prop list ->
@@ -268,7 +268,7 @@ type cluster_config__software_config
 val cluster_config__software_config :
   ?image_version:string prop ->
   ?optional_components:string prop list ->
-  ?override_properties:(string * string prop) list ->
+  ?override_properties:string prop Tf_core.assoc ->
   unit ->
   cluster_config__software_config
 
@@ -417,8 +417,8 @@ val virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config :
 type virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
 
 val virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config :
-  ?properties:(string * string prop) list ->
-  component_version:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
+  component_version:string prop Tf_core.assoc ->
   unit ->
   virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
 
@@ -451,7 +451,7 @@ type google_dataproc_cluster
 val google_dataproc_cluster :
   ?graceful_decommission_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?cluster_config:cluster_config list ->
@@ -468,21 +468,21 @@ val yojson_of_google_dataproc_cluster :
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   graceful_decommission_timeout : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?graceful_decommission_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?cluster_config:cluster_config list ->
@@ -495,7 +495,7 @@ val register :
 val make :
   ?graceful_decommission_timeout:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?cluster_config:cluster_config list ->

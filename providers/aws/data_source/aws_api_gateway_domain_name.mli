@@ -14,7 +14,7 @@ type aws_api_gateway_domain_name
 
 val aws_api_gateway_domain_name :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   unit ->
   aws_api_gateway_domain_name
@@ -40,20 +40,20 @@ type t = private {
   regional_domain_name : string prop;
   regional_zone_id : string prop;
   security_policy : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   string ->
   t Tf_core.resource

@@ -52,7 +52,7 @@ type t = private {
   release_note_uri : string prop;
   resource_group_name : string prop;
   specialized : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

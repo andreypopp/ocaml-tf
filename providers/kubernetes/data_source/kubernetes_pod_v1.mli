@@ -205,7 +205,7 @@ type spec__volume__flex_volume__secret_ref = {
 type spec__volume__flex_volume = {
   driver : string prop;  (** driver *)
   fs_type : string prop;  (** fs_type *)
-  options : (string * string prop) list;  (** options *)
+  options : string prop Tf_core.assoc;  (** options *)
   read_only : bool prop;  (** read_only *)
   secret_ref : spec__volume__flex_volume__secret_ref list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -235,12 +235,12 @@ type spec__volume__ephemeral__volume_claim_template__spec__selector = {
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__volume__ephemeral__volume_claim_template__spec__resources = {
-  limits : (string * string prop) list;  (** limits *)
-  requests : (string * string prop) list;  (** requests *)
+  limits : string prop Tf_core.assoc;  (** limits *)
+  requests : string prop Tf_core.assoc;  (** requests *)
 }
 
 type spec__volume__ephemeral__volume_claim_template__spec = {
@@ -263,8 +263,8 @@ type spec__volume__ephemeral__volume_claim_template__spec = {
 }
 
 type spec__volume__ephemeral__volume_claim_template__metadata = {
-  annotations : (string * string prop) list;  (** annotations *)
-  labels : (string * string prop) list;  (** labels *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
+  labels : string prop Tf_core.assoc;  (** labels *)
 }
 
 type spec__volume__ephemeral__volume_claim_template = {
@@ -331,7 +331,7 @@ type spec__volume__csi = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_publish_secret_ref *)
   read_only : bool prop;  (** read_only *)
-  volume_attributes : (string * string prop) list;
+  volume_attributes : string prop Tf_core.assoc;
       (** volume_attributes *)
 }
 
@@ -498,7 +498,7 @@ type spec__topology_spread_constraint__label_selector = {
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__topology_spread_constraint = {
@@ -684,8 +684,8 @@ type spec__init_container__security_context = {
 }
 
 type spec__init_container__resources = {
-  limits : (string * string prop) list;  (** limits *)
-  requests : (string * string prop) list;  (** requests *)
+  limits : string prop Tf_core.assoc;  (** limits *)
+  requests : string prop Tf_core.assoc;  (** requests *)
 }
 
 type spec__init_container__readiness_probe__tcp_socket = {
@@ -1142,8 +1142,8 @@ type spec__container__security_context = {
 }
 
 type spec__container__resources = {
-  limits : (string * string prop) list;  (** limits *)
-  requests : (string * string prop) list;  (** requests *)
+  limits : string prop Tf_core.assoc;  (** limits *)
+  requests : string prop Tf_core.assoc;  (** requests *)
 }
 
 type spec__container__readiness_probe__tcp_socket = {
@@ -1476,7 +1476,7 @@ type spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_durin
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution = {
@@ -1505,7 +1505,7 @@ type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_duri
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
@@ -1556,7 +1556,7 @@ type spec__affinity__pod_affinity__required_during_scheduling_ignored_during_exe
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution = {
@@ -1585,7 +1585,7 @@ type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_ex
     list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** match_expressions *)
-  match_labels : (string * string prop) list;  (** match_labels *)
+  match_labels : string prop Tf_core.assoc;  (** match_labels *)
 }
 
 type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
@@ -1752,7 +1752,7 @@ type spec = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** init_container *)
   node_name : string prop;  (** node_name *)
-  node_selector : (string * string prop) list;  (** node_selector *)
+  node_selector : string prop Tf_core.assoc;  (** node_selector *)
   os : spec__os list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** os *)
@@ -1786,9 +1786,9 @@ type spec = {
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->

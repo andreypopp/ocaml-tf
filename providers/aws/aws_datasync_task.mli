@@ -79,8 +79,8 @@ val aws_datasync_task :
   ?cloudwatch_log_group_arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?excludes:excludes list ->
   ?includes:includes list ->
   ?options:options list ->
@@ -104,8 +104,8 @@ type t = private {
   id : string prop;
   name : string prop;
   source_location_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -113,8 +113,8 @@ val register :
   ?cloudwatch_log_group_arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?excludes:excludes list ->
   ?includes:includes list ->
   ?options:options list ->
@@ -130,8 +130,8 @@ val make :
   ?cloudwatch_log_group_arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?excludes:excludes list ->
   ?includes:includes list ->
   ?options:options list ->

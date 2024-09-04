@@ -3,7 +3,7 @@
 open! Tf_core
 
 type aws_iot_event_configurations = {
-  event_configurations : (string * bool prop) list;
+  event_configurations : bool prop Tf_core.assoc;
   id : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -26,12 +26,8 @@ let yojson_of_aws_iot_event_configurations =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_bool v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_bool)
              v_event_configurations
          in
          ("event_configurations", arg) :: bnds
@@ -50,7 +46,7 @@ let aws_iot_event_configurations ?id ~event_configurations () :
 
 type t = {
   tf_name : string;
-  event_configurations : (string * bool) list prop;
+  event_configurations : bool Tf_core.assoc prop;
   id : string prop;
 }
 

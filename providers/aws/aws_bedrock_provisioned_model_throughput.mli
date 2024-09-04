@@ -12,7 +12,7 @@ type aws_bedrock_provisioned_model_throughput
 
 val aws_bedrock_provisioned_model_throughput :
   ?commitment_duration:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   model_arn:string prop ->
   model_units:float prop ->
@@ -33,14 +33,14 @@ type t = private {
   model_units : float prop;
   provisioned_model_arn : string prop;
   provisioned_model_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?commitment_duration:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   model_arn:string prop ->
   model_units:float prop ->
@@ -50,7 +50,7 @@ val register :
 
 val make :
   ?commitment_duration:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   model_arn:string prop ->
   model_units:float prop ->

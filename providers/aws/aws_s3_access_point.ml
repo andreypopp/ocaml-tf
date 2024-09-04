@@ -222,7 +222,7 @@ type t = {
   bucket : string prop;
   bucket_account_id : string prop;
   domain_name : string prop;
-  endpoints : (string * string) list prop;
+  endpoints : string Tf_core.assoc prop;
   has_public_access_policy : bool prop;
   id : string prop;
   name : string prop;

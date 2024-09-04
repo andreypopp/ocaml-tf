@@ -59,7 +59,7 @@ val azurerm_healthcare_fhir_service :
   ?container_registry_login_server_url:string prop list ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?identity:identity list ->
   ?oci_artifact:oci_artifact list ->
@@ -88,7 +88,7 @@ type t = private {
   name : string prop;
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -99,7 +99,7 @@ val register :
   ?container_registry_login_server_url:string prop list ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?identity:identity list ->
   ?oci_artifact:oci_artifact list ->
@@ -118,7 +118,7 @@ val make :
   ?container_registry_login_server_url:string prop list ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?identity:identity list ->
   ?oci_artifact:oci_artifact list ->

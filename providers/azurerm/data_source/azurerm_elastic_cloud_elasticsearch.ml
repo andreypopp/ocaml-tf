@@ -156,7 +156,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?(logs = []) ?timeouts ~name ~resource_group_name __id =

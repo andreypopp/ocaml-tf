@@ -32,7 +32,7 @@ val azurerm_private_link_service :
   ?enable_proxy_protocol:bool prop ->
   ?fqdns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility_subscription_ids:string prop list ->
   ?timeouts:timeouts ->
   load_balancer_frontend_ip_configuration_ids:string prop list ->
@@ -59,7 +59,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   visibility_subscription_ids : string list prop;
 }
 
@@ -69,7 +69,7 @@ val register :
   ?enable_proxy_protocol:bool prop ->
   ?fqdns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility_subscription_ids:string prop list ->
   ?timeouts:timeouts ->
   load_balancer_frontend_ip_configuration_ids:string prop list ->
@@ -85,7 +85,7 @@ val make :
   ?enable_proxy_protocol:bool prop ->
   ?fqdns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?visibility_subscription_ids:string prop list ->
   ?timeouts:timeouts ->
   load_balancer_frontend_ip_configuration_ids:string prop list ->

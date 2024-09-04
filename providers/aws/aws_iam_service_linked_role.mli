@@ -10,8 +10,8 @@ val aws_iam_service_linked_role :
   ?custom_suffix:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aws_service_name:string prop ->
   unit ->
   aws_iam_service_linked_role
@@ -31,8 +31,8 @@ type t = private {
   id : string prop;
   name : string prop;
   path : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   unique_id : string prop;
 }
 
@@ -41,8 +41,8 @@ val register :
   ?custom_suffix:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aws_service_name:string prop ->
   string ->
   t
@@ -51,8 +51,8 @@ val make :
   ?custom_suffix:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   aws_service_name:string prop ->
   string ->
   t Tf_core.resource

@@ -306,7 +306,7 @@ val azurerm_orchestrated_virtual_machine_scale_set :
   ?single_placement_group:bool prop ->
   ?sku_name:string prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
@@ -356,7 +356,7 @@ type t = private {
   single_placement_group : bool prop;
   sku_name : string prop;
   source_image_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_id : string prop;
   user_data_base64 : string prop;
   zone_balance : bool prop;
@@ -379,7 +379,7 @@ val register :
   ?single_placement_group:bool prop ->
   ?sku_name:string prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
@@ -419,7 +419,7 @@ val make :
   ?single_placement_group:bool prop ->
   ?sku_name:string prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->

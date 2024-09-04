@@ -117,7 +117,7 @@ val azurerm_firewall_policy :
   ?private_ip_ranges:string prop list ->
   ?sku:string prop ->
   ?sql_redirect_allowed:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intelligence_mode:string prop ->
   ?dns:dns list ->
   ?explicit_proxy:explicit_proxy list ->
@@ -152,7 +152,7 @@ type t = private {
   rule_collection_groups : string list prop;
   sku : string prop;
   sql_redirect_allowed : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   threat_intelligence_mode : string prop;
 }
 
@@ -164,7 +164,7 @@ val register :
   ?private_ip_ranges:string prop list ->
   ?sku:string prop ->
   ?sql_redirect_allowed:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intelligence_mode:string prop ->
   ?dns:dns list ->
   ?explicit_proxy:explicit_proxy list ->
@@ -187,7 +187,7 @@ val make :
   ?private_ip_ranges:string prop list ->
   ?sku:string prop ->
   ?sql_redirect_allowed:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intelligence_mode:string prop ->
   ?dns:dns list ->
   ?explicit_proxy:explicit_proxy list ->

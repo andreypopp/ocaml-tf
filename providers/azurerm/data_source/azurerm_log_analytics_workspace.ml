@@ -96,7 +96,7 @@ type t = {
   retention_in_days : float prop;
   secondary_shared_key : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 

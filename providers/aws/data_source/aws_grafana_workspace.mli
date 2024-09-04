@@ -8,7 +8,7 @@ type aws_grafana_workspace
 
 val aws_grafana_workspace :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   unit ->
   aws_grafana_workspace
@@ -38,21 +38,21 @@ type t = private {
   saml_configuration_status : string prop;
   stack_set_name : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   string ->
   t Tf_core.resource

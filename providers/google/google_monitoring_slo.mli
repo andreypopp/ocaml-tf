@@ -200,7 +200,7 @@ val google_monitoring_slo :
   ?project:string prop ->
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_sli:basic_sli list ->
   ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->
@@ -225,7 +225,7 @@ type t = private {
   rolling_period_days : float prop;
   service : string prop;
   slo_id : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -236,7 +236,7 @@ val register :
   ?project:string prop ->
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_sli:basic_sli list ->
   ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->
@@ -253,7 +253,7 @@ val make :
   ?project:string prop ->
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_sli:basic_sli list ->
   ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->

@@ -34,7 +34,7 @@ type eks_properties__pod_properties__volumes = {
 }
 
 type eks_properties__pod_properties__metadata = {
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
 }
 
 type eks_properties__pod_properties__containers__volume_mounts = {
@@ -53,8 +53,8 @@ type eks_properties__pod_properties__containers__security_context = {
 }
 
 type eks_properties__pod_properties__containers__resources = {
-  limits : (string * string prop) list;  (** limits *)
-  requests : (string * string prop) list;  (** requests *)
+  limits : string prop Tf_core.assoc;  (** limits *)
+  requests : string prop Tf_core.assoc;  (** requests *)
 }
 
 type eks_properties__pod_properties__containers__env = {
@@ -185,7 +185,7 @@ type node_properties__node_range_properties__container__log_configuration__secre
 
 type node_properties__node_range_properties__container__log_configuration = {
   log_driver : string prop;  (** log_driver *)
-  options : (string * string prop) list;  (** options *)
+  options : string prop Tf_core.assoc;  (** options *)
   secret_options :
     node_properties__node_range_properties__container__log_configuration__secret_options
     list;
@@ -373,7 +373,7 @@ type t = private {
   revision : float prop;
   scheduling_priority : float prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : timeout list prop;
   type_ : string prop;
 }

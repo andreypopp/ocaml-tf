@@ -20,7 +20,7 @@ type external_reference
 
 val external_reference :
   ?description:string prop ->
-  ?hashes:(string * string prop) list ->
+  ?hashes:string prop Tf_core.assoc ->
   ?source_name:string prop ->
   ?url:string prop ->
   unit ->

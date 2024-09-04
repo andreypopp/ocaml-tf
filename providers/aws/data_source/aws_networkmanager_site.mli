@@ -14,7 +14,7 @@ type aws_networkmanager_site
 
 val aws_networkmanager_site :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   site_id:string prop ->
   unit ->
@@ -33,13 +33,13 @@ type t = private {
   id : string prop;
   location : location list prop;
   site_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   site_id:string prop ->
   string ->
@@ -47,7 +47,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   site_id:string prop ->
   string ->

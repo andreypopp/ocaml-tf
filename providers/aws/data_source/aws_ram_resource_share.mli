@@ -15,7 +15,7 @@ val aws_ram_resource_share :
   ?id:string prop ->
   ?name:string prop ->
   ?resource_share_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   resource_owner:string prop ->
   filter:filter list ->
   unit ->
@@ -35,7 +35,7 @@ type t = private {
   resource_owner : string prop;
   resource_share_status : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -43,7 +43,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?resource_share_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   resource_owner:string prop ->
   filter:filter list ->
   string ->
@@ -53,7 +53,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?resource_share_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   resource_owner:string prop ->
   filter:filter list ->
   string ->

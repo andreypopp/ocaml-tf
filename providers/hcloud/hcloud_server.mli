@@ -40,7 +40,7 @@ val hcloud_server :
   ?image:string prop ->
   ?iso:string prop ->
   ?keep_disk:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?placement_group_id:float prop ->
   ?rebuild_protection:bool prop ->
@@ -76,7 +76,7 @@ type t = private {
   ipv6_network : string prop;
   iso : string prop;
   keep_disk : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   placement_group_id : float prop;
@@ -102,7 +102,7 @@ val register :
   ?image:string prop ->
   ?iso:string prop ->
   ?keep_disk:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?placement_group_id:float prop ->
   ?rebuild_protection:bool prop ->
@@ -129,7 +129,7 @@ val make :
   ?image:string prop ->
   ?iso:string prop ->
   ?keep_disk:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?placement_group_id:float prop ->
   ?rebuild_protection:bool prop ->

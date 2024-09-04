@@ -18,7 +18,7 @@ val aws_connect_queue :
   ?id:string prop ->
   ?name:string prop ->
   ?queue_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   unit ->
   aws_connect_queue
@@ -39,7 +39,7 @@ type t = private {
   outbound_caller_config : outbound_caller_config list prop;
   queue_id : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -47,7 +47,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?queue_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t
@@ -56,7 +56,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?queue_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t Tf_core.resource

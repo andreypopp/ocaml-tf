@@ -33,7 +33,7 @@ type azurerm_notification_hub
 
 val azurerm_notification_hub :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?apns_credential:apns_credential list ->
   ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->
@@ -56,13 +56,13 @@ type t = private {
   name : string prop;
   namespace_name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?apns_credential:apns_credential list ->
   ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->
@@ -75,7 +75,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?apns_credential:apns_credential list ->
   ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->

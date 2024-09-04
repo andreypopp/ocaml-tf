@@ -1000,7 +1000,7 @@ let _ =
 
 type default_node_pool__node_network_profile = {
   application_security_group_ids : string prop list option; [@option]
-  node_public_ip_tags : (string * string prop) list option; [@option]
+  node_public_ip_tags : string prop Tf_core.assoc option; [@option]
   allowed_host_ports :
     default_node_pool__node_network_profile__allowed_host_ports list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1036,12 +1036,8 @@ let yojson_of_default_node_pool__node_network_profile =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "node_public_ip_tags", arg in
@@ -1129,7 +1125,7 @@ type default_node_pool = {
   min_count : float prop option; [@option]
   name : string prop;
   node_count : float prop option; [@option]
-  node_labels : (string * string prop) list option; [@option]
+  node_labels : string prop Tf_core.assoc option; [@option]
   node_public_ip_prefix_id : string prop option; [@option]
   node_taints : string prop list option; [@option]
   only_critical_addons_enabled : bool prop option; [@option]
@@ -1141,7 +1137,7 @@ type default_node_pool = {
   proximity_placement_group_id : string prop option; [@option]
   scale_down_mode : string prop option; [@option]
   snapshot_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   temporary_name_for_rotation : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   ultra_ssd_enabled : bool prop option; [@option]
@@ -1313,12 +1309,8 @@ let yojson_of_default_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1419,12 +1411,8 @@ let yojson_of_default_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "node_labels", arg in
@@ -3534,7 +3522,7 @@ type azurerm_kubernetes_cluster = {
   run_command_enabled : bool prop option; [@option]
   sku_tier : string prop option; [@option]
   support_plan : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   workload_identity_enabled : bool prop option; [@option]
   aci_connector_linux : aci_connector_linux list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -3953,12 +3941,8 @@ let yojson_of_azurerm_kubernetes_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -4757,7 +4741,7 @@ type t = {
   run_command_enabled : bool prop;
   sku_tier : string prop;
   support_plan : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workload_identity_enabled : bool prop;
 }
 

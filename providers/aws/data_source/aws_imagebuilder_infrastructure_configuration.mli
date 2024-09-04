@@ -25,8 +25,8 @@ type aws_imagebuilder_infrastructure_configuration
 
 val aws_imagebuilder_infrastructure_configuration :
   ?id:string prop ->
-  ?resource_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_imagebuilder_infrastructure_configuration
@@ -49,27 +49,27 @@ type t = private {
   key_pair : string prop;
   logging : logging list prop;
   name : string prop;
-  resource_tags : (string * string) list prop;
+  resource_tags : string Tf_core.assoc prop;
   security_group_ids : string list prop;
   sns_topic_arn : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   terminate_instance_on_failure : bool prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?resource_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?resource_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

@@ -225,7 +225,7 @@ type t = {
   source_uri : string prop;
   storage_account_id : string prop;
   storage_account_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

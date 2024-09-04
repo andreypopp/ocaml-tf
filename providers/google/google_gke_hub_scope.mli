@@ -18,8 +18,8 @@ type google_gke_hub_scope
 
 val google_gke_hub_scope :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?namespace_labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?namespace_labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   scope_id:string prop ->
@@ -34,15 +34,15 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   delete_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
-  namespace_labels : (string * string) list prop;
+  namespace_labels : string Tf_core.assoc prop;
   project : string prop;
   scope_id : string prop;
   state : state list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
@@ -50,8 +50,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?namespace_labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?namespace_labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   scope_id:string prop ->
@@ -60,8 +60,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?namespace_labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?namespace_labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   scope_id:string prop ->

@@ -342,7 +342,7 @@ let _ = yojson_of_timeouts
 
 type job_schedule = {
   job_schedule_id : string prop;
-  parameters : (string * string prop) list;
+  parameters : string prop Tf_core.assoc;
   run_on : string prop;
   schedule_name : string prop;
 }
@@ -371,12 +371,8 @@ let yojson_of_job_schedule =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parameters
          in
          ("parameters", arg) :: bnds
@@ -407,7 +403,7 @@ type azurerm_automation_runbook = {
   name : string prop;
   resource_group_name : string prop;
   runbook_type : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   draft : draft list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   publish_content_link : publish_content_link list;
@@ -467,12 +463,8 @@ let yojson_of_azurerm_automation_runbook =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -622,7 +614,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   runbook_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?content ?description ?id ?job_schedule

@@ -34,7 +34,7 @@ val azurerm_voice_services_communications_gateway :
   ?id:string prop ->
   ?microsoft_teams_voicemail_pilot_number:string prop ->
   ?on_prem_mcp_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   codecs:string prop ->
   connectivity:string prop ->
@@ -67,7 +67,7 @@ type t = private {
   on_prem_mcp_enabled : bool prop;
   platforms : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -78,7 +78,7 @@ val register :
   ?id:string prop ->
   ?microsoft_teams_voicemail_pilot_number:string prop ->
   ?on_prem_mcp_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   codecs:string prop ->
   connectivity:string prop ->
@@ -98,7 +98,7 @@ val make :
   ?id:string prop ->
   ?microsoft_teams_voicemail_pilot_number:string prop ->
   ?on_prem_mcp_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   codecs:string prop ->
   connectivity:string prop ->

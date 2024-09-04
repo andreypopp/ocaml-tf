@@ -212,7 +212,7 @@ val google_artifact_registry_repository :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
@@ -237,17 +237,17 @@ type t = private {
   cleanup_policy_dry_run : bool prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   format : string prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   mode : string prop;
   name : string prop;
   project : string prop;
   repository_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -257,7 +257,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
@@ -277,7 +277,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->

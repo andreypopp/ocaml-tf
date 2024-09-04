@@ -1442,7 +1442,7 @@ type azurerm_hdinsight_interactive_query_cluster = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   tier : string prop;
   tls_min_version : string prop option; [@option]
   component_version : component_version list;
@@ -1645,12 +1645,8 @@ let yojson_of_azurerm_hdinsight_interactive_query_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1916,7 +1912,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   ssh_endpoint : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tier : string prop;
   tls_min_version : string prop;
 }

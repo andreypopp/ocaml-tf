@@ -12,7 +12,7 @@ type generic_web_service
 
 val generic_web_service :
   ?password:string prop ->
-  ?request_headers:(string * string prop) list ->
+  ?request_headers:string prop Tf_core.assoc ->
   ?username:string prop ->
   uri:string prop ->
   unit ->

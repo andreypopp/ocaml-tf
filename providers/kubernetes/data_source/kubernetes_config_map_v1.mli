@@ -7,8 +7,8 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -30,8 +30,8 @@ val yojson_of_kubernetes_config_map_v1 :
 
 type t = private {
   tf_name : string;
-  binary_data : (string * string) list prop;
-  data : (string * string) list prop;
+  binary_data : string Tf_core.assoc prop;
+  data : string Tf_core.assoc prop;
   id : string prop;
   immutable : bool prop;
 }

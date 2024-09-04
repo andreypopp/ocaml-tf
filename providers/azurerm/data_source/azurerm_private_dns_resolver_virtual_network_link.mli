@@ -27,7 +27,7 @@ type t = private {
   tf_name : string;
   dns_forwarding_ruleset_id : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   virtual_network_id : string prop;
 }

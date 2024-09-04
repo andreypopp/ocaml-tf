@@ -30,7 +30,7 @@ val aws_vpc_endpoint :
   ?id:string prop ->
   ?service_name:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -60,7 +60,7 @@ type t = private {
   service_name : string prop;
   state : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_endpoint_type : string prop;
   vpc_id : string prop;
 }
@@ -70,7 +70,7 @@ val register :
   ?id:string prop ->
   ?service_name:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -81,7 +81,7 @@ val make :
   ?id:string prop ->
   ?service_name:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

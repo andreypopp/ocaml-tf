@@ -64,7 +64,7 @@ val azurerm_signalr_service :
   ?public_network_access_enabled:bool prop ->
   ?serverless_connection_timeout_in_seconds:float prop ->
   ?service_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?cors:cors list ->
   ?identity:identity list ->
@@ -106,7 +106,7 @@ type t = private {
   server_port : float prop;
   serverless_connection_timeout_in_seconds : float prop;
   service_mode : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tls_client_cert_enabled : bool prop;
 }
 
@@ -122,7 +122,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?serverless_connection_timeout_in_seconds:float prop ->
   ?service_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?cors:cors list ->
   ?identity:identity list ->
@@ -147,7 +147,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?serverless_connection_timeout_in_seconds:float prop ->
   ?service_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_client_cert_enabled:bool prop ->
   ?cors:cors list ->
   ?identity:identity list ->

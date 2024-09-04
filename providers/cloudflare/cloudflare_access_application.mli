@@ -42,7 +42,7 @@ val landing_page_design :
 type saas_app__custom_attribute__source
 
 val saas_app__custom_attribute__source :
-  ?name_by_idp:(string * string prop) list ->
+  ?name_by_idp:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   saas_app__custom_attribute__source
@@ -61,7 +61,7 @@ val saas_app__custom_attribute :
 type saas_app__custom_claim__source
 
 val saas_app__custom_claim__source :
-  ?name_by_idp:(string * string prop) list ->
+  ?name_by_idp:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   saas_app__custom_claim__source

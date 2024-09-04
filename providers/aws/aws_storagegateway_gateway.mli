@@ -49,8 +49,8 @@ val aws_storagegateway_gateway :
   ?smb_file_share_visibility:bool prop ->
   ?smb_guest_password:string prop ->
   ?smb_security_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tape_drive_type:string prop ->
   ?maintenance_start_time:maintenance_start_time list ->
   ?smb_active_directory_settings:smb_active_directory_settings list ->
@@ -87,8 +87,8 @@ type t = private {
   smb_file_share_visibility : bool prop;
   smb_guest_password : string prop;
   smb_security_strategy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tape_drive_type : string prop;
 }
 
@@ -106,8 +106,8 @@ val register :
   ?smb_file_share_visibility:bool prop ->
   ?smb_guest_password:string prop ->
   ?smb_security_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tape_drive_type:string prop ->
   ?maintenance_start_time:maintenance_start_time list ->
   ?smb_active_directory_settings:smb_active_directory_settings list ->
@@ -130,8 +130,8 @@ val make :
   ?smb_file_share_visibility:bool prop ->
   ?smb_guest_password:string prop ->
   ?smb_security_strategy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tape_drive_type:string prop ->
   ?maintenance_start_time:maintenance_start_time list ->
   ?smb_active_directory_settings:smb_active_directory_settings list ->

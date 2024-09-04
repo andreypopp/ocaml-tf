@@ -142,7 +142,7 @@ val azurerm_frontdoor :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -161,20 +161,20 @@ val yojson_of_azurerm_frontdoor : azurerm_frontdoor -> json
 
 type t = private {
   tf_name : string;
-  backend_pool_health_probes : (string * string) list prop;
-  backend_pool_load_balancing_settings : (string * string) list prop;
-  backend_pools : (string * string) list prop;
+  backend_pool_health_probes : string Tf_core.assoc prop;
+  backend_pool_load_balancing_settings : string Tf_core.assoc prop;
+  backend_pools : string Tf_core.assoc prop;
   cname : string prop;
   explicit_resource_order : explicit_resource_order list prop;
   friendly_name : string prop;
-  frontend_endpoints : (string * string) list prop;
+  frontend_endpoints : string Tf_core.assoc prop;
   header_frontdoor_id : string prop;
   id : string prop;
   load_balancer_enabled : bool prop;
   name : string prop;
   resource_group_name : string prop;
-  routing_rules : (string * string) list prop;
-  tags : (string * string) list prop;
+  routing_rules : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -182,7 +182,7 @@ val register :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -199,7 +199,7 @@ val make :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->

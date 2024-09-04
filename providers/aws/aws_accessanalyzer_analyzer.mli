@@ -22,8 +22,8 @@ type aws_accessanalyzer_analyzer
 
 val aws_accessanalyzer_analyzer :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?configuration:configuration list ->
   analyzer_name:string prop ->
@@ -40,16 +40,16 @@ type t = private {
   analyzer_name : string prop;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?configuration:configuration list ->
   analyzer_name:string prop ->
@@ -58,8 +58,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?configuration:configuration list ->
   analyzer_name:string prop ->

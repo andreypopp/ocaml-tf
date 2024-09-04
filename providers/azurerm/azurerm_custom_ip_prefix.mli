@@ -22,7 +22,7 @@ val azurerm_custom_ip_prefix :
   ?internet_advertising_disabled:bool prop ->
   ?parent_custom_ip_prefix_id:string prop ->
   ?roa_validity_end_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?wan_validation_signed_message:string prop ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
@@ -49,7 +49,7 @@ type t = private {
   parent_custom_ip_prefix_id : string prop;
   resource_group_name : string prop;
   roa_validity_end_date : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   wan_validation_signed_message : string prop;
   zones : string list prop;
 }
@@ -61,7 +61,7 @@ val register :
   ?internet_advertising_disabled:bool prop ->
   ?parent_custom_ip_prefix_id:string prop ->
   ?roa_validity_end_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?wan_validation_signed_message:string prop ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
@@ -78,7 +78,7 @@ val make :
   ?internet_advertising_disabled:bool prop ->
   ?parent_custom_ip_prefix_id:string prop ->
   ?roa_validity_end_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?wan_validation_signed_message:string prop ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->

@@ -14,7 +14,7 @@ type aws_rds_cluster
 
 val aws_rds_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   unit ->
   aws_rds_cluster
@@ -56,21 +56,21 @@ type t = private {
   reader_endpoint : string prop;
   replication_source_identifier : string prop;
   storage_encrypted : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   string ->
   t Tf_core.resource

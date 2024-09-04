@@ -16,7 +16,7 @@ type images = {
   location : string prop;  (** location *)
   managed_image_id : string prop;  (** managed_image_id *)
   name : string prop;  (** name *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   target_region : images__target_region list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** target_region *)
@@ -30,7 +30,7 @@ type azurerm_shared_image_versions
 
 val azurerm_shared_image_versions :
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -50,13 +50,13 @@ type t = private {
   image_name : string prop;
   images : images list prop;
   resource_group_name : string prop;
-  tags_filter : (string * string) list prop;
+  tags_filter : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -66,7 +66,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags_filter:(string * string prop) list ->
+  ?tags_filter:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->

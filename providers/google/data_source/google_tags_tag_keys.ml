@@ -9,7 +9,7 @@ type keys = {
   namespaced_name : string prop;
   parent : string prop;
   purpose : string prop;
-  purpose_data : (string * string prop) list;
+  purpose_data : string prop Tf_core.assoc;
   short_name : string prop;
   update_time : string prop;
 }
@@ -43,12 +43,8 @@ let yojson_of_keys =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_purpose_data
          in
          ("purpose_data", arg) :: bnds

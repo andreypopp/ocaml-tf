@@ -49,8 +49,8 @@ val aws_medialive_input :
   ?id:string prop ->
   ?input_security_groups:string prop list ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?vpc:vpc list ->
   name:string prop ->
@@ -77,8 +77,8 @@ type t = private {
   input_source_type : string prop;
   name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -87,8 +87,8 @@ val register :
   ?id:string prop ->
   ?input_security_groups:string prop list ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?vpc:vpc list ->
   name:string prop ->
@@ -104,8 +104,8 @@ val make :
   ?id:string prop ->
   ?input_security_groups:string prop list ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ?vpc:vpc list ->
   name:string prop ->

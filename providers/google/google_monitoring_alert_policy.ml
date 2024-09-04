@@ -303,7 +303,7 @@ let _ = yojson_of_conditions__condition_absent
 
 type conditions__condition_matched_log = {
   filter : string prop;
-  label_extractors : (string * string prop) list option; [@option]
+  label_extractors : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -320,12 +320,8 @@ let yojson_of_conditions__condition_matched_log =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "label_extractors", arg in
@@ -448,7 +444,7 @@ type conditions__condition_prometheus_query_language = {
   alert_rule : string prop option; [@option]
   duration : string prop option; [@option]
   evaluation_interval : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   query : string prop;
   rule_group : string prop option; [@option]
 }
@@ -487,12 +483,8 @@ let yojson_of_conditions__condition_prometheus_query_language =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1140,7 +1132,7 @@ type google_monitoring_alert_policy = {
   notification_channels : string prop list option; [@option]
   project : string prop option; [@option]
   severity : string prop option; [@option]
-  user_labels : (string * string prop) list option; [@option]
+  user_labels : string prop Tf_core.assoc option; [@option]
   alert_strategy : alert_strategy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   conditions : conditions list;
@@ -1209,12 +1201,8 @@ let yojson_of_google_monitoring_alert_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "user_labels", arg in
@@ -1441,7 +1429,7 @@ type t = {
   notification_channels : string list prop;
   project : string prop;
   severity : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 let make ?enabled ?id ?notification_channels ?project ?severity

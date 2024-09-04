@@ -21,8 +21,8 @@ val aws_connect_queue :
   ?max_contacts:float prop ->
   ?quick_connect_ids:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->
@@ -46,8 +46,8 @@ type t = private {
   queue_id : string prop;
   quick_connect_ids : string list prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -57,8 +57,8 @@ val register :
   ?max_contacts:float prop ->
   ?quick_connect_ids:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->
@@ -72,8 +72,8 @@ val make :
   ?max_contacts:float prop ->
   ?quick_connect_ids:string prop list ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->

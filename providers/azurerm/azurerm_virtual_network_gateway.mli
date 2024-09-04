@@ -149,7 +149,7 @@ val azurerm_virtual_network_gateway :
   ?ip_sec_replay_protection_enabled:bool prop ->
   ?private_ip_address_enabled:bool prop ->
   ?remote_vnet_traffic_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
   ?bgp_settings:bgp_settings list ->
@@ -188,7 +188,7 @@ type t = private {
   remote_vnet_traffic_enabled : bool prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   virtual_wan_traffic_enabled : bool prop;
   vpn_type : string prop;
@@ -207,7 +207,7 @@ val register :
   ?ip_sec_replay_protection_enabled:bool prop ->
   ?private_ip_address_enabled:bool prop ->
   ?remote_vnet_traffic_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
   ?bgp_settings:bgp_settings list ->
@@ -236,7 +236,7 @@ val make :
   ?ip_sec_replay_protection_enabled:bool prop ->
   ?private_ip_address_enabled:bool prop ->
   ?remote_vnet_traffic_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
   ?bgp_settings:bgp_settings list ->

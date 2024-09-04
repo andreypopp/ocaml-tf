@@ -29,7 +29,7 @@ val azurerm_virtual_hub :
   ?hub_routing_preference:string prop ->
   ?id:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_router_auto_scale_min_capacity:float prop ->
   ?virtual_wan_id:string prop ->
   ?timeouts:timeouts ->
@@ -54,7 +54,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_router_asn : float prop;
   virtual_router_auto_scale_min_capacity : float prop;
   virtual_router_ips : string list prop;
@@ -67,7 +67,7 @@ val register :
   ?hub_routing_preference:string prop ->
   ?id:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_router_auto_scale_min_capacity:float prop ->
   ?virtual_wan_id:string prop ->
   ?timeouts:timeouts ->
@@ -83,7 +83,7 @@ val make :
   ?hub_routing_preference:string prop ->
   ?id:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_router_auto_scale_min_capacity:float prop ->
   ?virtual_wan_id:string prop ->
   ?timeouts:timeouts ->

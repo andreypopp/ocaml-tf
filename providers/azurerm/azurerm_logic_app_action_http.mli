@@ -26,9 +26,9 @@ type azurerm_logic_app_action_http
 
 val azurerm_logic_app_action_http :
   ?body:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?id:string prop ->
-  ?queries:(string * string prop) list ->
+  ?queries:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   logic_app_id:string prop ->
   method_:string prop ->
@@ -46,21 +46,21 @@ val yojson_of_azurerm_logic_app_action_http :
 type t = private {
   tf_name : string;
   body : string prop;
-  headers : (string * string) list prop;
+  headers : string Tf_core.assoc prop;
   id : string prop;
   logic_app_id : string prop;
   method_ : string prop;
   name : string prop;
-  queries : (string * string) list prop;
+  queries : string Tf_core.assoc prop;
   uri : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?body:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?id:string prop ->
-  ?queries:(string * string prop) list ->
+  ?queries:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   logic_app_id:string prop ->
   method_:string prop ->
@@ -72,9 +72,9 @@ val register :
 
 val make :
   ?body:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?id:string prop ->
-  ?queries:(string * string prop) list ->
+  ?queries:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   logic_app_id:string prop ->
   method_:string prop ->

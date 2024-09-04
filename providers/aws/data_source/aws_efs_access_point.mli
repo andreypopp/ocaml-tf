@@ -29,7 +29,7 @@ type aws_efs_access_point
 
 val aws_efs_access_point :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   access_point_id:string prop ->
   unit ->
   aws_efs_access_point
@@ -48,20 +48,20 @@ type t = private {
   owner_id : string prop;
   posix_user : posix_user list prop;
   root_directory : root_directory list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   access_point_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   access_point_id:string prop ->
   string ->
   t Tf_core.resource

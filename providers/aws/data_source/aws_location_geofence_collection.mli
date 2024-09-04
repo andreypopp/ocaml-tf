@@ -9,7 +9,7 @@ type aws_location_geofence_collection
 val aws_location_geofence_collection :
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   collection_name:string prop ->
   unit ->
   aws_location_geofence_collection
@@ -27,7 +27,7 @@ type t = private {
   description : string prop;
   id : string prop;
   kms_key_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -35,7 +35,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   collection_name:string prop ->
   string ->
   t
@@ -43,7 +43,7 @@ val register :
 val make :
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   collection_name:string prop ->
   string ->
   t Tf_core.resource

@@ -23,7 +23,7 @@ val application_source :
 type scaling_instruction__customized_load_metric_specification
 
 val scaling_instruction__customized_load_metric_specification :
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?unit:string prop ->
   metric_name:string prop ->
   namespace:string prop ->
@@ -42,7 +42,7 @@ val scaling_instruction__predefined_load_metric_specification :
 type scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification
 
 val scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification :
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?unit:string prop ->
   metric_name:string prop ->
   namespace:string prop ->

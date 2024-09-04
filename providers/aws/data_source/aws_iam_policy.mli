@@ -11,7 +11,7 @@ val aws_iam_policy :
   ?id:string prop ->
   ?name:string prop ->
   ?path_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_iam_policy
 
@@ -30,7 +30,7 @@ type t = private {
   path_prefix : string prop;
   policy : string prop;
   policy_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -39,7 +39,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?path_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -48,6 +48,6 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?path_prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

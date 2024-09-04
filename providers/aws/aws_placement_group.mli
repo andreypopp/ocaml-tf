@@ -10,8 +10,8 @@ val aws_placement_group :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?spread_level:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   strategy:string prop ->
   unit ->
@@ -30,8 +30,8 @@ type t = private {
   placement_group_id : string prop;
   spread_level : string prop;
   strategy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -39,8 +39,8 @@ val register :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?spread_level:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   strategy:string prop ->
   string ->
@@ -50,8 +50,8 @@ val make :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?spread_level:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   strategy:string prop ->
   string ->

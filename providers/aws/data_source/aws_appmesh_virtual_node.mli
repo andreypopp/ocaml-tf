@@ -11,7 +11,7 @@ type spec__service_discovery__dns = {
 }
 
 type spec__service_discovery__aws_cloud_map = {
-  attributes : (string * string prop) list;  (** attributes *)
+  attributes : string prop Tf_core.assoc;  (** attributes *)
   namespace_name : string prop;  (** namespace_name *)
   service_name : string prop;  (** service_name *)
 }
@@ -558,7 +558,7 @@ type aws_appmesh_virtual_node
 val aws_appmesh_virtual_node :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   unit ->
@@ -580,14 +580,14 @@ type t = private {
   name : string prop;
   resource_owner : string prop;
   spec : spec list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   string ->
@@ -596,7 +596,7 @@ val register :
 val make :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   string ->

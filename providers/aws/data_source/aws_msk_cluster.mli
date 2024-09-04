@@ -83,7 +83,7 @@ type aws_msk_cluster
 
 val aws_msk_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   unit ->
   aws_msk_cluster
@@ -108,7 +108,7 @@ type t = private {
   id : string prop;
   kafka_version : string prop;
   number_of_broker_nodes : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zookeeper_connect_string : string prop;
   zookeeper_connect_string_tls : string prop;
 }
@@ -116,14 +116,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   string ->
   t Tf_core.resource

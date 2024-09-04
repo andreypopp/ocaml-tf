@@ -45,7 +45,7 @@ type google_vertex_ai_feature_online_store_featureview
 
 val google_vertex_ai_feature_online_store_featureview :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?big_query_source:big_query_source list ->
@@ -65,21 +65,21 @@ val yojson_of_google_vertex_ai_feature_online_store_featureview :
 type t = private {
   tf_name : string;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   feature_online_store : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?big_query_source:big_query_source list ->
@@ -93,7 +93,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?big_query_source:big_query_source list ->

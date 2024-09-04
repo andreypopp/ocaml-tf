@@ -52,7 +52,7 @@ type t = private {
   resource_group_name : string prop;
   scope : scope list prop;
   scope_accesses : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

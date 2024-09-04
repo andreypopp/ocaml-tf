@@ -11,8 +11,8 @@ val aws_apprunner_auto_scaling_configuration_version :
   ?max_concurrency:float prop ->
   ?max_size:float prop ->
   ?min_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   auto_scaling_configuration_name:string prop ->
   unit ->
   aws_apprunner_auto_scaling_configuration_version
@@ -35,8 +35,8 @@ type t = private {
   max_size : float prop;
   min_size : float prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -45,8 +45,8 @@ val register :
   ?max_concurrency:float prop ->
   ?max_size:float prop ->
   ?min_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   auto_scaling_configuration_name:string prop ->
   string ->
   t
@@ -56,8 +56,8 @@ val make :
   ?max_concurrency:float prop ->
   ?max_size:float prop ->
   ?min_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   auto_scaling_configuration_name:string prop ->
   string ->
   t Tf_core.resource

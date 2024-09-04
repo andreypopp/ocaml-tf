@@ -37,7 +37,7 @@ type t = private {
   id : string prop;
   key : string prop;
   last_modified : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   range : string prop;
   region : string prop;
   version_id : string prop;

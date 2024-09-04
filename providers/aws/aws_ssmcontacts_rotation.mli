@@ -92,7 +92,7 @@ type aws_ssmcontacts_rotation
 
 val aws_ssmcontacts_rotation :
   ?start_time:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->
@@ -112,15 +112,15 @@ type t = private {
   id : string prop;
   name : string prop;
   start_time : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   time_zone_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?start_time:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->
@@ -130,7 +130,7 @@ val register :
 
 val make :
   ?start_time:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->

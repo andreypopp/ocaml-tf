@@ -34,7 +34,7 @@ val azurerm_container_app_environment :
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
   ?mutual_tls_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -67,7 +67,7 @@ type t = private {
   platform_reserved_dns_ip_address : string prop;
   resource_group_name : string prop;
   static_ip_address : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundancy_enabled : bool prop;
 }
 
@@ -80,7 +80,7 @@ val register :
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
   ?mutual_tls_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -98,7 +98,7 @@ val make :
   ?internal_load_balancer_enabled:bool prop ->
   ?log_analytics_workspace_id:string prop ->
   ?mutual_tls_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->

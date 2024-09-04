@@ -9,8 +9,8 @@ type aws_route53_resolver_firewall_rule_group_association
 val aws_route53_resolver_firewall_rule_group_association :
   ?id:string prop ->
   ?mutation_protection:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   firewall_rule_group_id:string prop ->
   name:string prop ->
   priority:float prop ->
@@ -31,8 +31,8 @@ type t = private {
   mutation_protection : string prop;
   name : string prop;
   priority : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -40,8 +40,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mutation_protection:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   firewall_rule_group_id:string prop ->
   name:string prop ->
   priority:float prop ->
@@ -52,8 +52,8 @@ val register :
 val make :
   ?id:string prop ->
   ?mutation_protection:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   firewall_rule_group_id:string prop ->
   name:string prop ->
   priority:float prop ->

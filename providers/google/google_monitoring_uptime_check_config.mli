@@ -55,7 +55,7 @@ val http_check :
   ?body:string prop ->
   ?content_type:string prop ->
   ?custom_content_type:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?mask_headers:bool prop ->
   ?path:string prop ->
   ?port:float prop ->
@@ -74,7 +74,7 @@ val http_check :
 type monitored_resource
 
 val monitored_resource :
-  labels:(string * string prop) list ->
+  labels:string prop Tf_core.assoc ->
   type_:string prop ->
   unit ->
   monitored_resource
@@ -129,7 +129,7 @@ val google_monitoring_uptime_check_config :
   ?period:string prop ->
   ?project:string prop ->
   ?selected_regions:string prop list ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?content_matchers:content_matchers list ->
   ?http_check:http_check list ->
   ?monitored_resource:monitored_resource list ->
@@ -158,7 +158,7 @@ type t = private {
   selected_regions : string list prop;
   timeout : string prop;
   uptime_check_id : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -168,7 +168,7 @@ val register :
   ?period:string prop ->
   ?project:string prop ->
   ?selected_regions:string prop list ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?content_matchers:content_matchers list ->
   ?http_check:http_check list ->
   ?monitored_resource:monitored_resource list ->
@@ -187,7 +187,7 @@ val make :
   ?period:string prop ->
   ?project:string prop ->
   ?selected_regions:string prop list ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?content_matchers:content_matchers list ->
   ?http_check:http_check list ->
   ?monitored_resource:monitored_resource list ->

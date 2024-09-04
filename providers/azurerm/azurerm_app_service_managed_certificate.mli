@@ -18,7 +18,7 @@ type azurerm_app_service_managed_certificate
 
 val azurerm_app_service_managed_certificate :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_hostname_binding_id:string prop ->
   unit ->
@@ -40,14 +40,14 @@ type t = private {
   issue_date : string prop;
   issuer : string prop;
   subject_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_hostname_binding_id:string prop ->
   string ->
@@ -55,7 +55,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_hostname_binding_id:string prop ->
   string ->

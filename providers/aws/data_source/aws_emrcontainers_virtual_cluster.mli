@@ -26,7 +26,7 @@ type aws_emrcontainers_virtual_cluster
 
 val aws_emrcontainers_virtual_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   virtual_cluster_id:string prop ->
   unit ->
   aws_emrcontainers_virtual_cluster
@@ -44,21 +44,21 @@ type t = private {
   id : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_cluster_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   virtual_cluster_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   virtual_cluster_id:string prop ->
   string ->
   t Tf_core.resource

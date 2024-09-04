@@ -48,8 +48,8 @@ type aws_lightsail_container_service
 val aws_lightsail_container_service :
   ?id:string prop ->
   ?is_disabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?private_registry_access:private_registry_access list ->
   ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->
@@ -79,8 +79,8 @@ type t = private {
   resource_type : string prop;
   scale : float prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
 }
 
@@ -88,8 +88,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?is_disabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?private_registry_access:private_registry_access list ->
   ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->
@@ -102,8 +102,8 @@ val register :
 val make :
   ?id:string prop ->
   ?is_disabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?private_registry_access:private_registry_access list ->
   ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->

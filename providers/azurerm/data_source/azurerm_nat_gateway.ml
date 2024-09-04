@@ -127,7 +127,7 @@ type t = {
   resource_group_name : string prop;
   resource_guid : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

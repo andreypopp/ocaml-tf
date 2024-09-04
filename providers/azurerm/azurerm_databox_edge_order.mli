@@ -12,7 +12,7 @@ type return_tracking = {
 }
 
 type shipment_history = {
-  additional_details : (string * string prop) list;
+  additional_details : string prop Tf_core.assoc;
       (** additional_details *)
   comments : string prop;  (** comments *)
   last_update : string prop;  (** last_update *)
@@ -26,7 +26,7 @@ type shipment_tracking = {
 }
 
 type status = {
-  additional_details : (string * string prop) list;
+  additional_details : string prop Tf_core.assoc;
       (** additional_details *)
   comments : string prop;  (** comments *)
   info : string prop;  (** info *)

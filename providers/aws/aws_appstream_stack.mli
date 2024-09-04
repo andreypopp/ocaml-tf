@@ -53,8 +53,8 @@ val aws_appstream_stack :
   ?feedback_url:string prop ->
   ?id:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_settings:application_settings list ->
   ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->
@@ -79,8 +79,8 @@ type t = private {
   id : string prop;
   name : string prop;
   redirect_url : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -91,8 +91,8 @@ val register :
   ?feedback_url:string prop ->
   ?id:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_settings:application_settings list ->
   ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->
@@ -109,8 +109,8 @@ val make :
   ?feedback_url:string prop ->
   ?id:string prop ->
   ?redirect_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?application_settings:application_settings list ->
   ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->

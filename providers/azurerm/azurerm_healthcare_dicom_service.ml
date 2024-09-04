@@ -164,7 +164,7 @@ type azurerm_healthcare_dicom_service = {
   location : string prop;
   name : string prop;
   public_network_access_enabled : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   workspace_id : string prop;
   identity : identity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -212,12 +212,8 @@ let yojson_of_azurerm_healthcare_dicom_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -285,7 +281,7 @@ type t = {
   private_endpoint : private_endpoint list prop;
   public_network_access_enabled : bool prop;
   service_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 

@@ -52,7 +52,7 @@ type google_compute_vpn_tunnel = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   ike_version : float prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   local_traffic_selector : string prop list option; [@option]
   name : string prop;
   peer_external_gateway : string prop option; [@option]
@@ -217,12 +217,8 @@ let yojson_of_google_compute_vpn_tunnel =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -295,11 +291,11 @@ type t = {
   creation_timestamp : string prop;
   description : string prop;
   detailed_status : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ike_version : float prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   local_traffic_selector : string list prop;
   name : string prop;
   peer_external_gateway : string prop;
@@ -314,7 +310,7 @@ type t = {
   shared_secret : string prop;
   shared_secret_hash : string prop;
   target_vpn_gateway : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tunnel_id : string prop;
   vpn_gateway : string prop;
   vpn_gateway_interface : float prop;

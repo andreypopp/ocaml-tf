@@ -10,8 +10,8 @@ type aws_api_gateway_method = {
   http_method : string prop;
   id : string prop option; [@option]
   operation_name : string prop option; [@option]
-  request_models : (string * string prop) list option; [@option]
-  request_parameters : (string * bool prop) list option; [@option]
+  request_models : string prop Tf_core.assoc option; [@option]
+  request_parameters : bool prop Tf_core.assoc option; [@option]
   request_validator_id : string prop option; [@option]
   resource_id : string prop;
   rest_api_id : string prop;
@@ -60,12 +60,8 @@ let yojson_of_aws_api_gateway_method =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_bool v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_bool)
                  v
              in
              let bnd = "request_parameters", arg in
@@ -76,12 +72,8 @@ let yojson_of_aws_api_gateway_method =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "request_models", arg in
@@ -173,8 +165,8 @@ type t = {
   http_method : string prop;
   id : string prop;
   operation_name : string prop;
-  request_models : (string * string) list prop;
-  request_parameters : (string * bool) list prop;
+  request_models : string Tf_core.assoc prop;
+  request_parameters : bool Tf_core.assoc prop;
   request_validator_id : string prop;
   resource_id : string prop;
   rest_api_id : string prop;

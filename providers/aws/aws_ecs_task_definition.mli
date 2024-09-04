@@ -28,7 +28,7 @@ val placement_constraints :
 type proxy_configuration
 
 val proxy_configuration :
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?type_:string prop ->
   container_name:string prop ->
   unit ->
@@ -47,8 +47,8 @@ type volume__docker_volume_configuration
 val volume__docker_volume_configuration :
   ?autoprovision:bool prop ->
   ?driver:string prop ->
-  ?driver_opts:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?driver_opts:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?scope:string prop ->
   unit ->
   volume__docker_volume_configuration
@@ -118,8 +118,8 @@ val aws_ecs_task_definition :
   ?pid_mode:string prop ->
   ?requires_compatibilities:string prop list ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
   ?ephemeral_storage:ephemeral_storage list ->
@@ -154,8 +154,8 @@ type t = private {
   requires_compatibilities : string list prop;
   revision : float prop;
   skip_destroy : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   task_role_arn : string prop;
   track_latest : bool prop;
 }
@@ -171,8 +171,8 @@ val register :
   ?pid_mode:string prop ->
   ?requires_compatibilities:string prop list ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
   ?ephemeral_storage:ephemeral_storage list ->
@@ -196,8 +196,8 @@ val make :
   ?pid_mode:string prop ->
   ?requires_compatibilities:string prop list ->
   ?skip_destroy:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
   ?ephemeral_storage:ephemeral_storage list ->

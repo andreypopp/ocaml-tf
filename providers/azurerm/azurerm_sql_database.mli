@@ -56,7 +56,7 @@ val azurerm_sql_database :
   ?restore_point_in_time:string prop ->
   ?source_database_deletion_date:string prop ->
   ?source_database_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?import:import list ->
   ?threat_detection_policy:threat_detection_policy list ->
@@ -94,7 +94,7 @@ type t = private {
   server_name : string prop;
   source_database_deletion_date : string prop;
   source_database_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 
@@ -113,7 +113,7 @@ val register :
   ?restore_point_in_time:string prop ->
   ?source_database_deletion_date:string prop ->
   ?source_database_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?import:import list ->
   ?threat_detection_policy:threat_detection_policy list ->
@@ -139,7 +139,7 @@ val make :
   ?restore_point_in_time:string prop ->
   ?source_database_deletion_date:string prop ->
   ?source_database_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?import:import list ->
   ?threat_detection_policy:threat_detection_policy list ->

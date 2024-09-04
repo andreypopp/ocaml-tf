@@ -43,7 +43,7 @@ val google_bigtable_instance :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?cluster:cluster list ->
   ?timeouts:timeouts ->
@@ -60,14 +60,14 @@ type t = private {
   tf_name : string;
   deletion_protection : bool prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_destroy : bool prop;
   id : string prop;
   instance_type : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -77,7 +77,7 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?cluster:cluster list ->
   ?timeouts:timeouts ->
@@ -91,7 +91,7 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?instance_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?cluster:cluster list ->
   ?timeouts:timeouts ->

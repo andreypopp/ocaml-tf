@@ -454,15 +454,13 @@ type azurerm_spring_cloud_gateway = {
       [@option]
   application_performance_monitoring_types : string prop list option;
       [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   https_only : bool prop option; [@option]
   id : string prop option; [@option]
   instance_count : float prop option; [@option]
   name : string prop;
   public_network_access_enabled : bool prop option; [@option]
-  sensitive_environment_variables :
-    (string * string prop) list option;
+  sensitive_environment_variables : string prop Tf_core.assoc option;
       [@option]
   spring_cloud_service_id : string prop;
   api_metadata : api_metadata list;
@@ -594,12 +592,8 @@ let yojson_of_azurerm_spring_cloud_gateway =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "sensitive_environment_variables", arg in
@@ -646,12 +640,8 @@ let yojson_of_azurerm_spring_cloud_gateway =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -761,13 +751,13 @@ type t = {
   tf_name : string;
   application_performance_monitoring_ids : string list prop;
   application_performance_monitoring_types : string list prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   https_only : bool prop;
   id : string prop;
   instance_count : float prop;
   name : string prop;
   public_network_access_enabled : bool prop;
-  sensitive_environment_variables : (string * string) list prop;
+  sensitive_environment_variables : string Tf_core.assoc prop;
   spring_cloud_service_id : string prop;
   url : string prop;
 }

@@ -42,7 +42,7 @@ type scheduled_splits_config__steps__segment_overrides
 val scheduled_splits_config__steps__segment_overrides :
   evaluation_order:float prop ->
   segment:string prop ->
-  weights:(string * float prop) list ->
+  weights:float prop Tf_core.assoc ->
   unit ->
   scheduled_splits_config__steps__segment_overrides
 
@@ -51,7 +51,7 @@ type scheduled_splits_config__steps
 val scheduled_splits_config__steps :
   ?segment_overrides:
     scheduled_splits_config__steps__segment_overrides list ->
-  group_weights:(string * float prop) list ->
+  group_weights:float prop Tf_core.assoc ->
   start_time:string prop ->
   unit ->
   scheduled_splits_config__steps
@@ -78,8 +78,8 @@ val aws_evidently_launch :
   ?description:string prop ->
   ?id:string prop ->
   ?randomization_salt:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?metric_monitors:metric_monitors list ->
   ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->
@@ -106,8 +106,8 @@ type t = private {
   randomization_salt : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -116,8 +116,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?randomization_salt:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?metric_monitors:metric_monitors list ->
   ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->
@@ -131,8 +131,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?randomization_salt:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?metric_monitors:metric_monitors list ->
   ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->

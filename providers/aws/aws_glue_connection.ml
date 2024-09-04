@@ -57,15 +57,14 @@ let _ = yojson_of_physical_connection_requirements
 
 type aws_glue_connection = {
   catalog_id : string prop option; [@option]
-  connection_properties : (string * string prop) list option;
-      [@option]
+  connection_properties : string prop Tf_core.assoc option; [@option]
   connection_type : string prop option; [@option]
   description : string prop option; [@option]
   id : string prop option; [@option]
   match_criteria : string prop list option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   physical_connection_requirements :
     physical_connection_requirements list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -109,12 +108,8 @@ let yojson_of_aws_glue_connection =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -125,12 +120,8 @@ let yojson_of_aws_glue_connection =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -179,12 +170,8 @@ let yojson_of_aws_glue_connection =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "connection_properties", arg in
@@ -231,14 +218,14 @@ type t = {
   tf_name : string;
   arn : string prop;
   catalog_id : string prop;
-  connection_properties : (string * string) list prop;
+  connection_properties : string Tf_core.assoc prop;
   connection_type : string prop;
   description : string prop;
   id : string prop;
   match_criteria : string list prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?catalog_id ?connection_properties ?connection_type

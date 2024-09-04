@@ -100,7 +100,7 @@ let _ = yojson_of_hive_metastore_config__kerberos_config
 [@@@deriving.end]
 
 type hive_metastore_config__auxiliary_versions = {
-  config_overrides : (string * string prop) list;
+  config_overrides : string prop Tf_core.assoc;
   key : string prop;
   version : string prop;
 }
@@ -128,12 +128,8 @@ let yojson_of_hive_metastore_config__auxiliary_versions =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_config_overrides
          in
          ("config_overrides", arg) :: bnds
@@ -150,7 +146,7 @@ type hive_metastore_config = {
   auxiliary_versions :
     hive_metastore_config__auxiliary_versions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  config_overrides : (string * string prop) list;
+  config_overrides : string prop Tf_core.assoc;
   endpoint_protocol : string prop;
   kerberos_config : hive_metastore_config__kerberos_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -195,12 +191,8 @@ let yojson_of_hive_metastore_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_config_overrides
          in
          ("config_overrides", arg) :: bnds
@@ -531,12 +523,12 @@ type t = {
   tf_name : string;
   artifact_gcs_uri : string prop;
   database_type : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_config : encryption_config list prop;
   endpoint_uri : string prop;
   hive_metastore_config : hive_metastore_config list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   maintenance_window : maintenance_window list prop;
   metadata_integration : metadata_integration list prop;
@@ -552,7 +544,7 @@ type t = {
   state : string prop;
   state_message : string prop;
   telemetry_config : telemetry_config list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   uid : string prop;
 }

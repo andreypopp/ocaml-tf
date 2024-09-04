@@ -273,8 +273,8 @@ val aws_networkfirewall_rule_group :
   ?description:string prop ->
   ?id:string prop ->
   ?rules:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?rule_group:rule_group list ->
   capacity:float prop ->
@@ -296,8 +296,8 @@ type t = private {
   id : string prop;
   name : string prop;
   rules : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   update_token : string prop;
 }
@@ -307,8 +307,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?rules:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?rule_group:rule_group list ->
   capacity:float prop ->
@@ -321,8 +321,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?rules:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?encryption_configuration:encryption_configuration list ->
   ?rule_group:rule_group list ->
   capacity:float prop ->

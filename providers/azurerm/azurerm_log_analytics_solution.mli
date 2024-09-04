@@ -27,7 +27,7 @@ type azurerm_log_analytics_solution
 
 val azurerm_log_analytics_solution :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   resource_group_name:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   location : string prop;
   resource_group_name : string prop;
   solution_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_name : string prop;
   workspace_resource_id : string prop;
 }
@@ -57,7 +57,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   resource_group_name:string prop ->
@@ -70,7 +70,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   resource_group_name:string prop ->

@@ -50,7 +50,7 @@ val azurerm_app_configuration_feature :
   ?label:string prop ->
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
   ?timewindow_filter:timewindow_filter list ->
@@ -76,7 +76,7 @@ type t = private {
   locked : bool prop;
   name : string prop;
   percentage_filter_value : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -89,7 +89,7 @@ val register :
   ?label:string prop ->
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
   ?timewindow_filter:timewindow_filter list ->
@@ -107,7 +107,7 @@ val make :
   ?label:string prop ->
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
   ?timewindow_filter:timewindow_filter list ->

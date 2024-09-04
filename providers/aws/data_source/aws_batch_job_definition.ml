@@ -162,7 +162,7 @@ let _ = yojson_of_eks_properties__pod_properties__volumes
 [@@@deriving.end]
 
 type eks_properties__pod_properties__metadata = {
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -176,12 +176,8 @@ let yojson_of_eks_properties__pod_properties__metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -296,8 +292,8 @@ let _ =
 [@@@deriving.end]
 
 type eks_properties__pod_properties__containers__resources = {
-  limits : (string * string prop) list;
-  requests : (string * string prop) list;
+  limits : string prop Tf_core.assoc;
+  requests : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -313,24 +309,16 @@ let yojson_of_eks_properties__pod_properties__containers__resources =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_requests
          in
          ("requests", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_limits
          in
          ("limits", arg) :: bnds
@@ -1088,7 +1076,7 @@ let _ =
 
 type node_properties__node_range_properties__container__log_configuration = {
   log_driver : string prop;
-  options : (string * string prop) list;
+  options : string prop Tf_core.assoc;
   secret_options :
     node_properties__node_range_properties__container__log_configuration__secret_options
     list;
@@ -1125,12 +1113,8 @@ let yojson_of_node_properties__node_range_properties__container__log_configurati
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_options
          in
          ("options", arg) :: bnds
@@ -1980,7 +1964,7 @@ type t = {
   revision : float prop;
   scheduling_priority : float prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : timeout list prop;
   type_ : string prop;
 }

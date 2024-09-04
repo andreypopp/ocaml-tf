@@ -34,7 +34,7 @@ val aws_alb :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   unit ->
   aws_alb
@@ -73,7 +73,7 @@ type t = private {
   security_groups : string list prop;
   subnet_mapping : subnet_mapping list prop;
   subnets : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
   xff_header_processing_mode : string prop;
   zone_id : string prop;
@@ -84,7 +84,7 @@ val register :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t
@@ -93,7 +93,7 @@ val make :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

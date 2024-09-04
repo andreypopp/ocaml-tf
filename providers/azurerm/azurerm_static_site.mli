@@ -25,11 +25,11 @@ val timeouts :
 type azurerm_static_site
 
 val azurerm_static_site :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -45,7 +45,7 @@ val yojson_of_azurerm_static_site : azurerm_static_site -> json
 type t = private {
   tf_name : string;
   api_key : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   default_host_name : string prop;
   id : string prop;
   location : string prop;
@@ -53,16 +53,16 @@ type t = private {
   resource_group_name : string prop;
   sku_size : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -72,11 +72,11 @@ val register :
   t
 
 val make :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

@@ -141,7 +141,7 @@ type handlers__static_files
 val handlers__static_files :
   ?application_readable:bool prop ->
   ?expiration:string prop ->
-  ?http_headers:(string * string prop) list ->
+  ?http_headers:string prop Tf_core.assoc ->
   ?mime_type:string prop ->
   ?path:string prop ->
   ?require_matching_file:bool prop ->
@@ -239,10 +239,10 @@ val vpc_access_connector :
 type google_app_engine_flexible_app_version
 
 val google_app_engine_flexible_app_version :
-  ?beta_settings:(string * string prop) list ->
+  ?beta_settings:string prop Tf_core.assoc ->
   ?default_expiration:string prop ->
   ?delete_service_on_destroy:bool prop ->
-  ?env_variables:(string * string prop) list ->
+  ?env_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?inbound_services:string prop list ->
   ?instance_class:string prop ->
@@ -281,10 +281,10 @@ val yojson_of_google_app_engine_flexible_app_version :
 
 type t = private {
   tf_name : string;
-  beta_settings : (string * string) list prop;
+  beta_settings : string Tf_core.assoc prop;
   default_expiration : string prop;
   delete_service_on_destroy : bool prop;
-  env_variables : (string * string) list prop;
+  env_variables : string Tf_core.assoc prop;
   id : string prop;
   inbound_services : string list prop;
   instance_class : string prop;
@@ -304,10 +304,10 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?beta_settings:(string * string prop) list ->
+  ?beta_settings:string prop Tf_core.assoc ->
   ?default_expiration:string prop ->
   ?delete_service_on_destroy:bool prop ->
-  ?env_variables:(string * string prop) list ->
+  ?env_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?inbound_services:string prop list ->
   ?instance_class:string prop ->
@@ -340,10 +340,10 @@ val register :
   t
 
 val make :
-  ?beta_settings:(string * string prop) list ->
+  ?beta_settings:string prop Tf_core.assoc ->
   ?default_expiration:string prop ->
   ?delete_service_on_destroy:bool prop ->
-  ?env_variables:(string * string prop) list ->
+  ?env_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?inbound_services:string prop list ->
   ?instance_class:string prop ->

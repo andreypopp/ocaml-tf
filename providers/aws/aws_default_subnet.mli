@@ -24,8 +24,8 @@ val aws_default_subnet :
   ?map_customer_owned_ip_on_launch:bool prop ->
   ?map_public_ip_on_launch:bool prop ->
   ?private_dns_hostname_type_on_launch:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   unit ->
@@ -58,8 +58,8 @@ type t = private {
   outpost_arn : string prop;
   owner_id : string prop;
   private_dns_hostname_type_on_launch : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -77,8 +77,8 @@ val register :
   ?map_customer_owned_ip_on_launch:bool prop ->
   ?map_public_ip_on_launch:bool prop ->
   ?private_dns_hostname_type_on_launch:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->
@@ -97,8 +97,8 @@ val make :
   ?map_customer_owned_ip_on_launch:bool prop ->
   ?map_public_ip_on_launch:bool prop ->
   ?private_dns_hostname_type_on_launch:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
   string ->

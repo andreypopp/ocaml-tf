@@ -80,7 +80,7 @@ val azurerm_virtual_machine_run_command :
   ?output_blob_uri:string prop ->
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?error_blob_managed_identity:error_blob_managed_identity list ->
   ?output_blob_managed_identity:output_blob_managed_identity list ->
   ?parameter:parameter list ->
@@ -108,7 +108,7 @@ type t = private {
   output_blob_uri : string prop;
   run_as_password : string prop;
   run_as_user : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_id : string prop;
 }
 
@@ -119,7 +119,7 @@ val register :
   ?output_blob_uri:string prop ->
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?error_blob_managed_identity:error_blob_managed_identity list ->
   ?output_blob_managed_identity:output_blob_managed_identity list ->
   ?parameter:parameter list ->
@@ -138,7 +138,7 @@ val make :
   ?output_blob_uri:string prop ->
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?error_blob_managed_identity:error_blob_managed_identity list ->
   ?output_blob_managed_identity:output_blob_managed_identity list ->
   ?parameter:parameter list ->

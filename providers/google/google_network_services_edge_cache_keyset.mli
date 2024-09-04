@@ -32,7 +32,7 @@ type google_network_services_edge_cache_keyset
 val google_network_services_edge_cache_keyset :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_key:public_key list ->
   ?timeouts:timeouts ->
@@ -49,19 +49,19 @@ val yojson_of_google_network_services_edge_cache_keyset :
 type t = private {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_key:public_key list ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?public_key:public_key list ->
   ?timeouts:timeouts ->

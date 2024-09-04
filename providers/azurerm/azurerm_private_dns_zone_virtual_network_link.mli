@@ -19,7 +19,7 @@ type azurerm_private_dns_zone_virtual_network_link
 val azurerm_private_dns_zone_virtual_network_link :
   ?id:string prop ->
   ?registration_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   private_dns_zone_name:string prop ->
@@ -40,7 +40,7 @@ type t = private {
   private_dns_zone_name : string prop;
   registration_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_id : string prop;
 }
 
@@ -48,7 +48,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?registration_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   private_dns_zone_name:string prop ->
@@ -60,7 +60,7 @@ val register :
 val make :
   ?id:string prop ->
   ?registration_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   private_dns_zone_name:string prop ->

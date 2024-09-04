@@ -18,7 +18,7 @@ type azurerm_voice_services_communications_gateway_test_line
 
 val azurerm_voice_services_communications_gateway_test_line :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -40,14 +40,14 @@ type t = private {
   name : string prop;
   phone_number : string prop;
   purpose : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   voice_services_communications_gateway_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -59,7 +59,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

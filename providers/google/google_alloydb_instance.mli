@@ -73,13 +73,13 @@ val timeouts :
 type google_alloydb_instance
 
 val google_alloydb_instance :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?availability_type:string prop ->
-  ?database_flags:(string * string prop) list ->
+  ?database_flags:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?gce_zone:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
   ?network_config:network_config list ->
@@ -100,38 +100,38 @@ val yojson_of_google_alloydb_instance :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   availability_type : string prop;
   cluster : string prop;
   create_time : string prop;
-  database_flags : (string * string) list prop;
+  database_flags : string Tf_core.assoc prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   gce_zone : string prop;
   id : string prop;
   instance_id : string prop;
   instance_type : string prop;
   ip_address : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   public_ip_address : string prop;
   reconciling : bool prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?availability_type:string prop ->
-  ?database_flags:(string * string prop) list ->
+  ?database_flags:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?gce_zone:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
   ?network_config:network_config list ->
@@ -146,13 +146,13 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?availability_type:string prop ->
-  ?database_flags:(string * string prop) list ->
+  ?database_flags:string prop Tf_core.assoc ->
   ?display_name:string prop ->
   ?gce_zone:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?client_connection_config:client_connection_config list ->
   ?machine_config:machine_config list ->
   ?network_config:network_config list ->

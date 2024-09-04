@@ -16,7 +16,7 @@ val google_edgenetwork_subnet :
   ?id:string prop ->
   ?ipv4_cidr:string prop list ->
   ?ipv6_cidr:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?vlan_id:float prop ->
   ?timeouts:timeouts ->
@@ -39,7 +39,7 @@ type t = private {
   id : string prop;
   ipv4_cidr : string list prop;
   ipv6_cidr : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   network : string prop;
@@ -57,7 +57,7 @@ val register :
   ?id:string prop ->
   ?ipv4_cidr:string prop list ->
   ?ipv6_cidr:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?vlan_id:float prop ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ val make :
   ?id:string prop ->
   ?ipv4_cidr:string prop list ->
   ?ipv6_cidr:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?vlan_id:float prop ->
   ?timeouts:timeouts ->

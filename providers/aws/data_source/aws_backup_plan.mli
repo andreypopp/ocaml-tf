@@ -35,7 +35,7 @@ type rule = {
   lifecycle : rule__lifecycle list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** lifecycle *)
-  recovery_point_tags : (string * string prop) list;
+  recovery_point_tags : string prop Tf_core.assoc;
       (** recovery_point_tags *)
   rule_name : string prop;  (** rule_name *)
   schedule : string prop;  (** schedule *)
@@ -47,7 +47,7 @@ type aws_backup_plan
 
 val aws_backup_plan :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   plan_id:string prop ->
   unit ->
   aws_backup_plan
@@ -63,21 +63,21 @@ type t = private {
   name : string prop;
   plan_id : string prop;
   rule : rule list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   plan_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   plan_id:string prop ->
   string ->
   t Tf_core.resource

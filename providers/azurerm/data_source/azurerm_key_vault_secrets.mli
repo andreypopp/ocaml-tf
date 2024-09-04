@@ -8,7 +8,7 @@ type secrets = {
   enabled : bool prop;  (** enabled *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
 }
 
 type timeouts

@@ -15,7 +15,7 @@ type physical_connection_requirements = {
 type aws_glue_connection
 
 val aws_glue_connection :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   unit ->
   aws_glue_connection
@@ -28,7 +28,7 @@ type t = private {
   tf_name : string;
   arn : string prop;
   catalog_id : string prop;
-  connection_properties : (string * string) list prop;
+  connection_properties : string Tf_core.assoc prop;
   connection_type : string prop;
   description : string prop;
   id : string prop;
@@ -36,18 +36,18 @@ type t = private {
   name : string prop;
   physical_connection_requirements :
     physical_connection_requirements list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t Tf_core.resource

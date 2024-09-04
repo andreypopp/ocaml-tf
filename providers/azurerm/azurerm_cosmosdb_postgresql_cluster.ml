@@ -161,7 +161,7 @@ type azurerm_cosmosdb_postgresql_cluster = {
   source_location : string prop option; [@option]
   source_resource_id : string prop option; [@option]
   sql_version : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   maintenance_window : maintenance_window list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -225,12 +225,8 @@ let yojson_of_azurerm_cosmosdb_postgresql_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -477,7 +473,7 @@ type t = {
   source_location : string prop;
   source_resource_id : string prop;
   sql_version : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?administrator_login_password ?citus_version

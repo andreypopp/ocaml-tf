@@ -20,7 +20,7 @@ val azurerm_nat_gateway :
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -42,7 +42,7 @@ type t = private {
   resource_group_name : string prop;
   resource_guid : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -51,7 +51,7 @@ val register :
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -64,7 +64,7 @@ val make :
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   location:string prop ->

@@ -25,9 +25,9 @@ val allowed_topologies :
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   unit ->
   metadata
@@ -38,7 +38,7 @@ val kubernetes_storage_class_v1 :
   ?allow_volume_expansion:bool prop ->
   ?id:string prop ->
   ?mount_options:string prop list ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
   ?allowed_topologies:allowed_topologies list ->
@@ -57,7 +57,7 @@ type t = private {
   allow_volume_expansion : bool prop;
   id : string prop;
   mount_options : string list prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   reclaim_policy : string prop;
   storage_provisioner : string prop;
   volume_binding_mode : string prop;
@@ -68,7 +68,7 @@ val register :
   ?allow_volume_expansion:bool prop ->
   ?id:string prop ->
   ?mount_options:string prop list ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
   ?allowed_topologies:allowed_topologies list ->
@@ -81,7 +81,7 @@ val make :
   ?allow_volume_expansion:bool prop ->
   ?id:string prop ->
   ?mount_options:string prop list ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
   ?allowed_topologies:allowed_topologies list ->

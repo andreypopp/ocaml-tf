@@ -275,7 +275,7 @@ val azurerm_monitor_data_collection_rule :
   ?description:string prop ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sources:data_sources list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -303,7 +303,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -312,7 +312,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sources:data_sources list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -330,7 +330,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?kind:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sources:data_sources list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

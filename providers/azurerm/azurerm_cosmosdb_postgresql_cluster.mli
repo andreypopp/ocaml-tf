@@ -49,7 +49,7 @@ val azurerm_cosmosdb_postgresql_cluster :
   ?source_location:string prop ->
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -90,7 +90,7 @@ type t = private {
   source_location : string prop;
   source_resource_id : string prop;
   sql_version : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -113,7 +113,7 @@ val register :
   ?source_location:string prop ->
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -142,7 +142,7 @@ val make :
   ?source_location:string prop ->
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->

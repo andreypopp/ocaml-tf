@@ -6,11 +6,11 @@ open! Tf_core
 
 type projects = {
   create_time : string prop;  (** create_time *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   lifecycle_state : string prop;  (** lifecycle_state *)
   name : string prop;  (** name *)
   number : string prop;  (** number *)
-  parent : (string * string prop) list;  (** parent *)
+  parent : string prop Tf_core.assoc;  (** parent *)
   project_id : string prop;  (** project_id *)
 }
 

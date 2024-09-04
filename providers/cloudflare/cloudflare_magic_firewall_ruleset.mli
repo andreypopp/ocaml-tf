@@ -9,7 +9,7 @@ type cloudflare_magic_firewall_ruleset
 val cloudflare_magic_firewall_ruleset :
   ?description:string prop ->
   ?id:string prop ->
-  ?rules:(string * string prop) list list ->
+  ?rules:string prop Tf_core.assoc list ->
   account_id:string prop ->
   name:string prop ->
   unit ->
@@ -26,14 +26,14 @@ type t = private {
   description : string prop;
   id : string prop;
   name : string prop;
-  rules : (string * string) list list prop;
+  rules : string Tf_core.assoc list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?rules:(string * string prop) list list ->
+  ?rules:string prop Tf_core.assoc list ->
   account_id:string prop ->
   name:string prop ->
   string ->
@@ -42,7 +42,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?rules:(string * string prop) list list ->
+  ?rules:string prop Tf_core.assoc list ->
   account_id:string prop ->
   name:string prop ->
   string ->

@@ -196,7 +196,7 @@ let _ = yojson_of_timeouts
 type google_pubsub_topic = {
   id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   message_retention_duration : string prop option; [@option]
   name : string prop;
   project : string prop option; [@option]
@@ -291,12 +291,8 @@ let yojson_of_google_pubsub_topic =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -364,14 +360,14 @@ let google_pubsub_topic ?id ?kms_key_name ?labels
 
 type t = {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?kms_key_name ?labels ?message_retention_duration

@@ -219,7 +219,7 @@ let _ = yojson_of_preserved_state__internal_ip
 [@@@deriving.end]
 
 type preserved_state = {
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   disk : preserved_state__disk list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   external_ip : preserved_state__external_ip list;
@@ -276,12 +276,8 @@ let yojson_of_preserved_state =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in

@@ -13,8 +13,8 @@ type aws_db_snapshot
 val aws_db_snapshot :
   ?id:string prop ->
   ?shared_accounts:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   db_instance_identifier:string prop ->
   db_snapshot_identifier:string prop ->
@@ -47,8 +47,8 @@ type t = private {
   source_region : string prop;
   status : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -56,8 +56,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?shared_accounts:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   db_instance_identifier:string prop ->
   db_snapshot_identifier:string prop ->
@@ -67,8 +67,8 @@ val register :
 val make :
   ?id:string prop ->
   ?shared_accounts:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   db_instance_identifier:string prop ->
   db_snapshot_identifier:string prop ->

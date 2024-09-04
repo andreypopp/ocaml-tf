@@ -26,7 +26,7 @@ type aws_ssoadmin_trusted_token_issuer
 
 val aws_ssoadmin_trusted_token_issuer :
   ?client_token:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_token_issuer_configuration:
     trusted_token_issuer_configuration list ->
   instance_arn:string prop ->
@@ -47,15 +47,15 @@ type t = private {
   id : string prop;
   instance_arn : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   trusted_token_issuer_type : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?client_token:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_token_issuer_configuration:
     trusted_token_issuer_configuration list ->
   instance_arn:string prop ->
@@ -66,7 +66,7 @@ val register :
 
 val make :
   ?client_token:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_token_issuer_configuration:
     trusted_token_issuer_configuration list ->
   instance_arn:string prop ->

@@ -54,8 +54,8 @@ val aws_ecs_task_set :
   ?id:string prop ->
   ?launch_type:string prop ->
   ?platform_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
   ?network_configuration:network_configuration list ->
@@ -85,8 +85,8 @@ type t = private {
   service : string prop;
   stability_status : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   task_definition : string prop;
   task_set_id : string prop;
   wait_until_stable : bool prop;
@@ -100,8 +100,8 @@ val register :
   ?id:string prop ->
   ?launch_type:string prop ->
   ?platform_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
   ?network_configuration:network_configuration list ->
@@ -121,8 +121,8 @@ val make :
   ?id:string prop ->
   ?launch_type:string prop ->
   ?platform_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
   ?network_configuration:network_configuration list ->

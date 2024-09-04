@@ -3,7 +3,7 @@
 open! Tf_core
 
 type metric_query__metric = {
-  dimensions : (string * string prop) list option; [@option]
+  dimensions : string prop Tf_core.assoc option; [@option]
   metric_name : string prop;
   namespace : string prop option; [@option]
   period : float prop;
@@ -60,12 +60,8 @@ let yojson_of_metric_query__metric =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dimensions", arg in
@@ -173,7 +169,7 @@ type aws_cloudwatch_metric_alarm = {
   alarm_name : string prop;
   comparison_operator : string prop;
   datapoints_to_alarm : float prop option; [@option]
-  dimensions : (string * string prop) list option; [@option]
+  dimensions : string prop Tf_core.assoc option; [@option]
   evaluate_low_sample_count_percentiles : string prop option;
       [@option]
   evaluation_periods : float prop;
@@ -185,8 +181,8 @@ type aws_cloudwatch_metric_alarm = {
   ok_actions : string prop list option; [@option]
   period : float prop option; [@option]
   statistic : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   threshold : float prop option; [@option]
   threshold_metric_id : string prop option; [@option]
   treat_missing_data : string prop option; [@option]
@@ -276,12 +272,8 @@ let yojson_of_aws_cloudwatch_metric_alarm =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -292,12 +284,8 @@ let yojson_of_aws_cloudwatch_metric_alarm =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -392,12 +380,8 @@ let yojson_of_aws_cloudwatch_metric_alarm =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dimensions", arg in
@@ -507,7 +491,7 @@ type t = {
   arn : string prop;
   comparison_operator : string prop;
   datapoints_to_alarm : float prop;
-  dimensions : (string * string) list prop;
+  dimensions : string Tf_core.assoc prop;
   evaluate_low_sample_count_percentiles : string prop;
   evaluation_periods : float prop;
   extended_statistic : string prop;
@@ -518,8 +502,8 @@ type t = {
   ok_actions : string list prop;
   period : float prop;
   statistic : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   threshold : float prop;
   threshold_metric_id : string prop;
   treat_missing_data : string prop;

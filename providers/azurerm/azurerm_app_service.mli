@@ -56,7 +56,7 @@ val auth_settings__twitter :
 type auth_settings
 
 val auth_settings :
-  ?additional_login_params:(string * string prop) list ->
+  ?additional_login_params:string prop Tf_core.assoc ->
   ?allowed_external_redirect_urls:string prop list ->
   ?default_provider:string prop ->
   ?issuer:string prop ->
@@ -299,7 +299,7 @@ val timeouts :
 type azurerm_app_service
 
 val azurerm_app_service :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_cert_enabled:bool prop ->
   ?client_cert_mode:string prop ->
@@ -307,7 +307,7 @@ val azurerm_app_service :
   ?https_only:bool prop ->
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auth_settings:auth_settings list ->
   ?backup:backup list ->
   ?identity:identity list ->
@@ -331,7 +331,7 @@ val yojson_of_azurerm_app_service : azurerm_app_service -> json
 type t = private {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   client_affinity_enabled : bool prop;
   client_cert_enabled : bool prop;
   client_cert_mode : string prop;
@@ -349,12 +349,12 @@ type t = private {
   possible_outbound_ip_addresses : string prop;
   resource_group_name : string prop;
   site_credential : site_credential list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_cert_enabled:bool prop ->
   ?client_cert_mode:string prop ->
@@ -362,7 +362,7 @@ val register :
   ?https_only:bool prop ->
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auth_settings:auth_settings list ->
   ?backup:backup list ->
   ?identity:identity list ->
@@ -380,7 +380,7 @@ val register :
   t
 
 val make :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_cert_enabled:bool prop ->
   ?client_cert_mode:string prop ->
@@ -388,7 +388,7 @@ val make :
   ?https_only:bool prop ->
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?auth_settings:auth_settings list ->
   ?backup:backup list ->
   ?identity:identity list ->

@@ -6,7 +6,7 @@ open! Tf_core
 
 type errors__details = {
   code : float prop;  (** code *)
-  details : (string * string prop) list list;
+  details : string prop Tf_core.assoc list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** details *)
   message : string prop;  (** message *)

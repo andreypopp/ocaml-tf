@@ -20,7 +20,7 @@ val azurerm_netapp_pool :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?qos_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   resource_group_name : string prop;
   service_level : string prop;
   size_in_tb : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -54,7 +54,7 @@ val register :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?qos_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
@@ -69,7 +69,7 @@ val make :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?qos_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->

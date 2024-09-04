@@ -44,7 +44,7 @@ type azurerm_datadog_monitor
 val azurerm_datadog_monitor :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -70,14 +70,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -92,7 +92,7 @@ val register :
 val make :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

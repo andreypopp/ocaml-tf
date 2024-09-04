@@ -1458,7 +1458,7 @@ let _ = yojson_of_validation_check
 
 type google_gkeonprem_vmware_cluster = {
   admin_cluster_membership : string prop;
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   description : string prop option; [@option]
   disable_bundled_ingress : bool prop option; [@option]
   enable_control_plane_v2 : bool prop option; [@option]
@@ -1685,12 +1685,8 @@ let yojson_of_google_gkeonprem_vmware_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -1878,12 +1874,12 @@ let google_gkeonprem_vmware_cluster ?annotations ?description
 type t = {
   tf_name : string;
   admin_cluster_membership : string prop;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
   disable_bundled_ingress : bool prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   enable_control_plane_v2 : bool prop;
   endpoint : string prop;
   etag : string prop;

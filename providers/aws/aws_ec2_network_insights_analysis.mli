@@ -833,8 +833,8 @@ type aws_ec2_network_insights_analysis
 val aws_ec2_network_insights_analysis :
   ?filter_in_arns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_completion:bool prop ->
   network_insights_path_id:string prop ->
   unit ->
@@ -859,8 +859,8 @@ type t = private {
   start_date : string prop;
   status : string prop;
   status_message : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   wait_for_completion : bool prop;
   warning_message : string prop;
 }
@@ -869,8 +869,8 @@ val register :
   ?tf_module:tf_module ->
   ?filter_in_arns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_completion:bool prop ->
   network_insights_path_id:string prop ->
   string ->
@@ -879,8 +879,8 @@ val register :
 val make :
   ?filter_in_arns:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?wait_for_completion:bool prop ->
   network_insights_path_id:string prop ->
   string ->

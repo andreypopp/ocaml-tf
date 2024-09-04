@@ -473,7 +473,7 @@ type aws_ecs_task_execution = {
   propagate_tags : string prop option; [@option]
   reference_id : string prop option; [@option]
   started_by : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   task_definition : string prop;
   capacity_provider_strategy : capacity_provider_strategy list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -576,12 +576,8 @@ let yojson_of_aws_ecs_task_execution =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -782,7 +778,7 @@ type t = {
   propagate_tags : string prop;
   reference_id : string prop;
   started_by : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   task_arns : string list prop;
   task_definition : string prop;
 }

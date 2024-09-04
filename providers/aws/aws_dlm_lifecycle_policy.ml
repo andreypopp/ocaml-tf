@@ -752,8 +752,8 @@ let _ = yojson_of_policy_details__schedule__share_rule
 type policy_details__schedule = {
   copy_tags : bool prop option; [@option]
   name : string prop;
-  tags_to_add : (string * string prop) list option; [@option]
-  variable_tags : (string * string prop) list option; [@option]
+  tags_to_add : string prop Tf_core.assoc option; [@option]
+  variable_tags : string prop Tf_core.assoc option; [@option]
   create_rule : policy_details__schedule__create_rule list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cross_region_copy_rule :
@@ -861,12 +861,8 @@ let yojson_of_policy_details__schedule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "variable_tags", arg in
@@ -877,12 +873,8 @@ let yojson_of_policy_details__schedule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_to_add", arg in
@@ -911,7 +903,7 @@ type policy_details = {
   policy_type : string prop option; [@option]
   resource_locations : string prop list option; [@option]
   resource_types : string prop list option; [@option]
-  target_tags : (string * string prop) list option; [@option]
+  target_tags : string prop Tf_core.assoc option; [@option]
   action : policy_details__action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   event_source : policy_details__event_source list;
@@ -985,12 +977,8 @@ let yojson_of_policy_details =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "target_tags", arg in
@@ -1036,8 +1024,8 @@ type aws_dlm_lifecycle_policy = {
   execution_role_arn : string prop;
   id : string prop option; [@option]
   state : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   policy_details : policy_details list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -1074,12 +1062,8 @@ let yojson_of_aws_dlm_lifecycle_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1090,12 +1074,8 @@ let yojson_of_aws_dlm_lifecycle_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1264,8 +1244,8 @@ type t = {
   execution_role_arn : string prop;
   id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?id ?state ?tags ?tags_all ~description ~execution_role_arn

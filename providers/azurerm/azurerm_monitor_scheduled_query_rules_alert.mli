@@ -52,7 +52,7 @@ val azurerm_monitor_scheduled_query_rules_alert :
   ?id:string prop ->
   ?query_type:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling:float prop ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->
@@ -87,7 +87,7 @@ type t = private {
   query_type : string prop;
   resource_group_name : string prop;
   severity : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throttling : float prop;
   time_window : float prop;
 }
@@ -101,7 +101,7 @@ val register :
   ?id:string prop ->
   ?query_type:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling:float prop ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->
@@ -124,7 +124,7 @@ val make :
   ?id:string prop ->
   ?query_type:string prop ->
   ?severity:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throttling:float prop ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->

@@ -25,7 +25,7 @@ val artifact_store :
 type stage__action
 
 val stage__action :
-  ?configuration:(string * string prop) list ->
+  ?configuration:string prop Tf_core.assoc ->
   ?input_artifacts:string prop list ->
   ?namespace:string prop ->
   ?output_artifacts:string prop list ->
@@ -137,8 +137,8 @@ val aws_codepipeline :
   ?execution_mode:string prop ->
   ?id:string prop ->
   ?pipeline_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?trigger:trigger list ->
   ?variable:variable list ->
   name:string prop ->
@@ -160,8 +160,8 @@ type t = private {
   name : string prop;
   pipeline_type : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -169,8 +169,8 @@ val register :
   ?execution_mode:string prop ->
   ?id:string prop ->
   ?pipeline_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?trigger:trigger list ->
   ?variable:variable list ->
   name:string prop ->
@@ -184,8 +184,8 @@ val make :
   ?execution_mode:string prop ->
   ?id:string prop ->
   ?pipeline_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?trigger:trigger list ->
   ?variable:variable list ->
   name:string prop ->

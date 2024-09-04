@@ -27,7 +27,7 @@ type google_spanner_instance_config
 val google_spanner_instance_config :
   ?base_config:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -46,19 +46,19 @@ type t = private {
   base_config : string prop;
   config_type : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?base_config:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -70,7 +70,7 @@ val register :
 val make :
   ?base_config:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

@@ -24,8 +24,8 @@ val aws_iot_domain_configuration :
   ?server_certificate_arns:string prop list ->
   ?service_type:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_certificate_arn:string prop ->
   ?authorizer_config:authorizer_config list ->
   ?tls_config:tls_config list ->
@@ -48,8 +48,8 @@ type t = private {
   server_certificate_arns : string list prop;
   service_type : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   validation_certificate_arn : string prop;
 }
 
@@ -60,8 +60,8 @@ val register :
   ?server_certificate_arns:string prop list ->
   ?service_type:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_certificate_arn:string prop ->
   ?authorizer_config:authorizer_config list ->
   ?tls_config:tls_config list ->
@@ -75,8 +75,8 @@ val make :
   ?server_certificate_arns:string prop list ->
   ?service_type:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_certificate_arn:string prop ->
   ?authorizer_config:authorizer_config list ->
   ?tls_config:tls_config list ->

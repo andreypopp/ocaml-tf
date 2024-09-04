@@ -52,7 +52,7 @@ type aws_bedrock_custom_model
 val aws_bedrock_custom_model :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
   ?training_data_config:training_data_config list ->
@@ -60,7 +60,7 @@ val aws_bedrock_custom_model :
   ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
-  hyperparameters:(string * string prop) list ->
+  hyperparameters:string prop Tf_core.assoc ->
   job_name:string prop ->
   role_arn:string prop ->
   unit ->
@@ -78,14 +78,14 @@ type t = private {
   custom_model_kms_key_id : string prop;
   custom_model_name : string prop;
   customization_type : string prop;
-  hyperparameters : (string * string) list prop;
+  hyperparameters : string Tf_core.assoc prop;
   id : string prop;
   job_arn : string prop;
   job_name : string prop;
   job_status : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   training_metrics : training_metrics list prop;
   validation_metrics : validation_metrics list prop;
 }
@@ -94,7 +94,7 @@ val register :
   ?tf_module:tf_module ->
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
   ?training_data_config:training_data_config list ->
@@ -102,7 +102,7 @@ val register :
   ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
-  hyperparameters:(string * string prop) list ->
+  hyperparameters:string prop Tf_core.assoc ->
   job_name:string prop ->
   role_arn:string prop ->
   string ->
@@ -111,7 +111,7 @@ val register :
 val make :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
   ?training_data_config:training_data_config list ->
@@ -119,7 +119,7 @@ val make :
   ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
-  hyperparameters:(string * string prop) list ->
+  hyperparameters:string prop Tf_core.assoc ->
   job_name:string prop ->
   role_arn:string prop ->
   string ->

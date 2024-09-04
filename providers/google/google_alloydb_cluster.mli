@@ -85,7 +85,7 @@ type automated_backup_policy
 val automated_backup_policy :
   ?backup_window:string prop ->
   ?enabled:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?encryption_config:automated_backup_policy__encryption_config list ->
   ?quantity_based_retention:
@@ -191,14 +191,14 @@ val timeouts :
 type google_alloydb_cluster
 
 val google_alloydb_cluster :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?cluster_type:string prop ->
   ?database_version:string prop ->
   ?deletion_policy:string prop ->
   ?display_name:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?automated_backup_policy:automated_backup_policy list ->
@@ -224,7 +224,7 @@ val yojson_of_google_alloydb_cluster : google_alloydb_cluster -> json
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   backup_source : backup_source list prop;
   cluster_id : string prop;
   cluster_type : string prop;
@@ -232,12 +232,12 @@ type t = private {
   database_version : string prop;
   deletion_policy : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_info : encryption_info list prop;
   etag : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   migration_source : migration_source list prop;
   name : string prop;
@@ -245,20 +245,20 @@ type t = private {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?cluster_type:string prop ->
   ?database_version:string prop ->
   ?deletion_policy:string prop ->
   ?display_name:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?automated_backup_policy:automated_backup_policy list ->
@@ -279,14 +279,14 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?cluster_type:string prop ->
   ?database_version:string prop ->
   ?deletion_policy:string prop ->
   ?display_name:string prop ->
   ?etag:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?automated_backup_policy:automated_backup_policy list ->

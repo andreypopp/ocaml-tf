@@ -13,8 +13,8 @@ val aws_cloud9_environment_ec2 :
   ?id:string prop ->
   ?owner_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_id:string prop ->
   instance_type:string prop ->
   name:string prop ->
@@ -38,8 +38,8 @@ type t = private {
   name : string prop;
   owner_arn : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -51,8 +51,8 @@ val register :
   ?id:string prop ->
   ?owner_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_id:string prop ->
   instance_type:string prop ->
   name:string prop ->
@@ -66,8 +66,8 @@ val make :
   ?id:string prop ->
   ?owner_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   image_id:string prop ->
   instance_type:string prop ->
   name:string prop ->

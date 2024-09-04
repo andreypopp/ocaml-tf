@@ -259,8 +259,8 @@ type aws_quicksight_data_set = {
   id: string  prop option; [@option]
   import_mode: string prop; 
   name: string prop; 
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
   column_groups: column_groups list; [@default []] [@yojson_drop_default Stdlib.( = )]
   column_level_permission_rules: column_level_permission_rules list; [@default []] [@yojson_drop_default Stdlib.( = )]
   data_set_usage_configuration: data_set_usage_configuration list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -549,8 +549,8 @@ type t = {
   import_mode: string prop;
   name: string prop;
   output_columns: output_columns list prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 let make ?aws_account_id ?id ?tags ?tags_all ?(column_groups=[]) ?(column_level_permission_rules=[]) ?(data_set_usage_configuration=[]) ?(refresh_properties=[]) ?(row_level_permission_data_set=[]) ?(row_level_permission_tag_configuration=[]) ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map __id =

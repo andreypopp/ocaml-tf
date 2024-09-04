@@ -188,7 +188,7 @@ val closing_setting__conditional__conditional_branch__next_step__intent :
 type closing_setting__conditional__conditional_branch__next_step
 
 val closing_setting__conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     closing_setting__conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -391,7 +391,7 @@ val closing_setting__conditional__default_branch__next_step__intent :
 type closing_setting__conditional__default_branch__next_step
 
 val closing_setting__conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     closing_setting__conditional__default_branch__next_step__dialog_action
     list ->
@@ -597,7 +597,7 @@ val closing_setting__next_step__intent :
 type closing_setting__next_step
 
 val closing_setting__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:closing_setting__next_step__dialog_action list ->
   ?intent:closing_setting__next_step__intent list ->
   unit ->
@@ -660,7 +660,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__failure_condi
 type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -866,7 +866,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__failure_condi
 type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list ->
@@ -1081,7 +1081,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__failure_next_
 type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__failure_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list ->
@@ -1278,7 +1278,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__success_condi
 type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -1484,7 +1484,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__success_condi
 type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list ->
@@ -1699,7 +1699,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__success_next_
 type confirmation_setting__code_hook__post_code_hook_specification__success_next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__success_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list ->
@@ -1896,7 +1896,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -2102,7 +2102,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list ->
@@ -2317,7 +2317,7 @@ val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
 
 val confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list ->
@@ -2559,7 +2559,7 @@ val confirmation_setting__confirmation_conditional__conditional_branch__next_ste
 type confirmation_setting__confirmation_conditional__conditional_branch__next_step
 
 val confirmation_setting__confirmation_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -2765,7 +2765,7 @@ val confirmation_setting__confirmation_conditional__default_branch__next_step__i
 type confirmation_setting__confirmation_conditional__default_branch__next_step
 
 val confirmation_setting__confirmation_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
     list ->
@@ -2979,7 +2979,7 @@ val confirmation_setting__confirmation_next_step__intent :
 type confirmation_setting__confirmation_next_step
 
 val confirmation_setting__confirmation_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__confirmation_next_step__dialog_action list ->
   ?intent:confirmation_setting__confirmation_next_step__intent list ->
@@ -3172,7 +3172,7 @@ val confirmation_setting__declination_conditional__conditional_branch__next_step
 type confirmation_setting__declination_conditional__conditional_branch__next_step
 
 val confirmation_setting__declination_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -3378,7 +3378,7 @@ val confirmation_setting__declination_conditional__default_branch__next_step__in
 type confirmation_setting__declination_conditional__default_branch__next_step
 
 val confirmation_setting__declination_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
     list ->
@@ -3591,7 +3591,7 @@ val confirmation_setting__declination_next_step__intent :
 type confirmation_setting__declination_next_step
 
 val confirmation_setting__declination_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__declination_next_step__dialog_action list ->
   ?intent:confirmation_setting__declination_next_step__intent list ->
@@ -3792,7 +3792,7 @@ val confirmation_setting__failure_conditional__conditional_branch__next_step__in
 type confirmation_setting__failure_conditional__conditional_branch__next_step
 
 val confirmation_setting__failure_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -3998,7 +3998,7 @@ val confirmation_setting__failure_conditional__default_branch__next_step__intent
 type confirmation_setting__failure_conditional__default_branch__next_step
 
 val confirmation_setting__failure_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
     list ->
@@ -4209,7 +4209,7 @@ val confirmation_setting__failure_next_step__intent :
 type confirmation_setting__failure_next_step
 
 val confirmation_setting__failure_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     confirmation_setting__failure_next_step__dialog_action list ->
   ?intent:confirmation_setting__failure_next_step__intent list ->
@@ -4936,7 +4936,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -5142,7 +5142,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
     list ->
@@ -5357,7 +5357,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_s
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
     list ->
@@ -5554,7 +5554,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__success_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -5760,7 +5760,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__success_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
     list ->
@@ -5975,7 +5975,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__success_next_s
 type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__success_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
     list ->
@@ -6172,7 +6172,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -6378,7 +6378,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
     list ->
@@ -6593,7 +6593,7 @@ val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_s
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
 
 val fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
     list ->
@@ -6835,7 +6835,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__failure_c
 type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -7041,7 +7041,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__failure_c
 type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list ->
@@ -7256,7 +7256,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__failure_n
 type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__failure_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list ->
@@ -7453,7 +7453,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__success_c
 type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -7659,7 +7659,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__success_c
 type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list ->
@@ -7874,7 +7874,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__success_n
 type initial_response_setting__code_hook__post_code_hook_specification__success_next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__success_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list ->
@@ -8071,7 +8071,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__timeout_c
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -8277,7 +8277,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__timeout_c
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list ->
@@ -8492,7 +8492,7 @@ val initial_response_setting__code_hook__post_code_hook_specification__timeout_n
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
 
 val initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list ->
@@ -8734,7 +8734,7 @@ val initial_response_setting__conditional__conditional_branch__next_step__intent
 type initial_response_setting__conditional__conditional_branch__next_step
 
 val initial_response_setting__conditional__conditional_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__conditional__conditional_branch__next_step__dialog_action
     list ->
@@ -8940,7 +8940,7 @@ val initial_response_setting__conditional__default_branch__next_step__intent :
 type initial_response_setting__conditional__default_branch__next_step
 
 val initial_response_setting__conditional__default_branch__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__conditional__default_branch__next_step__dialog_action
     list ->
@@ -9289,7 +9289,7 @@ val initial_response_setting__next_step__intent :
 type initial_response_setting__next_step
 
 val initial_response_setting__next_step :
-  ?session_attributes:(string * string prop) list ->
+  ?session_attributes:string prop Tf_core.assoc ->
   ?dialog_action:
     initial_response_setting__next_step__dialog_action list ->
   ?intent:initial_response_setting__next_step__intent list ->

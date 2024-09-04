@@ -32,8 +32,8 @@ val aws_neptune_cluster_instance :
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->
@@ -72,8 +72,8 @@ type t = private {
   skip_final_snapshot : bool prop;
   storage_encrypted : bool prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   writer : bool prop;
 }
 
@@ -95,8 +95,8 @@ val register :
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->
@@ -120,8 +120,8 @@ val make :
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
   ?skip_final_snapshot:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   instance_class:string prop ->

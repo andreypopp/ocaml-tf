@@ -109,13 +109,13 @@ type aws_finspace_kx_cluster
 
 val aws_finspace_kx_cluster :
   ?availability_zone_id:string prop ->
-  ?command_line_arguments:(string * string prop) list ->
+  ?command_line_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_role:string prop ->
   ?id:string prop ->
   ?initialization_script:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_scaling_configuration:auto_scaling_configuration list ->
   ?cache_storage_configurations:cache_storage_configurations list ->
   ?capacity_configuration:capacity_configuration list ->
@@ -144,7 +144,7 @@ type t = private {
   arn : string prop;
   availability_zone_id : string prop;
   az_mode : string prop;
-  command_line_arguments : (string * string) list prop;
+  command_line_arguments : string Tf_core.assoc prop;
   created_timestamp : string prop;
   description : string prop;
   environment_id : string prop;
@@ -156,21 +156,21 @@ type t = private {
   release_label : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?availability_zone_id:string prop ->
-  ?command_line_arguments:(string * string prop) list ->
+  ?command_line_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_role:string prop ->
   ?id:string prop ->
   ?initialization_script:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_scaling_configuration:auto_scaling_configuration list ->
   ?cache_storage_configurations:cache_storage_configurations list ->
   ?capacity_configuration:capacity_configuration list ->
@@ -191,13 +191,13 @@ val register :
 
 val make :
   ?availability_zone_id:string prop ->
-  ?command_line_arguments:(string * string prop) list ->
+  ?command_line_arguments:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?execution_role:string prop ->
   ?id:string prop ->
   ?initialization_script:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_scaling_configuration:auto_scaling_configuration list ->
   ?cache_storage_configurations:cache_storage_configurations list ->
   ?capacity_configuration:capacity_configuration list ->

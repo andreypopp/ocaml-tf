@@ -11,10 +11,10 @@ val aws_iot_authorizer :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?token_key_name:string prop ->
-  ?token_signing_public_keys:(string * string prop) list ->
+  ?token_signing_public_keys:string prop Tf_core.assoc ->
   authorizer_function_arn:string prop ->
   name:string prop ->
   unit ->
@@ -33,10 +33,10 @@ type t = private {
   name : string prop;
   signing_disabled : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   token_key_name : string prop;
-  token_signing_public_keys : (string * string) list prop;
+  token_signing_public_keys : string Tf_core.assoc prop;
 }
 
 val register :
@@ -45,10 +45,10 @@ val register :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?token_key_name:string prop ->
-  ?token_signing_public_keys:(string * string prop) list ->
+  ?token_signing_public_keys:string prop Tf_core.assoc ->
   authorizer_function_arn:string prop ->
   name:string prop ->
   string ->
@@ -59,10 +59,10 @@ val make :
   ?id:string prop ->
   ?signing_disabled:bool prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?token_key_name:string prop ->
-  ?token_signing_public_keys:(string * string prop) list ->
+  ?token_signing_public_keys:string prop Tf_core.assoc ->
   authorizer_function_arn:string prop ->
   name:string prop ->
   string ->

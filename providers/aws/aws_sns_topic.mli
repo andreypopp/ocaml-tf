@@ -33,8 +33,8 @@ val aws_sns_topic :
   ?sqs_failure_feedback_role_arn:string prop ->
   ?sqs_success_feedback_role_arn:string prop ->
   ?sqs_success_feedback_sample_rate:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tracing_config:string prop ->
   unit ->
   aws_sns_topic
@@ -74,8 +74,8 @@ type t = private {
   sqs_failure_feedback_role_arn : string prop;
   sqs_success_feedback_role_arn : string prop;
   sqs_success_feedback_sample_rate : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tracing_config : string prop;
 }
 
@@ -107,8 +107,8 @@ val register :
   ?sqs_failure_feedback_role_arn:string prop ->
   ?sqs_success_feedback_role_arn:string prop ->
   ?sqs_success_feedback_sample_rate:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tracing_config:string prop ->
   string ->
   t
@@ -140,8 +140,8 @@ val make :
   ?sqs_failure_feedback_role_arn:string prop ->
   ?sqs_success_feedback_role_arn:string prop ->
   ?sqs_success_feedback_sample_rate:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tracing_config:string prop ->
   string ->
   t Tf_core.resource

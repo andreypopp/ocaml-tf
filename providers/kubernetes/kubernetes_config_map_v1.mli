@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -20,8 +20,8 @@ val metadata :
 type kubernetes_config_map_v1
 
 val kubernetes_config_map_v1 :
-  ?binary_data:(string * string prop) list ->
-  ?data:(string * string prop) list ->
+  ?binary_data:string prop Tf_core.assoc ->
+  ?data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?immutable:bool prop ->
   metadata:metadata list ->
@@ -35,16 +35,16 @@ val yojson_of_kubernetes_config_map_v1 :
 
 type t = private {
   tf_name : string;
-  binary_data : (string * string) list prop;
-  data : (string * string) list prop;
+  binary_data : string Tf_core.assoc prop;
+  data : string Tf_core.assoc prop;
   id : string prop;
   immutable : bool prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?binary_data:(string * string prop) list ->
-  ?data:(string * string prop) list ->
+  ?binary_data:string prop Tf_core.assoc ->
+  ?data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?immutable:bool prop ->
   metadata:metadata list ->
@@ -52,8 +52,8 @@ val register :
   t
 
 val make :
-  ?binary_data:(string * string prop) list ->
-  ?data:(string * string prop) list ->
+  ?binary_data:string prop Tf_core.assoc ->
+  ?data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?immutable:bool prop ->
   metadata:metadata list ->

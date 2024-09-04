@@ -14,7 +14,7 @@ val assume_role :
   ?role_arn:string prop ->
   ?session_name:string prop ->
   ?source_identity:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transitive_tag_keys:string prop list ->
   unit ->
   assume_role
@@ -35,7 +35,7 @@ val assume_role_with_web_identity :
 type default_tags
 
 val default_tags :
-  ?tags:(string * string prop) list -> unit -> default_tags
+  ?tags:string prop Tf_core.assoc -> unit -> default_tags
 
 type endpoints
 

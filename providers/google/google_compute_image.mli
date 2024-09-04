@@ -42,7 +42,7 @@ val google_compute_image :
   ?disk_size_gb:float prop ->
   ?family:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?project:string prop ->
   ?source_disk:string prop ->
@@ -67,11 +67,11 @@ type t = private {
   creation_timestamp : string prop;
   description : string prop;
   disk_size_gb : float prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   family : string prop;
   id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   licenses : string list prop;
   name : string prop;
   project : string prop;
@@ -80,7 +80,7 @@ type t = private {
   source_image : string prop;
   source_snapshot : string prop;
   storage_locations : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -89,7 +89,7 @@ val register :
   ?disk_size_gb:float prop ->
   ?family:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?project:string prop ->
   ?source_disk:string prop ->
@@ -109,7 +109,7 @@ val make :
   ?disk_size_gb:float prop ->
   ?family:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?licenses:string prop list ->
   ?project:string prop ->
   ?source_disk:string prop ->

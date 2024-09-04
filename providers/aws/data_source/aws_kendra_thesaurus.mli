@@ -13,7 +13,7 @@ type aws_kendra_thesaurus
 
 val aws_kendra_thesaurus :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   thesaurus_id:string prop ->
   unit ->
@@ -37,7 +37,7 @@ type t = private {
   source_s3_path : source_s3_path list prop;
   status : string prop;
   synonym_rule_count : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   term_count : float prop;
   thesaurus_id : string prop;
   updated_at : string prop;
@@ -46,7 +46,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   thesaurus_id:string prop ->
   string ->
@@ -54,7 +54,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   thesaurus_id:string prop ->
   string ->

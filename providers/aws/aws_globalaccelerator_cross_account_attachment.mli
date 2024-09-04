@@ -17,7 +17,7 @@ type aws_globalaccelerator_cross_account_attachment
 
 val aws_globalaccelerator_cross_account_attachment :
   ?principals:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   resource:resource list ->
   unit ->
@@ -36,14 +36,14 @@ type t = private {
   last_modified_time : string prop;
   name : string prop;
   principals : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?principals:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   resource:resource list ->
   string ->
@@ -51,7 +51,7 @@ val register :
 
 val make :
   ?principals:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   resource:resource list ->
   string ->

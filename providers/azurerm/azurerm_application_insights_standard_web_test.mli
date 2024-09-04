@@ -58,7 +58,7 @@ val azurerm_application_insights_standard_web_test :
   ?frequency:float prop ->
   ?id:string prop ->
   ?retry_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
   ?validation_rules:validation_rules list ->
@@ -89,7 +89,7 @@ type t = private {
   resource_group_name : string prop;
   retry_enabled : bool prop;
   synthetic_monitor_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : float prop;
 }
 
@@ -100,7 +100,7 @@ val register :
   ?frequency:float prop ->
   ?id:string prop ->
   ?retry_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
   ?validation_rules:validation_rules list ->
@@ -119,7 +119,7 @@ val make :
   ?frequency:float prop ->
   ?id:string prop ->
   ?retry_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
   ?validation_rules:validation_rules list ->

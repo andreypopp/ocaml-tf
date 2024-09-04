@@ -370,9 +370,9 @@ type source_configuration__code_repository__code_configuration__code_configurati
   build_command : string prop option; [@option]
   port : string prop option; [@option]
   runtime : string prop;
-  runtime_environment_secrets : (string * string prop) list option;
+  runtime_environment_secrets : string prop Tf_core.assoc option;
       [@option]
-  runtime_environment_variables : (string * string prop) list option;
+  runtime_environment_variables : string prop Tf_core.assoc option;
       [@option]
   start_command : string prop option; [@option]
 }
@@ -411,12 +411,8 @@ let yojson_of_source_configuration__code_repository__code_configuration__code_co
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "runtime_environment_variables", arg in
@@ -427,12 +423,8 @@ let yojson_of_source_configuration__code_repository__code_configuration__code_co
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "runtime_environment_secrets", arg in
@@ -621,9 +613,9 @@ let _ = yojson_of_source_configuration__code_repository
 
 type source_configuration__image_repository__image_configuration = {
   port : string prop option; [@option]
-  runtime_environment_secrets : (string * string prop) list option;
+  runtime_environment_secrets : string prop Tf_core.assoc option;
       [@option]
-  runtime_environment_variables : (string * string prop) list option;
+  runtime_environment_variables : string prop Tf_core.assoc option;
       [@option]
   start_command : string prop option; [@option]
 }
@@ -660,12 +652,8 @@ let yojson_of_source_configuration__image_repository__image_configuration
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "runtime_environment_variables", arg in
@@ -676,12 +664,8 @@ let yojson_of_source_configuration__image_repository__image_configuration
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "runtime_environment_secrets", arg in
@@ -833,8 +817,8 @@ type aws_apprunner_service = {
   auto_scaling_configuration_arn : string prop option; [@option]
   id : string prop option; [@option]
   service_name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   encryption_configuration : encryption_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   health_check_configuration : health_check_configuration list;
@@ -936,12 +920,8 @@ let yojson_of_aws_apprunner_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -952,12 +932,8 @@ let yojson_of_aws_apprunner_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1122,8 +1098,8 @@ type t = {
   service_name : string prop;
   service_url : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?auto_scaling_configuration_arn ?id ?tags ?tags_all

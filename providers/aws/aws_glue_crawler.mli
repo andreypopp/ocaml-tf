@@ -123,8 +123,8 @@ val aws_glue_crawler :
   ?schedule:string prop ->
   ?security_configuration:string prop ->
   ?table_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?catalog_target:catalog_target list ->
   ?delta_target:delta_target list ->
   ?dynamodb_target:dynamodb_target list ->
@@ -160,8 +160,8 @@ type t = private {
   schedule : string prop;
   security_configuration : string prop;
   table_prefix : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -173,8 +173,8 @@ val register :
   ?schedule:string prop ->
   ?security_configuration:string prop ->
   ?table_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?catalog_target:catalog_target list ->
   ?delta_target:delta_target list ->
   ?dynamodb_target:dynamodb_target list ->
@@ -201,8 +201,8 @@ val make :
   ?schedule:string prop ->
   ?security_configuration:string prop ->
   ?table_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?catalog_target:catalog_target list ->
   ?delta_target:delta_target list ->
   ?dynamodb_target:dynamodb_target list ->

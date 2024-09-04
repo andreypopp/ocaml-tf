@@ -65,7 +65,7 @@ val azurerm_media_streaming_endpoint :
   ?description:string prop ->
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_control:access_control list ->
   ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->
@@ -99,7 +99,7 @@ type t = private {
   resource_group_name : string prop;
   scale_units : float prop;
   sku : sku list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -112,7 +112,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_control:access_control list ->
   ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->
@@ -133,7 +133,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?access_control:access_control list ->
   ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->

@@ -888,7 +888,7 @@ let _ =
 [@@@deriving.end]
 
 type closing_setting__conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     closing_setting__conditional__conditional_branch__next_step__dialog_action
     list;
@@ -943,12 +943,8 @@ let yojson_of_closing_setting__conditional__conditional_branch__next_step
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -1902,7 +1898,7 @@ let _ =
 [@@@deriving.end]
 
 type closing_setting__conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     closing_setting__conditional__default_branch__next_step__dialog_action
     list;
@@ -1956,12 +1952,8 @@ let yojson_of_closing_setting__conditional__default_branch__next_step
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -2923,7 +2915,7 @@ let _ = yojson_of_closing_setting__next_step__intent
 [@@@deriving.end]
 
 type closing_setting__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action : closing_setting__next_step__dialog_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   intent : closing_setting__next_step__intent list;
@@ -2970,12 +2962,8 @@ let yojson_of_closing_setting__next_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -3284,7 +3272,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -3339,12 +3327,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -4306,7 +4290,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
@@ -4361,12 +4345,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -5367,7 +5347,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__failure_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list;
@@ -5422,12 +5402,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -6341,7 +6317,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -6396,12 +6372,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -7363,7 +7335,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list;
@@ -7418,12 +7390,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -8424,7 +8392,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__success_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list;
@@ -8479,12 +8447,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -9398,7 +9362,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -9453,12 +9417,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -10420,7 +10380,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
@@ -10475,12 +10435,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -11481,7 +11437,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list;
@@ -11536,12 +11492,8 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -12687,7 +12639,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__confirmation_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -12742,12 +12694,8 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -13709,7 +13657,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__confirmation_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
     list;
@@ -13764,12 +13712,8 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__ne
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -14761,7 +14705,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__confirmation_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__confirmation_next_step__dialog_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -14809,12 +14753,8 @@ let yojson_of_confirmation_setting__confirmation_next_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -15720,7 +15660,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__declination_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -15775,12 +15715,8 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -16742,7 +16678,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__declination_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
     list;
@@ -16797,12 +16733,8 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__nex
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -17791,7 +17723,7 @@ let _ = yojson_of_confirmation_setting__declination_next_step__intent
 [@@@deriving.end]
 
 type confirmation_setting__declination_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__declination_next_step__dialog_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -17839,12 +17771,8 @@ let yojson_of_confirmation_setting__declination_next_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -18791,7 +18719,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -18846,12 +18774,8 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__nex
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -19813,7 +19737,7 @@ let _ =
 [@@@deriving.end]
 
 type confirmation_setting__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
     list;
@@ -19868,12 +19792,8 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__next_st
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -20857,7 +20777,7 @@ let _ = yojson_of_confirmation_setting__failure_next_step__intent
 [@@@deriving.end]
 
 type confirmation_setting__failure_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     confirmation_setting__failure_next_step__dialog_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -20905,12 +20825,8 @@ let yojson_of_confirmation_setting__failure_next_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -24502,7 +24418,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -24557,12 +24473,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -25524,7 +25436,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
@@ -25579,12 +25491,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -26585,7 +26493,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
     list;
@@ -26640,12 +26548,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -27559,7 +27463,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -27614,12 +27518,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -28581,7 +28481,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
     list;
@@ -28636,12 +28536,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -29642,7 +29538,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__success_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
     list;
@@ -29697,12 +29593,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -30616,7 +30508,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -30671,12 +30563,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -31638,7 +31526,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
@@ -31693,12 +31581,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -32699,7 +32583,7 @@ let _ =
 [@@@deriving.end]
 
 type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
     list;
@@ -32754,12 +32638,8 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -33913,7 +33793,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -33968,12 +33848,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -34935,7 +34811,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
@@ -34990,12 +34866,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -35996,7 +35868,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__failure_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list;
@@ -36051,12 +35923,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -36970,7 +36838,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -37025,12 +36893,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -37992,7 +37856,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list;
@@ -38047,12 +37911,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -39053,7 +38913,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__success_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list;
@@ -39108,12 +38968,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -40027,7 +39883,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
@@ -40082,12 +39938,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -41049,7 +40901,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
@@ -41104,12 +40956,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -42110,7 +41958,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list;
@@ -42165,12 +42013,8 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -43316,7 +43160,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__conditional__conditional_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__conditional__conditional_branch__next_step__dialog_action
     list;
@@ -43371,12 +43215,8 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__next_st
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -44337,7 +44177,7 @@ let _ =
 [@@@deriving.end]
 
 type initial_response_setting__conditional__default_branch__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__conditional__default_branch__next_step__dialog_action
     list;
@@ -44392,12 +44232,8 @@ let yojson_of_initial_response_setting__conditional__default_branch__next_step
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in
@@ -46038,7 +45874,7 @@ let _ = yojson_of_initial_response_setting__next_step__intent
 [@@@deriving.end]
 
 type initial_response_setting__next_step = {
-  session_attributes : (string * string prop) list option; [@option]
+  session_attributes : string prop Tf_core.assoc option; [@option]
   dialog_action :
     initial_response_setting__next_step__dialog_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -46086,12 +45922,8 @@ let yojson_of_initial_response_setting__next_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "session_attributes", arg in

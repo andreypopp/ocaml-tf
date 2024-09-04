@@ -106,7 +106,7 @@ type t = {
   framework_type : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ~framework_type ~name ~control_sets __id =

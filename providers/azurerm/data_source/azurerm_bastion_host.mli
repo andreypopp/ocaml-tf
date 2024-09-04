@@ -42,7 +42,7 @@ type t = private {
   scale_units : float prop;
   shareable_link_enabled : bool prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tunneling_enabled : bool prop;
 }
 

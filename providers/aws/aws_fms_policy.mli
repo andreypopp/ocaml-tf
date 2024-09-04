@@ -64,11 +64,11 @@ val aws_fms_policy :
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
   ?resource_set_ids:string prop list ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?exclude_map:exclude_map list ->
   ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->
@@ -93,11 +93,11 @@ type t = private {
   policy_update_token : string prop;
   remediation_enabled : bool prop;
   resource_set_ids : string list prop;
-  resource_tags : (string * string) list prop;
+  resource_tags : string Tf_core.assoc prop;
   resource_type : string prop;
   resource_type_list : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -108,11 +108,11 @@ val register :
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
   ?resource_set_ids:string prop list ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?exclude_map:exclude_map list ->
   ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->
@@ -128,11 +128,11 @@ val make :
   ?id:string prop ->
   ?remediation_enabled:bool prop ->
   ?resource_set_ids:string prop list ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?resource_type:string prop ->
   ?resource_type_list:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?exclude_map:exclude_map list ->
   ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->

@@ -31,7 +31,7 @@ val azurerm_key_vault_managed_hardware_security_module :
   ?security_domain_key_vault_certificate_ids:string prop list ->
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->
@@ -63,7 +63,7 @@ type t = private {
   security_domain_quorum : float prop;
   sku_name : string prop;
   soft_delete_retention_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 
@@ -75,7 +75,7 @@ val register :
   ?security_domain_key_vault_certificate_ids:string prop list ->
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->
@@ -94,7 +94,7 @@ val make :
   ?security_domain_key_vault_certificate_ids:string prop list ->
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->

@@ -36,7 +36,7 @@ type azurerm_sql_server
 val azurerm_sql_server :
   ?connection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
@@ -63,7 +63,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -71,7 +71,7 @@ val register :
   ?tf_module:tf_module ->
   ?connection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
@@ -87,7 +87,7 @@ val register :
 val make :
   ?connection_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->

@@ -135,7 +135,7 @@ val azurerm_cosmosdb_account :
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?analytical_storage:analytical_storage list ->
   ?backup:backup list ->
   ?capacity:capacity list ->
@@ -202,7 +202,7 @@ type t = private {
   secondary_readonly_mongodb_connection_string : string prop;
   secondary_readonly_sql_connection_string : string prop;
   secondary_sql_connection_string : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   write_endpoints : string list prop;
 }
 
@@ -230,7 +230,7 @@ val register :
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?analytical_storage:analytical_storage list ->
   ?backup:backup list ->
   ?capacity:capacity list ->
@@ -272,7 +272,7 @@ val make :
   ?network_acl_bypass_ids:string prop list ->
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?analytical_storage:analytical_storage list ->
   ?backup:backup list ->
   ?capacity:capacity list ->

@@ -40,7 +40,7 @@ type node_pool = {
   actual_node_count : float prop;  (** actual_node_count *)
   auto_scale : bool prop;  (** auto_scale *)
   id : string prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   max_nodes : float prop;  (** max_nodes *)
   min_nodes : float prop;  (** min_nodes *)
   name : string prop;  (** name *)

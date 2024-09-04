@@ -20,8 +20,8 @@ val aws_datasync_location_efs :
   ?id:string prop ->
   ?in_transit_encryption:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   efs_file_system_arn:string prop ->
   ec2_config:ec2_config list ->
   unit ->
@@ -41,8 +41,8 @@ type t = private {
   id : string prop;
   in_transit_encryption : string prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -53,8 +53,8 @@ val register :
   ?id:string prop ->
   ?in_transit_encryption:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   efs_file_system_arn:string prop ->
   ec2_config:ec2_config list ->
   string ->
@@ -66,8 +66,8 @@ val make :
   ?id:string prop ->
   ?in_transit_encryption:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   efs_file_system_arn:string prop ->
   ec2_config:ec2_config list ->
   string ->

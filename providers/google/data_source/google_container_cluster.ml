@@ -2325,7 +2325,7 @@ let _ = yojson_of_node_config__local_nvme_ssd_block_config
 
 type node_config__linux_node_config = {
   cgroup_mode : string prop;
-  sysctls : (string * string prop) list;
+  sysctls : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -2339,12 +2339,8 @@ let yojson_of_node_config__linux_node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_sysctls
          in
          ("sysctls", arg) :: bnds
@@ -2979,7 +2975,7 @@ type node_config = {
   image_type : string prop;
   kubelet_config : node_config__kubelet_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   linux_node_config : node_config__linux_node_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   local_nvme_ssd_block_config :
@@ -2988,7 +2984,7 @@ type node_config = {
   local_ssd_count : float prop;
   logging_variant : string prop;
   machine_type : string prop;
-  metadata : (string * string prop) list;
+  metadata : string prop Tf_core.assoc;
   min_cpu_platform : string prop;
   node_group : string prop;
   oauth_scopes : string prop list;
@@ -2996,8 +2992,8 @@ type node_config = {
   preemptible : bool prop;
   reservation_affinity : node_config__reservation_affinity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  resource_labels : (string * string prop) list;
-  resource_manager_tags : (string * string prop) list;
+  resource_labels : string prop Tf_core.assoc;
+  resource_manager_tags : string prop Tf_core.assoc;
   secondary_boot_disks : node_config__secondary_boot_disks list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   service_account : string prop;
@@ -3140,24 +3136,16 @@ let yojson_of_node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_manager_tags
          in
          ("resource_manager_tags", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_labels
          in
          ("resource_labels", arg) :: bnds
@@ -3199,12 +3187,8 @@ let yojson_of_node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_metadata
          in
          ("metadata", arg) :: bnds
@@ -3248,12 +3232,8 @@ let yojson_of_node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -3906,7 +3886,7 @@ let _ = yojson_of_node_pool__node_config__local_nvme_ssd_block_config
 
 type node_pool__node_config__linux_node_config = {
   cgroup_mode : string prop;
-  sysctls : (string * string prop) list;
+  sysctls : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -3920,12 +3900,8 @@ let yojson_of_node_pool__node_config__linux_node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_sysctls
          in
          ("sysctls", arg) :: bnds
@@ -4576,7 +4552,7 @@ type node_pool__node_config = {
   image_type : string prop;
   kubelet_config : node_pool__node_config__kubelet_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   linux_node_config : node_pool__node_config__linux_node_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   local_nvme_ssd_block_config :
@@ -4585,7 +4561,7 @@ type node_pool__node_config = {
   local_ssd_count : float prop;
   logging_variant : string prop;
   machine_type : string prop;
-  metadata : (string * string prop) list;
+  metadata : string prop Tf_core.assoc;
   min_cpu_platform : string prop;
   node_group : string prop;
   oauth_scopes : string prop list;
@@ -4594,8 +4570,8 @@ type node_pool__node_config = {
   reservation_affinity :
     node_pool__node_config__reservation_affinity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  resource_labels : (string * string prop) list;
-  resource_manager_tags : (string * string prop) list;
+  resource_labels : string prop Tf_core.assoc;
+  resource_manager_tags : string prop Tf_core.assoc;
   secondary_boot_disks :
     node_pool__node_config__secondary_boot_disks list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -4741,24 +4717,16 @@ let yojson_of_node_pool__node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_manager_tags
          in
          ("resource_manager_tags", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_labels
          in
          ("resource_labels", arg) :: bnds
@@ -4800,12 +4768,8 @@ let yojson_of_node_pool__node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_metadata
          in
          ("metadata", arg) :: bnds
@@ -4850,12 +4814,8 @@ let yojson_of_node_pool__node_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -5466,7 +5426,7 @@ let _ = yojson_of_node_pool_auto_config__network_tags
 type node_pool_auto_config = {
   network_tags : node_pool_auto_config__network_tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -5483,12 +5443,8 @@ let yojson_of_node_pool_auto_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_resource_manager_tags
          in
          ("resource_manager_tags", arg) :: bnds
@@ -6317,7 +6273,7 @@ type t = {
   project : string prop;
   release_channel : release_channel list prop;
   remove_default_node_pool : bool prop;
-  resource_labels : (string * string) list prop;
+  resource_labels : string Tf_core.assoc prop;
   resource_usage_export_config :
     resource_usage_export_config list prop;
   security_posture_config : security_posture_config list prop;

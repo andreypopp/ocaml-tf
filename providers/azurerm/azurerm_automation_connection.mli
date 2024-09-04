@@ -24,7 +24,7 @@ val azurerm_automation_connection :
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  values:(string * string prop) list ->
+  values:string prop Tf_core.assoc ->
   unit ->
   azurerm_automation_connection
 
@@ -41,7 +41,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   type_ : string prop;
-  values : (string * string) list prop;
+  values : string Tf_core.assoc prop;
 }
 
 val register :
@@ -53,7 +53,7 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  values:(string * string prop) list ->
+  values:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -65,6 +65,6 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  values:(string * string prop) list ->
+  values:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

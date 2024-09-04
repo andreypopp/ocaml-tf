@@ -23,8 +23,8 @@ val aws_nat_gateway :
   ?secondary_allocation_ids:string prop list ->
   ?secondary_private_ip_address_count:float prop ->
   ?secondary_private_ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   subnet_id:string prop ->
   unit ->
@@ -47,8 +47,8 @@ type t = private {
   secondary_private_ip_address_count : float prop;
   secondary_private_ip_addresses : string list prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,8 +60,8 @@ val register :
   ?secondary_allocation_ids:string prop list ->
   ?secondary_private_ip_address_count:float prop ->
   ?secondary_private_ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   subnet_id:string prop ->
   string ->
@@ -75,8 +75,8 @@ val make :
   ?secondary_allocation_ids:string prop list ->
   ?secondary_private_ip_address_count:float prop ->
   ?secondary_private_ip_addresses:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   subnet_id:string prop ->
   string ->

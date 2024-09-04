@@ -8,8 +8,8 @@ type aws_redshift_hsm_client_certificate
 
 val aws_redshift_hsm_client_certificate :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   hsm_client_certificate_identifier:string prop ->
   unit ->
   aws_redshift_hsm_client_certificate
@@ -25,23 +25,23 @@ type t = private {
   hsm_client_certificate_identifier : string prop;
   hsm_client_certificate_public_key : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   hsm_client_certificate_identifier:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   hsm_client_certificate_identifier:string prop ->
   string ->
   t Tf_core.resource

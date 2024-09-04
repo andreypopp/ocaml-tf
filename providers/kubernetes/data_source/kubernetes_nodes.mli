@@ -27,8 +27,8 @@ type nodes__status = {
   addresses : nodes__status__addresses list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** addresses *)
-  allocatable : (string * string prop) list;  (** allocatable *)
-  capacity : (string * string prop) list;  (** capacity *)
+  allocatable : string prop Tf_core.assoc;  (** allocatable *)
+  capacity : string prop Tf_core.assoc;  (** capacity *)
   node_info : nodes__status__node_info list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** node_info *)
@@ -53,9 +53,9 @@ type nodes__spec = {
 }
 
 type nodes__metadata = {
-  annotations : (string * string prop) list;  (** annotations *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
   generation : float prop;  (** generation *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   resource_version : string prop;  (** resource_version *)
   uid : string prop;  (** uid *)
@@ -75,7 +75,7 @@ type nodes = {
 
 type metadata
 
-val metadata : labels:(string * string prop) list -> unit -> metadata
+val metadata : labels:string prop Tf_core.assoc -> unit -> metadata
 
 type kubernetes_nodes
 

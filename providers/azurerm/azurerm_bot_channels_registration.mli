@@ -29,7 +29,7 @@ val azurerm_bot_channels_registration :
   ?isolated_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?streaming_endpoint_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->
@@ -63,7 +63,7 @@ type t = private {
   resource_group_name : string prop;
   sku : string prop;
   streaming_endpoint_enabled : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -80,7 +80,7 @@ val register :
   ?isolated_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?streaming_endpoint_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->
@@ -103,7 +103,7 @@ val make :
   ?isolated_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?streaming_endpoint_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->

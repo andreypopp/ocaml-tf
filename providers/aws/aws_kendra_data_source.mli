@@ -268,8 +268,8 @@ val aws_kendra_data_source :
   ?language_code:string prop ->
   ?role_arn:string prop ->
   ?schedule:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?custom_document_enrichment_configuration:
     custom_document_enrichment_configuration list ->
@@ -298,8 +298,8 @@ type t = private {
   role_arn : string prop;
   schedule : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   updated_at : string prop;
 }
@@ -311,8 +311,8 @@ val register :
   ?language_code:string prop ->
   ?role_arn:string prop ->
   ?schedule:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?custom_document_enrichment_configuration:
     custom_document_enrichment_configuration list ->
@@ -329,8 +329,8 @@ val make :
   ?language_code:string prop ->
   ?role_arn:string prop ->
   ?schedule:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?custom_document_enrichment_configuration:
     custom_document_enrichment_configuration list ->

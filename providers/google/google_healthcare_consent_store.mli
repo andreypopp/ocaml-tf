@@ -19,7 +19,7 @@ val google_healthcare_consent_store :
   ?default_consent_ttl:string prop ->
   ?enable_consent_create_on_update:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
@@ -35,12 +35,12 @@ type t = private {
   tf_name : string;
   dataset : string prop;
   default_consent_ttl : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_consent_create_on_update : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -48,7 +48,7 @@ val register :
   ?default_consent_ttl:string prop ->
   ?enable_consent_create_on_update:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
@@ -59,7 +59,7 @@ val make :
   ?default_consent_ttl:string prop ->
   ?enable_consent_create_on_update:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->

@@ -414,7 +414,7 @@ type node_config__local_nvme_ssd_block_config = {
 
 type node_config__linux_node_config = {
   cgroup_mode : string prop;  (** cgroup_mode *)
-  sysctls : (string * string prop) list;  (** sysctls *)
+  sysctls : string prop Tf_core.assoc;  (** sysctls *)
 }
 
 type node_config__kubelet_config = {
@@ -558,7 +558,7 @@ type node_config = {
   kubelet_config : node_config__kubelet_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kubelet_config *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   linux_node_config : node_config__linux_node_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux_node_config *)
@@ -569,7 +569,7 @@ type node_config = {
   local_ssd_count : float prop;  (** local_ssd_count *)
   logging_variant : string prop;  (** logging_variant *)
   machine_type : string prop;  (** machine_type *)
-  metadata : (string * string prop) list;  (** metadata *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
   min_cpu_platform : string prop;  (** min_cpu_platform *)
   node_group : string prop;  (** node_group *)
   oauth_scopes : string prop list;
@@ -579,9 +579,9 @@ type node_config = {
   reservation_affinity : node_config__reservation_affinity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** reservation_affinity *)
-  resource_labels : (string * string prop) list;
+  resource_labels : string prop Tf_core.assoc;
       (** resource_labels *)
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
   secondary_boot_disks : node_config__secondary_boot_disks list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -694,7 +694,7 @@ type node_pool__node_config__local_nvme_ssd_block_config = {
 
 type node_pool__node_config__linux_node_config = {
   cgroup_mode : string prop;  (** cgroup_mode *)
-  sysctls : (string * string prop) list;  (** sysctls *)
+  sysctls : string prop Tf_core.assoc;  (** sysctls *)
 }
 
 type node_pool__node_config__kubelet_config = {
@@ -842,7 +842,7 @@ type node_pool__node_config = {
   kubelet_config : node_pool__node_config__kubelet_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kubelet_config *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   linux_node_config : node_pool__node_config__linux_node_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** linux_node_config *)
@@ -853,7 +853,7 @@ type node_pool__node_config = {
   local_ssd_count : float prop;  (** local_ssd_count *)
   logging_variant : string prop;  (** logging_variant *)
   machine_type : string prop;  (** machine_type *)
-  metadata : (string * string prop) list;  (** metadata *)
+  metadata : string prop Tf_core.assoc;  (** metadata *)
   min_cpu_platform : string prop;  (** min_cpu_platform *)
   node_group : string prop;  (** node_group *)
   oauth_scopes : string prop list;
@@ -864,9 +864,9 @@ type node_pool__node_config = {
     node_pool__node_config__reservation_affinity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** reservation_affinity *)
-  resource_labels : (string * string prop) list;
+  resource_labels : string prop Tf_core.assoc;
       (** resource_labels *)
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
   secondary_boot_disks :
     node_pool__node_config__secondary_boot_disks list;
@@ -980,7 +980,7 @@ type node_pool_auto_config = {
   network_tags : node_pool_auto_config__network_tags list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** network_tags *)
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
 }
 
@@ -1185,7 +1185,7 @@ type t = private {
   project : string prop;
   release_channel : release_channel list prop;
   remove_default_node_pool : bool prop;
-  resource_labels : (string * string) list prop;
+  resource_labels : string Tf_core.assoc prop;
   resource_usage_export_config :
     resource_usage_export_config list prop;
   security_posture_config : security_posture_config list prop;

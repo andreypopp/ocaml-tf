@@ -3,9 +3,9 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -46,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -70,12 +66,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -166,7 +158,7 @@ let _ = yojson_of_spec__scope_selector
 [@@@deriving.end]
 
 type spec = {
-  hard : (string * string prop) list option; [@option]
+  hard : string prop Tf_core.assoc option; [@option]
   scopes : string prop list option; [@option]
   scope_selector : spec__scope_selector list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -210,12 +202,8 @@ let yojson_of_spec =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "hard", arg in

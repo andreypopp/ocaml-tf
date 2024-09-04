@@ -26,7 +26,7 @@ type aws_appmesh_mesh
 val aws_appmesh_mesh :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_appmesh_mesh
@@ -45,14 +45,14 @@ type t = private {
   name : string prop;
   resource_owner : string prop;
   spec : spec list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
@@ -60,7 +60,7 @@ val register :
 val make :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

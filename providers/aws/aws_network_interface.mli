@@ -33,8 +33,8 @@ val aws_network_interface :
   ?private_ips_count:float prop ->
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_id:string prop ->
   attachment:attachment list ->
   unit ->
@@ -70,8 +70,8 @@ type t = private {
   security_groups : string list prop;
   source_dest_check : bool prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -94,8 +94,8 @@ val register :
   ?private_ips_count:float prop ->
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_id:string prop ->
   attachment:attachment list ->
   string ->
@@ -120,8 +120,8 @@ val make :
   ?private_ips_count:float prop ->
   ?security_groups:string prop list ->
   ?source_dest_check:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   subnet_id:string prop ->
   attachment:attachment list ->
   string ->

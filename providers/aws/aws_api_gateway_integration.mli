@@ -21,8 +21,8 @@ val aws_api_gateway_integration :
   ?id:string prop ->
   ?integration_http_method:string prop ->
   ?passthrough_behavior:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
   ?tls_config:tls_config list ->
@@ -50,8 +50,8 @@ type t = private {
   id : string prop;
   integration_http_method : string prop;
   passthrough_behavior : string prop;
-  request_parameters : (string * string) list prop;
-  request_templates : (string * string) list prop;
+  request_parameters : string Tf_core.assoc prop;
+  request_templates : string Tf_core.assoc prop;
   resource_id : string prop;
   rest_api_id : string prop;
   timeout_milliseconds : float prop;
@@ -70,8 +70,8 @@ val register :
   ?id:string prop ->
   ?integration_http_method:string prop ->
   ?passthrough_behavior:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
   ?tls_config:tls_config list ->
@@ -92,8 +92,8 @@ val make :
   ?id:string prop ->
   ?integration_http_method:string prop ->
   ?passthrough_behavior:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
   ?tls_config:tls_config list ->

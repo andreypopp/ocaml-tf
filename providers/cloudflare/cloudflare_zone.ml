@@ -114,7 +114,7 @@ type t = {
   account_id : string prop;
   id : string prop;
   jump_start : bool prop;
-  meta : (string * bool) list prop;
+  meta : bool Tf_core.assoc prop;
   name_servers : string list prop;
   paused : bool prop;
   plan : string prop;

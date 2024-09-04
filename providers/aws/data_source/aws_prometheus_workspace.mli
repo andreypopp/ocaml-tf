@@ -8,7 +8,7 @@ type aws_prometheus_workspace
 
 val aws_prometheus_workspace :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   unit ->
   aws_prometheus_workspace
@@ -27,21 +27,21 @@ type t = private {
   kms_key_arn : string prop;
   prometheus_endpoint : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   string ->
   t Tf_core.resource

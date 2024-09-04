@@ -24,8 +24,8 @@ val aws_ec2_transit_gateway :
   ?dns_support:string prop ->
   ?id:string prop ->
   ?multicast_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_cidr_blocks:string prop list ->
   ?vpn_ecmp_support:string prop ->
   ?timeouts:timeouts ->
@@ -51,8 +51,8 @@ type t = private {
   multicast_support : string prop;
   owner_id : string prop;
   propagation_default_route_table_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_cidr_blocks : string list prop;
   vpn_ecmp_support : string prop;
 }
@@ -67,8 +67,8 @@ val register :
   ?dns_support:string prop ->
   ?id:string prop ->
   ?multicast_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_cidr_blocks:string prop list ->
   ?vpn_ecmp_support:string prop ->
   ?timeouts:timeouts ->
@@ -84,8 +84,8 @@ val make :
   ?dns_support:string prop ->
   ?id:string prop ->
   ?multicast_support:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_gateway_cidr_blocks:string prop list ->
   ?vpn_ecmp_support:string prop ->
   ?timeouts:timeouts ->

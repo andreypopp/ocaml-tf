@@ -9,7 +9,7 @@ type dead_letter_config = {
 }
 
 type environment = {
-  variables : (string * string prop) list;  (** variables *)
+  variables : string prop Tf_core.assoc;  (** variables *)
 }
 
 type ephemeral_storage = { size : float prop  (** size *) }
@@ -45,7 +45,7 @@ type aws_lambda_function
 val aws_lambda_function :
   ?id:string prop ->
   ?qualifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   function_name:string prop ->
   unit ->
   aws_lambda_function
@@ -85,7 +85,7 @@ type t = private {
   signing_profile_version_arn : string prop;
   source_code_hash : string prop;
   source_code_size : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : float prop;
   tracing_config : tracing_config list prop;
   version : string prop;
@@ -96,7 +96,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?qualifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   function_name:string prop ->
   string ->
   t
@@ -104,7 +104,7 @@ val register :
 val make :
   ?id:string prop ->
   ?qualifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   function_name:string prop ->
   string ->
   t Tf_core.resource

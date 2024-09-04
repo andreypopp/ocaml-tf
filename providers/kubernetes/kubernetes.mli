@@ -8,7 +8,7 @@ type exec
 
 val exec :
   ?args:string prop list ->
-  ?env:(string * string prop) list ->
+  ?env:string prop Tf_core.assoc ->
   api_version:string prop ->
   command:string prop ->
   unit ->

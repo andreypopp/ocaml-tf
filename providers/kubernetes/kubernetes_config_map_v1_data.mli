@@ -17,7 +17,7 @@ val kubernetes_config_map_v1_data :
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  data:(string * string prop) list ->
+  data:string prop Tf_core.assoc ->
   metadata:metadata list ->
   unit ->
   kubernetes_config_map_v1_data
@@ -29,7 +29,7 @@ val yojson_of_kubernetes_config_map_v1_data :
 
 type t = private {
   tf_name : string;
-  data : (string * string) list prop;
+  data : string Tf_core.assoc prop;
   field_manager : string prop;
   force : bool prop;
   id : string prop;
@@ -40,7 +40,7 @@ val register :
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  data:(string * string prop) list ->
+  data:string prop Tf_core.assoc ->
   metadata:metadata list ->
   string ->
   t
@@ -49,7 +49,7 @@ val make :
   ?field_manager:string prop ->
   ?force:bool prop ->
   ?id:string prop ->
-  data:(string * string prop) list ->
+  data:string prop Tf_core.assoc ->
   metadata:metadata list ->
   string ->
   t Tf_core.resource

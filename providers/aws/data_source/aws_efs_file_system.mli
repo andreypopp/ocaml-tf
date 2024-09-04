@@ -21,7 +21,7 @@ val aws_efs_file_system :
   ?creation_token:string prop ->
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_efs_file_system
 
@@ -46,7 +46,7 @@ type t = private {
   protection : protection list prop;
   provisioned_throughput_in_mibps : float prop;
   size_in_bytes : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throughput_mode : string prop;
 }
 
@@ -55,7 +55,7 @@ val register :
   ?creation_token:string prop ->
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -63,6 +63,6 @@ val make :
   ?creation_token:string prop ->
   ?file_system_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

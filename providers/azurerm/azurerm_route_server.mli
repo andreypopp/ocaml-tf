@@ -19,7 +19,7 @@ type azurerm_route_server
 val azurerm_route_server :
   ?branch_to_branch_traffic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   routing_state : string prop;
   sku : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_router_asn : float prop;
   virtual_router_ips : string list prop;
 }
@@ -54,7 +54,7 @@ val register :
   ?tf_module:tf_module ->
   ?branch_to_branch_traffic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -68,7 +68,7 @@ val register :
 val make :
   ?branch_to_branch_traffic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

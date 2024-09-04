@@ -19,7 +19,7 @@ type azurerm_automation_webhook
 val azurerm_automation_webhook :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on_worker_group:string prop ->
   ?uri:string prop ->
   ?timeouts:timeouts ->
@@ -43,7 +43,7 @@ type t = private {
   expiry_time : string prop;
   id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_group_name : string prop;
   run_on_worker_group : string prop;
   runbook_name : string prop;
@@ -54,7 +54,7 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on_worker_group:string prop ->
   ?uri:string prop ->
   ?timeouts:timeouts ->
@@ -69,7 +69,7 @@ val register :
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on_worker_group:string prop ->
   ?uri:string prop ->
   ?timeouts:timeouts ->

@@ -70,7 +70,7 @@ type azurerm_sql_managed_instance = {
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -98,12 +98,8 @@ let yojson_of_azurerm_sql_managed_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -160,7 +156,7 @@ type t = {
   storage_account_type : string prop;
   storage_size_in_gb : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone_id : string prop;
   vcores : float prop;
 }

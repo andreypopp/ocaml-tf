@@ -72,7 +72,7 @@ val azurerm_cognitive_account :
   ?outbound_network_access_restricted:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->
   ?network_acls:network_acls list ->
@@ -115,7 +115,7 @@ type t = private {
   resource_group_name : string prop;
   secondary_access_key : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -134,7 +134,7 @@ val register :
   ?outbound_network_access_restricted:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->
   ?network_acls:network_acls list ->
@@ -163,7 +163,7 @@ val make :
   ?outbound_network_access_restricted:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?customer_managed_key:customer_managed_key list ->
   ?identity:identity list ->
   ?network_acls:network_acls list ->

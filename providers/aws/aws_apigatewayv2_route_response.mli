@@ -9,7 +9,7 @@ type aws_apigatewayv2_route_response
 val aws_apigatewayv2_route_response :
   ?id:string prop ->
   ?model_selection_expression:string prop ->
-  ?response_models:(string * string prop) list ->
+  ?response_models:string prop Tf_core.assoc ->
   api_id:string prop ->
   route_id:string prop ->
   route_response_key:string prop ->
@@ -26,7 +26,7 @@ type t = private {
   api_id : string prop;
   id : string prop;
   model_selection_expression : string prop;
-  response_models : (string * string) list prop;
+  response_models : string Tf_core.assoc prop;
   route_id : string prop;
   route_response_key : string prop;
 }
@@ -35,7 +35,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?model_selection_expression:string prop ->
-  ?response_models:(string * string prop) list ->
+  ?response_models:string prop Tf_core.assoc ->
   api_id:string prop ->
   route_id:string prop ->
   route_response_key:string prop ->
@@ -45,7 +45,7 @@ val register :
 val make :
   ?id:string prop ->
   ?model_selection_expression:string prop ->
-  ?response_models:(string * string prop) list ->
+  ?response_models:string prop Tf_core.assoc ->
   api_id:string prop ->
   route_id:string prop ->
   route_response_key:string prop ->

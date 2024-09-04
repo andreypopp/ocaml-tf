@@ -294,7 +294,7 @@ type tag_specifications
 
 val tag_specifications :
   ?resource_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   tag_specifications
 
@@ -316,8 +316,8 @@ val aws_launch_template :
   ?name_prefix:string prop ->
   ?ram_disk_id:string prop ->
   ?security_group_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
@@ -367,8 +367,8 @@ type t = private {
   name_prefix : string prop;
   ram_disk_id : string prop;
   security_group_names : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   update_default_version : bool prop;
   user_data : string prop;
   vpc_security_group_ids : string list prop;
@@ -391,8 +391,8 @@ val register :
   ?name_prefix:string prop ->
   ?ram_disk_id:string prop ->
   ?security_group_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
@@ -435,8 +435,8 @@ val make :
   ?name_prefix:string prop ->
   ?ram_disk_id:string prop ->
   ?security_group_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->

@@ -13,7 +13,7 @@ type aws_appconfig_configuration_profile
 
 val aws_appconfig_configuration_profile :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   configuration_profile_id:string prop ->
   unit ->
@@ -35,7 +35,7 @@ type t = private {
   location_uri : string prop;
   name : string prop;
   retrieval_role_arn : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   validator : validator list prop;
 }
@@ -43,7 +43,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   configuration_profile_id:string prop ->
   string ->
@@ -51,7 +51,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   configuration_profile_id:string prop ->
   string ->

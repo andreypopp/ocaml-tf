@@ -18,7 +18,7 @@ type azurerm_key_vault_managed_storage_account_sas_token_definition
 
 val azurerm_key_vault_managed_storage_account_sas_token_definition :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_storage_account_id:string prop ->
   name:string prop ->
@@ -42,14 +42,14 @@ type t = private {
   sas_template_uri : string prop;
   sas_type : string prop;
   secret_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   validity_period : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_storage_account_id:string prop ->
   name:string prop ->
@@ -61,7 +61,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   managed_storage_account_id:string prop ->
   name:string prop ->

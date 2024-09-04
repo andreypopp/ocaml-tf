@@ -26,9 +26,9 @@ type status = {
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -77,7 +77,7 @@ val spec :
   ?load_balancer_ip:string prop ->
   ?load_balancer_source_ranges:string prop list ->
   ?publish_not_ready_addresses:bool prop ->
-  ?selector:(string * string prop) list ->
+  ?selector:string prop Tf_core.assoc ->
   ?session_affinity:string prop ->
   ?type_:string prop ->
   ?port:spec__port list ->

@@ -70,7 +70,7 @@ val azurerm_media_services_account :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?key_delivery_access_control:key_delivery_access_control list ->
@@ -95,7 +95,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   storage_authentication_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -103,7 +103,7 @@ val register :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?key_delivery_access_control:key_delivery_access_control list ->
@@ -119,7 +119,7 @@ val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?key_delivery_access_control:key_delivery_access_control list ->

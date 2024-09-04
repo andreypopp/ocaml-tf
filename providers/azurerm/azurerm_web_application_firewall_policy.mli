@@ -149,7 +149,7 @@ type azurerm_web_application_firewall_policy
 
 val azurerm_web_application_firewall_policy :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rules:custom_rules list ->
   ?policy_settings:policy_settings list ->
   ?timeouts:timeouts ->
@@ -173,13 +173,13 @@ type t = private {
   name : string prop;
   path_based_rule_ids : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rules:custom_rules list ->
   ?policy_settings:policy_settings list ->
   ?timeouts:timeouts ->
@@ -192,7 +192,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?custom_rules:custom_rules list ->
   ?policy_settings:policy_settings list ->
   ?timeouts:timeouts ->

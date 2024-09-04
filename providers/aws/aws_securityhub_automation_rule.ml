@@ -134,7 +134,7 @@ type actions__finding_fields_update = {
   confidence : float prop option; [@option]
   criticality : float prop option; [@option]
   types : string prop list option; [@option]
-  user_defined_fields : (string * string prop) list option; [@option]
+  user_defined_fields : string prop Tf_core.assoc option; [@option]
   verification_state : string prop option; [@option]
   note : actions__finding_fields_update__note list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -223,12 +223,8 @@ let yojson_of_actions__finding_fields_update =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "user_defined_fields", arg in
@@ -2291,7 +2287,7 @@ type aws_securityhub_automation_rule = {
   rule_name : string prop;
   rule_order : float prop;
   rule_status : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   actions : actions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   criteria : criteria list;
@@ -2337,12 +2333,8 @@ let yojson_of_aws_securityhub_automation_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2663,8 +2655,8 @@ type t = {
   rule_name : string prop;
   rule_order : float prop;
   rule_status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?is_terminal ?rule_status ?tags ?(criteria = [])

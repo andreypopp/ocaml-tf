@@ -142,7 +142,7 @@ val azurerm_iothub :
   ?min_tls_version:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cloud_to_device:cloud_to_device list ->
   ?fallback_route:fallback_route list ->
   ?file_upload:file_upload list ->
@@ -181,7 +181,7 @@ type t = private {
   resource_group_name : string prop;
   route : route list prop;
   shared_access_policy : shared_access_policy list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -196,7 +196,7 @@ val register :
   ?min_tls_version:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cloud_to_device:cloud_to_device list ->
   ?fallback_route:fallback_route list ->
   ?file_upload:file_upload list ->
@@ -220,7 +220,7 @@ val make :
   ?min_tls_version:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cloud_to_device:cloud_to_device list ->
   ?fallback_route:fallback_route list ->
   ?file_upload:file_upload list ->

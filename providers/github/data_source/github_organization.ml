@@ -83,7 +83,7 @@ type t = {
   secret_scanning_push_protection_enabled_for_new_repositories :
     bool prop;
   two_factor_requirement_enabled : bool prop;
-  users : (string * string) list list prop;
+  users : string Tf_core.assoc list prop;
   web_commit_signoff_required : bool prop;
 }
 

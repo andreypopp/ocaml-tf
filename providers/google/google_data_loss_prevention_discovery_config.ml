@@ -1635,7 +1635,7 @@ let _ = yojson_of_timeouts
 
 type errors__details = {
   code : float prop;
-  details : (string * string prop) list list;
+  details : string prop Tf_core.assoc list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   message : string prop;
 }
@@ -1658,10 +1658,8 @@ let yojson_of_errors__details =
          else
            let arg =
              (yojson_of_list
-                (yojson_of_list (function v0, v1 ->
-                     let v0 = yojson_of_string v0
-                     and v1 = yojson_of_prop yojson_of_string v1 in
-                     `List [ v0; v1 ])))
+                (Tf_core.yojson_of_assoc
+                   (yojson_of_prop yojson_of_string)))
                v_details
            in
            let bnd = "details", arg in

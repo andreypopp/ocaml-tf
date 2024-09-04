@@ -16,8 +16,8 @@ val aws_lb_trust_store :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ca_certificates_bundle_s3_bucket:string prop ->
   ca_certificates_bundle_s3_key:string prop ->
@@ -38,8 +38,8 @@ type t = private {
   id : string prop;
   name : string prop;
   name_prefix : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -48,8 +48,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ca_certificates_bundle_s3_bucket:string prop ->
   ca_certificates_bundle_s3_key:string prop ->
@@ -61,8 +61,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   ca_certificates_bundle_s3_bucket:string prop ->
   ca_certificates_bundle_s3_key:string prop ->

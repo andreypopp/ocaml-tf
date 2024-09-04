@@ -51,7 +51,7 @@ type aws_sesv2_configuration_set
 
 val aws_sesv2_configuration_set :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   configuration_set_name:string prop ->
   unit ->
   aws_sesv2_configuration_set
@@ -70,7 +70,7 @@ type t = private {
   reputation_options : reputation_options list prop;
   sending_options : sending_options list prop;
   suppression_options : suppression_options list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tracking_options : tracking_options list prop;
   vdm_options : vdm_options list prop;
 }
@@ -78,14 +78,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   configuration_set_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   configuration_set_name:string prop ->
   string ->
   t Tf_core.resource

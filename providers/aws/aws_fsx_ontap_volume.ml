@@ -447,7 +447,7 @@ let _ = yojson_of_timeouts
 type aws_fsx_ontap_volume = {
   bypass_snaplock_enterprise_retention : bool prop option; [@option]
   copy_tags_to_backups : bool prop option; [@option]
-  final_backup_tags : (string * string prop) list option; [@option]
+  final_backup_tags : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   junction_path : string prop option; [@option]
   name : string prop;
@@ -459,8 +459,8 @@ type aws_fsx_ontap_volume = {
   snapshot_policy : string prop option; [@option]
   storage_efficiency_enabled : bool prop option; [@option]
   storage_virtual_machine_id : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   volume_style : string prop option; [@option]
   volume_type : string prop option; [@option]
   aggregate_configuration : aggregate_configuration list;
@@ -560,12 +560,8 @@ let yojson_of_aws_fsx_ontap_volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -576,12 +572,8 @@ let yojson_of_aws_fsx_ontap_volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -675,12 +667,8 @@ let yojson_of_aws_fsx_ontap_volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "final_backup_tags", arg in
@@ -796,7 +784,7 @@ type t = {
   bypass_snaplock_enterprise_retention : bool prop;
   copy_tags_to_backups : bool prop;
   file_system_id : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   flexcache_endpoint_type : string prop;
   id : string prop;
   junction_path : string prop;
@@ -809,8 +797,8 @@ type t = {
   snapshot_policy : string prop;
   storage_efficiency_enabled : bool prop;
   storage_virtual_machine_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uuid : string prop;
   volume_style : string prop;
   volume_type : string prop;

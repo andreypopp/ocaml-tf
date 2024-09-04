@@ -136,7 +136,7 @@ type t = {
   location : string prop;
   name : string prop;
   private_dns_resolver_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~private_dns_resolver_id __id =

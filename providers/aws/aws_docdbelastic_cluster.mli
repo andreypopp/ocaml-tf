@@ -19,7 +19,7 @@ val aws_docdbelastic_cluster :
   ?kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   admin_user_name:string prop ->
@@ -50,8 +50,8 @@ type t = private {
   shard_capacity : float prop;
   shard_count : float prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
@@ -60,7 +60,7 @@ val register :
   ?kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   admin_user_name:string prop ->
@@ -76,7 +76,7 @@ val make :
   ?kms_key_id:string prop ->
   ?preferred_maintenance_window:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
   admin_user_name:string prop ->

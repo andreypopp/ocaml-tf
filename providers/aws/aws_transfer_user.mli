@@ -32,8 +32,8 @@ val aws_transfer_user :
   ?home_directory_type:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?home_directory_mappings:home_directory_mappings list ->
   ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->
@@ -56,8 +56,8 @@ type t = private {
   policy : string prop;
   role : string prop;
   server_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_name : string prop;
 }
 
@@ -67,8 +67,8 @@ val register :
   ?home_directory_type:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?home_directory_mappings:home_directory_mappings list ->
   ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->
@@ -83,8 +83,8 @@ val make :
   ?home_directory_type:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?home_directory_mappings:home_directory_mappings list ->
   ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->

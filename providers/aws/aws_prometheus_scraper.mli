@@ -35,7 +35,7 @@ type aws_prometheus_scraper
 
 val aws_prometheus_scraper :
   ?alias:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination:destination list ->
   ?source:source list ->
   ?timeouts:timeouts ->
@@ -54,14 +54,14 @@ type t = private {
   id : string prop;
   role_arn : string prop;
   scrape_configuration : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?alias:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination:destination list ->
   ?source:source list ->
   ?timeouts:timeouts ->
@@ -71,7 +71,7 @@ val register :
 
 val make :
   ?alias:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination:destination list ->
   ?source:source list ->
   ?timeouts:timeouts ->

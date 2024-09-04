@@ -49,7 +49,7 @@ type push_config__no_wrapper = {
 }
 
 type push_config = {
-  attributes : (string * string prop) list;  (** attributes *)
+  attributes : string prop Tf_core.assoc;  (** attributes *)
   no_wrapper : push_config__no_wrapper list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** no_wrapper *)
@@ -84,20 +84,20 @@ type t = private {
   bigquery_config : bigquery_config list prop;
   cloud_storage_config : cloud_storage_config list prop;
   dead_letter_policy : dead_letter_policy list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_exactly_once_delivery : bool prop;
   enable_message_ordering : bool prop;
   expiration_policy : expiration_policy list prop;
   filter : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   message_retention_duration : string prop;
   name : string prop;
   project : string prop;
   push_config : push_config list prop;
   retain_acked_messages : bool prop;
   retry_policy : retry_policy list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   topic : string prop;
 }
 

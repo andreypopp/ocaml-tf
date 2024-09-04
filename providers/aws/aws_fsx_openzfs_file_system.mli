@@ -70,7 +70,7 @@ val aws_fsx_openzfs_file_system :
   ?daily_automatic_backup_start_time:string prop ->
   ?delete_options:string prop list ->
   ?endpoint_ip_address_range:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->
@@ -79,8 +79,8 @@ val aws_fsx_openzfs_file_system :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?disk_iops_configuration:disk_iops_configuration list ->
   ?root_volume_configuration:root_volume_configuration list ->
@@ -109,7 +109,7 @@ type t = private {
   dns_name : string prop;
   endpoint_ip_address : string prop;
   endpoint_ip_address_range : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   id : string prop;
   kms_key_id : string prop;
   network_interface_ids : string list prop;
@@ -122,8 +122,8 @@ type t = private {
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   throughput_capacity : float prop;
   vpc_id : string prop;
   weekly_maintenance_start_time : string prop;
@@ -138,7 +138,7 @@ val register :
   ?daily_automatic_backup_start_time:string prop ->
   ?delete_options:string prop list ->
   ?endpoint_ip_address_range:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->
@@ -147,8 +147,8 @@ val register :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?disk_iops_configuration:disk_iops_configuration list ->
   ?root_volume_configuration:root_volume_configuration list ->
@@ -167,7 +167,7 @@ val make :
   ?daily_automatic_backup_start_time:string prop ->
   ?delete_options:string prop list ->
   ?endpoint_ip_address_range:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?preferred_subnet_id:string prop ->
@@ -176,8 +176,8 @@ val make :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?disk_iops_configuration:disk_iops_configuration list ->
   ?root_volume_configuration:root_volume_configuration list ->

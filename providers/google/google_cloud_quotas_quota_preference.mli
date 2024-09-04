@@ -7,7 +7,7 @@ open! Tf_core
 type quota_config
 
 val quota_config :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   preferred_value:string prop ->
   unit ->
   quota_config
@@ -25,7 +25,7 @@ type google_cloud_quotas_quota_preference
 
 val google_cloud_quotas_quota_preference :
   ?contact_email:string prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ignore_safety_checks:string prop ->
   ?justification:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   tf_name : string;
   contact_email : string prop;
   create_time : string prop;
-  dimensions : (string * string) list prop;
+  dimensions : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   ignore_safety_checks : string prop;
@@ -63,7 +63,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?contact_email:string prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ignore_safety_checks:string prop ->
   ?justification:string prop ->
@@ -78,7 +78,7 @@ val register :
 
 val make :
   ?contact_email:string prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?ignore_safety_checks:string prop ->
   ?justification:string prop ->

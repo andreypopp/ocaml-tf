@@ -43,7 +43,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

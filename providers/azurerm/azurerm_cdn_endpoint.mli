@@ -348,7 +348,7 @@ val azurerm_cdn_endpoint :
   ?origin_path:string prop ->
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?delivery_rule:delivery_rule list ->
   ?geo_filter:geo_filter list ->
   ?global_delivery_rule:global_delivery_rule list ->
@@ -382,7 +382,7 @@ type t = private {
   profile_name : string prop;
   querystring_caching_behaviour : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -397,7 +397,7 @@ val register :
   ?origin_path:string prop ->
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?delivery_rule:delivery_rule list ->
   ?geo_filter:geo_filter list ->
   ?global_delivery_rule:global_delivery_rule list ->
@@ -421,7 +421,7 @@ val make :
   ?origin_path:string prop ->
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?delivery_rule:delivery_rule list ->
   ?geo_filter:geo_filter list ->
   ?global_delivery_rule:global_delivery_rule list ->

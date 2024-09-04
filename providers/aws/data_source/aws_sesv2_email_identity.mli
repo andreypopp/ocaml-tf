@@ -27,7 +27,7 @@ type aws_sesv2_email_identity
 
 val aws_sesv2_email_identity :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   email_identity:string prop ->
   unit ->
   aws_sesv2_email_identity
@@ -45,21 +45,21 @@ type t = private {
   email_identity : string prop;
   id : string prop;
   identity_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   verified_for_sending_status : bool prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   email_identity:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   email_identity:string prop ->
   string ->
   t Tf_core.resource

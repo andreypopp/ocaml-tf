@@ -35,7 +35,7 @@ type azurerm_network_watcher_flow_log
 val azurerm_network_watcher_flow_log :
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:float prop ->
   ?timeouts:timeouts ->
   ?traffic_analytics:traffic_analytics list ->
@@ -64,7 +64,7 @@ type t = private {
   network_watcher_name : string prop;
   resource_group_name : string prop;
   storage_account_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : float prop;
 }
 
@@ -72,7 +72,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:float prop ->
   ?timeouts:timeouts ->
   ?traffic_analytics:traffic_analytics list ->
@@ -89,7 +89,7 @@ val register :
 val make :
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:float prop ->
   ?timeouts:timeouts ->
   ?traffic_analytics:traffic_analytics list ->

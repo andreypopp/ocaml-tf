@@ -27,8 +27,8 @@ val aws_route53_health_check :
   ?resource_path:string prop ->
   ?routing_control_arn:string prop ->
   ?search_string:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   unit ->
   aws_route53_health_check
@@ -61,8 +61,8 @@ type t = private {
   resource_path : string prop;
   routing_control_arn : string prop;
   search_string : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -88,8 +88,8 @@ val register :
   ?resource_path:string prop ->
   ?routing_control_arn:string prop ->
   ?search_string:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t
@@ -115,8 +115,8 @@ val make :
   ?resource_path:string prop ->
   ?routing_control_arn:string prop ->
   ?search_string:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   type_:string prop ->
   string ->
   t Tf_core.resource

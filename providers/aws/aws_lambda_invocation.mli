@@ -11,7 +11,7 @@ val aws_lambda_invocation :
   ?lifecycle_scope:string prop ->
   ?qualifier:string prop ->
   ?terraform_key:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   function_name:string prop ->
   input:string prop ->
   unit ->
@@ -30,7 +30,7 @@ type t = private {
   qualifier : string prop;
   result : string prop;
   terraform_key : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
 }
 
 val register :
@@ -39,7 +39,7 @@ val register :
   ?lifecycle_scope:string prop ->
   ?qualifier:string prop ->
   ?terraform_key:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   function_name:string prop ->
   input:string prop ->
   string ->
@@ -50,7 +50,7 @@ val make :
   ?lifecycle_scope:string prop ->
   ?qualifier:string prop ->
   ?terraform_key:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   function_name:string prop ->
   input:string prop ->
   string ->

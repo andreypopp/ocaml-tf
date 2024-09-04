@@ -45,7 +45,7 @@ let _ = yojson_of_cognito_identity_providers
 type aws_cognito_identity_pool = {
   id : string prop option; [@option]
   identity_pool_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,12 +66,8 @@ let yojson_of_aws_cognito_identity_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -113,8 +109,8 @@ type t = {
   identity_pool_name : string prop;
   openid_connect_provider_arns : string list prop;
   saml_provider_arns : string list prop;
-  supported_login_providers : (string * string) list prop;
-  tags : (string * string) list prop;
+  supported_login_providers : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?tags ~identity_pool_name __id =

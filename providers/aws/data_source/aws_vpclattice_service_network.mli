@@ -8,7 +8,7 @@ type aws_vpclattice_service_network
 
 val aws_vpclattice_service_network :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   service_network_identifier:string prop ->
   unit ->
   aws_vpclattice_service_network
@@ -29,20 +29,20 @@ type t = private {
   number_of_associated_services : float prop;
   number_of_associated_vpcs : float prop;
   service_network_identifier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   service_network_identifier:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   service_network_identifier:string prop ->
   string ->
   t Tf_core.resource

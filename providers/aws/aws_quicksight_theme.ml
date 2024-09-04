@@ -97,8 +97,8 @@ type aws_quicksight_theme = {
   base_theme_id: string prop; 
   id: string  prop option; [@option]
   name: string prop; 
-  tags: (string * string   prop) list option; [@option]
-  tags_all: (string * string   prop) list option; [@option]
+  tags: string   prop Tf_core.assoc option; [@option]
+  tags_all: string   prop Tf_core.assoc option; [@option]
   theme_id: string prop; 
   version_description: string  prop option; [@option]
   configuration: configuration list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -222,8 +222,8 @@ type t = {
   last_updated_time: string prop;
   name: string prop;
   status: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
   theme_id: string prop;
   version_description: string prop;
   version_number: float prop;

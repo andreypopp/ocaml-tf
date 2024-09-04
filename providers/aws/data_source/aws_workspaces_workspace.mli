@@ -18,7 +18,7 @@ type aws_workspaces_workspace
 val aws_workspaces_workspace :
   ?directory_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_name:string prop ->
   ?workspace_id:string prop ->
   unit ->
@@ -38,7 +38,7 @@ type t = private {
   ip_address : string prop;
   root_volume_encryption_enabled : bool prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_name : string prop;
   user_volume_encryption_enabled : bool prop;
   volume_encryption_key : string prop;
@@ -50,7 +50,7 @@ val register :
   ?tf_module:tf_module ->
   ?directory_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_name:string prop ->
   ?workspace_id:string prop ->
   string ->
@@ -59,7 +59,7 @@ val register :
 val make :
   ?directory_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_name:string prop ->
   ?workspace_id:string prop ->
   string ->

@@ -19,7 +19,7 @@ type azurerm_cdn_frontdoor_profile
 val azurerm_cdn_frontdoor_profile :
   ?id:string prop ->
   ?response_timeout_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -40,14 +40,14 @@ type t = private {
   resource_guid : string prop;
   response_timeout_seconds : float prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?response_timeout_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -58,7 +58,7 @@ val register :
 val make :
   ?id:string prop ->
   ?response_timeout_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

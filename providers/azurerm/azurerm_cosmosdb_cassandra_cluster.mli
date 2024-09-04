@@ -28,7 +28,7 @@ val azurerm_cosmosdb_cassandra_cluster :
   ?hours_between_backups:float prop ->
   ?id:string prop ->
   ?repair_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -59,7 +59,7 @@ type t = private {
   name : string prop;
   repair_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -72,7 +72,7 @@ val register :
   ?hours_between_backups:float prop ->
   ?id:string prop ->
   ?repair_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -92,7 +92,7 @@ val make :
   ?hours_between_backups:float prop ->
   ?id:string prop ->
   ?repair_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

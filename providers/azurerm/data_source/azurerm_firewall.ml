@@ -262,7 +262,7 @@ type t = {
   resource_group_name : string prop;
   sku_name : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   threat_intel_mode : string prop;
   virtual_hub : virtual_hub list prop;
   zones : string list prop;

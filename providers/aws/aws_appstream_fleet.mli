@@ -44,8 +44,8 @@ val aws_appstream_fleet :
   ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->
@@ -78,8 +78,8 @@ type t = private {
   name : string prop;
   state : string prop;
   stream_view : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -97,8 +97,8 @@ val register :
   ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->
@@ -121,8 +121,8 @@ val make :
   ?max_sessions_per_instance:float prop ->
   ?max_user_duration_in_seconds:float prop ->
   ?stream_view:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?domain_join_info:domain_join_info list ->
   ?vpc_config:vpc_config list ->
   instance_type:string prop ->

@@ -16,7 +16,7 @@ type aws_resourceexplorer2_view
 
 val aws_resourceexplorer2_view :
   ?default_view:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?filters:filters list ->
   ?included_property:included_property list ->
   name:string prop ->
@@ -34,14 +34,14 @@ type t = private {
   default_view : bool prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?default_view:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?filters:filters list ->
   ?included_property:included_property list ->
   name:string prop ->
@@ -50,7 +50,7 @@ val register :
 
 val make :
   ?default_view:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?filters:filters list ->
   ?included_property:included_property list ->
   name:string prop ->

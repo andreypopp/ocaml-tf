@@ -524,7 +524,7 @@ val google_datastream_stream :
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backfill_all:backfill_all list ->
   ?backfill_none:backfill_none list ->
@@ -548,15 +548,15 @@ type t = private {
   customer_managed_encryption_key : string prop;
   desired_state : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   stream_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -565,7 +565,7 @@ val register :
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backfill_all:backfill_all list ->
   ?backfill_none:backfill_none list ->
@@ -583,7 +583,7 @@ val make :
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?backfill_all:backfill_all list ->
   ?backfill_none:backfill_none list ->

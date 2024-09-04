@@ -47,8 +47,8 @@ type aws_codepipeline_custom_action_type
 
 val aws_codepipeline_custom_action_type :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration_property:configuration_property list ->
   ?settings:settings list ->
   category:string prop ->
@@ -71,16 +71,16 @@ type t = private {
   id : string prop;
   owner : string prop;
   provider_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration_property:configuration_property list ->
   ?settings:settings list ->
   category:string prop ->
@@ -93,8 +93,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration_property:configuration_property list ->
   ?settings:settings list ->
   category:string prop ->

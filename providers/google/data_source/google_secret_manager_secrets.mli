@@ -51,14 +51,14 @@ type secrets__replication = {
 }
 
 type secrets = {
-  annotations : (string * string prop) list;  (** annotations *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
   create_time : string prop;  (** create_time *)
-  effective_annotations : (string * string prop) list;
+  effective_annotations : string prop Tf_core.assoc;
       (** effective_annotations *)
-  effective_labels : (string * string prop) list;
+  effective_labels : string prop Tf_core.assoc;
       (** effective_labels *)
   expire_time : string prop;  (** expire_time *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   project : string prop;  (** project *)
   replication : secrets__replication list;
@@ -68,13 +68,13 @@ type secrets = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** rotation *)
   secret_id : string prop;  (** secret_id *)
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
       (** terraform_labels *)
   topics : secrets__topics list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** topics *)
   ttl : string prop;  (** ttl *)
-  version_aliases : (string * string prop) list;
+  version_aliases : string prop Tf_core.assoc;
       (** version_aliases *)
   version_destroy_ttl : string prop;  (** version_destroy_ttl *)
 }

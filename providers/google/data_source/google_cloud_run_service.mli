@@ -5,17 +5,17 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type metadata = {
-  annotations : (string * string prop) list;  (** annotations *)
-  effective_annotations : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;  (** annotations *)
+  effective_annotations : string prop Tf_core.assoc;
       (** effective_annotations *)
-  effective_labels : (string * string prop) list;
+  effective_labels : string prop Tf_core.assoc;
       (** effective_labels *)
   generation : float prop;  (** generation *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   namespace : string prop;  (** namespace *)
   resource_version : string prop;  (** resource_version *)
   self_link : string prop;  (** self_link *)
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
       (** terraform_labels *)
   uid : string prop;  (** uid *)
 }
@@ -119,8 +119,8 @@ type template__spec__containers__startup_probe = {
 }
 
 type template__spec__containers__resources = {
-  limits : (string * string prop) list;  (** limits *)
-  requests : (string * string prop) list;  (** requests *)
+  limits : string prop Tf_core.assoc;  (** limits *)
+  requests : string prop Tf_core.assoc;  (** requests *)
 }
 
 type template__spec__containers__ports = {
@@ -267,9 +267,9 @@ type template__spec = {
 }
 
 type template__metadata = {
-  annotations : (string * string prop) list;  (** annotations *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
   generation : float prop;  (** generation *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   namespace : string prop;  (** namespace *)
   resource_version : string prop;  (** resource_version *)

@@ -80,7 +80,7 @@ type azurerm_private_endpoint
 val azurerm_private_endpoint :
   ?custom_network_interface_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_configuration:ip_configuration list ->
   ?private_dns_zone_group:private_dns_zone_group list ->
   ?timeouts:timeouts ->
@@ -108,14 +108,14 @@ type t = private {
   private_dns_zone_configs : private_dns_zone_configs list prop;
   resource_group_name : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?custom_network_interface_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_configuration:ip_configuration list ->
   ?private_dns_zone_group:private_dns_zone_group list ->
   ?timeouts:timeouts ->
@@ -130,7 +130,7 @@ val register :
 val make :
   ?custom_network_interface_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_configuration:ip_configuration list ->
   ?private_dns_zone_group:private_dns_zone_group list ->
   ?timeouts:timeouts ->

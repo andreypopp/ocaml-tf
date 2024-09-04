@@ -53,8 +53,8 @@ val aws_config_config_rule :
   ?id:string prop ->
   ?input_parameters:string prop ->
   ?maximum_execution_frequency:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->
@@ -75,8 +75,8 @@ type t = private {
   maximum_execution_frequency : string prop;
   name : string prop;
   rule_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -85,8 +85,8 @@ val register :
   ?id:string prop ->
   ?input_parameters:string prop ->
   ?maximum_execution_frequency:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->
@@ -99,8 +99,8 @@ val make :
   ?id:string prop ->
   ?input_parameters:string prop ->
   ?maximum_execution_frequency:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->

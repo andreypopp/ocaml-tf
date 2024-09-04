@@ -25,8 +25,8 @@ type aws_datasync_location_fsx_openzfs_file_system
 val aws_datasync_location_fsx_openzfs_file_system :
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   security_group_arns:string prop list ->
   protocol:protocol list ->
@@ -46,8 +46,8 @@ type t = private {
   id : string prop;
   security_group_arns : string list prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
 }
 
@@ -55,8 +55,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   security_group_arns:string prop list ->
   protocol:protocol list ->
@@ -66,8 +66,8 @@ val register :
 val make :
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   security_group_arns:string prop list ->
   protocol:protocol list ->

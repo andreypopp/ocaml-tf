@@ -18,7 +18,7 @@ type azurerm_maps_creator
 
 val azurerm_maps_creator :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   maps_account_id:string prop ->
@@ -38,13 +38,13 @@ type t = private {
   maps_account_id : string prop;
   name : string prop;
   storage_units : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   maps_account_id:string prop ->
@@ -55,7 +55,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   maps_account_id:string prop ->

@@ -28,7 +28,7 @@ type hcloud_firewall
 
 val hcloud_firewall :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   apply_to:apply_to list ->
   rule:rule list ->
@@ -42,14 +42,14 @@ val yojson_of_hcloud_firewall : hcloud_firewall -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   apply_to:apply_to list ->
   rule:rule list ->
@@ -58,7 +58,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   apply_to:apply_to list ->
   rule:rule list ->

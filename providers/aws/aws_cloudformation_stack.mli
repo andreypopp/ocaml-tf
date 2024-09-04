@@ -22,11 +22,11 @@ val aws_cloudformation_stack :
   ?id:string prop ->
   ?notification_arns:string prop list ->
   ?on_failure:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy_body:string prop ->
   ?policy_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?timeout_in_minutes:float prop ->
@@ -49,12 +49,12 @@ type t = private {
   name : string prop;
   notification_arns : string list prop;
   on_failure : string prop;
-  outputs : (string * string) list prop;
-  parameters : (string * string) list prop;
+  outputs : string Tf_core.assoc prop;
+  parameters : string Tf_core.assoc prop;
   policy_body : string prop;
   policy_url : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   template_body : string prop;
   template_url : string prop;
   timeout_in_minutes : float prop;
@@ -68,11 +68,11 @@ val register :
   ?id:string prop ->
   ?notification_arns:string prop list ->
   ?on_failure:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy_body:string prop ->
   ?policy_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?timeout_in_minutes:float prop ->
@@ -88,11 +88,11 @@ val make :
   ?id:string prop ->
   ?notification_arns:string prop list ->
   ?on_failure:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy_body:string prop ->
   ?policy_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_body:string prop ->
   ?template_url:string prop ->
   ?timeout_in_minutes:float prop ->

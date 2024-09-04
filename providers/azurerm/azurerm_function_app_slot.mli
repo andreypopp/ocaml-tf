@@ -56,7 +56,7 @@ val auth_settings__twitter :
 type auth_settings
 
 val auth_settings :
-  ?additional_login_params:(string * string prop) list ->
+  ?additional_login_params:string prop Tf_core.assoc ->
   ?allowed_external_redirect_urls:string prop list ->
   ?default_provider:string prop ->
   ?issuer:string prop ->
@@ -194,14 +194,14 @@ val timeouts :
 type azurerm_function_app_slot
 
 val azurerm_function_app_slot :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?daily_memory_time_quota:float prop ->
   ?enable_builtin_logging:bool prop ->
   ?enabled:bool prop ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?os_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?auth_settings:auth_settings list ->
   ?identity:identity list ->
@@ -226,7 +226,7 @@ val yojson_of_azurerm_function_app_slot :
 type t = private {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   daily_memory_time_quota : float prop;
   default_hostname : string prop;
   enable_builtin_logging : bool prop;
@@ -244,20 +244,20 @@ type t = private {
   site_credential : site_credential list prop;
   storage_account_access_key : string prop;
   storage_account_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?daily_memory_time_quota:float prop ->
   ?enable_builtin_logging:bool prop ->
   ?enabled:bool prop ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?os_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?auth_settings:auth_settings list ->
   ?identity:identity list ->
@@ -275,14 +275,14 @@ val register :
   t
 
 val make :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?daily_memory_time_quota:float prop ->
   ?enable_builtin_logging:bool prop ->
   ?enabled:bool prop ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?os_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?auth_settings:auth_settings list ->
   ?identity:identity list ->

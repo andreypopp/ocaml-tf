@@ -51,8 +51,8 @@ val aws_default_security_group :
   ?id:string prop ->
   ?ingress:ingress list ->
   ?revoke_rules_on_delete:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   unit ->
   aws_default_security_group
@@ -73,8 +73,8 @@ type t = private {
   name_prefix : string prop;
   owner_id : string prop;
   revoke_rules_on_delete : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -84,8 +84,8 @@ val register :
   ?id:string prop ->
   ?ingress:ingress list ->
   ?revoke_rules_on_delete:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   string ->
   t
@@ -95,8 +95,8 @@ val make :
   ?id:string prop ->
   ?ingress:ingress list ->
   ?revoke_rules_on_delete:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   string ->
   t Tf_core.resource

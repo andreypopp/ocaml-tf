@@ -7,7 +7,7 @@ open! Tf_core
 type aws_kms_ciphertext
 
 val aws_kms_ciphertext :
-  ?context:(string * string prop) list ->
+  ?context:string prop Tf_core.assoc ->
   ?id:string prop ->
   key_id:string prop ->
   plaintext:string prop ->
@@ -21,7 +21,7 @@ val yojson_of_aws_kms_ciphertext : aws_kms_ciphertext -> json
 type t = private {
   tf_name : string;
   ciphertext_blob : string prop;
-  context : (string * string) list prop;
+  context : string Tf_core.assoc prop;
   id : string prop;
   key_id : string prop;
   plaintext : string prop;
@@ -29,7 +29,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?context:(string * string prop) list ->
+  ?context:string prop Tf_core.assoc ->
   ?id:string prop ->
   key_id:string prop ->
   plaintext:string prop ->
@@ -37,7 +37,7 @@ val register :
   t
 
 val make :
-  ?context:(string * string prop) list ->
+  ?context:string prop Tf_core.assoc ->
   ?id:string prop ->
   key_id:string prop ->
   plaintext:string prop ->

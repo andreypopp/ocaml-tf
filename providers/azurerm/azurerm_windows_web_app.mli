@@ -71,7 +71,7 @@ val auth_settings__twitter :
 type auth_settings
 
 val auth_settings :
-  ?additional_login_parameters:(string * string prop) list ->
+  ?additional_login_parameters:string prop Tf_core.assoc ->
   ?allowed_external_redirect_urls:string prop list ->
   ?default_provider:string prop ->
   ?issuer:string prop ->
@@ -100,7 +100,7 @@ val auth_settings_v2__active_directory_v2 :
   ?client_secret_setting_name:string prop ->
   ?jwt_allowed_client_applications:string prop list ->
   ?jwt_allowed_groups:string prop list ->
-  ?login_parameters:(string * string prop) list ->
+  ?login_parameters:string prop Tf_core.assoc ->
   ?www_authentication_disabled:bool prop ->
   client_id:string prop ->
   tenant_auth_endpoint:string prop ->
@@ -587,7 +587,7 @@ val timeouts :
 type azurerm_windows_web_app
 
 val azurerm_windows_web_app :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_certificate_enabled:bool prop ->
   ?client_certificate_exclusion_paths:string prop ->
@@ -598,7 +598,7 @@ val azurerm_windows_web_app :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->
@@ -626,7 +626,7 @@ val yojson_of_azurerm_windows_web_app :
 
 type t = private {
   tf_name : string;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   client_affinity_enabled : bool prop;
   client_certificate_enabled : bool prop;
   client_certificate_exclusion_paths : string prop;
@@ -650,7 +650,7 @@ type t = private {
   resource_group_name : string prop;
   service_plan_id : string prop;
   site_credential : site_credential list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_subnet_id : string prop;
   webdeploy_publish_basic_authentication_enabled : bool prop;
   zip_deploy_file : string prop;
@@ -658,7 +658,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_certificate_enabled:bool prop ->
   ?client_certificate_exclusion_paths:string prop ->
@@ -669,7 +669,7 @@ val register :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->
@@ -691,7 +691,7 @@ val register :
   t
 
 val make :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?client_affinity_enabled:bool prop ->
   ?client_certificate_enabled:bool prop ->
   ?client_certificate_exclusion_paths:string prop ->
@@ -702,7 +702,7 @@ val make :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->

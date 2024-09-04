@@ -33,7 +33,7 @@ type aws_vpclattice_listener
 
 val aws_vpclattice_listener :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   listener_identifier:string prop ->
   service_identifier:string prop ->
   unit ->
@@ -59,13 +59,13 @@ type t = private {
   service_arn : string prop;
   service_id : string prop;
   service_identifier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   listener_identifier:string prop ->
   service_identifier:string prop ->
   string ->
@@ -73,7 +73,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   listener_identifier:string prop ->
   service_identifier:string prop ->
   string ->

@@ -4,7 +4,7 @@ open! Tf_core
 
 type action = {
   action_groups : string prop list option; [@option]
-  custom_properties : (string * string prop) list option; [@option]
+  custom_properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -24,12 +24,8 @@ let yojson_of_action =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_properties", arg in
@@ -335,7 +331,7 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   severity : float prop;
   skip_query_validation : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   target_resource_types : string prop list option; [@option]
   window_duration : string prop;
   workspace_alerts_storage_enabled : bool prop option; [@option]
@@ -441,12 +437,8 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -647,7 +639,7 @@ type t = {
   scopes : string list prop;
   severity : float prop;
   skip_query_validation : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_types : string list prop;
   window_duration : string prop;
   workspace_alerts_storage_enabled : bool prop;

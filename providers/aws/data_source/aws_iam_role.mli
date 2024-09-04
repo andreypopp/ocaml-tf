@@ -13,7 +13,7 @@ type aws_iam_role
 
 val aws_iam_role :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_iam_role
@@ -34,21 +34,21 @@ type t = private {
   path : string prop;
   permissions_boundary : string prop;
   role_last_used : role_last_used list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

@@ -30,8 +30,8 @@ val aws_signer_signing_profile :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?signature_validity_period:signature_validity_period list ->
   ?signing_material:signing_material list ->
   platform_id:string prop ->
@@ -53,8 +53,8 @@ type t = private {
   platform_id : string prop;
   revocation_record : revocation_record list prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
   version_arn : string prop;
 }
@@ -64,8 +64,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?signature_validity_period:signature_validity_period list ->
   ?signing_material:signing_material list ->
   platform_id:string prop ->
@@ -76,8 +76,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?signature_validity_period:signature_validity_period list ->
   ?signing_material:signing_material list ->
   platform_id:string prop ->

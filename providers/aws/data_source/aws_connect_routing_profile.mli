@@ -24,7 +24,7 @@ val aws_connect_routing_profile :
   ?id:string prop ->
   ?name:string prop ->
   ?routing_profile_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   unit ->
   aws_connect_routing_profile
@@ -45,7 +45,7 @@ type t = private {
   name : string prop;
   queue_configs : queue_configs list prop;
   routing_profile_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -53,7 +53,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?routing_profile_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t
@@ -62,7 +62,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?routing_profile_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   instance_id:string prop ->
   string ->
   t Tf_core.resource

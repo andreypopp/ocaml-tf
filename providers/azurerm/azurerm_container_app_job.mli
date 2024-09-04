@@ -18,7 +18,7 @@ val event_trigger_config__scale__rules :
   ?authentication:
     event_trigger_config__scale__rules__authentication list ->
   custom_rule_type:string prop ->
-  metadata:(string * string prop) list ->
+  metadata:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   event_trigger_config__scale__rules
@@ -273,7 +273,7 @@ type azurerm_container_app_job
 val azurerm_container_app_job :
   ?id:string prop ->
   ?replica_retry_limit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?event_trigger_config:event_trigger_config list ->
   ?identity:identity list ->
@@ -309,7 +309,7 @@ type t = private {
   replica_retry_limit : float prop;
   replica_timeout_in_seconds : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workload_profile_name : string prop;
 }
 
@@ -317,7 +317,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?replica_retry_limit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?event_trigger_config:event_trigger_config list ->
   ?identity:identity list ->
@@ -340,7 +340,7 @@ val register :
 val make :
   ?id:string prop ->
   ?replica_retry_limit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_profile_name:string prop ->
   ?event_trigger_config:event_trigger_config list ->
   ?identity:identity list ->

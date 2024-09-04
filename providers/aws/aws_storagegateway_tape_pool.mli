@@ -10,8 +10,8 @@ val aws_storagegateway_tape_pool :
   ?id:string prop ->
   ?retention_lock_time_in_days:float prop ->
   ?retention_lock_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   pool_name:string prop ->
   storage_class:string prop ->
   unit ->
@@ -30,8 +30,8 @@ type t = private {
   retention_lock_time_in_days : float prop;
   retention_lock_type : string prop;
   storage_class : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -39,8 +39,8 @@ val register :
   ?id:string prop ->
   ?retention_lock_time_in_days:float prop ->
   ?retention_lock_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   pool_name:string prop ->
   storage_class:string prop ->
   string ->
@@ -50,8 +50,8 @@ val make :
   ?id:string prop ->
   ?retention_lock_time_in_days:float prop ->
   ?retention_lock_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   pool_name:string prop ->
   storage_class:string prop ->
   string ->

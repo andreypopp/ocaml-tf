@@ -3,7 +3,7 @@
 open! Tf_core
 
 type node_pool_config__node_configs = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   node_ip : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -29,12 +29,8 @@ let yojson_of_node_pool_config__node_configs =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -95,7 +91,7 @@ let _ = yojson_of_node_pool_config__taints
 [@@@deriving.end]
 
 type node_pool_config = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   operating_system : string prop option; [@option]
   node_configs : node_pool_config__node_configs list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -150,12 +146,8 @@ let yojson_of_node_pool_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -304,7 +296,7 @@ let _ = yojson_of_status
 [@@@deriving.end]
 
 type google_gkeonprem_bare_metal_node_pool = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   bare_metal_cluster : string prop;
   display_name : string prop option; [@option]
   id : string prop option; [@option]
@@ -392,12 +384,8 @@ let yojson_of_google_gkeonprem_bare_metal_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -443,12 +431,12 @@ let google_gkeonprem_bare_metal_node_pool ?annotations ?display_name
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   bare_metal_cluster : string prop;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   location : string prop;

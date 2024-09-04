@@ -32,7 +32,7 @@ val azurerm_mssql_failover_group :
   ?databases:string prop list ->
   ?id:string prop ->
   ?readonly_endpoint_failover_policy_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
@@ -54,7 +54,7 @@ type t = private {
   name : string prop;
   readonly_endpoint_failover_policy_enabled : bool prop;
   server_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -62,7 +62,7 @@ val register :
   ?databases:string prop list ->
   ?id:string prop ->
   ?readonly_endpoint_failover_policy_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
@@ -76,7 +76,7 @@ val make :
   ?databases:string prop list ->
   ?id:string prop ->
   ?readonly_endpoint_failover_policy_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->

@@ -34,8 +34,8 @@ val aws_efs_file_system :
   ?kms_key_id:string prop ->
   ?performance_mode:string prop ->
   ?provisioned_throughput_in_mibps:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_mode:string prop ->
   ?lifecycle_policy:lifecycle_policy list ->
   ?protection:protection list ->
@@ -62,8 +62,8 @@ type t = private {
   performance_mode : string prop;
   provisioned_throughput_in_mibps : float prop;
   size_in_bytes : size_in_bytes list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   throughput_mode : string prop;
 }
 
@@ -76,8 +76,8 @@ val register :
   ?kms_key_id:string prop ->
   ?performance_mode:string prop ->
   ?provisioned_throughput_in_mibps:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_mode:string prop ->
   ?lifecycle_policy:lifecycle_policy list ->
   ?protection:protection list ->
@@ -92,8 +92,8 @@ val make :
   ?kms_key_id:string prop ->
   ?performance_mode:string prop ->
   ?provisioned_throughput_in_mibps:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput_mode:string prop ->
   ?lifecycle_policy:lifecycle_policy list ->
   ?protection:protection list ->

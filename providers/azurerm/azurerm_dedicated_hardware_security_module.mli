@@ -35,7 +35,7 @@ type azurerm_dedicated_hardware_security_module
 val azurerm_dedicated_hardware_security_module :
   ?id:string prop ->
   ?stamp_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->
@@ -60,7 +60,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   stamp_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -68,7 +68,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?stamp_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->
@@ -83,7 +83,7 @@ val register :
 val make :
   ?id:string prop ->
   ?stamp_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->

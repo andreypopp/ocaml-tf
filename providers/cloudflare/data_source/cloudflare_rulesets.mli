@@ -327,7 +327,7 @@ type rulesets__rules__action_parameters = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** response_fields *)
   rocket_loader : bool prop;  (** rocket_loader *)
-  rules : (string * string prop) list;  (** rules *)
+  rules : string prop Tf_core.assoc;  (** rules *)
   ruleset : string prop;  (** ruleset *)
   rulesets : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

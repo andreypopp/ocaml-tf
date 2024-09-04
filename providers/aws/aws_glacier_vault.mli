@@ -17,8 +17,8 @@ type aws_glacier_vault
 val aws_glacier_vault :
   ?access_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification:notification list ->
   name:string prop ->
   unit ->
@@ -35,16 +35,16 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?access_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification:notification list ->
   name:string prop ->
   string ->
@@ -53,8 +53,8 @@ val register :
 val make :
   ?access_policy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?notification:notification list ->
   name:string prop ->
   string ->

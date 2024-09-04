@@ -114,7 +114,7 @@ let _ = yojson_of_storage_descriptor__sort_columns
 type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  skewed_column_value_location_maps : (string * string prop) list;
+  skewed_column_value_location_maps : string prop Tf_core.assoc;
   skewed_column_values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -145,12 +145,8 @@ let yojson_of_storage_descriptor__skewed_info =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_skewed_column_value_location_maps
          in
          ("skewed_column_value_location_maps", arg) :: bnds
@@ -175,7 +171,7 @@ let _ = yojson_of_storage_descriptor__skewed_info
 
 type storage_descriptor__ser_de_info = {
   name : string prop;
-  parameters : (string * string prop) list;
+  parameters : string prop Tf_core.assoc;
   serialization_library : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -200,12 +196,8 @@ let yojson_of_storage_descriptor__ser_de_info =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parameters
          in
          ("parameters", arg) :: bnds
@@ -316,7 +308,7 @@ let _ = yojson_of_storage_descriptor__schema_reference
 type storage_descriptor__columns = {
   comment : string prop;
   name : string prop;
-  parameters : (string * string prop) list;
+  parameters : string prop Tf_core.assoc;
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -340,12 +332,8 @@ let yojson_of_storage_descriptor__columns =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parameters
          in
          ("parameters", arg) :: bnds
@@ -378,7 +366,7 @@ type storage_descriptor = {
   location : string prop;
   number_of_buckets : float prop;
   output_format : string prop;
-  parameters : (string * string prop) list;
+  parameters : string prop Tf_core.assoc;
   schema_reference : storage_descriptor__schema_reference list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   ser_de_info : storage_descriptor__ser_de_info list;
@@ -466,12 +454,8 @@ let yojson_of_storage_descriptor =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_parameters
          in
          ("parameters", arg) :: bnds
@@ -672,7 +656,7 @@ type t = {
   id : string prop;
   name : string prop;
   owner : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   partition_index : partition_index list prop;
   partition_keys : partition_keys list prop;
   query_as_of_time : string prop;

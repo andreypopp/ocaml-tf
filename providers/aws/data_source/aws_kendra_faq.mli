@@ -13,7 +13,7 @@ type aws_kendra_faq
 
 val aws_kendra_faq :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   faq_id:string prop ->
   index_id:string prop ->
   unit ->
@@ -38,14 +38,14 @@ type t = private {
   role_arn : string prop;
   s3_path : s3_path list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   faq_id:string prop ->
   index_id:string prop ->
   string ->
@@ -53,7 +53,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   faq_id:string prop ->
   index_id:string prop ->
   string ->

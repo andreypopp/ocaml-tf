@@ -8,7 +8,7 @@ type split
 
 val split :
   ?shard_by:string prop ->
-  allocations:(string * string prop) list ->
+  allocations:string prop Tf_core.assoc ->
   unit ->
   split
 

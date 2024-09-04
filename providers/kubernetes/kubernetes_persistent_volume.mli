@@ -9,8 +9,8 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
-  ?labels:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   unit ->
   metadata
@@ -167,7 +167,7 @@ type spec__persistent_volume_source__csi
 val spec__persistent_volume_source__csi :
   ?fs_type:string prop ->
   ?read_only:bool prop ->
-  ?volume_attributes:(string * string prop) list ->
+  ?volume_attributes:string prop Tf_core.assoc ->
   ?controller_expand_secret_ref:
     spec__persistent_volume_source__csi__controller_expand_secret_ref
     list ->
@@ -205,7 +205,7 @@ type spec__persistent_volume_source__flex_volume
 
 val spec__persistent_volume_source__flex_volume :
   ?fs_type:string prop ->
-  ?options:(string * string prop) list ->
+  ?options:string prop Tf_core.assoc ->
   ?read_only:bool prop ->
   ?secret_ref:
     spec__persistent_volume_source__flex_volume__secret_ref list ->
@@ -361,7 +361,7 @@ val spec :
   ?claim_ref:spec__claim_ref list ->
   ?node_affinity:spec__node_affinity list ->
   access_modes:string prop list ->
-  capacity:(string * string prop) list ->
+  capacity:string prop Tf_core.assoc ->
   persistent_volume_source:spec__persistent_volume_source list ->
   unit ->
   spec

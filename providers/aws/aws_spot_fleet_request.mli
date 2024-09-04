@@ -54,7 +54,7 @@ val launch_specification :
   ?placement_tenancy:string prop ->
   ?spot_price:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
   ?weighted_capacity:string prop ->
@@ -258,8 +258,8 @@ val aws_spot_fleet_request :
   ?on_demand_target_capacity:float prop ->
   ?replace_unhealthy_instances:bool prop ->
   ?spot_price:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_capacity_unit_type:string prop ->
   ?target_group_arns:string prop list ->
   ?terminate_instances_on_delete:string prop ->
@@ -298,8 +298,8 @@ type t = private {
   replace_unhealthy_instances : bool prop;
   spot_price : string prop;
   spot_request_state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_capacity : float prop;
   target_capacity_unit_type : string prop;
   target_group_arns : string list prop;
@@ -325,8 +325,8 @@ val register :
   ?on_demand_target_capacity:float prop ->
   ?replace_unhealthy_instances:bool prop ->
   ?spot_price:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_capacity_unit_type:string prop ->
   ?target_group_arns:string prop list ->
   ?terminate_instances_on_delete:string prop ->
@@ -357,8 +357,8 @@ val make :
   ?on_demand_target_capacity:float prop ->
   ?replace_unhealthy_instances:bool prop ->
   ?spot_price:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_capacity_unit_type:string prop ->
   ?target_group_arns:string prop list ->
   ?terminate_instances_on_delete:string prop ->

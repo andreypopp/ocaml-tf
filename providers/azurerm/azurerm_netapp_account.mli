@@ -46,7 +46,7 @@ type azurerm_netapp_account
 
 val azurerm_netapp_account :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?active_directory:active_directory list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -66,13 +66,13 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?active_directory:active_directory list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -84,7 +84,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?active_directory:active_directory list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

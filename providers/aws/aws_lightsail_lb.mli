@@ -10,8 +10,8 @@ val aws_lightsail_lb :
   ?health_check_path:string prop ->
   ?id:string prop ->
   ?ip_address_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_port:float prop ->
   name:string prop ->
   unit ->
@@ -34,8 +34,8 @@ type t = private {
   protocol : string prop;
   public_ports : float list prop;
   support_code : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -43,8 +43,8 @@ val register :
   ?health_check_path:string prop ->
   ?id:string prop ->
   ?ip_address_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_port:float prop ->
   name:string prop ->
   string ->
@@ -54,8 +54,8 @@ val make :
   ?health_check_path:string prop ->
   ?id:string prop ->
   ?ip_address_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   instance_port:float prop ->
   name:string prop ->
   string ->

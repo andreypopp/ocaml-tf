@@ -23,11 +23,11 @@ val aws_api_gateway_rest_api :
   ?fail_on_warnings:bool prop ->
   ?id:string prop ->
   ?minimum_compression_size:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy:string prop ->
   ?put_rest_api_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
   unit ->
@@ -52,12 +52,12 @@ type t = private {
   id : string prop;
   minimum_compression_size : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   policy : string prop;
   put_rest_api_mode : string prop;
   root_resource_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -70,11 +70,11 @@ val register :
   ?fail_on_warnings:bool prop ->
   ?id:string prop ->
   ?minimum_compression_size:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy:string prop ->
   ?put_rest_api_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
   string ->
@@ -89,11 +89,11 @@ val make :
   ?fail_on_warnings:bool prop ->
   ?id:string prop ->
   ?minimum_compression_size:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?policy:string prop ->
   ?put_rest_api_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
   string ->

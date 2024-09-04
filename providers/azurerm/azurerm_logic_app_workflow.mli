@@ -86,9 +86,9 @@ val azurerm_logic_app_workflow :
   ?id:string prop ->
   ?integration_service_environment_id:string prop ->
   ?logic_app_integration_account_id:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?workflow_parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?workflow_parameters:string prop Tf_core.assoc ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
   ?access_control:access_control list ->
@@ -116,12 +116,12 @@ type t = private {
   location : string prop;
   logic_app_integration_account_id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workflow_endpoint_ip_addresses : string list prop;
   workflow_outbound_ip_addresses : string list prop;
-  workflow_parameters : (string * string) list prop;
+  workflow_parameters : string Tf_core.assoc prop;
   workflow_schema : string prop;
   workflow_version : string prop;
 }
@@ -132,9 +132,9 @@ val register :
   ?id:string prop ->
   ?integration_service_environment_id:string prop ->
   ?logic_app_integration_account_id:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?workflow_parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?workflow_parameters:string prop Tf_core.assoc ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
   ?access_control:access_control list ->
@@ -151,9 +151,9 @@ val make :
   ?id:string prop ->
   ?integration_service_environment_id:string prop ->
   ?logic_app_integration_account_id:string prop ->
-  ?parameters:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?workflow_parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?workflow_parameters:string prop Tf_core.assoc ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
   ?access_control:access_control list ->

@@ -30,8 +30,8 @@ val aws_api_gateway_domain_name :
   ?regional_certificate_arn:string prop ->
   ?regional_certificate_name:string prop ->
   ?security_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->
@@ -62,8 +62,8 @@ type t = private {
   regional_domain_name : string prop;
   regional_zone_id : string prop;
   security_policy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -78,8 +78,8 @@ val register :
   ?regional_certificate_arn:string prop ->
   ?regional_certificate_name:string prop ->
   ?security_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->
@@ -97,8 +97,8 @@ val make :
   ?regional_certificate_arn:string prop ->
   ?regional_certificate_name:string prop ->
   ?security_policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?endpoint_configuration:endpoint_configuration list ->
   ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->

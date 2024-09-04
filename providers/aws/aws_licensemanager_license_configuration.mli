@@ -12,8 +12,8 @@ val aws_licensemanager_license_configuration :
   ?license_count:float prop ->
   ?license_count_hard_limit:bool prop ->
   ?license_rules:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   license_counting_type:string prop ->
   name:string prop ->
   unit ->
@@ -35,8 +35,8 @@ type t = private {
   license_rules : string list prop;
   name : string prop;
   owner_account_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -46,8 +46,8 @@ val register :
   ?license_count:float prop ->
   ?license_count_hard_limit:bool prop ->
   ?license_rules:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   license_counting_type:string prop ->
   name:string prop ->
   string ->
@@ -59,8 +59,8 @@ val make :
   ?license_count:float prop ->
   ?license_count_hard_limit:bool prop ->
   ?license_rules:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   license_counting_type:string prop ->
   name:string prop ->
   string ->

@@ -11,7 +11,7 @@ val timeouts : ?create:string prop -> unit -> timeouts
 type aws_ec2_capacity_block_reservation
 
 val aws_ec2_capacity_block_reservation :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   capacity_block_offering_id:string prop ->
   instance_platform:string prop ->
@@ -40,14 +40,14 @@ type t = private {
   placement_group_arn : string prop;
   reservation_type : string prop;
   start_date : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenancy : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   capacity_block_offering_id:string prop ->
   instance_platform:string prop ->
@@ -55,7 +55,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   capacity_block_offering_id:string prop ->
   instance_platform:string prop ->

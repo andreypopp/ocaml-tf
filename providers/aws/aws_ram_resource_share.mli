@@ -15,8 +15,8 @@ val aws_ram_resource_share :
   ?allow_external_principals:bool prop ->
   ?id:string prop ->
   ?permission_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   unit ->
@@ -33,8 +33,8 @@ type t = private {
   id : string prop;
   name : string prop;
   permission_arns : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -42,8 +42,8 @@ val register :
   ?allow_external_principals:bool prop ->
   ?id:string prop ->
   ?permission_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->
@@ -53,8 +53,8 @@ val make :
   ?allow_external_principals:bool prop ->
   ?id:string prop ->
   ?permission_arns:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->

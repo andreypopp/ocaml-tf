@@ -67,7 +67,7 @@ type aws_athena_database = {
   force_destroy : bool prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   acl_configuration : acl_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_configuration : encryption_configuration list;
@@ -118,12 +118,8 @@ let yojson_of_aws_athena_database =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -210,7 +206,7 @@ type t = {
   force_destroy : bool prop;
   id : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
 }
 
 let make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id

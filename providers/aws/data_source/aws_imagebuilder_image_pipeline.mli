@@ -34,7 +34,7 @@ type aws_imagebuilder_image_pipeline
 
 val aws_imagebuilder_image_pipeline :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_imagebuilder_image_pipeline
@@ -65,20 +65,20 @@ type t = private {
   platform : string prop;
   schedule : schedule list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

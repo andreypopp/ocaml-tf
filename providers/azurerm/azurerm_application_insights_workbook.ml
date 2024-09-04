@@ -108,7 +108,7 @@ type azurerm_application_insights_workbook = {
   resource_group_name : string prop;
   source_id : string prop option; [@option]
   storage_container_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   identity : identity list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -155,12 +155,8 @@ let yojson_of_azurerm_application_insights_workbook =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -274,7 +270,7 @@ type t = {
   resource_group_name : string prop;
   source_id : string prop;
   storage_container_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?category ?description ?id ?source_id ?storage_container_id

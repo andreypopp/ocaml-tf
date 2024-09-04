@@ -19,7 +19,7 @@ val google_network_connectivity_internal_range :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_cidr_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?overlaps:string prop list ->
   ?prefix_length:float prop ->
   ?project:string prop ->
@@ -40,10 +40,10 @@ val yojson_of_google_network_connectivity_internal_range :
 type t = private {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ip_cidr_range : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   overlaps : string list prop;
@@ -51,7 +51,7 @@ type t = private {
   prefix_length : float prop;
   project : string prop;
   target_cidr_range : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   usage : string prop;
   users : string list prop;
 }
@@ -61,7 +61,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_cidr_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?overlaps:string prop list ->
   ?prefix_length:float prop ->
   ?project:string prop ->
@@ -78,7 +78,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?ip_cidr_range:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?overlaps:string prop list ->
   ?prefix_length:float prop ->
   ?project:string prop ->

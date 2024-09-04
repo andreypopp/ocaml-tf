@@ -3,7 +3,7 @@
 open! Tf_core
 
 type aws_iot_thing = {
-  attributes : (string * string prop) list option; [@option]
+  attributes : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   name : string prop;
   thing_type_name : string prop option; [@option]
@@ -48,12 +48,8 @@ let yojson_of_aws_iot_thing =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attributes", arg in
@@ -73,7 +69,7 @@ let aws_iot_thing ?attributes ?id ?thing_type_name ~name () :
 type t = {
   tf_name : string;
   arn : string prop;
-  attributes : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
   default_client_id : string prop;
   id : string prop;
   name : string prop;

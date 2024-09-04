@@ -15,8 +15,8 @@ val aws_ssm_maintenance_window :
   ?schedule_offset:float prop ->
   ?schedule_timezone:string prop ->
   ?start_date:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cutoff:float prop ->
   duration:float prop ->
   name:string prop ->
@@ -43,8 +43,8 @@ type t = private {
   schedule_offset : float prop;
   schedule_timezone : string prop;
   start_date : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -57,8 +57,8 @@ val register :
   ?schedule_offset:float prop ->
   ?schedule_timezone:string prop ->
   ?start_date:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cutoff:float prop ->
   duration:float prop ->
   name:string prop ->
@@ -75,8 +75,8 @@ val make :
   ?schedule_offset:float prop ->
   ?schedule_timezone:string prop ->
   ?start_date:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cutoff:float prop ->
   duration:float prop ->
   name:string prop ->

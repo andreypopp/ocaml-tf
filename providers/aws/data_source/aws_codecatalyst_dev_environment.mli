@@ -20,7 +20,7 @@ val aws_codecatalyst_dev_environment :
   ?alias:string prop ->
   ?creator_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->
@@ -48,7 +48,7 @@ type t = private {
   space_name : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -56,7 +56,7 @@ val register :
   ?alias:string prop ->
   ?creator_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->
@@ -68,7 +68,7 @@ val make :
   ?alias:string prop ->
   ?creator_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->

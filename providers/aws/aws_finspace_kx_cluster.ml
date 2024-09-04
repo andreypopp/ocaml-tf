@@ -513,7 +513,7 @@ let _ = yojson_of_vpc_configuration
 type aws_finspace_kx_cluster = {
   availability_zone_id : string prop option; [@option]
   az_mode : string prop;
-  command_line_arguments : (string * string prop) list option;
+  command_line_arguments : string prop Tf_core.assoc option;
       [@option]
   description : string prop option; [@option]
   environment_id : string prop;
@@ -522,8 +522,8 @@ type aws_finspace_kx_cluster = {
   initialization_script : string prop option; [@option]
   name : string prop;
   release_label : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   type_ : string prop; [@key "type"]
   auto_scaling_configuration : auto_scaling_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -681,12 +681,8 @@ let yojson_of_aws_finspace_kx_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -697,12 +693,8 @@ let yojson_of_aws_finspace_kx_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -759,12 +751,8 @@ let yojson_of_aws_finspace_kx_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "command_line_arguments", arg in
@@ -893,7 +881,7 @@ type t = {
   arn : string prop;
   availability_zone_id : string prop;
   az_mode : string prop;
-  command_line_arguments : (string * string) list prop;
+  command_line_arguments : string Tf_core.assoc prop;
   created_timestamp : string prop;
   description : string prop;
   environment_id : string prop;
@@ -905,8 +893,8 @@ type t = {
   release_label : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

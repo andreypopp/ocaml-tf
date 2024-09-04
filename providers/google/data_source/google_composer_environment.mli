@@ -63,11 +63,11 @@ type config__web_server_config = {
 }
 
 type config__software_config = {
-  airflow_config_overrides : (string * string prop) list;
+  airflow_config_overrides : string prop Tf_core.assoc;
       (** airflow_config_overrides *)
-  env_variables : (string * string prop) list;  (** env_variables *)
+  env_variables : string prop Tf_core.assoc;  (** env_variables *)
   image_version : string prop;  (** image_version *)
-  pypi_packages : (string * string prop) list;  (** pypi_packages *)
+  pypi_packages : string prop Tf_core.assoc;  (** pypi_packages *)
   python_version : string prop;  (** python_version *)
   scheduler_count : float prop;  (** scheduler_count *)
 }
@@ -243,14 +243,14 @@ val yojson_of_google_composer_environment :
 type t = private {
   tf_name : string;
   config : config list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
   storage_config : storage_config list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :

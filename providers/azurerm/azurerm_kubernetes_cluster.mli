@@ -163,7 +163,7 @@ type default_node_pool__node_network_profile
 
 val default_node_pool__node_network_profile :
   ?application_security_group_ids:string prop list ->
-  ?node_public_ip_tags:(string * string prop) list ->
+  ?node_public_ip_tags:string prop Tf_core.assoc ->
   ?allowed_host_ports:
     default_node_pool__node_network_profile__allowed_host_ports list ->
   unit ->
@@ -195,7 +195,7 @@ val default_node_pool :
   ?message_of_the_day:string prop ->
   ?min_count:float prop ->
   ?node_count:float prop ->
-  ?node_labels:(string * string prop) list ->
+  ?node_labels:string prop Tf_core.assoc ->
   ?node_public_ip_prefix_id:string prop ->
   ?node_taints:string prop list ->
   ?only_critical_addons_enabled:bool prop ->
@@ -207,7 +207,7 @@ val default_node_pool :
   ?proximity_placement_group_id:string prop ->
   ?scale_down_mode:string prop ->
   ?snapshot_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?temporary_name_for_rotation:string prop ->
   ?type_:string prop ->
   ?ultra_ssd_enabled:bool prop ->
@@ -573,7 +573,7 @@ val azurerm_kubernetes_cluster :
   ?run_command_enabled:bool prop ->
   ?sku_tier:string prop ->
   ?support_plan:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_identity_enabled:bool prop ->
   ?aci_connector_linux:aci_connector_linux list ->
   ?api_server_access_profile:api_server_access_profile list ->
@@ -659,7 +659,7 @@ type t = private {
   run_command_enabled : bool prop;
   sku_tier : string prop;
   support_plan : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workload_identity_enabled : bool prop;
 }
 
@@ -693,7 +693,7 @@ val register :
   ?run_command_enabled:bool prop ->
   ?sku_tier:string prop ->
   ?support_plan:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_identity_enabled:bool prop ->
   ?aci_connector_linux:aci_connector_linux list ->
   ?api_server_access_profile:api_server_access_profile list ->
@@ -759,7 +759,7 @@ val make :
   ?run_command_enabled:bool prop ->
   ?sku_tier:string prop ->
   ?support_plan:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workload_identity_enabled:bool prop ->
   ?aci_connector_linux:aci_connector_linux list ->
   ?api_server_access_profile:api_server_access_profile list ->

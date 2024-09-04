@@ -129,7 +129,7 @@ type google_storage_bucket_object = {
   event_based_hold : bool prop option; [@option]
   id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   name : string prop;
   source : string prop option; [@option]
   storage_class : string prop option; [@option]
@@ -226,12 +226,8 @@ let yojson_of_google_storage_bucket_object =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -383,7 +379,7 @@ type t = {
   kms_key_name : string prop;
   md5hash : string prop;
   media_link : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   output_name : string prop;
   self_link : string prop;

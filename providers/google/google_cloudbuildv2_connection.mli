@@ -156,7 +156,7 @@ val timeouts :
 type google_cloudbuildv2_connection
 
 val google_cloudbuildv2_connection :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -178,10 +178,10 @@ val yojson_of_google_cloudbuildv2_connection :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   disabled : bool prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   installation_state : installation_state list prop;
@@ -194,7 +194,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -210,7 +210,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->

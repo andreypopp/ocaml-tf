@@ -89,7 +89,7 @@ let _ = yojson_of_control_plane__api_server_args
 [@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   node_ip : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -119,12 +119,8 @@ let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__n
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -192,7 +188,7 @@ let _ =
 [@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   operating_system : string prop option; [@option]
   node_configs :
     control_plane__control_plane_node_pool_config__node_pool_config__node_configs
@@ -257,12 +253,8 @@ let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -526,7 +518,7 @@ let _ =
 [@@@deriving.end]
 
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   node_ip : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -556,12 +548,8 @@ let yojson_of_load_balancer__bgp_lb_config__load_balancer_node_pool_config__node
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -629,7 +617,7 @@ let _ =
 [@@@deriving.end]
 
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   operating_system : string prop option; [@option]
   kubelet_config :
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
@@ -710,12 +698,8 @@ let yojson_of_load_balancer__bgp_lb_config__load_balancer_node_pool_config__node
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -927,7 +911,7 @@ let _ = yojson_of_load_balancer__metal_lb_config__address_pools
 [@@@deriving.end]
 
 type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   node_ip : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -957,12 +941,8 @@ let yojson_of_load_balancer__metal_lb_config__load_balancer_node_pool_config__no
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1030,7 +1010,7 @@ let _ =
 [@@@deriving.end]
 
 type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   operating_system : string prop option; [@option]
   node_configs :
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
@@ -1095,12 +1075,8 @@ let yojson_of_load_balancer__metal_lb_config__load_balancer_node_pool_config__no
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -2253,7 +2229,7 @@ let _ = yojson_of_validation_check
 
 type google_gkeonprem_bare_metal_cluster = {
   admin_cluster_membership : string prop;
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   bare_metal_version : string prop;
   description : string prop option; [@option]
   id : string prop option; [@option]
@@ -2489,12 +2465,8 @@ let yojson_of_google_gkeonprem_bare_metal_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -2770,12 +2742,12 @@ let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
 type t = {
   tf_name : string;
   admin_cluster_membership : string prop;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   bare_metal_version : string prop;
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   endpoint : string prop;
   etag : string prop;
   fleet : fleet list prop;

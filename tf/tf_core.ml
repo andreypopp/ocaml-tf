@@ -2,6 +2,11 @@ type json = Yojson.Safe.t
 
 let yojson_of_json json = json
 
+type 'a assoc = (string * 'a) list
+
+let yojson_of_assoc yojson_of_v xs =
+  `Assoc (List.map xs ~f:(fun (k, v) -> k, yojson_of_v v))
+
 type provider = { id : string; json : json }
 
 type 'attrs resource = {

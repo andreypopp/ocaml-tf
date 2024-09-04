@@ -29,7 +29,7 @@ val azurerm_route_table :
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   resource_group_name : string prop;
   route : route list prop;
   subnets : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,7 +60,7 @@ val register :
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -73,7 +73,7 @@ val make :
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

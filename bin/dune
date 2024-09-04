@@ -1,5 +1,7 @@
 (executable
  (name gen)
+ (public_name tf_gen)
+ (package tf)
  (modules gen)
  (flags
   :standard

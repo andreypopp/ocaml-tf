@@ -44,7 +44,7 @@ val aws_paymentcryptography_key :
   ?deletion_window_in_days:float prop ->
   ?enabled:bool prop ->
   ?key_check_value_algorithm:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   exportable:bool prop ->
   key_attributes:key_attributes ->
@@ -67,8 +67,8 @@ type t = private {
   key_check_value_algorithm : string prop;
   key_origin : string prop;
   key_state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -76,7 +76,7 @@ val register :
   ?deletion_window_in_days:float prop ->
   ?enabled:bool prop ->
   ?key_check_value_algorithm:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   exportable:bool prop ->
   key_attributes:key_attributes ->
@@ -87,7 +87,7 @@ val make :
   ?deletion_window_in_days:float prop ->
   ?enabled:bool prop ->
   ?key_check_value_algorithm:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   exportable:bool prop ->
   key_attributes:key_attributes ->

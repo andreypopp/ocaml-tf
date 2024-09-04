@@ -9,8 +9,8 @@ type aws_redshift_cluster_snapshot
 val aws_redshift_cluster_snapshot :
   ?id:string prop ->
   ?manual_snapshot_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   snapshot_identifier:string prop ->
   unit ->
@@ -30,16 +30,16 @@ type t = private {
   manual_snapshot_retention_period : float prop;
   owner_account : string prop;
   snapshot_identifier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?manual_snapshot_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   snapshot_identifier:string prop ->
   string ->
@@ -48,8 +48,8 @@ val register :
 val make :
   ?id:string prop ->
   ?manual_snapshot_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_identifier:string prop ->
   snapshot_identifier:string prop ->
   string ->

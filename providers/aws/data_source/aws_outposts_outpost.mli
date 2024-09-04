@@ -11,7 +11,7 @@ val aws_outposts_outpost :
   ?id:string prop ->
   ?name:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_outposts_outpost
 
@@ -32,7 +32,7 @@ type t = private {
   site_arn : string prop;
   site_id : string prop;
   supported_hardware_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -41,7 +41,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -50,6 +50,6 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

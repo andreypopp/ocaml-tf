@@ -61,8 +61,8 @@ type aws_timestreamwrite_table
 
 val aws_timestreamwrite_table :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?magnetic_store_write_properties:
     magnetic_store_write_properties list ->
   ?retention_properties:retention_properties list ->
@@ -83,15 +83,15 @@ type t = private {
   database_name : string prop;
   id : string prop;
   table_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?magnetic_store_write_properties:
     magnetic_store_write_properties list ->
   ?retention_properties:retention_properties list ->
@@ -103,8 +103,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?magnetic_store_write_properties:
     magnetic_store_write_properties list ->
   ?retention_properties:retention_properties list ->

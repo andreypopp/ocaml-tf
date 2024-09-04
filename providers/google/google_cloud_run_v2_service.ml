@@ -464,7 +464,7 @@ let _ = yojson_of_template__containers__ports
 
 type template__containers__resources = {
   cpu_idle : bool prop option; [@option]
-  limits : (string * string prop) list option; [@option]
+  limits : string prop Tf_core.assoc option; [@option]
   startup_cpu_boost : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -494,12 +494,8 @@ let yojson_of_template__containers__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "limits", arg in
@@ -1398,10 +1394,10 @@ let _ = yojson_of_template__vpc_access
 [@@@deriving.end]
 
 type template = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   encryption_key : string prop option; [@option]
   execution_environment : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   max_instance_request_concurrency : float prop option; [@option]
   revision : string prop option; [@option]
   service_account : string prop option; [@option]
@@ -1524,12 +1520,8 @@ let yojson_of_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1556,12 +1548,8 @@ let yojson_of_template =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -1879,14 +1867,14 @@ let _ = yojson_of_traffic_statuses
 [@@@deriving.end]
 
 type google_cloud_run_v2_service = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   client : string prop option; [@option]
   client_version : string prop option; [@option]
   custom_audiences : string prop list option; [@option]
   description : string prop option; [@option]
   id : string prop option; [@option]
   ingress : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   launch_stage : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -1985,12 +1973,8 @@ let yojson_of_google_cloud_run_v2_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -2051,12 +2035,8 @@ let yojson_of_google_cloud_run_v2_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -2270,7 +2250,7 @@ let google_cloud_run_v2_service ?annotations ?client ?client_version
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   client : string prop;
   client_version : string prop;
   conditions : conditions list prop;
@@ -2279,14 +2259,14 @@ type t = {
   custom_audiences : string list prop;
   delete_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
   ingress : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_revision : string prop;
   latest_ready_revision : string prop;
@@ -2297,7 +2277,7 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   traffic_statuses : traffic_statuses list prop;
   uid : string prop;
   update_time : string prop;

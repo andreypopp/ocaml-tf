@@ -344,7 +344,7 @@ let _ = yojson_of_auth_settings__active_directory
 type auth_settings = {
   active_directory : auth_settings__active_directory list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  additional_login_parameters : (string * string prop) list;
+  additional_login_parameters : string prop Tf_core.assoc;
   allowed_external_redirect_urls : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   default_provider : string prop;
@@ -497,12 +497,8 @@ let yojson_of_auth_settings =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_additional_login_parameters
          in
          ("additional_login_parameters", arg) :: bnds
@@ -1110,7 +1106,7 @@ type auth_settings_v2__active_directory_v2 = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   jwt_allowed_groups : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  login_parameters : (string * string prop) list;
+  login_parameters : string prop Tf_core.assoc;
   tenant_auth_endpoint : string prop;
   www_authentication_disabled : bool prop;
 }
@@ -1154,12 +1150,8 @@ let yojson_of_auth_settings_v2__active_directory_v2 =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_login_parameters
          in
          ("login_parameters", arg) :: bnds
@@ -3563,7 +3555,7 @@ let azurerm_windows_web_app ?id ?timeouts ~name ~resource_group_name
 
 type t = {
   tf_name : string;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   auth_settings : auth_settings list prop;
   auth_settings_v2 : auth_settings_v2 list prop;
   backup : backup list prop;
@@ -3595,7 +3587,7 @@ type t = {
   site_credential : site_credential list prop;
   sticky_settings : sticky_settings list prop;
   storage_account : storage_account list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_subnet_id : string prop;
   webdeploy_publish_basic_authentication_enabled : bool prop;
 }

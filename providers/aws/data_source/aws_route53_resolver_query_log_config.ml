@@ -42,7 +42,7 @@ type aws_route53_resolver_query_log_config = {
   id : string prop option; [@option]
   name : string prop option; [@option]
   resolver_query_log_config_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -74,12 +74,8 @@ let yojson_of_aws_route53_resolver_query_log_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -133,7 +129,7 @@ type t = {
   owner_id : string prop;
   resolver_query_log_config_id : string prop;
   share_status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?name ?resolver_query_log_config_id ?tags ~filter __id =

@@ -1624,8 +1624,8 @@ type aws_cloudfront_distribution = {
   price_class : string prop option; [@option]
   retain_on_delete : bool prop option; [@option]
   staging : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   wait_for_deployment : bool prop option; [@option]
   web_acl_id : string prop option; [@option]
   custom_error_response : custom_error_response list;
@@ -1776,12 +1776,8 @@ let yojson_of_aws_cloudfront_distribution =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1792,12 +1788,8 @@ let yojson_of_aws_cloudfront_distribution =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2136,8 +2128,8 @@ type t = {
   retain_on_delete : bool prop;
   staging : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   trusted_key_groups : trusted_key_groups list prop;
   trusted_signers : trusted_signers list prop;
   wait_for_deployment : bool prop;

@@ -16,7 +16,7 @@ val notification__email :
 type notification__webhook
 
 val notification__webhook :
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   service_uri:string prop ->
   unit ->
   notification__webhook
@@ -135,7 +135,7 @@ type azurerm_monitor_autoscale_setting
 val azurerm_monitor_autoscale_setting :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notification:notification list ->
   ?predictive:predictive list ->
   ?timeouts:timeouts ->
@@ -159,7 +159,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_id : string prop;
 }
 
@@ -167,7 +167,7 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notification:notification list ->
   ?predictive:predictive list ->
   ?timeouts:timeouts ->
@@ -182,7 +182,7 @@ val register :
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?notification:notification list ->
   ?predictive:predictive list ->
   ?timeouts:timeouts ->

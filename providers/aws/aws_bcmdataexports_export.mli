@@ -7,7 +7,7 @@ open! Tf_core
 type export__data_query
 
 val export__data_query :
-  ?table_configurations:(string * (string * string prop) list) list ->
+  ?table_configurations:string prop Tf_core.assoc Tf_core.assoc ->
   query_statement:string prop ->
   unit ->
   export__data_query
@@ -66,7 +66,7 @@ val timeouts :
 type aws_bcmdataexports_export
 
 val aws_bcmdataexports_export :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?export:export list ->
   ?timeouts:timeouts ->
   unit ->
@@ -80,20 +80,20 @@ val yojson_of_aws_bcmdataexports_export :
 type t = private {
   tf_name : string;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?export:export list ->
   ?timeouts:timeouts ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?export:export list ->
   ?timeouts:timeouts ->
   string ->

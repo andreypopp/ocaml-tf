@@ -569,7 +569,7 @@ val spec__logging :
 type spec__service_discovery__aws_cloud_map
 
 val spec__service_discovery__aws_cloud_map :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   namespace_name:string prop ->
   service_name:string prop ->
   unit ->
@@ -608,8 +608,8 @@ type aws_appmesh_virtual_node
 val aws_appmesh_virtual_node :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   spec:spec list ->
@@ -631,16 +631,16 @@ type t = private {
   mesh_owner : string prop;
   name : string prop;
   resource_owner : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   spec:spec list ->
@@ -650,8 +650,8 @@ val register :
 val make :
   ?id:string prop ->
   ?mesh_owner:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   mesh_name:string prop ->
   name:string prop ->
   spec:spec list ->

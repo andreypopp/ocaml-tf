@@ -118,7 +118,7 @@ let _ = yojson_of_notification_property
 
 type aws_glue_job = {
   connections : string prop list option; [@option]
-  default_arguments : (string * string prop) list option; [@option]
+  default_arguments : string prop Tf_core.assoc option; [@option]
   description : string prop option; [@option]
   execution_class : string prop option; [@option]
   glue_version : string prop option; [@option]
@@ -127,13 +127,13 @@ type aws_glue_job = {
   max_capacity : float prop option; [@option]
   max_retries : float prop option; [@option]
   name : string prop;
-  non_overridable_arguments : (string * string prop) list option;
+  non_overridable_arguments : string prop Tf_core.assoc option;
       [@option]
   number_of_workers : float prop option; [@option]
   role_arn : string prop;
   security_configuration : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   timeout : float prop option; [@option]
   worker_type : string prop option; [@option]
   command : command list;
@@ -223,12 +223,8 @@ let yojson_of_aws_glue_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -239,12 +235,8 @@ let yojson_of_aws_glue_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -275,12 +267,8 @@ let yojson_of_aws_glue_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "non_overridable_arguments", arg in
@@ -351,12 +339,8 @@ let yojson_of_aws_glue_job =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "default_arguments", arg in
@@ -425,7 +409,7 @@ type t = {
   tf_name : string;
   arn : string prop;
   connections : string list prop;
-  default_arguments : (string * string) list prop;
+  default_arguments : string Tf_core.assoc prop;
   description : string prop;
   execution_class : string prop;
   glue_version : string prop;
@@ -434,12 +418,12 @@ type t = {
   max_capacity : float prop;
   max_retries : float prop;
   name : string prop;
-  non_overridable_arguments : (string * string) list prop;
+  non_overridable_arguments : string Tf_core.assoc prop;
   number_of_workers : float prop;
   role_arn : string prop;
   security_configuration : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeout : float prop;
   worker_type : string prop;
 }

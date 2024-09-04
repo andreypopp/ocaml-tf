@@ -28,7 +28,7 @@ val azurerm_iothub_device_update_account :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -72,7 +72,7 @@ val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

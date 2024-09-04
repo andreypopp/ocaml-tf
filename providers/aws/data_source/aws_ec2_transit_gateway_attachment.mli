@@ -13,7 +13,7 @@ type aws_ec2_transit_gateway_attachment
 
 val aws_ec2_transit_gateway_attachment :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_attachment_id:string prop ->
   filter:filter list ->
   unit ->
@@ -34,7 +34,7 @@ type t = private {
   resource_owner_id : string prop;
   resource_type : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transit_gateway_attachment_id : string prop;
   transit_gateway_id : string prop;
   transit_gateway_owner_id : string prop;
@@ -43,7 +43,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_attachment_id:string prop ->
   filter:filter list ->
   string ->
@@ -51,7 +51,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_attachment_id:string prop ->
   filter:filter list ->
   string ->

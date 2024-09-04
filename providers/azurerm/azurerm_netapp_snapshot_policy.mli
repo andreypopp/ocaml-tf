@@ -55,7 +55,7 @@ type azurerm_netapp_snapshot_policy
 
 val azurerm_netapp_snapshot_policy :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_schedule:daily_schedule list ->
   ?hourly_schedule:hourly_schedule list ->
   ?monthly_schedule:monthly_schedule list ->
@@ -82,13 +82,13 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_schedule:daily_schedule list ->
   ?hourly_schedule:hourly_schedule list ->
   ?monthly_schedule:monthly_schedule list ->
@@ -104,7 +104,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?daily_schedule:daily_schedule list ->
   ?hourly_schedule:hourly_schedule list ->
   ?monthly_schedule:monthly_schedule list ->

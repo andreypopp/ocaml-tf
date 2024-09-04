@@ -25,7 +25,7 @@ val container__gpu_limit :
 type container__liveness_probe__http_get
 
 val container__liveness_probe__http_get :
-  ?http_headers:(string * string prop) list ->
+  ?http_headers:string prop Tf_core.assoc ->
   ?path:string prop ->
   ?port:float prop ->
   ?scheme:string prop ->
@@ -56,7 +56,7 @@ val container__ports :
 type container__readiness_probe__http_get
 
 val container__readiness_probe__http_get :
-  ?http_headers:(string * string prop) list ->
+  ?http_headers:string prop Tf_core.assoc ->
   ?path:string prop ->
   ?port:float prop ->
   ?scheme:string prop ->
@@ -95,7 +95,7 @@ type container__volume
 val container__volume :
   ?empty_dir:bool prop ->
   ?read_only:bool prop ->
-  ?secret:(string * string prop) list ->
+  ?secret:string prop Tf_core.assoc ->
   ?share_name:string prop ->
   ?storage_account_key:string prop ->
   ?storage_account_name:string prop ->
@@ -110,9 +110,9 @@ type container
 val container :
   ?commands:string prop list ->
   ?cpu_limit:float prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?memory_limit:float prop ->
-  ?secure_environment_variables:(string * string prop) list ->
+  ?secure_environment_variables:string prop Tf_core.assoc ->
   ?gpu:container__gpu list ->
   ?gpu_limit:container__gpu_limit list ->
   ?liveness_probe:container__liveness_probe list ->
@@ -131,7 +131,7 @@ type diagnostics__log_analytics
 
 val diagnostics__log_analytics :
   ?log_type:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   workspace_id:string prop ->
   workspace_key:string prop ->
   unit ->
@@ -190,7 +190,7 @@ type init_container__volume
 val init_container__volume :
   ?empty_dir:bool prop ->
   ?read_only:bool prop ->
-  ?secret:(string * string prop) list ->
+  ?secret:string prop Tf_core.assoc ->
   ?share_name:string prop ->
   ?storage_account_key:string prop ->
   ?storage_account_name:string prop ->
@@ -204,8 +204,8 @@ type init_container
 
 val init_container :
   ?commands:string prop list ->
-  ?environment_variables:(string * string prop) list ->
-  ?secure_environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
+  ?secure_environment_variables:string prop Tf_core.assoc ->
   ?security:init_container__security list ->
   ?volume:init_container__volume list ->
   image:string prop ->
@@ -238,7 +238,7 @@ val azurerm_container_group :
   ?restart_policy:string prop ->
   ?sku:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?diagnostics:diagnostics list ->
   ?dns_config:dns_config list ->
@@ -279,7 +279,7 @@ type t = private {
   restart_policy : string prop;
   sku : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -297,7 +297,7 @@ val register :
   ?restart_policy:string prop ->
   ?sku:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?diagnostics:diagnostics list ->
   ?dns_config:dns_config list ->
@@ -326,7 +326,7 @@ val make :
   ?restart_policy:string prop ->
   ?sku:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?diagnostics:diagnostics list ->
   ?dns_config:dns_config list ->

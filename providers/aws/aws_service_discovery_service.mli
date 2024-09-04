@@ -42,8 +42,8 @@ val aws_service_discovery_service :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?namespace_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?dns_config:dns_config list ->
   ?health_check_config:health_check_config list ->
@@ -65,8 +65,8 @@ type t = private {
   id : string prop;
   name : string prop;
   namespace_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -76,8 +76,8 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?namespace_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?dns_config:dns_config list ->
   ?health_check_config:health_check_config list ->
@@ -91,8 +91,8 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?namespace_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?dns_config:dns_config list ->
   ?health_check_config:health_check_config list ->

@@ -83,7 +83,7 @@ val target__resource_tag :
 type target
 
 val target :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?resource_arns:string prop list ->
   ?filter:target__filter list ->
   name:string prop ->
@@ -106,8 +106,8 @@ type aws_fis_experiment_template
 
 val aws_fis_experiment_template :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
@@ -129,15 +129,15 @@ type t = private {
   description : string prop;
   id : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
@@ -151,8 +151,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?experiment_options:experiment_options list ->
   ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->

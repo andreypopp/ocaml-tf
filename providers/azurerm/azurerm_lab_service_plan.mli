@@ -50,7 +50,7 @@ val azurerm_lab_service_plan :
   ?default_network_subnet_id:string prop ->
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_auto_shutdown:default_auto_shutdown list ->
   ?default_connection:default_connection list ->
   ?support:support list ->
@@ -76,7 +76,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   shared_gallery_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -84,7 +84,7 @@ val register :
   ?default_network_subnet_id:string prop ->
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_auto_shutdown:default_auto_shutdown list ->
   ?default_connection:default_connection list ->
   ?support:support list ->
@@ -100,7 +100,7 @@ val make :
   ?default_network_subnet_id:string prop ->
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?default_auto_shutdown:default_auto_shutdown list ->
   ?default_connection:default_connection list ->
   ?support:support list ->

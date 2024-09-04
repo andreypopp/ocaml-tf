@@ -173,7 +173,7 @@ let _ = yojson_of_timeouts
 type aws_prometheus_scraper = {
   alias : string prop option; [@option]
   scrape_configuration : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   destination : destination list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   source : source list;
@@ -222,12 +222,8 @@ let yojson_of_aws_prometheus_scraper =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -285,8 +281,8 @@ type t = {
   id : string prop;
   role_arn : string prop;
   scrape_configuration : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?alias ?tags ?(destination = []) ?(source = []) ?timeouts

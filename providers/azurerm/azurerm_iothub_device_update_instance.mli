@@ -27,7 +27,7 @@ type azurerm_iothub_device_update_instance
 val azurerm_iothub_device_update_instance :
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->
@@ -48,14 +48,14 @@ type t = private {
   id : string prop;
   iothub_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->
@@ -67,7 +67,7 @@ val register :
 val make :
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->

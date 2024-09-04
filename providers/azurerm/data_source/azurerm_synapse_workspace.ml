@@ -137,13 +137,13 @@ let azurerm_synapse_workspace ?id ?timeouts ~name
 
 type t = {
   tf_name : string;
-  connectivity_endpoints : (string * string) list prop;
+  connectivity_endpoints : string Tf_core.assoc prop;
   id : string prop;
   identity : identity list prop;
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

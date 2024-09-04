@@ -41,7 +41,7 @@ type google_network_management_connectivity_test
 val google_network_management_connectivity_test :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?protocol:string prop ->
   ?related_projects:string prop list ->
@@ -60,21 +60,21 @@ val yojson_of_google_network_management_connectivity_test :
 type t = private {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   protocol : string prop;
   related_projects : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?protocol:string prop ->
   ?related_projects:string prop list ->
@@ -88,7 +88,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?protocol:string prop ->
   ?related_projects:string prop list ->

@@ -135,7 +135,7 @@ type template__containers__startup_probe = {
 
 type template__containers__resources = {
   cpu_idle : bool prop;  (** cpu_idle *)
-  limits : (string * string prop) list;  (** limits *)
+  limits : string prop Tf_core.assoc;  (** limits *)
   startup_cpu_boost : bool prop;  (** startup_cpu_boost *)
 }
 
@@ -237,13 +237,13 @@ type template__containers = {
 }
 
 type template = {
-  annotations : (string * string prop) list;  (** annotations *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
   containers : template__containers list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** containers *)
   encryption_key : string prop;  (** encryption_key *)
   execution_environment : string prop;  (** execution_environment *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   max_instance_request_concurrency : float prop;
       (** max_instance_request_concurrency *)
   revision : string prop;  (** revision *)
@@ -304,7 +304,7 @@ val yojson_of_google_cloud_run_v2_service :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   binary_authorization : binary_authorization list prop;
   client : string prop;
   client_version : string prop;
@@ -314,14 +314,14 @@ type t = private {
   custom_audiences : string list prop;
   delete_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
   ingress : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_revision : string prop;
   latest_ready_revision : string prop;
@@ -333,7 +333,7 @@ type t = private {
   reconciling : bool prop;
   template : template list prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   traffic : traffic list prop;
   traffic_statuses : traffic_statuses list prop;
   uid : string prop;

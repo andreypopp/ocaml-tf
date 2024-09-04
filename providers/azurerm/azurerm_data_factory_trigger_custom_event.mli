@@ -7,7 +7,7 @@ open! Tf_core
 type pipeline
 
 val pipeline :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   pipeline
@@ -26,7 +26,7 @@ type azurerm_data_factory_trigger_custom_event
 
 val azurerm_data_factory_trigger_custom_event :
   ?activated:bool prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
@@ -49,7 +49,7 @@ val yojson_of_azurerm_data_factory_trigger_custom_event :
 type t = private {
   tf_name : string;
   activated : bool prop;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -64,7 +64,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?activated:bool prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->
@@ -81,7 +81,7 @@ val register :
 
 val make :
   ?activated:bool prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?id:string prop ->

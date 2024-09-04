@@ -23,7 +23,7 @@ type azurerm_spring_cloud_build_deployment
 val azurerm_spring_cloud_build_deployment :
   ?addon_json:string prop ->
   ?application_performance_monitoring_ids:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?quota:quota list ->
@@ -44,7 +44,7 @@ type t = private {
   addon_json : string prop;
   application_performance_monitoring_ids : string list prop;
   build_result_id : string prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   id : string prop;
   instance_count : float prop;
   name : string prop;
@@ -55,7 +55,7 @@ val register :
   ?tf_module:tf_module ->
   ?addon_json:string prop ->
   ?application_performance_monitoring_ids:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?quota:quota list ->
@@ -69,7 +69,7 @@ val register :
 val make :
   ?addon_json:string prop ->
   ?application_performance_monitoring_ids:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?quota:quota list ->

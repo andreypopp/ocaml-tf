@@ -18,7 +18,7 @@ type azurerm_virtual_hub_security_partner_provider
 
 val azurerm_virtual_hub_security_partner_provider :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_hub_id:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -40,14 +40,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   security_provider_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_hub_id:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -59,7 +59,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?virtual_hub_id:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

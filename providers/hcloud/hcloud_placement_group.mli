@@ -8,7 +8,7 @@ type hcloud_placement_group
 
 val hcloud_placement_group :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   unit ->
@@ -21,7 +21,7 @@ val yojson_of_hcloud_placement_group : hcloud_placement_group -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   servers : float list prop;
   type_ : string prop;
@@ -30,7 +30,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   string ->
@@ -38,7 +38,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   name:string prop ->
   type_:string prop ->
   string ->

@@ -40,7 +40,7 @@ type georeplications
 
 val georeplications :
   ?regional_endpoint_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundancy_enabled:bool prop ->
   location:string prop ->
   unit ->
@@ -78,7 +78,7 @@ val azurerm_container_registry :
   ?public_network_access_enabled:bool prop ->
   ?quarantine_policy_enabled:bool prop ->
   ?retention_policy:retention_policy list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
   ?georeplications:georeplications list ->
@@ -116,7 +116,7 @@ type t = private {
   resource_group_name : string prop;
   retention_policy : retention_policy list prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trust_policy : trust_policy list prop;
   zone_redundancy_enabled : bool prop;
 }
@@ -134,7 +134,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?quarantine_policy_enabled:bool prop ->
   ?retention_policy:retention_policy list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
   ?georeplications:georeplications list ->
@@ -159,7 +159,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?quarantine_policy_enabled:bool prop ->
   ?retention_policy:retention_policy list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
   ?georeplications:georeplications list ->

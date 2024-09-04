@@ -10,8 +10,8 @@ val aws_mq_configuration :
   ?authentication_strategy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   data:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->
@@ -34,8 +34,8 @@ type t = private {
   id : string prop;
   latest_revision : float prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -43,8 +43,8 @@ val register :
   ?authentication_strategy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   data:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->
@@ -56,8 +56,8 @@ val make :
   ?authentication_strategy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   data:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->

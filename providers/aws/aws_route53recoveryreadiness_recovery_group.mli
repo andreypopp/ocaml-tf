@@ -13,8 +13,8 @@ type aws_route53recoveryreadiness_recovery_group
 val aws_route53recoveryreadiness_recovery_group :
   ?cells:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   recovery_group_name:string prop ->
   unit ->
@@ -31,16 +31,16 @@ type t = private {
   cells : string list prop;
   id : string prop;
   recovery_group_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?cells:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   recovery_group_name:string prop ->
   string ->
@@ -49,8 +49,8 @@ val register :
 val make :
   ?cells:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   recovery_group_name:string prop ->
   string ->

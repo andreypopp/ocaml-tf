@@ -29,8 +29,8 @@ type aws_workspaces_workspace
 val aws_workspaces_workspace :
   ?id:string prop ->
   ?root_volume_encryption_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->
@@ -55,8 +55,8 @@ type t = private {
   ip_address : string prop;
   root_volume_encryption_enabled : bool prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_name : string prop;
   user_volume_encryption_enabled : bool prop;
   volume_encryption_key : string prop;
@@ -66,8 +66,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?root_volume_encryption_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->
@@ -81,8 +81,8 @@ val register :
 val make :
   ?id:string prop ->
   ?root_volume_encryption_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->

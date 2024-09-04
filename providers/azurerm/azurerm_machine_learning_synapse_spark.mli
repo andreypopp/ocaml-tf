@@ -27,7 +27,7 @@ val azurerm_machine_learning_synapse_spark :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   machine_learning_workspace_id : string prop;
   name : string prop;
   synapse_spark_pool_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -73,7 +73,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

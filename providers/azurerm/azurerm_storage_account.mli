@@ -272,7 +272,7 @@ val azurerm_storage_account :
   ?sftp_enabled:bool prop ->
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_files_authentication:azure_files_authentication list ->
   ?blob_properties:blob_properties list ->
   ?custom_domain:custom_domain list ->
@@ -399,7 +399,7 @@ type t = private {
   sftp_enabled : bool prop;
   shared_access_key_enabled : bool prop;
   table_encryption_key_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -425,7 +425,7 @@ val register :
   ?sftp_enabled:bool prop ->
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_files_authentication:azure_files_authentication list ->
   ?blob_properties:blob_properties list ->
   ?custom_domain:custom_domain list ->
@@ -469,7 +469,7 @@ val make :
   ?sftp_enabled:bool prop ->
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?azure_files_authentication:azure_files_authentication list ->
   ?blob_properties:blob_properties list ->
   ?custom_domain:custom_domain list ->

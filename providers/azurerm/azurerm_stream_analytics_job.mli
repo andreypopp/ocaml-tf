@@ -45,7 +45,7 @@ val azurerm_stream_analytics_job :
   ?sku_name:string prop ->
   ?stream_analytics_cluster_id:string prop ->
   ?streaming_units:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?identity:identity list ->
   ?job_storage_account:job_storage_account list ->
@@ -79,7 +79,7 @@ type t = private {
   sku_name : string prop;
   stream_analytics_cluster_id : string prop;
   streaming_units : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transformation_query : string prop;
   type_ : string prop;
 }
@@ -97,7 +97,7 @@ val register :
   ?sku_name:string prop ->
   ?stream_analytics_cluster_id:string prop ->
   ?streaming_units:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?identity:identity list ->
   ?job_storage_account:job_storage_account list ->
@@ -121,7 +121,7 @@ val make :
   ?sku_name:string prop ->
   ?stream_analytics_cluster_id:string prop ->
   ?streaming_units:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?identity:identity list ->
   ?job_storage_account:job_storage_account list ->

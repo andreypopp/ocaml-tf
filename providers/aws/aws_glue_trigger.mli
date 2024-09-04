@@ -14,7 +14,7 @@ val actions__notification_property :
 type actions
 
 val actions :
-  ?arguments:(string * string prop) list ->
+  ?arguments:string prop Tf_core.assoc ->
   ?crawler_name:string prop ->
   ?job_name:string prop ->
   ?security_configuration:string prop ->
@@ -67,8 +67,8 @@ val aws_glue_trigger :
   ?id:string prop ->
   ?schedule:string prop ->
   ?start_on_creation:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?workflow_name:string prop ->
   ?event_batching_condition:event_batching_condition list ->
   ?predicate:predicate list ->
@@ -93,8 +93,8 @@ type t = private {
   schedule : string prop;
   start_on_creation : bool prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   workflow_name : string prop;
 }
@@ -106,8 +106,8 @@ val register :
   ?id:string prop ->
   ?schedule:string prop ->
   ?start_on_creation:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?workflow_name:string prop ->
   ?event_batching_condition:event_batching_condition list ->
   ?predicate:predicate list ->
@@ -124,8 +124,8 @@ val make :
   ?id:string prop ->
   ?schedule:string prop ->
   ?start_on_creation:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?workflow_name:string prop ->
   ?event_batching_condition:event_batching_condition list ->
   ?predicate:predicate list ->

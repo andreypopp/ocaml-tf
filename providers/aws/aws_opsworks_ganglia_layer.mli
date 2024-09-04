@@ -98,8 +98,8 @@ val aws_opsworks_ganglia_layer :
   ?instance_shutdown_timeout:float prop ->
   ?name:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?use_ebs_optimized_instances:bool prop ->
   ?username:string prop ->
@@ -139,8 +139,8 @@ type t = private {
   password : string prop;
   stack_id : string prop;
   system_packages : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
   use_ebs_optimized_instances : bool prop;
   username : string prop;
@@ -166,8 +166,8 @@ val register :
   ?instance_shutdown_timeout:float prop ->
   ?name:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?use_ebs_optimized_instances:bool prop ->
   ?username:string prop ->
@@ -198,8 +198,8 @@ val make :
   ?instance_shutdown_timeout:float prop ->
   ?name:string prop ->
   ?system_packages:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?use_ebs_optimized_instances:bool prop ->
   ?username:string prop ->

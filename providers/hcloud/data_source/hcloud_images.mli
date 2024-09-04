@@ -10,7 +10,7 @@ type images = {
   deprecated : string prop;  (** deprecated *)
   description : string prop;  (** description *)
   id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   os_flavor : string prop;  (** os_flavor *)
   os_version : string prop;  (** os_version *)

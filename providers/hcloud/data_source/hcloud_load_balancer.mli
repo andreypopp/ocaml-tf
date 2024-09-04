@@ -76,7 +76,7 @@ type t = private {
   id : float prop;
   ipv4 : string prop;
   ipv6 : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   load_balancer_type : string prop;
   location : string prop;
   name : string prop;

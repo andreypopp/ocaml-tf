@@ -21,7 +21,7 @@ val aws_vpn_gateway :
   ?availability_zone:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -39,7 +39,7 @@ type t = private {
   availability_zone : string prop;
   id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -49,7 +49,7 @@ val register :
   ?availability_zone:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -61,7 +61,7 @@ val make :
   ?availability_zone:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

@@ -84,10 +84,10 @@ type t = private {
   current_location_id : string prop;
   customer_managed_key : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   host : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location_id : string prop;
   maintenance_policy : maintenance_policy list prop;
   maintenance_schedule : maintenance_schedule list prop;
@@ -102,14 +102,14 @@ type t = private {
   read_endpoint : string prop;
   read_endpoint_port : float prop;
   read_replicas_mode : string prop;
-  redis_configs : (string * string) list prop;
+  redis_configs : string Tf_core.assoc prop;
   redis_version : string prop;
   region : string prop;
   replica_count : float prop;
   reserved_ip_range : string prop;
   secondary_ip_range : string prop;
   server_ca_certs : server_ca_certs list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   transit_encryption_mode : string prop;
 }

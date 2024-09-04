@@ -22,7 +22,7 @@ val azurerm_app_configuration_key :
   ?id:string prop ->
   ?label:string prop ->
   ?locked:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?value:string prop ->
   ?vault_key_reference:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   key : string prop;
   label : string prop;
   locked : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   value : string prop;
   vault_key_reference : string prop;
@@ -59,7 +59,7 @@ val register :
   ?id:string prop ->
   ?label:string prop ->
   ?locked:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?value:string prop ->
   ?vault_key_reference:string prop ->
@@ -75,7 +75,7 @@ val make :
   ?id:string prop ->
   ?label:string prop ->
   ?locked:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?value:string prop ->
   ?vault_key_reference:string prop ->

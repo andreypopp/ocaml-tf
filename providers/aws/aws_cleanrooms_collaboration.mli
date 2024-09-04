@@ -35,8 +35,8 @@ val timeouts :
 type aws_cleanrooms_collaboration
 
 val aws_cleanrooms_collaboration :
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->
@@ -63,15 +63,15 @@ type t = private {
   id : string prop;
   name : string prop;
   query_log_status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->
@@ -84,8 +84,8 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->

@@ -18,7 +18,7 @@ type aws_ec2_host
 val aws_ec2_host :
   ?host_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -43,7 +43,7 @@ type t = private {
   outpost_arn : string prop;
   owner_id : string prop;
   sockets : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_vcpus : float prop;
 }
 
@@ -51,7 +51,7 @@ val register :
   ?tf_module:tf_module ->
   ?host_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -60,7 +60,7 @@ val register :
 val make :
   ?host_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

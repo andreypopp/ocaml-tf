@@ -7,7 +7,7 @@ open! Tf_core
 type response_parameters
 
 val response_parameters :
-  mappings:(string * string prop) list ->
+  mappings:string prop Tf_core.assoc ->
   status_code:string prop ->
   unit ->
   response_parameters
@@ -31,8 +31,8 @@ val aws_apigatewayv2_integration :
   ?integration_uri:string prop ->
   ?passthrough_behavior:string prop ->
   ?payload_format_version:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
   ?tls_config:tls_config list ->
@@ -63,8 +63,8 @@ type t = private {
   integration_uri : string prop;
   passthrough_behavior : string prop;
   payload_format_version : string prop;
-  request_parameters : (string * string) list prop;
-  request_templates : (string * string) list prop;
+  request_parameters : string Tf_core.assoc prop;
+  request_templates : string Tf_core.assoc prop;
   template_selection_expression : string prop;
   timeout_milliseconds : float prop;
 }
@@ -82,8 +82,8 @@ val register :
   ?integration_uri:string prop ->
   ?passthrough_behavior:string prop ->
   ?payload_format_version:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
   ?tls_config:tls_config list ->
@@ -105,8 +105,8 @@ val make :
   ?integration_uri:string prop ->
   ?passthrough_behavior:string prop ->
   ?payload_format_version:string prop ->
-  ?request_parameters:(string * string prop) list ->
-  ?request_templates:(string * string prop) list ->
+  ?request_parameters:string prop Tf_core.assoc ->
+  ?request_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
   ?tls_config:tls_config list ->

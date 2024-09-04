@@ -3,8 +3,8 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
-  labels : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -34,12 +34,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -50,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -192,7 +184,7 @@ type webhook__object_selector = {
   match_expressions :
     webhook__object_selector__match_expressions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  match_labels : (string * string prop) list;
+  match_labels : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -209,12 +201,8 @@ let yojson_of_webhook__object_selector =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_match_labels
          in
          ("match_labels", arg) :: bnds
@@ -284,7 +272,7 @@ type webhook__namespace_selector = {
   match_expressions :
     webhook__namespace_selector__match_expressions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  match_labels : (string * string prop) list;
+  match_labels : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -301,12 +289,8 @@ let yojson_of_webhook__namespace_selector =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_match_labels
          in
          ("match_labels", arg) :: bnds

@@ -77,12 +77,12 @@ val aws_eks_node_group :
   ?force_update_version:bool prop ->
   ?id:string prop ->
   ?instance_types:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_group_name:string prop ->
   ?node_group_name_prefix:string prop ->
   ?release_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?launch_template:launch_template list ->
   ?remote_access:remote_access list ->
@@ -110,7 +110,7 @@ type t = private {
   force_update_version : bool prop;
   id : string prop;
   instance_types : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   node_group_name : string prop;
   node_group_name_prefix : string prop;
   node_role_arn : string prop;
@@ -118,8 +118,8 @@ type t = private {
   resources : resources list prop;
   status : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -131,12 +131,12 @@ val register :
   ?force_update_version:bool prop ->
   ?id:string prop ->
   ?instance_types:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_group_name:string prop ->
   ?node_group_name_prefix:string prop ->
   ?release_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?launch_template:launch_template list ->
   ?remote_access:remote_access list ->
@@ -157,12 +157,12 @@ val make :
   ?force_update_version:bool prop ->
   ?id:string prop ->
   ?instance_types:string prop list ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_group_name:string prop ->
   ?node_group_name_prefix:string prop ->
   ?release_version:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?launch_template:launch_template list ->
   ?remote_access:remote_access list ->

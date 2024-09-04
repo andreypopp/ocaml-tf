@@ -7,7 +7,7 @@ open! Tf_core
 type action__authenticate_cognito
 
 val action__authenticate_cognito :
-  ?authentication_request_extra_params:(string * string prop) list ->
+  ?authentication_request_extra_params:string prop Tf_core.assoc ->
   ?on_unauthenticated_request:string prop ->
   ?scope:string prop ->
   ?session_cookie_name:string prop ->
@@ -21,7 +21,7 @@ val action__authenticate_cognito :
 type action__authenticate_oidc
 
 val action__authenticate_oidc :
-  ?authentication_request_extra_params:(string * string prop) list ->
+  ?authentication_request_extra_params:string prop Tf_core.assoc ->
   ?on_unauthenticated_request:string prop ->
   ?scope:string prop ->
   ?session_cookie_name:string prop ->
@@ -147,8 +147,8 @@ type aws_alb_listener_rule
 val aws_alb_listener_rule :
   ?id:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   listener_arn:string prop ->
   action:action list ->
   condition:condition list ->
@@ -165,16 +165,16 @@ type t = private {
   id : string prop;
   listener_arn : string prop;
   priority : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   listener_arn:string prop ->
   action:action list ->
   condition:condition list ->
@@ -184,8 +184,8 @@ val register :
 val make :
   ?id:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   listener_arn:string prop ->
   action:action list ->
   condition:condition list ->

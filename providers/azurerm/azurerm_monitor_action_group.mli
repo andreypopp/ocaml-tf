@@ -141,7 +141,7 @@ val azurerm_monitor_action_group :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?arm_role_receiver:arm_role_receiver list ->
   ?automation_runbook_receiver:automation_runbook_receiver list ->
   ?azure_app_push_receiver:azure_app_push_receiver list ->
@@ -173,7 +173,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   short_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -181,7 +181,7 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?arm_role_receiver:arm_role_receiver list ->
   ?automation_runbook_receiver:automation_runbook_receiver list ->
   ?azure_app_push_receiver:azure_app_push_receiver list ->
@@ -204,7 +204,7 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?arm_role_receiver:arm_role_receiver list ->
   ?automation_runbook_receiver:automation_runbook_receiver list ->
   ?azure_app_push_receiver:azure_app_push_receiver list ->

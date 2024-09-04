@@ -29,7 +29,7 @@ val google_tpu_node :
   ?cidr_block:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?use_service_networking:bool prop ->
@@ -51,16 +51,16 @@ type t = private {
   accelerator_type : string prop;
   cidr_block : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   network : string prop;
   network_endpoints : network_endpoints list prop;
   project : string prop;
   service_account : string prop;
   tensorflow_version : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   use_service_networking : bool prop;
   zone : string prop;
 }
@@ -70,7 +70,7 @@ val register :
   ?cidr_block:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?use_service_networking:bool prop ->
@@ -87,7 +87,7 @@ val make :
   ?cidr_block:string prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?project:string prop ->
   ?use_service_networking:bool prop ->

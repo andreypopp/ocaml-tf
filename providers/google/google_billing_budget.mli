@@ -64,7 +64,7 @@ val budget_filter :
   ?calendar_period:string prop ->
   ?credit_types:string prop list ->
   ?credit_types_treatment:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?projects:string prop list ->
   ?resource_ancestors:string prop list ->
   ?services:string prop list ->

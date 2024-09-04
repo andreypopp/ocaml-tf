@@ -17,8 +17,8 @@ val aws_lightsail_certificate :
   ?domain_name:string prop ->
   ?id:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_lightsail_certificate
@@ -37,8 +37,8 @@ type t = private {
   id : string prop;
   name : string prop;
   subject_alternative_names : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -46,8 +46,8 @@ val register :
   ?domain_name:string prop ->
   ?id:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
@@ -56,8 +56,8 @@ val make :
   ?domain_name:string prop ->
   ?id:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

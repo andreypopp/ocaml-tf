@@ -23,7 +23,7 @@ val aws_subnet :
   ?id:string prop ->
   ?ipv6_cidr_block:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -58,7 +58,7 @@ type t = private {
   owner_id : string prop;
   private_dns_hostname_type_on_launch : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -71,7 +71,7 @@ val register :
   ?id:string prop ->
   ?ipv6_cidr_block:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -86,7 +86,7 @@ val make :
   ?id:string prop ->
   ?ipv6_cidr_block:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

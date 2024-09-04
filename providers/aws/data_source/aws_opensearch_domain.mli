@@ -139,7 +139,7 @@ type aws_opensearch_domain
 
 val aws_opensearch_domain :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
   unit ->
@@ -152,7 +152,7 @@ val yojson_of_aws_opensearch_domain : aws_opensearch_domain -> json
 type t = private {
   tf_name : string;
   access_policies : string prop;
-  advanced_options : (string * string) list prop;
+  advanced_options : string Tf_core.assoc prop;
   advanced_security_options : advanced_security_options list prop;
   arn : string prop;
   auto_tune_options : auto_tune_options list prop;
@@ -175,14 +175,14 @@ type t = private {
   processing : bool prop;
   snapshot_options : snapshot_options list prop;
   software_update_options : software_update_options list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_options : vpc_options list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
   string ->
@@ -190,7 +190,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
   string ->

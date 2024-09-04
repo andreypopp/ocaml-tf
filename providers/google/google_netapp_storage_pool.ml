@@ -54,7 +54,7 @@ type google_netapp_storage_pool = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   kms_config : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   ldap_enabled : bool prop option; [@option]
   location : string prop;
   name : string prop;
@@ -128,12 +128,8 @@ let yojson_of_google_netapp_storage_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -210,18 +206,18 @@ type t = {
   active_directory : string prop;
   capacity_gib : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_type : string prop;
   id : string prop;
   kms_config : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   ldap_enabled : bool prop;
   location : string prop;
   name : string prop;
   network : string prop;
   project : string prop;
   service_level : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   volume_capacity_gib : string prop;
   volume_count : float prop;
 }

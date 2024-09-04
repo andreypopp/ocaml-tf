@@ -78,7 +78,7 @@ type node_network_profile
 
 val node_network_profile :
   ?application_security_group_ids:string prop list ->
-  ?node_public_ip_tags:(string * string prop) list ->
+  ?node_public_ip_tags:string prop Tf_core.assoc ->
   ?allowed_host_ports:node_network_profile__allowed_host_ports list ->
   unit ->
   node_network_profile
@@ -127,7 +127,7 @@ val azurerm_kubernetes_cluster_node_pool :
   ?min_count:float prop ->
   ?mode:string prop ->
   ?node_count:float prop ->
-  ?node_labels:(string * string prop) list ->
+  ?node_labels:string prop Tf_core.assoc ->
   ?node_public_ip_prefix_id:string prop ->
   ?node_taints:string prop list ->
   ?orchestrator_version:string prop ->
@@ -141,7 +141,7 @@ val azurerm_kubernetes_cluster_node_pool :
   ?scale_down_mode:string prop ->
   ?snapshot_id:string prop ->
   ?spot_max_price:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ultra_ssd_enabled:bool prop ->
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
@@ -184,7 +184,7 @@ type t = private {
   mode : string prop;
   name : string prop;
   node_count : float prop;
-  node_labels : (string * string) list prop;
+  node_labels : string Tf_core.assoc prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string list prop;
   orchestrator_version : string prop;
@@ -198,7 +198,7 @@ type t = private {
   scale_down_mode : string prop;
   snapshot_id : string prop;
   spot_max_price : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   ultra_ssd_enabled : bool prop;
   vm_size : string prop;
   vnet_subnet_id : string prop;
@@ -225,7 +225,7 @@ val register :
   ?min_count:float prop ->
   ?mode:string prop ->
   ?node_count:float prop ->
-  ?node_labels:(string * string prop) list ->
+  ?node_labels:string prop Tf_core.assoc ->
   ?node_public_ip_prefix_id:string prop ->
   ?node_taints:string prop list ->
   ?orchestrator_version:string prop ->
@@ -239,7 +239,7 @@ val register :
   ?scale_down_mode:string prop ->
   ?snapshot_id:string prop ->
   ?spot_max_price:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ultra_ssd_enabled:bool prop ->
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
@@ -274,7 +274,7 @@ val make :
   ?min_count:float prop ->
   ?mode:string prop ->
   ?node_count:float prop ->
-  ?node_labels:(string * string prop) list ->
+  ?node_labels:string prop Tf_core.assoc ->
   ?node_public_ip_prefix_id:string prop ->
   ?node_taints:string prop list ->
   ?orchestrator_version:string prop ->
@@ -288,7 +288,7 @@ val make :
   ?scale_down_mode:string prop ->
   ?snapshot_id:string prop ->
   ?spot_max_price:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ultra_ssd_enabled:bool prop ->
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->

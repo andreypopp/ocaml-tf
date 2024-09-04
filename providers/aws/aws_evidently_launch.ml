@@ -144,7 +144,7 @@ let _ = yojson_of_metric_monitors
 type scheduled_splits_config__steps__segment_overrides = {
   evaluation_order : float prop;
   segment : string prop;
-  weights : (string * float prop) list;
+  weights : float prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -163,12 +163,8 @@ let yojson_of_scheduled_splits_config__steps__segment_overrides =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_float v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_float)
              v_weights
          in
          ("weights", arg) :: bnds
@@ -192,7 +188,7 @@ let _ = yojson_of_scheduled_splits_config__steps__segment_overrides
 [@@@deriving.end]
 
 type scheduled_splits_config__steps = {
-  group_weights : (string * float prop) list;
+  group_weights : float prop Tf_core.assoc;
   start_time : string prop;
   segment_overrides :
     scheduled_splits_config__steps__segment_overrides list;
@@ -229,12 +225,8 @@ let yojson_of_scheduled_splits_config__steps =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_float v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_float)
              v_group_weights
          in
          ("group_weights", arg) :: bnds
@@ -359,8 +351,8 @@ type aws_evidently_launch = {
   name : string prop;
   project : string prop;
   randomization_salt : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   groups : groups list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   metric_monitors : metric_monitors list;
@@ -427,12 +419,8 @@ let yojson_of_aws_evidently_launch =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -443,12 +431,8 @@ let yojson_of_aws_evidently_launch =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -549,8 +533,8 @@ type t = {
   randomization_salt : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 

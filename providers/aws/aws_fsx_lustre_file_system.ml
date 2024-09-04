@@ -175,7 +175,7 @@ type aws_fsx_lustre_file_system = {
   drive_cache_type : string prop option; [@option]
   export_path : string prop option; [@option]
   file_system_type_version : string prop option; [@option]
-  final_backup_tags : (string * string prop) list option; [@option]
+  final_backup_tags : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   import_path : string prop option; [@option]
   imported_file_chunk_size : float prop option; [@option]
@@ -187,8 +187,8 @@ type aws_fsx_lustre_file_system = {
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   weekly_maintenance_start_time : string prop option; [@option]
   log_configuration : log_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -287,12 +287,8 @@ let yojson_of_aws_fsx_lustre_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -303,12 +299,8 @@ let yojson_of_aws_fsx_lustre_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -403,12 +395,8 @@ let yojson_of_aws_fsx_lustre_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "final_backup_tags", arg in
@@ -571,7 +559,7 @@ type t = {
   drive_cache_type : string prop;
   export_path : string prop;
   file_system_type_version : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   id : string prop;
   import_path : string prop;
   imported_file_chunk_size : float prop;
@@ -585,8 +573,8 @@ type t = {
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
   weekly_maintenance_start_time : string prop;
 }

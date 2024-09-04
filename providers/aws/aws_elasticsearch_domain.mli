@@ -160,11 +160,11 @@ type aws_elasticsearch_domain
 
 val aws_elasticsearch_domain :
   ?access_policies:string prop ->
-  ?advanced_options:(string * string prop) list ->
+  ?advanced_options:string prop Tf_core.assoc ->
   ?elasticsearch_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_security_options:advanced_security_options list ->
   ?auto_tune_options:auto_tune_options list ->
   ?cluster_config:cluster_config list ->
@@ -189,7 +189,7 @@ val yojson_of_aws_elasticsearch_domain :
 type t = private {
   tf_name : string;
   access_policies : string prop;
-  advanced_options : (string * string) list prop;
+  advanced_options : string Tf_core.assoc prop;
   arn : string prop;
   domain_id : string prop;
   domain_name : string prop;
@@ -197,18 +197,18 @@ type t = private {
   endpoint : string prop;
   id : string prop;
   kibana_endpoint : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?access_policies:string prop ->
-  ?advanced_options:(string * string prop) list ->
+  ?advanced_options:string prop Tf_core.assoc ->
   ?elasticsearch_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_security_options:advanced_security_options list ->
   ?auto_tune_options:auto_tune_options list ->
   ?cluster_config:cluster_config list ->
@@ -227,11 +227,11 @@ val register :
 
 val make :
   ?access_policies:string prop ->
-  ?advanced_options:(string * string prop) list ->
+  ?advanced_options:string prop Tf_core.assoc ->
   ?elasticsearch_version:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_security_options:advanced_security_options list ->
   ?auto_tune_options:auto_tune_options list ->
   ?cluster_config:cluster_config list ->

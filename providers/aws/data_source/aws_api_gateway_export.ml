@@ -6,7 +6,7 @@ type aws_api_gateway_export = {
   accepts : string prop option; [@option]
   export_type : string prop;
   id : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   rest_api_id : string prop;
   stage_name : string prop;
 }
@@ -40,12 +40,8 @@ let yojson_of_aws_api_gateway_export =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -90,7 +86,7 @@ type t = {
   content_type : string prop;
   export_type : string prop;
   id : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   rest_api_id : string prop;
   stage_name : string prop;
 }

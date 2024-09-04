@@ -17,7 +17,7 @@ type app_engine_http_target
 
 val app_engine_http_target :
   ?body:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?http_method:string prop ->
   ?app_engine_routing:app_engine_http_target__app_engine_routing list ->
   relative_uri:string prop ->
@@ -44,7 +44,7 @@ type http_target
 
 val http_target :
   ?body:string prop ->
-  ?headers:(string * string prop) list ->
+  ?headers:string prop Tf_core.assoc ->
   ?http_method:string prop ->
   ?oauth_token:http_target__oauth_token list ->
   ?oidc_token:http_target__oidc_token list ->
@@ -55,7 +55,7 @@ val http_target :
 type pubsub_target
 
 val pubsub_target :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?data:string prop ->
   topic_name:string prop ->
   unit ->

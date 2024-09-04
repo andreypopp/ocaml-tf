@@ -7,7 +7,7 @@ open! Tf_core
 type google_storage_notification
 
 val google_storage_notification :
-  ?custom_attributes:(string * string prop) list ->
+  ?custom_attributes:string prop Tf_core.assoc ->
   ?event_types:string prop list ->
   ?id:string prop ->
   ?object_name_prefix:string prop ->
@@ -25,7 +25,7 @@ val yojson_of_google_storage_notification :
 type t = private {
   tf_name : string;
   bucket : string prop;
-  custom_attributes : (string * string) list prop;
+  custom_attributes : string Tf_core.assoc prop;
   event_types : string list prop;
   id : string prop;
   notification_id : string prop;
@@ -37,7 +37,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?custom_attributes:(string * string prop) list ->
+  ?custom_attributes:string prop Tf_core.assoc ->
   ?event_types:string prop list ->
   ?id:string prop ->
   ?object_name_prefix:string prop ->
@@ -48,7 +48,7 @@ val register :
   t
 
 val make :
-  ?custom_attributes:(string * string prop) list ->
+  ?custom_attributes:string prop Tf_core.assoc ->
   ?event_types:string prop list ->
   ?id:string prop ->
   ?object_name_prefix:string prop ->

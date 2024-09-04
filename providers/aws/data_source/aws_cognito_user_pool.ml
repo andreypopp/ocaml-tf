@@ -696,7 +696,7 @@ type t = {
   sms_configuration_failure : string prop;
   sms_verification_message : string prop;
   user_pool_id : string prop;
-  user_pool_tags : (string * string) list prop;
+  user_pool_tags : string Tf_core.assoc prop;
   username_attributes : string list prop;
 }
 

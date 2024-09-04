@@ -94,7 +94,7 @@ type t = {
   location : string prop;
   mobile_network_packet_core_control_plane_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_plane_access_ipv4_address : string prop;
   user_plane_access_ipv4_gateway : string prop;
   user_plane_access_ipv4_subnet : string prop;

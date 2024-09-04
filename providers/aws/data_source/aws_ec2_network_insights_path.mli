@@ -14,7 +14,7 @@ type aws_ec2_network_insights_path
 val aws_ec2_network_insights_path :
   ?id:string prop ->
   ?network_insights_path_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   unit ->
   aws_ec2_network_insights_path
@@ -37,14 +37,14 @@ type t = private {
   source : string prop;
   source_arn : string prop;
   source_ip : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?network_insights_path_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t
@@ -52,7 +52,7 @@ val register :
 val make :
   ?id:string prop ->
   ?network_insights_path_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t Tf_core.resource

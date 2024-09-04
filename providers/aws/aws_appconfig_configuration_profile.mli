@@ -16,8 +16,8 @@ val aws_appconfig_configuration_profile :
   ?id:string prop ->
   ?kms_key_identifier:string prop ->
   ?retrieval_role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   application_id:string prop ->
   location_uri:string prop ->
@@ -42,8 +42,8 @@ type t = private {
   location_uri : string prop;
   name : string prop;
   retrieval_role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -53,8 +53,8 @@ val register :
   ?id:string prop ->
   ?kms_key_identifier:string prop ->
   ?retrieval_role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   application_id:string prop ->
   location_uri:string prop ->
@@ -68,8 +68,8 @@ val make :
   ?id:string prop ->
   ?kms_key_identifier:string prop ->
   ?retrieval_role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   application_id:string prop ->
   location_uri:string prop ->

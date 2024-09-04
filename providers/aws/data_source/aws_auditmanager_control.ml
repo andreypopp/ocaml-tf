@@ -111,7 +111,7 @@ type t = {
   description : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   testing_information : string prop;
   type_ : string prop;
 }

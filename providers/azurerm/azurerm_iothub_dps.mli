@@ -45,7 +45,7 @@ val azurerm_iothub_dps :
   ?data_residency_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_filter_rule:ip_filter_rule list ->
   ?linked_hub:linked_hub list ->
   ?timeouts:timeouts ->
@@ -72,7 +72,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   service_operations_host_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -81,7 +81,7 @@ val register :
   ?data_residency_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_filter_rule:ip_filter_rule list ->
   ?linked_hub:linked_hub list ->
   ?timeouts:timeouts ->
@@ -97,7 +97,7 @@ val make :
   ?data_residency_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ip_filter_rule:ip_filter_rule list ->
   ?linked_hub:linked_hub list ->
   ?timeouts:timeouts ->

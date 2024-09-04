@@ -46,7 +46,7 @@ type t = private {
   kms_key_name : string prop;
   md5hash : string prop;
   media_link : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   output_name : string prop;
   retention : retention list prop;

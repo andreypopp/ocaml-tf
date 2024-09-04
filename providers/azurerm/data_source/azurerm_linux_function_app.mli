@@ -65,7 +65,7 @@ type auth_settings = {
   active_directory : auth_settings__active_directory list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** active_directory *)
-  additional_login_parameters : (string * string prop) list;
+  additional_login_parameters : string prop Tf_core.assoc;
       (** additional_login_parameters *)
   allowed_external_redirect_urls : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -223,7 +223,7 @@ type auth_settings_v2__active_directory_v2 = {
   jwt_allowed_groups : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** jwt_allowed_groups *)
-  login_parameters : (string * string prop) list;
+  login_parameters : string prop Tf_core.assoc;
       (** login_parameters *)
   tenant_auth_endpoint : string prop;  (** tenant_auth_endpoint *)
   www_authentication_disabled : bool prop;
@@ -511,7 +511,7 @@ val yojson_of_azurerm_linux_function_app :
 
 type t = private {
   tf_name : string;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   auth_settings : auth_settings list prop;
   auth_settings_v2 : auth_settings_v2 list prop;
   availability : string prop;
@@ -549,7 +549,7 @@ type t = private {
   storage_account_name : string prop;
   storage_key_vault_secret_id : string prop;
   storage_uses_managed_identity : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   usage : string prop;
   virtual_network_subnet_id : string prop;
   webdeploy_publish_basic_authentication_enabled : bool prop;

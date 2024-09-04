@@ -29,7 +29,7 @@ val google_beyondcorp_app_connection :
   ?connectors:string prop list ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
@@ -49,13 +49,13 @@ type t = private {
   tf_name : string;
   connectors : string list prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -64,7 +64,7 @@ val register :
   ?connectors:string prop list ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
@@ -79,7 +79,7 @@ val make :
   ?connectors:string prop list ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->

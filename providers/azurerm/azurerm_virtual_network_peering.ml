@@ -75,7 +75,7 @@ type azurerm_virtual_network_peering = {
   remote_subnet_names : string prop list option; [@option]
   remote_virtual_network_id : string prop;
   resource_group_name : string prop;
-  triggers : (string * string prop) list option; [@option]
+  triggers : string prop Tf_core.assoc option; [@option]
   use_remote_gateways : bool prop option; [@option]
   virtual_network_name : string prop;
   timeouts : timeouts option;
@@ -130,12 +130,8 @@ let yojson_of_azurerm_virtual_network_peering =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "triggers", arg in
@@ -277,7 +273,7 @@ type t = {
   remote_subnet_names : string list prop;
   remote_virtual_network_id : string prop;
   resource_group_name : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
   use_remote_gateways : bool prop;
   virtual_network_name : string prop;
 }

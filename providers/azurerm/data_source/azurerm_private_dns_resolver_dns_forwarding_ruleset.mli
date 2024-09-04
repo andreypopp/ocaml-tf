@@ -30,7 +30,7 @@ type t = private {
   name : string prop;
   private_dns_resolver_outbound_endpoint_ids : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

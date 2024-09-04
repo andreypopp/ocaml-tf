@@ -63,9 +63,9 @@ let _ =
 [@@@deriving.end]
 
 type alloydb__settings__primary_instance_settings = {
-  database_flags : (string * string prop) list option; [@option]
+  database_flags : string prop Tf_core.assoc option; [@option]
   id : string prop;
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   machine_config :
     alloydb__settings__primary_instance_settings__machine_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -101,12 +101,8 @@ let yojson_of_alloydb__settings__primary_instance_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -121,12 +117,8 @@ let yojson_of_alloydb__settings__primary_instance_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "database_flags", arg in
@@ -141,7 +133,7 @@ let _ = yojson_of_alloydb__settings__primary_instance_settings
 [@@@deriving.end]
 
 type alloydb__settings = {
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   vpc_network : string prop;
   initial_user : alloydb__settings__initial_user list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -195,12 +187,8 @@ let yojson_of_alloydb__settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -379,14 +367,14 @@ type cloudsql__settings = {
   collation : string prop option; [@option]
   data_disk_size_gb : string prop option; [@option]
   data_disk_type : string prop option; [@option]
-  database_flags : (string * string prop) list option; [@option]
+  database_flags : string prop Tf_core.assoc option; [@option]
   database_version : string prop option; [@option]
   edition : string prop option; [@option]
   root_password : string prop option; [@option]
   source_id : string prop;
   storage_auto_resize_limit : string prop option; [@option]
   tier : string prop option; [@option]
-  user_labels : (string * string prop) list option; [@option]
+  user_labels : string prop Tf_core.assoc option; [@option]
   zone : string prop option; [@option]
   ip_config : cloudsql__settings__ip_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -441,12 +429,8 @@ let yojson_of_cloudsql__settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "user_labels", arg in
@@ -501,12 +485,8 @@ let yojson_of_cloudsql__settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "database_flags", arg in
@@ -1125,7 +1105,7 @@ let _ = yojson_of_timeouts
 
 type error = {
   code : float prop;
-  details : (string * string prop) list list;
+  details : string prop Tf_core.assoc list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   message : string prop;
 }
@@ -1148,10 +1128,8 @@ let yojson_of_error =
          else
            let arg =
              (yojson_of_list
-                (yojson_of_list (function v0, v1 ->
-                     let v0 = yojson_of_string v0
-                     and v1 = yojson_of_prop yojson_of_string v1 in
-                     `List [ v0; v1 ])))
+                (Tf_core.yojson_of_assoc
+                   (yojson_of_prop yojson_of_string)))
                v_details
            in
            let bnd = "details", arg in
@@ -1172,7 +1150,7 @@ type google_database_migration_service_connection_profile = {
   connection_profile_id : string prop;
   display_name : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
   alloydb : alloydb list;
@@ -1275,12 +1253,8 @@ let yojson_of_google_database_migration_service_connection_profile =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1449,15 +1423,15 @@ type t = {
   create_time : string prop;
   dbprovider : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   error : error list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?display_name ?id ?labels ?location ?project ?(alloydb = [])

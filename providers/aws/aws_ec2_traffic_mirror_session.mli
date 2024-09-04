@@ -10,8 +10,8 @@ val aws_ec2_traffic_mirror_session :
   ?description:string prop ->
   ?id:string prop ->
   ?packet_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?virtual_network_id:float prop ->
   network_interface_id:string prop ->
   session_number:float prop ->
@@ -34,8 +34,8 @@ type t = private {
   owner_id : string prop;
   packet_length : float prop;
   session_number : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   traffic_mirror_filter_id : string prop;
   traffic_mirror_target_id : string prop;
   virtual_network_id : float prop;
@@ -46,8 +46,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?packet_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?virtual_network_id:float prop ->
   network_interface_id:string prop ->
   session_number:float prop ->
@@ -60,8 +60,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?packet_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?virtual_network_id:float prop ->
   network_interface_id:string prop ->
   session_number:float prop ->

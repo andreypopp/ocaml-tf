@@ -586,7 +586,7 @@ type inspect_job__storage_config__hybrid_options
 
 val inspect_job__storage_config__hybrid_options :
   ?description:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?required_finding_label_keys:string prop list ->
   ?table_options:
     inspect_job__storage_config__hybrid_options__table_options list ->

@@ -115,8 +115,8 @@ val aws_db_instance :
   ?storage_encrypted:bool prop ->
   ?storage_throughput:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->
@@ -206,8 +206,8 @@ type t = private {
   storage_encrypted : bool prop;
   storage_throughput : float prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timezone : string prop;
   username : string prop;
   vpc_security_group_ids : string list prop;
@@ -275,8 +275,8 @@ val register :
   ?storage_encrypted:bool prop ->
   ?storage_throughput:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->
@@ -349,8 +349,8 @@ val make :
   ?storage_encrypted:bool prop ->
   ?storage_throughput:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->

@@ -11,7 +11,7 @@ val hcloud_volume :
   ?delete_protection:bool prop ->
   ?format:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?server_id:float prop ->
   name:string prop ->
@@ -29,7 +29,7 @@ type t = private {
   delete_protection : bool prop;
   format : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   linux_device : string prop;
   location : string prop;
   name : string prop;
@@ -43,7 +43,7 @@ val register :
   ?delete_protection:bool prop ->
   ?format:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?server_id:float prop ->
   name:string prop ->
@@ -56,7 +56,7 @@ val make :
   ?delete_protection:bool prop ->
   ?format:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?server_id:float prop ->
   name:string prop ->

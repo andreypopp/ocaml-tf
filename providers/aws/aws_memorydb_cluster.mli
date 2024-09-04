@@ -65,8 +65,8 @@ val aws_memorydb_cluster :
   ?snapshot_window:string prop ->
   ?sns_topic_arn:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tls_enabled:bool prop ->
   ?timeouts:timeouts ->
   acl_name:string prop ->
@@ -107,8 +107,8 @@ type t = private {
   snapshot_window : string prop;
   sns_topic_arn : string prop;
   subnet_group_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tls_enabled : bool prop;
 }
 
@@ -135,8 +135,8 @@ val register :
   ?snapshot_window:string prop ->
   ?sns_topic_arn:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tls_enabled:bool prop ->
   ?timeouts:timeouts ->
   acl_name:string prop ->
@@ -166,8 +166,8 @@ val make :
   ?snapshot_window:string prop ->
   ?sns_topic_arn:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tls_enabled:bool prop ->
   ?timeouts:timeouts ->
   acl_name:string prop ->

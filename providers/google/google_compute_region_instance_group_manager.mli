@@ -40,8 +40,8 @@ type status = {
 type all_instances_config
 
 val all_instances_config :
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   unit ->
   all_instances_config
 

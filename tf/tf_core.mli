@@ -1,8 +1,15 @@
-type json = Yojson.Safe.t
 type tf_module = ..
 type tf_module += Tf_default
 
+type json = Yojson.Safe.t
+(** json type used *)
+
 val yojson_of_json : json -> json
+
+type 'a assoc = (string * 'a) list
+(** used for maps *)
+
+val yojson_of_assoc : ('a -> json) -> 'a assoc -> json
 
 type provider = { id : string; json : json }
 

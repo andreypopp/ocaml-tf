@@ -63,8 +63,8 @@ val google_data_fusion_instance :
   ?enable_stackdriver_logging:bool prop ->
   ?enable_stackdriver_monitoring:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?options:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?options:string prop Tf_core.assoc ->
   ?private_instance:bool prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -92,15 +92,15 @@ type t = private {
   dataproc_service_account : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_rbac : bool prop;
   enable_stackdriver_logging : bool prop;
   enable_stackdriver_monitoring : bool prop;
   gcs_bucket : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
-  options : (string * string) list prop;
+  options : string Tf_core.assoc prop;
   p4_service_account : string prop;
   private_instance : bool prop;
   project : string prop;
@@ -109,7 +109,7 @@ type t = private {
   state : string prop;
   state_message : string prop;
   tenant_project_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
   version : string prop;
@@ -125,8 +125,8 @@ val register :
   ?enable_stackdriver_logging:bool prop ->
   ?enable_stackdriver_monitoring:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?options:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?options:string prop Tf_core.assoc ->
   ?private_instance:bool prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -150,8 +150,8 @@ val make :
   ?enable_stackdriver_logging:bool prop ->
   ?enable_stackdriver_monitoring:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
-  ?options:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?options:string prop Tf_core.assoc ->
   ?private_instance:bool prop ->
   ?project:string prop ->
   ?region:string prop ->

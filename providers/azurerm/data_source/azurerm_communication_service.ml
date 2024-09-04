@@ -95,7 +95,7 @@ type t = {
   resource_group_name : string prop;
   secondary_connection_string : string prop;
   secondary_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

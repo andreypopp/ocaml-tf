@@ -130,7 +130,7 @@ type aws_bedrockagent_knowledge_base
 
 val aws_bedrockagent_knowledge_base :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?knowledge_base_configuration:knowledge_base_configuration list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
@@ -153,15 +153,15 @@ type t = private {
   id : string prop;
   name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?knowledge_base_configuration:knowledge_base_configuration list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
@@ -172,7 +172,7 @@ val register :
 
 val make :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?knowledge_base_configuration:knowledge_base_configuration list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->

@@ -115,7 +115,7 @@ type t = {
   service_name : string prop;
   service_namespace : string prop;
   telemetry : telemetry list prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ~cluster_name ~location ~service_name

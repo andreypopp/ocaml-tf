@@ -12,7 +12,7 @@ val filter :
 type aws_vpc_security_group_rules
 
 val aws_vpc_security_group_rules :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   unit ->
   aws_vpc_security_group_rules
@@ -26,18 +26,18 @@ type t = private {
   tf_name : string;
   id : string prop;
   ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t Tf_core.resource

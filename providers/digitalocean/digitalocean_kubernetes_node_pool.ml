@@ -133,7 +133,7 @@ type digitalocean_kubernetes_node_pool = {
   auto_scale : bool prop option; [@option]
   cluster_id : string prop;
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   max_nodes : float prop option; [@option]
   min_nodes : float prop option; [@option]
   name : string prop;
@@ -225,12 +225,8 @@ let yojson_of_digitalocean_kubernetes_node_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -291,7 +287,7 @@ type t = {
   auto_scale : bool prop;
   cluster_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   max_nodes : float prop;
   min_nodes : float prop;
   name : string prop;

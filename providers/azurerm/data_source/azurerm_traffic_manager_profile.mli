@@ -38,7 +38,7 @@ type azurerm_traffic_manager_profile
 
 val azurerm_traffic_manager_profile :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?traffic_view_enabled:bool prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -60,7 +60,7 @@ type t = private {
   name : string prop;
   profile_status : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   traffic_routing_method : string prop;
   traffic_view_enabled : bool prop;
 }
@@ -68,7 +68,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?traffic_view_enabled:bool prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -78,7 +78,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?traffic_view_enabled:bool prop ->
   ?timeouts:timeouts ->
   name:string prop ->

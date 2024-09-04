@@ -63,7 +63,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_storage_table_entity = {
-  entity : (string * string prop) list;
+  entity : string prop Tf_core.assoc;
   id : string prop option; [@option]
   partition_key : string prop;
   row_key : string prop;
@@ -137,12 +137,8 @@ let yojson_of_azurerm_storage_table_entity =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_entity
          in
          ("entity", arg) :: bnds
@@ -174,7 +170,7 @@ let azurerm_storage_table_entity ?id ?storage_account_name
 
 type t = {
   tf_name : string;
-  entity : (string * string) list prop;
+  entity : string Tf_core.assoc prop;
   id : string prop;
   partition_key : string prop;
   row_key : string prop;

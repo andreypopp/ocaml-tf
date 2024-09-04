@@ -31,7 +31,7 @@ type azurerm_logic_app_integration_account_agreement
 
 val azurerm_logic_app_integration_account_agreement :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agreement_type:string prop ->
   content:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   host_partner_name : string prop;
   id : string prop;
   integration_account_name : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   resource_group_name : string prop;
 }
@@ -66,7 +66,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agreement_type:string prop ->
   content:string prop ->
@@ -82,7 +82,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agreement_type:string prop ->
   content:string prop ->

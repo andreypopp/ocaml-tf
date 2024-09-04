@@ -22,8 +22,8 @@ val aws_cloudwatch_composite_alarm :
   ?id:string prop ->
   ?insufficient_data_actions:string prop list ->
   ?ok_actions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
@@ -46,8 +46,8 @@ type t = private {
   id : string prop;
   insufficient_data_actions : string list prop;
   ok_actions : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -58,8 +58,8 @@ val register :
   ?id:string prop ->
   ?insufficient_data_actions:string prop list ->
   ?ok_actions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
@@ -73,8 +73,8 @@ val make :
   ?id:string prop ->
   ?insufficient_data_actions:string prop list ->
   ?ok_actions:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->

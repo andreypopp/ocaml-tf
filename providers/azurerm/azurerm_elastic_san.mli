@@ -23,7 +23,7 @@ type azurerm_elastic_san
 val azurerm_elastic_san :
   ?extended_size_in_tib:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   base_size_in_tib:float prop ->
@@ -46,7 +46,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_iops : float prop;
   total_mbps : float prop;
   total_size_in_tib : float prop;
@@ -59,7 +59,7 @@ val register :
   ?tf_module:tf_module ->
   ?extended_size_in_tib:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   base_size_in_tib:float prop ->
@@ -73,7 +73,7 @@ val register :
 val make :
   ?extended_size_in_tib:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?timeouts:timeouts ->
   base_size_in_tib:float prop ->

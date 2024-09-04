@@ -18,7 +18,7 @@ type aws_ebs_volume
 val aws_ebs_volume :
   ?id:string prop ->
   ?most_recent:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -41,7 +41,7 @@ type t = private {
   outpost_arn : string prop;
   size : float prop;
   snapshot_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throughput : float prop;
   volume_id : string prop;
   volume_type : string prop;
@@ -51,7 +51,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?most_recent:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -60,7 +60,7 @@ val register :
 val make :
   ?id:string prop ->
   ?most_recent:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

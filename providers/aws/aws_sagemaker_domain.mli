@@ -488,8 +488,8 @@ val aws_sagemaker_domain :
   ?app_security_group_management:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?default_space_settings:default_space_settings list ->
   ?domain_settings:domain_settings list ->
   ?retention_policy:retention_policy list ->
@@ -519,8 +519,8 @@ type t = private {
   single_sign_on_application_arn : string prop;
   single_sign_on_managed_application_instance_id : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
   vpc_id : string prop;
 }
@@ -531,8 +531,8 @@ val register :
   ?app_security_group_management:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?default_space_settings:default_space_settings list ->
   ?domain_settings:domain_settings list ->
   ?retention_policy:retention_policy list ->
@@ -549,8 +549,8 @@ val make :
   ?app_security_group_management:string prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?default_space_settings:default_space_settings list ->
   ?domain_settings:domain_settings list ->
   ?retention_policy:retention_policy list ->

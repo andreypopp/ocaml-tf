@@ -22,7 +22,7 @@ val azurerm_storage_share_file :
   ?content_md5:string prop ->
   ?content_type:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?path:string prop ->
   ?source:string prop ->
   ?timeouts:timeouts ->
@@ -44,7 +44,7 @@ type t = private {
   content_md5 : string prop;
   content_type : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   path : string prop;
   source : string prop;
@@ -58,7 +58,7 @@ val register :
   ?content_md5:string prop ->
   ?content_type:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?path:string prop ->
   ?source:string prop ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ val make :
   ?content_md5:string prop ->
   ?content_type:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?path:string prop ->
   ?source:string prop ->
   ?timeouts:timeouts ->

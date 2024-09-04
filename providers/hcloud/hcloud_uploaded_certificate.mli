@@ -8,7 +8,7 @@ type hcloud_uploaded_certificate
 
 val hcloud_uploaded_certificate :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   certificate:string prop ->
   name:string prop ->
   private_key:string prop ->
@@ -27,7 +27,7 @@ type t = private {
   domain_names : string list prop;
   fingerprint : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   not_valid_after : string prop;
   not_valid_before : string prop;
@@ -38,7 +38,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   certificate:string prop ->
   name:string prop ->
   private_key:string prop ->
@@ -47,7 +47,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   certificate:string prop ->
   name:string prop ->
   private_key:string prop ->

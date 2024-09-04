@@ -18,12 +18,12 @@ type keys = {
   crypto_key_backend : string prop;  (** crypto_key_backend *)
   destroy_scheduled_duration : string prop;
       (** destroy_scheduled_duration *)
-  effective_labels : (string * string prop) list;
+  effective_labels : string prop Tf_core.assoc;
       (** effective_labels *)
   id : string prop;  (** id *)
   import_only : bool prop;  (** import_only *)
   key_ring : string prop;  (** key_ring *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   primary : keys__primary list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -32,7 +32,7 @@ type keys = {
   rotation_period : string prop;  (** rotation_period *)
   skip_initial_version_creation : bool prop;
       (** skip_initial_version_creation *)
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
       (** terraform_labels *)
   version_template : keys__version_template list;
       [@default []] [@yojson_drop_default Stdlib.( = )]

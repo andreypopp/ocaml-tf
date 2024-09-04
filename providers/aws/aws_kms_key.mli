@@ -23,8 +23,8 @@ val aws_kms_key :
   ?multi_region:bool prop ->
   ?policy:string prop ->
   ?rotation_period_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xks_key_id:string prop ->
   ?timeouts:timeouts ->
   unit ->
@@ -50,8 +50,8 @@ type t = private {
   multi_region : bool prop;
   policy : string prop;
   rotation_period_in_days : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   xks_key_id : string prop;
 }
 
@@ -69,8 +69,8 @@ val register :
   ?multi_region:bool prop ->
   ?policy:string prop ->
   ?rotation_period_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xks_key_id:string prop ->
   ?timeouts:timeouts ->
   string ->
@@ -89,8 +89,8 @@ val make :
   ?multi_region:bool prop ->
   ?policy:string prop ->
   ?rotation_period_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?xks_key_id:string prop ->
   ?timeouts:timeouts ->
   string ->

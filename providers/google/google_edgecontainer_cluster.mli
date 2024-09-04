@@ -154,7 +154,7 @@ val google_edgecontainer_cluster :
   ?default_max_pods_per_node:float prop ->
   ?external_load_balancer_ipv4_address_pools:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->
@@ -182,11 +182,11 @@ type t = private {
   control_plane_version : string prop;
   create_time : string prop;
   default_max_pods_per_node : float prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   endpoint : string prop;
   external_load_balancer_ipv4_address_pools : string list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   maintenance_events : maintenance_events list prop;
   name : string prop;
@@ -196,7 +196,7 @@ type t = private {
   release_channel : string prop;
   status : string prop;
   target_version : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -205,7 +205,7 @@ val register :
   ?default_max_pods_per_node:float prop ->
   ?external_load_balancer_ipv4_address_pools:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->
@@ -226,7 +226,7 @@ val make :
   ?default_max_pods_per_node:float prop ->
   ?external_load_balancer_ipv4_address_pools:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->

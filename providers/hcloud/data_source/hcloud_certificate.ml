@@ -59,7 +59,7 @@ type t = {
   domain_names : string list prop;
   fingerprint : string prop;
   id : float prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   not_valid_after : string prop;
   not_valid_before : string prop;

@@ -20,7 +20,7 @@ val aws_key_pair :
   ?include_public_key:bool prop ->
   ?key_name:string prop ->
   ?key_pair_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -41,7 +41,7 @@ type t = private {
   key_pair_id : string prop;
   key_type : string prop;
   public_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -50,7 +50,7 @@ val register :
   ?include_public_key:bool prop ->
   ?key_name:string prop ->
   ?key_pair_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -61,7 +61,7 @@ val make :
   ?include_public_key:bool prop ->
   ?key_name:string prop ->
   ?key_pair_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

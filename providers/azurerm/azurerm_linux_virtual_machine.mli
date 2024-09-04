@@ -153,7 +153,7 @@ val azurerm_linux_virtual_machine :
   ?reboot_setting:string prop ->
   ?secure_boot_enabled:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?virtual_machine_scale_set_id:string prop ->
   ?vm_agent_platform_updates_enabled:bool prop ->
@@ -224,7 +224,7 @@ type t = private {
   secure_boot_enabled : bool prop;
   size : string prop;
   source_image_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_data : string prop;
   virtual_machine_id : string prop;
   virtual_machine_scale_set_id : string prop;
@@ -262,7 +262,7 @@ val register :
   ?reboot_setting:string prop ->
   ?secure_boot_enabled:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?virtual_machine_scale_set_id:string prop ->
   ?vm_agent_platform_updates_enabled:bool prop ->
@@ -317,7 +317,7 @@ val make :
   ?reboot_setting:string prop ->
   ?secure_boot_enabled:bool prop ->
   ?source_image_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_data:string prop ->
   ?virtual_machine_scale_set_id:string prop ->
   ?vm_agent_platform_updates_enabled:bool prop ->

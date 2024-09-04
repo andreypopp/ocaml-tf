@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -36,7 +36,7 @@ val spec__scope_selector :
 type spec
 
 val spec :
-  ?hard:(string * string prop) list ->
+  ?hard:string prop Tf_core.assoc ->
   ?scopes:string prop list ->
   ?scope_selector:spec__scope_selector list ->
   unit ->

@@ -23,7 +23,7 @@ val azurerm_machine_learning_datastore_blobstorage :
   ?is_default:bool prop ->
   ?service_data_auth_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_container_id:string prop ->
@@ -46,7 +46,7 @@ type t = private {
   service_data_auth_identity : string prop;
   shared_access_signature : string prop;
   storage_container_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -58,7 +58,7 @@ val register :
   ?is_default:bool prop ->
   ?service_data_auth_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_container_id:string prop ->
@@ -73,7 +73,7 @@ val make :
   ?is_default:bool prop ->
   ?service_data_auth_identity:string prop ->
   ?shared_access_signature:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_container_id:string prop ->

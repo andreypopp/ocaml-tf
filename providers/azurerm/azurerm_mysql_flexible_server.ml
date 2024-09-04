@@ -323,7 +323,7 @@ type azurerm_mysql_flexible_server = {
   resource_group_name : string prop;
   sku_name : string prop option; [@option]
   source_server_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   version : string prop option; [@option]
   zone : string prop option; [@option]
   customer_managed_key : customer_managed_key list;
@@ -445,12 +445,8 @@ let yojson_of_azurerm_mysql_flexible_server =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -658,7 +654,7 @@ type t = {
   resource_group_name : string prop;
   sku_name : string prop;
   source_server_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   zone : string prop;
 }

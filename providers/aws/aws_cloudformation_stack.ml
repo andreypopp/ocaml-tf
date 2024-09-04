@@ -56,11 +56,11 @@ type aws_cloudformation_stack = {
   name : string prop;
   notification_arns : string prop list option; [@option]
   on_failure : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   policy_body : string prop option; [@option]
   policy_url : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   template_body : string prop option; [@option]
   template_url : string prop option; [@option]
   timeout_in_minutes : float prop option; [@option]
@@ -126,12 +126,8 @@ let yojson_of_aws_cloudformation_stack =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -142,12 +138,8 @@ let yojson_of_aws_cloudformation_stack =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -174,12 +166,8 @@ let yojson_of_aws_cloudformation_stack =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -284,12 +272,12 @@ type t = {
   name : string prop;
   notification_arns : string list prop;
   on_failure : string prop;
-  outputs : (string * string) list prop;
-  parameters : (string * string) list prop;
+  outputs : string Tf_core.assoc prop;
+  parameters : string Tf_core.assoc prop;
   policy_body : string prop;
   policy_url : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   template_body : string prop;
   template_url : string prop;
   timeout_in_minutes : float prop;

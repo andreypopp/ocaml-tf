@@ -151,7 +151,7 @@ type t = {
   name : string prop;
   nat_ip_configuration : nat_ip_configuration list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   visibility_subscription_ids : string list prop;
 }
 

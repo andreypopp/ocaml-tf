@@ -44,7 +44,7 @@ val azurerm_virtual_desktop_host_pool :
   ?preferred_app_group_type:string prop ->
   ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
   ?scheduled_agent_updates:scheduled_agent_updates list ->
@@ -77,7 +77,7 @@ type t = private {
   public_network_access : string prop;
   resource_group_name : string prop;
   start_vm_on_connect : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   validate_environment : bool prop;
   vm_template : string prop;
@@ -94,7 +94,7 @@ val register :
   ?preferred_app_group_type:string prop ->
   ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
   ?scheduled_agent_updates:scheduled_agent_updates list ->
@@ -117,7 +117,7 @@ val make :
   ?preferred_app_group_type:string prop ->
   ?public_network_access:string prop ->
   ?start_vm_on_connect:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
   ?scheduled_agent_updates:scheduled_agent_updates list ->

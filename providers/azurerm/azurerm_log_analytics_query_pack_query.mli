@@ -24,7 +24,7 @@ val azurerm_log_analytics_query_pack_query :
   ?name:string prop ->
   ?resource_types:string prop list ->
   ?solutions:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   body:string prop ->
   display_name:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   query_pack_id : string prop;
   resource_types : string list prop;
   solutions : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -61,7 +61,7 @@ val register :
   ?name:string prop ->
   ?resource_types:string prop list ->
   ?solutions:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   body:string prop ->
   display_name:string prop ->
@@ -77,7 +77,7 @@ val make :
   ?name:string prop ->
   ?resource_types:string prop list ->
   ?solutions:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   body:string prop ->
   display_name:string prop ->

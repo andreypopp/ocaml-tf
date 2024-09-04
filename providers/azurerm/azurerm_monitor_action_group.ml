@@ -676,7 +676,7 @@ type azurerm_monitor_action_group = {
   name : string prop;
   resource_group_name : string prop;
   short_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   arm_role_receiver : arm_role_receiver list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   automation_runbook_receiver : automation_runbook_receiver list;
@@ -848,12 +848,8 @@ let yojson_of_azurerm_monitor_action_group =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1020,7 +1016,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   short_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?enabled ?id ?location ?tags ?(arm_role_receiver = [])

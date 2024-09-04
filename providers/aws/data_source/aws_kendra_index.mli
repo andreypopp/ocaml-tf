@@ -21,7 +21,7 @@ type document_metadata_configuration_updates__relevance = {
   freshness : bool prop;  (** freshness *)
   importance : float prop;  (** importance *)
   rank_order : string prop;  (** rank_order *)
-  values_importance_map : (string * float prop) list;
+  values_importance_map : float prop Tf_core.assoc;
       (** values_importance_map *)
 }
 
@@ -98,7 +98,7 @@ type user_token_configurations = {
 type aws_kendra_index
 
 val aws_kendra_index :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   unit ->
   aws_kendra_index
@@ -124,7 +124,7 @@ type t = private {
   server_side_encryption_configuration :
     server_side_encryption_configuration list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   updated_at : string prop;
   user_context_policy : string prop;
   user_group_resolution_configuration :
@@ -134,13 +134,13 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t Tf_core.resource

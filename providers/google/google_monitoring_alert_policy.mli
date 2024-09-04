@@ -66,7 +66,7 @@ val conditions__condition_absent :
 type conditions__condition_matched_log
 
 val conditions__condition_matched_log :
-  ?label_extractors:(string * string prop) list ->
+  ?label_extractors:string prop Tf_core.assoc ->
   filter:string prop ->
   unit ->
   conditions__condition_matched_log
@@ -96,7 +96,7 @@ val conditions__condition_prometheus_query_language :
   ?alert_rule:string prop ->
   ?duration:string prop ->
   ?evaluation_interval:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?rule_group:string prop ->
   query:string prop ->
   unit ->
@@ -204,7 +204,7 @@ val google_monitoring_alert_policy :
   ?notification_channels:string prop list ->
   ?project:string prop ->
   ?severity:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?alert_strategy:alert_strategy list ->
   ?documentation:documentation list ->
   ?timeouts:timeouts ->
@@ -230,7 +230,7 @@ type t = private {
   notification_channels : string list prop;
   project : string prop;
   severity : string prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -240,7 +240,7 @@ val register :
   ?notification_channels:string prop list ->
   ?project:string prop ->
   ?severity:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?alert_strategy:alert_strategy list ->
   ?documentation:documentation list ->
   ?timeouts:timeouts ->
@@ -256,7 +256,7 @@ val make :
   ?notification_channels:string prop list ->
   ?project:string prop ->
   ?severity:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?alert_strategy:alert_strategy list ->
   ?documentation:documentation list ->
   ?timeouts:timeouts ->

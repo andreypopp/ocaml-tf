@@ -235,7 +235,7 @@ type t = {
   os_disk : os_disk list prop;
   resource_group_name : string prop;
   sort_descending : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_resilient : bool prop;
 }
 

@@ -10,8 +10,8 @@ val aws_datasync_location_fsx_windows_file_system :
   ?domain:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   password:string prop ->
   security_group_arns:string prop list ->
@@ -34,8 +34,8 @@ type t = private {
   password : string prop;
   security_group_arns : string list prop;
   subdirectory : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uri : string prop;
   user : string prop;
 }
@@ -45,8 +45,8 @@ val register :
   ?domain:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   password:string prop ->
   security_group_arns:string prop list ->
@@ -58,8 +58,8 @@ val make :
   ?domain:string prop ->
   ?id:string prop ->
   ?subdirectory:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fsx_filesystem_arn:string prop ->
   password:string prop ->
   security_group_arns:string prop list ->

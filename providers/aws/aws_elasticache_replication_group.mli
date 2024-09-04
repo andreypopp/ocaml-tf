@@ -59,8 +59,8 @@ val aws_elasticache_replication_group :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->
@@ -120,8 +120,8 @@ type t = private {
   snapshot_retention_limit : float prop;
   snapshot_window : string prop;
   subnet_group_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_encryption_enabled : bool prop;
   transit_encryption_mode : string prop;
   user_group_ids : string list prop;
@@ -162,8 +162,8 @@ val register :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->
@@ -208,8 +208,8 @@ val make :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   ?transit_encryption_mode:string prop ->
   ?user_group_ids:string prop list ->

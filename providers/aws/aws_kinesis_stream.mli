@@ -29,8 +29,8 @@ val aws_kinesis_stream :
   ?retention_period:float prop ->
   ?shard_count:float prop ->
   ?shard_level_metrics:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -52,8 +52,8 @@ type t = private {
   retention_period : float prop;
   shard_count : float prop;
   shard_level_metrics : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -66,8 +66,8 @@ val register :
   ?retention_period:float prop ->
   ?shard_count:float prop ->
   ?shard_level_metrics:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -83,8 +83,8 @@ val make :
   ?retention_period:float prop ->
   ?shard_count:float prop ->
   ?shard_level_metrics:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->

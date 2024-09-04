@@ -603,12 +603,12 @@ type t = {
   cors : cors list prop;
   custom_placement_config : custom_placement_config list prop;
   default_event_based_hold : bool prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_object_retention : bool prop;
   encryption : encryption list prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lifecycle_rule : lifecycle_rule list prop;
   location : string prop;
   logging : logging list prop;
@@ -622,7 +622,7 @@ type t = {
   self_link : string prop;
   soft_delete_policy : soft_delete_policy list prop;
   storage_class : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uniform_bucket_level_access : bool prop;
   url : string prop;
   versioning : versioning list prop;

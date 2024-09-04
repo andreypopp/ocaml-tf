@@ -19,7 +19,7 @@ val google_netapp_backup_policy :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   daily_backup_limit:float prop ->
@@ -41,16 +41,16 @@ type t = private {
   create_time : string prop;
   daily_backup_limit : float prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enabled : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   monthly_backup_limit : float prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   weekly_backup_limit : float prop;
 }
 
@@ -59,7 +59,7 @@ val register :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   daily_backup_limit:float prop ->
@@ -74,7 +74,7 @@ val make :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   daily_backup_limit:float prop ->

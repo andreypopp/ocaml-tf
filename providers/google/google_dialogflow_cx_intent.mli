@@ -47,7 +47,7 @@ val google_dialogflow_cx_intent :
   ?is_default_negative_intent:bool prop ->
   ?is_default_welcome_intent:bool prop ->
   ?is_fallback:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->
@@ -67,17 +67,17 @@ type t = private {
   tf_name : string;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   is_default_negative_intent : bool prop;
   is_default_welcome_intent : bool prop;
   is_fallback : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   language_code : string prop;
   name : string prop;
   parent : string prop;
   priority : float prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -87,7 +87,7 @@ val register :
   ?is_default_negative_intent:bool prop ->
   ?is_default_welcome_intent:bool prop ->
   ?is_fallback:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->
@@ -104,7 +104,7 @@ val make :
   ?is_default_negative_intent:bool prop ->
   ?is_default_welcome_intent:bool prop ->
   ?is_fallback:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->

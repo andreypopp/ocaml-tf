@@ -145,7 +145,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   restorable_dropped_database_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transparent_data_encryption_key_vault_key_id : string prop;
   version : string prop;
 }

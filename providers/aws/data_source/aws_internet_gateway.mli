@@ -23,7 +23,7 @@ type aws_internet_gateway
 val aws_internet_gateway :
   ?id:string prop ->
   ?internet_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -40,14 +40,14 @@ type t = private {
   id : string prop;
   internet_gateway_id : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?internet_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -56,7 +56,7 @@ val register :
 val make :
   ?id:string prop ->
   ?internet_gateway_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

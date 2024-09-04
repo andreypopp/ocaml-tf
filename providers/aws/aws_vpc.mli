@@ -20,8 +20,8 @@ val aws_vpc :
   ?ipv6_cidr_block_network_border_group:string prop ->
   ?ipv6_ipam_pool_id:string prop ->
   ?ipv6_netmask_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   unit ->
   aws_vpc
 
@@ -52,8 +52,8 @@ type t = private {
   ipv6_netmask_length : float prop;
   main_route_table_id : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,8 +71,8 @@ val register :
   ?ipv6_cidr_block_network_border_group:string prop ->
   ?ipv6_ipam_pool_id:string prop ->
   ?ipv6_netmask_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -90,7 +90,7 @@ val make :
   ?ipv6_cidr_block_network_border_group:string prop ->
   ?ipv6_ipam_pool_id:string prop ->
   ?ipv6_netmask_length:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

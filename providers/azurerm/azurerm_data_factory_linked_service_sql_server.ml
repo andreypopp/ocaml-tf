@@ -132,8 +132,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_data_factory_linked_service_sql_server = {
-  additional_properties : (string * string prop) list option;
-      [@option]
+  additional_properties : string prop Tf_core.assoc option; [@option]
   annotations : string prop list option; [@option]
   connection_string : string prop option; [@option]
   data_factory_id : string prop;
@@ -141,7 +140,7 @@ type azurerm_data_factory_linked_service_sql_server = {
   id : string prop option; [@option]
   integration_runtime_name : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   user_name : string prop option; [@option]
   key_vault_connection_string : key_vault_connection_string list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -211,12 +210,8 @@ let yojson_of_azurerm_data_factory_linked_service_sql_server =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -279,12 +274,8 @@ let yojson_of_azurerm_data_factory_linked_service_sql_server =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_properties", arg in
@@ -333,7 +324,7 @@ let azurerm_data_factory_linked_service_sql_server
 
 type t = {
   tf_name : string;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   connection_string : string prop;
   data_factory_id : string prop;
@@ -341,7 +332,7 @@ type t = {
   id : string prop;
   integration_runtime_name : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   user_name : string prop;
 }
 

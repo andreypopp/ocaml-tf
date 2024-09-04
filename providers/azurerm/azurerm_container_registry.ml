@@ -5,7 +5,7 @@ open! Tf_core
 type georeplications = {
   location : string prop;
   regional_endpoint_enabled : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   zone_redundancy_enabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -36,12 +36,8 @@ let yojson_of_georeplications =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -381,7 +377,7 @@ type azurerm_container_registry = {
   resource_group_name : string prop;
   retention_policy : retention_policy list option; [@option]
   sku : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   trust_policy : trust_policy list option; [@option]
   zone_redundancy_enabled : bool prop option; [@option]
   georeplications : georeplications list;
@@ -467,12 +463,8 @@ let yojson_of_azurerm_container_registry =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -657,7 +649,7 @@ type t = {
   resource_group_name : string prop;
   retention_policy : retention_policy list prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trust_policy : trust_policy list prop;
   zone_redundancy_enabled : bool prop;
 }

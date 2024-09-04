@@ -73,7 +73,7 @@ type aws_customerprofiles_profile
 val aws_customerprofiles_profile :
   ?account_number:string prop ->
   ?additional_information:string prop ->
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?birth_date:string prop ->
   ?business_email_address:string prop ->
   ?business_name:string prop ->
@@ -106,7 +106,7 @@ type t = private {
   tf_name : string;
   account_number : string prop;
   additional_information : string prop;
-  attributes : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
   birth_date : string prop;
   business_email_address : string prop;
   business_name : string prop;
@@ -129,7 +129,7 @@ val register :
   ?tf_module:tf_module ->
   ?account_number:string prop ->
   ?additional_information:string prop ->
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?birth_date:string prop ->
   ?business_email_address:string prop ->
   ?business_name:string prop ->
@@ -156,7 +156,7 @@ val register :
 val make :
   ?account_number:string prop ->
   ?additional_information:string prop ->
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?birth_date:string prop ->
   ?business_email_address:string prop ->
   ?business_name:string prop ->

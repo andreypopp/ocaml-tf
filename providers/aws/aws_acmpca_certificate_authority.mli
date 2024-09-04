@@ -71,8 +71,8 @@ val aws_acmpca_certificate_authority :
   ?id:string prop ->
   ?key_storage_security_standard:string prop ->
   ?permanent_deletion_time_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
   ?revocation_configuration:revocation_configuration list ->
@@ -100,8 +100,8 @@ type t = private {
   not_before : string prop;
   permanent_deletion_time_in_days : float prop;
   serial : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   usage_mode : string prop;
 }
@@ -112,8 +112,8 @@ val register :
   ?id:string prop ->
   ?key_storage_security_standard:string prop ->
   ?permanent_deletion_time_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
   ?revocation_configuration:revocation_configuration list ->
@@ -128,8 +128,8 @@ val make :
   ?id:string prop ->
   ?key_storage_security_standard:string prop ->
   ?permanent_deletion_time_in_days:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
   ?revocation_configuration:revocation_configuration list ->

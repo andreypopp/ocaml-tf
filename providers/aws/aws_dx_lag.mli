@@ -11,8 +11,8 @@ val aws_dx_lag :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?provider_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   connections_bandwidth:string prop ->
   location:string prop ->
   name:string prop ->
@@ -36,8 +36,8 @@ type t = private {
   name : string prop;
   owner_account_id : string prop;
   provider_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -46,8 +46,8 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?provider_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   connections_bandwidth:string prop ->
   location:string prop ->
   name:string prop ->
@@ -59,8 +59,8 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?provider_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   connections_bandwidth:string prop ->
   location:string prop ->
   name:string prop ->

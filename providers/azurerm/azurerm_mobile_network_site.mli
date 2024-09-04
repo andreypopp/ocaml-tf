@@ -18,7 +18,7 @@ type azurerm_mobile_network_site
 
 val azurerm_mobile_network_site :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
@@ -38,13 +38,13 @@ type t = private {
   mobile_network_id : string prop;
   name : string prop;
   network_function_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
@@ -54,7 +54,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->

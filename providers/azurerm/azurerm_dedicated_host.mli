@@ -20,7 +20,7 @@ val azurerm_dedicated_host :
   ?auto_replace_on_failure:bool prop ->
   ?id:string prop ->
   ?license_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dedicated_host_group_id:string prop ->
   location:string prop ->
@@ -44,7 +44,7 @@ type t = private {
   name : string prop;
   platform_fault_domain : float prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -52,7 +52,7 @@ val register :
   ?auto_replace_on_failure:bool prop ->
   ?id:string prop ->
   ?license_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dedicated_host_group_id:string prop ->
   location:string prop ->
@@ -66,7 +66,7 @@ val make :
   ?auto_replace_on_failure:bool prop ->
   ?id:string prop ->
   ?license_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dedicated_host_group_id:string prop ->
   location:string prop ->

@@ -8,7 +8,7 @@ type aws_appfabric_app_bundle
 
 val aws_appfabric_app_bundle :
   ?customer_managed_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_appfabric_app_bundle
 
@@ -22,19 +22,19 @@ type t = private {
   arn : string prop;
   customer_managed_key_arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?customer_managed_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?customer_managed_key_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

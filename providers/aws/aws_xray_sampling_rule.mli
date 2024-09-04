@@ -7,11 +7,11 @@ open! Tf_core
 type aws_xray_sampling_rule
 
 val aws_xray_sampling_rule :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?rule_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fixed_rate:float prop ->
   host:string prop ->
   http_method:string prop ->
@@ -32,7 +32,7 @@ val yojson_of_aws_xray_sampling_rule : aws_xray_sampling_rule -> json
 type t = private {
   tf_name : string;
   arn : string prop;
-  attributes : (string * string) list prop;
+  attributes : string Tf_core.assoc prop;
   fixed_rate : float prop;
   host : string prop;
   http_method : string prop;
@@ -43,19 +43,19 @@ type t = private {
   rule_name : string prop;
   service_name : string prop;
   service_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url_path : string prop;
   version : float prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?rule_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fixed_rate:float prop ->
   host:string prop ->
   http_method:string prop ->
@@ -70,11 +70,11 @@ val register :
   t
 
 val make :
-  ?attributes:(string * string prop) list ->
+  ?attributes:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?rule_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   fixed_rate:float prop ->
   host:string prop ->
   http_method:string prop ->

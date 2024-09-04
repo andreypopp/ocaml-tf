@@ -205,7 +205,7 @@ val google_privateca_certificate_authority :
   ?gcs_bucket:string prop ->
   ?id:string prop ->
   ?ignore_active_certificates_on_deletion:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_ca_certificate:string prop ->
   ?project:string prop ->
@@ -233,11 +233,11 @@ type t = private {
   create_time : string prop;
   deletion_protection : bool prop;
   desired_state : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   gcs_bucket : string prop;
   id : string prop;
   ignore_active_certificates_on_deletion : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   lifetime : string prop;
   location : string prop;
   name : string prop;
@@ -247,7 +247,7 @@ type t = private {
   project : string prop;
   skip_grace_period : bool prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   update_time : string prop;
 }
@@ -259,7 +259,7 @@ val register :
   ?gcs_bucket:string prop ->
   ?id:string prop ->
   ?ignore_active_certificates_on_deletion:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_ca_certificate:string prop ->
   ?project:string prop ->
@@ -281,7 +281,7 @@ val make :
   ?gcs_bucket:string prop ->
   ?id:string prop ->
   ?ignore_active_certificates_on_deletion:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?lifetime:string prop ->
   ?pem_ca_certificate:string prop ->
   ?project:string prop ->

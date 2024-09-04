@@ -28,8 +28,8 @@ val aws_apigatewayv2_api :
   ?id:string prop ->
   ?route_key:string prop ->
   ?route_selection_expression:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target:string prop ->
   ?version:string prop ->
   ?cors_configuration:cors_configuration list ->
@@ -58,8 +58,8 @@ type t = private {
   protocol_type : string prop;
   route_key : string prop;
   route_selection_expression : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target : string prop;
   version : string prop;
 }
@@ -75,8 +75,8 @@ val register :
   ?id:string prop ->
   ?route_key:string prop ->
   ?route_selection_expression:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target:string prop ->
   ?version:string prop ->
   ?cors_configuration:cors_configuration list ->
@@ -95,8 +95,8 @@ val make :
   ?id:string prop ->
   ?route_key:string prop ->
   ?route_selection_expression:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target:string prop ->
   ?version:string prop ->
   ?cors_configuration:cors_configuration list ->

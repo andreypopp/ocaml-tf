@@ -51,7 +51,7 @@ type azurerm_managed_lustre_file_system
 
 val azurerm_managed_lustre_file_system :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_key:encryption_key list ->
   ?hsm_setting:hsm_setting list ->
   ?identity:identity list ->
@@ -82,14 +82,14 @@ type t = private {
   sku_name : string prop;
   storage_capacity_in_tb : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_key:encryption_key list ->
   ?hsm_setting:hsm_setting list ->
   ?identity:identity list ->
@@ -107,7 +107,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_key:encryption_key list ->
   ?hsm_setting:hsm_setting list ->
   ?identity:identity list ->

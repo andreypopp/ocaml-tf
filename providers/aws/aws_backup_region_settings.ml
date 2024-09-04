@@ -5,9 +5,9 @@ open! Tf_core
 type aws_backup_region_settings = {
   id : string prop option; [@option]
   resource_type_management_preference :
-    (string * bool prop) list option;
+    bool prop Tf_core.assoc option;
       [@option]
-  resource_type_opt_in_preference : (string * bool prop) list;
+  resource_type_opt_in_preference : bool prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -27,12 +27,8 @@ let yojson_of_aws_backup_region_settings =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_bool v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_bool)
              v_resource_type_opt_in_preference
          in
          ("resource_type_opt_in_preference", arg) :: bnds
@@ -42,12 +38,8 @@ let yojson_of_aws_backup_region_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_bool v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_bool)
                  v
              in
              let bnd = "resource_type_management_preference", arg in
@@ -81,8 +73,8 @@ let aws_backup_region_settings ?id
 type t = {
   tf_name : string;
   id : string prop;
-  resource_type_management_preference : (string * bool) list prop;
-  resource_type_opt_in_preference : (string * bool) list prop;
+  resource_type_management_preference : bool Tf_core.assoc prop;
+  resource_type_opt_in_preference : bool Tf_core.assoc prop;
 }
 
 let make ?id ?resource_type_management_preference

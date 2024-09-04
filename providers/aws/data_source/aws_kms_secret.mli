@@ -7,7 +7,7 @@ open! Tf_core
 type secret
 
 val secret :
-  ?context:(string * string prop) list ->
+  ?context:string prop Tf_core.assoc ->
   ?grant_tokens:string prop list ->
   name:string prop ->
   payload:string prop ->

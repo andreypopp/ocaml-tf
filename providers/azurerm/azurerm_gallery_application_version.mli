@@ -50,7 +50,7 @@ val azurerm_gallery_application_version :
   ?exclude_from_latest:bool prop ->
   ?id:string prop ->
   ?package_file:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_application_id:string prop ->
   location:string prop ->
@@ -77,7 +77,7 @@ type t = private {
   location : string prop;
   name : string prop;
   package_file : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -88,7 +88,7 @@ val register :
   ?exclude_from_latest:bool prop ->
   ?id:string prop ->
   ?package_file:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_application_id:string prop ->
   location:string prop ->
@@ -106,7 +106,7 @@ val make :
   ?exclude_from_latest:bool prop ->
   ?id:string prop ->
   ?package_file:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_application_id:string prop ->
   location:string prop ->

@@ -145,7 +145,7 @@ val azurerm_spring_cloud_service :
   ?service_registry_enabled:bool prop ->
   ?sku_name:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?config_server_git_setting:config_server_git_setting list ->
   ?container_registry:container_registry list ->
@@ -181,7 +181,7 @@ type t = private {
   service_registry_id : string prop;
   sku_name : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 
@@ -194,7 +194,7 @@ val register :
   ?service_registry_enabled:bool prop ->
   ?sku_name:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?config_server_git_setting:config_server_git_setting list ->
   ?container_registry:container_registry list ->
@@ -217,7 +217,7 @@ val make :
   ?service_registry_enabled:bool prop ->
   ?sku_name:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?config_server_git_setting:config_server_git_setting list ->
   ?container_registry:container_registry list ->

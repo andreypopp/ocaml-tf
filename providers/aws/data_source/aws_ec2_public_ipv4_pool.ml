@@ -51,7 +51,7 @@ let _ = yojson_of_pool_address_ranges
 type aws_ec2_public_ipv4_pool = {
   id : string prop option; [@option]
   pool_id : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,12 +68,8 @@ let yojson_of_aws_ec2_public_ipv4_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -109,7 +105,7 @@ type t = {
   network_border_group : string prop;
   pool_address_ranges : pool_address_ranges list prop;
   pool_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   total_address_count : float prop;
   total_available_address_count : float prop;
 }

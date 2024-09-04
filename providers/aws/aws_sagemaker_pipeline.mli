@@ -27,8 +27,8 @@ val aws_sagemaker_pipeline :
   ?pipeline_definition:string prop ->
   ?pipeline_description:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?parallelism_configuration:parallelism_configuration list ->
   ?pipeline_definition_s3_location:
     pipeline_definition_s3_location list ->
@@ -50,8 +50,8 @@ type t = private {
   pipeline_display_name : string prop;
   pipeline_name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,8 +60,8 @@ val register :
   ?pipeline_definition:string prop ->
   ?pipeline_description:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?parallelism_configuration:parallelism_configuration list ->
   ?pipeline_definition_s3_location:
     pipeline_definition_s3_location list ->
@@ -75,8 +75,8 @@ val make :
   ?pipeline_definition:string prop ->
   ?pipeline_description:string prop ->
   ?role_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?parallelism_configuration:parallelism_configuration list ->
   ?pipeline_definition_s3_location:
     pipeline_definition_s3_location list ->

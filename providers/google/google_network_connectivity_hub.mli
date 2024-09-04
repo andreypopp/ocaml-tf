@@ -19,7 +19,7 @@ type google_network_connectivity_hub
 val google_network_connectivity_hub :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -35,14 +35,14 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   routing_vpcs : routing_vpcs list prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   unique_id : string prop;
   update_time : string prop;
 }
@@ -51,7 +51,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -61,7 +61,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->

@@ -43,7 +43,7 @@ type azurerm_dev_test_virtual_network
 val azurerm_dev_test_virtual_network :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
@@ -64,7 +64,7 @@ type t = private {
   lab_name : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_identifier : string prop;
 }
 
@@ -72,7 +72,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
@@ -84,7 +84,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->

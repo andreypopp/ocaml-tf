@@ -3,7 +3,7 @@
 open! Tf_core
 
 type aws_glue_dev_endpoint = {
-  arguments : (string * string prop) list option; [@option]
+  arguments : string prop Tf_core.assoc option; [@option]
   extra_jars_s3_path : string prop option; [@option]
   extra_python_libs_s3_path : string prop option; [@option]
   glue_version : string prop option; [@option]
@@ -17,8 +17,8 @@ type aws_glue_dev_endpoint = {
   security_configuration : string prop option; [@option]
   security_group_ids : string prop list option; [@option]
   subnet_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   worker_type : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -62,12 +62,8 @@ let yojson_of_aws_glue_dev_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -78,12 +74,8 @@ let yojson_of_aws_glue_dev_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -194,12 +186,8 @@ let yojson_of_aws_glue_dev_endpoint =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "arguments", arg in
@@ -240,7 +228,7 @@ let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
 
 type t = {
   tf_name : string;
-  arguments : (string * string) list prop;
+  arguments : string Tf_core.assoc prop;
   arn : string prop;
   availability_zone : string prop;
   extra_jars_s3_path : string prop;
@@ -260,8 +248,8 @@ type t = {
   security_group_ids : string list prop;
   status : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
   worker_type : string prop;
   yarn_endpoint_address : string prop;

@@ -377,7 +377,7 @@ type google_eventarc_trigger = {
   channel : string prop option; [@option]
   event_data_content_type : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   name : string prop;
   project : string prop option; [@option]
@@ -474,12 +474,8 @@ let yojson_of_google_eventarc_trigger =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -567,18 +563,18 @@ let google_eventarc_trigger ?channel ?event_data_content_type ?id
 type t = {
   tf_name : string;
   channel : string prop;
-  conditions : (string * string) list prop;
+  conditions : string Tf_core.assoc prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   event_data_content_type : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   service_account : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }

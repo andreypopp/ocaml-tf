@@ -60,7 +60,7 @@ let _ =
 [@@@deriving.end]
 
 type destination_flow_config__destination_connector_properties__custom_connector = {
-  custom_properties : (string * string prop) list option; [@option]
+  custom_properties : string prop Tf_core.assoc option; [@option]
   entity_name : string prop;
   id_field_names : string prop list option; [@option]
   write_operation_type : string prop option; [@option]
@@ -127,12 +127,8 @@ let yojson_of_destination_flow_config__destination_connector_properties__custom_
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_properties", arg in
@@ -1996,7 +1992,7 @@ let _ =
 [@@@deriving.end]
 
 type source_flow_config__source_connector_properties__custom_connector = {
-  custom_properties : (string * string prop) list option; [@option]
+  custom_properties : string prop Tf_core.assoc option; [@option]
   entity_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -2025,12 +2021,8 @@ let yojson_of_source_flow_config__source_connector_properties__custom_connector
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_properties", arg in
@@ -3099,7 +3091,7 @@ let _ = yojson_of_task__connector_operator
 type task = {
   destination_field : string prop option; [@option]
   source_fields : string prop list option; [@option]
-  task_properties : (string * string prop) list option; [@option]
+  task_properties : string prop Tf_core.assoc option; [@option]
   task_type : string prop;
   connector_operator : task__connector_operator list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -3139,12 +3131,8 @@ let yojson_of_task =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "task_properties", arg in
@@ -3342,8 +3330,8 @@ type aws_appflow_flow = {
   id : string prop option; [@option]
   kms_arn : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   destination_flow_config : destination_flow_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   source_flow_config : source_flow_config list;
@@ -3415,12 +3403,8 @@ let yojson_of_aws_appflow_flow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -3431,12 +3415,8 @@ let yojson_of_aws_appflow_flow =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -3938,8 +3918,8 @@ type t = {
   id : string prop;
   kms_arn : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?kms_arn ?tags ?tags_all ~name

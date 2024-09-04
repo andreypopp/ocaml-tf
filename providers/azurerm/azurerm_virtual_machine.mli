@@ -168,7 +168,7 @@ val azurerm_virtual_machine :
   ?license_type:string prop ->
   ?primary_network_interface_id:string prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?additional_capabilities:additional_capabilities list ->
   ?boot_diagnostics:boot_diagnostics list ->
@@ -208,7 +208,7 @@ type t = private {
   primary_network_interface_id : string prop;
   proximity_placement_group_id : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vm_size : string prop;
   zones : string list prop;
 }
@@ -222,7 +222,7 @@ val register :
   ?license_type:string prop ->
   ?primary_network_interface_id:string prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?additional_capabilities:additional_capabilities list ->
   ?boot_diagnostics:boot_diagnostics list ->
@@ -252,7 +252,7 @@ val make :
   ?license_type:string prop ->
   ?primary_network_interface_id:string prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?additional_capabilities:additional_capabilities list ->
   ?boot_diagnostics:boot_diagnostics list ->

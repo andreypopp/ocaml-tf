@@ -22,7 +22,7 @@ val azurerm_storage_table_entity :
   ?storage_table_id:string prop ->
   ?table_name:string prop ->
   ?timeouts:timeouts ->
-  entity:(string * string prop) list ->
+  entity:string prop Tf_core.assoc ->
   partition_key:string prop ->
   row_key:string prop ->
   unit ->
@@ -35,7 +35,7 @@ val yojson_of_azurerm_storage_table_entity :
 
 type t = private {
   tf_name : string;
-  entity : (string * string) list prop;
+  entity : string Tf_core.assoc prop;
   id : string prop;
   partition_key : string prop;
   row_key : string prop;
@@ -51,7 +51,7 @@ val register :
   ?storage_table_id:string prop ->
   ?table_name:string prop ->
   ?timeouts:timeouts ->
-  entity:(string * string prop) list ->
+  entity:string prop Tf_core.assoc ->
   partition_key:string prop ->
   row_key:string prop ->
   string ->
@@ -63,7 +63,7 @@ val make :
   ?storage_table_id:string prop ->
   ?table_name:string prop ->
   ?timeouts:timeouts ->
-  entity:(string * string prop) list ->
+  entity:string prop Tf_core.assoc ->
   partition_key:string prop ->
   row_key:string prop ->
   string ->

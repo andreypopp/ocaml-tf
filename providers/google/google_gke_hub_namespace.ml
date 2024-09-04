@@ -71,8 +71,8 @@ let _ = yojson_of_state
 
 type google_gke_hub_namespace = {
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
-  namespace_labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
+  namespace_labels : string prop Tf_core.assoc option; [@option]
   project : string prop option; [@option]
   scope : string prop;
   scope_id : string prop;
@@ -129,12 +129,8 @@ let yojson_of_google_gke_hub_namespace =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "namespace_labels", arg in
@@ -145,12 +141,8 @@ let yojson_of_google_gke_hub_namespace =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -192,17 +184,17 @@ type t = {
   tf_name : string;
   create_time : string prop;
   delete_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
-  namespace_labels : (string * string) list prop;
+  namespace_labels : string Tf_core.assoc prop;
   project : string prop;
   scope : string prop;
   scope_id : string prop;
   scope_namespace_id : string prop;
   state : state list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }

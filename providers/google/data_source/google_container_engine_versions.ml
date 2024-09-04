@@ -75,8 +75,8 @@ type t = {
   latest_node_version : string prop;
   location : string prop;
   project : string prop;
-  release_channel_default_version : (string * string) list prop;
-  release_channel_latest_version : (string * string) list prop;
+  release_channel_default_version : string Tf_core.assoc prop;
+  release_channel_latest_version : string Tf_core.assoc prop;
   valid_master_versions : string list prop;
   valid_node_versions : string list prop;
   version_prefix : string prop;

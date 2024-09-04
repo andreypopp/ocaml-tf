@@ -76,8 +76,8 @@ let _ = yojson_of_allowed_topologies
 [@@@deriving.end]
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
-  labels : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -107,12 +107,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -123,12 +119,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -145,7 +137,7 @@ type kubernetes_storage_class_v1 = {
   allow_volume_expansion : bool prop option; [@option]
   id : string prop option; [@option]
   mount_options : string prop list option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   reclaim_policy : string prop option; [@option]
   volume_binding_mode : string prop option; [@option]
   allowed_topologies : allowed_topologies list;
@@ -212,12 +204,8 @@ let yojson_of_kubernetes_storage_class_v1 =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -288,7 +276,7 @@ type t = {
   allow_volume_expansion : bool prop;
   id : string prop;
   mount_options : string list prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   reclaim_policy : string prop;
   storage_provisioner : string prop;
   volume_binding_mode : string prop;

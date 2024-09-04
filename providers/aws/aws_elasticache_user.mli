@@ -28,8 +28,8 @@ val aws_elasticache_user :
   ?id:string prop ->
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->
@@ -51,8 +51,8 @@ type t = private {
   id : string prop;
   no_password_required : bool prop;
   passwords : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_id : string prop;
   user_name : string prop;
 }
@@ -62,8 +62,8 @@ val register :
   ?id:string prop ->
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->
@@ -77,8 +77,8 @@ val make :
   ?id:string prop ->
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->

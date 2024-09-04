@@ -9,7 +9,7 @@ type aws_s3_bucket_object
 val aws_s3_bucket_object :
   ?id:string prop ->
   ?range:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -38,7 +38,7 @@ type t = private {
   id : string prop;
   key : string prop;
   last_modified : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   object_lock_legal_hold_status : string prop;
   object_lock_mode : string prop;
   object_lock_retain_until_date : string prop;
@@ -46,7 +46,7 @@ type t = private {
   server_side_encryption : string prop;
   sse_kms_key_id : string prop;
   storage_class : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version_id : string prop;
   website_redirect_location : string prop;
 }
@@ -55,7 +55,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?range:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -65,7 +65,7 @@ val register :
 val make :
   ?id:string prop ->
   ?range:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   bucket:string prop ->
   key:string prop ->

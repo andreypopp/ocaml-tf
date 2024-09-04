@@ -13,7 +13,7 @@ type aws_kendra_query_suggestions_block_list
 
 val aws_kendra_query_suggestions_block_list :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   query_suggestions_block_list_id:string prop ->
   unit ->
@@ -39,14 +39,14 @@ type t = private {
   role_arn : string prop;
   source_s3_path : source_s3_path list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   query_suggestions_block_list_id:string prop ->
   string ->
@@ -54,7 +54,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   index_id:string prop ->
   query_suggestions_block_list_id:string prop ->
   string ->

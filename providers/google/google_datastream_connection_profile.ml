@@ -221,8 +221,7 @@ let _ = yojson_of_mysql_profile
 [@@@deriving.end]
 
 type oracle_profile = {
-  connection_attributes : (string * string prop) list option;
-      [@option]
+  connection_attributes : string prop Tf_core.assoc option; [@option]
   database_service : string prop;
   hostname : string prop;
   password : string prop;
@@ -277,12 +276,8 @@ let yojson_of_oracle_profile =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "connection_attributes", arg in
@@ -424,7 +419,7 @@ type google_datastream_connection_profile = {
   create_without_validation : bool prop option; [@option]
   display_name : string prop;
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   project : string prop option; [@option]
   bigquery_profile : bigquery_profile list;
@@ -558,12 +553,8 @@ let yojson_of_google_datastream_connection_profile =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -672,13 +663,13 @@ type t = {
   connection_profile_id : string prop;
   create_without_validation : bool prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?create_without_validation ?id ?labels ?project

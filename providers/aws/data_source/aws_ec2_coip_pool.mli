@@ -19,7 +19,7 @@ val aws_ec2_coip_pool :
   ?id:string prop ->
   ?local_gateway_route_table_id:string prop ->
   ?pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -36,7 +36,7 @@ type t = private {
   local_gateway_route_table_id : string prop;
   pool_cidrs : string list prop;
   pool_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -44,7 +44,7 @@ val register :
   ?id:string prop ->
   ?local_gateway_route_table_id:string prop ->
   ?pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -54,7 +54,7 @@ val make :
   ?id:string prop ->
   ?local_gateway_route_table_id:string prop ->
   ?pool_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

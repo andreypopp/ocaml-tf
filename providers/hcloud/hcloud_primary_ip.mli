@@ -11,7 +11,7 @@ val hcloud_primary_ip :
   ?datacenter:string prop ->
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   assignee_type:string prop ->
   auto_delete:bool prop ->
@@ -33,7 +33,7 @@ type t = private {
   id : string prop;
   ip_address : string prop;
   ip_network : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   type_ : string prop;
 }
@@ -44,7 +44,7 @@ val register :
   ?datacenter:string prop ->
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   assignee_type:string prop ->
   auto_delete:bool prop ->
@@ -57,7 +57,7 @@ val make :
   ?datacenter:string prop ->
   ?delete_protection:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   assignee_type:string prop ->
   auto_delete:bool prop ->

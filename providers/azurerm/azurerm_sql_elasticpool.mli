@@ -21,7 +21,7 @@ val azurerm_sql_elasticpool :
   ?db_dtu_min:float prop ->
   ?id:string prop ->
   ?pool_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dtu:float prop ->
   edition:string prop ->
@@ -50,7 +50,7 @@ type t = private {
   pool_size : float prop;
   resource_group_name : string prop;
   server_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?db_dtu_min:float prop ->
   ?id:string prop ->
   ?pool_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dtu:float prop ->
   edition:string prop ->
@@ -75,7 +75,7 @@ val make :
   ?db_dtu_min:float prop ->
   ?id:string prop ->
   ?pool_size:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dtu:float prop ->
   edition:string prop ->

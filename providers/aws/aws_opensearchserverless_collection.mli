@@ -14,7 +14,7 @@ type aws_opensearchserverless_collection
 val aws_opensearchserverless_collection :
   ?description:string prop ->
   ?standby_replicas:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -36,8 +36,8 @@ type t = private {
   kms_key_arn : string prop;
   name : string prop;
   standby_replicas : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -45,7 +45,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?standby_replicas:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -55,7 +55,7 @@ val register :
 val make :
   ?description:string prop ->
   ?standby_replicas:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->

@@ -20,7 +20,7 @@ val azurerm_monitor_private_link_scope :
   ?id:string prop ->
   ?ingestion_access_mode:string prop ->
   ?query_access_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -39,7 +39,7 @@ type t = private {
   name : string prop;
   query_access_mode : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -47,7 +47,7 @@ val register :
   ?id:string prop ->
   ?ingestion_access_mode:string prop ->
   ?query_access_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -58,7 +58,7 @@ val make :
   ?id:string prop ->
   ?ingestion_access_mode:string prop ->
   ?query_access_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

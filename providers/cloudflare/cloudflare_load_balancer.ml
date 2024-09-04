@@ -141,7 +141,7 @@ let _ = yojson_of_pop_pools
 
 type random_steering = {
   default_weight : float prop option; [@option]
-  pool_weights : (string * float prop) list option; [@option]
+  pool_weights : float prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,12 +161,8 @@ let yojson_of_random_steering =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_float v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_float)
                  v
              in
              let bnd = "pool_weights", arg in
@@ -426,7 +422,7 @@ let _ = yojson_of_rules__overrides__pop_pools
 
 type rules__overrides__random_steering = {
   default_weight : float prop option; [@option]
-  pool_weights : (string * float prop) list option; [@option]
+  pool_weights : float prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -446,12 +442,8 @@ let yojson_of_rules__overrides__random_steering =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_float v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_float)
                  v
              in
              let bnd = "pool_weights", arg in

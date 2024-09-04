@@ -19,7 +19,7 @@ type azurerm_dedicated_host_group
 val azurerm_dedicated_host_group :
   ?automatic_placement_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -42,7 +42,7 @@ type t = private {
   name : string prop;
   platform_fault_domain_count : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone : string prop;
 }
 
@@ -50,7 +50,7 @@ val register :
   ?tf_module:tf_module ->
   ?automatic_placement_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -63,7 +63,7 @@ val register :
 val make :
   ?automatic_placement_enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

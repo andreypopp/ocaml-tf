@@ -9,7 +9,7 @@ type aws_api_gateway_export
 val aws_api_gateway_export :
   ?accepts:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   export_type:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->
@@ -28,7 +28,7 @@ type t = private {
   content_type : string prop;
   export_type : string prop;
   id : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   rest_api_id : string prop;
   stage_name : string prop;
 }
@@ -37,7 +37,7 @@ val register :
   ?tf_module:tf_module ->
   ?accepts:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   export_type:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->
@@ -47,7 +47,7 @@ val register :
 val make :
   ?accepts:string prop ->
   ?id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   export_type:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->

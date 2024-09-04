@@ -45,7 +45,7 @@ type aws_eks_node_group
 
 val aws_eks_node_group :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   node_group_name:string prop ->
   unit ->
@@ -64,7 +64,7 @@ type t = private {
   disk_size : float prop;
   id : string prop;
   instance_types : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   launch_template : launch_template list prop;
   node_group_name : string prop;
   node_role_arn : string prop;
@@ -74,7 +74,7 @@ type t = private {
   scaling_config : scaling_config list prop;
   status : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   taints : taints list prop;
   version : string prop;
 }
@@ -82,7 +82,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   node_group_name:string prop ->
   string ->
@@ -90,7 +90,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cluster_name:string prop ->
   node_group_name:string prop ->
   string ->

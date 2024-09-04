@@ -81,7 +81,7 @@ type template__template__containers__volume_mounts = {
 }
 
 type template__template__containers__resources = {
-  limits : (string * string prop) list;  (** limits *)
+  limits : string prop Tf_core.assoc;  (** limits *)
 }
 
 type template__template__containers__ports = {
@@ -153,8 +153,8 @@ type template__template = {
 }
 
 type template = {
-  annotations : (string * string prop) list;  (** annotations *)
-  labels : (string * string prop) list;  (** labels *)
+  annotations : string prop Tf_core.assoc;  (** annotations *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   parallelism : float prop;  (** parallelism *)
   task_count : float prop;  (** task_count *)
   template : template__template list;
@@ -190,7 +190,7 @@ val yojson_of_google_cloud_run_v2_job :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   binary_authorization : binary_authorization list prop;
   client : string prop;
   client_version : string prop;
@@ -198,14 +198,14 @@ type t = private {
   create_time : string prop;
   creator : string prop;
   delete_time : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   execution_count : float prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_execution : latest_created_execution list prop;
   launch_stage : string prop;
@@ -216,7 +216,7 @@ type t = private {
   reconciling : bool prop;
   template : template list prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }

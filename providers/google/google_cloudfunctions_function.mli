@@ -64,19 +64,19 @@ type google_cloudfunctions_function
 
 val google_cloudfunctions_function :
   ?available_memory_mb:float prop ->
-  ?build_environment_variables:(string * string prop) list ->
+  ?build_environment_variables:string prop Tf_core.assoc ->
   ?build_worker_pool:string prop ->
   ?description:string prop ->
   ?docker_registry:string prop ->
   ?docker_repository:string prop ->
   ?entry_point:string prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_trigger_security_level:string prop ->
   ?https_trigger_url:string prop ->
   ?id:string prop ->
   ?ingress_settings:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_instances:float prop ->
   ?min_instances:float prop ->
   ?project:string prop ->
@@ -106,20 +106,20 @@ val yojson_of_google_cloudfunctions_function :
 type t = private {
   tf_name : string;
   available_memory_mb : float prop;
-  build_environment_variables : (string * string) list prop;
+  build_environment_variables : string Tf_core.assoc prop;
   build_worker_pool : string prop;
   description : string prop;
   docker_registry : string prop;
   docker_repository : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   entry_point : string prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   https_trigger_security_level : string prop;
   https_trigger_url : string prop;
   id : string prop;
   ingress_settings : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   max_instances : float prop;
   min_instances : float prop;
   name : string prop;
@@ -130,7 +130,7 @@ type t = private {
   source_archive_bucket : string prop;
   source_archive_object : string prop;
   status : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   timeout : float prop;
   trigger_http : bool prop;
   version_id : string prop;
@@ -141,19 +141,19 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?available_memory_mb:float prop ->
-  ?build_environment_variables:(string * string prop) list ->
+  ?build_environment_variables:string prop Tf_core.assoc ->
   ?build_worker_pool:string prop ->
   ?description:string prop ->
   ?docker_registry:string prop ->
   ?docker_repository:string prop ->
   ?entry_point:string prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_trigger_security_level:string prop ->
   ?https_trigger_url:string prop ->
   ?id:string prop ->
   ?ingress_settings:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_instances:float prop ->
   ?min_instances:float prop ->
   ?project:string prop ->
@@ -177,19 +177,19 @@ val register :
 
 val make :
   ?available_memory_mb:float prop ->
-  ?build_environment_variables:(string * string prop) list ->
+  ?build_environment_variables:string prop Tf_core.assoc ->
   ?build_worker_pool:string prop ->
   ?description:string prop ->
   ?docker_registry:string prop ->
   ?docker_repository:string prop ->
   ?entry_point:string prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_trigger_security_level:string prop ->
   ?https_trigger_url:string prop ->
   ?id:string prop ->
   ?ingress_settings:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_instances:float prop ->
   ?min_instances:float prop ->
   ?project:string prop ->

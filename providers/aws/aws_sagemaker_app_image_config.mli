@@ -9,7 +9,7 @@ type code_editor_app_image_config__container_config
 val code_editor_app_image_config__container_config :
   ?container_arguments:string prop list ->
   ?container_entrypoint:string prop list ->
-  ?container_environment_variables:(string * string prop) list ->
+  ?container_environment_variables:string prop Tf_core.assoc ->
   unit ->
   code_editor_app_image_config__container_config
 
@@ -37,7 +37,7 @@ type jupyter_lab_image_config__container_config
 val jupyter_lab_image_config__container_config :
   ?container_arguments:string prop list ->
   ?container_entrypoint:string prop list ->
-  ?container_environment_variables:(string * string prop) list ->
+  ?container_environment_variables:string prop Tf_core.assoc ->
   unit ->
   jupyter_lab_image_config__container_config
 
@@ -89,8 +89,8 @@ type aws_sagemaker_app_image_config
 
 val aws_sagemaker_app_image_config :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->
@@ -108,15 +108,15 @@ type t = private {
   app_image_config_name : string prop;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->
@@ -126,8 +126,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?code_editor_app_image_config:code_editor_app_image_config list ->
   ?jupyter_lab_image_config:jupyter_lab_image_config list ->
   ?kernel_gateway_image_config:kernel_gateway_image_config list ->

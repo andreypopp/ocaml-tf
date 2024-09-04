@@ -22,7 +22,7 @@ val azurerm_key_vault_managed_hardware_security_module_key :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   managed_hsm_id : string prop;
   name : string prop;
   not_before_date : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   versioned_id : string prop;
 }
 
@@ -58,7 +58,7 @@ val register :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->
@@ -73,7 +73,7 @@ val make :
   ?id:string prop ->
   ?key_size:float prop ->
   ?not_before_date:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->

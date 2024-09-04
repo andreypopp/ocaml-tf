@@ -64,7 +64,7 @@ val control_plane__api_server_args :
 type control_plane__control_plane_node_pool_config__node_pool_config__node_configs
 
 val control_plane__control_plane_node_pool_config__node_pool_config__node_configs :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_ip:string prop ->
   unit ->
   control_plane__control_plane_node_pool_config__node_pool_config__node_configs
@@ -81,7 +81,7 @@ val control_plane__control_plane_node_pool_config__node_pool_config__taints :
 type control_plane__control_plane_node_pool_config__node_pool_config
 
 val control_plane__control_plane_node_pool_config__node_pool_config :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?operating_system:string prop ->
   ?node_configs:
     control_plane__control_plane_node_pool_config__node_pool_config__node_configs
@@ -141,7 +141,7 @@ val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_conf
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
 
 val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_ip:string prop ->
   unit ->
   load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
@@ -158,7 +158,7 @@ val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_conf
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
 
 val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?operating_system:string prop ->
   ?kubelet_config:
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
@@ -211,7 +211,7 @@ val load_balancer__metal_lb_config__address_pools :
 type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
 
 val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?node_ip:string prop ->
   unit ->
   load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
@@ -228,7 +228,7 @@ val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_co
 type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
 
 val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config :
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?operating_system:string prop ->
   ?node_configs:
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
@@ -414,7 +414,7 @@ val upgrade_policy : ?policy:string prop -> unit -> upgrade_policy
 type google_gkeonprem_bare_metal_cluster
 
 val google_gkeonprem_bare_metal_cluster :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -447,12 +447,12 @@ val yojson_of_google_gkeonprem_bare_metal_cluster :
 type t = private {
   tf_name : string;
   admin_cluster_membership : string prop;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   bare_metal_version : string prop;
   create_time : string prop;
   delete_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   endpoint : string prop;
   etag : string prop;
   fleet : fleet list prop;
@@ -471,7 +471,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
@@ -497,7 +497,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->

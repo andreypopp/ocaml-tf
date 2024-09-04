@@ -361,20 +361,20 @@ type t = {
   default_table_expiration_ms : float prop;
   delete_contents_on_destroy : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   external_dataset_reference : external_dataset_reference list prop;
   friendly_name : string prop;
   id : string prop;
   is_case_insensitive : bool prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modified_time : float prop;
   location : string prop;
   max_time_travel_hours : string prop;
   project : string prop;
   self_link : string prop;
   storage_billing_model : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project ~dataset_id __id =

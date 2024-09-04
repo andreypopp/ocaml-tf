@@ -235,7 +235,7 @@ val azurerm_virtual_machine_scale_set :
   ?priority:string prop ->
   ?proximity_placement_group_id:string prop ->
   ?single_placement_group:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?boot_diagnostics:boot_diagnostics list ->
   ?identity:identity list ->
@@ -279,7 +279,7 @@ type t = private {
   proximity_placement_group_id : string prop;
   resource_group_name : string prop;
   single_placement_group : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_policy_mode : string prop;
   zones : string list prop;
 }
@@ -295,7 +295,7 @@ val register :
   ?priority:string prop ->
   ?proximity_placement_group_id:string prop ->
   ?single_placement_group:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?boot_diagnostics:boot_diagnostics list ->
   ?identity:identity list ->
@@ -330,7 +330,7 @@ val make :
   ?priority:string prop ->
   ?proximity_placement_group_id:string prop ->
   ?single_placement_group:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zones:string prop list ->
   ?boot_diagnostics:boot_diagnostics list ->
   ?identity:identity list ->

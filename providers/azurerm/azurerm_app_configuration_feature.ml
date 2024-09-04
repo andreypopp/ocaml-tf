@@ -195,7 +195,7 @@ type azurerm_app_configuration_feature = {
   locked : bool prop option; [@option]
   name : string prop;
   percentage_filter_value : float prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   targeting_filter : targeting_filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -256,12 +256,8 @@ let yojson_of_azurerm_app_configuration_feature =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -397,7 +393,7 @@ type t = {
   locked : bool prop;
   name : string prop;
   percentage_filter_value : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?description ?enabled ?etag ?id ?key ?label ?locked

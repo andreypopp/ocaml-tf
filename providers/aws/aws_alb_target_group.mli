@@ -88,8 +88,8 @@ val aws_alb_target_group :
   ?protocol_version:string prop ->
   ?proxy_protocol_v2:bool prop ->
   ?slow_start:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
   ?health_check:health_check list ->
@@ -125,8 +125,8 @@ type t = private {
   protocol_version : string prop;
   proxy_protocol_v2 : bool prop;
   slow_start : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_type : string prop;
   vpc_id : string prop;
 }
@@ -149,8 +149,8 @@ val register :
   ?protocol_version:string prop ->
   ?proxy_protocol_v2:bool prop ->
   ?slow_start:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
   ?health_check:health_check list ->
@@ -178,8 +178,8 @@ val make :
   ?protocol_version:string prop ->
   ?proxy_protocol_v2:bool prop ->
   ?slow_start:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
   ?health_check:health_check list ->

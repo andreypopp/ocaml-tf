@@ -67,7 +67,7 @@ val azurerm_machine_learning_workspace :
   ?public_access_behind_virtual_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?v1_legacy_mode_enabled:bool prop ->
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->
@@ -109,7 +109,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   storage_account_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   v1_legacy_mode_enabled : bool prop;
   workspace_id : string prop;
 }
@@ -127,7 +127,7 @@ val register :
   ?public_access_behind_virtual_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?v1_legacy_mode_enabled:bool prop ->
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->
@@ -156,7 +156,7 @@ val make :
   ?public_access_behind_virtual_network_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?v1_legacy_mode_enabled:bool prop ->
   ?encryption:encryption list ->
   ?feature_store:feature_store list ->

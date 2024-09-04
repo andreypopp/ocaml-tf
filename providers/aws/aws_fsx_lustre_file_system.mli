@@ -50,7 +50,7 @@ val aws_fsx_lustre_file_system :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
@@ -60,8 +60,8 @@ val aws_fsx_lustre_file_system :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
   ?metadata_configuration:metadata_configuration list ->
@@ -90,7 +90,7 @@ type t = private {
   drive_cache_type : string prop;
   export_path : string prop;
   file_system_type_version : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   id : string prop;
   import_path : string prop;
   imported_file_chunk_size : float prop;
@@ -104,8 +104,8 @@ type t = private {
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
   weekly_maintenance_start_time : string prop;
 }
@@ -122,7 +122,7 @@ val register :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
@@ -132,8 +132,8 @@ val register :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
   ?metadata_configuration:metadata_configuration list ->
@@ -154,7 +154,7 @@ val make :
   ?drive_cache_type:string prop ->
   ?export_path:string prop ->
   ?file_system_type_version:string prop ->
-  ?final_backup_tags:(string * string prop) list ->
+  ?final_backup_tags:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?import_path:string prop ->
   ?imported_file_chunk_size:float prop ->
@@ -164,8 +164,8 @@ val make :
   ?skip_final_backup:bool prop ->
   ?storage_capacity:float prop ->
   ?storage_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?weekly_maintenance_start_time:string prop ->
   ?log_configuration:log_configuration list ->
   ?metadata_configuration:metadata_configuration list ->

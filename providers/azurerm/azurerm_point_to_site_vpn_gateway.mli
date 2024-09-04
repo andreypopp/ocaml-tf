@@ -57,7 +57,7 @@ val azurerm_point_to_site_vpn_gateway :
   ?dns_servers:string prop list ->
   ?id:string prop ->
   ?routing_preference_internet_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -83,7 +83,7 @@ type t = private {
   resource_group_name : string prop;
   routing_preference_internet_enabled : bool prop;
   scale_unit : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_id : string prop;
   vpn_server_configuration_id : string prop;
 }
@@ -93,7 +93,7 @@ val register :
   ?dns_servers:string prop list ->
   ?id:string prop ->
   ?routing_preference_internet_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -109,7 +109,7 @@ val make :
   ?dns_servers:string prop list ->
   ?id:string prop ->
   ?routing_preference_internet_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

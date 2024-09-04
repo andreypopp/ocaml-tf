@@ -65,7 +65,7 @@ val azurerm_netapp_volume :
   ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
   ?data_protection_replication:data_protection_replication list ->
@@ -113,7 +113,7 @@ type t = private {
   snapshot_directory_visible : bool prop;
   storage_quota_in_gb : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   throughput_in_mibps : float prop;
   volume_path : string prop;
   zone : string prop;
@@ -134,7 +134,7 @@ val register :
   ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
   ?data_protection_replication:data_protection_replication list ->
@@ -168,7 +168,7 @@ val make :
   ?smb_continuous_availability_enabled:bool prop ->
   ?smb_non_browsable_enabled:bool prop ->
   ?snapshot_directory_visible:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
   ?data_protection_replication:data_protection_replication list ->

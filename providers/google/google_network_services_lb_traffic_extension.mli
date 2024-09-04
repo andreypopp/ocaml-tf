@@ -47,7 +47,7 @@ type google_network_services_lb_traffic_extension
 val google_network_services_lb_traffic_extension :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -66,22 +66,22 @@ val yojson_of_google_network_services_lb_traffic_extension :
 type t = private {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   forwarding_rules : string list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   load_balancing_scheme : string prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -95,7 +95,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

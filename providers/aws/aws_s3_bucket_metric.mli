@@ -9,7 +9,7 @@ type filter
 val filter :
   ?access_point:string prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   filter
 

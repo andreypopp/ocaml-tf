@@ -252,7 +252,7 @@ type t = {
   private_ip_address : string prop;
   private_ip_addresses : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_id : string prop;
 }
 

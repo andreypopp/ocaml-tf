@@ -7,7 +7,7 @@ open! Tf_core
 type secret
 
 val secret :
-  ?context:(string * string prop) list ->
+  ?context:string prop Tf_core.assoc ->
   ?encryption_algorithm:string prop ->
   ?grant_tokens:string prop list ->
   ?key_id:string prop ->
@@ -28,7 +28,7 @@ val yojson_of_aws_kms_secrets : aws_kms_secrets -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  plaintext : (string * string) list prop;
+  plaintext : string Tf_core.assoc prop;
 }
 
 val register :

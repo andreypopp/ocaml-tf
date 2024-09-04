@@ -58,7 +58,7 @@ val azurerm_eventgrid_domain :
   ?input_schema:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?input_mapping_default_values:input_mapping_default_values list ->
   ?input_mapping_fields:input_mapping_fields list ->
@@ -89,7 +89,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   secondary_access_key : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -101,7 +101,7 @@ val register :
   ?input_schema:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?input_mapping_default_values:input_mapping_default_values list ->
   ?input_mapping_fields:input_mapping_fields list ->
@@ -120,7 +120,7 @@ val make :
   ?input_schema:string prop ->
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?input_mapping_default_values:input_mapping_default_values list ->
   ?input_mapping_fields:input_mapping_fields list ->

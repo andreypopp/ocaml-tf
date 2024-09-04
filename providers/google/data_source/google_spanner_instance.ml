@@ -214,16 +214,16 @@ type t = {
   autoscaling_config : autoscaling_config list prop;
   config : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   num_nodes : float prop;
   processing_units : float prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?config ?display_name ?id ?project ~name __id =

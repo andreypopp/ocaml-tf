@@ -274,12 +274,12 @@ let _ = yojson_of_secrets__replication
 [@@@deriving.end]
 
 type secrets = {
-  annotations : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
   create_time : string prop;
-  effective_annotations : (string * string prop) list;
-  effective_labels : (string * string prop) list;
+  effective_annotations : string prop Tf_core.assoc;
+  effective_labels : string prop Tf_core.assoc;
   expire_time : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   name : string prop;
   project : string prop;
   replication : secrets__replication list;
@@ -287,11 +287,11 @@ type secrets = {
   rotation : secrets__rotation list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   secret_id : string prop;
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
   topics : secrets__topics list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   ttl : string prop;
-  version_aliases : (string * string prop) list;
+  version_aliases : string prop Tf_core.assoc;
   version_destroy_ttl : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -329,12 +329,8 @@ let yojson_of_secrets =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_version_aliases
          in
          ("version_aliases", arg) :: bnds
@@ -354,12 +350,8 @@ let yojson_of_secrets =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_terraform_labels
          in
          ("terraform_labels", arg) :: bnds
@@ -397,12 +389,8 @@ let yojson_of_secrets =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -413,24 +401,16 @@ let yojson_of_secrets =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_effective_labels
          in
          ("effective_labels", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_effective_annotations
          in
          ("effective_annotations", arg) :: bnds
@@ -441,12 +421,8 @@ let yojson_of_secrets =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds

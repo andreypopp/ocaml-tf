@@ -302,7 +302,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   scale_unit : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_id : string prop;
 }
 

@@ -30,8 +30,8 @@ val aws_ami_copy :
   ?encrypted:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_ami_id:string prop ->
@@ -75,8 +75,8 @@ type t = private {
   source_ami_id : string prop;
   source_ami_region : string prop;
   sriov_net_support : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tpm_support : string prop;
   usage_operation : string prop;
   virtualization_type : string prop;
@@ -90,8 +90,8 @@ val register :
   ?encrypted:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_ami_id:string prop ->
@@ -108,8 +108,8 @@ val make :
   ?encrypted:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_ami_id:string prop ->

@@ -4,8 +4,8 @@ open! Tf_core
 
 type identities = {
   login : string prop;
-  saml_identity : (string * string prop) list;
-  scim_identity : (string * string prop) list;
+  saml_identity : string prop Tf_core.assoc;
+  scim_identity : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -23,24 +23,16 @@ let yojson_of_identities =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_scim_identity
          in
          ("scim_identity", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_saml_identity
          in
          ("saml_identity", arg) :: bnds

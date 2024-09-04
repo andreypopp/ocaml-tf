@@ -195,7 +195,7 @@ type volume = {
   snapshot_directory_visible : bool prop;
   storage_quota_in_gb : float prop;
   subnet_id : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
   throughput_in_mibps : float prop;
   volume_path : string prop;
   volume_spec_name : string prop;
@@ -248,12 +248,8 @@ let yojson_of_volume =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds

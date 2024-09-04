@@ -34,7 +34,7 @@ val google_compute_forwarding_rule :
   ?ip_protocol:string prop ->
   ?ip_version:string prop ->
   ?is_mirroring_collector:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?network:string prop ->
   ?network_tier:string prop ->
@@ -69,14 +69,14 @@ type t = private {
   base_forwarding_rule : string prop;
   creation_timestamp : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ip_address : string prop;
   ip_protocol : string prop;
   ip_version : string prop;
   is_mirroring_collector : bool prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   load_balancing_scheme : string prop;
   name : string prop;
   network : string prop;
@@ -95,7 +95,7 @@ type t = private {
   source_ip_ranges : string list prop;
   subnetwork : string prop;
   target : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -110,7 +110,7 @@ val register :
   ?ip_protocol:string prop ->
   ?ip_version:string prop ->
   ?is_mirroring_collector:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?network:string prop ->
   ?network_tier:string prop ->
@@ -142,7 +142,7 @@ val make :
   ?ip_protocol:string prop ->
   ?ip_version:string prop ->
   ?is_mirroring_collector:bool prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?load_balancing_scheme:string prop ->
   ?network:string prop ->
   ?network_tier:string prop ->

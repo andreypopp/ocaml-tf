@@ -16,18 +16,18 @@ val google_dataflow_job :
   ?id:string prop ->
   ?ip_configuration:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_type:string prop ->
   ?max_workers:float prop ->
   ?network:string prop ->
   ?on_delete:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account_email:string prop ->
   ?skip_wait_on_job_termination:bool prop ->
   ?subnetwork:string prop ->
-  ?transform_name_mapping:(string * string prop) list ->
+  ?transform_name_mapping:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -43,19 +43,19 @@ val yojson_of_google_dataflow_job : google_dataflow_job -> json
 type t = private {
   tf_name : string;
   additional_experiments : string list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_streaming_engine : bool prop;
   id : string prop;
   ip_configuration : string prop;
   job_id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
   max_workers : float prop;
   name : string prop;
   network : string prop;
   on_delete : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   project : string prop;
   region : string prop;
   service_account_email : string prop;
@@ -64,8 +64,8 @@ type t = private {
   subnetwork : string prop;
   temp_gcs_location : string prop;
   template_gcs_path : string prop;
-  terraform_labels : (string * string) list prop;
-  transform_name_mapping : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
+  transform_name_mapping : string Tf_core.assoc prop;
   type_ : string prop;
   zone : string prop;
 }
@@ -77,18 +77,18 @@ val register :
   ?id:string prop ->
   ?ip_configuration:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_type:string prop ->
   ?max_workers:float prop ->
   ?network:string prop ->
   ?on_delete:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account_email:string prop ->
   ?skip_wait_on_job_termination:bool prop ->
   ?subnetwork:string prop ->
-  ?transform_name_mapping:(string * string prop) list ->
+  ?transform_name_mapping:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -103,18 +103,18 @@ val make :
   ?id:string prop ->
   ?ip_configuration:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?machine_type:string prop ->
   ?max_workers:float prop ->
   ?network:string prop ->
   ?on_delete:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?region:string prop ->
   ?service_account_email:string prop ->
   ?skip_wait_on_job_termination:bool prop ->
   ?subnetwork:string prop ->
-  ?transform_name_mapping:(string * string prop) list ->
+  ?transform_name_mapping:string prop Tf_core.assoc ->
   ?zone:string prop ->
   ?timeouts:timeouts ->
   name:string prop ->

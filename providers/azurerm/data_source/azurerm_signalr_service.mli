@@ -41,7 +41,7 @@ type t = private {
   secondary_connection_string : string prop;
   server_port : float prop;
   serverless_connection_timeout_in_seconds : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tls_client_cert_enabled : bool prop;
 }
 

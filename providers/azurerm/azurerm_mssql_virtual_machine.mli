@@ -150,7 +150,7 @@ val azurerm_mssql_virtual_machine :
   ?sql_connectivity_update_username:string prop ->
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assessment:assessment list ->
   ?auto_backup:auto_backup list ->
   ?auto_patching:auto_patching list ->
@@ -178,7 +178,7 @@ type t = private {
   sql_connectivity_update_username : string prop;
   sql_license_type : string prop;
   sql_virtual_machine_group_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_id : string prop;
 }
 
@@ -192,7 +192,7 @@ val register :
   ?sql_connectivity_update_username:string prop ->
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assessment:assessment list ->
   ?auto_backup:auto_backup list ->
   ?auto_patching:auto_patching list ->
@@ -214,7 +214,7 @@ val make :
   ?sql_connectivity_update_username:string prop ->
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assessment:assessment list ->
   ?auto_backup:auto_backup list ->
   ?auto_patching:auto_patching list ->

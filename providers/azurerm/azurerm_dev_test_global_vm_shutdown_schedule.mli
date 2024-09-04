@@ -29,7 +29,7 @@ type azurerm_dev_test_global_vm_shutdown_schedule
 val azurerm_dev_test_global_vm_shutdown_schedule :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   daily_recurrence_time:string prop ->
   location:string prop ->
@@ -50,7 +50,7 @@ type t = private {
   enabled : bool prop;
   id : string prop;
   location : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone : string prop;
   virtual_machine_id : string prop;
 }
@@ -59,7 +59,7 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   daily_recurrence_time:string prop ->
   location:string prop ->
@@ -72,7 +72,7 @@ val register :
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   daily_recurrence_time:string prop ->
   location:string prop ->

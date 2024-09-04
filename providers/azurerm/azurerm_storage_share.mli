@@ -37,7 +37,7 @@ val azurerm_storage_share :
   ?access_tier:string prop ->
   ?enabled_protocol:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   quota:float prop ->
@@ -55,7 +55,7 @@ type t = private {
   access_tier : string prop;
   enabled_protocol : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   quota : float prop;
   resource_manager_id : string prop;
@@ -68,7 +68,7 @@ val register :
   ?access_tier:string prop ->
   ?enabled_protocol:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   quota:float prop ->
@@ -81,7 +81,7 @@ val make :
   ?access_tier:string prop ->
   ?enabled_protocol:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   quota:float prop ->

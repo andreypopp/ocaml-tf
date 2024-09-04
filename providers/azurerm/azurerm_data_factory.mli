@@ -65,7 +65,7 @@ val azurerm_data_factory :
   ?managed_virtual_network_enabled:bool prop ->
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?github_configuration:github_configuration list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -92,7 +92,7 @@ type t = private {
   public_network_enabled : bool prop;
   purview_id : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -103,7 +103,7 @@ val register :
   ?managed_virtual_network_enabled:bool prop ->
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?github_configuration:github_configuration list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -122,7 +122,7 @@ val make :
   ?managed_virtual_network_enabled:bool prop ->
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?github_configuration:github_configuration list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

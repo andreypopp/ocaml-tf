@@ -59,7 +59,7 @@ val azurerm_kusto_cluster :
   ?public_network_access_enabled:bool prop ->
   ?purge_enabled:bool prop ->
   ?streaming_ingestion_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
   ?identity:identity list ->
@@ -96,7 +96,7 @@ type t = private {
   purge_enabled : bool prop;
   resource_group_name : string prop;
   streaming_ingestion_enabled : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trusted_external_tenants : string list prop;
   uri : string prop;
   zones : string list prop;
@@ -117,7 +117,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?purge_enabled:bool prop ->
   ?streaming_ingestion_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
   ?identity:identity list ->
@@ -145,7 +145,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?purge_enabled:bool prop ->
   ?streaming_ingestion_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
   ?identity:identity list ->

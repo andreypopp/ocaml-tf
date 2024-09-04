@@ -41,7 +41,7 @@ val azurerm_dev_test_linux_virtual_machine :
   ?notes:string prop ->
   ?password:string prop ->
   ?ssh_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->
@@ -79,7 +79,7 @@ type t = private {
   size : string prop;
   ssh_key : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_identifier : string prop;
   username : string prop;
 }
@@ -92,7 +92,7 @@ val register :
   ?notes:string prop ->
   ?password:string prop ->
   ?ssh_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->
@@ -115,7 +115,7 @@ val make :
   ?notes:string prop ->
   ?password:string prop ->
   ?ssh_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->

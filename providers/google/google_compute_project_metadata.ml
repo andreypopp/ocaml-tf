@@ -41,7 +41,7 @@ let _ = yojson_of_timeouts
 
 type google_compute_project_metadata = {
   id : string prop option; [@option]
-  metadata : (string * string prop) list;
+  metadata : string prop Tf_core.assoc;
   project : string prop option; [@option]
   timeouts : timeouts option;
 }
@@ -74,12 +74,8 @@ let yojson_of_google_compute_project_metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_metadata
          in
          ("metadata", arg) :: bnds
@@ -109,7 +105,7 @@ let google_compute_project_metadata ?id ?project ?timeouts ~metadata
 type t = {
   tf_name : string;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   project : string prop;
 }
 

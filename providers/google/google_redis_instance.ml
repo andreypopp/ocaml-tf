@@ -373,14 +373,14 @@ type google_redis_instance = {
   customer_managed_key : string prop option; [@option]
   display_name : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location_id : string prop option; [@option]
   maintenance_version : string prop option; [@option]
   memory_size_gb : float prop;
   name : string prop;
   project : string prop option; [@option]
   read_replicas_mode : string prop option; [@option]
-  redis_configs : (string * string prop) list option; [@option]
+  redis_configs : string prop Tf_core.assoc option; [@option]
   redis_version : string prop option; [@option]
   region : string prop option; [@option]
   replica_count : float prop option; [@option]
@@ -515,12 +515,8 @@ let yojson_of_google_redis_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "redis_configs", arg in
@@ -571,12 +567,8 @@ let yojson_of_google_redis_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -712,10 +704,10 @@ type t = {
   current_location_id : string prop;
   customer_managed_key : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   host : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location_id : string prop;
   maintenance_schedule : maintenance_schedule list prop;
   maintenance_version : string prop;
@@ -728,14 +720,14 @@ type t = {
   read_endpoint : string prop;
   read_endpoint_port : float prop;
   read_replicas_mode : string prop;
-  redis_configs : (string * string) list prop;
+  redis_configs : string Tf_core.assoc prop;
   redis_version : string prop;
   region : string prop;
   replica_count : float prop;
   reserved_ip_range : string prop;
   secondary_ip_range : string prop;
   server_ca_certs : server_ca_certs list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   transit_encryption_mode : string prop;
 }

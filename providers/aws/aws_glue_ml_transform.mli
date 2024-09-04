@@ -46,8 +46,8 @@ val aws_glue_ml_transform :
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?number_of_workers:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   name:string prop ->
@@ -74,8 +74,8 @@ type t = private {
   number_of_workers : float prop;
   role_arn : string prop;
   schema : schema list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeout : float prop;
   worker_type : string prop;
 }
@@ -88,8 +88,8 @@ val register :
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?number_of_workers:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   name:string prop ->
@@ -106,8 +106,8 @@ val make :
   ?max_capacity:float prop ->
   ?max_retries:float prop ->
   ?number_of_workers:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
   name:string prop ->

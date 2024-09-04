@@ -17,13 +17,13 @@ type aws_glue_connection
 
 val aws_glue_connection :
   ?catalog_id:string prop ->
-  ?connection_properties:(string * string prop) list ->
+  ?connection_properties:string prop Tf_core.assoc ->
   ?connection_type:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?match_criteria:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?physical_connection_requirements:
     physical_connection_requirements list ->
   name:string prop ->
@@ -38,26 +38,26 @@ type t = private {
   tf_name : string;
   arn : string prop;
   catalog_id : string prop;
-  connection_properties : (string * string) list prop;
+  connection_properties : string Tf_core.assoc prop;
   connection_type : string prop;
   description : string prop;
   id : string prop;
   match_criteria : string list prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?catalog_id:string prop ->
-  ?connection_properties:(string * string prop) list ->
+  ?connection_properties:string prop Tf_core.assoc ->
   ?connection_type:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?match_criteria:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?physical_connection_requirements:
     physical_connection_requirements list ->
   name:string prop ->
@@ -66,13 +66,13 @@ val register :
 
 val make :
   ?catalog_id:string prop ->
-  ?connection_properties:(string * string prop) list ->
+  ?connection_properties:string prop Tf_core.assoc ->
   ?connection_type:string prop ->
   ?description:string prop ->
   ?id:string prop ->
   ?match_criteria:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?physical_connection_requirements:
     physical_connection_requirements list ->
   name:string prop ->

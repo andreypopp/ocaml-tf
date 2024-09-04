@@ -42,11 +42,11 @@ type t = private {
   creation_timestamp : string prop;
   description : string prop;
   disk_encryption_key : disk_encryption_key list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   guest_os_features : guest_os_features list prop;
   id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_attach_timestamp : string prop;
   last_detach_timestamp : string prop;
   licenses : string list prop;
@@ -63,7 +63,7 @@ type t = private {
   source_snapshot_encryption_key :
     source_snapshot_encryption_key list prop;
   source_snapshot_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   users : string list prop;
 }

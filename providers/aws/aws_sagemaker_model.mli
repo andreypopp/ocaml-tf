@@ -40,7 +40,7 @@ type container
 
 val container :
   ?container_hostname:string prop ->
-  ?environment:(string * string prop) list ->
+  ?environment:string prop Tf_core.assoc ->
   ?image:string prop ->
   ?mode:string prop ->
   ?model_data_url:string prop ->
@@ -92,7 +92,7 @@ type primary_container
 
 val primary_container :
   ?container_hostname:string prop ->
-  ?environment:(string * string prop) list ->
+  ?environment:string prop Tf_core.assoc ->
   ?image:string prop ->
   ?mode:string prop ->
   ?model_data_url:string prop ->
@@ -116,8 +116,8 @@ val aws_sagemaker_model :
   ?enable_network_isolation:bool prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?container:container list ->
   ?inference_execution_config:inference_execution_config list ->
   ?primary_container:primary_container list ->
@@ -137,8 +137,8 @@ type t = private {
   execution_role_arn : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -146,8 +146,8 @@ val register :
   ?enable_network_isolation:bool prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?container:container list ->
   ?inference_execution_config:inference_execution_config list ->
   ?primary_container:primary_container list ->
@@ -160,8 +160,8 @@ val make :
   ?enable_network_isolation:bool prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?container:container list ->
   ?inference_execution_config:inference_execution_config list ->
   ?primary_container:primary_container list ->

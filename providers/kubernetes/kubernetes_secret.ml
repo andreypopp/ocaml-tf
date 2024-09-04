@@ -3,9 +3,9 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -46,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -70,12 +66,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -115,8 +107,8 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type kubernetes_secret = {
-  binary_data : (string * string prop) list option; [@option]
-  data : (string * string prop) list option; [@option]
+  binary_data : string prop Tf_core.assoc option; [@option]
+  data : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   immutable : bool prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
@@ -195,12 +187,8 @@ let yojson_of_kubernetes_secret =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "data", arg in
@@ -211,12 +199,8 @@ let yojson_of_kubernetes_secret =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "binary_data", arg in
@@ -251,8 +235,8 @@ let kubernetes_secret ?binary_data ?data ?id ?immutable ?type_
 
 type t = {
   tf_name : string;
-  binary_data : (string * string) list prop;
-  data : (string * string) list prop;
+  binary_data : string Tf_core.assoc prop;
+  data : string Tf_core.assoc prop;
   id : string prop;
   immutable : bool prop;
   type_ : string prop;

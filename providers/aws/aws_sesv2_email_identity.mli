@@ -18,8 +18,8 @@ type aws_sesv2_email_identity
 val aws_sesv2_email_identity :
   ?configuration_set_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
   unit ->
@@ -37,8 +37,8 @@ type t = private {
   email_identity : string prop;
   id : string prop;
   identity_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   verified_for_sending_status : bool prop;
 }
 
@@ -46,8 +46,8 @@ val register :
   ?tf_module:tf_module ->
   ?configuration_set_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
   string ->
@@ -56,8 +56,8 @@ val register :
 val make :
   ?configuration_set_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
   string ->

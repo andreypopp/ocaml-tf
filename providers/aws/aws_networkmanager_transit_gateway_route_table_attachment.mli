@@ -13,8 +13,8 @@ type aws_networkmanager_transit_gateway_route_table_attachment
 
 val aws_networkmanager_transit_gateway_route_table_attachment :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   peering_id:string prop ->
   transit_gateway_route_table_arn:string prop ->
@@ -40,16 +40,16 @@ type t = private {
   resource_arn : string prop;
   segment_name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_gateway_route_table_arn : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   peering_id:string prop ->
   transit_gateway_route_table_arn:string prop ->
@@ -58,8 +58,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   peering_id:string prop ->
   transit_gateway_route_table_arn:string prop ->

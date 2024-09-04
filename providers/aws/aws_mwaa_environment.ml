@@ -450,7 +450,7 @@ let _ = yojson_of_last_updated
 [@@@deriving.end]
 
 type aws_mwaa_environment = {
-  airflow_configuration_options : (string * string prop) list option;
+  airflow_configuration_options : string prop Tf_core.assoc option;
       [@option]
   airflow_version : string prop option; [@option]
   dag_s3_path : string prop;
@@ -472,8 +472,8 @@ type aws_mwaa_environment = {
   source_bucket_arn : string prop;
   startup_script_s3_object_version : string prop option; [@option]
   startup_script_s3_path : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   webserver_access_mode : string prop option; [@option]
   weekly_maintenance_window_start : string prop option; [@option]
   logging_configuration : logging_configuration list;
@@ -570,12 +570,8 @@ let yojson_of_aws_mwaa_environment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -586,12 +582,8 @@ let yojson_of_aws_mwaa_environment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -750,12 +742,8 @@ let yojson_of_aws_mwaa_environment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "airflow_configuration_options", arg in
@@ -849,7 +837,7 @@ let aws_mwaa_environment ?airflow_configuration_options
 
 type t = {
   tf_name : string;
-  airflow_configuration_options : (string * string) list prop;
+  airflow_configuration_options : string Tf_core.assoc prop;
   airflow_version : string prop;
   arn : string prop;
   created_at : string prop;
@@ -876,8 +864,8 @@ type t = {
   startup_script_s3_object_version : string prop;
   startup_script_s3_path : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   webserver_access_mode : string prop;
   webserver_url : string prop;
   webserver_vpc_endpoint_service : string prop;

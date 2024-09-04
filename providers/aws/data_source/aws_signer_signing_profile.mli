@@ -20,7 +20,7 @@ type aws_signer_signing_profile
 
 val aws_signer_signing_profile :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_signer_signing_profile
@@ -40,7 +40,7 @@ type t = private {
   revocation_record : revocation_record list prop;
   signature_validity_period : signature_validity_period list prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   version_arn : string prop;
 }
@@ -48,14 +48,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

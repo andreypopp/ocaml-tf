@@ -208,7 +208,7 @@ val error_action__kafka :
   ?key:string prop ->
   ?partition:string prop ->
   ?header:error_action__kafka__header list ->
-  client_properties:(string * string prop) list ->
+  client_properties:string prop Tf_core.assoc ->
   destination_arn:string prop ->
   topic:string prop ->
   unit ->
@@ -380,7 +380,7 @@ val kafka :
   ?key:string prop ->
   ?partition:string prop ->
   ?header:kafka__header list ->
-  client_properties:(string * string prop) list ->
+  client_properties:string prop Tf_core.assoc ->
   destination_arn:string prop ->
   topic:string prop ->
   unit ->
@@ -477,8 +477,8 @@ type aws_iot_topic_rule
 val aws_iot_topic_rule :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->
@@ -519,16 +519,16 @@ type t = private {
   name : string prop;
   sql : string prop;
   sql_version : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->
@@ -559,8 +559,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->

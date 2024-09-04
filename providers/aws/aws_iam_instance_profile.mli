@@ -12,8 +12,8 @@ val aws_iam_instance_profile :
   ?name_prefix:string prop ->
   ?path:string prop ->
   ?role:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   unit ->
   aws_iam_instance_profile
 
@@ -31,8 +31,8 @@ type t = private {
   name_prefix : string prop;
   path : string prop;
   role : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   unique_id : string prop;
 }
 
@@ -43,8 +43,8 @@ val register :
   ?name_prefix:string prop ->
   ?path:string prop ->
   ?role:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -54,7 +54,7 @@ val make :
   ?name_prefix:string prop ->
   ?path:string prop ->
   ?role:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

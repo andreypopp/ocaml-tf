@@ -12,7 +12,7 @@ val encryption_config :
 type hive_metastore_config__auxiliary_versions
 
 val hive_metastore_config__auxiliary_versions :
-  ?config_overrides:(string * string prop) list ->
+  ?config_overrides:string prop Tf_core.assoc ->
   key:string prop ->
   version:string prop ->
   unit ->
@@ -37,7 +37,7 @@ val hive_metastore_config__kerberos_config :
 type hive_metastore_config
 
 val hive_metastore_config :
-  ?config_overrides:(string * string prop) list ->
+  ?config_overrides:string prop Tf_core.assoc ->
   ?endpoint_protocol:string prop ->
   ?kerberos_config:hive_metastore_config__kerberos_config list ->
   version:string prop ->
@@ -114,7 +114,7 @@ type google_dataproc_metastore_service
 val google_dataproc_metastore_service :
   ?database_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?port:float prop ->
@@ -143,10 +143,10 @@ type t = private {
   tf_name : string;
   artifact_gcs_uri : string prop;
   database_type : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   endpoint_uri : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   network : string prop;
@@ -156,7 +156,7 @@ type t = private {
   service_id : string prop;
   state : string prop;
   state_message : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
   uid : string prop;
 }
@@ -165,7 +165,7 @@ val register :
   ?tf_module:tf_module ->
   ?database_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?port:float prop ->
@@ -188,7 +188,7 @@ val register :
 val make :
   ?database_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?location:string prop ->
   ?network:string prop ->
   ?port:float prop ->

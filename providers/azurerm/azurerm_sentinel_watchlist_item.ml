@@ -65,7 +65,7 @@ let _ = yojson_of_timeouts
 type azurerm_sentinel_watchlist_item = {
   id : string prop option; [@option]
   name : string prop option; [@option]
-  properties : (string * string prop) list;
+  properties : string prop Tf_core.assoc;
   watchlist_id : string prop;
   timeouts : timeouts option;
 }
@@ -95,12 +95,8 @@ let yojson_of_azurerm_sentinel_watchlist_item =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_properties
          in
          ("properties", arg) :: bnds
@@ -140,7 +136,7 @@ type t = {
   tf_name : string;
   id : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
   watchlist_id : string prop;
 }
 

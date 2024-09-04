@@ -19,7 +19,7 @@ val google_compute_vpn_tunnel :
   ?description:string prop ->
   ?id:string prop ->
   ?ike_version:float prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_traffic_selector:string prop list ->
   ?peer_external_gateway:string prop ->
   ?peer_external_gateway_interface:float prop ->
@@ -48,11 +48,11 @@ type t = private {
   creation_timestamp : string prop;
   description : string prop;
   detailed_status : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
   ike_version : float prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   local_traffic_selector : string list prop;
   name : string prop;
   peer_external_gateway : string prop;
@@ -67,7 +67,7 @@ type t = private {
   shared_secret : string prop;
   shared_secret_hash : string prop;
   target_vpn_gateway : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tunnel_id : string prop;
   vpn_gateway : string prop;
   vpn_gateway_interface : float prop;
@@ -78,7 +78,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?ike_version:float prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_traffic_selector:string prop list ->
   ?peer_external_gateway:string prop ->
   ?peer_external_gateway_interface:float prop ->
@@ -101,7 +101,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?ike_version:float prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_traffic_selector:string prop list ->
   ?peer_external_gateway:string prop ->
   ?peer_external_gateway_interface:float prop ->

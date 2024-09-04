@@ -69,7 +69,7 @@ type azurerm_resource_group_template_deployment = {
   name : string prop;
   parameters_content : string prop option; [@option]
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   template_content : string prop option; [@option]
   template_spec_version_id : string prop option; [@option]
   timeouts : timeouts option;
@@ -120,12 +120,8 @@ let yojson_of_azurerm_resource_group_template_deployment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -209,7 +205,7 @@ type t = {
   output_content : string prop;
   parameters_content : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template_content : string prop;
   template_spec_version_id : string prop;
 }

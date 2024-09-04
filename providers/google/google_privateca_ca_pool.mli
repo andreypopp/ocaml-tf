@@ -202,7 +202,7 @@ type google_privateca_ca_pool
 
 val google_privateca_ca_pool :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?issuance_policy:issuance_policy list ->
   ?publishing_options:publishing_options list ->
@@ -220,20 +220,20 @@ val yojson_of_google_privateca_ca_pool :
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   tier : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?issuance_policy:issuance_policy list ->
   ?publishing_options:publishing_options list ->
@@ -246,7 +246,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?issuance_policy:issuance_policy list ->
   ?publishing_options:publishing_options list ->

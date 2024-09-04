@@ -17,8 +17,8 @@ val aws_ebs_snapshot :
   ?outpost_arn:string prop ->
   ?permanent_restore:bool prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?timeouts:timeouts ->
   volume_id:string prop ->
@@ -42,8 +42,8 @@ type t = private {
   owner_id : string prop;
   permanent_restore : bool prop;
   storage_tier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   temporary_restore_days : float prop;
   volume_id : string prop;
   volume_size : float prop;
@@ -56,8 +56,8 @@ val register :
   ?outpost_arn:string prop ->
   ?permanent_restore:bool prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?timeouts:timeouts ->
   volume_id:string prop ->
@@ -70,8 +70,8 @@ val make :
   ?outpost_arn:string prop ->
   ?permanent_restore:bool prop ->
   ?storage_tier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?temporary_restore_days:float prop ->
   ?timeouts:timeouts ->
   volume_id:string prop ->

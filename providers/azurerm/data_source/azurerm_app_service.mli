@@ -156,7 +156,7 @@ val yojson_of_azurerm_app_service : azurerm_app_service -> json
 type t = private {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   client_affinity_enabled : bool prop;
   client_cert_enabled : bool prop;
   connection_string : connection_string list prop;
@@ -175,7 +175,7 @@ type t = private {
   site_config : site_config list prop;
   site_credential : site_credential list prop;
   source_control : source_control list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

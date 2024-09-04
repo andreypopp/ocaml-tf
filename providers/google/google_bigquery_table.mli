@@ -227,7 +227,7 @@ val google_bigquery_table :
   ?expiration_time:float prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_staleness:string prop ->
   ?project:string prop ->
   ?require_partition_filter:bool prop ->
@@ -256,12 +256,12 @@ type t = private {
   dataset_id : string prop;
   deletion_protection : bool prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   expiration_time : float prop;
   friendly_name : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modified_time : float prop;
   location : string prop;
   max_staleness : string prop;
@@ -273,7 +273,7 @@ type t = private {
   schema : string prop;
   self_link : string prop;
   table_id : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -285,7 +285,7 @@ val register :
   ?expiration_time:float prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_staleness:string prop ->
   ?project:string prop ->
   ?require_partition_filter:bool prop ->
@@ -310,7 +310,7 @@ val make :
   ?expiration_time:float prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?max_staleness:string prop ->
   ?project:string prop ->
   ?require_partition_filter:bool prop ->

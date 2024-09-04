@@ -161,7 +161,7 @@ let _ = yojson_of_maintenance_policy
 [@@@deriving.end]
 
 type memcache_parameters = {
-  params : (string * string prop) list option; [@option]
+  params : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -178,12 +178,8 @@ let yojson_of_memcache_parameters =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "params", arg in
@@ -366,7 +362,7 @@ type google_memcache_instance = {
   authorized_network : string prop option; [@option]
   display_name : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   memcache_version : string prop option; [@option]
   name : string prop;
   node_count : float prop;
@@ -498,12 +494,8 @@ let yojson_of_google_memcache_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -590,9 +582,9 @@ type t = {
   create_time : string prop;
   discovery_endpoint : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   maintenance_schedule : maintenance_schedule list prop;
   memcache_full_version : string prop;
   memcache_nodes : memcache_nodes list prop;
@@ -602,7 +594,7 @@ type t = {
   project : string prop;
   region : string prop;
   reserved_ip_range_id : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   zones : string list prop;
 }
 

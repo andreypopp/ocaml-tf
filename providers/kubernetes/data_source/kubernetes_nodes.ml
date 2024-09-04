@@ -2,7 +2,7 @@
 
 open! Tf_core
 
-type metadata = { labels : (string * string prop) list }
+type metadata = { labels : string prop Tf_core.assoc }
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : metadata) -> ()
@@ -15,12 +15,8 @@ let yojson_of_metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -155,8 +151,8 @@ let _ = yojson_of_nodes__status__addresses
 type nodes__status = {
   addresses : nodes__status__addresses list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  allocatable : (string * string prop) list;
-  capacity : (string * string prop) list;
+  allocatable : string prop Tf_core.assoc;
+  capacity : string prop Tf_core.assoc;
   node_info : nodes__status__node_info list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -187,24 +183,16 @@ let yojson_of_nodes__status =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_capacity
          in
          ("capacity", arg) :: bnds
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_allocatable
          in
          ("allocatable", arg) :: bnds
@@ -324,9 +312,9 @@ let _ = yojson_of_nodes__spec
 [@@@deriving.end]
 
 type nodes__metadata = {
-  annotations : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
   generation : float prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   name : string prop;
   resource_version : string prop;
   uid : string prop;
@@ -364,12 +352,8 @@ let yojson_of_nodes__metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -380,12 +364,8 @@ let yojson_of_nodes__metadata =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds

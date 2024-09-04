@@ -4,7 +4,7 @@ open! Tf_core
 
 type aws_api_gateway_vpc_link = {
   name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -21,12 +21,8 @@ let yojson_of_aws_api_gateway_vpc_link =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -54,7 +50,7 @@ type t = {
   name : string prop;
   status : string prop;
   status_message : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_arns : string list prop;
 }
 

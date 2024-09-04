@@ -85,8 +85,8 @@ val aws_eks_cluster :
   ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?access_config:access_config list ->
   ?encryption_config:encryption_config list ->
@@ -118,8 +118,8 @@ type t = private {
   platform_version : string prop;
   role_arn : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -128,8 +128,8 @@ val register :
   ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?access_config:access_config list ->
   ?encryption_config:encryption_config list ->
@@ -146,8 +146,8 @@ val make :
   ?bootstrap_self_managed_addons:bool prop ->
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version:string prop ->
   ?access_config:access_config list ->
   ?encryption_config:encryption_config list ->

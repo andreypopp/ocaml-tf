@@ -139,7 +139,7 @@ type azurerm_function_app
 
 val azurerm_function_app :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -153,7 +153,7 @@ val yojson_of_azurerm_function_app : azurerm_function_app -> json
 type t = private {
   tf_name : string;
   app_service_plan_id : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   client_cert_mode : string prop;
   connection_string : connection_string list prop;
   custom_domain_verification_id : string prop;
@@ -170,13 +170,13 @@ type t = private {
   site_config : site_config list prop;
   site_credential : site_credential list prop;
   source_control : source_control list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -185,7 +185,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->

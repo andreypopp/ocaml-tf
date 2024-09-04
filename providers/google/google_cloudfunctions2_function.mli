@@ -49,7 +49,7 @@ type build_config
 val build_config :
   ?docker_repository:string prop ->
   ?entry_point:string prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?runtime:string prop ->
   ?service_account:string prop ->
   ?worker_pool:string prop ->
@@ -114,7 +114,7 @@ val service_config :
   ?all_traffic_on_latest_revision:bool prop ->
   ?available_cpu:string prop ->
   ?available_memory:string prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?ingress_settings:string prop ->
   ?max_instance_count:float prop ->
   ?max_instance_request_concurrency:float prop ->
@@ -145,7 +145,7 @@ val google_cloudfunctions2_function :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?build_config:build_config list ->
   ?event_trigger:event_trigger list ->
@@ -164,16 +164,16 @@ val yojson_of_google_cloudfunctions2_function :
 type t = private {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   environment : string prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   url : string prop;
 }
@@ -183,7 +183,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?build_config:build_config list ->
   ?event_trigger:event_trigger list ->
@@ -198,7 +198,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?kms_key_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?build_config:build_config list ->
   ?event_trigger:event_trigger list ->

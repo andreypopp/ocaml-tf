@@ -363,7 +363,7 @@ type t = {
   secondary_web_microsoft_endpoint : string prop;
   secondary_web_microsoft_host : string prop;
   table_encryption_key_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?min_tls_version ?timeouts ~name ~resource_group_name

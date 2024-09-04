@@ -16,7 +16,7 @@ type aws_appconfig_environment
 
 val aws_appconfig_environment :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   name:string prop ->
   monitor:monitor list ->
@@ -37,14 +37,14 @@ type t = private {
   id : string prop;
   name : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   name:string prop ->
   monitor:monitor list ->
@@ -53,7 +53,7 @@ val register :
 
 val make :
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   application_id:string prop ->
   name:string prop ->
   monitor:monitor list ->

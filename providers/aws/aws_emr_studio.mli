@@ -11,8 +11,8 @@ val aws_emr_studio :
   ?id:string prop ->
   ?idp_auth_url:string prop ->
   ?idp_relay_state_parameter_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_role:string prop ->
   auth_mode:string prop ->
   default_s3_location:string prop ->
@@ -42,8 +42,8 @@ type t = private {
   name : string prop;
   service_role : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
   user_role : string prop;
   vpc_id : string prop;
@@ -56,8 +56,8 @@ val register :
   ?id:string prop ->
   ?idp_auth_url:string prop ->
   ?idp_relay_state_parameter_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_role:string prop ->
   auth_mode:string prop ->
   default_s3_location:string prop ->
@@ -75,8 +75,8 @@ val make :
   ?id:string prop ->
   ?idp_auth_url:string prop ->
   ?idp_relay_state_parameter_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_role:string prop ->
   auth_mode:string prop ->
   default_s3_location:string prop ->

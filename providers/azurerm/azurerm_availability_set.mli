@@ -22,7 +22,7 @@ val azurerm_availability_set :
   ?platform_fault_domain_count:float prop ->
   ?platform_update_domain_count:float prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   platform_update_domain_count : float prop;
   proximity_placement_group_id : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -55,7 +55,7 @@ val register :
   ?platform_fault_domain_count:float prop ->
   ?platform_update_domain_count:float prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -69,7 +69,7 @@ val make :
   ?platform_fault_domain_count:float prop ->
   ?platform_update_domain_count:float prop ->
   ?proximity_placement_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

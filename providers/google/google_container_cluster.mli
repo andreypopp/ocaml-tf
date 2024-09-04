@@ -521,7 +521,7 @@ type node_config__linux_node_config
 
 val node_config__linux_node_config :
   ?cgroup_mode:string prop ->
-  ?sysctls:(string * string prop) list ->
+  ?sysctls:string prop Tf_core.assoc ->
   unit ->
   node_config__linux_node_config
 
@@ -596,17 +596,17 @@ val node_config :
   ?enable_confidential_storage:bool prop ->
   ?guest_accelerator:node_config__guest_accelerator list ->
   ?image_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_ssd_count:float prop ->
   ?logging_variant:string prop ->
   ?machine_type:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?min_cpu_platform:string prop ->
   ?node_group:string prop ->
   ?oauth_scopes:string prop list ->
   ?preemptible:bool prop ->
-  ?resource_labels:(string * string prop) list ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->
@@ -808,7 +808,7 @@ type node_pool__node_config__linux_node_config
 
 val node_pool__node_config__linux_node_config :
   ?cgroup_mode:string prop ->
-  ?sysctls:(string * string prop) list ->
+  ?sysctls:string prop Tf_core.assoc ->
   unit ->
   node_pool__node_config__linux_node_config
 
@@ -886,17 +886,17 @@ val node_pool__node_config :
   ?enable_confidential_storage:bool prop ->
   ?guest_accelerator:node_pool__node_config__guest_accelerator list ->
   ?image_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_ssd_count:float prop ->
   ?logging_variant:string prop ->
   ?machine_type:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?min_cpu_platform:string prop ->
   ?node_group:string prop ->
   ?oauth_scopes:string prop list ->
   ?preemptible:bool prop ->
-  ?resource_labels:(string * string prop) list ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->
@@ -1002,7 +1002,7 @@ val node_pool_auto_config__network_tags :
 type node_pool_auto_config
 
 val node_pool_auto_config :
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?network_tags:node_pool_auto_config__network_tags list ->
   unit ->
   node_pool_auto_config
@@ -1185,7 +1185,7 @@ val google_container_cluster :
   ?private_ipv6_google_access:string prop ->
   ?project:string prop ->
   ?remove_default_node_pool:bool prop ->
-  ?resource_labels:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
   ?subnetwork:string prop ->
   ?addons_config:addons_config list ->
   ?authenticator_groups_config:authenticator_groups_config list ->
@@ -1265,7 +1265,7 @@ type t = private {
   private_ipv6_google_access : string prop;
   project : string prop;
   remove_default_node_pool : bool prop;
-  resource_labels : (string * string) list prop;
+  resource_labels : string Tf_core.assoc prop;
   self_link : string prop;
   services_ipv4_cidr : string prop;
   subnetwork : string prop;
@@ -1301,7 +1301,7 @@ val register :
   ?private_ipv6_google_access:string prop ->
   ?project:string prop ->
   ?remove_default_node_pool:bool prop ->
-  ?resource_labels:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
   ?subnetwork:string prop ->
   ?addons_config:addons_config list ->
   ?authenticator_groups_config:authenticator_groups_config list ->
@@ -1370,7 +1370,7 @@ val make :
   ?private_ipv6_google_access:string prop ->
   ?project:string prop ->
   ?remove_default_node_pool:bool prop ->
-  ?resource_labels:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
   ?subnetwork:string prop ->
   ?addons_config:addons_config list ->
   ?authenticator_groups_config:authenticator_groups_config list ->

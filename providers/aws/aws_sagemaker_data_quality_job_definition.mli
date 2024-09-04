@@ -7,7 +7,7 @@ open! Tf_core
 type data_quality_app_specification
 
 val data_quality_app_specification :
-  ?environment:(string * string prop) list ->
+  ?environment:string prop Tf_core.assoc ->
   ?post_analytics_processor_source_uri:string prop ->
   ?record_preprocessor_source_uri:string prop ->
   image_uri:string prop ->
@@ -167,8 +167,8 @@ type aws_sagemaker_data_quality_job_definition
 val aws_sagemaker_data_quality_job_definition :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_quality_baseline_config:data_quality_baseline_config list ->
   ?network_config:network_config list ->
   ?stopping_condition:stopping_condition list ->
@@ -191,16 +191,16 @@ type t = private {
   id : string prop;
   name : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_quality_baseline_config:data_quality_baseline_config list ->
   ?network_config:network_config list ->
   ?stopping_condition:stopping_condition list ->
@@ -215,8 +215,8 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_quality_baseline_config:data_quality_baseline_config list ->
   ?network_config:network_config list ->
   ?stopping_condition:stopping_condition list ->

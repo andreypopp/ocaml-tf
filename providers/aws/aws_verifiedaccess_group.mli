@@ -18,8 +18,8 @@ val aws_verifiedaccess_group :
   ?description:string prop ->
   ?id:string prop ->
   ?policy_document:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
   unit ->
@@ -39,8 +39,8 @@ type t = private {
   last_updated_time : string prop;
   owner : string prop;
   policy_document : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   verifiedaccess_group_arn : string prop;
   verifiedaccess_group_id : string prop;
   verifiedaccess_instance_id : string prop;
@@ -51,8 +51,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?policy_document:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
   string ->
@@ -62,8 +62,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?policy_document:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
   string ->

@@ -38,8 +38,8 @@ val aws_route_table :
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   vpc_id:string prop ->
   unit ->
@@ -56,8 +56,8 @@ type t = private {
   owner_id : string prop;
   propagating_vgws : string list prop;
   route : route list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -66,8 +66,8 @@ val register :
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   vpc_id:string prop ->
   string ->
@@ -77,8 +77,8 @@ val make :
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
   ?route:route list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   vpc_id:string prop ->
   string ->

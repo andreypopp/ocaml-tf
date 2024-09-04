@@ -30,7 +30,7 @@ type run_config
 
 val run_config :
   ?active_tracing:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?memory_in_mb:float prop ->
   ?timeout_in_seconds:float prop ->
   unit ->
@@ -63,8 +63,8 @@ val aws_synthetics_canary :
   ?s3_version:string prop ->
   ?start_canary:bool prop ->
   ?success_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?zip_file:string prop ->
   ?artifact_config:artifact_config list ->
   ?run_config:run_config list ->
@@ -101,8 +101,8 @@ type t = private {
   start_canary : bool prop;
   status : string prop;
   success_retention_period : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeline : timeline list prop;
   zip_file : string prop;
 }
@@ -117,8 +117,8 @@ val register :
   ?s3_version:string prop ->
   ?start_canary:bool prop ->
   ?success_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?zip_file:string prop ->
   ?artifact_config:artifact_config list ->
   ?run_config:run_config list ->
@@ -141,8 +141,8 @@ val make :
   ?s3_version:string prop ->
   ?start_canary:bool prop ->
   ?success_retention_period:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?zip_file:string prop ->
   ?artifact_config:artifact_config list ->
   ?run_config:run_config list ->

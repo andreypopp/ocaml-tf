@@ -18,7 +18,7 @@ type azurerm_dev_center_dev_box_definition
 
 val azurerm_dev_center_dev_box_definition :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   image_reference_id:string prop ->
@@ -41,13 +41,13 @@ type t = private {
   location : string prop;
   name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   image_reference_id:string prop ->
@@ -59,7 +59,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   image_reference_id:string prop ->

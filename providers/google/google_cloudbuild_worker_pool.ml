@@ -137,7 +137,7 @@ let _ = yojson_of_worker_config
 [@@@deriving.end]
 
 type google_cloudbuild_worker_pool = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   display_name : string prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -229,12 +229,8 @@ let yojson_of_google_cloudbuild_worker_pool =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -276,11 +272,11 @@ let google_cloudbuild_worker_pool ?annotations ?display_name ?id
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   id : string prop;
   location : string prop;
   name : string prop;

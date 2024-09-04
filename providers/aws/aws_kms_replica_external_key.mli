@@ -14,8 +14,8 @@ val aws_kms_replica_external_key :
   ?id:string prop ->
   ?key_material_base64:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   primary_key_arn:string prop ->
   unit ->
@@ -41,8 +41,8 @@ type t = private {
   key_usage : string prop;
   policy : string prop;
   primary_key_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   valid_to : string prop;
 }
 
@@ -55,8 +55,8 @@ val register :
   ?id:string prop ->
   ?key_material_base64:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   primary_key_arn:string prop ->
   string ->
@@ -70,8 +70,8 @@ val make :
   ?id:string prop ->
   ?key_material_base64:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?valid_to:string prop ->
   primary_key_arn:string prop ->
   string ->

@@ -60,7 +60,7 @@ type gce_setup = {
   disable_public_ip: bool  prop option; [@option]
   enable_ip_forwarding: bool  prop option; [@option]
   machine_type: string  prop option; [@option]
-  metadata: (string * string   prop) list option; [@option]
+  metadata: string   prop Tf_core.assoc option; [@option]
   tags: string   prop list option; [@option]
   accelerator_configs: gce_setup__accelerator_configs list; [@default []] [@yojson_drop_default Stdlib.( = )]
   boot_disk: gce_setup__boot_disk list; [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -100,7 +100,7 @@ type google_workbench_instance = {
   id: string  prop option; [@option]
   instance_id: string  prop option; [@option]
   instance_owners: string   prop list option; [@option]
-  labels: (string * string   prop) list option; [@option]
+  labels: string   prop Tf_core.assoc option; [@option]
   location: string prop; 
   name: string prop; 
   project: string  prop option; [@option]
@@ -208,19 +208,19 @@ type t = {
   creator: string prop;
   desired_state: string prop;
   disable_proxy_access: bool prop;
-  effective_labels: (string * string) list prop;
+  effective_labels: string Tf_core.assoc prop;
   health_info: health_info list prop;
   health_state: string prop;
   id: string prop;
   instance_id: string prop;
   instance_owners: string list prop;
-  labels: (string * string) list prop;
+  labels: string Tf_core.assoc prop;
   location: string prop;
   name: string prop;
   project: string prop;
   proxy_uri: string prop;
   state: string prop;
-  terraform_labels: (string * string) list prop;
+  terraform_labels: string Tf_core.assoc prop;
   update_time: string prop;
   upgrade_history: upgrade_history list prop;
 }

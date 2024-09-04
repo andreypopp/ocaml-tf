@@ -32,7 +32,7 @@ val azurerm_analysis_services_server :
   ?id:string prop ->
   ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -60,7 +60,7 @@ type t = private {
   resource_group_name : string prop;
   server_full_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,7 +71,7 @@ val register :
   ?id:string prop ->
   ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -88,7 +88,7 @@ val make :
   ?id:string prop ->
   ?power_bi_service_enabled:bool prop ->
   ?querypool_connection_mode:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

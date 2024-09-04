@@ -36,7 +36,7 @@ val yojson_of_azurerm_static_web_app : azurerm_static_web_app -> json
 type t = private {
   tf_name : string;
   api_key : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   basic_auth : basic_auth list prop;
   configuration_file_changes_enabled : bool prop;
   default_host_name : string prop;
@@ -48,7 +48,7 @@ type t = private {
   resource_group_name : string prop;
   sku_size : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

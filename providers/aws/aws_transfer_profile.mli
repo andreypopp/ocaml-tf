@@ -9,8 +9,8 @@ type aws_transfer_profile
 val aws_transfer_profile :
   ?certificate_ids:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   as2_id:string prop ->
   profile_type:string prop ->
   unit ->
@@ -28,16 +28,16 @@ type t = private {
   id : string prop;
   profile_id : string prop;
   profile_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?certificate_ids:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   as2_id:string prop ->
   profile_type:string prop ->
   string ->
@@ -46,8 +46,8 @@ val register :
 val make :
   ?certificate_ids:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   as2_id:string prop ->
   profile_type:string prop ->
   string ->

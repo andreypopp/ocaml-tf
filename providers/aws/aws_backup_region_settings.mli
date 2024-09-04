@@ -8,8 +8,8 @@ type aws_backup_region_settings
 
 val aws_backup_region_settings :
   ?id:string prop ->
-  ?resource_type_management_preference:(string * bool prop) list ->
-  resource_type_opt_in_preference:(string * bool prop) list ->
+  ?resource_type_management_preference:bool prop Tf_core.assoc ->
+  resource_type_opt_in_preference:bool prop Tf_core.assoc ->
   unit ->
   aws_backup_region_settings
 
@@ -21,21 +21,21 @@ val yojson_of_aws_backup_region_settings :
 type t = private {
   tf_name : string;
   id : string prop;
-  resource_type_management_preference : (string * bool) list prop;
-  resource_type_opt_in_preference : (string * bool) list prop;
+  resource_type_management_preference : bool Tf_core.assoc prop;
+  resource_type_opt_in_preference : bool Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?resource_type_management_preference:(string * bool prop) list ->
-  resource_type_opt_in_preference:(string * bool prop) list ->
+  ?resource_type_management_preference:bool prop Tf_core.assoc ->
+  resource_type_opt_in_preference:bool prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?resource_type_management_preference:(string * bool prop) list ->
-  resource_type_opt_in_preference:(string * bool prop) list ->
+  ?resource_type_management_preference:bool prop Tf_core.assoc ->
+  resource_type_opt_in_preference:bool prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

@@ -18,7 +18,7 @@ type azurerm_automation_job_schedule
 val azurerm_automation_job_schedule :
   ?id:string prop ->
   ?job_schedule_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on:string prop ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
@@ -38,7 +38,7 @@ type t = private {
   automation_account_name : string prop;
   id : string prop;
   job_schedule_id : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   resource_group_name : string prop;
   resource_manager_id : string prop;
   run_on : string prop;
@@ -50,7 +50,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?job_schedule_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on:string prop ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
@@ -63,7 +63,7 @@ val register :
 val make :
   ?id:string prop ->
   ?job_schedule_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?run_on:string prop ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->

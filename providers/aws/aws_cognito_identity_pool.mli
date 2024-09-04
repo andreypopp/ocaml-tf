@@ -22,9 +22,9 @@ val aws_cognito_identity_pool :
   ?id:string prop ->
   ?openid_connect_provider_arns:string prop list ->
   ?saml_provider_arns:string prop list ->
-  ?supported_login_providers:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?supported_login_providers:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   cognito_identity_providers:cognito_identity_providers list ->
   unit ->
@@ -45,9 +45,9 @@ type t = private {
   identity_pool_name : string prop;
   openid_connect_provider_arns : string list prop;
   saml_provider_arns : string list prop;
-  supported_login_providers : (string * string) list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  supported_login_providers : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -58,9 +58,9 @@ val register :
   ?id:string prop ->
   ?openid_connect_provider_arns:string prop list ->
   ?saml_provider_arns:string prop list ->
-  ?supported_login_providers:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?supported_login_providers:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   cognito_identity_providers:cognito_identity_providers list ->
   string ->
@@ -73,9 +73,9 @@ val make :
   ?id:string prop ->
   ?openid_connect_provider_arns:string prop list ->
   ?saml_provider_arns:string prop list ->
-  ?supported_login_providers:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?supported_login_providers:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   cognito_identity_providers:cognito_identity_providers list ->
   string ->

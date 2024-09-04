@@ -114,7 +114,7 @@ type aws_elasticsearch_domain
 
 val aws_elasticsearch_domain :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   unit ->
   aws_elasticsearch_domain
@@ -127,7 +127,7 @@ val yojson_of_aws_elasticsearch_domain :
 type t = private {
   tf_name : string;
   access_policies : string prop;
-  advanced_options : (string * string) list prop;
+  advanced_options : string Tf_core.assoc prop;
   advanced_security_options : advanced_security_options list prop;
   arn : string prop;
   auto_tune_options : auto_tune_options list prop;
@@ -147,21 +147,21 @@ type t = private {
   node_to_node_encryption : node_to_node_encryption list prop;
   processing : bool prop;
   snapshot_options : snapshot_options list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_options : vpc_options list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   domain_name:string prop ->
   string ->
   t Tf_core.resource

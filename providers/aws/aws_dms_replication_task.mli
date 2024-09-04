@@ -13,8 +13,8 @@ val aws_dms_replication_task :
   ?replication_task_settings:string prop ->
   ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   migration_type:string prop ->
   replication_instance_arn:string prop ->
   replication_task_id:string prop ->
@@ -44,8 +44,8 @@ type t = private {
   start_replication_task : bool prop;
   status : string prop;
   table_mappings : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_endpoint_arn : string prop;
 }
 
@@ -57,8 +57,8 @@ val register :
   ?replication_task_settings:string prop ->
   ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   migration_type:string prop ->
   replication_instance_arn:string prop ->
   replication_task_id:string prop ->
@@ -75,8 +75,8 @@ val make :
   ?replication_task_settings:string prop ->
   ?resource_identifier:string prop ->
   ?start_replication_task:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   migration_type:string prop ->
   replication_instance_arn:string prop ->
   replication_task_id:string prop ->

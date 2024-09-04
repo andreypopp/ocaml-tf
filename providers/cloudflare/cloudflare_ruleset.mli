@@ -289,7 +289,7 @@ val rules__action_parameters :
   ?respect_strong_etags:bool prop ->
   ?response_fields:string prop list ->
   ?rocket_loader:bool prop ->
-  ?rules:(string * string prop) list ->
+  ?rules:string prop Tf_core.assoc ->
   ?ruleset:string prop ->
   ?rulesets:string prop list ->
   ?security_level:string prop ->

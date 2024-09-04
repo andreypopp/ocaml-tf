@@ -41,11 +41,11 @@ type aws_evidently_feature
 val aws_evidently_feature :
   ?default_variation:string prop ->
   ?description:string prop ->
-  ?entity_overrides:(string * string prop) list ->
+  ?entity_overrides:string prop Tf_core.assoc ->
   ?evaluation_strategy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
@@ -63,7 +63,7 @@ type t = private {
   created_time : string prop;
   default_variation : string prop;
   description : string prop;
-  entity_overrides : (string * string) list prop;
+  entity_overrides : string Tf_core.assoc prop;
   evaluation_rules : evaluation_rules list prop;
   evaluation_strategy : string prop;
   id : string prop;
@@ -71,8 +71,8 @@ type t = private {
   name : string prop;
   project : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   value_type : string prop;
 }
 
@@ -80,11 +80,11 @@ val register :
   ?tf_module:tf_module ->
   ?default_variation:string prop ->
   ?description:string prop ->
-  ?entity_overrides:(string * string prop) list ->
+  ?entity_overrides:string prop Tf_core.assoc ->
   ?evaluation_strategy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
@@ -95,11 +95,11 @@ val register :
 val make :
   ?default_variation:string prop ->
   ?description:string prop ->
-  ?entity_overrides:(string * string prop) list ->
+  ?entity_overrides:string prop Tf_core.assoc ->
   ?evaluation_strategy:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->

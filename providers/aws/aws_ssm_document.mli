@@ -25,9 +25,9 @@ type aws_ssm_document
 val aws_ssm_document :
   ?document_format:string prop ->
   ?id:string prop ->
-  ?permissions:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?permissions:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?version_name:string prop ->
   ?attachments_source:attachments_source list ->
@@ -58,12 +58,12 @@ type t = private {
   name : string prop;
   owner : string prop;
   parameter : parameter list prop;
-  permissions : (string * string) list prop;
+  permissions : string Tf_core.assoc prop;
   platform_types : string list prop;
   schema_version : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_type : string prop;
   version_name : string prop;
 }
@@ -72,9 +72,9 @@ val register :
   ?tf_module:tf_module ->
   ?document_format:string prop ->
   ?id:string prop ->
-  ?permissions:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?permissions:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?version_name:string prop ->
   ?attachments_source:attachments_source list ->
@@ -87,9 +87,9 @@ val register :
 val make :
   ?document_format:string prop ->
   ?id:string prop ->
-  ?permissions:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?permissions:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_type:string prop ->
   ?version_name:string prop ->
   ?attachments_source:attachments_source list ->

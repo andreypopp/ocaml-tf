@@ -11,7 +11,7 @@ val timeouts : ?create:string prop -> unit -> timeouts
 type aws_rekognition_collection
 
 val aws_rekognition_collection :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   unit ->
@@ -28,20 +28,20 @@ type t = private {
   collection_id : string prop;
   face_model_version : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   string ->

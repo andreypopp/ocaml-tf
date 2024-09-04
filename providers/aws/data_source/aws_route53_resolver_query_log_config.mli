@@ -15,7 +15,7 @@ val aws_route53_resolver_query_log_config :
   ?id:string prop ->
   ?name:string prop ->
   ?resolver_query_log_config_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   unit ->
   aws_route53_resolver_query_log_config
@@ -34,7 +34,7 @@ type t = private {
   owner_id : string prop;
   resolver_query_log_config_id : string prop;
   share_status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -42,7 +42,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?resolver_query_log_config_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t
@@ -51,7 +51,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?resolver_query_log_config_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   filter:filter list ->
   string ->
   t Tf_core.resource

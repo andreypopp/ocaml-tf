@@ -20,7 +20,7 @@ val aws_s3_bucket_object :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
   ?object_lock_retain_until_date:string prop ->
@@ -28,8 +28,8 @@ val aws_s3_bucket_object :
   ?source:string prop ->
   ?source_hash:string prop ->
   ?storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   id : string prop;
   key : string prop;
   kms_key_id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   object_lock_legal_hold_status : string prop;
   object_lock_mode : string prop;
   object_lock_retain_until_date : string prop;
@@ -66,8 +66,8 @@ type t = private {
   source : string prop;
   source_hash : string prop;
   storage_class : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : string prop;
   website_redirect : string prop;
 }
@@ -87,7 +87,7 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
   ?object_lock_retain_until_date:string prop ->
@@ -95,8 +95,8 @@ val register :
   ?source:string prop ->
   ?source_hash:string prop ->
   ?storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -117,7 +117,7 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
   ?object_lock_retain_until_date:string prop ->
@@ -125,8 +125,8 @@ val make :
   ?source:string prop ->
   ?source_hash:string prop ->
   ?storage_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->

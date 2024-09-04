@@ -23,8 +23,8 @@ type aws_iot_ca_certificate
 val aws_iot_ca_certificate :
   ?certificate_mode:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?verification_certificate_pem:string prop ->
   ?registration_config:registration_config list ->
   active:bool prop ->
@@ -47,8 +47,8 @@ type t = private {
   customer_version : float prop;
   generation_id : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   validity : validity list prop;
   verification_certificate_pem : string prop;
 }
@@ -57,8 +57,8 @@ val register :
   ?tf_module:tf_module ->
   ?certificate_mode:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?verification_certificate_pem:string prop ->
   ?registration_config:registration_config list ->
   active:bool prop ->
@@ -70,8 +70,8 @@ val register :
 val make :
   ?certificate_mode:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?verification_certificate_pem:string prop ->
   ?registration_config:registration_config list ->
   active:bool prop ->

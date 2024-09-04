@@ -31,12 +31,12 @@ val aws_imagebuilder_infrastructure_configuration :
   ?id:string prop ->
   ?instance_types:string prop list ->
   ?key_pair:string prop ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?security_group_ids:string prop list ->
   ?sns_topic_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instance_on_failure:bool prop ->
   ?instance_metadata_options:instance_metadata_options list ->
   ?logging:logging list ->
@@ -61,12 +61,12 @@ type t = private {
   instance_types : string list prop;
   key_pair : string prop;
   name : string prop;
-  resource_tags : (string * string) list prop;
+  resource_tags : string Tf_core.assoc prop;
   security_group_ids : string list prop;
   sns_topic_arn : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   terminate_instance_on_failure : bool prop;
 }
 
@@ -76,12 +76,12 @@ val register :
   ?id:string prop ->
   ?instance_types:string prop list ->
   ?key_pair:string prop ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?security_group_ids:string prop list ->
   ?sns_topic_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instance_on_failure:bool prop ->
   ?instance_metadata_options:instance_metadata_options list ->
   ?logging:logging list ->
@@ -95,12 +95,12 @@ val make :
   ?id:string prop ->
   ?instance_types:string prop list ->
   ?key_pair:string prop ->
-  ?resource_tags:(string * string prop) list ->
+  ?resource_tags:string prop Tf_core.assoc ->
   ?security_group_ids:string prop list ->
   ?sns_topic_arn:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instance_on_failure:bool prop ->
   ?instance_metadata_options:instance_metadata_options list ->
   ?logging:logging list ->

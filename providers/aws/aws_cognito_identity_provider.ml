@@ -3,10 +3,10 @@
 open! Tf_core
 
 type aws_cognito_identity_provider = {
-  attribute_mapping : (string * string prop) list option; [@option]
+  attribute_mapping : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   idp_identifiers : string prop list option; [@option]
-  provider_details : (string * string prop) list;
+  provider_details : string prop Tf_core.assoc;
   provider_name : string prop;
   provider_type : string prop;
   user_pool_id : string prop;
@@ -43,12 +43,8 @@ let yojson_of_aws_cognito_identity_provider =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_provider_details
          in
          ("provider_details", arg) :: bnds
@@ -76,12 +72,8 @@ let yojson_of_aws_cognito_identity_provider =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attribute_mapping", arg in
@@ -110,10 +102,10 @@ let aws_cognito_identity_provider ?attribute_mapping ?id
 
 type t = {
   tf_name : string;
-  attribute_mapping : (string * string) list prop;
+  attribute_mapping : string Tf_core.assoc prop;
   id : string prop;
   idp_identifiers : string list prop;
-  provider_details : (string * string) list prop;
+  provider_details : string Tf_core.assoc prop;
   provider_name : string prop;
   provider_type : string prop;
   user_pool_id : string prop;

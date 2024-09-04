@@ -196,7 +196,7 @@ type t = {
   provisioning_subnet_cidr : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vcenter_certificate_thumbprint : string prop;
   vcsa_endpoint : string prop;
   vmotion_subnet_cidr : string prop;

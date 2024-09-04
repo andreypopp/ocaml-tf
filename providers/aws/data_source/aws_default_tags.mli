@@ -14,7 +14,7 @@ val yojson_of_aws_default_tags : aws_default_tags -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register : ?tf_module:tf_module -> ?id:string prop -> string -> t

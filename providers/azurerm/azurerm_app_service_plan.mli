@@ -33,7 +33,7 @@ val azurerm_app_service_plan :
   ?maximum_elastic_worker_count:float prop ->
   ?per_site_scaling:bool prop ->
   ?reserved:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -61,7 +61,7 @@ type t = private {
   per_site_scaling : bool prop;
   reserved : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 
@@ -74,7 +74,7 @@ val register :
   ?maximum_elastic_worker_count:float prop ->
   ?per_site_scaling:bool prop ->
   ?reserved:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -92,7 +92,7 @@ val make :
   ?maximum_elastic_worker_count:float prop ->
   ?per_site_scaling:bool prop ->
   ?reserved:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_redundant:bool prop ->
   ?timeouts:timeouts ->
   location:string prop ->

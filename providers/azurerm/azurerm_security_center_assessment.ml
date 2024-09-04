@@ -106,7 +106,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_security_center_assessment = {
-  additional_data : (string * string prop) list option; [@option]
+  additional_data : string prop Tf_core.assoc option; [@option]
   assessment_policy_id : string prop;
   id : string prop option; [@option]
   target_resource_id : string prop;
@@ -167,12 +167,8 @@ let yojson_of_azurerm_security_center_assessment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_data", arg in
@@ -206,7 +202,7 @@ let azurerm_security_center_assessment ?additional_data ?id ?timeouts
 
 type t = {
   tf_name : string;
-  additional_data : (string * string) list prop;
+  additional_data : string Tf_core.assoc prop;
   assessment_policy_id : string prop;
   id : string prop;
   target_resource_id : string prop;

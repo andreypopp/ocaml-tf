@@ -112,7 +112,7 @@ let _ =
 [@@@deriving.end]
 
 type connector_profile_config__connector_profile_credentials__custom_connector__custom = {
-  credentials_map : (string * string prop) list option; [@option]
+  credentials_map : string prop Tf_core.assoc option; [@option]
   custom_authentication_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -144,12 +144,8 @@ let yojson_of_connector_profile_config__connector_profile_credentials__custom_co
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "credentials_map", arg in
@@ -1932,7 +1928,7 @@ let _ =
 type connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties = {
   oauth2_grant_type : string prop;
   token_url : string prop;
-  token_url_custom_properties : (string * string prop) list option;
+  token_url_custom_properties : string prop Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -1958,12 +1954,8 @@ let yojson_of_connector_profile_config__connector_profile_properties__custom_con
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "token_url_custom_properties", arg in
@@ -1989,7 +1981,7 @@ let _ =
 [@@@deriving.end]
 
 type connector_profile_config__connector_profile_properties__custom_connector = {
-  profile_properties : (string * string prop) list option; [@option]
+  profile_properties : string prop Tf_core.assoc option; [@option]
   oauth2_properties :
     connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
     list;
@@ -2028,12 +2020,8 @@ let yojson_of_connector_profile_config__connector_profile_properties__custom_con
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "profile_properties", arg in

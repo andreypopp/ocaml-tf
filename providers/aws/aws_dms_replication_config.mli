@@ -36,8 +36,8 @@ val aws_dms_replication_config :
   ?resource_identifier:string prop ->
   ?start_replication:bool prop ->
   ?supplemental_settings:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   replication_config_identifier:string prop ->
   replication_type:string prop ->
@@ -65,8 +65,8 @@ type t = private {
   start_replication : bool prop;
   supplemental_settings : string prop;
   table_mappings : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_endpoint_arn : string prop;
 }
 
@@ -77,8 +77,8 @@ val register :
   ?resource_identifier:string prop ->
   ?start_replication:bool prop ->
   ?supplemental_settings:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   replication_config_identifier:string prop ->
   replication_type:string prop ->
@@ -95,8 +95,8 @@ val make :
   ?resource_identifier:string prop ->
   ?start_replication:bool prop ->
   ?supplemental_settings:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   replication_config_identifier:string prop ->
   replication_type:string prop ->

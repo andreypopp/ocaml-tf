@@ -15,7 +15,7 @@ type step__hadoop_jar_step = {
       (** args *)
   jar : string prop;  (** jar *)
   main_class : string prop;  (** main_class *)
-  properties : (string * string prop) list;  (** properties *)
+  properties : string prop Tf_core.assoc;  (** properties *)
 }
 
 type step = {
@@ -44,7 +44,7 @@ type core_instance_fleet__instance_type_configs__configurations
 
 val core_instance_fleet__instance_type_configs__configurations :
   ?classification:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   unit ->
   core_instance_fleet__instance_type_configs__configurations
 
@@ -167,7 +167,7 @@ type master_instance_fleet__instance_type_configs__configurations
 
 val master_instance_fleet__instance_type_configs__configurations :
   ?classification:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   unit ->
   master_instance_fleet__instance_type_configs__configurations
 
@@ -279,8 +279,8 @@ val aws_emr_cluster :
   ?security_configuration:string prop ->
   ?step:step list ->
   ?step_concurrency_level:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?termination_protection:bool prop ->
   ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->
@@ -327,8 +327,8 @@ type t = private {
   service_role : string prop;
   step : step list prop;
   step_concurrency_level : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   termination_protection : bool prop;
   unhealthy_node_replacement : bool prop;
   visible_to_all_users : bool prop;
@@ -353,8 +353,8 @@ val register :
   ?security_configuration:string prop ->
   ?step:step list ->
   ?step_concurrency_level:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?termination_protection:bool prop ->
   ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->
@@ -390,8 +390,8 @@ val make :
   ?security_configuration:string prop ->
   ?step:step list ->
   ?step_concurrency_level:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?termination_protection:bool prop ->
   ?unhealthy_node_replacement:bool prop ->
   ?visible_to_all_users:bool prop ->

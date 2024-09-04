@@ -242,8 +242,8 @@ val aws_ec2_fleet :
   ?fulfilled_on_demand_capacity:float prop ->
   ?id:string prop ->
   ?replace_unhealthy_instances:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instances:bool prop ->
   ?terminate_instances_with_expiration:bool prop ->
   ?type_:string prop ->
@@ -272,8 +272,8 @@ type t = private {
   fulfilled_on_demand_capacity : float prop;
   id : string prop;
   replace_unhealthy_instances : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   terminate_instances : bool prop;
   terminate_instances_with_expiration : bool prop;
   type_ : string prop;
@@ -290,8 +290,8 @@ val register :
   ?fulfilled_on_demand_capacity:float prop ->
   ?id:string prop ->
   ?replace_unhealthy_instances:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instances:bool prop ->
   ?terminate_instances_with_expiration:bool prop ->
   ?type_:string prop ->
@@ -314,8 +314,8 @@ val make :
   ?fulfilled_on_demand_capacity:float prop ->
   ?id:string prop ->
   ?replace_unhealthy_instances:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?terminate_instances:bool prop ->
   ?terminate_instances_with_expiration:bool prop ->
   ?type_:string prop ->

@@ -35,7 +35,7 @@ let _ = yojson_of_access_log_settings
 
 type canary_settings = {
   percent_traffic : float prop option; [@option]
-  stage_variable_overrides : (string * string prop) list option;
+  stage_variable_overrides : string prop Tf_core.assoc option;
       [@option]
   use_stage_cache : bool prop option; [@option]
 }
@@ -66,12 +66,8 @@ let yojson_of_canary_settings =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "stage_variable_overrides", arg in
@@ -102,9 +98,9 @@ type aws_api_gateway_stage = {
   id : string prop option; [@option]
   rest_api_id : string prop;
   stage_name : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
-  variables : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
+  variables : string prop Tf_core.assoc option; [@option]
   xray_tracing_enabled : bool prop option; [@option]
   access_log_settings : access_log_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -170,12 +166,8 @@ let yojson_of_aws_api_gateway_stage =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "variables", arg in
@@ -186,12 +178,8 @@ let yojson_of_aws_api_gateway_stage =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -202,12 +190,8 @@ let yojson_of_aws_api_gateway_stage =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -326,9 +310,9 @@ type t = {
   invoke_url : string prop;
   rest_api_id : string prop;
   stage_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
-  variables : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
+  variables : string Tf_core.assoc prop;
   web_acl_arn : string prop;
   xray_tracing_enabled : bool prop;
 }

@@ -83,7 +83,7 @@ val azurerm_batch_account :
   ?storage_account_authentication_mode:string prop ->
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?key_vault_reference:key_vault_reference list ->
   ?network_profile:network_profile list ->
@@ -114,7 +114,7 @@ type t = private {
   storage_account_authentication_mode : string prop;
   storage_account_id : string prop;
   storage_account_node_identity : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -127,7 +127,7 @@ val register :
   ?storage_account_authentication_mode:string prop ->
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?key_vault_reference:key_vault_reference list ->
   ?network_profile:network_profile list ->
@@ -147,7 +147,7 @@ val make :
   ?storage_account_authentication_mode:string prop ->
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?key_vault_reference:key_vault_reference list ->
   ?network_profile:network_profile list ->

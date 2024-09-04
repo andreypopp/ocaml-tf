@@ -12,7 +12,7 @@ type certificates = {
       (** domain_names *)
   fingerprint : string prop;  (** fingerprint *)
   id : float prop;  (** id *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   not_valid_after : string prop;  (** not_valid_after *)
   not_valid_before : string prop;  (** not_valid_before *)

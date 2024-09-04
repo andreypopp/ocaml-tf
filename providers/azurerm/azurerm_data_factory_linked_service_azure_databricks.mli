@@ -25,14 +25,14 @@ val key_vault_password :
 type new_cluster_config
 
 val new_cluster_config :
-  ?custom_tags:(string * string prop) list ->
+  ?custom_tags:string prop Tf_core.assoc ->
   ?driver_node_type:string prop ->
   ?init_scripts:string prop list ->
   ?log_destination:string prop ->
   ?max_number_of_workers:float prop ->
   ?min_number_of_workers:float prop ->
-  ?spark_config:(string * string prop) list ->
-  ?spark_environment_variables:(string * string prop) list ->
+  ?spark_config:string prop Tf_core.assoc ->
+  ?spark_environment_variables:string prop Tf_core.assoc ->
   cluster_version:string prop ->
   node_type:string prop ->
   unit ->
@@ -52,14 +52,14 @@ type azurerm_data_factory_linked_service_azure_databricks
 
 val azurerm_data_factory_linked_service_azure_databricks :
   ?access_token:string prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?existing_cluster_id:string prop ->
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?instance_pool:instance_pool list ->
   ?key_vault_password:key_vault_password list ->
   ?new_cluster_config:new_cluster_config list ->
@@ -79,7 +79,7 @@ type t = private {
   tf_name : string;
   access_token : string prop;
   adb_domain : string prop;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -88,20 +88,20 @@ type t = private {
   integration_runtime_name : string prop;
   msi_work_space_resource_id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?access_token:string prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?existing_cluster_id:string prop ->
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?instance_pool:instance_pool list ->
   ?key_vault_password:key_vault_password list ->
   ?new_cluster_config:new_cluster_config list ->
@@ -114,14 +114,14 @@ val register :
 
 val make :
   ?access_token:string prop ->
-  ?additional_properties:(string * string prop) list ->
+  ?additional_properties:string prop Tf_core.assoc ->
   ?annotations:string prop list ->
   ?description:string prop ->
   ?existing_cluster_id:string prop ->
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?instance_pool:instance_pool list ->
   ?key_vault_password:key_vault_password list ->
   ?new_cluster_config:new_cluster_config list ->

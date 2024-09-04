@@ -25,7 +25,7 @@ type agent_pool_profile = {
   max_pods : float prop;  (** max_pods *)
   min_count : float prop;  (** min_count *)
   name : string prop;  (** name *)
-  node_labels : (string * string prop) list;  (** node_labels *)
+  node_labels : string prop Tf_core.assoc;  (** node_labels *)
   node_public_ip_enabled : bool prop;  (** node_public_ip_enabled *)
   node_public_ip_prefix_id : string prop;
       (** node_public_ip_prefix_id *)
@@ -35,7 +35,7 @@ type agent_pool_profile = {
   orchestrator_version : string prop;  (** orchestrator_version *)
   os_disk_size_gb : float prop;  (** os_disk_size_gb *)
   os_type : string prop;  (** os_type *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
   upgrade_settings : agent_pool_profile__upgrade_settings list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -282,7 +282,7 @@ type t = private {
   service_mesh_profile : service_mesh_profile list prop;
   service_principal : service_principal list prop;
   storage_profile : storage_profile list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   windows_profile : windows_profile list prop;
 }
 

@@ -8,7 +8,7 @@ type hive_options
 
 val hive_options :
   ?location_uri:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   unit ->
   hive_options
 

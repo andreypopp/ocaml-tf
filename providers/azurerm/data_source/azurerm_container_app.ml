@@ -858,7 +858,7 @@ type template__custom_scale_rule = {
   authentication : template__custom_scale_rule__authentication list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   custom_rule_type : string prop;
-  metadata : (string * string prop) list;
+  metadata : string prop Tf_core.assoc;
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -882,12 +882,8 @@ let yojson_of_template__custom_scale_rule =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_metadata
          in
          ("metadata", arg) :: bnds
@@ -1790,7 +1786,7 @@ type t = {
   resource_group_name : string prop;
   revision_mode : string prop;
   secret : secret list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template : template list prop;
   workload_profile_name : string prop;
 }

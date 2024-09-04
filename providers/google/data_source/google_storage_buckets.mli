@@ -5,7 +5,7 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type buckets = {
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   self_link : string prop;  (** self_link *)

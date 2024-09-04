@@ -18,7 +18,7 @@ type azurerm_logic_app_integration_account_map
 
 val azurerm_logic_app_integration_account_map :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content:string prop ->
   integration_account_name:string prop ->
@@ -39,7 +39,7 @@ type t = private {
   id : string prop;
   integration_account_name : string prop;
   map_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   resource_group_name : string prop;
 }
@@ -47,7 +47,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content:string prop ->
   integration_account_name:string prop ->
@@ -59,7 +59,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   content:string prop ->
   integration_account_name:string prop ->

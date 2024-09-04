@@ -19,7 +19,7 @@ val azurerm_log_analytics_saved_search :
   ?function_alias:string prop ->
   ?function_parameters:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   category:string prop ->
   display_name:string prop ->
@@ -44,7 +44,7 @@ type t = private {
   log_analytics_workspace_id : string prop;
   name : string prop;
   query : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -52,7 +52,7 @@ val register :
   ?function_alias:string prop ->
   ?function_parameters:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   category:string prop ->
   display_name:string prop ->
@@ -66,7 +66,7 @@ val make :
   ?function_alias:string prop ->
   ?function_parameters:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   category:string prop ->
   display_name:string prop ->

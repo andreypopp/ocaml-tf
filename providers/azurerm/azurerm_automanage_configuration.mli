@@ -115,7 +115,7 @@ val azurerm_automanage_configuration :
   ?id:string prop ->
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?antimalware:antimalware list ->
   ?azure_security_baseline:azure_security_baseline list ->
   ?backup:backup list ->
@@ -143,7 +143,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   status_change_alert_enabled : bool prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -155,7 +155,7 @@ val register :
   ?id:string prop ->
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?antimalware:antimalware list ->
   ?azure_security_baseline:azure_security_baseline list ->
   ?backup:backup list ->
@@ -174,7 +174,7 @@ val make :
   ?id:string prop ->
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?antimalware:antimalware list ->
   ?azure_security_baseline:azure_security_baseline list ->
   ?backup:backup list ->

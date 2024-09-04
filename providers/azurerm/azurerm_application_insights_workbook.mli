@@ -30,7 +30,7 @@ val azurerm_application_insights_workbook :
   ?id:string prop ->
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->
@@ -58,7 +58,7 @@ type t = private {
   resource_group_name : string prop;
   source_id : string prop;
   storage_container_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -68,7 +68,7 @@ val register :
   ?id:string prop ->
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->
@@ -85,7 +85,7 @@ val make :
   ?id:string prop ->
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->

@@ -51,7 +51,7 @@ val azurerm_snapshot :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->
@@ -80,7 +80,7 @@ type t = private {
   source_resource_id : string prop;
   source_uri : string prop;
   storage_account_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trusted_launch_enabled : bool prop;
 }
 
@@ -95,7 +95,7 @@ val register :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->
@@ -115,7 +115,7 @@ val make :
   ?source_resource_id:string prop ->
   ?source_uri:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->

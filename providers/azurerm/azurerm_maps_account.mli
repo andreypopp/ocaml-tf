@@ -40,7 +40,7 @@ val azurerm_maps_account :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?data_store:data_store list ->
   ?identity:identity list ->
@@ -65,7 +65,7 @@ type t = private {
   resource_group_name : string prop;
   secondary_access_key : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   x_ms_client_id : string prop;
 }
 
@@ -74,7 +74,7 @@ val register :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?data_store:data_store list ->
   ?identity:identity list ->
@@ -89,7 +89,7 @@ val make :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
   ?location:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cors:cors list ->
   ?data_store:data_store list ->
   ?identity:identity list ->

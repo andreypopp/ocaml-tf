@@ -164,11 +164,11 @@ type t = {
   creation_timestamp : string prop;
   description : string prop;
   disk_size_gb : float prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   filter : string prop;
   id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   licenses : string list prop;
   most_recent : bool prop;
   name : string prop;
@@ -180,7 +180,7 @@ type t = {
   source_disk_encryption_key : source_disk_encryption_key list prop;
   storage_bytes : float prop;
   storage_locations : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   zone : string prop;
 }
 

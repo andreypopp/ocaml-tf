@@ -25,7 +25,7 @@ type google_healthcare_dicom_store
 
 val google_healthcare_dicom_store :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
@@ -41,18 +41,18 @@ val yojson_of_google_healthcare_dicom_store :
 type t = private {
   tf_name : string;
   dataset : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   self_link : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
@@ -62,7 +62,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->

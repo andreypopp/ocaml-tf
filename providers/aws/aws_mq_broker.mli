@@ -89,8 +89,8 @@ val aws_mq_broker :
   ?security_groups:string prop list ->
   ?storage_type:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?encryption_options:encryption_options list ->
   ?ldap_server_metadata:ldap_server_metadata list ->
@@ -129,8 +129,8 @@ type t = private {
   security_groups : string list prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -146,8 +146,8 @@ val register :
   ?security_groups:string prop list ->
   ?storage_type:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?encryption_options:encryption_options list ->
   ?ldap_server_metadata:ldap_server_metadata list ->
@@ -174,8 +174,8 @@ val make :
   ?security_groups:string prop list ->
   ?storage_type:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?configuration:configuration list ->
   ?encryption_options:encryption_options list ->
   ?ldap_server_metadata:ldap_server_metadata list ->

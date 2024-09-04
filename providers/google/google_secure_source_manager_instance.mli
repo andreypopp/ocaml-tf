@@ -33,7 +33,7 @@ type google_secure_source_manager_instance
 val google_secure_source_manager_instance :
   ?id:string prop ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?private_config:private_config list ->
   ?timeouts:timeouts ->
@@ -50,18 +50,18 @@ val yojson_of_google_secure_source_manager_instance :
 type t = private {
   tf_name : string;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   host_config : host_config list prop;
   id : string prop;
   instance_id : string prop;
   kms_key : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
   state_note : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -69,7 +69,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?private_config:private_config list ->
   ?timeouts:timeouts ->
@@ -81,7 +81,7 @@ val register :
 val make :
   ?id:string prop ->
   ?kms_key:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?private_config:private_config list ->
   ?timeouts:timeouts ->

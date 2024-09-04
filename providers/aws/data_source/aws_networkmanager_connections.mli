@@ -9,7 +9,7 @@ type aws_networkmanager_connections
 val aws_networkmanager_connections :
   ?device_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   unit ->
   aws_networkmanager_connections
@@ -25,14 +25,14 @@ type t = private {
   global_network_id : string prop;
   id : string prop;
   ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?device_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   string ->
   t
@@ -40,7 +40,7 @@ val register :
 val make :
   ?device_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   global_network_id:string prop ->
   string ->
   t Tf_core.resource

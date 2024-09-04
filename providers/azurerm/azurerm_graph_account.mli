@@ -18,7 +18,7 @@ type azurerm_graph_account
 
 val azurerm_graph_account :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_id:string prop ->
   name:string prop ->
@@ -37,13 +37,13 @@ type t = private {
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_id:string prop ->
   name:string prop ->
@@ -53,7 +53,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   application_id:string prop ->
   name:string prop ->

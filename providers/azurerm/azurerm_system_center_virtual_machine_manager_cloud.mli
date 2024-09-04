@@ -18,7 +18,7 @@ type azurerm_system_center_virtual_machine_manager_cloud
 
 val azurerm_system_center_virtual_machine_manager_cloud :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_location_id:string prop ->
   location:string prop ->
@@ -43,13 +43,13 @@ type t = private {
   resource_group_name : string prop;
   system_center_virtual_machine_manager_server_inventory_item_id :
     string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_location_id:string prop ->
   location:string prop ->
@@ -62,7 +62,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   custom_location_id:string prop ->
   location:string prop ->

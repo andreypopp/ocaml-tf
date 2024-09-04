@@ -1496,7 +1496,7 @@ type rulesets__rules__action_parameters = {
   response_fields : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   rocket_loader : bool prop;
-  rules : (string * string prop) list;
+  rules : string prop Tf_core.assoc;
   ruleset : string prop;
   rulesets : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1651,12 +1651,8 @@ let yojson_of_rulesets__rules__action_parameters =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_rules
          in
          ("rules", arg) :: bnds

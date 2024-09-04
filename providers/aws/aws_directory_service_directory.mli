@@ -42,8 +42,8 @@ val aws_directory_service_directory :
   ?id:string prop ->
   ?short_name:string prop ->
   ?size:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->
@@ -73,8 +73,8 @@ type t = private {
   security_group_id : string prop;
   short_name : string prop;
   size : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -88,8 +88,8 @@ val register :
   ?id:string prop ->
   ?short_name:string prop ->
   ?size:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->
@@ -108,8 +108,8 @@ val make :
   ?id:string prop ->
   ?short_name:string prop ->
   ?size:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->

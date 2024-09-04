@@ -280,7 +280,7 @@ type t = {
   monthly_schedule : monthly_schedule list prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   weekly_schedule : weekly_schedule list prop;
 }
 

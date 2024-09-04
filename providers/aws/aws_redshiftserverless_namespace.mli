@@ -17,8 +17,8 @@ val aws_redshiftserverless_namespace :
   ?kms_key_id:string prop ->
   ?log_exports:string prop list ->
   ?manage_admin_password:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   namespace_name:string prop ->
   unit ->
   aws_redshiftserverless_namespace
@@ -44,8 +44,8 @@ type t = private {
   manage_admin_password : bool prop;
   namespace_id : string prop;
   namespace_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,8 +60,8 @@ val register :
   ?kms_key_id:string prop ->
   ?log_exports:string prop list ->
   ?manage_admin_password:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   namespace_name:string prop ->
   string ->
   t
@@ -77,8 +77,8 @@ val make :
   ?kms_key_id:string prop ->
   ?log_exports:string prop list ->
   ?manage_admin_password:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   namespace_name:string prop ->
   string ->
   t Tf_core.resource

@@ -5,7 +5,7 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type metrics = {
-  system_metrics : (string * string prop) list;  (** system_metrics *)
+  system_metrics : string prop Tf_core.assoc;  (** system_metrics *)
 }
 
 type access_config
@@ -71,7 +71,7 @@ val virtual_machine__virtual_machine_config__data_disk__initialize_params :
   ?disk_name:string prop ->
   ?disk_size_gb:float prop ->
   ?disk_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   unit ->
   virtual_machine__virtual_machine_config__data_disk__initialize_params
 
@@ -108,8 +108,8 @@ type virtual_machine__virtual_machine_config
 
 val virtual_machine__virtual_machine_config :
   ?internal_ip_only:bool prop ->
-  ?labels:(string * string prop) list ->
-  ?metadata:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
+  ?metadata:string prop Tf_core.assoc ->
   ?network:string prop ->
   ?nic_type:string prop ->
   ?reserved_ip_range:string prop ->
@@ -141,7 +141,7 @@ type google_notebooks_runtime
 
 val google_notebooks_runtime :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?access_config:access_config list ->
   ?software_config:software_config list ->
@@ -159,22 +159,22 @@ val yojson_of_google_notebooks_runtime :
 
 type t = private {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   health_state : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   metrics : metrics list prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?access_config:access_config list ->
   ?software_config:software_config list ->
@@ -187,7 +187,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?access_config:access_config list ->
   ?software_config:software_config list ->

@@ -33,7 +33,7 @@ val azurerm_vmware_private_cloud :
   ?id:string prop ->
   ?internet_connection_enabled:bool prop ->
   ?nsxt_password:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vcenter_password:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -66,7 +66,7 @@ type t = private {
   provisioning_subnet_cidr : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vcenter_certificate_thumbprint : string prop;
   vcenter_password : string prop;
   vcsa_endpoint : string prop;
@@ -78,7 +78,7 @@ val register :
   ?id:string prop ->
   ?internet_connection_enabled:bool prop ->
   ?nsxt_password:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vcenter_password:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -94,7 +94,7 @@ val make :
   ?id:string prop ->
   ?internet_connection_enabled:bool prop ->
   ?nsxt_password:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vcenter_password:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

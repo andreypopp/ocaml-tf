@@ -88,7 +88,7 @@ let _ = yojson_of_placement_constraints
 
 type proxy_configuration = {
   container_name : string prop;
-  properties : (string * string prop) list option; [@option]
+  properties : string prop Tf_core.assoc option; [@option]
   type_ : string prop option; [@option] [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -118,12 +118,8 @@ let yojson_of_proxy_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -185,8 +181,8 @@ let _ = yojson_of_runtime_platform
 type volume__docker_volume_configuration = {
   autoprovision : bool prop option; [@option]
   driver : string prop option; [@option]
-  driver_opts : (string * string prop) list option; [@option]
-  labels : (string * string prop) list option; [@option]
+  driver_opts : string prop Tf_core.assoc option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   scope : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -218,12 +214,8 @@ let yojson_of_volume__docker_volume_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -234,12 +226,8 @@ let yojson_of_volume__docker_volume_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "driver_opts", arg in
@@ -588,8 +576,8 @@ type aws_ecs_task_definition = {
   pid_mode : string prop option; [@option]
   requires_compatibilities : string prop list option; [@option]
   skip_destroy : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   task_role_arn : string prop option; [@option]
   track_latest : bool prop option; [@option]
   ephemeral_storage : ephemeral_storage list;
@@ -715,12 +703,8 @@ let yojson_of_aws_ecs_task_definition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -731,12 +715,8 @@ let yojson_of_aws_ecs_task_definition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -946,8 +926,8 @@ type t = {
   requires_compatibilities : string list prop;
   revision : float prop;
   skip_destroy : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   task_role_arn : string prop;
   track_latest : bool prop;
 }

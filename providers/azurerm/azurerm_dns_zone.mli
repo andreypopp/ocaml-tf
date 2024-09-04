@@ -13,7 +13,7 @@ val soa_record :
   ?refresh_time:float prop ->
   ?retry_time:float prop ->
   ?serial_number:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ttl:float prop ->
   email:string prop ->
   unit ->
@@ -33,7 +33,7 @@ type azurerm_dns_zone
 
 val azurerm_dns_zone :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -53,13 +53,13 @@ type t = private {
   name_servers : string list prop;
   number_of_record_sets : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -69,7 +69,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->

@@ -51,8 +51,8 @@ val aws_elasticache_cluster :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   cluster_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->
@@ -98,8 +98,8 @@ type t = private {
   snapshot_retention_limit : float prop;
   snapshot_window : string prop;
   subnet_group_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   transit_encryption_enabled : bool prop;
 }
 
@@ -131,8 +131,8 @@ val register :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   cluster_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->
@@ -166,8 +166,8 @@ val make :
   ?snapshot_retention_limit:float prop ->
   ?snapshot_window:string prop ->
   ?subnet_group_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?transit_encryption_enabled:bool prop ->
   cluster_id:string prop ->
   log_delivery_configuration:log_delivery_configuration list ->

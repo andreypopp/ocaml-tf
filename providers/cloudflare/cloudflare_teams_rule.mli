@@ -97,7 +97,7 @@ val rule_settings__untrusted_cert :
 type rule_settings
 
 val rule_settings :
-  ?add_headers:(string * string prop) list ->
+  ?add_headers:string prop Tf_core.assoc ->
   ?allow_child_bypass:bool prop ->
   ?block_page_enabled:bool prop ->
   ?block_page_reason:string prop ->

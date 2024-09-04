@@ -223,8 +223,7 @@ let _ = yojson_of_build_config__source
 type build_config = {
   docker_repository : string prop option; [@option]
   entry_point : string prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   runtime : string prop option; [@option]
   service_account : string prop option; [@option]
   worker_pool : string prop option; [@option]
@@ -317,12 +316,8 @@ let yojson_of_build_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -609,8 +604,7 @@ type service_config = {
   all_traffic_on_latest_revision : bool prop option; [@option]
   available_cpu : string prop option; [@option]
   available_memory : string prop option; [@option]
-  environment_variables : (string * string prop) list option;
-      [@option]
+  environment_variables : string prop Tf_core.assoc option; [@option]
   ingress_settings : string prop option; [@option]
   max_instance_count : float prop option; [@option]
   max_instance_request_concurrency : float prop option; [@option]
@@ -753,12 +747,8 @@ let yojson_of_service_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "environment_variables", arg in
@@ -845,7 +835,7 @@ type google_cloudfunctions2_function = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   name : string prop;
   project : string prop option; [@option]
@@ -932,12 +922,8 @@ let yojson_of_google_cloudfunctions2_function =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1093,16 +1079,16 @@ let google_cloudfunctions2_function ?description ?id ?kms_key_name
 type t = {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   environment : string prop;
   id : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
   url : string prop;
 }

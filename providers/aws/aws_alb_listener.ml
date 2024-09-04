@@ -4,7 +4,7 @@ open! Tf_core
 
 type default_action__authenticate_cognito = {
   authentication_request_extra_params :
-    (string * string prop) list option;
+    string prop Tf_core.assoc option;
       [@option]
   on_unauthenticated_request : string prop option; [@option]
   scope : string prop option; [@option]
@@ -87,12 +87,8 @@ let yojson_of_default_action__authenticate_cognito =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "authentication_request_extra_params", arg in
@@ -108,7 +104,7 @@ let _ = yojson_of_default_action__authenticate_cognito
 
 type default_action__authenticate_oidc = {
   authentication_request_extra_params :
-    (string * string prop) list option;
+    string prop Tf_core.assoc option;
       [@option]
   authorization_endpoint : string prop;
   client_id : string prop;
@@ -211,12 +207,8 @@ let yojson_of_default_action__authenticate_oidc =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "authentication_request_extra_params", arg in
@@ -671,8 +663,8 @@ type aws_alb_listener = {
   port : float prop option; [@option]
   protocol : string prop option; [@option]
   ssl_policy : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   default_action : default_action list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   mutual_authentication : mutual_authentication list;
@@ -731,12 +723,8 @@ let yojson_of_aws_alb_listener =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -747,12 +735,8 @@ let yojson_of_aws_alb_listener =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -925,8 +909,8 @@ type t = {
   port : float prop;
   protocol : string prop;
   ssl_policy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?alpn_policy ?certificate_arn ?id ?port ?protocol

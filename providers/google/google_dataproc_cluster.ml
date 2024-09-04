@@ -585,7 +585,7 @@ let _ =
 
 type cluster_config__gce_cluster_config = {
   internal_ip_only : bool prop option; [@option]
-  metadata : (string * string prop) list option; [@option]
+  metadata : string prop Tf_core.assoc option; [@option]
   network : string prop option; [@option]
   service_account : string prop option; [@option]
   service_account_scopes : string prop list option; [@option]
@@ -714,12 +714,8 @@ let yojson_of_cluster_config__gce_cluster_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "metadata", arg in
@@ -1497,7 +1493,7 @@ let _ = yojson_of_cluster_config__security_config
 type cluster_config__software_config = {
   image_version : string prop option; [@option]
   optional_components : string prop list option; [@option]
-  override_properties : (string * string prop) list option; [@option]
+  override_properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -1518,12 +1514,8 @@ let yojson_of_cluster_config__software_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "override_properties", arg in
@@ -2463,8 +2455,8 @@ let _ =
 [@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config = {
-  component_version : (string * string prop) list;
-  properties : (string * string prop) list option; [@option]
+  component_version : string prop Tf_core.assoc;
+  properties : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -2488,12 +2480,8 @@ let yojson_of_virtual_cluster_config__kubernetes_cluster_config__kubernetes_soft
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "properties", arg in
@@ -2501,12 +2489,8 @@ let yojson_of_virtual_cluster_config__kubernetes_cluster_config__kubernetes_soft
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_component_version
          in
          ("component_version", arg) :: bnds
@@ -2647,7 +2631,7 @@ let _ = yojson_of_virtual_cluster_config
 type google_dataproc_cluster = {
   graceful_decommission_timeout : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop;
   project : string prop option; [@option]
   region : string prop option; [@option]
@@ -2727,12 +2711,8 @@ let yojson_of_google_dataproc_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -3121,14 +3101,14 @@ let google_dataproc_cluster ?graceful_decommission_timeout ?id
 
 type t = {
   tf_name : string;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   graceful_decommission_timeout : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?graceful_decommission_timeout ?id ?labels ?project ?region

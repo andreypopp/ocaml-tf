@@ -30,7 +30,7 @@ val azurerm_app_service_certificate_order :
   ?id:string prop ->
   ?key_size:float prop ->
   ?product_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validity_in_years:float prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -64,7 +64,7 @@ type t = private {
   root_thumbprint : string prop;
   signed_certificate_thumbprint : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   validity_in_years : float prop;
 }
 
@@ -76,7 +76,7 @@ val register :
   ?id:string prop ->
   ?key_size:float prop ->
   ?product_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validity_in_years:float prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -92,7 +92,7 @@ val make :
   ?id:string prop ->
   ?key_size:float prop ->
   ?product_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?validity_in_years:float prop ->
   ?timeouts:timeouts ->
   location:string prop ->

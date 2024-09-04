@@ -249,8 +249,8 @@ type aws_quicksight_data_source
 val aws_quicksight_data_source :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?credentials:credentials list ->
     ?ssl_properties:ssl_properties list ->
     ?vpc_connection_properties:vpc_connection_properties list ->
@@ -273,8 +273,8 @@ type t = private {
   data_source_id: string prop;
   id: string prop;
   name: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
   type_: string prop;
 }
 
@@ -282,8 +282,8 @@ val register :
     ?tf_module:tf_module ->
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?credentials:credentials list ->
     ?ssl_properties:ssl_properties list ->
     ?vpc_connection_properties:vpc_connection_properties list ->
@@ -298,8 +298,8 @@ val register :
 val make :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?credentials:credentials list ->
     ?ssl_properties:ssl_properties list ->
     ?vpc_connection_properties:vpc_connection_properties list ->

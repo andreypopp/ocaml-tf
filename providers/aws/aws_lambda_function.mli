@@ -12,7 +12,7 @@ val dead_letter_config :
 type environment
 
 val environment :
-  ?variables:(string * string prop) list -> unit -> environment
+  ?variables:string prop Tf_core.assoc -> unit -> environment
 
 type ephemeral_storage
 
@@ -95,8 +95,8 @@ val aws_lambda_function :
   ?s3_object_version:string prop ->
   ?skip_destroy:bool prop ->
   ?source_code_hash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?dead_letter_config:dead_letter_config list ->
   ?environment:environment list ->
@@ -151,8 +151,8 @@ type t = private {
   skip_destroy : bool prop;
   source_code_hash : string prop;
   source_code_size : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timeout : float prop;
   version : string prop;
 }
@@ -180,8 +180,8 @@ val register :
   ?s3_object_version:string prop ->
   ?skip_destroy:bool prop ->
   ?source_code_hash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?dead_letter_config:dead_letter_config list ->
   ?environment:environment list ->
@@ -220,8 +220,8 @@ val make :
   ?s3_object_version:string prop ->
   ?skip_destroy:bool prop ->
   ?source_code_hash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeout:float prop ->
   ?dead_letter_config:dead_letter_config list ->
   ?environment:environment list ->

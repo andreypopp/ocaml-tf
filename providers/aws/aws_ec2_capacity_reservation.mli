@@ -24,8 +24,8 @@ val aws_ec2_capacity_reservation :
   ?instance_match_criteria:string prop ->
   ?outpost_arn:string prop ->
   ?placement_group_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
@@ -56,8 +56,8 @@ type t = private {
   outpost_arn : string prop;
   owner_id : string prop;
   placement_group_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenancy : string prop;
 }
 
@@ -71,8 +71,8 @@ val register :
   ?instance_match_criteria:string prop ->
   ?outpost_arn:string prop ->
   ?placement_group_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->
@@ -91,8 +91,8 @@ val make :
   ?instance_match_criteria:string prop ->
   ?outpost_arn:string prop ->
   ?placement_group_arn:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?timeouts:timeouts ->
   availability_zone:string prop ->

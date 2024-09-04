@@ -349,7 +349,7 @@ let _ = yojson_of_handlers__script
 type handlers__static_files = {
   application_readable : bool prop option; [@option]
   expiration : string prop option; [@option]
-  http_headers : (string * string prop) list option; [@option]
+  http_headers : string prop Tf_core.assoc option; [@option]
   mime_type : string prop option; [@option]
   path : string prop option; [@option]
   require_matching_file : bool prop option; [@option]
@@ -410,12 +410,8 @@ let yojson_of_handlers__static_files =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "http_headers", arg in
@@ -680,7 +676,7 @@ let _ = yojson_of_vpc_access_connector
 type google_app_engine_standard_app_version = {
   app_engine_apis : bool prop option; [@option]
   delete_service_on_destroy : bool prop option; [@option]
-  env_variables : (string * string prop) list option; [@option]
+  env_variables : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   inbound_services : string prop list option; [@option]
   instance_class : string prop option; [@option]
@@ -910,12 +906,8 @@ let yojson_of_google_app_engine_standard_app_version =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "env_variables", arg in
@@ -1058,7 +1050,7 @@ type t = {
   tf_name : string;
   app_engine_apis : bool prop;
   delete_service_on_destroy : bool prop;
-  env_variables : (string * string) list prop;
+  env_variables : string Tf_core.assoc prop;
   id : string prop;
   inbound_services : string list prop;
   instance_class : string prop;

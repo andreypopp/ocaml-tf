@@ -38,7 +38,7 @@ type azurerm_elastic_cloud_elasticsearch
 val azurerm_elastic_cloud_elasticsearch :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
@@ -69,14 +69,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
@@ -90,7 +90,7 @@ val register :
 val make :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->

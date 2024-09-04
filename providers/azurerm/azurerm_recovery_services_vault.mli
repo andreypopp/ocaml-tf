@@ -50,7 +50,7 @@ val azurerm_recovery_services_vault :
   ?public_network_access_enabled:bool prop ->
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?monitoring:monitoring list ->
@@ -80,7 +80,7 @@ type t = private {
   sku : string prop;
   soft_delete_enabled : bool prop;
   storage_mode_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -92,7 +92,7 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?monitoring:monitoring list ->
@@ -112,7 +112,7 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?monitoring:monitoring list ->

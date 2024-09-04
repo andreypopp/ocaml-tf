@@ -27,7 +27,7 @@ val azurerm_app_service_environment :
   ?id:string prop ->
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -55,7 +55,7 @@ type t = private {
   resource_group_name : string prop;
   service_ip_address : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -65,7 +65,7 @@ val register :
   ?id:string prop ->
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -80,7 +80,7 @@ val make :
   ?id:string prop ->
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->

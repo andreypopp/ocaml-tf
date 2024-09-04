@@ -94,7 +94,7 @@ val azurerm_mssql_database :
   ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_enabled:bool prop ->
   ?transparent_data_encryption_key_automatic_rotation_enabled:
     bool prop ->
@@ -143,7 +143,7 @@ type t = private {
   server_id : string prop;
   sku_name : string prop;
   storage_account_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transparent_data_encryption_enabled : bool prop;
   transparent_data_encryption_key_automatic_rotation_enabled :
     bool prop;
@@ -177,7 +177,7 @@ val register :
   ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_enabled:bool prop ->
   ?transparent_data_encryption_key_automatic_rotation_enabled:
     bool prop ->
@@ -219,7 +219,7 @@ val make :
   ?secondary_type:string prop ->
   ?sku_name:string prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_enabled:bool prop ->
   ?transparent_data_encryption_key_automatic_rotation_enabled:
     bool prop ->

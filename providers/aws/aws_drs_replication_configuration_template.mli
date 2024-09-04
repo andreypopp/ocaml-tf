@@ -29,8 +29,8 @@ type aws_drs_replication_configuration_template
 val aws_drs_replication_configuration_template :
   ?auto_replicate_new_disks:bool prop ->
   ?ebs_encryption_key_arn:string prop ->
-  ?staging_area_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?staging_area_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?pit_policy:pit_policy list ->
   ?timeouts:timeouts ->
   associate_default_security_group:bool prop ->
@@ -66,9 +66,9 @@ type t = private {
   replication_server_instance_type : string prop;
   replication_servers_security_groups_ids : string list prop;
   staging_area_subnet_id : string prop;
-  staging_area_tags : (string * string) list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  staging_area_tags : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   use_dedicated_replication_server : bool prop;
 }
 
@@ -76,8 +76,8 @@ val register :
   ?tf_module:tf_module ->
   ?auto_replicate_new_disks:bool prop ->
   ?ebs_encryption_key_arn:string prop ->
-  ?staging_area_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?staging_area_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?pit_policy:pit_policy list ->
   ?timeouts:timeouts ->
   associate_default_security_group:bool prop ->
@@ -96,8 +96,8 @@ val register :
 val make :
   ?auto_replicate_new_disks:bool prop ->
   ?ebs_encryption_key_arn:string prop ->
-  ?staging_area_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?staging_area_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?pit_policy:pit_policy list ->
   ?timeouts:timeouts ->
   associate_default_security_group:bool prop ->

@@ -11,8 +11,8 @@ val aws_appconfig_deployment_strategy :
   ?final_bake_time_in_minutes:float prop ->
   ?growth_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   deployment_duration_in_minutes:float prop ->
   growth_factor:float prop ->
   name:string prop ->
@@ -36,8 +36,8 @@ type t = private {
   id : string prop;
   name : string prop;
   replicate_to : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -46,8 +46,8 @@ val register :
   ?final_bake_time_in_minutes:float prop ->
   ?growth_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   deployment_duration_in_minutes:float prop ->
   growth_factor:float prop ->
   name:string prop ->
@@ -60,8 +60,8 @@ val make :
   ?final_bake_time_in_minutes:float prop ->
   ?growth_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   deployment_duration_in_minutes:float prop ->
   growth_factor:float prop ->
   name:string prop ->

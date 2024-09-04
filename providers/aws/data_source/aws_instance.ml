@@ -93,7 +93,7 @@ type ebs_block_device = {
   iops : float prop;
   kms_key_id : string prop;
   snapshot_id : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
   throughput : float prop;
   volume_id : string prop;
   volume_size : float prop;
@@ -139,12 +139,8 @@ let yojson_of_ebs_block_device =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -373,7 +369,7 @@ type root_block_device = {
   encrypted : bool prop;
   iops : float prop;
   kms_key_id : string prop;
-  tags : (string * string prop) list;
+  tags : string prop Tf_core.assoc;
   throughput : float prop;
   volume_id : string prop;
   volume_size : float prop;
@@ -418,12 +414,8 @@ let yojson_of_root_block_device =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_tags
          in
          ("tags", arg) :: bnds
@@ -462,8 +454,8 @@ type aws_instance = {
   get_user_data : bool prop option; [@option]
   id : string prop option; [@option]
   instance_id : string prop option; [@option]
-  instance_tags : (string * string prop) list option; [@option]
-  tags : (string * string prop) list option; [@option]
+  instance_tags : string prop Tf_core.assoc option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   filter : filter list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -503,12 +495,8 @@ let yojson_of_aws_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -519,12 +507,8 @@ let yojson_of_aws_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "instance_tags", arg in
@@ -606,7 +590,7 @@ type t = {
   id : string prop;
   instance_id : string prop;
   instance_state : string prop;
-  instance_tags : (string * string) list prop;
+  instance_tags : string Tf_core.assoc prop;
   instance_type : string prop;
   ipv6_addresses : string list prop;
   key_name : string prop;
@@ -629,7 +613,7 @@ type t = {
   security_groups : string list prop;
   source_dest_check : bool prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenancy : string prop;
   user_data : string prop;
   user_data_base64 : string prop;

@@ -41,7 +41,7 @@ type kubernetes_labels = {
   force : bool prop option; [@option]
   id : string prop option; [@option]
   kind : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   metadata : metadata list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -74,12 +74,8 @@ let yojson_of_kubernetes_labels =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -136,7 +132,7 @@ type t = {
   force : bool prop;
   id : string prop;
   kind : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
 }
 
 let make ?field_manager ?force ?id ~api_version ~kind ~labels

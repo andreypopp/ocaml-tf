@@ -9,7 +9,7 @@ type oidc
 val oidc :
   ?groups_claim:string prop ->
   ?groups_prefix:string prop ->
-  ?required_claims:(string * string prop) list ->
+  ?required_claims:string prop Tf_core.assoc ->
   ?username_claim:string prop ->
   ?username_prefix:string prop ->
   client_id:string prop ->
@@ -27,8 +27,8 @@ type aws_eks_identity_provider_config
 
 val aws_eks_identity_provider_config :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   oidc:oidc list ->
@@ -46,15 +46,15 @@ type t = private {
   cluster_name : string prop;
   id : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   oidc:oidc list ->
@@ -63,8 +63,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   oidc:oidc list ->

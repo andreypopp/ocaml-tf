@@ -19,7 +19,7 @@ val aws_nat_gateway :
   ?id:string prop ->
   ?state:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -44,7 +44,7 @@ type t = private {
   secondary_private_ip_addresses : string list prop;
   state : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -53,7 +53,7 @@ val register :
   ?id:string prop ->
   ?state:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -64,7 +64,7 @@ val make :
   ?id:string prop ->
   ?state:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

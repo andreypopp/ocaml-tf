@@ -60,7 +60,7 @@ type google_recaptcha_enterprise_key
 
 val google_recaptcha_enterprise_key :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?android_settings:android_settings list ->
   ?ios_settings:ios_settings list ->
@@ -81,18 +81,18 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?android_settings:android_settings list ->
   ?ios_settings:ios_settings list ->
@@ -106,7 +106,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?android_settings:android_settings list ->
   ?ios_settings:ios_settings list ->

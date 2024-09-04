@@ -32,7 +32,7 @@ type t = private {
   image_encryption_key_sha256 : string prop;
   image_id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   licenses : string list prop;
   most_recent : bool prop;
   name : string prop;

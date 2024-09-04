@@ -40,7 +40,7 @@ val aws_s3_object_copy :
   ?id:string prop ->
   ?kms_encryption_context:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_directive:string prop ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
@@ -52,8 +52,8 @@ val aws_s3_object_copy :
   ?source_customer_key_md5:string prop ->
   ?storage_class:string prop ->
   ?tagging_directive:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -100,7 +100,7 @@ type t = private {
   kms_encryption_context : string prop;
   kms_key_id : string prop;
   last_modified : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_directive : string prop;
   object_lock_legal_hold_status : string prop;
   object_lock_mode : string prop;
@@ -115,8 +115,8 @@ type t = private {
   source_version_id : string prop;
   storage_class : string prop;
   tagging_directive : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : string prop;
   website_redirect : string prop;
 }
@@ -145,7 +145,7 @@ val register :
   ?id:string prop ->
   ?kms_encryption_context:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_directive:string prop ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
@@ -157,8 +157,8 @@ val register :
   ?source_customer_key_md5:string prop ->
   ?storage_class:string prop ->
   ?tagging_directive:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->
@@ -190,7 +190,7 @@ val make :
   ?id:string prop ->
   ?kms_encryption_context:string prop ->
   ?kms_key_id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?metadata_directive:string prop ->
   ?object_lock_legal_hold_status:string prop ->
   ?object_lock_mode:string prop ->
@@ -202,8 +202,8 @@ val make :
   ?source_customer_key_md5:string prop ->
   ?storage_class:string prop ->
   ?tagging_directive:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?website_redirect:string prop ->
   bucket:string prop ->
   key:string prop ->

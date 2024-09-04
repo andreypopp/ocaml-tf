@@ -39,7 +39,7 @@ val aws_vpc_peering_connection :
   ?peer_vpc_id:string prop ->
   ?region:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -53,7 +53,7 @@ val yojson_of_aws_vpc_peering_connection :
 
 type t = private {
   tf_name : string;
-  accepter : (string * bool) list prop;
+  accepter : bool Tf_core.assoc prop;
   cidr_block : string prop;
   cidr_block_set : cidr_block_set list prop;
   id : string prop;
@@ -66,9 +66,9 @@ type t = private {
   peer_region : string prop;
   peer_vpc_id : string prop;
   region : string prop;
-  requester : (string * bool) list prop;
+  requester : bool Tf_core.assoc prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -83,7 +83,7 @@ val register :
   ?peer_vpc_id:string prop ->
   ?region:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -100,7 +100,7 @@ val make :
   ?peer_vpc_id:string prop ->
   ?region:string prop ->
   ?status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?vpc_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

@@ -624,7 +624,7 @@ type aws_ce_cost_category
 
 val aws_ce_cost_category :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cost_category_arn:string prop ->
   unit ->
   aws_ce_cost_category
@@ -644,20 +644,20 @@ type t = private {
   rule : rule list prop;
   rule_version : string prop;
   split_charge_rule : split_charge_rule list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cost_category_arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   cost_category_arn:string prop ->
   string ->
   t Tf_core.resource

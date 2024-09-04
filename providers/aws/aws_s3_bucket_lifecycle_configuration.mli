@@ -26,7 +26,7 @@ val rule__filter__and :
   ?object_size_greater_than:float prop ->
   ?object_size_less_than:float prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   rule__filter__and
 

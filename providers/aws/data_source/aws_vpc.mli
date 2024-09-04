@@ -27,7 +27,7 @@ val aws_vpc :
   ?dhcp_options_id:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -54,7 +54,7 @@ type t = private {
   main_route_table_id : string prop;
   owner_id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -64,7 +64,7 @@ val register :
   ?dhcp_options_id:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -76,7 +76,7 @@ val make :
   ?dhcp_options_id:string prop ->
   ?id:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

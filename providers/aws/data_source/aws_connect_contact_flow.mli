@@ -10,7 +10,7 @@ val aws_connect_contact_flow :
   ?contact_flow_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   instance_id:string prop ->
   unit ->
@@ -30,7 +30,7 @@ type t = private {
   id : string prop;
   instance_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -39,7 +39,7 @@ val register :
   ?contact_flow_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   instance_id:string prop ->
   string ->
@@ -49,7 +49,7 @@ val make :
   ?contact_flow_id:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   instance_id:string prop ->
   string ->

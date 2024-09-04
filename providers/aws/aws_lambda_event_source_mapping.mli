@@ -52,7 +52,7 @@ val scaling_config :
 type self_managed_event_source
 
 val self_managed_event_source :
-  endpoints:(string * string prop) list ->
+  endpoints:string prop Tf_core.assoc ->
   unit ->
   self_managed_event_source
 

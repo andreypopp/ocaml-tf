@@ -24,8 +24,8 @@ val aws_vpc_ipam :
   ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->
@@ -47,8 +47,8 @@ type t = private {
   private_default_scope_id : string prop;
   public_default_scope_id : string prop;
   scope_count : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tier : string prop;
 }
 
@@ -57,8 +57,8 @@ val register :
   ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->
@@ -69,8 +69,8 @@ val make :
   ?cascade:bool prop ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?timeouts:timeouts ->
   operating_regions:operating_regions list ->

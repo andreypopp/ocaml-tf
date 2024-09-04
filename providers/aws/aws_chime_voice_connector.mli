@@ -9,8 +9,8 @@ type aws_chime_voice_connector
 val aws_chime_voice_connector :
   ?aws_region:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   require_encryption:bool prop ->
   unit ->
@@ -29,16 +29,16 @@ type t = private {
   name : string prop;
   outbound_host_name : string prop;
   require_encryption : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?aws_region:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   require_encryption:bool prop ->
   string ->
@@ -47,8 +47,8 @@ val register :
 val make :
   ?aws_region:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   require_encryption:bool prop ->
   string ->

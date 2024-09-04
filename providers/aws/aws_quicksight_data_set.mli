@@ -335,8 +335,8 @@ type aws_quicksight_data_set
 val aws_quicksight_data_set :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?column_groups:column_groups list ->
     ?column_level_permission_rules:column_level_permission_rules list ->
     ?data_set_usage_configuration:data_set_usage_configuration list ->
@@ -366,16 +366,16 @@ type t = private {
   import_mode: string prop;
   name: string prop;
   output_columns: output_columns list prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 val register :
     ?tf_module:tf_module ->
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?column_groups:column_groups list ->
     ?column_level_permission_rules:column_level_permission_rules list ->
     ?data_set_usage_configuration:data_set_usage_configuration list ->
@@ -395,8 +395,8 @@ val register :
 val make :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?column_groups:column_groups list ->
     ?column_level_permission_rules:column_level_permission_rules list ->
     ?data_set_usage_configuration:data_set_usage_configuration list ->

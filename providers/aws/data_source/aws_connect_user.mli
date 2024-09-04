@@ -23,7 +23,7 @@ type aws_connect_user
 val aws_connect_user :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_id:string prop ->
   instance_id:string prop ->
   unit ->
@@ -45,7 +45,7 @@ type t = private {
   phone_config : phone_config list prop;
   routing_profile_id : string prop;
   security_profile_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_id : string prop;
 }
 
@@ -53,7 +53,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_id:string prop ->
   instance_id:string prop ->
   string ->
@@ -62,7 +62,7 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?user_id:string prop ->
   instance_id:string prop ->
   string ->

@@ -5,7 +5,7 @@ open! Tf_core
 type aws_dms_certificate = {
   certificate_id : string prop;
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -23,12 +23,8 @@ let yojson_of_aws_dms_certificate =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -70,7 +66,7 @@ type t = {
   id : string prop;
   key_length : float prop;
   signing_algorithm : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   valid_from_date : string prop;
   valid_to_date : string prop;
 }

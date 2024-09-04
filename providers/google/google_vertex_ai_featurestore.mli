@@ -39,7 +39,7 @@ type google_vertex_ai_featurestore
 val google_vertex_ai_featurestore :
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -57,15 +57,15 @@ val yojson_of_google_vertex_ai_featurestore :
 type t = private {
   tf_name : string;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   region : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -73,7 +73,7 @@ val register :
   ?tf_module:tf_module ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -86,7 +86,7 @@ val register :
 val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->

@@ -3,8 +3,8 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
-  labels : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -34,12 +34,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -50,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -845,7 +837,7 @@ type spec__persistent_volume_source__csi = {
   driver : string prop;
   fs_type : string prop option; [@option]
   read_only : bool prop option; [@option]
-  volume_attributes : (string * string prop) list option; [@option]
+  volume_attributes : string prop Tf_core.assoc option; [@option]
   volume_handle : string prop;
   controller_expand_secret_ref :
     spec__persistent_volume_source__csi__controller_expand_secret_ref
@@ -936,12 +928,8 @@ let yojson_of_spec__persistent_volume_source__csi =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "volume_attributes", arg in
@@ -1080,7 +1068,7 @@ let _ =
 type spec__persistent_volume_source__flex_volume = {
   driver : string prop;
   fs_type : string prop option; [@option]
-  options : (string * string prop) list option; [@option]
+  options : string prop Tf_core.assoc option; [@option]
   read_only : bool prop option; [@option]
   secret_ref :
     spec__persistent_volume_source__flex_volume__secret_ref list;
@@ -1126,12 +1114,8 @@ let yojson_of_spec__persistent_volume_source__flex_volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "options", arg in
@@ -2051,7 +2035,7 @@ let _ = yojson_of_spec__persistent_volume_source
 type spec = {
   access_modes : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  capacity : (string * string prop) list;
+  capacity : string prop Tf_core.assoc;
   mount_options : string prop list option; [@option]
   persistent_volume_reclaim_policy : string prop option; [@option]
   storage_class_name : string prop option; [@option]
@@ -2149,12 +2133,8 @@ let yojson_of_spec =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_capacity
          in
          ("capacity", arg) :: bnds

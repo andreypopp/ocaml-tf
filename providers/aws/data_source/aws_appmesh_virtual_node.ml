@@ -42,7 +42,7 @@ let _ = yojson_of_spec__service_discovery__dns
 [@@@deriving.end]
 
 type spec__service_discovery__aws_cloud_map = {
-  attributes : (string * string prop) list;
+  attributes : string prop Tf_core.assoc;
   namespace_name : string prop;
   service_name : string prop;
 }
@@ -72,12 +72,8 @@ let yojson_of_spec__service_discovery__aws_cloud_map =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_attributes
          in
          ("attributes", arg) :: bnds
@@ -2954,7 +2950,7 @@ type aws_appmesh_virtual_node = {
   mesh_name : string prop;
   mesh_owner : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -2977,12 +2973,8 @@ let yojson_of_aws_appmesh_virtual_node =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -3034,7 +3026,7 @@ type t = {
   name : string prop;
   resource_owner : string prop;
   spec : spec list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?mesh_owner ?tags ~mesh_name ~name __id =

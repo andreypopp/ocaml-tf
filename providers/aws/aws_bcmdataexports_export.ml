@@ -5,7 +5,7 @@ open! Tf_core
 type export__data_query = {
   query_statement : string prop;
   table_configurations :
-    (string * (string * string prop) list) list option;
+    string prop Tf_core.assoc Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -26,22 +26,9 @@ let yojson_of_export__data_query =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 =
-                         yojson_of_list
-                           (function
-                             | v0, v1 ->
-                                 let v0 = yojson_of_string v0
-                                 and v1 =
-                                   yojson_of_prop yojson_of_string v1
-                                 in
-                                 `List [ v0; v1 ])
-                           v1
-                       in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (Tf_core.yojson_of_assoc
+                    (yojson_of_prop yojson_of_string))
                  v
              in
              let bnd = "table_configurations", arg in
@@ -337,7 +324,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type aws_bcmdataexports_export = {
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   export : export list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -368,12 +355,8 @@ let yojson_of_aws_bcmdataexports_export =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -428,8 +411,8 @@ let aws_bcmdataexports_export ?tags ?(export = []) ?timeouts () :
 type t = {
   tf_name : string;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?tags ?(export = []) ?timeouts __id =

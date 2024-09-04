@@ -89,7 +89,7 @@ val timeouts :
 type aws_mwaa_environment
 
 val aws_mwaa_environment :
-  ?airflow_configuration_options:(string * string prop) list ->
+  ?airflow_configuration_options:string prop Tf_core.assoc ->
   ?airflow_version:string prop ->
   ?endpoint_management:string prop ->
   ?environment_class:string prop ->
@@ -106,8 +106,8 @@ val aws_mwaa_environment :
   ?schedulers:float prop ->
   ?startup_script_s3_object_version:string prop ->
   ?startup_script_s3_path:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
   ?logging_configuration:logging_configuration list ->
@@ -126,7 +126,7 @@ val yojson_of_aws_mwaa_environment : aws_mwaa_environment -> json
 
 type t = private {
   tf_name : string;
-  airflow_configuration_options : (string * string) list prop;
+  airflow_configuration_options : string Tf_core.assoc prop;
   airflow_version : string prop;
   arn : string prop;
   created_at : string prop;
@@ -153,8 +153,8 @@ type t = private {
   startup_script_s3_object_version : string prop;
   startup_script_s3_path : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   webserver_access_mode : string prop;
   webserver_url : string prop;
   webserver_vpc_endpoint_service : string prop;
@@ -163,7 +163,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?airflow_configuration_options:(string * string prop) list ->
+  ?airflow_configuration_options:string prop Tf_core.assoc ->
   ?airflow_version:string prop ->
   ?endpoint_management:string prop ->
   ?environment_class:string prop ->
@@ -180,8 +180,8 @@ val register :
   ?schedulers:float prop ->
   ?startup_script_s3_object_version:string prop ->
   ?startup_script_s3_path:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
   ?logging_configuration:logging_configuration list ->
@@ -195,7 +195,7 @@ val register :
   t
 
 val make :
-  ?airflow_configuration_options:(string * string prop) list ->
+  ?airflow_configuration_options:string prop Tf_core.assoc ->
   ?airflow_version:string prop ->
   ?endpoint_management:string prop ->
   ?environment_class:string prop ->
@@ -212,8 +212,8 @@ val make :
   ?schedulers:float prop ->
   ?startup_script_s3_object_version:string prop ->
   ?startup_script_s3_path:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
   ?logging_configuration:logging_configuration list ->

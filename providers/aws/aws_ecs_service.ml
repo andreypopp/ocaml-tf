@@ -364,7 +364,7 @@ let _ =
 
 type service_connect_configuration__log_configuration = {
   log_driver : string prop;
-  options : (string * string prop) list option; [@option]
+  options : string prop Tf_core.assoc option; [@option]
   secret_option :
     service_connect_configuration__log_configuration__secret_option
     list;
@@ -401,12 +401,8 @@ let yojson_of_service_connect_configuration__log_configuration =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "options", arg in
@@ -1009,10 +1005,10 @@ type aws_ecs_service = {
   platform_version : string prop option; [@option]
   propagate_tags : string prop option; [@option]
   scheduling_strategy : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   task_definition : string prop option; [@option]
-  triggers : (string * string prop) list option; [@option]
+  triggers : string prop Tf_core.assoc option; [@option]
   wait_for_steady_state : bool prop option; [@option]
   alarms : alarms list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1207,12 +1203,8 @@ let yojson_of_aws_ecs_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "triggers", arg in
@@ -1231,12 +1223,8 @@ let yojson_of_aws_ecs_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -1247,12 +1235,8 @@ let yojson_of_aws_ecs_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1551,10 +1535,10 @@ type t = {
   platform_version : string prop;
   propagate_tags : string prop;
   scheduling_strategy : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   task_definition : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
   wait_for_steady_state : bool prop;
 }
 

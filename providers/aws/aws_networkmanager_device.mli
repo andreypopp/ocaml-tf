@@ -38,8 +38,8 @@ val aws_networkmanager_device :
   ?model:string prop ->
   ?serial_number:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?vendor:string prop ->
   ?aws_location:aws_location list ->
@@ -63,8 +63,8 @@ type t = private {
   model : string prop;
   serial_number : string prop;
   site_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   vendor : string prop;
 }
@@ -76,8 +76,8 @@ val register :
   ?model:string prop ->
   ?serial_number:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?vendor:string prop ->
   ?aws_location:aws_location list ->
@@ -93,8 +93,8 @@ val make :
   ?model:string prop ->
   ?serial_number:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?vendor:string prop ->
   ?aws_location:aws_location list ->

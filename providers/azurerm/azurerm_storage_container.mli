@@ -21,7 +21,7 @@ val azurerm_storage_container :
   ?default_encryption_scope:string prop ->
   ?encryption_scope_override_enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
@@ -41,7 +41,7 @@ type t = private {
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   resource_manager_id : string prop;
   storage_account_name : string prop;
@@ -53,7 +53,7 @@ val register :
   ?default_encryption_scope:string prop ->
   ?encryption_scope_override_enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
@@ -65,7 +65,7 @@ val make :
   ?default_encryption_scope:string prop ->
   ?encryption_scope_override_enabled:bool prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->

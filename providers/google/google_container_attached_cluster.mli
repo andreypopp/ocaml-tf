@@ -90,7 +90,7 @@ val timeouts :
 type google_container_attached_cluster
 
 val google_container_attached_cluster :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?deletion_policy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -117,13 +117,13 @@ val yojson_of_google_container_attached_cluster :
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   cluster_region : string prop;
   create_time : string prop;
   deletion_policy : string prop;
   description : string prop;
   distribution : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   errors : errors list prop;
   id : string prop;
   kubernetes_version : string prop;
@@ -140,7 +140,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?deletion_policy:string prop ->
   ?description:string prop ->
   ?id:string prop ->
@@ -161,7 +161,7 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?deletion_policy:string prop ->
   ?description:string prop ->
   ?id:string prop ->

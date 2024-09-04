@@ -47,7 +47,7 @@ val azurerm_vpn_gateway :
   ?id:string prop ->
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -70,7 +70,7 @@ type t = private {
   resource_group_name : string prop;
   routing_preference : string prop;
   scale_unit : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_id : string prop;
 }
 
@@ -80,7 +80,7 @@ val register :
   ?id:string prop ->
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -95,7 +95,7 @@ val make :
   ?id:string prop ->
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->

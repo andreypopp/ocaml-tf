@@ -44,8 +44,8 @@ val ebs_block_device :
   ?iops:float prop ->
   ?kms_key_id:string prop ->
   ?snapshot_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput:float prop ->
   ?volume_size:float prop ->
   ?volume_type:string prop ->
@@ -117,8 +117,8 @@ val root_block_device :
   ?encrypted:bool prop ->
   ?iops:float prop ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?throughput:float prop ->
   ?volume_size:float prop ->
   ?volume_type:string prop ->
@@ -169,15 +169,15 @@ val aws_spot_instance_request :
   ?spot_price:string prop ->
   ?spot_type:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
   ?capacity_reservation_specification:
@@ -247,15 +247,15 @@ type t = private {
   spot_request_state : string prop;
   spot_type : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tenancy : string prop;
   user_data : string prop;
   user_data_base64 : string prop;
   user_data_replace_on_change : bool prop;
   valid_from : string prop;
   valid_until : string prop;
-  volume_tags : (string * string) list prop;
+  volume_tags : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
   wait_for_fulfillment : bool prop;
 }
@@ -294,15 +294,15 @@ val register :
   ?spot_price:string prop ->
   ?spot_type:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
   ?capacity_reservation_specification:
@@ -355,15 +355,15 @@ val make :
   ?spot_price:string prop ->
   ?spot_type:string prop ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tenancy:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
   ?user_data_replace_on_change:bool prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
-  ?volume_tags:(string * string prop) list ->
+  ?volume_tags:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
   ?capacity_reservation_specification:

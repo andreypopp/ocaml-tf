@@ -8,7 +8,7 @@ type google_storage_object_signed_url = {
   content_type : string prop option; [@option]
   credentials : string prop option; [@option]
   duration : string prop option; [@option]
-  extension_headers : (string * string prop) list option; [@option]
+  extension_headers : string prop Tf_core.assoc option; [@option]
   http_method : string prop option; [@option]
   id : string prop option; [@option]
   path : string prop;
@@ -58,12 +58,8 @@ let yojson_of_google_storage_object_signed_url =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "extension_headers", arg in
@@ -135,7 +131,7 @@ type t = {
   content_type : string prop;
   credentials : string prop;
   duration : string prop;
-  extension_headers : (string * string) list prop;
+  extension_headers : string Tf_core.assoc prop;
   http_method : string prop;
   id : string prop;
   path : string prop;

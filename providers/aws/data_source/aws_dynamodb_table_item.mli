@@ -7,7 +7,7 @@ open! Tf_core
 type aws_dynamodb_table_item
 
 val aws_dynamodb_table_item :
-  ?expression_attribute_names:(string * string prop) list ->
+  ?expression_attribute_names:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?projection_expression:string prop ->
   key:string prop ->
@@ -22,7 +22,7 @@ val yojson_of_aws_dynamodb_table_item :
 
 type t = private {
   tf_name : string;
-  expression_attribute_names : (string * string) list prop;
+  expression_attribute_names : string Tf_core.assoc prop;
   id : string prop;
   item : string prop;
   key : string prop;
@@ -32,7 +32,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?expression_attribute_names:(string * string prop) list ->
+  ?expression_attribute_names:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?projection_expression:string prop ->
   key:string prop ->
@@ -41,7 +41,7 @@ val register :
   t
 
 val make :
-  ?expression_attribute_names:(string * string prop) list ->
+  ?expression_attribute_names:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?projection_expression:string prop ->
   key:string prop ->

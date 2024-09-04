@@ -321,8 +321,7 @@ let _ = yojson_of_timeouts
 [@@@deriving.end]
 
 type azurerm_data_factory_dataset_delimited_text = {
-  additional_properties : (string * string prop) list option;
-      [@option]
+  additional_properties : string prop Tf_core.assoc option; [@option]
   annotations : string prop list option; [@option]
   column_delimiter : string prop option; [@option]
   compression_codec : string prop option; [@option]
@@ -337,7 +336,7 @@ type azurerm_data_factory_dataset_delimited_text = {
   linked_service_name : string prop;
   name : string prop;
   null_value : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   quote_character : string prop option; [@option]
   row_delimiter : string prop option; [@option]
   azure_blob_fs_location : azure_blob_fs_location list;
@@ -448,12 +447,8 @@ let yojson_of_azurerm_data_factory_dataset_delimited_text =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -570,12 +565,8 @@ let yojson_of_azurerm_data_factory_dataset_delimited_text =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_properties", arg in
@@ -668,7 +659,7 @@ let azurerm_data_factory_dataset_delimited_text
 
 type t = {
   tf_name : string;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   column_delimiter : string prop;
   compression_codec : string prop;
@@ -683,7 +674,7 @@ type t = {
   linked_service_name : string prop;
   name : string prop;
   null_value : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   quote_character : string prop;
   row_delimiter : string prop;
 }

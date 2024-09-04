@@ -39,7 +39,7 @@ val azurerm_dev_test_windows_virtual_machine :
   ?disallow_public_ip_address:bool prop ->
   ?id:string prop ->
   ?notes:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->
@@ -77,7 +77,7 @@ type t = private {
   resource_group_name : string prop;
   size : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_identifier : string prop;
   username : string prop;
 }
@@ -88,7 +88,7 @@ val register :
   ?disallow_public_ip_address:bool prop ->
   ?id:string prop ->
   ?notes:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->
@@ -110,7 +110,7 @@ val make :
   ?disallow_public_ip_address:bool prop ->
   ?id:string prop ->
   ?notes:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   lab_subnet_name:string prop ->

@@ -96,7 +96,7 @@ type t = {
   premium_data_disk_storage_account_id : string prop;
   resource_group_name : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   unique_identifier : string prop;
 }
 

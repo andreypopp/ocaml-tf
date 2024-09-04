@@ -53,7 +53,7 @@ type google_tags_tag_key = {
   id : string prop option; [@option]
   parent : string prop;
   purpose : string prop option; [@option]
-  purpose_data : (string * string prop) list option; [@option]
+  purpose_data : string prop Tf_core.assoc option; [@option]
   short_name : string prop;
   timeouts : timeouts option;
 }
@@ -88,12 +88,8 @@ let yojson_of_google_tags_tag_key =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "purpose_data", arg in
@@ -158,7 +154,7 @@ type t = {
   namespaced_name : string prop;
   parent : string prop;
   purpose : string prop;
-  purpose_data : (string * string) list prop;
+  purpose_data : string Tf_core.assoc prop;
   short_name : string prop;
   update_time : string prop;
 }

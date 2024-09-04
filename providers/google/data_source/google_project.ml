@@ -46,16 +46,16 @@ type t = {
   tf_name : string;
   auto_create_network : bool prop;
   billing_account : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   folder_id : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   number : string prop;
   org_id : string prop;
   project_id : string prop;
   skip_delete : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?id ?project_id __id =

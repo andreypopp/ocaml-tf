@@ -20,7 +20,7 @@ val azurerm_sentinel_watchlist_item :
   ?id:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
-  properties:(string * string prop) list ->
+  properties:string prop Tf_core.assoc ->
   watchlist_id:string prop ->
   unit ->
   azurerm_sentinel_watchlist_item
@@ -34,7 +34,7 @@ type t = private {
   tf_name : string;
   id : string prop;
   name : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
   watchlist_id : string prop;
 }
 
@@ -43,7 +43,7 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
-  properties:(string * string prop) list ->
+  properties:string prop Tf_core.assoc ->
   watchlist_id:string prop ->
   string ->
   t
@@ -52,7 +52,7 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
-  properties:(string * string prop) list ->
+  properties:string prop Tf_core.assoc ->
   watchlist_id:string prop ->
   string ->
   t Tf_core.resource

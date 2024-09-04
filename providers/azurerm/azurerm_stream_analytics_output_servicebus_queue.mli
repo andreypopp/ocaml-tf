@@ -32,7 +32,7 @@ val azurerm_stream_analytics_output_servicebus_queue :
   ?property_columns:string prop list ->
   ?shared_access_policy_key:string prop ->
   ?shared_access_policy_name:string prop ->
-  ?system_property_columns:(string * string prop) list ->
+  ?system_property_columns:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   queue_name:string prop ->
@@ -60,7 +60,7 @@ type t = private {
   shared_access_policy_key : string prop;
   shared_access_policy_name : string prop;
   stream_analytics_job_name : string prop;
-  system_property_columns : (string * string) list prop;
+  system_property_columns : string Tf_core.assoc prop;
 }
 
 val register :
@@ -70,7 +70,7 @@ val register :
   ?property_columns:string prop list ->
   ?shared_access_policy_key:string prop ->
   ?shared_access_policy_name:string prop ->
-  ?system_property_columns:(string * string prop) list ->
+  ?system_property_columns:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   queue_name:string prop ->
@@ -87,7 +87,7 @@ val make :
   ?property_columns:string prop list ->
   ?shared_access_policy_key:string prop ->
   ?shared_access_policy_name:string prop ->
-  ?system_property_columns:(string * string prop) list ->
+  ?system_property_columns:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   queue_name:string prop ->

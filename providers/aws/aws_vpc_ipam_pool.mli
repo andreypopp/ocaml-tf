@@ -19,7 +19,7 @@ val aws_vpc_ipam_pool :
   ?allocation_default_netmask_length:float prop ->
   ?allocation_max_netmask_length:float prop ->
   ?allocation_min_netmask_length:float prop ->
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
   ?cascade:bool prop ->
@@ -29,8 +29,8 @@ val aws_vpc_ipam_pool :
   ?public_ip_source:string prop ->
   ?publicly_advertisable:bool prop ->
   ?source_ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   ipam_scope_id:string prop ->
@@ -47,7 +47,7 @@ type t = private {
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;
   allocation_min_netmask_length : float prop;
-  allocation_resource_tags : (string * string) list prop;
+  allocation_resource_tags : string Tf_core.assoc prop;
   arn : string prop;
   auto_import : bool prop;
   aws_service : string prop;
@@ -62,8 +62,8 @@ type t = private {
   publicly_advertisable : bool prop;
   source_ipam_pool_id : string prop;
   state : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,7 +71,7 @@ val register :
   ?allocation_default_netmask_length:float prop ->
   ?allocation_max_netmask_length:float prop ->
   ?allocation_min_netmask_length:float prop ->
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
   ?cascade:bool prop ->
@@ -81,8 +81,8 @@ val register :
   ?public_ip_source:string prop ->
   ?publicly_advertisable:bool prop ->
   ?source_ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   ipam_scope_id:string prop ->
@@ -93,7 +93,7 @@ val make :
   ?allocation_default_netmask_length:float prop ->
   ?allocation_max_netmask_length:float prop ->
   ?allocation_min_netmask_length:float prop ->
-  ?allocation_resource_tags:(string * string prop) list ->
+  ?allocation_resource_tags:string prop Tf_core.assoc ->
   ?auto_import:bool prop ->
   ?aws_service:string prop ->
   ?cascade:bool prop ->
@@ -103,8 +103,8 @@ val make :
   ?public_ip_source:string prop ->
   ?publicly_advertisable:bool prop ->
   ?source_ipam_pool_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   address_family:string prop ->
   ipam_scope_id:string prop ->

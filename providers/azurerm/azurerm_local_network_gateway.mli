@@ -30,7 +30,7 @@ val azurerm_local_network_gateway :
   ?gateway_address:string prop ->
   ?gateway_fqdn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -53,7 +53,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -62,7 +62,7 @@ val register :
   ?gateway_address:string prop ->
   ?gateway_fqdn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -76,7 +76,7 @@ val make :
   ?gateway_address:string prop ->
   ?gateway_fqdn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->

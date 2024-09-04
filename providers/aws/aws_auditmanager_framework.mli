@@ -22,7 +22,7 @@ type aws_auditmanager_framework
 val aws_auditmanager_framework :
   ?compliance_type:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   control_sets:control_sets list ->
   unit ->
@@ -41,15 +41,15 @@ type t = private {
   framework_type : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?compliance_type:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   control_sets:control_sets list ->
   string ->
@@ -58,7 +58,7 @@ val register :
 val make :
   ?compliance_type:string prop ->
   ?description:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   control_sets:control_sets list ->
   string ->

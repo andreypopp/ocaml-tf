@@ -7,7 +7,7 @@ open! Tf_core
 type aws_cloudfront_distribution
 
 val aws_cloudfront_distribution :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   unit ->
   aws_cloudfront_distribution
@@ -29,19 +29,19 @@ type t = private {
   in_progress_validation_batches : float prop;
   last_modified_time : string prop;
   status : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   web_acl_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   id:string prop ->
   string ->
   t Tf_core.resource

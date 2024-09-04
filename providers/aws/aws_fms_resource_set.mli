@@ -27,7 +27,7 @@ val timeouts :
 type aws_fms_resource_set
 
 val aws_fms_resource_set :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?resource_set:resource_set list ->
   ?timeouts:timeouts ->
   unit ->
@@ -41,20 +41,20 @@ type t = private {
   tf_name : string;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?resource_set:resource_set list ->
   ?timeouts:timeouts ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?resource_set:resource_set list ->
   ?timeouts:timeouts ->
   string ->

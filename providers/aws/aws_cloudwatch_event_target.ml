@@ -262,7 +262,7 @@ type ecs_target = {
   launch_type : string prop option; [@option]
   platform_version : string prop option; [@option]
   propagate_tags : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   task_count : float prop option; [@option]
   task_definition_arn : string prop;
   capacity_provider_strategy :
@@ -363,12 +363,8 @@ let yojson_of_ecs_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -430,9 +426,9 @@ let _ = yojson_of_ecs_target
 [@@@deriving.end]
 
 type http_target = {
-  header_parameters : (string * string prop) list option; [@option]
+  header_parameters : string prop Tf_core.assoc option; [@option]
   path_parameter_values : string prop list option; [@option]
-  query_string_parameters : (string * string prop) list option;
+  query_string_parameters : string prop Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -454,12 +450,8 @@ let yojson_of_http_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "query_string_parameters", arg in
@@ -480,12 +472,8 @@ let yojson_of_http_target =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "header_parameters", arg in
@@ -499,7 +487,7 @@ let _ = yojson_of_http_target
 [@@@deriving.end]
 
 type input_transformer = {
-  input_paths : (string * string prop) list option; [@option]
+  input_paths : string prop Tf_core.assoc option; [@option]
   input_template : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -526,12 +514,8 @@ let yojson_of_input_transformer =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "input_paths", arg in

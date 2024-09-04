@@ -62,7 +62,7 @@ type t = private {
   restore_point_in_time : string prop;
   sku_name : string prop;
   storage : storage list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
   zone : string prop;
 }

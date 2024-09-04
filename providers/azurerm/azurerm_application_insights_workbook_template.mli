@@ -32,7 +32,7 @@ val azurerm_application_insights_workbook_template :
   ?id:string prop ->
   ?localized:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -56,7 +56,7 @@ type t = private {
   name : string prop;
   priority : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   template_data : string prop;
 }
 
@@ -66,7 +66,7 @@ val register :
   ?id:string prop ->
   ?localized:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -81,7 +81,7 @@ val make :
   ?id:string prop ->
   ?localized:string prop ->
   ?priority:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

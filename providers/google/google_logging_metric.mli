@@ -72,7 +72,7 @@ val google_logging_metric :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
-  ?label_extractors:(string * string prop) list ->
+  ?label_extractors:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?value_extractor:string prop ->
   ?bucket_options:bucket_options list ->
@@ -94,7 +94,7 @@ type t = private {
   disabled : bool prop;
   filter : string prop;
   id : string prop;
-  label_extractors : (string * string) list prop;
+  label_extractors : string Tf_core.assoc prop;
   name : string prop;
   project : string prop;
   value_extractor : string prop;
@@ -106,7 +106,7 @@ val register :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
-  ?label_extractors:(string * string prop) list ->
+  ?label_extractors:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?value_extractor:string prop ->
   ?bucket_options:bucket_options list ->
@@ -122,7 +122,7 @@ val make :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
-  ?label_extractors:(string * string prop) list ->
+  ?label_extractors:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?value_extractor:string prop ->
   ?bucket_options:bucket_options list ->

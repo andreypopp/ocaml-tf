@@ -24,7 +24,7 @@ type azurerm_iot_time_series_insights_reference_data_set
 val azurerm_iot_time_series_insights_reference_data_set :
   ?data_string_comparison_behavior:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -44,7 +44,7 @@ type t = private {
   id : string prop;
   location : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_series_insights_environment_id : string prop;
 }
 
@@ -52,7 +52,7 @@ val register :
   ?tf_module:tf_module ->
   ?data_string_comparison_behavior:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -64,7 +64,7 @@ val register :
 val make :
   ?data_string_comparison_behavior:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

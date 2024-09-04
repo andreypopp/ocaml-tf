@@ -23,7 +23,7 @@ val azurerm_storage_blob :
   ?content_type:string prop ->
   ?encryption_scope:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?parallelism:float prop ->
   ?size:float prop ->
   ?source:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   content_type : string prop;
   encryption_scope : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   parallelism : float prop;
   size : float prop;
@@ -70,7 +70,7 @@ val register :
   ?content_type:string prop ->
   ?encryption_scope:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?parallelism:float prop ->
   ?size:float prop ->
   ?source:string prop ->
@@ -91,7 +91,7 @@ val make :
   ?content_type:string prop ->
   ?encryption_scope:string prop ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?parallelism:float prop ->
   ?size:float prop ->
   ?source:string prop ->

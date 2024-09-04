@@ -29,8 +29,8 @@ val aws_vpc_endpoint_service :
   ?network_load_balancer_arns:string prop list ->
   ?private_dns_name:string prop ->
   ?supported_ip_address_types:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   acceptance_required:bool prop ->
   unit ->
@@ -59,8 +59,8 @@ type t = private {
   service_type : string prop;
   state : string prop;
   supported_ip_address_types : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -71,8 +71,8 @@ val register :
   ?network_load_balancer_arns:string prop list ->
   ?private_dns_name:string prop ->
   ?supported_ip_address_types:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   acceptance_required:bool prop ->
   string ->
@@ -85,8 +85,8 @@ val make :
   ?network_load_balancer_arns:string prop list ->
   ?private_dns_name:string prop ->
   ?supported_ip_address_types:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   acceptance_required:bool prop ->
   string ->

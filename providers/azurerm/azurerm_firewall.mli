@@ -48,7 +48,7 @@ val azurerm_firewall :
   ?firewall_policy_id:string prop ->
   ?id:string prop ->
   ?private_ip_ranges:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
   ?ip_configuration:ip_configuration list ->
@@ -79,7 +79,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   threat_intel_mode : string prop;
   zones : string list prop;
 }
@@ -91,7 +91,7 @@ val register :
   ?firewall_policy_id:string prop ->
   ?id:string prop ->
   ?private_ip_ranges:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
   ?ip_configuration:ip_configuration list ->
@@ -112,7 +112,7 @@ val make :
   ?firewall_policy_id:string prop ->
   ?id:string prop ->
   ?private_ip_ranges:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
   ?ip_configuration:ip_configuration list ->

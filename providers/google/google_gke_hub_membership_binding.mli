@@ -18,7 +18,7 @@ type google_gke_hub_membership_binding
 
 val google_gke_hub_membership_binding :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -37,9 +37,9 @@ type t = private {
   tf_name : string;
   create_time : string prop;
   delete_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   membership_binding_id : string prop;
   membership_id : string prop;
@@ -47,7 +47,7 @@ type t = private {
   project : string prop;
   scope : string prop;
   state : state list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
   update_time : string prop;
 }
@@ -55,7 +55,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -67,7 +67,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

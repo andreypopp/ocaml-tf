@@ -199,7 +199,7 @@ type start_task__container = {
 
 type start_task = {
   command_line : string prop;  (** command_line *)
-  common_environment_properties : (string * string prop) list;
+  common_environment_properties : string prop Tf_core.assoc;
       (** common_environment_properties *)
   container : start_task__container list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -289,7 +289,7 @@ type t = private {
   inter_node_communication : string prop;
   license_type : string prop;
   max_tasks_per_node : float prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   mount : mount list prop;
   name : string prop;
   network_configuration : network_configuration list prop;

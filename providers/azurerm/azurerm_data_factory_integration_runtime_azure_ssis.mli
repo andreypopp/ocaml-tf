@@ -35,7 +35,7 @@ val custom_setup_script :
 type express_custom_setup__command_key__key_vault_password
 
 val express_custom_setup__command_key__key_vault_password :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?secret_version:string prop ->
   linked_service_name:string prop ->
   secret_name:string prop ->
@@ -56,7 +56,7 @@ val express_custom_setup__command_key :
 type express_custom_setup__component__key_vault_license
 
 val express_custom_setup__component__key_vault_license :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?secret_version:string prop ->
   linked_service_name:string prop ->
   secret_name:string prop ->
@@ -76,7 +76,7 @@ val express_custom_setup__component :
 type express_custom_setup
 
 val express_custom_setup :
-  ?environment:(string * string prop) list ->
+  ?environment:string prop Tf_core.assoc ->
   ?powershell_version:string prop ->
   ?command_key:express_custom_setup__command_key list ->
   ?component:express_custom_setup__component list ->

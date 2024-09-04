@@ -12,7 +12,7 @@ type aws_servicecatalog_portfolio
 
 val aws_servicecatalog_portfolio :
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   unit ->
@@ -32,13 +32,13 @@ type t = private {
   id : string prop;
   name : string prop;
   provider_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   string ->
@@ -46,7 +46,7 @@ val register :
 
 val make :
   ?accept_language:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   id:string prop ->
   string ->

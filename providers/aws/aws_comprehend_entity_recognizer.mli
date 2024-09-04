@@ -77,8 +77,8 @@ type aws_comprehend_entity_recognizer
 val aws_comprehend_entity_recognizer :
   ?id:string prop ->
   ?model_kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
@@ -104,8 +104,8 @@ type t = private {
   language_code : string prop;
   model_kms_key_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_name : string prop;
   version_name_prefix : string prop;
   volume_kms_key_id : string prop;
@@ -115,8 +115,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?model_kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
@@ -132,8 +132,8 @@ val register :
 val make :
   ?id:string prop ->
   ?model_kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->

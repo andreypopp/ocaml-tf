@@ -10,8 +10,8 @@ val aws_rds_cluster_endpoint :
   ?excluded_members:string prop list ->
   ?id:string prop ->
   ?static_members:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_endpoint_identifier:string prop ->
   cluster_identifier:string prop ->
   custom_endpoint_type:string prop ->
@@ -33,8 +33,8 @@ type t = private {
   excluded_members : string list prop;
   id : string prop;
   static_members : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -42,8 +42,8 @@ val register :
   ?excluded_members:string prop list ->
   ?id:string prop ->
   ?static_members:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_endpoint_identifier:string prop ->
   cluster_identifier:string prop ->
   custom_endpoint_type:string prop ->
@@ -54,8 +54,8 @@ val make :
   ?excluded_members:string prop list ->
   ?id:string prop ->
   ?static_members:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   cluster_endpoint_identifier:string prop ->
   cluster_identifier:string prop ->
   custom_endpoint_type:string prop ->

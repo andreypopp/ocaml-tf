@@ -11,7 +11,7 @@ type floating_ips = {
   id : float prop;  (** id *)
   ip_address : string prop;  (** ip_address *)
   ip_network : string prop;  (** ip_network *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   server_id : float prop;  (** server_id *)
   type_ : string prop; [@key "type"]  (** type *)

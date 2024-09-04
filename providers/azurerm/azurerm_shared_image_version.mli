@@ -37,7 +37,7 @@ val azurerm_shared_image_version :
   ?os_disk_snapshot_id:string prop ->
   ?replication_mode:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -69,7 +69,7 @@ type t = private {
   replication_mode : string prop;
   resource_group_name : string prop;
   storage_account_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -83,7 +83,7 @@ val register :
   ?os_disk_snapshot_id:string prop ->
   ?replication_mode:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->
@@ -104,7 +104,7 @@ val make :
   ?os_disk_snapshot_id:string prop ->
   ?replication_mode:string prop ->
   ?storage_account_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   image_name:string prop ->

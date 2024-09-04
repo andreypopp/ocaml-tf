@@ -53,7 +53,7 @@ type aws_imagebuilder_container_recipe
 
 val aws_imagebuilder_container_recipe :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   unit ->
   aws_imagebuilder_container_recipe
@@ -79,7 +79,7 @@ type t = private {
   owner : string prop;
   parent_image : string prop;
   platform : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_repository : target_repository list prop;
   version : string prop;
   working_directory : string prop;
@@ -88,14 +88,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   arn:string prop ->
   string ->
   t Tf_core.resource

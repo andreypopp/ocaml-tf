@@ -24,7 +24,7 @@ val azurerm_stack_hci_cluster :
   ?automanage_configuration_id:string prop ->
   ?client_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tenant_id:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -50,7 +50,7 @@ type t = private {
   resource_group_name : string prop;
   resource_provider_object_id : string prop;
   service_endpoint : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 
@@ -59,7 +59,7 @@ val register :
   ?automanage_configuration_id:string prop ->
   ?client_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tenant_id:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -73,7 +73,7 @@ val make :
   ?automanage_configuration_id:string prop ->
   ?client_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tenant_id:string prop ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

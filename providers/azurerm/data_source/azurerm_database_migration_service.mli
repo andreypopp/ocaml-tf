@@ -31,7 +31,7 @@ type t = private {
   resource_group_name : string prop;
   sku_name : string prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

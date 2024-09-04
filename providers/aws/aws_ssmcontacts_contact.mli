@@ -9,8 +9,8 @@ type aws_ssmcontacts_contact
 val aws_ssmcontacts_contact :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   type_:string prop ->
   unit ->
@@ -27,8 +27,8 @@ type t = private {
   arn : string prop;
   display_name : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -36,8 +36,8 @@ val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   type_:string prop ->
   string ->
@@ -46,8 +46,8 @@ val register :
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   type_:string prop ->
   string ->

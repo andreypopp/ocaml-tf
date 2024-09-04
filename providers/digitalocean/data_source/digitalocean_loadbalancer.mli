@@ -45,7 +45,7 @@ type glb_settings = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** cdn *)
   failover_threshold : float prop;  (** failover_threshold *)
-  region_priorities : (string * float prop) list;
+  region_priorities : float prop Tf_core.assoc;
       (** region_priorities *)
   target_port : float prop;  (** target_port *)
   target_protocol : string prop;  (** target_protocol *)

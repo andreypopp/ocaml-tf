@@ -10,7 +10,7 @@ type networks = {
       (** expose_routes_to_vswitch *)
   id : float prop;  (** id *)
   ip_range : string prop;  (** ip_range *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
 }
 

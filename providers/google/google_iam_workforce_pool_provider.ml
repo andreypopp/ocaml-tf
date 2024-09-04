@@ -402,7 +402,7 @@ let _ = yojson_of_timeouts
 
 type google_iam_workforce_pool_provider = {
   attribute_condition : string prop option; [@option]
-  attribute_mapping : (string * string prop) list option; [@option]
+  attribute_mapping : string prop Tf_core.assoc option; [@option]
   description : string prop option; [@option]
   disabled : bool prop option; [@option]
   display_name : string prop option; [@option]
@@ -522,12 +522,8 @@ let yojson_of_google_iam_workforce_pool_provider =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "attribute_mapping", arg in
@@ -617,7 +613,7 @@ let google_iam_workforce_pool_provider ?attribute_condition
 type t = {
   tf_name : string;
   attribute_condition : string prop;
-  attribute_mapping : (string * string) list prop;
+  attribute_mapping : string Tf_core.assoc prop;
   description : string prop;
   disabled : bool prop;
   display_name : string prop;

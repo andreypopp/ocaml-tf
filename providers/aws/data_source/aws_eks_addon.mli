@@ -8,7 +8,7 @@ type aws_eks_addon
 
 val aws_eks_addon :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   addon_name:string prop ->
   cluster_name:string prop ->
   unit ->
@@ -29,13 +29,13 @@ type t = private {
   id : string prop;
   modified_at : string prop;
   service_account_role_arn : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   addon_name:string prop ->
   cluster_name:string prop ->
   string ->
@@ -43,7 +43,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   addon_name:string prop ->
   cluster_name:string prop ->
   string ->

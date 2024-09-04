@@ -15,8 +15,8 @@ val aws_ssm_parameter :
   ?insecure_value:string prop ->
   ?key_id:string prop ->
   ?overwrite:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?value:string prop ->
   name:string prop ->
@@ -39,8 +39,8 @@ type t = private {
   key_id : string prop;
   name : string prop;
   overwrite : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   tier : string prop;
   type_ : string prop;
   value : string prop;
@@ -57,8 +57,8 @@ val register :
   ?insecure_value:string prop ->
   ?key_id:string prop ->
   ?overwrite:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?value:string prop ->
   name:string prop ->
@@ -75,8 +75,8 @@ val make :
   ?insecure_value:string prop ->
   ?key_id:string prop ->
   ?overwrite:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?tier:string prop ->
   ?value:string prop ->
   name:string prop ->

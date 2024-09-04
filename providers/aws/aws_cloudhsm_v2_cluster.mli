@@ -28,8 +28,8 @@ type aws_cloudhsm_v2_cluster
 val aws_cloudhsm_v2_cluster :
   ?id:string prop ->
   ?source_backup_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   hsm_type:string prop ->
   subnet_ids:string prop list ->
@@ -51,8 +51,8 @@ type t = private {
   security_group_id : string prop;
   source_backup_identifier : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -60,8 +60,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?source_backup_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   hsm_type:string prop ->
   subnet_ids:string prop list ->
@@ -71,8 +71,8 @@ val register :
 val make :
   ?id:string prop ->
   ?source_backup_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   hsm_type:string prop ->
   subnet_ids:string prop list ->

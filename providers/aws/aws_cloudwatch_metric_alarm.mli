@@ -7,7 +7,7 @@ open! Tf_core
 type metric_query__metric
 
 val metric_query__metric :
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?namespace:string prop ->
   ?unit:string prop ->
   metric_name:string prop ->
@@ -36,7 +36,7 @@ val aws_cloudwatch_metric_alarm :
   ?alarm_actions:string prop list ->
   ?alarm_description:string prop ->
   ?datapoints_to_alarm:float prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?evaluate_low_sample_count_percentiles:string prop ->
   ?extended_statistic:string prop ->
   ?id:string prop ->
@@ -46,8 +46,8 @@ val aws_cloudwatch_metric_alarm :
   ?ok_actions:string prop list ->
   ?period:float prop ->
   ?statistic:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?threshold:float prop ->
   ?threshold_metric_id:string prop ->
   ?treat_missing_data:string prop ->
@@ -73,7 +73,7 @@ type t = private {
   arn : string prop;
   comparison_operator : string prop;
   datapoints_to_alarm : float prop;
-  dimensions : (string * string) list prop;
+  dimensions : string Tf_core.assoc prop;
   evaluate_low_sample_count_percentiles : string prop;
   evaluation_periods : float prop;
   extended_statistic : string prop;
@@ -84,8 +84,8 @@ type t = private {
   ok_actions : string list prop;
   period : float prop;
   statistic : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   threshold : float prop;
   threshold_metric_id : string prop;
   treat_missing_data : string prop;
@@ -98,7 +98,7 @@ val register :
   ?alarm_actions:string prop list ->
   ?alarm_description:string prop ->
   ?datapoints_to_alarm:float prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?evaluate_low_sample_count_percentiles:string prop ->
   ?extended_statistic:string prop ->
   ?id:string prop ->
@@ -108,8 +108,8 @@ val register :
   ?ok_actions:string prop list ->
   ?period:float prop ->
   ?statistic:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?threshold:float prop ->
   ?threshold_metric_id:string prop ->
   ?treat_missing_data:string prop ->
@@ -126,7 +126,7 @@ val make :
   ?alarm_actions:string prop list ->
   ?alarm_description:string prop ->
   ?datapoints_to_alarm:float prop ->
-  ?dimensions:(string * string prop) list ->
+  ?dimensions:string prop Tf_core.assoc ->
   ?evaluate_low_sample_count_percentiles:string prop ->
   ?extended_statistic:string prop ->
   ?id:string prop ->
@@ -136,8 +136,8 @@ val make :
   ?ok_actions:string prop list ->
   ?period:float prop ->
   ?statistic:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?threshold:float prop ->
   ?threshold_metric_id:string prop ->
   ?treat_missing_data:string prop ->

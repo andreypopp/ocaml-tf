@@ -251,7 +251,7 @@ type azurerm_lab_service_plan = {
   name : string prop;
   resource_group_name : string prop;
   shared_gallery_id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   default_auto_shutdown : default_auto_shutdown list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   default_connection : default_connection list;
@@ -319,12 +319,8 @@ let yojson_of_azurerm_lab_service_plan =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -438,7 +434,7 @@ type t = {
   name : string prop;
   resource_group_name : string prop;
   shared_gallery_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?default_network_subnet_id ?id ?shared_gallery_id ?tags

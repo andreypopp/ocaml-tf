@@ -9,7 +9,7 @@ type aws_apigatewayv2_integration_response
 val aws_apigatewayv2_integration_response :
   ?content_handling_strategy:string prop ->
   ?id:string prop ->
-  ?response_templates:(string * string prop) list ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   api_id:string prop ->
   integration_id:string prop ->
@@ -29,7 +29,7 @@ type t = private {
   id : string prop;
   integration_id : string prop;
   integration_response_key : string prop;
-  response_templates : (string * string) list prop;
+  response_templates : string Tf_core.assoc prop;
   template_selection_expression : string prop;
 }
 
@@ -37,7 +37,7 @@ val register :
   ?tf_module:tf_module ->
   ?content_handling_strategy:string prop ->
   ?id:string prop ->
-  ?response_templates:(string * string prop) list ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   api_id:string prop ->
   integration_id:string prop ->
@@ -48,7 +48,7 @@ val register :
 val make :
   ?content_handling_strategy:string prop ->
   ?id:string prop ->
-  ?response_templates:(string * string prop) list ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?template_selection_expression:string prop ->
   api_id:string prop ->
   integration_id:string prop ->

@@ -47,7 +47,7 @@ let _ = yojson_of_storage_descriptor__columns
 
 type storage_descriptor__ser_de_info = {
   name : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   serialization_library : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -77,12 +77,8 @@ let yojson_of_storage_descriptor__ser_de_info =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -107,7 +103,7 @@ let _ = yojson_of_storage_descriptor__ser_de_info
 type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list option; [@option]
   skewed_column_value_location_maps :
-    (string * string prop) list option;
+    string prop Tf_core.assoc option;
       [@option]
   skewed_column_values : string prop list option; [@option]
 }
@@ -141,12 +137,8 @@ let yojson_of_storage_descriptor__skewed_info =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "skewed_column_value_location_maps", arg in
@@ -207,7 +199,7 @@ type storage_descriptor = {
   location : string prop option; [@option]
   number_of_buckets : float prop option; [@option]
   output_format : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   stored_as_sub_directories : bool prop option; [@option]
   columns : storage_descriptor__columns list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -297,12 +289,8 @@ let yojson_of_storage_descriptor =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -369,7 +357,7 @@ type aws_glue_partition = {
   catalog_id : string prop option; [@option]
   database_name : string prop;
   id : string prop option; [@option]
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   partition_values : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   table_name : string prop;
@@ -423,12 +411,8 @@ let yojson_of_aws_glue_partition =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -523,7 +507,7 @@ type t = {
   id : string prop;
   last_accessed_time : string prop;
   last_analyzed_time : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
   partition_values : string list prop;
   table_name : string prop;
 }

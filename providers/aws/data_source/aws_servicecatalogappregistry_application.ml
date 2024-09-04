@@ -31,7 +31,7 @@ let aws_servicecatalogappregistry_application ~id () :
 
 type t = {
   tf_name : string;
-  application_tag : (string * string) list prop;
+  application_tag : string Tf_core.assoc prop;
   arn : string prop;
   description : string prop;
   id : string prop;

@@ -234,7 +234,7 @@ val start_task__user_identity :
 type start_task
 
 val start_task :
-  ?common_environment_properties:(string * string prop) list ->
+  ?common_environment_properties:string prop Tf_core.assoc ->
   ?task_retry_maximum:float prop ->
   ?wait_for_success:bool prop ->
   ?container:start_task__container list ->
@@ -311,7 +311,7 @@ val azurerm_batch_pool :
   ?inter_node_communication:string prop ->
   ?license_type:string prop ->
   ?max_tasks_per_node:float prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->
@@ -352,7 +352,7 @@ type t = private {
   inter_node_communication : string prop;
   license_type : string prop;
   max_tasks_per_node : float prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   node_agent_sku_id : string prop;
   os_disk_placement : string prop;
@@ -369,7 +369,7 @@ val register :
   ?inter_node_communication:string prop ->
   ?license_type:string prop ->
   ?max_tasks_per_node:float prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->
@@ -404,7 +404,7 @@ val make :
   ?inter_node_communication:string prop ->
   ?license_type:string prop ->
   ?max_tasks_per_node:float prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->

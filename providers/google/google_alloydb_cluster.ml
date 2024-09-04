@@ -203,7 +203,7 @@ let _ = yojson_of_automated_backup_policy__weekly_schedule
 type automated_backup_policy = {
   backup_window : string prop option; [@option]
   enabled : bool prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop option; [@option]
   encryption_config :
     automated_backup_policy__encryption_config list;
@@ -293,12 +293,8 @@ let yojson_of_automated_backup_policy =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -999,7 +995,7 @@ let _ = yojson_of_migration_source
 [@@@deriving.end]
 
 type google_alloydb_cluster = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   cluster_id : string prop;
   cluster_type : string prop option; [@option]
   database_version : string prop option; [@option]
@@ -1007,7 +1003,7 @@ type google_alloydb_cluster = {
   display_name : string prop option; [@option]
   etag : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   location : string prop;
   network : string prop option; [@option]
   project : string prop option; [@option]
@@ -1198,12 +1194,8 @@ let yojson_of_google_alloydb_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -1266,12 +1258,8 @@ let yojson_of_google_alloydb_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -1402,7 +1390,7 @@ let google_alloydb_cluster ?annotations ?cluster_type
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   backup_source : backup_source list prop;
   cluster_id : string prop;
   cluster_type : string prop;
@@ -1410,12 +1398,12 @@ type t = {
   database_version : string prop;
   deletion_policy : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_info : encryption_info list prop;
   etag : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   migration_source : migration_source list prop;
   name : string prop;
@@ -1423,7 +1411,7 @@ type t = {
   project : string prop;
   reconciling : bool prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   uid : string prop;
 }
 

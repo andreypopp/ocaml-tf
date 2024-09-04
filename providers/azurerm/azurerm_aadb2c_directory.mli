@@ -20,7 +20,7 @@ val azurerm_aadb2c_directory :
   ?country_code:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_residency_location:string prop ->
   domain_name:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   id : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 
@@ -54,7 +54,7 @@ val register :
   ?country_code:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_residency_location:string prop ->
   domain_name:string prop ->
@@ -67,7 +67,7 @@ val make :
   ?country_code:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   data_residency_location:string prop ->
   domain_name:string prop ->

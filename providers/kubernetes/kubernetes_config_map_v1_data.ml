@@ -36,7 +36,7 @@ let _ = yojson_of_metadata
 [@@@deriving.end]
 
 type kubernetes_config_map_v1_data = {
-  data : (string * string prop) list;
+  data : string prop Tf_core.assoc;
   field_manager : string prop option; [@option]
   force : bool prop option; [@option]
   id : string prop option; [@option]
@@ -94,12 +94,8 @@ let yojson_of_kubernetes_config_map_v1_data =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_data
          in
          ("data", arg) :: bnds
@@ -120,7 +116,7 @@ let kubernetes_config_map_v1_data ?field_manager ?force ?id ~data
 
 type t = {
   tf_name : string;
-  data : (string * string) list prop;
+  data : string Tf_core.assoc prop;
   field_manager : string prop;
   force : bool prop;
   id : string prop;

@@ -9,7 +9,7 @@ type aws_iam_openid_connect_provider
 val aws_iam_openid_connect_provider :
   ?arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?url:string prop ->
   unit ->
   aws_iam_openid_connect_provider
@@ -24,7 +24,7 @@ type t = private {
   arn : string prop;
   client_id_list : string list prop;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint_list : string list prop;
   url : string prop;
 }
@@ -33,7 +33,7 @@ val register :
   ?tf_module:tf_module ->
   ?arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?url:string prop ->
   string ->
   t
@@ -41,7 +41,7 @@ val register :
 val make :
   ?arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?url:string prop ->
   string ->
   t Tf_core.resource

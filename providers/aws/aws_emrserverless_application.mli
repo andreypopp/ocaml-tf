@@ -80,8 +80,8 @@ type aws_emrserverless_application
 val aws_emrserverless_application :
   ?architecture:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->
@@ -107,8 +107,8 @@ type t = private {
   id : string prop;
   name : string prop;
   release_label : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -116,8 +116,8 @@ val register :
   ?tf_module:tf_module ->
   ?architecture:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->
@@ -134,8 +134,8 @@ val register :
 val make :
   ?architecture:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_start_configuration:auto_start_configuration list ->
   ?auto_stop_configuration:auto_stop_configuration list ->
   ?image_configuration:image_configuration list ->

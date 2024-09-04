@@ -24,8 +24,8 @@ val aws_connect_phone_number :
   ?description:string prop ->
   ?id:string prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   country_code:string prop ->
   target_arn:string prop ->
@@ -47,8 +47,8 @@ type t = private {
   phone_number : string prop;
   prefix : string prop;
   status : status list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_arn : string prop;
   type_ : string prop;
 }
@@ -58,8 +58,8 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   country_code:string prop ->
   target_arn:string prop ->
@@ -71,8 +71,8 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   country_code:string prop ->
   target_arn:string prop ->

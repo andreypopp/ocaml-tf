@@ -268,7 +268,7 @@ let _ = yojson_of_ssl
 [@@@deriving.end]
 
 type cloudflare_custom_hostname = {
-  custom_metadata : (string * string prop) list option; [@option]
+  custom_metadata : string prop Tf_core.assoc option; [@option]
   custom_origin_server : string prop option; [@option]
   custom_origin_sni : string prop option; [@option]
   hostname : string prop;
@@ -349,12 +349,8 @@ let yojson_of_cloudflare_custom_hostname =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_metadata", arg in
@@ -400,13 +396,13 @@ let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
 
 type t = {
   tf_name : string;
-  custom_metadata : (string * string) list prop;
+  custom_metadata : string Tf_core.assoc prop;
   custom_origin_server : string prop;
   custom_origin_sni : string prop;
   hostname : string prop;
   id : string prop;
-  ownership_verification : (string * string) list prop;
-  ownership_verification_http : (string * string) list prop;
+  ownership_verification : string Tf_core.assoc prop;
+  ownership_verification_http : string Tf_core.assoc prop;
   status : string prop;
   wait_for_ssl_pending_validation : bool prop;
   zone_id : string prop;

@@ -168,7 +168,7 @@ type aws_dms_endpoint
 
 val aws_dms_endpoint :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   endpoint_id:string prop ->
   unit ->
   aws_dms_endpoint
@@ -203,21 +203,21 @@ type t = private {
   server_name : string prop;
   service_access_role : string prop;
   ssl_mode : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   username : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   endpoint_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   endpoint_id:string prop ->
   string ->
   t Tf_core.resource

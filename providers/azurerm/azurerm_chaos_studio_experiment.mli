@@ -24,7 +24,7 @@ type steps__branch__actions
 
 val steps__branch__actions :
   ?duration:string prop ->
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?selector_name:string prop ->
   ?urn:string prop ->
   action_type:string prop ->

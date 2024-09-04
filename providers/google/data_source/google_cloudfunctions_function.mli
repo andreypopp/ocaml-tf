@@ -60,21 +60,21 @@ val yojson_of_google_cloudfunctions_function :
 type t = private {
   tf_name : string;
   available_memory_mb : float prop;
-  build_environment_variables : (string * string) list prop;
+  build_environment_variables : string Tf_core.assoc prop;
   build_worker_pool : string prop;
   description : string prop;
   docker_registry : string prop;
   docker_repository : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   entry_point : string prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   event_trigger : event_trigger list prop;
   https_trigger_security_level : string prop;
   https_trigger_url : string prop;
   id : string prop;
   ingress_settings : string prop;
   kms_key_name : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   max_instances : float prop;
   min_instances : float prop;
   name : string prop;
@@ -89,7 +89,7 @@ type t = private {
   source_archive_object : string prop;
   source_repository : source_repository list prop;
   status : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   timeout : float prop;
   trigger_http : bool prop;
   version_id : string prop;

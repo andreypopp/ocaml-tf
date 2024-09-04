@@ -23,7 +23,7 @@ type aws_ec2_managed_prefix_list
 val aws_ec2_managed_prefix_list :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -43,7 +43,7 @@ type t = private {
   max_entries : float prop;
   name : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : float prop;
 }
 
@@ -51,7 +51,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -60,7 +60,7 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

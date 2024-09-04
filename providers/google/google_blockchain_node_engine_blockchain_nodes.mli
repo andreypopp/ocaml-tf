@@ -67,7 +67,7 @@ type google_blockchain_node_engine_blockchain_nodes
 val google_blockchain_node_engine_blockchain_nodes :
   ?blockchain_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->
@@ -87,13 +87,13 @@ type t = private {
   blockchain_type : string prop;
   connection_info : connection_info list prop;
   create_time : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -101,7 +101,7 @@ val register :
   ?tf_module:tf_module ->
   ?blockchain_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->
@@ -113,7 +113,7 @@ val register :
 val make :
   ?blockchain_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->

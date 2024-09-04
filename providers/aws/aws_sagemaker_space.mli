@@ -177,8 +177,8 @@ type aws_sagemaker_space
 val aws_sagemaker_space :
   ?id:string prop ->
   ?space_display_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ownership_settings:ownership_settings list ->
   ?space_settings:space_settings list ->
   ?space_sharing_settings:space_sharing_settings list ->
@@ -199,8 +199,8 @@ type t = private {
   id : string prop;
   space_display_name : string prop;
   space_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
 }
 
@@ -208,8 +208,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?space_display_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ownership_settings:ownership_settings list ->
   ?space_settings:space_settings list ->
   ?space_sharing_settings:space_sharing_settings list ->
@@ -221,8 +221,8 @@ val register :
 val make :
   ?id:string prop ->
   ?space_display_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?ownership_settings:ownership_settings list ->
   ?space_settings:space_settings list ->
   ?space_sharing_settings:space_sharing_settings list ->

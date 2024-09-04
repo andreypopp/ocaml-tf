@@ -22,7 +22,7 @@ type azurerm_iot_time_series_insights_gen2_environment
 
 val azurerm_iot_time_series_insights_gen2_environment :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?warm_store_data_retention_time:string prop ->
   ?timeouts:timeouts ->
   id_properties:string prop list ->
@@ -48,14 +48,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   warm_store_data_retention_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?warm_store_data_retention_time:string prop ->
   ?timeouts:timeouts ->
   id_properties:string prop list ->
@@ -69,7 +69,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?warm_store_data_retention_time:string prop ->
   ?timeouts:timeouts ->
   id_properties:string prop list ->

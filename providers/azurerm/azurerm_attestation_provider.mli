@@ -30,7 +30,7 @@ val azurerm_attestation_provider :
   ?policy_signing_certificate_data:string prop ->
   ?sev_snp_policy_base64:string prop ->
   ?sgx_enclave_policy_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tpm_policy_base64:string prop ->
   ?policy:policy list ->
   ?timeouts:timeouts ->
@@ -56,7 +56,7 @@ type t = private {
   resource_group_name : string prop;
   sev_snp_policy_base64 : string prop;
   sgx_enclave_policy_base64 : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tpm_policy_base64 : string prop;
   trust_model : string prop;
 }
@@ -68,7 +68,7 @@ val register :
   ?policy_signing_certificate_data:string prop ->
   ?sev_snp_policy_base64:string prop ->
   ?sgx_enclave_policy_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tpm_policy_base64:string prop ->
   ?policy:policy list ->
   ?timeouts:timeouts ->
@@ -84,7 +84,7 @@ val make :
   ?policy_signing_certificate_data:string prop ->
   ?sev_snp_policy_base64:string prop ->
   ?sgx_enclave_policy_base64:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tpm_policy_base64:string prop ->
   ?policy:policy list ->
   ?timeouts:timeouts ->

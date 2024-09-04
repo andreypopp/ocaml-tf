@@ -13,7 +13,7 @@ val aws_vpc_security_group_egress_rule :
   ?from_port:float prop ->
   ?prefix_list_id:string prop ->
   ?referenced_security_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?to_port:float prop ->
   ip_protocol:string prop ->
   security_group_id:string prop ->
@@ -38,8 +38,8 @@ type t = private {
   referenced_security_group_id : string prop;
   security_group_id : string prop;
   security_group_rule_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   to_port : float prop;
 }
 
@@ -51,7 +51,7 @@ val register :
   ?from_port:float prop ->
   ?prefix_list_id:string prop ->
   ?referenced_security_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?to_port:float prop ->
   ip_protocol:string prop ->
   security_group_id:string prop ->
@@ -65,7 +65,7 @@ val make :
   ?from_port:float prop ->
   ?prefix_list_id:string prop ->
   ?referenced_security_group_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?to_port:float prop ->
   ip_protocol:string prop ->
   security_group_id:string prop ->

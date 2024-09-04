@@ -27,7 +27,7 @@ val azurerm_application_insights :
   ?local_authentication_disabled:bool prop ->
   ?retention_in_days:float prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workspace_id:string prop ->
   ?timeouts:timeouts ->
   application_type:string prop ->
@@ -61,7 +61,7 @@ type t = private {
   resource_group_name : string prop;
   retention_in_days : float prop;
   sampling_percentage : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -77,7 +77,7 @@ val register :
   ?local_authentication_disabled:bool prop ->
   ?retention_in_days:float prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workspace_id:string prop ->
   ?timeouts:timeouts ->
   application_type:string prop ->
@@ -98,7 +98,7 @@ val make :
   ?local_authentication_disabled:bool prop ->
   ?retention_in_days:float prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?workspace_id:string prop ->
   ?timeouts:timeouts ->
   application_type:string prop ->

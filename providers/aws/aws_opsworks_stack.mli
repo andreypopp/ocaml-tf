@@ -37,8 +37,8 @@ val aws_opsworks_stack :
   ?hostname_theme:string prop ->
   ?id:string prop ->
   ?manage_berkshelf:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->
@@ -77,8 +77,8 @@ type t = private {
   region : string prop;
   service_role_arn : string prop;
   stack_endpoint : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   use_custom_cookbooks : bool prop;
   use_opsworks_security_groups : bool prop;
   vpc_id : string prop;
@@ -100,8 +100,8 @@ val register :
   ?hostname_theme:string prop ->
   ?id:string prop ->
   ?manage_berkshelf:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->
@@ -129,8 +129,8 @@ val make :
   ?hostname_theme:string prop ->
   ?id:string prop ->
   ?manage_berkshelf:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->

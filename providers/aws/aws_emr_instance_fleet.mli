@@ -8,7 +8,7 @@ type instance_type_configs__configurations
 
 val instance_type_configs__configurations :
   ?classification:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   unit ->
   instance_type_configs__configurations
 

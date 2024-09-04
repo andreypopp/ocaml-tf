@@ -13,7 +13,7 @@ type hcloud_snapshot
 val hcloud_snapshot :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   server_id:float prop ->
   unit ->
@@ -27,7 +27,7 @@ type t = private {
   tf_name : string;
   description : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   server_id : float prop;
 }
 
@@ -35,7 +35,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   server_id:float prop ->
   string ->
@@ -44,7 +44,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   server_id:float prop ->
   string ->

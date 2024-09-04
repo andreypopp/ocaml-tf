@@ -33,7 +33,7 @@ let aws_default_tags ?id () : aws_default_tags = { id }
 type t = {
   tf_name : string;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id __id =

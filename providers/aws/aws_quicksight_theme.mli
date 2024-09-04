@@ -127,8 +127,8 @@ type aws_quicksight_theme
 val aws_quicksight_theme :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?version_description:string prop ->
     ?configuration:configuration list ->
     ?permissions:permissions list ->
@@ -153,8 +153,8 @@ type t = private {
   last_updated_time: string prop;
   name: string prop;
   status: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
   theme_id: string prop;
   version_description: string prop;
   version_number: float prop;
@@ -164,8 +164,8 @@ val register :
     ?tf_module:tf_module ->
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?version_description:string prop ->
     ?configuration:configuration list ->
     ?permissions:permissions list ->
@@ -179,8 +179,8 @@ val register :
 val make :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string  prop) list ->
-    ?tags_all:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
+    ?tags_all:string  prop Tf_core.assoc ->
     ?version_description:string prop ->
     ?configuration:configuration list ->
     ?permissions:permissions list ->

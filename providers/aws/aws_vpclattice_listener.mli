@@ -48,8 +48,8 @@ val aws_vpclattice_listener :
   ?port:float prop ->
   ?service_arn:string prop ->
   ?service_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   protocol:string prop ->
@@ -74,8 +74,8 @@ type t = private {
   protocol : string prop;
   service_arn : string prop;
   service_identifier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -84,8 +84,8 @@ val register :
   ?port:float prop ->
   ?service_arn:string prop ->
   ?service_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   protocol:string prop ->
@@ -98,8 +98,8 @@ val make :
   ?port:float prop ->
   ?service_arn:string prop ->
   ?service_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   protocol:string prop ->

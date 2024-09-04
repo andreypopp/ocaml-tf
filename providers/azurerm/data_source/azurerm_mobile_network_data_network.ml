@@ -93,7 +93,7 @@ type t = {
   location : string prop;
   mobile_network_id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~mobile_network_id ~name __id =

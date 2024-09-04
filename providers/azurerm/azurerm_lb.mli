@@ -36,7 +36,7 @@ val azurerm_lb :
   ?id:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -60,7 +60,7 @@ type t = private {
   resource_group_name : string prop;
   sku : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -69,7 +69,7 @@ val register :
   ?id:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -83,7 +83,7 @@ val make :
   ?id:string prop ->
   ?sku:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->

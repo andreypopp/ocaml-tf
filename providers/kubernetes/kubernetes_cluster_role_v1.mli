@@ -18,7 +18,7 @@ val aggregation_rule__cluster_role_selectors__match_expressions :
 type aggregation_rule__cluster_role_selectors
 
 val aggregation_rule__cluster_role_selectors :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     aggregation_rule__cluster_role_selectors__match_expressions list ->
   unit ->
@@ -35,9 +35,9 @@ val aggregation_rule :
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   unit ->
   metadata

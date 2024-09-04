@@ -16,8 +16,8 @@ val aws_qldb_ledger :
   ?id:string prop ->
   ?kms_key:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   permissions_mode:string prop ->
   unit ->
@@ -35,8 +35,8 @@ type t = private {
   kms_key : string prop;
   name : string prop;
   permissions_mode : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -45,8 +45,8 @@ val register :
   ?id:string prop ->
   ?kms_key:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   permissions_mode:string prop ->
   string ->
@@ -57,8 +57,8 @@ val make :
   ?id:string prop ->
   ?kms_key:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   permissions_mode:string prop ->
   string ->

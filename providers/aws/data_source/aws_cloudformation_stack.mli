@@ -8,7 +8,7 @@ type aws_cloudformation_stack
 
 val aws_cloudformation_stack :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_cloudformation_stack
@@ -27,9 +27,9 @@ type t = private {
   id : string prop;
   name : string prop;
   notification_arns : string list prop;
-  outputs : (string * string) list prop;
-  parameters : (string * string) list prop;
-  tags : (string * string) list prop;
+  outputs : string Tf_core.assoc prop;
+  parameters : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
   template_body : string prop;
   timeout_in_minutes : float prop;
 }
@@ -37,14 +37,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

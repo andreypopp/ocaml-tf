@@ -88,7 +88,7 @@ val azurerm_media_live_event :
   ?hostname_prefix:string prop ->
   ?id:string prop ->
   ?stream_options:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
   ?cross_site_access_policy:cross_site_access_policy list ->
@@ -119,7 +119,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   stream_options : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transcription_languages : string list prop;
   use_static_hostname : bool prop;
 }
@@ -131,7 +131,7 @@ val register :
   ?hostname_prefix:string prop ->
   ?id:string prop ->
   ?stream_options:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
   ?cross_site_access_policy:cross_site_access_policy list ->
@@ -152,7 +152,7 @@ val make :
   ?hostname_prefix:string prop ->
   ?id:string prop ->
   ?stream_options:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
   ?cross_site_access_policy:cross_site_access_policy list ->

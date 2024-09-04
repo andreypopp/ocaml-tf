@@ -238,7 +238,7 @@ type aws_cloudformation_stack_set_instance = {
   account_id : string prop option; [@option]
   call_as : string prop option; [@option]
   id : string prop option; [@option]
-  parameter_overrides : (string * string prop) list option; [@option]
+  parameter_overrides : string prop Tf_core.assoc option; [@option]
   region : string prop option; [@option]
   retain_stack : bool prop option; [@option]
   stack_set_name : string prop;
@@ -320,12 +320,8 @@ let yojson_of_aws_cloudformation_stack_set_instance =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameter_overrides", arg in
@@ -412,7 +408,7 @@ type t = {
   call_as : string prop;
   id : string prop;
   organizational_unit_id : string prop;
-  parameter_overrides : (string * string) list prop;
+  parameter_overrides : string Tf_core.assoc prop;
   region : string prop;
   retain_stack : bool prop;
   stack_id : string prop;

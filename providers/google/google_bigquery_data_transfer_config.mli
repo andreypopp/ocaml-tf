@@ -50,7 +50,7 @@ val google_bigquery_data_transfer_config :
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
-  params:(string * string prop) list ->
+  params:string prop Tf_core.assoc ->
   unit ->
   google_bigquery_data_transfer_config
 
@@ -70,7 +70,7 @@ type t = private {
   location : string prop;
   name : string prop;
   notification_pubsub_topic : string prop;
-  params : (string * string) list prop;
+  params : string Tf_core.assoc prop;
   project : string prop;
   schedule : string prop;
   service_account_name : string prop;
@@ -93,7 +93,7 @@ val register :
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
-  params:(string * string prop) list ->
+  params:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -113,6 +113,6 @@ val make :
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
-  params:(string * string prop) list ->
+  params:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

@@ -9,7 +9,7 @@ type aws_s3control_access_grants_instance
 val aws_s3control_access_grants_instance :
   ?account_id:string prop ->
   ?identity_center_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_s3control_access_grants_instance
 
@@ -26,21 +26,21 @@ type t = private {
   id : string prop;
   identity_center_application_arn : string prop;
   identity_center_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?identity_center_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?account_id:string prop ->
   ?identity_center_arn:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

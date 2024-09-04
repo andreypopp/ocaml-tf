@@ -3,7 +3,7 @@
 open! Tf_core
 
 type quota_config = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   preferred_value : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -30,12 +30,8 @@ let yojson_of_quota_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -96,7 +92,7 @@ let _ = yojson_of_timeouts
 
 type google_cloud_quotas_quota_preference = {
   contact_email : string prop option; [@option]
-  dimensions : (string * string prop) list option; [@option]
+  dimensions : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   ignore_safety_checks : string prop option; [@option]
   justification : string prop option; [@option]
@@ -204,12 +200,8 @@ let yojson_of_google_cloud_quotas_quota_preference =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "dimensions", arg in
@@ -259,7 +251,7 @@ type t = {
   tf_name : string;
   contact_email : string prop;
   create_time : string prop;
-  dimensions : (string * string) list prop;
+  dimensions : string Tf_core.assoc prop;
   etag : string prop;
   id : string prop;
   ignore_safety_checks : string prop;

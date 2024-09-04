@@ -8,7 +8,7 @@ type aws_location_tracker
 
 val aws_location_tracker :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   tracker_name:string prop ->
   unit ->
   aws_location_tracker
@@ -24,7 +24,7 @@ type t = private {
   id : string prop;
   kms_key_id : string prop;
   position_filtering : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tracker_arn : string prop;
   tracker_name : string prop;
   update_time : string prop;
@@ -33,14 +33,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   tracker_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   tracker_name:string prop ->
   string ->
   t Tf_core.resource

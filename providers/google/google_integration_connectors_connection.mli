@@ -433,7 +433,7 @@ val google_integration_connectors_connection :
   ?description:string prop ->
   ?eventing_enablement_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->
@@ -466,11 +466,11 @@ type t = private {
   connector_version_launch_stage : string prop;
   create_time : string prop;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   eventing_enablement_type : string prop;
   eventing_runtime_data : eventing_runtime_data list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
@@ -479,7 +479,7 @@ type t = private {
   status : status list prop;
   subscription_type : string prop;
   suspended : bool prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -488,7 +488,7 @@ val register :
   ?description:string prop ->
   ?eventing_enablement_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->
@@ -511,7 +511,7 @@ val make :
   ?description:string prop ->
   ?eventing_enablement_type:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->

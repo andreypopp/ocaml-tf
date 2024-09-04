@@ -15,7 +15,7 @@ type ebs_block_device = {
   iops : float prop;  (** iops *)
   kms_key_id : string prop;  (** kms_key_id *)
   snapshot_id : string prop;  (** snapshot_id *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   throughput : float prop;  (** throughput *)
   volume_id : string prop;  (** volume_id *)
   volume_size : float prop;  (** volume_size *)
@@ -57,7 +57,7 @@ type root_block_device = {
   encrypted : bool prop;  (** encrypted *)
   iops : float prop;  (** iops *)
   kms_key_id : string prop;  (** kms_key_id *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   throughput : float prop;  (** throughput *)
   volume_id : string prop;  (** volume_id *)
   volume_size : float prop;  (** volume_size *)
@@ -80,8 +80,8 @@ val aws_instance :
   ?get_user_data:bool prop ->
   ?id:string prop ->
   ?instance_id:string prop ->
-  ?instance_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?instance_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -112,7 +112,7 @@ type t = private {
   id : string prop;
   instance_id : string prop;
   instance_state : string prop;
-  instance_tags : (string * string) list prop;
+  instance_tags : string Tf_core.assoc prop;
   instance_type : string prop;
   ipv6_addresses : string list prop;
   key_name : string prop;
@@ -135,7 +135,7 @@ type t = private {
   security_groups : string list prop;
   source_dest_check : bool prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenancy : string prop;
   user_data : string prop;
   user_data_base64 : string prop;
@@ -148,8 +148,8 @@ val register :
   ?get_user_data:bool prop ->
   ?id:string prop ->
   ?instance_id:string prop ->
-  ?instance_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?instance_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -160,8 +160,8 @@ val make :
   ?get_user_data:bool prop ->
   ?id:string prop ->
   ?instance_id:string prop ->
-  ?instance_tags:(string * string prop) list ->
-  ?tags:(string * string prop) list ->
+  ?instance_tags:string prop Tf_core.assoc ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

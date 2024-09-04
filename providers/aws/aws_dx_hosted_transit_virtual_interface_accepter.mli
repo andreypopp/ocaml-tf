@@ -13,8 +13,8 @@ type aws_dx_hosted_transit_virtual_interface_accepter
 
 val aws_dx_hosted_transit_virtual_interface_accepter :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dx_gateway_id:string prop ->
   virtual_interface_id:string prop ->
@@ -31,16 +31,16 @@ type t = private {
   arn : string prop;
   dx_gateway_id : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   virtual_interface_id : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dx_gateway_id:string prop ->
   virtual_interface_id:string prop ->
@@ -49,8 +49,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dx_gateway_id:string prop ->
   virtual_interface_id:string prop ->

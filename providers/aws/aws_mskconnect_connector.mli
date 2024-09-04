@@ -159,12 +159,12 @@ type aws_mskconnect_connector
 val aws_mskconnect_connector :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->
-  connector_configuration:(string * string prop) list ->
+  connector_configuration:string prop Tf_core.assoc ->
   kafkaconnect_version:string prop ->
   name:string prop ->
   service_execution_role_arn:string prop ->
@@ -186,14 +186,14 @@ val yojson_of_aws_mskconnect_connector :
 type t = private {
   tf_name : string;
   arn : string prop;
-  connector_configuration : (string * string) list prop;
+  connector_configuration : string Tf_core.assoc prop;
   description : string prop;
   id : string prop;
   kafkaconnect_version : string prop;
   name : string prop;
   service_execution_role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -201,12 +201,12 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->
-  connector_configuration:(string * string prop) list ->
+  connector_configuration:string prop Tf_core.assoc ->
   kafkaconnect_version:string prop ->
   name:string prop ->
   service_execution_role_arn:string prop ->
@@ -223,12 +223,12 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
   ?worker_configuration:worker_configuration list ->
-  connector_configuration:(string * string prop) list ->
+  connector_configuration:string prop Tf_core.assoc ->
   kafkaconnect_version:string prop ->
   name:string prop ->
   service_execution_role_arn:string prop ->

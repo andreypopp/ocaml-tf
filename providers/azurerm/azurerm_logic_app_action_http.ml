@@ -94,12 +94,12 @@ let _ = yojson_of_timeouts
 
 type azurerm_logic_app_action_http = {
   body : string prop option; [@option]
-  headers : (string * string prop) list option; [@option]
+  headers : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   logic_app_id : string prop;
   method_ : string prop; [@key "method"]
   name : string prop;
-  queries : (string * string prop) list option; [@option]
+  queries : string prop Tf_core.assoc option; [@option]
   uri : string prop;
   run_after : run_after list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -148,12 +148,8 @@ let yojson_of_azurerm_logic_app_action_http =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "queries", arg in
@@ -184,12 +180,8 @@ let yojson_of_azurerm_logic_app_action_http =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "headers", arg in
@@ -236,12 +228,12 @@ let azurerm_logic_app_action_http ?body ?headers ?id ?queries
 type t = {
   tf_name : string;
   body : string prop;
-  headers : (string * string) list prop;
+  headers : string Tf_core.assoc prop;
   id : string prop;
   logic_app_id : string prop;
   method_ : string prop;
   name : string prop;
-  queries : (string * string) list prop;
+  queries : string Tf_core.assoc prop;
   uri : string prop;
 }
 

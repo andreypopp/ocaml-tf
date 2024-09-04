@@ -397,7 +397,7 @@ type build__source__repo_source = {
   invert_regex : bool prop;
   project_id : string prop;
   repo_name : string prop;
-  substitutions : (string * string prop) list;
+  substitutions : string prop Tf_core.assoc;
   tag_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -425,12 +425,8 @@ let yojson_of_build__source__repo_source =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_substitutions
          in
          ("substitutions", arg) :: bnds
@@ -514,7 +510,7 @@ let _ = yojson_of_build__source
 
 type build__secret = {
   kms_key_name : string prop;
-  secret_env : (string * string prop) list;
+  secret_env : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -528,12 +524,8 @@ let yojson_of_build__secret =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_secret_env
          in
          ("secret_env", arg) :: bnds
@@ -1068,7 +1060,7 @@ type build = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   step : build__step list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  substitutions : (string * string prop) list;
+  substitutions : string prop Tf_core.assoc;
   tags : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeout : string prop;
@@ -1112,12 +1104,8 @@ let yojson_of_build =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_substitutions
          in
          ("substitutions", arg) :: bnds
@@ -1818,7 +1806,7 @@ type t = {
   repository_event_config : repository_event_config list prop;
   service_account : string prop;
   source_to_build : source_to_build list prop;
-  substitutions : (string * string) list prop;
+  substitutions : string Tf_core.assoc prop;
   tags : string list prop;
   trigger_id : string prop;
   trigger_template : trigger_template list prop;

@@ -48,7 +48,7 @@ type aws_directory_service_directory
 
 val aws_directory_service_directory :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   directory_id:string prop ->
   unit ->
   aws_directory_service_directory
@@ -74,7 +74,7 @@ type t = private {
   security_group_id : string prop;
   short_name : string prop;
   size : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
   vpc_settings : vpc_settings list prop;
 }
@@ -82,14 +82,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   directory_id:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   directory_id:string prop ->
   string ->
   t Tf_core.resource

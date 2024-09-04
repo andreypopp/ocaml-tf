@@ -8,7 +8,7 @@ type generic_web_service
 
 val generic_web_service :
   ?allowed_ca_certs:string prop list ->
-  ?request_headers:(string * string prop) list ->
+  ?request_headers:string prop Tf_core.assoc ->
   uri:string prop ->
   unit ->
   generic_web_service
@@ -17,7 +17,7 @@ type service_directory__generic_web_service
 
 val service_directory__generic_web_service :
   ?allowed_ca_certs:string prop list ->
-  ?request_headers:(string * string prop) list ->
+  ?request_headers:string prop Tf_core.assoc ->
   uri:string prop ->
   unit ->
   service_directory__generic_web_service

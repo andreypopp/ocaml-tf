@@ -423,7 +423,7 @@ type aws_budgets_budget = {
   id : string prop option; [@option]
   name : string prop;
   name_prefix : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -446,12 +446,8 @@ let yojson_of_aws_budgets_budget =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -512,7 +508,7 @@ type t = {
   name_prefix : string prop;
   notification : notification list prop;
   planned_limit : planned_limit list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_period_end : string prop;
   time_period_start : string prop;
   time_unit : string prop;

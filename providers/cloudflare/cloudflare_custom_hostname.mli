@@ -51,7 +51,7 @@ val ssl :
 type cloudflare_custom_hostname
 
 val cloudflare_custom_hostname :
-  ?custom_metadata:(string * string prop) list ->
+  ?custom_metadata:string prop Tf_core.assoc ->
   ?custom_origin_server:string prop ->
   ?custom_origin_sni:string prop ->
   ?id:string prop ->
@@ -69,13 +69,13 @@ val yojson_of_cloudflare_custom_hostname :
 
 type t = private {
   tf_name : string;
-  custom_metadata : (string * string) list prop;
+  custom_metadata : string Tf_core.assoc prop;
   custom_origin_server : string prop;
   custom_origin_sni : string prop;
   hostname : string prop;
   id : string prop;
-  ownership_verification : (string * string) list prop;
-  ownership_verification_http : (string * string) list prop;
+  ownership_verification : string Tf_core.assoc prop;
+  ownership_verification_http : string Tf_core.assoc prop;
   status : string prop;
   wait_for_ssl_pending_validation : bool prop;
   zone_id : string prop;
@@ -83,7 +83,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?custom_metadata:(string * string prop) list ->
+  ?custom_metadata:string prop Tf_core.assoc ->
   ?custom_origin_server:string prop ->
   ?custom_origin_sni:string prop ->
   ?id:string prop ->
@@ -95,7 +95,7 @@ val register :
   t
 
 val make :
-  ?custom_metadata:(string * string prop) list ->
+  ?custom_metadata:string prop Tf_core.assoc ->
   ?custom_origin_server:string prop ->
   ?custom_origin_sni:string prop ->
   ?id:string prop ->

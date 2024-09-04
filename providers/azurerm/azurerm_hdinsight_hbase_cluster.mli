@@ -263,7 +263,7 @@ type azurerm_hdinsight_hbase_cluster
 
 val azurerm_hdinsight_hbase_cluster :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_min_version:string prop ->
   ?compute_isolation:compute_isolation list ->
   ?disk_encryption:disk_encryption list ->
@@ -301,7 +301,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   ssh_endpoint : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tier : string prop;
   tls_min_version : string prop;
 }
@@ -309,7 +309,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_min_version:string prop ->
   ?compute_isolation:compute_isolation list ->
   ?disk_encryption:disk_encryption list ->
@@ -335,7 +335,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?tls_min_version:string prop ->
   ?compute_isolation:compute_isolation list ->
   ?disk_encryption:disk_encryption list ->

@@ -44,7 +44,7 @@ val azurerm_image :
   ?hyper_v_generation:string prop ->
   ?id:string prop ->
   ?source_virtual_machine_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_resilient:bool prop ->
   ?data_disk:data_disk list ->
   ?os_disk:os_disk list ->
@@ -67,7 +67,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   source_virtual_machine_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_resilient : bool prop;
 }
 
@@ -76,7 +76,7 @@ val register :
   ?hyper_v_generation:string prop ->
   ?id:string prop ->
   ?source_virtual_machine_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_resilient:bool prop ->
   ?data_disk:data_disk list ->
   ?os_disk:os_disk list ->
@@ -91,7 +91,7 @@ val make :
   ?hyper_v_generation:string prop ->
   ?id:string prop ->
   ?source_virtual_machine_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?zone_resilient:bool prop ->
   ?data_disk:data_disk list ->
   ?os_disk:os_disk list ->

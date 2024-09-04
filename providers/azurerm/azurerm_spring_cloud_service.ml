@@ -744,7 +744,7 @@ type azurerm_spring_cloud_service = {
   service_registry_enabled : bool prop option; [@option]
   sku_name : string prop option; [@option]
   sku_tier : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   zone_redundant : bool prop option; [@option]
   config_server_git_setting : config_server_git_setting list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -861,12 +861,8 @@ let yojson_of_azurerm_spring_cloud_service =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1075,7 +1071,7 @@ type t = {
   service_registry_id : string prop;
   sku_name : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   zone_redundant : bool prop;
 }
 

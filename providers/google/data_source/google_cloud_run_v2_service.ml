@@ -752,7 +752,7 @@ let _ = yojson_of_template__containers__startup_probe
 
 type template__containers__resources = {
   cpu_idle : bool prop;
-  limits : (string * string prop) list;
+  limits : string prop Tf_core.assoc;
   startup_cpu_boost : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -777,12 +777,8 @@ let yojson_of_template__containers__resources =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_limits
          in
          ("limits", arg) :: bnds
@@ -1333,12 +1329,12 @@ let _ = yojson_of_template__containers
 [@@@deriving.end]
 
 type template = {
-  annotations : (string * string prop) list;
+  annotations : string prop Tf_core.assoc;
   containers : template__containers list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   encryption_key : string prop;
   execution_environment : string prop;
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   max_instance_request_concurrency : float prop;
   revision : string prop;
   scaling : template__scaling list;
@@ -1433,12 +1429,8 @@ let yojson_of_template =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds
@@ -1467,12 +1459,8 @@ let yojson_of_template =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_annotations
          in
          ("annotations", arg) :: bnds
@@ -1715,7 +1703,7 @@ let google_cloud_run_v2_service ?id ?location ?project ~name () :
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   binary_authorization : binary_authorization list prop;
   client : string prop;
   client_version : string prop;
@@ -1725,14 +1713,14 @@ type t = {
   custom_audiences : string list prop;
   delete_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   etag : string prop;
   expire_time : string prop;
   generation : string prop;
   id : string prop;
   ingress : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   last_modifier : string prop;
   latest_created_revision : string prop;
   latest_ready_revision : string prop;
@@ -1744,7 +1732,7 @@ type t = {
   reconciling : bool prop;
   template : template list prop;
   terminal_condition : terminal_condition list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   traffic : traffic list prop;
   traffic_statuses : traffic_statuses list prop;
   uid : string prop;

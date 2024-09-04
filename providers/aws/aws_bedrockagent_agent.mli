@@ -54,7 +54,7 @@ val aws_bedrockagent_agent :
   ?prepare_agent:bool prop ->
   ?prompt_override_configuration:prompt_override_configuration list ->
   ?skip_resource_in_use_check:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_name:string prop ->
   agent_resource_role_arn:string prop ->
@@ -83,8 +83,8 @@ type t = private {
   prompt_override_configuration :
     prompt_override_configuration list prop;
   skip_resource_in_use_check : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -96,7 +96,7 @@ val register :
   ?prepare_agent:bool prop ->
   ?prompt_override_configuration:prompt_override_configuration list ->
   ?skip_resource_in_use_check:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_name:string prop ->
   agent_resource_role_arn:string prop ->
@@ -112,7 +112,7 @@ val make :
   ?prepare_agent:bool prop ->
   ?prompt_override_configuration:prompt_override_configuration list ->
   ?skip_resource_in_use_check:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   agent_name:string prop ->
   agent_resource_role_arn:string prop ->

@@ -110,7 +110,7 @@ type aws_rekognition_stream_processor
 
 val aws_rekognition_stream_processor :
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sharing_preference:data_sharing_preference list ->
   ?input:input list ->
   ?notification_channel:notification_channel list ->
@@ -134,14 +134,14 @@ type t = private {
   name : string prop;
   role_arn : string prop;
   stream_processor_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sharing_preference:data_sharing_preference list ->
   ?input:input list ->
   ?notification_channel:notification_channel list ->
@@ -156,7 +156,7 @@ val register :
 
 val make :
   ?kms_key_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?data_sharing_preference:data_sharing_preference list ->
   ?input:input list ->
   ?notification_channel:notification_channel list ->

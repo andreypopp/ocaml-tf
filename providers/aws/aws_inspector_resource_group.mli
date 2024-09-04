@@ -8,7 +8,7 @@ type aws_inspector_resource_group
 
 val aws_inspector_resource_group :
   ?id:string prop ->
-  tags:(string * string prop) list ->
+  tags:string prop Tf_core.assoc ->
   unit ->
   aws_inspector_resource_group
 
@@ -21,18 +21,18 @@ type t = private {
   tf_name : string;
   arn : string prop;
   id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  tags:(string * string prop) list ->
+  tags:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  tags:(string * string prop) list ->
+  tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

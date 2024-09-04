@@ -17,8 +17,8 @@ val aws_db_snapshot_copy :
   ?kms_key_id:string prop ->
   ?option_group_name:string prop ->
   ?presigned_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_custom_availability_zone:string prop ->
   ?timeouts:timeouts ->
   source_db_snapshot_identifier:string prop ->
@@ -51,8 +51,8 @@ type t = private {
   source_db_snapshot_identifier : string prop;
   source_region : string prop;
   storage_type : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_custom_availability_zone : string prop;
   target_db_snapshot_identifier : string prop;
   vpc_id : string prop;
@@ -66,8 +66,8 @@ val register :
   ?kms_key_id:string prop ->
   ?option_group_name:string prop ->
   ?presigned_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_custom_availability_zone:string prop ->
   ?timeouts:timeouts ->
   source_db_snapshot_identifier:string prop ->
@@ -82,8 +82,8 @@ val make :
   ?kms_key_id:string prop ->
   ?option_group_name:string prop ->
   ?presigned_url:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_custom_availability_zone:string prop ->
   ?timeouts:timeouts ->
   source_db_snapshot_identifier:string prop ->

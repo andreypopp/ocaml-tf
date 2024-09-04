@@ -13,8 +13,8 @@ val aws_kms_replica_key :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   primary_key_arn:string prop ->
   unit ->
   aws_kms_replica_key
@@ -37,8 +37,8 @@ type t = private {
   key_usage : string prop;
   policy : string prop;
   primary_key_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -49,8 +49,8 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   primary_key_arn:string prop ->
   string ->
   t
@@ -62,8 +62,8 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?policy:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   primary_key_arn:string prop ->
   string ->
   t Tf_core.resource

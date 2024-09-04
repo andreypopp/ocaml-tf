@@ -16,7 +16,7 @@ val yojson_of_aws_servicecatalogappregistry_application :
 
 type t = private {
   tf_name : string;
-  application_tag : (string * string) list prop;
+  application_tag : string Tf_core.assoc prop;
   arn : string prop;
   description : string prop;
   id : string prop;

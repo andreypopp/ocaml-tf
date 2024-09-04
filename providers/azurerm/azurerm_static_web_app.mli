@@ -33,13 +33,13 @@ val timeouts :
 type azurerm_static_web_app
 
 val azurerm_static_web_app :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?configuration_file_changes_enabled:bool prop ->
   ?id:string prop ->
   ?preview_environments_enabled:bool prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?basic_auth:basic_auth list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -56,7 +56,7 @@ val yojson_of_azurerm_static_web_app : azurerm_static_web_app -> json
 type t = private {
   tf_name : string;
   api_key : string prop;
-  app_settings : (string * string) list prop;
+  app_settings : string Tf_core.assoc prop;
   configuration_file_changes_enabled : bool prop;
   default_host_name : string prop;
   id : string prop;
@@ -66,18 +66,18 @@ type t = private {
   resource_group_name : string prop;
   sku_size : string prop;
   sku_tier : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?configuration_file_changes_enabled:bool prop ->
   ?id:string prop ->
   ?preview_environments_enabled:bool prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?basic_auth:basic_auth list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -88,13 +88,13 @@ val register :
   t
 
 val make :
-  ?app_settings:(string * string prop) list ->
+  ?app_settings:string prop Tf_core.assoc ->
   ?configuration_file_changes_enabled:bool prop ->
   ?id:string prop ->
   ?preview_environments_enabled:bool prop ->
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?basic_auth:basic_auth list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

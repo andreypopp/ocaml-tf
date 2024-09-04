@@ -22,7 +22,7 @@ type aws_datazone_domain
 val aws_datazone_domain :
   ?description:string prop ->
   ?kms_key_identifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?single_sign_on:single_sign_on list ->
   ?timeouts:timeouts ->
   domain_execution_role:string prop ->
@@ -43,15 +43,15 @@ type t = private {
   kms_key_identifier : string prop;
   name : string prop;
   portal_url : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?kms_key_identifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?single_sign_on:single_sign_on list ->
   ?timeouts:timeouts ->
   domain_execution_role:string prop ->
@@ -62,7 +62,7 @@ val register :
 val make :
   ?description:string prop ->
   ?kms_key_identifier:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?single_sign_on:single_sign_on list ->
   ?timeouts:timeouts ->
   domain_execution_role:string prop ->

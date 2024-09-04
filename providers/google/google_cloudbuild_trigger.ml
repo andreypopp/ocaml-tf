@@ -753,7 +753,7 @@ let _ = yojson_of_build__options
 
 type build__secret = {
   kms_key_name : string prop;
-  secret_env : (string * string prop) list option; [@option]
+  secret_env : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -770,12 +770,8 @@ let yojson_of_build__secret =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret_env", arg in
@@ -799,7 +795,7 @@ type build__source__repo_source = {
   invert_regex : bool prop option; [@option]
   project_id : string prop option; [@option]
   repo_name : string prop;
-  substitutions : (string * string prop) list option; [@option]
+  substitutions : string prop Tf_core.assoc option; [@option]
   tag_name : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -834,12 +830,8 @@ let yojson_of_build__source__repo_source =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "substitutions", arg in
@@ -1187,7 +1179,7 @@ type build = {
   images : string prop list option; [@option]
   logs_bucket : string prop option; [@option]
   queue_ttl : string prop option; [@option]
-  substitutions : (string * string prop) list option; [@option]
+  substitutions : string prop Tf_core.assoc option; [@option]
   tags : string prop list option; [@option]
   timeout : string prop option; [@option]
   artifacts : build__artifacts list;
@@ -1302,12 +1294,8 @@ let yojson_of_build =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "substitutions", arg in
@@ -2038,7 +2026,7 @@ type google_cloudbuild_trigger = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   service_account : string prop option; [@option]
-  substitutions : (string * string prop) list option; [@option]
+  substitutions : string prop Tf_core.assoc option; [@option]
   tags : string prop list option; [@option]
   approval_config : approval_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -2214,12 +2202,8 @@ let yojson_of_google_cloudbuild_trigger =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "substitutions", arg in
@@ -2599,7 +2583,7 @@ type t = {
   name : string prop;
   project : string prop;
   service_account : string prop;
-  substitutions : (string * string) list prop;
+  substitutions : string Tf_core.assoc prop;
   tags : string list prop;
   trigger_id : string prop;
 }

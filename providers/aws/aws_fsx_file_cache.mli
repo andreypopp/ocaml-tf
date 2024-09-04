@@ -16,7 +16,7 @@ type data_repository_association
 
 val data_repository_association :
   ?data_repository_subdirectories:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   data_repository_path:string prop ->
   file_cache_path:string prop ->
   nfs:data_repository_association__nfs list ->
@@ -62,8 +62,8 @@ val aws_fsx_file_cache :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   file_cache_type:string prop ->
   file_cache_type_version:string prop ->
@@ -94,8 +94,8 @@ type t = private {
   security_group_ids : string list prop;
   storage_capacity : float prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -105,8 +105,8 @@ val register :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   file_cache_type:string prop ->
   file_cache_type_version:string prop ->
@@ -122,8 +122,8 @@ val make :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?security_group_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   file_cache_type:string prop ->
   file_cache_type_version:string prop ->

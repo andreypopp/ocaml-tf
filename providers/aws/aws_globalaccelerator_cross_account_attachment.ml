@@ -55,7 +55,7 @@ let _ = yojson_of_resource
 type aws_globalaccelerator_cross_account_attachment = {
   name : string prop;
   principals : string prop list option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   resource : resource list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -89,12 +89,8 @@ let yojson_of_aws_globalaccelerator_cross_account_attachment =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -138,8 +134,8 @@ type t = {
   last_modified_time : string prop;
   name : string prop;
   principals : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?principals ?tags ~name ~resource __id =

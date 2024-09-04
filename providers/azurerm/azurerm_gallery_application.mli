@@ -23,7 +23,7 @@ val azurerm_gallery_application :
   ?id:string prop ->
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_id:string prop ->
   location:string prop ->
@@ -49,7 +49,7 @@ type t = private {
   privacy_statement_uri : string prop;
   release_note_uri : string prop;
   supported_os_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -60,7 +60,7 @@ val register :
   ?id:string prop ->
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_id:string prop ->
   location:string prop ->
@@ -76,7 +76,7 @@ val make :
   ?id:string prop ->
   ?privacy_statement_uri:string prop ->
   ?release_note_uri:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   gallery_id:string prop ->
   location:string prop ->

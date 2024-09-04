@@ -34,7 +34,7 @@ type t = private {
   not_before_date : string prop;
   resource_id : string prop;
   resource_versionless_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   value : string prop;
   version : string prop;
   versionless_id : string prop;

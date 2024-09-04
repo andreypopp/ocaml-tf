@@ -9,7 +9,7 @@ type aws_location_map
 
 val aws_location_map :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   map_name:string prop ->
   unit ->
   aws_location_map
@@ -26,21 +26,21 @@ type t = private {
   id : string prop;
   map_arn : string prop;
   map_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   map_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   map_name:string prop ->
   string ->
   t Tf_core.resource

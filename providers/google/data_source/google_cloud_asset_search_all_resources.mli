@@ -15,7 +15,7 @@ type results = {
   kms_keys : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** kms_keys *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
   network_tags : string prop list;

@@ -32,8 +32,8 @@ val aws_transfer_connector :
   ?id:string prop ->
   ?logging_role:string prop ->
   ?security_policy_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?as2_config:as2_config list ->
   ?sftp_config:sftp_config list ->
   access_role:string prop ->
@@ -53,8 +53,8 @@ type t = private {
   id : string prop;
   logging_role : string prop;
   security_policy_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
 }
 
@@ -63,8 +63,8 @@ val register :
   ?id:string prop ->
   ?logging_role:string prop ->
   ?security_policy_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?as2_config:as2_config list ->
   ?sftp_config:sftp_config list ->
   access_role:string prop ->
@@ -76,8 +76,8 @@ val make :
   ?id:string prop ->
   ?logging_role:string prop ->
   ?security_policy_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?as2_config:as2_config list ->
   ?sftp_config:sftp_config list ->
   access_role:string prop ->

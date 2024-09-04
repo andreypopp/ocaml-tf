@@ -69,10 +69,10 @@ val node_type__vm_secrets :
 type node_type
 
 val node_type :
-  ?capacities:(string * string prop) list ->
+  ?capacities:string prop Tf_core.assoc ->
   ?data_disk_type:string prop ->
   ?multiple_placement_groups_enabled:bool prop ->
-  ?placement_properties:(string * string prop) list ->
+  ?placement_properties:string prop Tf_core.assoc ->
   ?primary:bool prop ->
   ?stateless:bool prop ->
   ?vm_secrets:node_type__vm_secrets list ->
@@ -108,7 +108,7 @@ val azurerm_service_fabric_managed_cluster :
   ?id:string prop ->
   ?password:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
   ?authentication:authentication list ->
@@ -142,7 +142,7 @@ type t = private {
   password : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_wave : string prop;
   username : string prop;
 }
@@ -155,7 +155,7 @@ val register :
   ?id:string prop ->
   ?password:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
   ?authentication:authentication list ->
@@ -178,7 +178,7 @@ val make :
   ?id:string prop ->
   ?password:string prop ->
   ?sku:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
   ?authentication:authentication list ->

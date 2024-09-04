@@ -28,7 +28,7 @@ type azurerm_route_filter
 val azurerm_route_filter :
   ?id:string prop ->
   ?rule:rule list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -47,14 +47,14 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   rule : rule list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?rule:rule list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -65,7 +65,7 @@ val register :
 val make :
   ?id:string prop ->
   ?rule:rule list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

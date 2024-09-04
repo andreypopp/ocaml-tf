@@ -526,8 +526,8 @@ val aws_ce_cost_category :
   ?default_value:string prop ->
   ?effective_start:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   rule_version:string prop ->
   rule:rule list ->
@@ -548,8 +548,8 @@ type t = private {
   id : string prop;
   name : string prop;
   rule_version : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -557,8 +557,8 @@ val register :
   ?default_value:string prop ->
   ?effective_start:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   rule_version:string prop ->
   rule:rule list ->
@@ -570,8 +570,8 @@ val make :
   ?default_value:string prop ->
   ?effective_start:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   name:string prop ->
   rule_version:string prop ->
   rule:rule list ->

@@ -174,7 +174,7 @@ type node_config__linux_node_config
 
 val node_config__linux_node_config :
   ?cgroup_mode:string prop ->
-  ?sysctls:(string * string prop) list ->
+  ?sysctls:string prop Tf_core.assoc ->
   unit ->
   node_config__linux_node_config
 
@@ -249,17 +249,17 @@ val node_config :
   ?enable_confidential_storage:bool prop ->
   ?guest_accelerator:node_config__guest_accelerator list ->
   ?image_type:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?local_ssd_count:float prop ->
   ?logging_variant:string prop ->
   ?machine_type:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?min_cpu_platform:string prop ->
   ?node_group:string prop ->
   ?oauth_scopes:string prop list ->
   ?preemptible:bool prop ->
-  ?resource_labels:(string * string prop) list ->
-  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_labels:string prop Tf_core.assoc ->
+  ?resource_manager_tags:string prop Tf_core.assoc ->
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->

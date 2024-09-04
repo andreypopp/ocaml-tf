@@ -235,10 +235,10 @@ type aws_bedrock_custom_model = {
   custom_model_kms_key_id : string prop option; [@option]
   custom_model_name : string prop;
   customization_type : string prop option; [@option]
-  hyperparameters : (string * string prop) list;
+  hyperparameters : string prop Tf_core.assoc;
   job_name : string prop;
   role_arn : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   output_data_config : output_data_config list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   timeouts : timeouts option;
@@ -321,12 +321,8 @@ let yojson_of_aws_bedrock_custom_model =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -342,12 +338,8 @@ let yojson_of_aws_bedrock_custom_model =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_hyperparameters
          in
          ("hyperparameters", arg) :: bnds
@@ -433,14 +425,14 @@ type t = {
   custom_model_kms_key_id : string prop;
   custom_model_name : string prop;
   customization_type : string prop;
-  hyperparameters : (string * string) list prop;
+  hyperparameters : string Tf_core.assoc prop;
   id : string prop;
   job_arn : string prop;
   job_name : string prop;
   job_status : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   training_metrics : training_metrics list prop;
   validation_metrics : validation_metrics list prop;
 }

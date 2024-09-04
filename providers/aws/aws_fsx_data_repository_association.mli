@@ -38,8 +38,8 @@ val aws_fsx_data_repository_association :
   ?delete_data_in_filesystem:bool prop ->
   ?id:string prop ->
   ?imported_file_chunk_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->
@@ -64,8 +64,8 @@ type t = private {
   file_system_path : string prop;
   id : string prop;
   imported_file_chunk_size : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -74,8 +74,8 @@ val register :
   ?delete_data_in_filesystem:bool prop ->
   ?id:string prop ->
   ?imported_file_chunk_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->
@@ -89,8 +89,8 @@ val make :
   ?delete_data_in_filesystem:bool prop ->
   ?id:string prop ->
   ?imported_file_chunk_size:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->

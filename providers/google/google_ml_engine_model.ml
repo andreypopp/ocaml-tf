@@ -73,7 +73,7 @@ let _ = yojson_of_timeouts
 type google_ml_engine_model = {
   description : string prop option; [@option]
   id : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop;
   online_prediction_console_logging : bool prop option; [@option]
   online_prediction_logging : bool prop option; [@option]
@@ -162,12 +162,8 @@ let yojson_of_google_ml_engine_model =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -221,15 +217,15 @@ let google_ml_engine_model ?description ?id ?labels
 type t = {
   tf_name : string;
   description : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   online_prediction_console_logging : bool prop;
   online_prediction_logging : bool prop;
   project : string prop;
   regions : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?labels ?online_prediction_console_logging

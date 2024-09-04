@@ -118,8 +118,8 @@ val aws_dynamodb_table :
   ?stream_enabled:bool prop ->
   ?stream_view_type:string prop ->
   ?table_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?write_capacity:float prop ->
   ?import_table:import_table list ->
   ?point_in_time_recovery:point_in_time_recovery list ->
@@ -156,8 +156,8 @@ type t = private {
   stream_label : string prop;
   stream_view_type : string prop;
   table_class : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   write_capacity : float prop;
 }
 
@@ -175,8 +175,8 @@ val register :
   ?stream_enabled:bool prop ->
   ?stream_view_type:string prop ->
   ?table_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?write_capacity:float prop ->
   ?import_table:import_table list ->
   ?point_in_time_recovery:point_in_time_recovery list ->
@@ -204,8 +204,8 @@ val make :
   ?stream_enabled:bool prop ->
   ?stream_view_type:string prop ->
   ?table_class:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?write_capacity:float prop ->
   ?import_table:import_table list ->
   ?point_in_time_recovery:point_in_time_recovery list ->

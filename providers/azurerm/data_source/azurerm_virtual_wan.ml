@@ -94,7 +94,7 @@ type t = {
   office365_local_breakout_category : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_hub_ids : string list prop;
   vpn_site_ids : string list prop;
 }

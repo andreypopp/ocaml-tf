@@ -48,8 +48,8 @@ val aws_ssm_patch_baseline :
   ?operating_system:string prop ->
   ?rejected_patches:string prop list ->
   ?rejected_patches_action:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?approval_rule:approval_rule list ->
   ?global_filter:global_filter list ->
   ?source:source list ->
@@ -74,8 +74,8 @@ type t = private {
   operating_system : string prop;
   rejected_patches : string list prop;
   rejected_patches_action : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -88,8 +88,8 @@ val register :
   ?operating_system:string prop ->
   ?rejected_patches:string prop list ->
   ?rejected_patches_action:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?approval_rule:approval_rule list ->
   ?global_filter:global_filter list ->
   ?source:source list ->
@@ -106,8 +106,8 @@ val make :
   ?operating_system:string prop ->
   ?rejected_patches:string prop list ->
   ?rejected_patches_action:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?approval_rule:approval_rule list ->
   ?global_filter:global_filter list ->
   ?source:source list ->

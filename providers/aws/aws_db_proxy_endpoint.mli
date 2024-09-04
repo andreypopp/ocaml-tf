@@ -17,8 +17,8 @@ type aws_db_proxy_endpoint
 
 val aws_db_proxy_endpoint :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_role:string prop ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
@@ -40,8 +40,8 @@ type t = private {
   endpoint : string prop;
   id : string prop;
   is_default : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_role : string prop;
   vpc_id : string prop;
   vpc_security_group_ids : string list prop;
@@ -51,8 +51,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_role:string prop ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->
@@ -64,8 +64,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?target_role:string prop ->
   ?vpc_security_group_ids:string prop list ->
   ?timeouts:timeouts ->

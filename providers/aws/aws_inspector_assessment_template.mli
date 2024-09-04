@@ -16,8 +16,8 @@ type aws_inspector_assessment_template
 
 val aws_inspector_assessment_template :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   duration:float prop ->
   name:string prop ->
   rules_package_arns:string prop list ->
@@ -38,16 +38,16 @@ type t = private {
   id : string prop;
   name : string prop;
   rules_package_arns : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target_arn : string prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   duration:float prop ->
   name:string prop ->
   rules_package_arns:string prop list ->
@@ -58,8 +58,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   duration:float prop ->
   name:string prop ->
   rules_package_arns:string prop list ->

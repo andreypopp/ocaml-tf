@@ -3,7 +3,7 @@
 open! Tf_core
 
 type logging_configuration__log_destination_config = {
-  log_destination : (string * string prop) list;
+  log_destination : string prop Tf_core.assoc;
   log_destination_type : string prop;
   log_type : string prop;
 }
@@ -33,12 +33,8 @@ let yojson_of_logging_configuration__log_destination_config =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_log_destination
          in
          ("log_destination", arg) :: bnds

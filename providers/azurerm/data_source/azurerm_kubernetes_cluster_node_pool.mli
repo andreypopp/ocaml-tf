@@ -46,7 +46,7 @@ type t = private {
   mode : string prop;
   name : string prop;
   node_count : float prop;
-  node_labels : (string * string) list prop;
+  node_labels : string Tf_core.assoc prop;
   node_public_ip_enabled : bool prop;
   node_public_ip_prefix_id : string prop;
   node_taints : string list prop;
@@ -58,7 +58,7 @@ type t = private {
   proximity_placement_group_id : string prop;
   resource_group_name : string prop;
   spot_max_price : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   upgrade_settings : upgrade_settings list prop;
   vm_size : string prop;
   vnet_subnet_id : string prop;

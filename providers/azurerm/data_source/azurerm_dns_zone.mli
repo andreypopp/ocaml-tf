@@ -30,7 +30,7 @@ type t = private {
   name_servers : string list prop;
   number_of_record_sets : float prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

@@ -21,7 +21,7 @@ val azurerm_virtual_wan :
   ?disable_vpn_encryption:bool prop ->
   ?id:string prop ->
   ?office365_local_breakout_category:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -43,7 +43,7 @@ type t = private {
   name : string prop;
   office365_local_breakout_category : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -53,7 +53,7 @@ val register :
   ?disable_vpn_encryption:bool prop ->
   ?id:string prop ->
   ?office365_local_breakout_category:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -67,7 +67,7 @@ val make :
   ?disable_vpn_encryption:bool prop ->
   ?id:string prop ->
   ?office365_local_breakout_category:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   ?timeouts:timeouts ->
   location:string prop ->

@@ -205,7 +205,7 @@ type t = {
   name : string prop;
   private_endpoint : private_endpoint list prop;
   service_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 

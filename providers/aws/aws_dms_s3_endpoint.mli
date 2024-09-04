@@ -53,8 +53,8 @@ val aws_dms_s3_endpoint :
   ?row_group_length:float prop ->
   ?server_side_encryption_kms_key_id:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timestamp_column_name:string prop ->
   ?use_csv_no_sup_value:bool prop ->
   ?use_task_start_time_for_full_load_timestamp:bool prop ->
@@ -121,8 +121,8 @@ type t = private {
   service_access_role_arn : string prop;
   ssl_mode : string prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   timestamp_column_name : string prop;
   use_csv_no_sup_value : bool prop;
   use_task_start_time_for_full_load_timestamp : bool prop;
@@ -171,8 +171,8 @@ val register :
   ?row_group_length:float prop ->
   ?server_side_encryption_kms_key_id:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timestamp_column_name:string prop ->
   ?use_csv_no_sup_value:bool prop ->
   ?use_task_start_time_for_full_load_timestamp:bool prop ->
@@ -226,8 +226,8 @@ val make :
   ?row_group_length:float prop ->
   ?server_side_encryption_kms_key_id:string prop ->
   ?ssl_mode:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timestamp_column_name:string prop ->
   ?use_csv_no_sup_value:bool prop ->
   ?use_task_start_time_for_full_load_timestamp:bool prop ->

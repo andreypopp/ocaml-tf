@@ -17,7 +17,7 @@ type aws_ec2_transit_gateway_connect
 
 val aws_ec2_transit_gateway_connect :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_connect_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -33,7 +33,7 @@ type t = private {
   tf_name : string;
   id : string prop;
   protocol : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transit_gateway_connect_id : string prop;
   transit_gateway_id : string prop;
   transport_attachment_id : string prop;
@@ -42,7 +42,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_connect_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->
@@ -51,7 +51,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transit_gateway_connect_id:string prop ->
   ?timeouts:timeouts ->
   filter:filter list ->

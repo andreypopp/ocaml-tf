@@ -28,7 +28,7 @@ type policy
 val policy :
   ?effect:string prop ->
   permission_groups:string prop list ->
-  resources:(string * string prop) list ->
+  resources:string prop Tf_core.assoc ->
   unit ->
   policy
 

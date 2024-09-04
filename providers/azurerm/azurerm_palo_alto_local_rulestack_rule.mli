@@ -57,7 +57,7 @@ val azurerm_palo_alto_local_rulestack_rule :
   ?negate_source:bool prop ->
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->
@@ -93,7 +93,7 @@ type t = private {
   protocol : string prop;
   protocol_ports : string list prop;
   rulestack_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -109,7 +109,7 @@ val register :
   ?negate_source:bool prop ->
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->
@@ -134,7 +134,7 @@ val make :
   ?negate_source:bool prop ->
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->

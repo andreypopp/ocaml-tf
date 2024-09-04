@@ -31,7 +31,7 @@ type t = private {
   private_dns_zone_name : string prop;
   registration_enabled : bool prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_id : string prop;
 }
 

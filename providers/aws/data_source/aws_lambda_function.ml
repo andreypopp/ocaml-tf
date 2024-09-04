@@ -24,7 +24,7 @@ let _ = yojson_of_dead_letter_config
 
 [@@@deriving.end]
 
-type environment = { variables : (string * string prop) list }
+type environment = { variables : string prop Tf_core.assoc }
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : environment) -> ()
@@ -37,12 +37,8 @@ let yojson_of_environment =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_variables
          in
          ("variables", arg) :: bnds
@@ -242,7 +238,7 @@ type aws_lambda_function = {
   function_name : string prop;
   id : string prop option; [@option]
   qualifier : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -264,12 +260,8 @@ let yojson_of_aws_lambda_function =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -337,7 +329,7 @@ type t = {
   signing_profile_version_arn : string prop;
   source_code_hash : string prop;
   source_code_size : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout : float prop;
   tracing_config : tracing_config list prop;
   version : string prop;

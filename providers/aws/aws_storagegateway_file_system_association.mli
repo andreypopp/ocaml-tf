@@ -16,8 +16,8 @@ type aws_storagegateway_file_system_association
 val aws_storagegateway_file_system_association :
   ?audit_destination_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
@@ -39,8 +39,8 @@ type t = private {
   id : string prop;
   location_arn : string prop;
   password : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   username : string prop;
 }
 
@@ -48,8 +48,8 @@ val register :
   ?tf_module:tf_module ->
   ?audit_destination_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
@@ -61,8 +61,8 @@ val register :
 val make :
   ?audit_destination_arn:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->

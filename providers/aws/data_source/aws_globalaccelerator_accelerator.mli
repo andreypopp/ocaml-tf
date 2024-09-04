@@ -43,7 +43,7 @@ type t = private {
   ip_address_type : string prop;
   ip_sets : ip_sets list prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

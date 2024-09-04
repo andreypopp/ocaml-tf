@@ -248,8 +248,8 @@ val aws_macie2_classification_job :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->
@@ -275,8 +275,8 @@ type t = private {
   name : string prop;
   name_prefix : string prop;
   sampling_percentage : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_paused_details : user_paused_details list prop;
 }
 
@@ -290,8 +290,8 @@ val register :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->
@@ -307,8 +307,8 @@ val make :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?sampling_percentage:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->

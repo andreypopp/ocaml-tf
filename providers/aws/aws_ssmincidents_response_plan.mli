@@ -16,7 +16,7 @@ type action__ssm_automation
 
 val action__ssm_automation :
   ?document_version:string prop ->
-  ?dynamic_parameters:(string * string prop) list ->
+  ?dynamic_parameters:string prop Tf_core.assoc ->
   ?target_account:string prop ->
   document_name:string prop ->
   role_arn:string prop ->
@@ -40,7 +40,7 @@ type incident_template
 
 val incident_template :
   ?dedupe_string:string prop ->
-  ?incident_tags:(string * string prop) list ->
+  ?incident_tags:string prop Tf_core.assoc ->
   ?summary:string prop ->
   impact:float prop ->
   title:string prop ->
@@ -69,8 +69,8 @@ val aws_ssmincidents_response_plan :
   ?display_name:string prop ->
   ?engagements:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?action:action list ->
   ?integration:integration list ->
   name:string prop ->
@@ -91,8 +91,8 @@ type t = private {
   engagements : string list prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -101,8 +101,8 @@ val register :
   ?display_name:string prop ->
   ?engagements:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?action:action list ->
   ?integration:integration list ->
   name:string prop ->
@@ -115,8 +115,8 @@ val make :
   ?display_name:string prop ->
   ?engagements:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?action:action list ->
   ?integration:integration list ->
   name:string prop ->

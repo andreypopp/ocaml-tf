@@ -33,8 +33,8 @@ val aws_macie2_findings_filter :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?position:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   action:string prop ->
   finding_criteria:finding_criteria list ->
   unit ->
@@ -54,8 +54,8 @@ type t = private {
   name : string prop;
   name_prefix : string prop;
   position : float prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -65,8 +65,8 @@ val register :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?position:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   action:string prop ->
   finding_criteria:finding_criteria list ->
   string ->
@@ -78,8 +78,8 @@ val make :
   ?name:string prop ->
   ?name_prefix:string prop ->
   ?position:float prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   action:string prop ->
   finding_criteria:finding_criteria list ->
   string ->

@@ -2502,7 +2502,7 @@ type t = {
   ssl_certificate : ssl_certificate list prop;
   ssl_policy : ssl_policy list prop;
   ssl_profile : ssl_profile list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   trusted_client_certificate : trusted_client_certificate list prop;
   trusted_root_certificate : trusted_root_certificate list prop;
   url_path_map : url_path_map list prop;

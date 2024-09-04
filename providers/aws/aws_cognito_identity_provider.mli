@@ -7,10 +7,10 @@ open! Tf_core
 type aws_cognito_identity_provider
 
 val aws_cognito_identity_provider :
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?idp_identifiers:string prop list ->
-  provider_details:(string * string prop) list ->
+  provider_details:string prop Tf_core.assoc ->
   provider_name:string prop ->
   provider_type:string prop ->
   user_pool_id:string prop ->
@@ -24,10 +24,10 @@ val yojson_of_aws_cognito_identity_provider :
 
 type t = private {
   tf_name : string;
-  attribute_mapping : (string * string) list prop;
+  attribute_mapping : string Tf_core.assoc prop;
   id : string prop;
   idp_identifiers : string list prop;
-  provider_details : (string * string) list prop;
+  provider_details : string Tf_core.assoc prop;
   provider_name : string prop;
   provider_type : string prop;
   user_pool_id : string prop;
@@ -35,10 +35,10 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?idp_identifiers:string prop list ->
-  provider_details:(string * string prop) list ->
+  provider_details:string prop Tf_core.assoc ->
   provider_name:string prop ->
   provider_type:string prop ->
   user_pool_id:string prop ->
@@ -46,10 +46,10 @@ val register :
   t
 
 val make :
-  ?attribute_mapping:(string * string prop) list ->
+  ?attribute_mapping:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?idp_identifiers:string prop list ->
-  provider_details:(string * string prop) list ->
+  provider_details:string prop Tf_core.assoc ->
   provider_name:string prop ->
   provider_type:string prop ->
   user_pool_id:string prop ->

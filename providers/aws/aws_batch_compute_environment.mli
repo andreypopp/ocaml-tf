@@ -35,7 +35,7 @@ val compute_resources :
   ?placement_group:string prop ->
   ?security_group_ids:string prop list ->
   ?spot_iam_fleet_role:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?ec2_configuration:compute_resources__ec2_configuration list ->
   ?launch_template:compute_resources__launch_template list ->
   max_vcpus:float prop ->
@@ -68,8 +68,8 @@ val aws_batch_compute_environment :
   ?id:string prop ->
   ?service_role:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?compute_resources:compute_resources list ->
   ?eks_configuration:eks_configuration list ->
   ?update_policy:update_policy list ->
@@ -93,8 +93,8 @@ type t = private {
   state : string prop;
   status : string prop;
   status_reason : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -105,8 +105,8 @@ val register :
   ?id:string prop ->
   ?service_role:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?compute_resources:compute_resources list ->
   ?eks_configuration:eks_configuration list ->
   ?update_policy:update_policy list ->
@@ -120,8 +120,8 @@ val make :
   ?id:string prop ->
   ?service_role:string prop ->
   ?state:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?compute_resources:compute_resources list ->
   ?eks_configuration:eks_configuration list ->
   ?update_policy:update_policy list ->

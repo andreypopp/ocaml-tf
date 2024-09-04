@@ -11,7 +11,7 @@ type dnsimple_registered_domain
 val dnsimple_registered_domain :
   ?auto_renew_enabled:bool prop ->
   ?dnssec_enabled:bool prop ->
-  ?extended_attributes:(string * string prop) list ->
+  ?extended_attributes:string prop Tf_core.assoc ->
   ?premium_price:string prop ->
   ?timeouts:json prop ->
   ?transfer_lock_enabled:bool prop ->
@@ -34,7 +34,7 @@ type t = private {
   dnssec_enabled : bool prop;
   domain_registration : json prop;
   expires_at : string prop;
-  extended_attributes : (string * string) list prop;
+  extended_attributes : string Tf_core.assoc prop;
   id : float prop;
   name : string prop;
   premium_price : string prop;
@@ -50,7 +50,7 @@ val register :
   ?tf_module:tf_module ->
   ?auto_renew_enabled:bool prop ->
   ?dnssec_enabled:bool prop ->
-  ?extended_attributes:(string * string prop) list ->
+  ?extended_attributes:string prop Tf_core.assoc ->
   ?premium_price:string prop ->
   ?timeouts:json prop ->
   ?transfer_lock_enabled:bool prop ->
@@ -63,7 +63,7 @@ val register :
 val make :
   ?auto_renew_enabled:bool prop ->
   ?dnssec_enabled:bool prop ->
-  ?extended_attributes:(string * string prop) list ->
+  ?extended_attributes:string prop Tf_core.assoc ->
   ?premium_price:string prop ->
   ?timeouts:json prop ->
   ?transfer_lock_enabled:bool prop ->

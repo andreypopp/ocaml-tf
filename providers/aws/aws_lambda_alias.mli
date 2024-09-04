@@ -7,7 +7,7 @@ open! Tf_core
 type routing_config
 
 val routing_config :
-  ?additional_version_weights:(string * float prop) list ->
+  ?additional_version_weights:float prop Tf_core.assoc ->
   unit ->
   routing_config
 

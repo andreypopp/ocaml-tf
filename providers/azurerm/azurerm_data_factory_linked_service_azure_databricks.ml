@@ -94,15 +94,15 @@ let _ = yojson_of_key_vault_password
 
 type new_cluster_config = {
   cluster_version : string prop;
-  custom_tags : (string * string prop) list option; [@option]
+  custom_tags : string prop Tf_core.assoc option; [@option]
   driver_node_type : string prop option; [@option]
   init_scripts : string prop list option; [@option]
   log_destination : string prop option; [@option]
   max_number_of_workers : float prop option; [@option]
   min_number_of_workers : float prop option; [@option]
   node_type : string prop;
-  spark_config : (string * string prop) list option; [@option]
-  spark_environment_variables : (string * string prop) list option;
+  spark_config : string prop Tf_core.assoc option; [@option]
+  spark_environment_variables : string prop Tf_core.assoc option;
       [@option]
 }
 [@@deriving_inline yojson_of]
@@ -131,12 +131,8 @@ let yojson_of_new_cluster_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "spark_environment_variables", arg in
@@ -147,12 +143,8 @@ let yojson_of_new_cluster_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "spark_config", arg in
@@ -209,12 +201,8 @@ let yojson_of_new_cluster_config =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "custom_tags", arg in
@@ -296,8 +284,7 @@ let _ = yojson_of_timeouts
 type azurerm_data_factory_linked_service_azure_databricks = {
   access_token : string prop option; [@option]
   adb_domain : string prop;
-  additional_properties : (string * string prop) list option;
-      [@option]
+  additional_properties : string prop Tf_core.assoc option; [@option]
   annotations : string prop list option; [@option]
   data_factory_id : string prop;
   description : string prop option; [@option]
@@ -306,7 +293,7 @@ type azurerm_data_factory_linked_service_azure_databricks = {
   integration_runtime_name : string prop option; [@option]
   msi_work_space_resource_id : string prop option; [@option]
   name : string prop;
-  parameters : (string * string prop) list option; [@option]
+  parameters : string prop Tf_core.assoc option; [@option]
   instance_pool : instance_pool list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   key_vault_password : key_vault_password list;
@@ -381,12 +368,8 @@ let yojson_of_azurerm_data_factory_linked_service_azure_databricks =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "parameters", arg in
@@ -457,12 +440,8 @@ let yojson_of_azurerm_data_factory_linked_service_azure_databricks =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "additional_properties", arg in
@@ -552,7 +531,7 @@ type t = {
   tf_name : string;
   access_token : string prop;
   adb_domain : string prop;
-  additional_properties : (string * string) list prop;
+  additional_properties : string Tf_core.assoc prop;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -561,7 +540,7 @@ type t = {
   integration_runtime_name : string prop;
   msi_work_space_resource_id : string prop;
   name : string prop;
-  parameters : (string * string) list prop;
+  parameters : string Tf_core.assoc prop;
 }
 
 let make ?access_token ?additional_properties ?annotations

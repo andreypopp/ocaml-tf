@@ -103,7 +103,7 @@ type t = {
   secondary_connection_string : string prop;
   server_port : float prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tls_client_cert_enabled : bool prop;
   version : string prop;
 }

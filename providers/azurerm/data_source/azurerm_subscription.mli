@@ -30,7 +30,7 @@ type t = private {
   spending_limit : string prop;
   state : string prop;
   subscription_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 

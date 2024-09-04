@@ -14,8 +14,8 @@ type aws_location_place_index
 val aws_location_place_index :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->
@@ -35,8 +35,8 @@ type t = private {
   id : string prop;
   index_arn : string prop;
   index_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   update_time : string prop;
 }
 
@@ -44,8 +44,8 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->
@@ -55,8 +55,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->

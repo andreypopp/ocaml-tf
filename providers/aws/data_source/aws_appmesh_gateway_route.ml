@@ -1538,7 +1538,7 @@ type aws_appmesh_gateway_route = {
   mesh_name : string prop;
   mesh_owner : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   virtual_gateway_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1569,12 +1569,8 @@ let yojson_of_aws_appmesh_gateway_route =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1626,7 +1622,7 @@ type t = {
   name : string prop;
   resource_owner : string prop;
   spec : spec list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_gateway_name : string prop;
 }
 

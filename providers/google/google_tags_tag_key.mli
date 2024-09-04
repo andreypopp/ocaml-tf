@@ -19,7 +19,7 @@ val google_tags_tag_key :
   ?description:string prop ->
   ?id:string prop ->
   ?purpose:string prop ->
-  ?purpose_data:(string * string prop) list ->
+  ?purpose_data:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   parent:string prop ->
   short_name:string prop ->
@@ -39,7 +39,7 @@ type t = private {
   namespaced_name : string prop;
   parent : string prop;
   purpose : string prop;
-  purpose_data : (string * string) list prop;
+  purpose_data : string Tf_core.assoc prop;
   short_name : string prop;
   update_time : string prop;
 }
@@ -49,7 +49,7 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?purpose:string prop ->
-  ?purpose_data:(string * string prop) list ->
+  ?purpose_data:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   parent:string prop ->
   short_name:string prop ->
@@ -60,7 +60,7 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?purpose:string prop ->
-  ?purpose_data:(string * string prop) list ->
+  ?purpose_data:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   parent:string prop ->
   short_name:string prop ->

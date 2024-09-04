@@ -7,7 +7,7 @@ open! Tf_core
 type rule__action
 
 val rule__action :
-  ?action_properties:(string * string prop) list ->
+  ?action_properties:string prop Tf_core.assoc ->
   action_group_id:string prop ->
   unit ->
   rule__action
@@ -24,10 +24,10 @@ type rule
 
 val rule :
   ?alert:string prop ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?enabled:bool prop ->
   ?for_:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?record:string prop ->
   ?severity:float prop ->
   ?action:rule__action list ->
@@ -54,7 +54,7 @@ val azurerm_monitor_alert_prometheus_rule_group :
   ?id:string prop ->
   ?interval:string prop ->
   ?rule_group_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -80,7 +80,7 @@ type t = private {
   resource_group_name : string prop;
   rule_group_enabled : bool prop;
   scopes : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -90,7 +90,7 @@ val register :
   ?id:string prop ->
   ?interval:string prop ->
   ?rule_group_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -106,7 +106,7 @@ val make :
   ?id:string prop ->
   ?interval:string prop ->
   ?rule_group_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->

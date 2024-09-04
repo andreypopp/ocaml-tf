@@ -185,7 +185,7 @@ let _ =
 
 type application_configuration__environment_properties__property_group = {
   property_group_id : string prop;
-  property_map : (string * string prop) list;
+  property_map : string prop Tf_core.assoc;
 }
 [@@deriving_inline yojson_of]
 
@@ -206,12 +206,8 @@ let yojson_of_application_configuration__environment_properties__property_group
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_property_map
          in
          ("property_map", arg) :: bnds
@@ -2225,8 +2221,8 @@ type aws_kinesisanalyticsv2_application = {
   runtime_environment : string prop;
   service_execution_role : string prop;
   start_application : bool prop option; [@option]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   application_configuration : application_configuration list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cloudwatch_logging_options : cloudwatch_logging_options list;
@@ -2286,12 +2282,8 @@ let yojson_of_aws_kinesisanalyticsv2_application =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -2302,12 +2294,8 @@ let yojson_of_aws_kinesisanalyticsv2_application =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -2710,8 +2698,8 @@ type t = {
   service_execution_role : string prop;
   start_application : bool prop;
   status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : float prop;
 }
 

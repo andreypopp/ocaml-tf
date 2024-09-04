@@ -116,7 +116,7 @@ type t = {
   resource_group_name : string prop;
   servicebus_endpoint : string prop;
   sku : sku list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

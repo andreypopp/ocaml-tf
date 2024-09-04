@@ -25,7 +25,7 @@ type groups = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
       (** group_key *)
   initial_group_config : string prop;  (** initial_group_config *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   name : string prop;  (** name *)
   parent : string prop;  (** parent *)
   update_time : string prop;  (** update_time *)

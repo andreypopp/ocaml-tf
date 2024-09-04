@@ -8,7 +8,7 @@ type aws_apigatewayv2_integration_response = {
   id : string prop option; [@option]
   integration_id : string prop;
   integration_response_key : string prop;
-  response_templates : (string * string prop) list option; [@option]
+  response_templates : string prop Tf_core.assoc option; [@option]
   template_selection_expression : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -43,12 +43,8 @@ let yojson_of_aws_apigatewayv2_integration_response =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "response_templates", arg in
@@ -115,7 +111,7 @@ type t = {
   id : string prop;
   integration_id : string prop;
   integration_response_key : string prop;
-  response_templates : (string * string) list prop;
+  response_templates : string Tf_core.assoc prop;
   template_selection_expression : string prop;
 }
 

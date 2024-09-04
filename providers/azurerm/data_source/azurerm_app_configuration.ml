@@ -395,7 +395,7 @@ type t = {
   secondary_write_key : secondary_write_key list prop;
   sku : string prop;
   soft_delete_retention_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~name ~resource_group_name __id =

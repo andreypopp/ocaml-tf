@@ -87,14 +87,14 @@ let _ = yojson_of_base_image_trigger
 [@@@deriving.end]
 
 type docker_step = {
-  arguments : (string * string prop) list option; [@option]
+  arguments : string prop Tf_core.assoc option; [@option]
   cache_enabled : bool prop option; [@option]
   context_access_token : string prop;
   context_path : string prop;
   dockerfile_path : string prop;
   image_names : string prop list option; [@option]
   push_enabled : bool prop option; [@option]
-  secret_arguments : (string * string prop) list option; [@option]
+  secret_arguments : string prop Tf_core.assoc option; [@option]
   target : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -130,12 +130,8 @@ let yojson_of_docker_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret_arguments", arg in
@@ -188,12 +184,8 @@ let yojson_of_docker_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "arguments", arg in
@@ -209,10 +201,10 @@ let _ = yojson_of_docker_step
 type encoded_step = {
   context_access_token : string prop option; [@option]
   context_path : string prop option; [@option]
-  secret_values : (string * string prop) list option; [@option]
+  secret_values : string prop Tf_core.assoc option; [@option]
   task_content : string prop;
   value_content : string prop option; [@option]
-  values : (string * string prop) list option; [@option]
+  values : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,12 +228,8 @@ let yojson_of_encoded_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "values", arg in
@@ -264,12 +252,8 @@ let yojson_of_encoded_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret_values", arg in
@@ -301,10 +285,10 @@ let _ = yojson_of_encoded_step
 type file_step = {
   context_access_token : string prop option; [@option]
   context_path : string prop option; [@option]
-  secret_values : (string * string prop) list option; [@option]
+  secret_values : string prop Tf_core.assoc option; [@option]
   task_file_path : string prop;
   value_file_path : string prop option; [@option]
-  values : (string * string prop) list option; [@option]
+  values : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -328,12 +312,8 @@ let yojson_of_file_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "values", arg in
@@ -358,12 +338,8 @@ let yojson_of_file_step =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "secret_values", arg in
@@ -851,7 +827,7 @@ type azurerm_container_registry_task = {
   is_system_task : bool prop option; [@option]
   log_template : string prop option; [@option]
   name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   timeout_in_seconds : float prop option; [@option]
   agent_setting : agent_setting list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -1016,12 +992,8 @@ let yojson_of_azurerm_container_registry_task =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -1215,7 +1187,7 @@ type t = {
   is_system_task : bool prop;
   log_template : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timeout_in_seconds : float prop;
 }
 

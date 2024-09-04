@@ -7,7 +7,7 @@ open! Tf_core
 type aws_api_gateway_vpc_link
 
 val aws_api_gateway_vpc_link :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   unit ->
   aws_api_gateway_vpc_link
@@ -24,19 +24,19 @@ type t = private {
   name : string prop;
   status : string prop;
   status_message : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_arns : string list prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   name:string prop ->
   string ->
   t Tf_core.resource

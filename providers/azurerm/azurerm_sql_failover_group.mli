@@ -36,7 +36,7 @@ type azurerm_sql_failover_group
 val azurerm_sql_failover_group :
   ?databases:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?readonly_endpoint_failover_policy:
     readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->
@@ -63,14 +63,14 @@ type t = private {
   resource_group_name : string prop;
   role : string prop;
   server_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?databases:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?readonly_endpoint_failover_policy:
     readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->
@@ -86,7 +86,7 @@ val register :
 val make :
   ?databases:string prop list ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?readonly_endpoint_failover_policy:
     readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->

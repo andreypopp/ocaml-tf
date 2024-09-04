@@ -62,7 +62,7 @@ val azurerm_mobile_network_sim_policy :
   ?id:string prop ->
   ?rat_frequency_selection_priority_index:float prop ->
   ?registration_timer_in_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   default_slice_id:string prop ->
   location:string prop ->
@@ -88,7 +88,7 @@ type t = private {
   name : string prop;
   rat_frequency_selection_priority_index : float prop;
   registration_timer_in_seconds : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -96,7 +96,7 @@ val register :
   ?id:string prop ->
   ?rat_frequency_selection_priority_index:float prop ->
   ?registration_timer_in_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   default_slice_id:string prop ->
   location:string prop ->
@@ -112,7 +112,7 @@ val make :
   ?id:string prop ->
   ?rat_frequency_selection_priority_index:float prop ->
   ?registration_timer_in_seconds:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   default_slice_id:string prop ->
   location:string prop ->

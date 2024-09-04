@@ -23,8 +23,8 @@ val aws_dx_private_virtual_interface :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpn_gateway_id:string prop ->
   ?timeouts:timeouts ->
   address_family:string prop ->
@@ -57,8 +57,8 @@ type t = private {
   mtu : float prop;
   name : string prop;
   sitelink_enabled : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vlan : float prop;
   vpn_gateway_id : string prop;
 }
@@ -72,8 +72,8 @@ val register :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpn_gateway_id:string prop ->
   ?timeouts:timeouts ->
   address_family:string prop ->
@@ -92,8 +92,8 @@ val make :
   ?id:string prop ->
   ?mtu:float prop ->
   ?sitelink_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpn_gateway_id:string prop ->
   ?timeouts:timeouts ->
   address_family:string prop ->

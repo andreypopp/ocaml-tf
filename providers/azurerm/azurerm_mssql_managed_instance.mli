@@ -33,7 +33,7 @@ val azurerm_mssql_managed_instance :
   ?proxy_override:string prop ->
   ?public_data_endpoint_enabled:bool prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
   ?identity:identity list ->
@@ -77,7 +77,7 @@ type t = private {
   storage_account_type : string prop;
   storage_size_in_gb : float prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   timezone_id : string prop;
   vcores : float prop;
   zone_redundant_enabled : bool prop;
@@ -93,7 +93,7 @@ val register :
   ?proxy_override:string prop ->
   ?public_data_endpoint_enabled:bool prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
   ?identity:identity list ->
@@ -120,7 +120,7 @@ val make :
   ?proxy_override:string prop ->
   ?public_data_endpoint_enabled:bool prop ->
   ?storage_account_type:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
   ?identity:identity list ->

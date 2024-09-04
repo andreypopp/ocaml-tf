@@ -750,7 +750,7 @@ let _ = yojson_of_vpc_options
 type aws_opensearch_domain = {
   domain_name : string prop;
   id : string prop option; [@option]
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   off_peak_window_options : off_peak_window_options list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -784,12 +784,8 @@ let yojson_of_aws_opensearch_domain =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -823,7 +819,7 @@ let aws_opensearch_domain ?id ?tags ?(off_peak_window_options = [])
 type t = {
   tf_name : string;
   access_policies : string prop;
-  advanced_options : (string * string) list prop;
+  advanced_options : string Tf_core.assoc prop;
   advanced_security_options : advanced_security_options list prop;
   arn : string prop;
   auto_tune_options : auto_tune_options list prop;
@@ -846,7 +842,7 @@ type t = {
   processing : bool prop;
   snapshot_options : snapshot_options list prop;
   software_update_options : software_update_options list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   vpc_options : vpc_options list prop;
 }
 

@@ -11,7 +11,7 @@ type telemetry = {
 type basic_service
 
 val basic_service :
-  ?service_labels:(string * string prop) list ->
+  ?service_labels:string prop Tf_core.assoc ->
   ?service_type:string prop ->
   unit ->
   basic_service
@@ -31,7 +31,7 @@ val google_monitoring_service :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   project : string prop;
   service_id : string prop;
   telemetry : telemetry list prop;
-  user_labels : (string * string) list prop;
+  user_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -59,7 +59,7 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
@@ -70,7 +70,7 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
-  ?user_labels:(string * string prop) list ->
+  ?user_labels:string prop Tf_core.assoc ->
   ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->

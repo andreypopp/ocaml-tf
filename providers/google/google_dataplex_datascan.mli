@@ -212,7 +212,7 @@ val google_dataplex_datascan :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?data_profile_spec:data_profile_spec list ->
   ?data_quality_spec:data_quality_spec list ->
@@ -235,15 +235,15 @@ type t = private {
   data_scan_id : string prop;
   description : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   execution_status : execution_status list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   uid : string prop;
   update_time : string prop;
@@ -254,7 +254,7 @@ val register :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?data_profile_spec:data_profile_spec list ->
   ?data_quality_spec:data_quality_spec list ->
@@ -270,7 +270,7 @@ val make :
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?data_profile_spec:data_profile_spec list ->
   ?data_quality_spec:data_quality_spec list ->

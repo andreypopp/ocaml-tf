@@ -86,7 +86,7 @@ type t = private {
   created_on : string prop;
   hostname : string prop;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   modified_on : string prop;
   name : string prop;
   priority : float prop;

@@ -25,8 +25,8 @@ val aws_sagemaker_notebook_instance :
   ?root_access:string prop ->
   ?security_groups:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_size:float prop ->
   ?instance_metadata_service_configuration:
     instance_metadata_service_configuration list ->
@@ -59,8 +59,8 @@ type t = private {
   root_access : string prop;
   security_groups : string list prop;
   subnet_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
   volume_size : float prop;
 }
@@ -78,8 +78,8 @@ val register :
   ?root_access:string prop ->
   ?security_groups:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_size:float prop ->
   ?instance_metadata_service_configuration:
     instance_metadata_service_configuration list ->
@@ -101,8 +101,8 @@ val make :
   ?root_access:string prop ->
   ?security_groups:string prop list ->
   ?subnet_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?volume_size:float prop ->
   ?instance_metadata_service_configuration:
     instance_metadata_service_configuration list ->

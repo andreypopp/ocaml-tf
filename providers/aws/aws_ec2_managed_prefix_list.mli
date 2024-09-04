@@ -13,8 +13,8 @@ type aws_ec2_managed_prefix_list
 
 val aws_ec2_managed_prefix_list :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   address_family:string prop ->
   max_entries:float prop ->
   name:string prop ->
@@ -35,16 +35,16 @@ type t = private {
   max_entries : float prop;
   name : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : float prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   address_family:string prop ->
   max_entries:float prop ->
   name:string prop ->
@@ -54,8 +54,8 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   address_family:string prop ->
   max_entries:float prop ->
   name:string prop ->

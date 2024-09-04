@@ -134,7 +134,7 @@ type t = {
   name : string prop;
   single_network_slice_selection_assistance_information :
     single_network_slice_selection_assistance_information list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 let make ?id ?timeouts ~mobile_network_id ~name __id =

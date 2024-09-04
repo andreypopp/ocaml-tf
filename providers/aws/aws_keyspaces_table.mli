@@ -89,8 +89,8 @@ type aws_keyspaces_table
 val aws_keyspaces_table :
   ?default_time_to_live:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?capacity_specification:capacity_specification list ->
   ?client_side_timestamps:client_side_timestamps list ->
   ?comment:comment list ->
@@ -115,16 +115,16 @@ type t = private {
   id : string prop;
   keyspace_name : string prop;
   table_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?default_time_to_live:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?capacity_specification:capacity_specification list ->
   ?client_side_timestamps:client_side_timestamps list ->
   ?comment:comment list ->
@@ -141,8 +141,8 @@ val register :
 val make :
   ?default_time_to_live:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?capacity_specification:capacity_specification list ->
   ?client_side_timestamps:client_side_timestamps list ->
   ?comment:comment list ->

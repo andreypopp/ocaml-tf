@@ -39,7 +39,7 @@ type azurerm_healthcare_dicom_service
 val azurerm_healthcare_dicom_service :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -62,7 +62,7 @@ type t = private {
   private_endpoint : private_endpoint list prop;
   public_network_access_enabled : bool prop;
   service_url : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   workspace_id : string prop;
 }
 
@@ -70,7 +70,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -82,7 +82,7 @@ val register :
 val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->

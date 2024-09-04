@@ -56,7 +56,7 @@ type volume = {
       (** snapshot_directory_visible *)
   storage_quota_in_gb : float prop;  (** storage_quota_in_gb *)
   subnet_id : string prop;  (** subnet_id *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
   throughput_in_mibps : float prop;  (** throughput_in_mibps *)
   volume_path : string prop;  (** volume_path *)
   volume_spec_name : string prop;  (** volume_spec_name *)

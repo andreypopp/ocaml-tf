@@ -86,7 +86,7 @@ type t = {
   id : float prop;
   ip_address : string prop;
   ip_network : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   type_ : string prop;
   with_selector : string prop;

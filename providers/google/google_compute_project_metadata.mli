@@ -15,7 +15,7 @@ val google_compute_project_metadata :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
-  metadata:(string * string prop) list ->
+  metadata:string prop Tf_core.assoc ->
   unit ->
   google_compute_project_metadata
 
@@ -27,7 +27,7 @@ val yojson_of_google_compute_project_metadata :
 type t = private {
   tf_name : string;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   project : string prop;
 }
 
@@ -36,7 +36,7 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
-  metadata:(string * string prop) list ->
+  metadata:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -44,6 +44,6 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
-  metadata:(string * string prop) list ->
+  metadata:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

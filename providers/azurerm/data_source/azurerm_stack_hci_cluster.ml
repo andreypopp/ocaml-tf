@@ -134,7 +134,7 @@ type t = {
   resource_group_name : string prop;
   resource_provider_object_id : string prop;
   service_endpoint : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 

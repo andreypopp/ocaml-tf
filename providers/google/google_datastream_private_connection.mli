@@ -5,7 +5,7 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type error = {
-  details : (string * string prop) list;  (** details *)
+  details : string prop Tf_core.assoc;  (** details *)
   message : string prop;  (** message *)
 }
 
@@ -28,7 +28,7 @@ type google_datastream_private_connection
 val google_datastream_private_connection :
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   display_name:string prop ->
@@ -47,23 +47,23 @@ type t = private {
   tf_name : string;
   create_without_validation : bool prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   error : error list prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   private_connection_id : string prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   display_name:string prop ->
@@ -76,7 +76,7 @@ val register :
 val make :
   ?create_without_validation:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   display_name:string prop ->

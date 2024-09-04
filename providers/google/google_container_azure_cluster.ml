@@ -299,7 +299,7 @@ let _ = yojson_of_control_plane__ssh_config
 
 type control_plane = {
   subnet_id : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   version : string prop;
   vm_size : string prop option; [@option]
   database_encryption : control_plane__database_encryption list;
@@ -415,12 +415,8 @@ let yojson_of_control_plane =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -604,7 +600,7 @@ let _ = yojson_of_workload_identity_config
 [@@@deriving.end]
 
 type google_container_azure_cluster = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   azure_region : string prop;
   client : string prop option; [@option]
   description : string prop option; [@option]
@@ -755,12 +751,8 @@ let yojson_of_google_container_azure_cluster =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -869,12 +861,12 @@ let google_container_azure_cluster ?annotations ?client ?description
 
 type t = {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   azure_region : string prop;
   client : string prop;
   create_time : string prop;
   description : string prop;
-  effective_annotations : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
   endpoint : string prop;
   etag : string prop;
   id : string prop;

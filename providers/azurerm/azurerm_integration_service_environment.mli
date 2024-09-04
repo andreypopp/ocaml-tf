@@ -19,7 +19,7 @@ type azurerm_integration_service_environment
 val azurerm_integration_service_environment :
   ?id:string prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   access_endpoint_type:string prop ->
   location:string prop ->
@@ -44,7 +44,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_network_subnet_ids : string list prop;
   workflow_endpoint_ip_addresses : string list prop;
   workflow_outbound_ip_addresses : string list prop;
@@ -54,7 +54,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   access_endpoint_type:string prop ->
   location:string prop ->
@@ -67,7 +67,7 @@ val register :
 val make :
   ?id:string prop ->
   ?sku_name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   access_endpoint_type:string prop ->
   location:string prop ->

@@ -19,7 +19,7 @@ val google_active_directory_domain :
   ?admin:string prop ->
   ?authorized_networks:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
@@ -38,15 +38,15 @@ type t = private {
   admin : string prop;
   authorized_networks : string list prop;
   domain_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   fqdn : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   locations : string list prop;
   name : string prop;
   project : string prop;
   reserved_ip_range : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -54,7 +54,7 @@ val register :
   ?admin:string prop ->
   ?authorized_networks:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
@@ -67,7 +67,7 @@ val make :
   ?admin:string prop ->
   ?authorized_networks:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?timeouts:timeouts ->
   domain_name:string prop ->

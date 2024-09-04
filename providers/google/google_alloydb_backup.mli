@@ -33,11 +33,11 @@ val timeouts :
 type google_alloydb_backup
 
 val google_alloydb_backup :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
   ?encryption_config:encryption_config list ->
@@ -54,7 +54,7 @@ val yojson_of_google_alloydb_backup : google_alloydb_backup -> json
 
 type t = private {
   tf_name : string;
-  annotations : (string * string) list prop;
+  annotations : string Tf_core.assoc prop;
   backup_id : string prop;
   cluster_name : string prop;
   cluster_uid : string prop;
@@ -62,21 +62,21 @@ type t = private {
   delete_time : string prop;
   description : string prop;
   display_name : string prop;
-  effective_annotations : (string * string) list prop;
-  effective_labels : (string * string) list prop;
+  effective_annotations : string Tf_core.assoc prop;
+  effective_labels : string Tf_core.assoc prop;
   encryption_info : encryption_info list prop;
   etag : string prop;
   expiry_quantity : expiry_quantity list prop;
   expiry_time : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   reconciling : bool prop;
   size_bytes : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   type_ : string prop;
   uid : string prop;
   update_time : string prop;
@@ -84,11 +84,11 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
   ?encryption_config:encryption_config list ->
@@ -100,11 +100,11 @@ val register :
   t
 
 val make :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?description:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?type_:string prop ->
   ?encryption_config:encryption_config list ->

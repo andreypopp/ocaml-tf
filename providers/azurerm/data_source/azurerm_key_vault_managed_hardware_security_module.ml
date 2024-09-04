@@ -98,7 +98,7 @@ type t = {
   resource_group_name : string prop;
   sku_name : string prop;
   soft_delete_retention_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   tenant_id : string prop;
 }
 

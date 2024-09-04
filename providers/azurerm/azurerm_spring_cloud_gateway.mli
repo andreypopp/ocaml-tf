@@ -81,12 +81,12 @@ type azurerm_spring_cloud_gateway
 val azurerm_spring_cloud_gateway :
   ?application_performance_monitoring_ids:string prop list ->
   ?application_performance_monitoring_types:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?sensitive_environment_variables:(string * string prop) list ->
+  ?sensitive_environment_variables:string prop Tf_core.assoc ->
   ?api_metadata:api_metadata list ->
   ?client_authorization:client_authorization list ->
   ?cors:cors list ->
@@ -110,13 +110,13 @@ type t = private {
   tf_name : string;
   application_performance_monitoring_ids : string list prop;
   application_performance_monitoring_types : string list prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   https_only : bool prop;
   id : string prop;
   instance_count : float prop;
   name : string prop;
   public_network_access_enabled : bool prop;
-  sensitive_environment_variables : (string * string) list prop;
+  sensitive_environment_variables : string Tf_core.assoc prop;
   spring_cloud_service_id : string prop;
   url : string prop;
 }
@@ -125,12 +125,12 @@ val register :
   ?tf_module:tf_module ->
   ?application_performance_monitoring_ids:string prop list ->
   ?application_performance_monitoring_types:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?sensitive_environment_variables:(string * string prop) list ->
+  ?sensitive_environment_variables:string prop Tf_core.assoc ->
   ?api_metadata:api_metadata list ->
   ?client_authorization:client_authorization list ->
   ?cors:cors list ->
@@ -148,12 +148,12 @@ val register :
 val make :
   ?application_performance_monitoring_ids:string prop list ->
   ?application_performance_monitoring_types:string prop list ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?https_only:bool prop ->
   ?id:string prop ->
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
-  ?sensitive_environment_variables:(string * string prop) list ->
+  ?sensitive_environment_variables:string prop Tf_core.assoc ->
   ?api_metadata:api_metadata list ->
   ?client_authorization:client_authorization list ->
   ?cors:cors list ->

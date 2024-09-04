@@ -9,8 +9,8 @@ type aws_api_gateway_integration_response
 val aws_api_gateway_integration_response :
   ?content_handling:string prop ->
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?selection_pattern:string prop ->
   http_method:string prop ->
   resource_id:string prop ->
@@ -30,8 +30,8 @@ type t = private {
   http_method : string prop;
   id : string prop;
   resource_id : string prop;
-  response_parameters : (string * string) list prop;
-  response_templates : (string * string) list prop;
+  response_parameters : string Tf_core.assoc prop;
+  response_templates : string Tf_core.assoc prop;
   rest_api_id : string prop;
   selection_pattern : string prop;
   status_code : string prop;
@@ -41,8 +41,8 @@ val register :
   ?tf_module:tf_module ->
   ?content_handling:string prop ->
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?selection_pattern:string prop ->
   http_method:string prop ->
   resource_id:string prop ->
@@ -54,8 +54,8 @@ val register :
 val make :
   ?content_handling:string prop ->
   ?id:string prop ->
-  ?response_parameters:(string * string prop) list ->
-  ?response_templates:(string * string prop) list ->
+  ?response_parameters:string prop Tf_core.assoc ->
+  ?response_templates:string prop Tf_core.assoc ->
   ?selection_pattern:string prop ->
   http_method:string prop ->
   resource_id:string prop ->

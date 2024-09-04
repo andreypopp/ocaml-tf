@@ -7,7 +7,7 @@ open! Tf_core
 type logging_configuration__log_destination_config
 
 val logging_configuration__log_destination_config :
-  log_destination:(string * string prop) list ->
+  log_destination:string prop Tf_core.assoc ->
   log_destination_type:string prop ->
   log_type:string prop ->
   unit ->

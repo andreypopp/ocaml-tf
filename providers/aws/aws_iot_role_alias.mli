@@ -9,8 +9,8 @@ type aws_iot_role_alias
 val aws_iot_role_alias :
   ?credential_duration:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   role_arn:string prop ->
   unit ->
@@ -27,16 +27,16 @@ type t = private {
   credential_duration : float prop;
   id : string prop;
   role_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?credential_duration:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   role_arn:string prop ->
   string ->
@@ -45,8 +45,8 @@ val register :
 val make :
   ?credential_duration:float prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   alias:string prop ->
   role_arn:string prop ->
   string ->

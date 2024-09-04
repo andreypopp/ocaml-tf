@@ -31,7 +31,7 @@ type t = private {
   name : string prop;
   records : string list prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   target_resource_id : string prop;
   ttl : float prop;
   zone_name : string prop;

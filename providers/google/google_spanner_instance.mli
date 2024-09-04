@@ -44,7 +44,7 @@ type google_spanner_instance
 val google_spanner_instance :
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?num_nodes:float prop ->
   ?processing_units:float prop ->
@@ -65,23 +65,23 @@ type t = private {
   tf_name : string;
   config : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   force_destroy : bool prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   num_nodes : float prop;
   processing_units : float prop;
   project : string prop;
   state : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?num_nodes:float prop ->
   ?processing_units:float prop ->
@@ -96,7 +96,7 @@ val register :
 val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?num_nodes:float prop ->
   ?processing_units:float prop ->

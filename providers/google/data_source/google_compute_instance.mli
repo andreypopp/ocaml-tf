@@ -26,10 +26,10 @@ type boot_disk__initialize_params = {
   enable_confidential_compute : bool prop;
       (** enable_confidential_compute *)
   image : string prop;  (** image *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   provisioned_iops : float prop;  (** provisioned_iops *)
   provisioned_throughput : float prop;  (** provisioned_throughput *)
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
   size : float prop;  (** size *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -112,7 +112,7 @@ type network_performance_config = {
 }
 
 type params = {
-  resource_manager_tags : (string * string prop) list;
+  resource_manager_tags : string prop Tf_core.assoc;
       (** resource_manager_tags *)
 }
 
@@ -226,16 +226,16 @@ type t = private {
   deletion_protection : bool prop;
   description : string prop;
   desired_status : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   enable_display : bool prop;
   guest_accelerator : guest_accelerator list prop;
   hostname : string prop;
   id : string prop;
   instance_id : string prop;
   label_fingerprint : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   machine_type : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   metadata_fingerprint : string prop;
   metadata_startup_script : string prop;
   min_cpu_platform : string prop;
@@ -253,7 +253,7 @@ type t = private {
   shielded_instance_config : shielded_instance_config list prop;
   tags : string list prop;
   tags_fingerprint : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   zone : string prop;
 }
 

@@ -53,7 +53,7 @@ val azurerm_virtual_desktop_scaling_plan :
   ?exclusion_tag:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -78,7 +78,7 @@ type t = private {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   time_zone : string prop;
 }
 
@@ -88,7 +88,7 @@ val register :
   ?exclusion_tag:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->
@@ -104,7 +104,7 @@ val make :
   ?exclusion_tag:string prop ->
   ?friendly_name:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->

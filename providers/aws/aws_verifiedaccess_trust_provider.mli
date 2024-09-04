@@ -36,8 +36,8 @@ val aws_verifiedaccess_trust_provider :
   ?description:string prop ->
   ?device_trust_provider_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_trust_provider_type:string prop ->
   ?device_options:device_options list ->
   ?oidc_options:oidc_options list ->
@@ -58,8 +58,8 @@ type t = private {
   device_trust_provider_type : string prop;
   id : string prop;
   policy_reference_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   trust_provider_type : string prop;
   user_trust_provider_type : string prop;
 }
@@ -69,8 +69,8 @@ val register :
   ?description:string prop ->
   ?device_trust_provider_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_trust_provider_type:string prop ->
   ?device_options:device_options list ->
   ?oidc_options:oidc_options list ->
@@ -84,8 +84,8 @@ val make :
   ?description:string prop ->
   ?device_trust_provider_type:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_trust_provider_type:string prop ->
   ?device_options:device_options list ->
   ?oidc_options:oidc_options list ->

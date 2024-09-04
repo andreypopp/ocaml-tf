@@ -54,8 +54,8 @@ type aws_imagebuilder_image_recipe
 val aws_imagebuilder_image_recipe :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
   ?systems_manager_agent:systems_manager_agent list ->
@@ -82,8 +82,8 @@ type t = private {
   owner : string prop;
   parent_image : string prop;
   platform : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   user_data_base64 : string prop;
   version : string prop;
   working_directory : string prop;
@@ -93,8 +93,8 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
   ?systems_manager_agent:systems_manager_agent list ->
@@ -109,8 +109,8 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
   ?systems_manager_agent:systems_manager_agent list ->

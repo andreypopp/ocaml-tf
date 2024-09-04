@@ -84,8 +84,8 @@ val aws_fsx_ontap_storage_virtual_machine :
   ?id:string prop ->
   ?root_volume_security_style:string prop ->
   ?svm_admin_password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->
@@ -108,8 +108,8 @@ type t = private {
   root_volume_security_style : string prop;
   subtype : string prop;
   svm_admin_password : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   uuid : string prop;
 }
 
@@ -118,8 +118,8 @@ val register :
   ?id:string prop ->
   ?root_volume_security_style:string prop ->
   ?svm_admin_password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->
@@ -131,8 +131,8 @@ val make :
   ?id:string prop ->
   ?root_volume_security_style:string prop ->
   ?svm_admin_password:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->

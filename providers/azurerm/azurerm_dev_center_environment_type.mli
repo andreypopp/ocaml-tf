@@ -18,7 +18,7 @@ type azurerm_dev_center_environment_type
 
 val azurerm_dev_center_environment_type :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
@@ -35,13 +35,13 @@ type t = private {
   dev_center_id : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
@@ -50,7 +50,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->

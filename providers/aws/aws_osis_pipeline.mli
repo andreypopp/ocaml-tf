@@ -50,7 +50,7 @@ val vpc_options :
 type aws_osis_pipeline
 
 val aws_osis_pipeline :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?buffer_options:buffer_options list ->
   ?encryption_at_rest_options:encryption_at_rest_options list ->
   ?log_publishing_options:log_publishing_options list ->
@@ -76,13 +76,13 @@ type t = private {
   pipeline_arn : string prop;
   pipeline_configuration_body : string prop;
   pipeline_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?buffer_options:buffer_options list ->
   ?encryption_at_rest_options:encryption_at_rest_options list ->
   ?log_publishing_options:log_publishing_options list ->
@@ -96,7 +96,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?buffer_options:buffer_options list ->
   ?encryption_at_rest_options:encryption_at_rest_options list ->
   ?log_publishing_options:log_publishing_options list ->

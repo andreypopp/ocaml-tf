@@ -9,8 +9,8 @@ type aws_default_vpc_dhcp_options
 val aws_default_vpc_dhcp_options :
   ?id:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   unit ->
   aws_default_vpc_dhcp_options
 
@@ -30,23 +30,23 @@ type t = private {
   netbios_node_type : string prop;
   ntp_servers : string prop;
   owner_id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?owner_id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

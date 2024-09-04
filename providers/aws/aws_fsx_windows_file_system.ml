@@ -221,7 +221,7 @@ type aws_fsx_windows_file_system = {
   copy_tags_to_backups : bool prop option; [@option]
   daily_automatic_backup_start_time : string prop option; [@option]
   deployment_type : string prop option; [@option]
-  final_backup_tags : (string * string prop) list option; [@option]
+  final_backup_tags : string prop Tf_core.assoc option; [@option]
   id : string prop option; [@option]
   kms_key_id : string prop option; [@option]
   preferred_subnet_id : string prop option; [@option]
@@ -231,8 +231,8 @@ type aws_fsx_windows_file_system = {
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   throughput_capacity : float prop;
   weekly_maintenance_start_time : string prop option; [@option]
   audit_log_configuration : audit_log_configuration list;
@@ -335,12 +335,8 @@ let yojson_of_aws_fsx_windows_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -351,12 +347,8 @@ let yojson_of_aws_fsx_windows_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -435,12 +427,8 @@ let yojson_of_aws_fsx_windows_file_system =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "final_backup_tags", arg in
@@ -587,7 +575,7 @@ type t = {
   daily_automatic_backup_start_time : string prop;
   deployment_type : string prop;
   dns_name : string prop;
-  final_backup_tags : (string * string) list prop;
+  final_backup_tags : string Tf_core.assoc prop;
   id : string prop;
   kms_key_id : string prop;
   network_interface_ids : string list prop;
@@ -600,8 +588,8 @@ type t = {
   storage_capacity : float prop;
   storage_type : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   throughput_capacity : float prop;
   vpc_id : string prop;
   weekly_maintenance_start_time : string prop;

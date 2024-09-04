@@ -54,7 +54,7 @@ val aws_m2_environment :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?high_availability_config:high_availability_config list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
@@ -86,8 +86,8 @@ type t = private {
   publicly_accessible : bool prop;
   security_group_ids : string list prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -101,7 +101,7 @@ val register :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?high_availability_config:high_availability_config list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
@@ -121,7 +121,7 @@ val make :
   ?publicly_accessible:bool prop ->
   ?security_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?high_availability_config:high_availability_config list ->
   ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->

@@ -83,8 +83,8 @@ val aws_lightsail_distribution :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?is_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->
@@ -117,8 +117,8 @@ type t = private {
   resource_type : string prop;
   status : string prop;
   support_code : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -127,8 +127,8 @@ val register :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?is_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->
@@ -144,8 +144,8 @@ val make :
   ?id:string prop ->
   ?ip_address_type:string prop ->
   ?is_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->

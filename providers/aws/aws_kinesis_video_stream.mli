@@ -21,8 +21,8 @@ val aws_kinesis_video_stream :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?media_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   unit ->
@@ -43,8 +43,8 @@ type t = private {
   kms_key_id : string prop;
   media_type : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version : string prop;
 }
 
@@ -55,8 +55,8 @@ val register :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?media_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->
@@ -68,8 +68,8 @@ val make :
   ?id:string prop ->
   ?kms_key_id:string prop ->
   ?media_type:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   string ->

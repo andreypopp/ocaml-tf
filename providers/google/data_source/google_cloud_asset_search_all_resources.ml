@@ -11,7 +11,7 @@ type results = {
       [@default []] [@yojson_drop_default Stdlib.( = )]
   kms_keys : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
-  labels : (string * string prop) list;
+  labels : string prop Tf_core.assoc;
   location : string prop;
   name : string prop;
   network_tags : string prop list;
@@ -99,12 +99,8 @@ let yojson_of_results =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_labels
          in
          ("labels", arg) :: bnds

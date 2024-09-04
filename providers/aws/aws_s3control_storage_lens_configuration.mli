@@ -223,8 +223,8 @@ type aws_s3control_storage_lens_configuration
 val aws_s3control_storage_lens_configuration :
   ?account_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   config_id:string prop ->
   storage_lens_configuration:storage_lens_configuration list ->
   unit ->
@@ -241,16 +241,16 @@ type t = private {
   arn : string prop;
   config_id : string prop;
   id : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?account_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   config_id:string prop ->
   storage_lens_configuration:storage_lens_configuration list ->
   string ->
@@ -259,8 +259,8 @@ val register :
 val make :
   ?account_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   config_id:string prop ->
   storage_lens_configuration:storage_lens_configuration list ->
   string ->

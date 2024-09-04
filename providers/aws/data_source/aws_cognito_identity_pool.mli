@@ -14,7 +14,7 @@ type aws_cognito_identity_pool
 
 val aws_cognito_identity_pool :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   unit ->
   aws_cognito_identity_pool
@@ -35,21 +35,21 @@ type t = private {
   identity_pool_name : string prop;
   openid_connect_provider_arns : string list prop;
   saml_provider_arns : string list prop;
-  supported_login_providers : (string * string) list prop;
-  tags : (string * string) list prop;
+  supported_login_providers : string Tf_core.assoc prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   identity_pool_name:string prop ->
   string ->
   t Tf_core.resource

@@ -62,8 +62,8 @@ val aws_cloudtrail :
   ?kms_key_id:string prop ->
   ?s3_key_prefix:string prop ->
   ?sns_topic_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
   name:string prop ->
@@ -93,8 +93,8 @@ type t = private {
   s3_bucket_name : string prop;
   s3_key_prefix : string prop;
   sns_topic_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -110,8 +110,8 @@ val register :
   ?kms_key_id:string prop ->
   ?s3_key_prefix:string prop ->
   ?sns_topic_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
   name:string prop ->
@@ -132,8 +132,8 @@ val make :
   ?kms_key_id:string prop ->
   ?s3_key_prefix:string prop ->
   ?sns_topic_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?advanced_event_selector:advanced_event_selector list ->
   ?event_selector:event_selector list ->
   name:string prop ->

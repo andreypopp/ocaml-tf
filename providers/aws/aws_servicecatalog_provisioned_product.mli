@@ -55,8 +55,8 @@ val aws_servicecatalog_provisioned_product :
   ?provisioning_artifact_id:string prop ->
   ?provisioning_artifact_name:string prop ->
   ?retain_physical_resources:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?provisioning_parameters:provisioning_parameters list ->
   ?stack_set_provisioning_preferences:
     stack_set_provisioning_preferences list ->
@@ -94,8 +94,8 @@ type t = private {
   retain_physical_resources : bool prop;
   status : string prop;
   status_message : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -112,8 +112,8 @@ val register :
   ?provisioning_artifact_id:string prop ->
   ?provisioning_artifact_name:string prop ->
   ?retain_physical_resources:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?provisioning_parameters:provisioning_parameters list ->
   ?stack_set_provisioning_preferences:
     stack_set_provisioning_preferences list ->
@@ -134,8 +134,8 @@ val make :
   ?provisioning_artifact_id:string prop ->
   ?provisioning_artifact_name:string prop ->
   ?retain_physical_resources:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?provisioning_parameters:provisioning_parameters list ->
   ?stack_set_provisioning_preferences:
     stack_set_provisioning_preferences list ->

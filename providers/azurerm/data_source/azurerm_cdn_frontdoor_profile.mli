@@ -31,7 +31,7 @@ type t = private {
   resource_guid : string prop;
   response_timeout_seconds : float prop;
   sku_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :

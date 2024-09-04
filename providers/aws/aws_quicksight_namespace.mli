@@ -19,7 +19,7 @@ type aws_quicksight_namespace
 val aws_quicksight_namespace :
     ?aws_account_id:string prop ->
     ?identity_store:string prop ->
-    ?tags:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
     ?timeouts:timeouts ->
     namespace:string prop ->
     unit ->
@@ -38,15 +38,15 @@ type t = private {
   id: string prop;
   identity_store: string prop;
   namespace: string prop;
-  tags: (string * string) list prop;
-  tags_all: (string * string) list prop;
+  tags: string Tf_core.assoc prop;
+  tags_all: string Tf_core.assoc prop;
 }
 
 val register :
     ?tf_module:tf_module ->
     ?aws_account_id:string prop ->
     ?identity_store:string prop ->
-    ?tags:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
     ?timeouts:timeouts ->
     namespace:string prop ->
     string ->
@@ -55,7 +55,7 @@ val register :
 val make :
     ?aws_account_id:string prop ->
     ?identity_store:string prop ->
-    ?tags:(string * string  prop) list ->
+    ?tags:string  prop Tf_core.assoc ->
     ?timeouts:timeouts ->
     namespace:string prop ->
     string ->

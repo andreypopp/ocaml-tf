@@ -37,8 +37,8 @@ val aws_rds_cluster_instance :
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   engine:string prop ->
@@ -85,8 +85,8 @@ type t = private {
   promotion_tier : float prop;
   publicly_accessible : bool prop;
   storage_encrypted : bool prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   writer : bool prop;
 }
 
@@ -113,8 +113,8 @@ val register :
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   engine:string prop ->
@@ -144,8 +144,8 @@ val make :
   ?preferred_maintenance_window:string prop ->
   ?promotion_tier:float prop ->
   ?publicly_accessible:bool prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   engine:string prop ->

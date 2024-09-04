@@ -20,7 +20,7 @@ val auto_branch_creation_config :
   ?enable_basic_auth:bool prop ->
   ?enable_performance_mode:bool prop ->
   ?enable_pull_request_preview:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?framework:string prop ->
   ?pull_request_environment_name:string prop ->
   ?stage:string prop ->
@@ -50,14 +50,14 @@ val aws_amplify_app :
   ?enable_basic_auth:bool prop ->
   ?enable_branch_auto_build:bool prop ->
   ?enable_branch_auto_deletion:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?iam_service_role_arn:string prop ->
   ?id:string prop ->
   ?oauth_token:string prop ->
   ?platform:string prop ->
   ?repository:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_branch_creation_config:auto_branch_creation_config list ->
   ?custom_rule:custom_rule list ->
   name:string prop ->
@@ -82,7 +82,7 @@ type t = private {
   enable_basic_auth : bool prop;
   enable_branch_auto_build : bool prop;
   enable_branch_auto_deletion : bool prop;
-  environment_variables : (string * string) list prop;
+  environment_variables : string Tf_core.assoc prop;
   iam_service_role_arn : string prop;
   id : string prop;
   name : string prop;
@@ -90,8 +90,8 @@ type t = private {
   platform : string prop;
   production_branch : production_branch list prop;
   repository : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -106,14 +106,14 @@ val register :
   ?enable_basic_auth:bool prop ->
   ?enable_branch_auto_build:bool prop ->
   ?enable_branch_auto_deletion:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?iam_service_role_arn:string prop ->
   ?id:string prop ->
   ?oauth_token:string prop ->
   ?platform:string prop ->
   ?repository:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_branch_creation_config:auto_branch_creation_config list ->
   ?custom_rule:custom_rule list ->
   name:string prop ->
@@ -131,14 +131,14 @@ val make :
   ?enable_basic_auth:bool prop ->
   ?enable_branch_auto_build:bool prop ->
   ?enable_branch_auto_deletion:bool prop ->
-  ?environment_variables:(string * string prop) list ->
+  ?environment_variables:string prop Tf_core.assoc ->
   ?iam_service_role_arn:string prop ->
   ?id:string prop ->
   ?oauth_token:string prop ->
   ?platform:string prop ->
   ?repository:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?auto_branch_creation_config:auto_branch_creation_config list ->
   ?custom_rule:custom_rule list ->
   name:string prop ->

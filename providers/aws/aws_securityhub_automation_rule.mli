@@ -41,7 +41,7 @@ val actions__finding_fields_update :
   ?confidence:float prop ->
   ?criticality:float prop ->
   ?types:string prop list ->
-  ?user_defined_fields:(string * string prop) list ->
+  ?user_defined_fields:string prop Tf_core.assoc ->
   ?verification_state:string prop ->
   ?note:actions__finding_fields_update__note list ->
   ?severity:actions__finding_fields_update__severity list ->
@@ -466,7 +466,7 @@ type aws_securityhub_automation_rule
 val aws_securityhub_automation_rule :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->
@@ -489,15 +489,15 @@ type t = private {
   rule_name : string prop;
   rule_order : float prop;
   rule_status : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->
@@ -509,7 +509,7 @@ val register :
 val make :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->

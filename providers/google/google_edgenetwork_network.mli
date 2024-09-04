@@ -14,7 +14,7 @@ type google_edgenetwork_network
 val google_edgenetwork_network :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?mtu:float prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -34,7 +34,7 @@ type t = private {
   create_time : string prop;
   description : string prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   mtu : float prop;
   name : string prop;
@@ -48,7 +48,7 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?mtu:float prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
@@ -61,7 +61,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?mtu:float prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->

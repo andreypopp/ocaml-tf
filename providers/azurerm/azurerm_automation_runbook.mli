@@ -6,7 +6,7 @@ open! Tf_core
 
 type job_schedule = {
   job_schedule_id : string prop;  (** job_schedule_id *)
-  parameters : (string * string prop) list;  (** parameters *)
+  parameters : string prop Tf_core.assoc;  (** parameters *)
   run_on : string prop;  (** run_on *)
   schedule_name : string prop;  (** schedule_name *)
 }
@@ -84,7 +84,7 @@ val azurerm_automation_runbook :
   ?id:string prop ->
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?draft:draft list ->
   ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->
@@ -117,7 +117,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   runbook_type : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -127,7 +127,7 @@ val register :
   ?id:string prop ->
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?draft:draft list ->
   ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->
@@ -147,7 +147,7 @@ val make :
   ?id:string prop ->
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?draft:draft list ->
   ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->

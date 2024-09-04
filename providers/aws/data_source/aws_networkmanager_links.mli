@@ -10,7 +10,7 @@ val aws_networkmanager_links :
   ?id:string prop ->
   ?provider_name:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   global_network_id:string prop ->
   unit ->
@@ -28,7 +28,7 @@ type t = private {
   ids : string list prop;
   provider_name : string prop;
   site_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   type_ : string prop;
 }
 
@@ -37,7 +37,7 @@ val register :
   ?id:string prop ->
   ?provider_name:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   global_network_id:string prop ->
   string ->
@@ -47,7 +47,7 @@ val make :
   ?id:string prop ->
   ?provider_name:string prop ->
   ?site_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?type_:string prop ->
   global_network_id:string prop ->
   string ->

@@ -26,7 +26,7 @@ val timeouts :
 type azurerm_security_center_assessment
 
 val azurerm_security_center_assessment :
-  ?additional_data:(string * string prop) list ->
+  ?additional_data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   assessment_policy_id:string prop ->
@@ -42,7 +42,7 @@ val yojson_of_azurerm_security_center_assessment :
 
 type t = private {
   tf_name : string;
-  additional_data : (string * string) list prop;
+  additional_data : string Tf_core.assoc prop;
   assessment_policy_id : string prop;
   id : string prop;
   target_resource_id : string prop;
@@ -50,7 +50,7 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
-  ?additional_data:(string * string prop) list ->
+  ?additional_data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   assessment_policy_id:string prop ->
@@ -60,7 +60,7 @@ val register :
   t
 
 val make :
-  ?additional_data:(string * string prop) list ->
+  ?additional_data:string prop Tf_core.assoc ->
   ?id:string prop ->
   ?timeouts:timeouts ->
   assessment_policy_id:string prop ->

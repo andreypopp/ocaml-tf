@@ -18,14 +18,14 @@ type rules = {
   base_forwarding_rule : string prop;  (** base_forwarding_rule *)
   creation_timestamp : string prop;  (** creation_timestamp *)
   description : string prop;  (** description *)
-  effective_labels : (string * string prop) list;
+  effective_labels : string prop Tf_core.assoc;
       (** effective_labels *)
   ip_address : string prop;  (** ip_address *)
   ip_protocol : string prop;  (** ip_protocol *)
   ip_version : string prop;  (** ip_version *)
   is_mirroring_collector : bool prop;  (** is_mirroring_collector *)
   label_fingerprint : string prop;  (** label_fingerprint *)
-  labels : (string * string prop) list;  (** labels *)
+  labels : string prop Tf_core.assoc;  (** labels *)
   load_balancing_scheme : string prop;  (** load_balancing_scheme *)
   name : string prop;  (** name *)
   network : string prop;  (** network *)
@@ -52,7 +52,7 @@ type rules = {
       (** source_ip_ranges *)
   subnetwork : string prop;  (** subnetwork *)
   target : string prop;  (** target *)
-  terraform_labels : (string * string prop) list;
+  terraform_labels : string prop Tf_core.assoc;
       (** terraform_labels *)
 }
 

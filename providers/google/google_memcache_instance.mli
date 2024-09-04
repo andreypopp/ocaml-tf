@@ -51,7 +51,7 @@ val maintenance_policy :
 type memcache_parameters
 
 val memcache_parameters :
-  ?params:(string * string prop) list -> unit -> memcache_parameters
+  ?params:string prop Tf_core.assoc -> unit -> memcache_parameters
 
 type node_config
 
@@ -76,7 +76,7 @@ val google_memcache_instance :
   ?authorized_network:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?memcache_version:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -102,9 +102,9 @@ type t = private {
   create_time : string prop;
   discovery_endpoint : string prop;
   display_name : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   maintenance_schedule : maintenance_schedule list prop;
   memcache_full_version : string prop;
   memcache_nodes : memcache_nodes list prop;
@@ -114,7 +114,7 @@ type t = private {
   project : string prop;
   region : string prop;
   reserved_ip_range_id : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
   zones : string list prop;
 }
 
@@ -123,7 +123,7 @@ val register :
   ?authorized_network:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?memcache_version:string prop ->
   ?project:string prop ->
   ?region:string prop ->
@@ -142,7 +142,7 @@ val make :
   ?authorized_network:string prop ->
   ?display_name:string prop ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?memcache_version:string prop ->
   ?project:string prop ->
   ?region:string prop ->

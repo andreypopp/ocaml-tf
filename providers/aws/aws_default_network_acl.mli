@@ -39,8 +39,8 @@ type aws_default_network_acl
 val aws_default_network_acl :
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   default_network_acl_id:string prop ->
   egress:egress list ->
   ingress:ingress list ->
@@ -59,8 +59,8 @@ type t = private {
   id : string prop;
   owner_id : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_id : string prop;
 }
 
@@ -68,8 +68,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   default_network_acl_id:string prop ->
   egress:egress list ->
   ingress:ingress list ->
@@ -79,8 +79,8 @@ val register :
 val make :
   ?id:string prop ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   default_network_acl_id:string prop ->
   egress:egress list ->
   ingress:ingress list ->

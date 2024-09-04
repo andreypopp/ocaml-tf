@@ -21,7 +21,7 @@ val azurerm_automation_python3_package :
   ?hash_algorithm:string prop ->
   ?hash_value:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_uri:string prop ->
@@ -45,7 +45,7 @@ type t = private {
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -54,7 +54,7 @@ val register :
   ?hash_algorithm:string prop ->
   ?hash_value:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_uri:string prop ->
@@ -68,7 +68,7 @@ val make :
   ?hash_algorithm:string prop ->
   ?hash_value:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   content_uri:string prop ->

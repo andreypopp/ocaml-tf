@@ -23,7 +23,7 @@ val aws_globalaccelerator_custom_routing_accelerator :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   unit ->
   aws_globalaccelerator_custom_routing_accelerator
 
@@ -43,7 +43,7 @@ type t = private {
   ip_address_type : string prop;
   ip_sets : ip_sets list prop;
   name : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -51,7 +51,7 @@ val register :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t
 
@@ -59,6 +59,6 @@ val make :
   ?arn:string prop ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   string ->
   t Tf_core.resource

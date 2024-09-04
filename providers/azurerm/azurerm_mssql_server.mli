@@ -43,7 +43,7 @@ val azurerm_mssql_server :
   ?outbound_network_restriction_enabled:bool prop ->
   ?primary_user_assigned_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?azuread_administrator:azuread_administrator list ->
   ?identity:identity list ->
@@ -74,7 +74,7 @@ type t = private {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   restorable_dropped_database_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transparent_data_encryption_key_vault_key_id : string prop;
   version : string prop;
 }
@@ -89,7 +89,7 @@ val register :
   ?outbound_network_restriction_enabled:bool prop ->
   ?primary_user_assigned_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?azuread_administrator:azuread_administrator list ->
   ?identity:identity list ->
@@ -110,7 +110,7 @@ val make :
   ?outbound_network_restriction_enabled:bool prop ->
   ?primary_user_assigned_identity_id:string prop ->
   ?public_network_access_enabled:bool prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?azuread_administrator:azuread_administrator list ->
   ?identity:identity list ->

@@ -71,7 +71,7 @@ val timeouts :
 type aws_appfabric_ingestion_destination
 
 val aws_appfabric_ingestion_destination :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?processing_configuration:processing_configuration list ->
   ?timeouts:timeouts ->
@@ -91,13 +91,13 @@ type t = private {
   arn : string prop;
   id : string prop;
   ingestion_arn : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?processing_configuration:processing_configuration list ->
   ?timeouts:timeouts ->
@@ -107,7 +107,7 @@ val register :
   t
 
 val make :
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?destination_configuration:destination_configuration list ->
   ?processing_configuration:processing_configuration list ->
   ?timeouts:timeouts ->

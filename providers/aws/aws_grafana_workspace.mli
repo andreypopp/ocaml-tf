@@ -39,8 +39,8 @@ val aws_grafana_workspace :
   ?organizational_units:string prop list ->
   ?role_arn:string prop ->
   ?stack_set_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
   ?vpc_configuration:vpc_configuration list ->
@@ -73,8 +73,8 @@ type t = private {
   role_arn : string prop;
   saml_configuration_status : string prop;
   stack_set_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 val register :
@@ -90,8 +90,8 @@ val register :
   ?organizational_units:string prop list ->
   ?role_arn:string prop ->
   ?stack_set_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
   ?vpc_configuration:vpc_configuration list ->
@@ -113,8 +113,8 @@ val make :
   ?organizational_units:string prop list ->
   ?role_arn:string prop ->
   ?stack_set_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
   ?vpc_configuration:vpc_configuration list ->

@@ -11,7 +11,7 @@ val correlation_filter :
   ?correlation_id:string prop ->
   ?label:string prop ->
   ?message_id:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?reply_to:string prop ->
   ?reply_to_session_id:string prop ->
   ?session_id:string prop ->

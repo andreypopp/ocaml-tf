@@ -163,7 +163,7 @@ type azurerm_mssql_server = {
   primary_user_assigned_identity_id : string prop option; [@option]
   public_network_access_enabled : bool prop option; [@option]
   resource_group_name : string prop;
-  tags : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
   transparent_data_encryption_key_vault_key_id : string prop option;
       [@option]
   version : string prop;
@@ -247,12 +247,8 @@ let yojson_of_azurerm_mssql_server =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -401,7 +397,7 @@ type t = {
   public_network_access_enabled : bool prop;
   resource_group_name : string prop;
   restorable_dropped_database_ids : string list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   transparent_data_encryption_key_vault_key_id : string prop;
   version : string prop;
 }

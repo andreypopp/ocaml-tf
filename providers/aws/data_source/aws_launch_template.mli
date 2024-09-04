@@ -280,7 +280,7 @@ type private_dns_name_options = {
 
 type tag_specifications = {
   resource_type : string prop;  (** resource_type *)
-  tags : (string * string prop) list;  (** tags *)
+  tags : string prop Tf_core.assoc;  (** tags *)
 }
 
 type filter
@@ -297,7 +297,7 @@ type aws_launch_template
 val aws_launch_template :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   unit ->
@@ -346,7 +346,7 @@ type t = private {
   ram_disk_id : string prop;
   security_group_names : string list prop;
   tag_specifications : tag_specifications list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   user_data : string prop;
   vpc_security_group_ids : string list prop;
 }
@@ -355,7 +355,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->
@@ -364,7 +364,7 @@ val register :
 val make :
   ?id:string prop ->
   ?name:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   filter:filter list ->
   string ->

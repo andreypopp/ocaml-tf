@@ -46,8 +46,8 @@ val aws_workspaces_directory :
   ?id:string prop ->
   ?ip_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?self_service_permissions:self_service_permissions list ->
   ?workspace_access_properties:workspace_access_properties list ->
   ?workspace_creation_properties:workspace_creation_properties list ->
@@ -73,8 +73,8 @@ type t = private {
   ip_group_ids : string list prop;
   registration_code : string prop;
   subnet_ids : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   workspace_security_group_id : string prop;
 }
 
@@ -83,8 +83,8 @@ val register :
   ?id:string prop ->
   ?ip_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?self_service_permissions:self_service_permissions list ->
   ?workspace_access_properties:workspace_access_properties list ->
   ?workspace_creation_properties:workspace_creation_properties list ->
@@ -96,8 +96,8 @@ val make :
   ?id:string prop ->
   ?ip_group_ids:string prop list ->
   ?subnet_ids:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?self_service_permissions:self_service_permissions list ->
   ?workspace_access_properties:workspace_access_properties list ->
   ?workspace_creation_properties:workspace_creation_properties list ->

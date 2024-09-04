@@ -64,7 +64,7 @@ val google_redis_cluster :
   ?name:string prop ->
   ?node_type:string prop ->
   ?project:string prop ->
-  ?redis_configs:(string * string prop) list ->
+  ?redis_configs:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->
@@ -90,7 +90,7 @@ type t = private {
   precise_size_gb : float prop;
   project : string prop;
   psc_connections : psc_connections list prop;
-  redis_configs : (string * string) list prop;
+  redis_configs : string Tf_core.assoc prop;
   region : string prop;
   replica_count : float prop;
   shard_count : float prop;
@@ -108,7 +108,7 @@ val register :
   ?name:string prop ->
   ?node_type:string prop ->
   ?project:string prop ->
-  ?redis_configs:(string * string prop) list ->
+  ?redis_configs:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->
@@ -125,7 +125,7 @@ val make :
   ?name:string prop ->
   ?node_type:string prop ->
   ?project:string prop ->
-  ?redis_configs:(string * string prop) list ->
+  ?redis_configs:string prop Tf_core.assoc ->
   ?region:string prop ->
   ?replica_count:float prop ->
   ?transit_encryption_mode:string prop ->

@@ -215,7 +215,7 @@ let _ = yojson_of_return_tracking
 [@@@deriving.end]
 
 type shipment_history = {
-  additional_details : (string * string prop) list;
+  additional_details : string prop Tf_core.assoc;
   comments : string prop;
   last_update : string prop;
 }
@@ -243,12 +243,8 @@ let yojson_of_shipment_history =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_additional_details
          in
          ("additional_details", arg) :: bnds
@@ -305,7 +301,7 @@ let _ = yojson_of_shipment_tracking
 [@@@deriving.end]
 
 type status = {
-  additional_details : (string * string prop) list;
+  additional_details : string prop Tf_core.assoc;
   comments : string prop;
   info : string prop;
   last_update : string prop;
@@ -339,12 +335,8 @@ let yojson_of_status =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_additional_details
          in
          ("additional_details", arg) :: bnds

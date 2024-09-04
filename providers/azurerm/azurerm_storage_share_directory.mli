@@ -18,7 +18,7 @@ type azurerm_storage_share_directory
 
 val azurerm_storage_share_directory :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?share_name:string prop ->
   ?storage_account_name:string prop ->
   ?storage_share_id:string prop ->
@@ -35,7 +35,7 @@ val yojson_of_azurerm_storage_share_directory :
 type t = private {
   tf_name : string;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   share_name : string prop;
   storage_account_name : string prop;
@@ -45,7 +45,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?share_name:string prop ->
   ?storage_account_name:string prop ->
   ?storage_share_id:string prop ->
@@ -56,7 +56,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?share_name:string prop ->
   ?storage_account_name:string prop ->
   ?storage_share_id:string prop ->

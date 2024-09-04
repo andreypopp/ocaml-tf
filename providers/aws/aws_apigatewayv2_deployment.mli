@@ -9,7 +9,7 @@ type aws_apigatewayv2_deployment
 val aws_apigatewayv2_deployment :
   ?description:string prop ->
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   api_id:string prop ->
   unit ->
   aws_apigatewayv2_deployment
@@ -25,14 +25,14 @@ type t = private {
   auto_deployed : bool prop;
   description : string prop;
   id : string prop;
-  triggers : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   api_id:string prop ->
   string ->
   t
@@ -40,7 +40,7 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
-  ?triggers:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
   api_id:string prop ->
   string ->
   t Tf_core.resource

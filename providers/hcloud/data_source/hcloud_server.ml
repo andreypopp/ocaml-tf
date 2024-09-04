@@ -108,7 +108,7 @@ type t = {
   ipv6_address : string prop;
   ipv6_network : string prop;
   iso : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   placement_group_id : float prop;

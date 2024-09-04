@@ -8,7 +8,7 @@ type canary_settings
 
 val canary_settings :
   ?percent_traffic:float prop ->
-  ?stage_variable_overrides:(string * string prop) list ->
+  ?stage_variable_overrides:string prop Tf_core.assoc ->
   ?use_stage_cache:bool prop ->
   unit ->
   canary_settings
@@ -20,8 +20,8 @@ val aws_api_gateway_deployment :
   ?id:string prop ->
   ?stage_description:string prop ->
   ?stage_name:string prop ->
-  ?triggers:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?canary_settings:canary_settings list ->
   rest_api_id:string prop ->
   unit ->
@@ -42,8 +42,8 @@ type t = private {
   rest_api_id : string prop;
   stage_description : string prop;
   stage_name : string prop;
-  triggers : (string * string) list prop;
-  variables : (string * string) list prop;
+  triggers : string Tf_core.assoc prop;
+  variables : string Tf_core.assoc prop;
 }
 
 val register :
@@ -52,8 +52,8 @@ val register :
   ?id:string prop ->
   ?stage_description:string prop ->
   ?stage_name:string prop ->
-  ?triggers:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?canary_settings:canary_settings list ->
   rest_api_id:string prop ->
   string ->
@@ -64,8 +64,8 @@ val make :
   ?id:string prop ->
   ?stage_description:string prop ->
   ?stage_name:string prop ->
-  ?triggers:(string * string prop) list ->
-  ?variables:(string * string prop) list ->
+  ?triggers:string prop Tf_core.assoc ->
+  ?variables:string prop Tf_core.assoc ->
   ?canary_settings:canary_settings list ->
   rest_api_id:string prop ->
   string ->

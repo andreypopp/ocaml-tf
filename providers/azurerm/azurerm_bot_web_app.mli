@@ -25,7 +25,7 @@ val azurerm_bot_web_app :
   ?id:string prop ->
   ?luis_app_ids:string prop list ->
   ?luis_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->
@@ -54,7 +54,7 @@ type t = private {
   name : string prop;
   resource_group_name : string prop;
   sku : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -67,7 +67,7 @@ val register :
   ?id:string prop ->
   ?luis_app_ids:string prop list ->
   ?luis_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->
@@ -86,7 +86,7 @@ val make :
   ?id:string prop ->
   ?luis_app_ids:string prop list ->
   ?luis_key:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   location:string prop ->
   microsoft_app_id:string prop ->

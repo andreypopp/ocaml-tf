@@ -7,9 +7,9 @@ open! Tf_core
 type enrichment_parameters__http_parameters
 
 val enrichment_parameters__http_parameters :
-  ?header_parameters:(string * string prop) list ->
+  ?header_parameters:string prop Tf_core.assoc ->
   ?path_parameter_values:string prop list ->
-  ?query_string_parameters:(string * string prop) list ->
+  ?query_string_parameters:string prop Tf_core.assoc ->
   unit ->
   enrichment_parameters__http_parameters
 
@@ -295,7 +295,7 @@ val target_parameters__batch_job_parameters__retry_strategy :
 type target_parameters__batch_job_parameters
 
 val target_parameters__batch_job_parameters :
-  ?parameters:(string * string prop) list ->
+  ?parameters:string prop Tf_core.assoc ->
   ?array_properties:
     target_parameters__batch_job_parameters__array_properties list ->
   ?container_overrides:
@@ -448,7 +448,7 @@ val target_parameters__ecs_task_parameters :
   ?platform_version:string prop ->
   ?propagate_tags:string prop ->
   ?reference_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?task_count:float prop ->
   ?capacity_provider_strategy:
     target_parameters__ecs_task_parameters__capacity_provider_strategy
@@ -479,9 +479,9 @@ val target_parameters__eventbridge_event_bus_parameters :
 type target_parameters__http_parameters
 
 val target_parameters__http_parameters :
-  ?header_parameters:(string * string prop) list ->
+  ?header_parameters:string prop Tf_core.assoc ->
   ?path_parameter_values:string prop list ->
-  ?query_string_parameters:(string * string prop) list ->
+  ?query_string_parameters:string prop Tf_core.assoc ->
   unit ->
   target_parameters__http_parameters
 
@@ -586,8 +586,8 @@ val aws_pipes_pipe :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?enrichment_parameters:enrichment_parameters list ->
   ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->
@@ -614,8 +614,8 @@ type t = private {
   name_prefix : string prop;
   role_arn : string prop;
   source : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   target : string prop;
 }
 
@@ -627,8 +627,8 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?enrichment_parameters:enrichment_parameters list ->
   ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->
@@ -647,8 +647,8 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?name_prefix:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?enrichment_parameters:enrichment_parameters list ->
   ?log_configuration:log_configuration list ->
   ?source_parameters:source_parameters list ->

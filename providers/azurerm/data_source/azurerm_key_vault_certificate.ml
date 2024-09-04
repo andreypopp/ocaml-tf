@@ -543,7 +543,7 @@ type t = {
   resource_manager_id : string prop;
   resource_manager_versionless_id : string prop;
   secret_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   thumbprint : string prop;
   version : string prop;
   versionless_id : string prop;

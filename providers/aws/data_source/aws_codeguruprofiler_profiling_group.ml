@@ -146,7 +146,7 @@ type t = {
   id : string prop;
   name : string prop;
   profiling_status : profiling_status list prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   updated_at : string prop;
 }
 

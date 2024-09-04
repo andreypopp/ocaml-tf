@@ -31,7 +31,7 @@ val azurerm_storage_data_lake_gen2_filesystem :
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->
@@ -51,7 +51,7 @@ type t = private {
   id : string prop;
   name : string prop;
   owner : string prop;
-  properties : (string * string) list prop;
+  properties : string Tf_core.assoc prop;
   storage_account_id : string prop;
 }
 
@@ -61,7 +61,7 @@ val register :
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->
@@ -74,7 +74,7 @@ val make :
   ?group:string prop ->
   ?id:string prop ->
   ?owner:string prop ->
-  ?properties:(string * string prop) list ->
+  ?properties:string prop Tf_core.assoc ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->

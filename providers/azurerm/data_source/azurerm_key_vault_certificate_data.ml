@@ -104,7 +104,7 @@ type t = {
   name : string prop;
   not_before : string prop;
   pem : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   version : string prop;
 }
 

@@ -44,8 +44,8 @@ val aws_acm_certificate :
   ?key_algorithm:string prop ->
   ?private_key:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_method:string prop ->
   ?options:options list ->
   validation_option:validation_option list ->
@@ -75,8 +75,8 @@ type t = private {
   renewal_summary : renewal_summary list prop;
   status : string prop;
   subject_alternative_names : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   type_ : string prop;
   validation_emails : string list prop;
   validation_method : string prop;
@@ -93,8 +93,8 @@ val register :
   ?key_algorithm:string prop ->
   ?private_key:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_method:string prop ->
   ?options:options list ->
   validation_option:validation_option list ->
@@ -111,8 +111,8 @@ val make :
   ?key_algorithm:string prop ->
   ?private_key:string prop ->
   ?subject_alternative_names:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?validation_method:string prop ->
   ?options:options list ->
   validation_option:validation_option list ->

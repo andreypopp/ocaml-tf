@@ -1002,7 +1002,7 @@ let _ = yojson_of_error_action__kafka__header
 [@@@deriving.end]
 
 type error_action__kafka = {
-  client_properties : (string * string prop) list;
+  client_properties : string prop Tf_core.assoc;
   destination_arn : string prop;
   key : string prop option; [@option]
   partition : string prop option; [@option]
@@ -1065,12 +1065,8 @@ let yojson_of_error_action__kafka =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_client_properties
          in
          ("client_properties", arg) :: bnds
@@ -1995,7 +1991,7 @@ let _ = yojson_of_kafka__header
 [@@@deriving.end]
 
 type kafka = {
-  client_properties : (string * string prop) list;
+  client_properties : string prop Tf_core.assoc;
   destination_arn : string prop;
   key : string prop option; [@option]
   partition : string prop option; [@option]
@@ -2057,12 +2053,8 @@ let yojson_of_kafka =
        in
        let bnds =
          let arg =
-           yojson_of_list
-             (function
-               | v0, v1 ->
-                   let v0 = yojson_of_string v0
-                   and v1 = yojson_of_prop yojson_of_string v1 in
-                   `List [ v0; v1 ])
+           Tf_core.yojson_of_assoc
+             (yojson_of_prop yojson_of_string)
              v_client_properties
          in
          ("client_properties", arg) :: bnds
@@ -2477,8 +2469,8 @@ type aws_iot_topic_rule = {
   name : string prop;
   sql : string prop;
   sql_version : string prop;
-  tags : (string * string prop) list option; [@option]
-  tags_all : (string * string prop) list option; [@option]
+  tags : string prop Tf_core.assoc option; [@option]
+  tags_all : string prop Tf_core.assoc option; [@option]
   cloudwatch_alarm : cloudwatch_alarm list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   cloudwatch_logs : cloudwatch_logs list;
@@ -2730,12 +2722,8 @@ let yojson_of_aws_iot_topic_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags_all", arg in
@@ -2746,12 +2734,8 @@ let yojson_of_aws_iot_topic_rule =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "tags", arg in
@@ -3103,8 +3087,8 @@ type t = {
   name : string prop;
   sql : string prop;
   sql_version : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
 }
 
 let make ?description ?id ?tags ?tags_all ?(error_action = [])

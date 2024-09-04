@@ -46,8 +46,8 @@ val aws_storagegateway_nfs_file_share :
   ?read_only:bool prop ->
   ?requester_pays:bool prop ->
   ?squash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_dns_name:string prop ->
   ?cache_attributes:cache_attributes list ->
   ?nfs_file_share_defaults:nfs_file_share_defaults list ->
@@ -86,8 +86,8 @@ type t = private {
   requester_pays : bool prop;
   role_arn : string prop;
   squash : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_endpoint_dns_name : string prop;
 }
 
@@ -106,8 +106,8 @@ val register :
   ?read_only:bool prop ->
   ?requester_pays:bool prop ->
   ?squash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_dns_name:string prop ->
   ?cache_attributes:cache_attributes list ->
   ?nfs_file_share_defaults:nfs_file_share_defaults list ->
@@ -133,8 +133,8 @@ val make :
   ?read_only:bool prop ->
   ?requester_pays:bool prop ->
   ?squash:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_endpoint_dns_name:string prop ->
   ?cache_attributes:cache_attributes list ->
   ?nfs_file_share_defaults:nfs_file_share_defaults list ->

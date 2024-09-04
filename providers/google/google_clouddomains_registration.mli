@@ -151,7 +151,7 @@ val google_clouddomains_registration :
   ?contact_notices:string prop list ->
   ?domain_notices:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?dns_settings:dns_settings list ->
   ?management_settings:management_settings list ->
@@ -174,18 +174,18 @@ type t = private {
   create_time : string prop;
   domain_name : string prop;
   domain_notices : string list prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   expire_time : string prop;
   id : string prop;
   issues : string list prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   location : string prop;
   name : string prop;
   project : string prop;
   register_failure_reason : string prop;
   state : string prop;
   supported_privacy : string list prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
@@ -193,7 +193,7 @@ val register :
   ?contact_notices:string prop list ->
   ?domain_notices:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?dns_settings:dns_settings list ->
   ?management_settings:management_settings list ->
@@ -209,7 +209,7 @@ val make :
   ?contact_notices:string prop list ->
   ?domain_notices:string prop list ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?project:string prop ->
   ?dns_settings:dns_settings list ->
   ?management_settings:management_settings list ->

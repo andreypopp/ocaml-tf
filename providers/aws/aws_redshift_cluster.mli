@@ -80,8 +80,8 @@ val aws_redshift_cluster :
   ?snapshot_arn:string prop ->
   ?snapshot_cluster_identifier:string prop ->
   ?snapshot_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?logging:logging list ->
   ?snapshot_copy:snapshot_copy list ->
@@ -142,8 +142,8 @@ type t = private {
   snapshot_arn : string prop;
   snapshot_cluster_identifier : string prop;
   snapshot_identifier : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   vpc_security_group_ids : string list prop;
 }
 
@@ -187,8 +187,8 @@ val register :
   ?snapshot_arn:string prop ->
   ?snapshot_cluster_identifier:string prop ->
   ?snapshot_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?logging:logging list ->
   ?snapshot_copy:snapshot_copy list ->
@@ -237,8 +237,8 @@ val make :
   ?snapshot_arn:string prop ->
   ?snapshot_cluster_identifier:string prop ->
   ?snapshot_identifier:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?vpc_security_group_ids:string prop list ->
   ?logging:logging list ->
   ?snapshot_copy:snapshot_copy list ->

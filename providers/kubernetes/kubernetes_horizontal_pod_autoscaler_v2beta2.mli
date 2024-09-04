@@ -9,9 +9,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   ?namespace:string prop ->
   unit ->
@@ -92,7 +92,7 @@ val spec__metric__external__metric__selector__match_expressions :
 type spec__metric__external__metric__selector
 
 val spec__metric__external__metric__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__metric__external__metric__selector__match_expressions list ->
   unit ->
@@ -145,7 +145,7 @@ val spec__metric__object__metric__selector__match_expressions :
 type spec__metric__object__metric__selector
 
 val spec__metric__object__metric__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__metric__object__metric__selector__match_expressions list ->
   unit ->
@@ -190,7 +190,7 @@ val spec__metric__pods__metric__selector__match_expressions :
 type spec__metric__pods__metric__selector
 
 val spec__metric__pods__metric__selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     spec__metric__pods__metric__selector__match_expressions list ->
   unit ->

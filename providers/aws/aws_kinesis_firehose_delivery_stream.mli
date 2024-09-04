@@ -118,7 +118,7 @@ type extended_s3_configuration__data_format_conversion_configuration__input_form
 
 val extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__open_x_json_ser_de :
   ?case_insensitive:bool prop ->
-  ?column_to_json_key_mappings:(string * string prop) list ->
+  ?column_to_json_key_mappings:string prop Tf_core.assoc ->
   ?convert_dots_in_json_keys_to_underscores:bool prop ->
   unit ->
   extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__open_x_json_ser_de
@@ -1001,8 +1001,8 @@ val aws_kinesis_firehose_delivery_stream :
   ?arn:string prop ->
   ?destination_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   ?elasticsearch_configuration:elasticsearch_configuration list ->
   ?extended_s3_configuration:extended_s3_configuration list ->
@@ -1034,8 +1034,8 @@ type t = private {
   destination_id : string prop;
   id : string prop;
   name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   version_id : string prop;
 }
 
@@ -1044,8 +1044,8 @@ val register :
   ?arn:string prop ->
   ?destination_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   ?elasticsearch_configuration:elasticsearch_configuration list ->
   ?extended_s3_configuration:extended_s3_configuration list ->
@@ -1069,8 +1069,8 @@ val make :
   ?arn:string prop ->
   ?destination_id:string prop ->
   ?id:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?version_id:string prop ->
   ?elasticsearch_configuration:elasticsearch_configuration list ->
   ?extended_s3_configuration:extended_s3_configuration list ->

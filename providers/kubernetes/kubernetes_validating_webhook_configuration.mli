@@ -7,9 +7,9 @@ open! Tf_core
 type metadata
 
 val metadata :
-  ?annotations:(string * string prop) list ->
+  ?annotations:string prop Tf_core.assoc ->
   ?generate_name:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?name:string prop ->
   unit ->
   metadata
@@ -45,7 +45,7 @@ val webhook__namespace_selector__match_expressions :
 type webhook__namespace_selector
 
 val webhook__namespace_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:
     webhook__namespace_selector__match_expressions list ->
   unit ->
@@ -63,7 +63,7 @@ val webhook__object_selector__match_expressions :
 type webhook__object_selector
 
 val webhook__object_selector :
-  ?match_labels:(string * string prop) list ->
+  ?match_labels:string prop Tf_core.assoc ->
   ?match_expressions:webhook__object_selector__match_expressions list ->
   unit ->
   webhook__object_selector

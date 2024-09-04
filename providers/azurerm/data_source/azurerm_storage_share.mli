@@ -22,7 +22,7 @@ type azurerm_storage_share
 
 val azurerm_storage_share :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -37,7 +37,7 @@ val yojson_of_azurerm_storage_share : azurerm_storage_share -> json
 type t = private {
   tf_name : string;
   id : string prop;
-  metadata : (string * string) list prop;
+  metadata : string Tf_core.assoc prop;
   name : string prop;
   quota : float prop;
   resource_manager_id : string prop;
@@ -47,7 +47,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->
@@ -57,7 +57,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?metadata:(string * string prop) list ->
+  ?metadata:string prop Tf_core.assoc ->
   ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->

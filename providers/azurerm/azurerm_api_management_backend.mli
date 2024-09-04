@@ -16,8 +16,8 @@ type credentials
 
 val credentials :
   ?certificate:string prop list ->
-  ?header:(string * string prop) list ->
-  ?query:(string * string prop) list ->
+  ?header:string prop Tf_core.assoc ->
+  ?query:string prop Tf_core.assoc ->
   ?authorization:credentials__authorization list ->
   unit ->
   credentials

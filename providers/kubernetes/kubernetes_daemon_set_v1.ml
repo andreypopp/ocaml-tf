@@ -3,9 +3,9 @@
 open! Tf_core
 
 type metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -46,12 +46,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -70,12 +66,8 @@ let yojson_of_metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -138,7 +130,7 @@ let _ = yojson_of_spec__selector__match_expressions
 [@@@deriving.end]
 
 type spec__selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions : spec__selector__match_expressions list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
 }
@@ -171,12 +163,8 @@ let yojson_of_spec__selector =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -259,9 +247,9 @@ let _ = yojson_of_spec__strategy
 [@@@deriving.end]
 
 type spec__template__metadata = {
-  annotations : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
   generate_name : string prop option; [@option]
-  labels : (string * string prop) list option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
   name : string prop option; [@option]
   namespace : string prop option; [@option]
 }
@@ -302,12 +290,8 @@ let yojson_of_spec__template__metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -326,12 +310,8 @@ let yojson_of_spec__template__metadata =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -867,7 +847,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
@@ -906,12 +886,8 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -1087,7 +1063,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
@@ -1126,12 +1102,8 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_sche
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -1328,7 +1300,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
@@ -1367,12 +1339,8 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -1548,7 +1516,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
@@ -1587,12 +1555,8 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -3617,8 +3581,8 @@ let _ = yojson_of_spec__template__spec__container__readiness_probe
 [@@@deriving.end]
 
 type spec__template__spec__container__resources = {
-  limits : (string * string prop) list option; [@option]
-  requests : (string * string prop) list option; [@option]
+  limits : string prop Tf_core.assoc option; [@option]
+  requests : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -3635,12 +3599,8 @@ let yojson_of_spec__template__spec__container__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "requests", arg in
@@ -3651,12 +3611,8 @@ let yojson_of_spec__template__spec__container__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "limits", arg in
@@ -6653,8 +6609,8 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__init_container__resources = {
-  limits : (string * string prop) list option; [@option]
-  requests : (string * string prop) list option; [@option]
+  limits : string prop Tf_core.assoc option; [@option]
+  requests : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -6672,12 +6628,8 @@ let yojson_of_spec__template__spec__init_container__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "requests", arg in
@@ -6688,12 +6640,8 @@ let yojson_of_spec__template__spec__init_container__resources =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "limits", arg in
@@ -8218,7 +8166,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__topology_spread_constraint__label_selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list;
@@ -8257,12 +8205,8 @@ let yojson_of_spec__template__spec__topology_spread_constraint__label_selector
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -8893,7 +8837,7 @@ type spec__template__spec__volume__csi = {
   driver : string prop;
   fs_type : string prop option; [@option]
   read_only : bool prop option; [@option]
-  volume_attributes : (string * string prop) list option; [@option]
+  volume_attributes : string prop Tf_core.assoc option; [@option]
   node_publish_secret_ref :
     spec__template__spec__volume__csi__node_publish_secret_ref list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
@@ -8930,12 +8874,8 @@ let yojson_of_spec__template__spec__volume__csi =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "volume_attributes", arg in
@@ -9212,8 +9152,8 @@ let _ = yojson_of_spec__template__spec__volume__empty_dir
 [@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__metadata = {
-  annotations : (string * string prop) list option; [@option]
-  labels : (string * string prop) list option; [@option]
+  annotations : string prop Tf_core.assoc option; [@option]
+  labels : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -9234,12 +9174,8 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__me
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "labels", arg in
@@ -9250,12 +9186,8 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__me
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "annotations", arg in
@@ -9271,8 +9203,8 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources = {
-  limits : (string * string prop) list option; [@option]
-  requests : (string * string prop) list option; [@option]
+  limits : string prop Tf_core.assoc option; [@option]
+  requests : string prop Tf_core.assoc option; [@option]
 }
 [@@deriving_inline yojson_of]
 
@@ -9293,12 +9225,8 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "requests", arg in
@@ -9309,12 +9237,8 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "limits", arg in
@@ -9384,7 +9308,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector = {
-  match_labels : (string * string prop) list option; [@option]
+  match_labels : string prop Tf_core.assoc option; [@option]
   match_expressions :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
@@ -9423,12 +9347,8 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "match_labels", arg in
@@ -9738,7 +9658,7 @@ let _ =
 type spec__template__spec__volume__flex_volume = {
   driver : string prop;
   fs_type : string prop option; [@option]
-  options : (string * string prop) list option; [@option]
+  options : string prop Tf_core.assoc option; [@option]
   read_only : bool prop option; [@option]
   secret_ref :
     spec__template__spec__volume__flex_volume__secret_ref list;
@@ -9784,12 +9704,8 @@ let yojson_of_spec__template__spec__volume__flex_volume =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "options", arg in
@@ -11642,7 +11558,7 @@ type spec__template__spec = {
   host_pid : bool prop option; [@option]
   hostname : string prop option; [@option]
   node_name : string prop option; [@option]
-  node_selector : (string * string prop) list option; [@option]
+  node_selector : string prop Tf_core.assoc option; [@option]
   priority_class_name : string prop option; [@option]
   restart_policy : string prop option; [@option]
   runtime_class_name : string prop option; [@option]
@@ -11917,12 +11833,8 @@ let yojson_of_spec__template__spec =
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg =
-               yojson_of_list
-                 (function
-                   | v0, v1 ->
-                       let v0 = yojson_of_string v0
-                       and v1 = yojson_of_prop yojson_of_string v1 in
-                       `List [ v0; v1 ])
+               Tf_core.yojson_of_assoc
+                 (yojson_of_prop yojson_of_string)
                  v
              in
              let bnd = "node_selector", arg in

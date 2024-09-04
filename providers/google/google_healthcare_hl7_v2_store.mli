@@ -40,7 +40,7 @@ type google_healthcare_hl7_v2_store
 
 val google_healthcare_hl7_v2_store :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?reject_duplicate_message:bool prop ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->
@@ -59,19 +59,19 @@ val yojson_of_google_healthcare_hl7_v2_store :
 type t = private {
   tf_name : string;
   dataset : string prop;
-  effective_labels : (string * string) list prop;
+  effective_labels : string Tf_core.assoc prop;
   id : string prop;
-  labels : (string * string) list prop;
+  labels : string Tf_core.assoc prop;
   name : string prop;
   reject_duplicate_message : bool prop;
   self_link : string prop;
-  terraform_labels : (string * string) list prop;
+  terraform_labels : string Tf_core.assoc prop;
 }
 
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?reject_duplicate_message:bool prop ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->
@@ -84,7 +84,7 @@ val register :
 
 val make :
   ?id:string prop ->
-  ?labels:(string * string prop) list ->
+  ?labels:string prop Tf_core.assoc ->
   ?reject_duplicate_message:bool prop ->
   ?notification_config:notification_config list ->
   ?notification_configs:notification_configs list ->

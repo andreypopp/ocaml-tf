@@ -76,8 +76,8 @@ val aws_transfer_server :
   ?security_policy_name:string prop ->
   ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->
@@ -112,8 +112,8 @@ type t = private {
   security_policy_name : string prop;
   sftp_authentication_methods : string prop;
   structured_log_destinations : string list prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   url : string prop;
 }
 
@@ -136,8 +136,8 @@ val register :
   ?security_policy_name:string prop ->
   ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->
@@ -164,8 +164,8 @@ val make :
   ?security_policy_name:string prop ->
   ?sftp_authentication_methods:string prop ->
   ?structured_log_destinations:string prop list ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?url:string prop ->
   ?endpoint_details:endpoint_details list ->
   ?protocol_details:protocol_details list ->

@@ -30,8 +30,8 @@ val aws_elastic_beanstalk_environment :
   ?platform_arn:string prop ->
   ?poll_interval:string prop ->
   ?solution_stack_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_name:string prop ->
   ?tier:string prop ->
   ?version_label:string prop ->
@@ -66,8 +66,8 @@ type t = private {
   poll_interval : string prop;
   queues : string list prop;
   solution_stack_name : string prop;
-  tags : (string * string) list prop;
-  tags_all : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
+  tags_all : string Tf_core.assoc prop;
   template_name : string prop;
   tier : string prop;
   triggers : string list prop;
@@ -83,8 +83,8 @@ val register :
   ?platform_arn:string prop ->
   ?poll_interval:string prop ->
   ?solution_stack_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_name:string prop ->
   ?tier:string prop ->
   ?version_label:string prop ->
@@ -102,8 +102,8 @@ val make :
   ?platform_arn:string prop ->
   ?poll_interval:string prop ->
   ?solution_stack_name:string prop ->
-  ?tags:(string * string prop) list ->
-  ?tags_all:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
+  ?tags_all:string prop Tf_core.assoc ->
   ?template_name:string prop ->
   ?tier:string prop ->
   ?version_label:string prop ->

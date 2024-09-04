@@ -68,7 +68,7 @@ val azurerm_app_configuration :
   ?purge_protection_enabled:bool prop ->
   ?sku:string prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -100,7 +100,7 @@ type t = private {
   secondary_write_key : secondary_write_key list prop;
   sku : string prop;
   soft_delete_retention_days : float prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
 }
 
 val register :
@@ -111,7 +111,7 @@ val register :
   ?purge_protection_enabled:bool prop ->
   ?sku:string prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->
@@ -129,7 +129,7 @@ val make :
   ?purge_protection_enabled:bool prop ->
   ?sku:string prop ->
   ?soft_delete_retention_days:float prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?encryption:encryption list ->
   ?identity:identity list ->
   ?timeouts:timeouts ->

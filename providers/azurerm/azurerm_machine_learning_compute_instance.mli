@@ -43,7 +43,7 @@ val azurerm_machine_learning_compute_instance :
   ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assign_to_user:assign_to_user list ->
   ?identity:identity list ->
   ?ssh:ssh list ->
@@ -70,7 +70,7 @@ type t = private {
   name : string prop;
   node_public_ip_enabled : bool prop;
   subnet_resource_id : string prop;
-  tags : (string * string) list prop;
+  tags : string Tf_core.assoc prop;
   virtual_machine_size : string prop;
 }
 
@@ -83,7 +83,7 @@ val register :
   ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assign_to_user:assign_to_user list ->
   ?identity:identity list ->
   ?ssh:ssh list ->
@@ -102,7 +102,7 @@ val make :
   ?location:string prop ->
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
-  ?tags:(string * string prop) list ->
+  ?tags:string prop Tf_core.assoc ->
   ?assign_to_user:assign_to_user list ->
   ?identity:identity list ->
   ?ssh:ssh list ->
