@@ -2,6 +2,8 @@
 
 open Printf
 
+let fail fmt = Printf.ksprintf failwith fmt
+
 let () =
   Printexc.register_printer (function
     | Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (exn, json) ->
@@ -678,14 +680,24 @@ let get_provider name root =
     List.assoc_opt ~eq:String.equal name root.provider_schemas
   with
   | Some schema -> schema
-  | None -> failwith "provider not found"
+  | None ->
+      let candidates =
+        String.concat ~sep:", " @@ List.map fst root.provider_schemas
+      in
+      fail "provider '%s' not found. Should be one of: %s" name
+        candidates
 
 let get_resource name provider =
   match
     List.assoc_opt ~eq:String.equal name provider.resource_schemas
   with
   | Some schema -> schema
-  | None -> failwith "resource not found"
+  | None ->
+      let candidates =
+        String.concat ~sep:", "
+        @@ List.map fst provider.resource_schemas
+      in
+      fail "resource '%s' not found" name
 
 let gen_provider_cmd =
   let pp_schema ~pp_impl ~pp_iface output (name, schema) =
