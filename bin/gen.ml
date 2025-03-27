@@ -739,7 +739,7 @@ let gen_provider_cmd =
       $ provider_t 1
       $ output_t 2)
 
-let with_resouce filename provider_id resource_name f =
+let with_resource filename provider_id resource_name f =
   let data = In_channel.(with_open_bin filename input_all) in
   let json = Yojson.Safe.from_string data in
   let root = root_of_yojson json in
@@ -749,7 +749,7 @@ let with_resouce filename provider_id resource_name f =
 
 let gen_resource_impl_cmd =
   let f filename provider_id resource_name =
-    with_resouce filename provider_id resource_name (fun resource ->
+    with_resource filename provider_id resource_name (fun resource ->
         Format.fprintf Format.str_formatter "%a@."
           (gen_resource_impl `resource)
           (resource_name, resource);
@@ -765,7 +765,7 @@ let gen_resource_impl_cmd =
 
 let gen_resource_iface_cmd =
   let f filename provider_id resource_name =
-    with_resouce filename provider_id resource_name (fun resource ->
+    with_resource filename provider_id resource_name (fun resource ->
         Format.fprintf Format.str_formatter "%a@." gen_resource_iface
           (resource_name, resource);
         print_endline (Format.flush_str_formatter ()))
