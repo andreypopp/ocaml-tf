@@ -67,3 +67,9 @@
  (name tf_dnsimple)
  (synopsis "Generated bindings to DNSimple terraform/opentofu provider")
  (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))
+
+(package
+ (name tf_vault)
+ (synopsis
+  "Generated bindings to Hashicorp Vault terraform/opentofu provider")
+ (depends tf ocaml dune containers yojson ppx_yojson_conv_lib))

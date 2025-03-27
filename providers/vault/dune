@@ -1,0 +1,9 @@
+(library
+ (name tf_vault)
+ (public_name tf_vault)
+ (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (lint
+  (pps ppx_yojson_conv))
+ (libraries ppx_yojson_conv_lib tf yojson))
+
+(include_subdirs qualified)
