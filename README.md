@@ -110,12 +110,38 @@ let () =
 let () = Tf_run.run ()
 ```
 
-then to generate and apply the above configuration:
-```
-dune exec ./main.exe apply
+Build with `dune build`. Then, to inspect the generated configuration:
+
+```shell
+$ dune exec ./main.exe -- dump-config | less
 ```
 
-The configuration will be generated in `_tf/tf.tf.json`.
+By default, `ocaml-tf` will write generated configuration to the
+folder `_tf`, and this folder will also be used to store terraform
+state. This can be changed with the generated executable's
+`--workspace` option.
+
+To write the generated configuration:
+
+```shell
+$ dune exec ./main.exe -- gen
+```
+
+You can inspect the generated configuration in `_tf/tf.tf.json`.
+
+At this point, you can `init`, `plan` and `apply` the terraform
+configuration as usual through the terraform binary. `ocaml-tf`
+provides conveniences for generating and running the above commands
+in one go:
+
+```shell
+$ dune exec ./main.exe -- init
+```
+
+is equivalent to running `dune exec ./main.exe -- gen` and then
+`terraform -chdir=_tf init`. The same holds for the actions `plan`
+and `apply` -- with the addition that `apply` also writes all
+outputs as JSON to `_tf/output.json`.
 
 ## Generating bindings
 
