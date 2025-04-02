@@ -117,4 +117,49 @@ dune exec ./main.exe apply
 
 The configuration will be generated in `_tf/tf.tf.json`.
 
+## Generating bindings
+
+In the example, we'll generate bindings to the [Terraform Vault
+provider][vault-provider].  First, obtain the Vault provider schema by
+creating a dummy Terraform module that depends on the Vault provider:
+
+```shell
+# Obtain the provider schema
+$ echo 'provider "vault" {}' > vault.tf
+$ terraform init
+$ terraform providers schema -json > schema.json
+```
+
+Create a directory `tf_vault` for the bindings and then use the
+ocaml-tf generator:
+                   
+```shell
+$ mkdir tf_vault
+$ dune exec bin/gen.exe -- gen-provider-ml schema.json registry.terraform.io/hashicorp/vault tf_vault
+```
+
+Add a dune file for our new library:
+                                    
+```shell
+$ cat > tf_vault/dune << EOT
+(library
+ (name tf_vault)
+ (public_name tf_vault)
+ (flags :standard -open Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (lint
+  (pps ppx_yojson_conv))
+ (libraries ppx_yojson_conv_lib tf yojson))
+
+(include_subdirs qualified)
+EOT
+```
+
+We also need to generate JSON serialization functions through
+`ppx_joyson_conv`, which is done as such:
+
+```
+$ dune build @tf_vault/lint --auto-promote
+```
+
 [digitalocean]: https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs
+[vault-provider]: https://registry.terraform.io/providers/hashicorp/vault/latest/docs
