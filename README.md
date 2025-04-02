@@ -2,10 +2,12 @@
 
 **WARNING: EXPERIMENTAL, DO NOT USE**
 
-## how it works
+ocaml-tf generates OCaml bindings to terraform/opentofu providers. 
+
+## How it works
 
 The output of `terraform providers schema -json` is parsed and then used to
-generate OCaml code that provides a type-safe interface to define tf resources
+generate OCaml code that provides a type-safe interface to define Terraform resources
 and datasources programmatically.
 
 Each provider is represented by a library, each resource or datasource is
@@ -54,26 +56,30 @@ val register : ... string -> t
 ```
 
 In case one wants to handle the registration manually, and have full control
-over `.tf.json` generation, there's a more low level api:
+over `.tf.json` generation, there's a more low level API:
 
 ```ocaml
 val make : string -> t Tf_core.resource
 ```
 
-The `'attrs Tf_core.resource` type is a type contains attributes of the
+The `'attrs Tf_core.resource` type contains the attributes of the
 resource and the JSON payload to be written to the `.tf.json` file.
 
-## example
+## Example
 
-dune:
-```
+In this example bindings to the [DigitalOcean provider][digitalocean]
+is used to construct resources which: registers a SSH key, a reserved
+IP, creates a Droplet and assigns the IP to that Droplet.
+
+In `dune`:
+```dune
 (executable
  (name main)
  (modules main)
  (libraries tf tf_digitalocean))
 ```
 
-main.ml
+In `main.ml`:
 ```ocaml
 open Tf_core.Prop
 open Tf_digitalocean
@@ -104,7 +110,11 @@ let () =
 let () = Tf_run.run ()
 ```
 
-then:
+then to generate and apply the above configuration:
 ```
 dune exec ./main.exe apply
 ```
+
+The configuration will be generated in `_tf/tf.tf.json`.
+
+[digitalocean]: https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs
