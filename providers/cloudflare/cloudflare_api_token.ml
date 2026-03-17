@@ -87,7 +87,7 @@ let _ = fun (_ : policy) -> ()
 let yojson_of_policy =
   (function
    | {
-       effect_ = v_effect_;
+       effect_ = v_effect;
        permission_groups = v_permission_groups;
        resources = v_resources;
      } ->
@@ -113,7 +113,7 @@ let yojson_of_policy =
            bnd :: bnds
        in
        let bnds =
-         match v_effect_ with
+         match v_effect with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
