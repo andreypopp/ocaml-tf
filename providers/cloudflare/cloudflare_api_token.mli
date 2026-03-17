@@ -1,8 +1,9 @@
 (** Provides a resource which manages Cloudflare API tokens.
 
-Read more about permission groups and their applicable scopes in the
-[developer documentation](https://developers.cloudflare.com/api/tokens/create/permissions).
- *)
+    Read more about permission groups and their applicable scopes in
+    the
+    [developer documentation](https://developers.cloudflare.com/api/tokens/create/permissions).
+*)
 
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
@@ -26,7 +27,7 @@ val condition :
 type policy
 
 val policy :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   permission_groups:string prop list ->
   resources:string prop Tf_core.assoc ->
   unit ->

@@ -122,6 +122,7 @@ let to_ocaml_name = function
   | "class" -> "class_"
   | "constraint" -> "constraint_"
   | "end" -> "end_"
+  | "effect" -> "effect_"
   | "external" -> "external_"
   | "for" -> "for_"
   | "function" -> "function_"

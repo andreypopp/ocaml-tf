@@ -75,7 +75,7 @@ let _ = yojson_of_condition
 [@@@deriving.end]
 
 type policy = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option] [@key "effect"]
   permission_groups : string prop list;
       [@default []] [@yojson_drop_default Stdlib.( = )]
   resources : string prop Tf_core.assoc;
@@ -87,7 +87,7 @@ let _ = fun (_ : policy) -> ()
 let yojson_of_policy =
   (function
    | {
-       effect = v_effect;
+       effect_ = v_effect_;
        permission_groups = v_permission_groups;
        resources = v_resources;
      } ->
@@ -113,7 +113,7 @@ let yojson_of_policy =
            bnd :: bnds
        in
        let bnds =
-         match v_effect with
+         match v_effect_ with
          | Ppx_yojson_conv_lib.Option.None -> bnds
          | Ppx_yojson_conv_lib.Option.Some v ->
              let arg = yojson_of_prop yojson_of_string v in
@@ -210,8 +210,8 @@ let condition__request_ip ?in_ ?not_in () : condition__request_ip =
 
 let condition ?(request_ip = []) () : condition = { request_ip }
 
-let policy ?effect ~permission_groups ~resources () : policy =
-  { effect; permission_groups; resources }
+let policy ?effect_ ~permission_groups ~resources () : policy =
+  { effect_; permission_groups; resources }
 
 let cloudflare_api_token ?expires_on ?id ?not_before
     ?(condition = []) ~name ~policy () : cloudflare_api_token =
