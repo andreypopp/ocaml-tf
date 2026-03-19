@@ -260,10 +260,9 @@ module Prop = struct
                   Printf.sprintf "%s = %s" k (json_to_hcl v))))
     | `Float f -> string_of_float f
     | `Bool b -> string_of_bool b
-    | `Tuple xs | `List xs ->
+    | `List xs ->
         Printf.sprintf "[%s]"
           (String.concat ~sep:", " (List.map xs ~f:string_of_yojson))
-    | `Variant _ -> failwith "didn't expect `Variant"
 end
 
 type 'a prop = 'a Prop.t

@@ -45,12 +45,7 @@ let rec json_to_ml ppf (json : Yojson.Safe.t) =
       Format.fprintf ppf "@[<hv 2>[%a]@]"
         (Format.pp_print_list pp_assoc)
         xs
-  | `Tuple xs ->
-      Format.fprintf ppf "@[<hv 2>(%a)@]"
-        (Format.pp_print_list json_to_ml)
-        xs
   | `Intlit v -> Format.fprintf ppf "%s" v
-  | `Variant _ -> assert false
 
 let run () =
   let variables_t =
