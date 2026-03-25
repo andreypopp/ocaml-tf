@@ -107,7 +107,7 @@ val fleet_default_member_config__policycontroller__policy_controller_hub_config_
 type fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration
 
 val fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?operator:string prop ->
   ?value:string prop ->

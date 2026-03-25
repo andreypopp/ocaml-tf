@@ -72,7 +72,7 @@ val control_plane__control_plane_node_pool_config__node_pool_config__node_config
 type control_plane__control_plane_node_pool_config__node_pool_config__taints
 
 val control_plane__control_plane_node_pool_config__node_pool_config__taints :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?value:string prop ->
   unit ->
@@ -149,7 +149,7 @@ val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_conf
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
 
 val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?value:string prop ->
   unit ->
@@ -219,7 +219,7 @@ val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_co
 type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
 
 val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?value:string prop ->
   unit ->

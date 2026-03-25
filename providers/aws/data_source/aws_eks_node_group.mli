@@ -36,7 +36,7 @@ type scaling_config = {
 }
 
 type taints = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }

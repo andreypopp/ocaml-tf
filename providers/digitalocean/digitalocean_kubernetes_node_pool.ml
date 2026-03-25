@@ -3,7 +3,7 @@
 open! Tf_core
 
 type taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -13,7 +13,7 @@ let _ = fun (_ : taint) -> ()
 
 let yojson_of_taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -260,7 +260,7 @@ let _ = yojson_of_digitalocean_kubernetes_node_pool
 
 [@@@deriving.end]
 
-let taint ~effect ~key ~value () : taint = { effect; key; value }
+let taint ~effect_ ~key ~value () : taint = { effect_; key; value }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels

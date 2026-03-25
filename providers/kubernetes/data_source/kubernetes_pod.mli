@@ -518,7 +518,7 @@ type spec__topology_spread_constraint = {
 }
 
 type spec__toleration = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
   toleration_seconds : string prop;  (** toleration_seconds *)

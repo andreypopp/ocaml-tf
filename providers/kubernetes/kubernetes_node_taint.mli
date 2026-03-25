@@ -13,7 +13,7 @@ val metadata : name:string prop -> unit -> metadata
 type taint
 
 val taint :
-  effect:string prop ->
+  effect_:string prop ->
   key:string prop ->
   value:string prop ->
   unit ->

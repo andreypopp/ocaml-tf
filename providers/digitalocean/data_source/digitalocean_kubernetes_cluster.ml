@@ -107,7 +107,7 @@ let _ = yojson_of_maintenance_policy
 [@@@deriving.end]
 
 type node_pool__taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -117,7 +117,7 @@ let _ = fun (_ : node_pool__taint) -> ()
 
 let yojson_of_node_pool__taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in

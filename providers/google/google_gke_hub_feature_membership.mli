@@ -125,7 +125,7 @@ val policycontroller__policy_controller_hub_config__deployment_configs__containe
 type policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
 
 val policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?operator:string prop ->
   ?value:string prop ->

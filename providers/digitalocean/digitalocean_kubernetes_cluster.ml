@@ -40,7 +40,7 @@ let _ = yojson_of_maintenance_policy
 [@@@deriving.end]
 
 type node_pool__taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -50,7 +50,7 @@ let _ = fun (_ : node_pool__taint) -> ()
 
 let yojson_of_node_pool__taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -487,8 +487,8 @@ let _ = yojson_of_digitalocean_kubernetes_cluster
 let maintenance_policy ?day ?start_time () : maintenance_policy =
   { day; start_time }
 
-let node_pool__taint ~effect ~key ~value () : node_pool__taint =
-  { effect; key; value }
+let node_pool__taint ~effect_ ~key ~value () : node_pool__taint =
+  { effect_; key; value }
 
 let node_pool ?auto_scale ?labels ?max_nodes ?min_nodes ?node_count
     ?tags ~name ~size ~taint () : node_pool =

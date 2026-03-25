@@ -67,7 +67,7 @@ val control_plane__control_plane_node_pool_config__node_pool_config__node_config
 type control_plane__control_plane_node_pool_config__node_pool_config__taints
 
 val control_plane__control_plane_node_pool_config__node_pool_config__taints :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?value:string prop ->
   unit ->

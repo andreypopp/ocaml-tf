@@ -45,7 +45,7 @@ let _ = yojson_of_node_pool_config__node_configs
 [@@@deriving.end]
 
 type node_pool_config__taints = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop option; [@option]
   value : string prop option; [@option]
 }
@@ -55,7 +55,7 @@ let _ = fun (_ : node_pool_config__taints) -> ()
 
 let yojson_of_node_pool_config__taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -403,9 +403,9 @@ let node_pool_config__node_configs ?labels ?node_ip () :
     node_pool_config__node_configs =
   { labels; node_ip }
 
-let node_pool_config__taints ?effect ?key ?value () :
+let node_pool_config__taints ?effect_ ?key ?value () :
     node_pool_config__taints =
-  { effect; key; value }
+  { effect_; key; value }
 
 let node_pool_config ?labels ?operating_system ?(taints = [])
     ~node_configs () : node_pool_config =

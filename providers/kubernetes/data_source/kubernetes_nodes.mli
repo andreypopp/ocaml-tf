@@ -35,7 +35,7 @@ type nodes__status = {
 }
 
 type nodes__spec__taints = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }

@@ -3,7 +3,7 @@
 open! Tf_core
 
 type config__taints = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop;
   value : string prop;
 }
@@ -13,7 +13,7 @@ let _ = fun (_ : config__taints) -> ()
 
 let yojson_of_config__taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -537,8 +537,8 @@ let _ = yojson_of_google_gkeonprem_vmware_node_pool
 
 [@@@deriving.end]
 
-let config__taints ?effect ~key ~value () : config__taints =
-  { effect; key; value }
+let config__taints ?effect_ ~key ~value () : config__taints =
+  { effect_; key; value }
 
 let config__vsphere_config__tags ?category ?tag () :
     config__vsphere_config__tags =

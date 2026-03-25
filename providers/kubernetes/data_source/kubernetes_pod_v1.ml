@@ -2936,7 +2936,7 @@ let _ = yojson_of_spec__topology_spread_constraint
 [@@@deriving.end]
 
 type spec__toleration = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   operator : string prop;
   toleration_seconds : string prop;
@@ -2949,7 +2949,7 @@ let _ = fun (_ : spec__toleration) -> ()
 let yojson_of_spec__toleration =
   (function
    | {
-       effect = v_effect;
+       effect_ = v_effect;
        key = v_key;
        operator = v_operator;
        toleration_seconds = v_toleration_seconds;

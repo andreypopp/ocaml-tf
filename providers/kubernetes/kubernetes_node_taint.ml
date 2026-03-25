@@ -24,7 +24,7 @@ let _ = yojson_of_metadata
 [@@@deriving.end]
 
 type taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -34,7 +34,7 @@ let _ = fun (_ : taint) -> ()
 
 let yojson_of_taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -130,7 +130,7 @@ let _ = yojson_of_kubernetes_node_taint
 [@@@deriving.end]
 
 let metadata ~name () : metadata = { name }
-let taint ~effect ~key ~value () : taint = { effect; key; value }
+let taint ~effect_ ~key ~value () : taint = { effect_; key; value }
 
 let kubernetes_node_taint ?field_manager ?force ?id ~metadata ~taint
     () : kubernetes_node_taint =

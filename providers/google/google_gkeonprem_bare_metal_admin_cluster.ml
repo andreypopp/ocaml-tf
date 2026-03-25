@@ -108,7 +108,7 @@ let _ =
 [@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config__taints = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop option; [@option]
   value : string prop option; [@option]
 }
@@ -122,7 +122,7 @@ let _ =
 let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__taints
     =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -1422,10 +1422,10 @@ let control_plane__control_plane_node_pool_config__node_pool_config__node_config
   { labels; node_ip }
 
 let control_plane__control_plane_node_pool_config__node_pool_config__taints
-    ?effect ?key ?value () :
+    ?effect_ ?key ?value () :
     control_plane__control_plane_node_pool_config__node_pool_config__taints
     =
-  { effect; key; value }
+  { effect_; key; value }
 
 let control_plane__control_plane_node_pool_config__node_pool_config
     ?labels ?operating_system ?(node_configs = []) ?(taints = []) ()

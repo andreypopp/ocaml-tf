@@ -1379,7 +1379,7 @@ val spec__template__spec__security_context :
 type spec__template__spec__toleration
 
 val spec__template__spec__toleration :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?operator:string prop ->
   ?toleration_seconds:string prop ->

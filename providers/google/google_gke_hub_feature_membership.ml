@@ -737,7 +737,7 @@ let _ =
 [@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop option; [@option]
   operator : string prop option; [@option]
   value : string prop option; [@option]
@@ -753,7 +753,7 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
     =
   (function
    | {
-       effect = v_effect;
+       effect_ = v_effect;
        key = v_key;
        operator = v_operator;
        value = v_value;
@@ -1502,10 +1502,10 @@ let policycontroller__policy_controller_hub_config__deployment_configs__containe
   { limits; requests }
 
 let policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
-    ?effect ?key ?operator ?value () :
+    ?effect_ ?key ?operator ?value () :
     policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     =
-  { effect; key; operator; value }
+  { effect_; key; operator; value }
 
 let policycontroller__policy_controller_hub_config__deployment_configs
     ?pod_affinity ?replica_count ?(container_resources = [])

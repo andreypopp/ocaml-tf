@@ -30,7 +30,7 @@ val node_pool_config__node_configs :
 type node_pool_config__taints
 
 val node_pool_config__taints :
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?key:string prop ->
   ?value:string prop ->
   unit ->

@@ -217,7 +217,7 @@ let _ = yojson_of_config__ssh_config
 [@@@deriving.end]
 
 type config__taints = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -227,7 +227,7 @@ let _ = fun (_ : config__taints) -> ()
 
 let yojson_of_config__taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -749,8 +749,8 @@ let config__root_volume ?iops ?kms_key_arn ?size_gib ?throughput
 let config__ssh_config ~ec2_key_pair () : config__ssh_config =
   { ec2_key_pair }
 
-let config__taints ~effect ~key ~value () : config__taints =
-  { effect; key; value }
+let config__taints ~effect_ ~key ~value () : config__taints =
+  { effect_; key; value }
 
 let config ?instance_type ?labels ?security_group_ids ?tags
     ?(autoscaling_metrics_collection = []) ?(proxy_config = [])

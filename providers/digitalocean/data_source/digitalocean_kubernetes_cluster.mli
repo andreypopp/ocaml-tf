@@ -22,7 +22,7 @@ type maintenance_policy = {
 }
 
 type node_pool__taint = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }

@@ -46,7 +46,7 @@ type taint
 
 val taint :
   ?value:string prop ->
-  effect:string prop ->
+  effect_:string prop ->
   key:string prop ->
   unit ->
   taint

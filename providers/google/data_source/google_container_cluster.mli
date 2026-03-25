@@ -369,7 +369,7 @@ type node_config__workload_metadata_config = {
 }
 
 type node_config__taint = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
@@ -468,7 +468,7 @@ type node_config__ephemeral_storage_local_ssd_config = {
 }
 
 type node_config__effective_taints = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
@@ -648,7 +648,7 @@ type node_pool__node_config__workload_metadata_config = {
 }
 
 type node_pool__node_config__taint = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
@@ -751,7 +751,7 @@ type node_pool__node_config__ephemeral_storage_local_ssd_config = {
 }
 
 type node_pool__node_config__effective_taints = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }

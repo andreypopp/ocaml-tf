@@ -35,7 +35,7 @@ type node_pool__nodes = {
 type node_pool__taint
 
 val node_pool__taint :
-  effect:string prop ->
+  effect_:string prop ->
   key:string prop ->
   value:string prop ->
   unit ->

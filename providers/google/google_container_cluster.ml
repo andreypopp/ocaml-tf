@@ -2779,7 +2779,7 @@ let _ = yojson_of_node_config__sole_tenant_config
 [@@@deriving.end]
 
 type node_config__taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -2789,7 +2789,7 @@ let _ = fun (_ : node_config__taint) -> ()
 
 let yojson_of_node_config__taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -2836,7 +2836,7 @@ let _ = yojson_of_node_config__workload_metadata_config
 [@@@deriving.end]
 
 type node_config__effective_taints = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -2846,7 +2846,7 @@ let _ = fun (_ : node_config__effective_taints) -> ()
 
 let yojson_of_node_config__effective_taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -4462,7 +4462,7 @@ let _ = yojson_of_node_pool__node_config__sole_tenant_config
 [@@@deriving.end]
 
 type node_pool__node_config__taint = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -4472,7 +4472,7 @@ let _ = fun (_ : node_pool__node_config__taint) -> ()
 
 let yojson_of_node_pool__node_config__taint =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -4523,7 +4523,7 @@ let _ = yojson_of_node_pool__node_config__workload_metadata_config
 [@@@deriving.end]
 
 type node_pool__node_config__effective_taints = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -4533,7 +4533,7 @@ let _ = fun (_ : node_pool__node_config__effective_taints) -> ()
 
 let yojson_of_node_pool__node_config__effective_taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
@@ -7550,8 +7550,8 @@ let node_config__sole_tenant_config ~node_affinity () :
     node_config__sole_tenant_config =
   { node_affinity }
 
-let node_config__taint ~effect ~key ~value () : node_config__taint =
-  { effect; key; value }
+let node_config__taint ~effect_ ~key ~value () : node_config__taint =
+  { effect_; key; value }
 
 let node_config__workload_metadata_config ~mode () :
     node_config__workload_metadata_config =
@@ -7746,9 +7746,9 @@ let node_pool__node_config__sole_tenant_config ~node_affinity () :
     node_pool__node_config__sole_tenant_config =
   { node_affinity }
 
-let node_pool__node_config__taint ~effect ~key ~value () :
+let node_pool__node_config__taint ~effect_ ~key ~value () :
     node_pool__node_config__taint =
-  { effect; key; value }
+  { effect_; key; value }
 
 let node_pool__node_config__workload_metadata_config ~mode () :
     node_pool__node_config__workload_metadata_config =

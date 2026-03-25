@@ -52,7 +52,7 @@ val network_config :
   network_config
 
 type node_config__effective_taints = {
-  effect : string prop;  (** effect *)
+  effect_ : string prop;  (** effect_ *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
@@ -229,7 +229,7 @@ val node_config__sole_tenant_config :
 type node_config__taint
 
 val node_config__taint :
-  effect:string prop ->
+  effect_:string prop ->
   key:string prop ->
   value:string prop ->
   unit ->

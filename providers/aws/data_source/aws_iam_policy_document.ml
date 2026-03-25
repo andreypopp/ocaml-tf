@@ -117,7 +117,7 @@ let _ = yojson_of_statement__principals
 
 type statement = {
   actions : string prop list option; [@option]
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   not_actions : string prop list option; [@option]
   not_resources : string prop list option; [@option]
   resources : string prop list option; [@option]
@@ -137,7 +137,7 @@ let yojson_of_statement =
   (function
    | {
        actions = v_actions;
-       effect = v_effect;
+       effect_ = v_effect;
        not_actions = v_not_actions;
        not_resources = v_not_resources;
        resources = v_resources;
@@ -360,11 +360,11 @@ let statement__principals ~identifiers ~type_ () :
     statement__principals =
   { identifiers; type_ }
 
-let statement ?actions ?effect ?not_actions ?not_resources ?resources
+let statement ?actions ?effect_ ?not_actions ?not_resources ?resources
     ?sid ~condition ~not_principals ~principals () : statement =
   {
     actions;
-    effect;
+    effect_;
     not_actions;
     not_resources;
     resources;

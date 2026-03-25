@@ -7427,7 +7427,7 @@ let _ = yojson_of_spec__security_context
 [@@@deriving.end]
 
 type spec__toleration = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop option; [@option]
   operator : string prop option; [@option]
   toleration_seconds : string prop option; [@option]
@@ -7440,7 +7440,7 @@ let _ = fun (_ : spec__toleration) -> ()
 let yojson_of_spec__toleration =
   (function
    | {
-       effect = v_effect;
+       effect_ = v_effect;
        key = v_key;
        operator = v_operator;
        toleration_seconds = v_toleration_seconds;
@@ -12046,9 +12046,9 @@ let spec__security_context ?fs_group ?fs_group_change_policy
     windows_options;
   }
 
-let spec__toleration ?effect ?key ?operator ?toleration_seconds
+let spec__toleration ?effect_ ?key ?operator ?toleration_seconds
     ?value () : spec__toleration =
-  { effect; key; operator; toleration_seconds; value }
+  { effect_; key; operator; toleration_seconds; value }
 
 let spec__topology_spread_constraint__label_selector__match_expressions
     ?key ?operator ?values () :

@@ -683,7 +683,7 @@ let get_provider name root =
   | Some schema -> schema
   | None ->
       let candidates =
-        String.concat ~sep:", " @@ List.map fst root.provider_schemas
+        String.concat ~sep:", " @@ List.map ~f:fst root.provider_schemas
       in
       fail "provider '%s' not found. Should be one of: %s" name
         candidates
@@ -693,12 +693,7 @@ let get_resource name provider =
     List.assoc_opt ~eq:String.equal name provider.resource_schemas
   with
   | Some schema -> schema
-  | None ->
-      let candidates =
-        String.concat ~sep:", "
-        @@ List.map fst provider.resource_schemas
-      in
-      fail "resource '%s' not found" name
+  | None -> fail "resource '%s' not found" name
 
 let gen_provider_cmd =
   let pp_schema ~pp_impl ~pp_iface output (name, schema) =

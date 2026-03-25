@@ -180,7 +180,7 @@ let _ = yojson_of_scaling_config
 [@@@deriving.end]
 
 type taints = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -190,7 +190,7 @@ let _ = fun (_ : taints) -> ()
 
 let yojson_of_taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in

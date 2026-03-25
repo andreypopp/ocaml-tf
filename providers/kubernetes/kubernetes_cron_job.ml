@@ -8493,7 +8493,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__job_template__spec__template__spec__toleration = {
-  effect : string prop option; [@option]
+  effect_ : string prop option; [@option]
   key : string prop option; [@option]
   operator : string prop option; [@option]
   toleration_seconds : string prop option; [@option]
@@ -8507,7 +8507,7 @@ let _ =
 let yojson_of_spec__job_template__spec__template__spec__toleration =
   (function
    | {
-       effect = v_effect;
+       effect_ = v_effect;
        key = v_key;
        operator = v_operator;
        toleration_seconds = v_toleration_seconds;
@@ -13964,10 +13964,10 @@ let spec__job_template__spec__template__spec__security_context
     windows_options;
   }
 
-let spec__job_template__spec__template__spec__toleration ?effect ?key
+let spec__job_template__spec__template__spec__toleration ?effect_ ?key
     ?operator ?toleration_seconds ?value () :
     spec__job_template__spec__template__spec__toleration =
-  { effect; key; operator; toleration_seconds; value }
+  { effect_; key; operator; toleration_seconds; value }
 
 let spec__job_template__spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     ?key ?operator ?values () :

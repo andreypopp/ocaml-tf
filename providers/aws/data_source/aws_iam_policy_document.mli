@@ -33,7 +33,7 @@ type statement
 
 val statement :
   ?actions:string prop list ->
-  ?effect:string prop ->
+  ?effect_:string prop ->
   ?not_actions:string prop list ->
   ?not_resources:string prop list ->
   ?resources:string prop list ->

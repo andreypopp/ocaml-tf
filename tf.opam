@@ -10,7 +10,8 @@ depends: [
   "ocaml"
   "dune" {>= "3.7"}
   "containers"
-  "yojson"
+  "yojson" {>= "3.0.0"}
+  "ppx_yojson_conv"
   "ppx_yojson_conv_lib"
   "cmdliner"
   "odoc" {with-doc}

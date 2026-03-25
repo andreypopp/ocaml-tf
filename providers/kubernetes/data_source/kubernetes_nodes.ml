@@ -215,7 +215,7 @@ let _ = yojson_of_nodes__status
 [@@@deriving.end]
 
 type nodes__spec__taints = {
-  effect : string prop;
+  effect_ : string prop;
   key : string prop;
   value : string prop;
 }
@@ -225,7 +225,7 @@ let _ = fun (_ : nodes__spec__taints) -> ()
 
 let yojson_of_nodes__spec__taints =
   (function
-   | { effect = v_effect; key = v_key; value = v_value } ->
+   | { effect_ = v_effect; key = v_key; value = v_value } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
          []
        in
